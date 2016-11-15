@@ -1,6 +1,5 @@
 body {
-  font-family: Georgia, "Times New Roman",
-        Times, serif;
+  font-family: verdana;
   color: #6a6a6a;
   background-color: #FFFFFF }
 ul.navbar {
@@ -25,11 +24,11 @@ ul.navbar li a {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;}
-li a:hover {
+ul.navbar li a:hover {
     background-color: #111;
 }
 
-.active {
+ul.navbar .active {
     background-color: #4CAF50;
 }
 
