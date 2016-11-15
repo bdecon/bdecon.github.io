@@ -2,6 +2,7 @@ body {
   font-family: verdana;
   color: #6a6a6a;
   background-color: #FFFFFF }
+
 ul.navbar {
   list-style-type: none;
   padding: 0;
@@ -9,33 +10,41 @@ ul.navbar {
   overflow: hidden;
   background-color: #333
 }
+
 h1 {
   font-family: verdana }
+
 p {
     font-family: verdana;
-    font-size: 12px;
+    font-size: 12px
 }
+
 ul.navbar li {
-  float: left;
+  float: left
 }
+
 ul.navbar li a {
   display: block;
     color: white;
     text-align: center;
     padding: 14px 16px;
-    text-decoration: none;}
+    text-decoration: none
+}
+
 ul.navbar li a:hover {
-    background-color: #111;
+    background-color: #111
 }
 
 ul.navbar .active {
-    background-color: #4CAF50;
+    background-color: #4CAF50
 }
 
 address {
   margin-top: 1em;
   padding-top: 1em;
-  border-top: thin dotted }
+  border-top: thin dotted 
+}
+
 img {
-  vertical-align: middle;
+  vertical-align: middle
 }
