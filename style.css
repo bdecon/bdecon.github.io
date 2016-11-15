@@ -3,7 +3,7 @@ body {
   font-family: Georgia, "Times New Roman",
         Times, serif;
   color: #3B3738;
-  background-color: #FDF3E7 }
+  background-color: #FFFFFF }
 ul.navbar {
   list-style-type: none;
   padding: 0;
@@ -30,3 +30,6 @@ address {
   margin-top: 1em;
   padding-top: 1em;
   border-top: thin dotted }
+img {
+  vertical-align: middle;
+}
