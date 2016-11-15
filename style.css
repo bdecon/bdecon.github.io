@@ -37,14 +37,15 @@ ul.navbar {
 }
 
 ul.navbar li {
-  float: left
+  float: left;
+  border-right: 1px solid #FFFFFF
 }
 
 ul.navbar li a {
   display: block;
     color: white;
     text-align: center;
-    padding: 14px 16px;
+    padding: 12px;
     text-decoration: none
 }
 
