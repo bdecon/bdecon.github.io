@@ -1,8 +1,19 @@
+div.container {
+    padding: 1em;
+    width: 100%;
+}
+
 body {
-  padding-top: 40px;
+  padding-top: 20px;
   font-family: verdana;
   color: #6a6a6a;
   background-color: #FFFFFF 
+}
+
+header, footer {
+    padding: 1em;
+    clear: left;
+    text-align: center;
 }
 
 h1 {
