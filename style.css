@@ -4,6 +4,7 @@ div.container {
 }
 
 body {
+  left:0;  
   padding-top: 20px;
   font-family: verdana;
   color: #6a6a6a;
@@ -17,6 +18,7 @@ header, footer {
 }
 
 h1 {
+margin: 0;
   font-family: verdana }
 
 p {
@@ -30,11 +32,11 @@ ul.topnav {
   top: 0;
   left:0;
   width: 100%;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #4B4B4B;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #4B4B4B;
 }
 
 /* Float the list items side by side */
@@ -61,39 +63,6 @@ ul.topnav .active {
     background-color: #1e90ff
 }
 
-ul.navbar {
-  position: fixed;
-  top: 0;
-  left:0;
-  width: 100%;
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
-  background-color: #4B4B4B
-}
-
-ul.navbar li {
-  float: left;
-  border-right: 1px solid #FFFFFF
-}
-
-ul.navbar li a {
-  display: block;
-    color: white;
-    text-align: center;
-    padding: 12px;
-    text-decoration: none
-}
-
-ul.navbar li a:hover {
-    background-color: #111
-}
-
-ul.navbar .active {
-    background-color: #1e90ff
-}
-
 a:link {
     text-decoration: none;
 }
@@ -116,7 +85,8 @@ address {
 }
 
 img {
-  vertical-align: middle
+  display: inline-block;
+  margin: 0px;
 }
 
 /* When the screen is less than 680 pixels wide, hide all list items, except for the first one ("Home"). Show the list item that contains the link to open and close the topnav (li.icon) */
@@ -130,7 +100,9 @@ img {
 
 /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens */
 @media screen and (max-width:680px) {
-  ul.topnav.responsive {position: relative;}
+  ul.topnav.responsive {  position: fixed;
+  top: 0;
+  left:0;}
   ul.topnav.responsive li.icon {
     position: absolute;
     right: 0;
