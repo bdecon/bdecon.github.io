@@ -1,14 +1,8 @@
 body {
+  padding-top: 40px;
   font-family: verdana;
   color: #6a6a6a;
-  background-color: #FFFFFF }
-
-ul.navbar {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
-  background-color: #333
+  background-color: #FFFFFF 
 }
 
 h1 {
@@ -17,6 +11,18 @@ h1 {
 p {
     font-family: verdana;
     font-size: 12px
+}
+
+ul.navbar {
+  position: fixed;
+  top: 0;
+  left:0;
+  width: 100%;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  background-color: #333
 }
 
 ul.navbar li {
@@ -36,13 +42,28 @@ ul.navbar li a:hover {
 }
 
 ul.navbar .active {
-    background-color: #4CAF50
+    background-color: #1e90ff
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    background-color: #aed6f1;
 }
 
 address {
   margin-top: 1em;
   padding-top: 1em;
-  border-top: thin dotted 
+  border-top: thin dotted;
+  font-family: verdana;
+  font-size: 12px
 }
 
 img {
