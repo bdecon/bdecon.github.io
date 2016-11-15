@@ -10,25 +10,39 @@ content="width=device-width; initial-scale=1.0" />
 <div class="container">
 
 <!-- Site navigation menu -->
-<ul class="navbar">
-  <li><a class="active" href="index.html">Home page</a>
+<ul class="topnav" id="myTopnav">
+  <li><a class="active" href="index.html">Home</a>
   <li><a href="http://briandew.wordpress.com">Blog</a>
   <li><a href="MacroDash.pdf">Dashboard</a>
   <li><a href="https://github.com/bdecon/trade_network">Trade paper</a>
+  <li class="icon">
+    <a href="javascript:void(0);" style="font-size:15px;" onclick="myFunction()">&#9776;</a>
+  </li>
 </ul>
 
 <header>
 <h1><img src="01_bdlogo.png" width="90" height="60" alt="bd econ logo"> | bd econ</h1>
 </header>
 
-
+<div>
 <p>Over 100 indicators of U.S. macroeconomic and market developments, updated weekly: <a href="http://bdecon.github.io/MacroDash.pdf"> U.S. Macro and Markets Dashboard</a></p>
 
 <p>Future home of the bd econ blog, trade network analysis research, and guides to working with macroeconomic data in Python. The current bd econ blog is located at <a href = "http://briandew.wordpress.com"> http://www.briandew.wordpress.com</a>.</p>
-
+</div>
 <!-- Sign and date the page! -->
 <address>Made 15 November 2016<br>
   by Brian Dew.</address>
+
+<script>
+function myFunction() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+        x.className += " responsive";
+    } else {
+        x.className = "topnav";
+    }
+}
+</script>
 
 </body>
 </html>
