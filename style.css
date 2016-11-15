@@ -1,11 +1,6 @@
-div.container {
-    padding: 1em;
-    width: 100%;
-}
-
 body {
   left:0;  
-  padding-top: 20px;
+  padding-top: 40px;
   font-family: verdana;
   color: #6a6a6a;
   background-color: #FFFFFF 
@@ -17,13 +12,13 @@ header, footer {
     text-align: center;
 }
 
-h1 {
-margin: 0;
-  font-family: verdana }
+h1 { font-family: 'Enriqueta', arial, serif; line-height: 1.25; margin: 0 0 10px; font-size: 40px; font-weight: bold; }
 
 p {
     font-family: verdana;
-    font-size: 12px
+    font-size: 12px;
+    left:0;
+    width: 100%;
 }
 
 /* Remove margins and padding from the list, and add a black background color */
