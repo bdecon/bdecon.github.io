@@ -21,6 +21,12 @@ p {
     width: 100%;
 }
 
+html {
+    margin:    0 auto;
+    max-width: 900px;
+/*    background: #e1e1e1 */
+}
+
 /* Remove margins and padding from the list, and add a black background color */
 ul.topnav {
   position: fixed;
