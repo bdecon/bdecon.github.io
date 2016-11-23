@@ -13,10 +13,10 @@ header, footer {
 
 h1 { font-family: 'Montserrat'; line-height: 1.25; margin: 0 0 10px; font-size: 40px; }
 
-h1 { font-family: 'Montserrat'; line-height: 1.25; margin: 0 0 10px; font-size: 32px; }
+h2 { font-family: 'Montserrat'; line-height: 1.25; margin: 0 0 10px; font-size: 32px; }
 
 p {
-    font-family: tahoma;
+    font-family: Tahoma, Verdana, Segoe, sans-serif;
     font-size: 12px;
     left:0;
     width: 100%;
