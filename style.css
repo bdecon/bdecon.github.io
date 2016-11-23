@@ -1,7 +1,7 @@
 body {
   left:0;  
   padding-top: 40px;
-  font-family: tahoma;
+  font-family: Tahoma, Verdana, Segoe, sans-serif;
   background-color: #FFFFFF 
 }
 
@@ -57,6 +57,7 @@ ul.topnav li a {
     padding: 14px 16px;
     text-decoration: none;
     transition: 0.3s;
+	font-family: 'Montserrat';
     font-size: 17px;
 }
 
