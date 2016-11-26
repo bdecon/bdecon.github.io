@@ -10,6 +10,10 @@ content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 <script src="https://use.fontawesome.com/8f99c5621e.js"></script>
+<meta charset="UTF-8">
+<meta name="description" content="Tools for Economists">
+<meta name="keywords" content="IMF API, Economics Dashboard, Trade Network, Trade Networks, Macroeconomics Dashboard, Macroeconomic Dashboard, Markets Dashboard, Market Dashboard, U.S. Economy, U.S. Economy Dashboard, US economy, US economy dashboard, US economy charts, US economy charts pdf, NetworkX trade, international trade networks, network analysis of trade, International Monetary Fund, IMF Statistics Department, IMF Application Programming Interface, International Monetary Fund Application Programming Interface, International Monetary Fund API">
+<meta name="author" content="Brian Dew">
 </head>
 <body>
 <div class="container">
@@ -38,18 +42,21 @@ content="width=device-width, initial-scale=1.0" />
 
 
 <h3> IMF API with Python </h3>
-<pre><code class="python">
-# Example: loading an IFS series into pandas from API
+<pre><code class="python"># Example: loading an IFS indicator into pandas from API
+# Example based on Python 2.7
 
 # Import libraries
 import requests
 import pandas as pd
 
-# URL for the IMF JSON Restful Web Service, 
-# IFS database, and Australian export prices series
-baseurl = 'http://dataservices.imf.org/REST/SDMX_JSON.svc/CompactData/'
-series_request = 'IFS/Q.AU.PXP_IX.?startPeriod=1957&endPeriod=2016'
-url = baseurl + series_request
+# URL for the IMF JSON Restful Web Service, CompactData method,
+# IFS series, quarterly frequency, covering Australia, and 
+# the export price index indicator.
+baseurl = 'http://dataservices.imf.org/REST/SDMX_JSON.svc/'
+method = 'CompactData/'
+series_request = 'IFS/Q.AU.PXP_IX.'    # Adjust as needed
+dates = '?startPeriod=1957&endPeriod=2016'
+url = baseurl + method + series_request + dates
 
 # Get data from the above URL using the requests package
 data = requests.get(url).json()
