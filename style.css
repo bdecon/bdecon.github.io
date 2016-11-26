@@ -70,29 +70,47 @@ ul.topnav li a:hover {background-color: #111;}
 ul.topnav li.icon {display: none;}
 
 ul.topnav .active {
-    background-color: #1e90ff
+    background-color: #FF5733
 }
 
 a:link {
     text-decoration: none;
+	color:   #C70039;
 }
 
 a:visited {
     text-decoration: none;
+	color:   #900C3F ;
 }
 
 a:hover {
     text-decoration: underline;
-    background-color: #aed6f1;
+    color:  #FFC300 ;
 }
 
-address {
+
+.Footer_outer{
   margin-top: 1em;
   padding-top: 1em;
   border-top: thin dotted;
   font-family: georgia;
   font-size: 12px;
+  font-weight: 100;
+  font-style: italic;
   color: #6a6a6a;
+}
+
+.Footer_inner_left{
+width: 49%;
+Float: left;
+display:inline;
+}
+
+.Footer_inner_right{
+width: 49%;
+Float: right;
+display:inline;
+text-align: right;
 }
 
 img {
@@ -129,39 +147,39 @@ img {
   }
 }
 
-ul {
-    overflow: auto;
+div.card {
+  width: 250px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
 }
- 
-ul li {
-    list-style-type: none;
-    float: left;
+
+div.header {
+    background-color: #FF5733;
+    color: white;
+    padding: 10px;
+    font-size: 40px;
 }
- 
-ul li a i {
-    background: #205D7A;
-    color: #fff;
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
-    font-size: 25px;
+
+div.container {
+    padding: 10px;
+}
+
+.button {
+    padding: 3px 6px;
     text-align: center;
-    margin-right: 10px;
-    padding-top: 15%;
-    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: white; 
+    color: #FF5733; 
+    border: none;
 }
-.fa-facebook {
-    background:#3b5998
-} 
-.fa-linkedin {
-    background:#007bb6
-}
-.fa-twitter {
-    background:#00aced
-}
-.google-plus {
-    background:#dd4b39
-}
-ul li a i:hover {
-    opacity: .7;
+
+.button:hover {
+    background-color: #FF5733;
+    color: white;
 }

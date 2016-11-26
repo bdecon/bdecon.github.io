@@ -2,13 +2,11 @@
 <html>
 <head>
 <meta id="meta" name="viewport"
-content="width=device-width; initial-scale=1.0" />
+content="width=device-width, initial-scale=1.0" />
 <title> bd econ | tools for economists </title>
-<link rel="stylesheet" href="add-ins/vs.css">
-<script src="add-ins/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<script src="https://use.fontawesome.com/8f99c5621e.js"></script>
 </head>
 <body>
 <div class="container">
@@ -17,15 +15,15 @@ content="width=device-width; initial-scale=1.0" />
 <ul class="topnav" id="myTopnav">
   <li><a class="active" href="index.html">Home</a>
   <li><a href="http://briandew.wordpress.com">Blog</a>
-  <li><a href="MacroDash.pdf">Dashboard</a>
+  <li><a href="dash.html">Dashboard</a>
   <li><a href="about.html">About</a>
+  <li><a href="python.html">Python</a> 
   <li class="icon">
     <a href="javascript:void(0);" style="font-size:15px;" onclick="myFunction()">&#9776;</a>
   </li>
 </ul>
 
 <header>
-<img src="images/01_bdlogo.png" width="90" height="60" alt="bd econ logo">
 <h1>bd econ</h1>
 </header>
 
@@ -35,43 +33,17 @@ content="width=device-width; initial-scale=1.0" />
 <p>Future home of the bd econ blog, trade network analysis research, and guides to working with macroeconomic data in Python. The current bd econ blog is located at <a href = "http://briandew.wordpress.com"> http://www.briandew.wordpress.com</a>.</p>
 
 
-<h3> IMF API with Python </h3>
-<pre><code class="python">
-# Example: loading IFS into pandas from API
-
-# Import libraries
-import requests
-import pandas as pd
-
-# URL for the IMF JSON Restful Web Service, 
-# IFS database, and Australian export prices series
-baseurl = 'http://dataservices.imf.org/REST/SDMX_JSON.svc/CompactData/'
-series_request = 'IFS/Q.AU.PXP_IX.?startPeriod=1957&endPeriod=2016'
-url = baseurl + series_request
-
-# Get data from the above URL using the requests package
-data = requests.get(url).json()
-
-# Load data into a pandas dataframe and set index
-au_xp = pd.DataFrame(data['CompactData']['DataSet']['Series']['Obs'])
-au_xp = au_xp.set_index(pd.to_datetime(au_xp['@TIME_PERIOD']))
-
-# Basic plot 
-au_xp['@OBS_VALUE'].astype(float).plot()
-</code></pre>
-
 </div>
 
-<!-- Sign and date the page! -->
-<address>Made 15 November 2016<br>
-  by Brian Dew. <br>
- <!--   <ul>
-    <li><a href="https://github.com/bdecon/"><i class="fa fa-github"></i></a></li>
-    <li><a href="https://www.linkedin.com/in/brian-dew-5788a386?trk=hp-identity-name"><i class="fa fa-linkedin"></i></a></li>
-    <li><a href="https://twitter.com/bd_econ"><i class="fa fa-twitter"></i></a></li>
-    <li><a href="https://briandew.wordpress.com/"><i class="fa fa-wordpress"></i> </a></li>
-</ul> -->
-</address>
+<div class="Footer_outer">
+  <div class="Footer_inner_left">Made November 25 2016 <br> by Brian Dew</div>
+  <div class="Footer_inner_right">
+  <a href="https://github.com/bdecon/"><button class="button"><i class="fa fa-github"></i></button></a>
+  <a href="https://www.linkedin.com/in/brian-dew-5788a386/"><button class="button"><i class="fa fa-linkedin"></i></button></a>
+  <a href="https://twitter.com/bd_econ"><button class="button"><i class="fa fa-twitter"></i></button></a>
+  <a href="https://briandew.wordpress.com/"><button class="button"><i class="fa fa-wordpress"></i> </button></a>
+  </div>
+</div> 
 
 <script>
 function myFunction() {
