@@ -15,7 +15,7 @@ h1 { font-family: 'Montserrat'; line-height: 1.25; margin: 0 0 10px; font-size: 
 
 h2 { font-family: 'Montserrat'; line-height: 1.25; margin: 0 0 10px; font-size: 32px; }
 
-h2 { font-family: 'Montserrat'; line-height: 1.25; margin: 0 0 10px; font-size: 20px; }
+h3 { font-family: 'Montserrat'; line-height: 1.25; margin: 0 0 10px; font-size: 20px; }
 
 p {
     font-family: Tahoma, Verdana, Segoe, sans-serif;
@@ -35,7 +35,8 @@ html {
 /*    background: #e1e1e1 */
 }
 
-/* Remove margins and padding from the list, and add a black background color */
+/* Top Navigation Bar
+ * Remove margins and padding, and add a black background color */
 ul.topnav {
   position: fixed;
   top: 0;
@@ -69,26 +70,22 @@ ul.topnav li a:hover {background-color: #111;}
 /* Hide the list item that contains the link that should open and close the topnav on small screens */
 ul.topnav li.icon {display: none;}
 
+/* Active page highlighted red */
 ul.topnav .active {
     background-color: #FF5733
 }
 
-a:link {
-    text-decoration: none;
-	color:   #C70039;
-}
+/* General styling of links */
+a:link {text-decoration: none;
+	color:   #C70039;}
 
-a:visited {
-    text-decoration: none;
-	color:   #900C3F ;
-}
+a:visited {text-decoration: none;
+	color:   #900C3F ;}
 
-a:hover {
-    text-decoration: underline;
-    color:  #FFC300 ;
-}
+a:hover {text-decoration: underline;
+    color:  #FFC300 ;}
 
-
+/* Footer style and split into two columns */
 .Footer_outer{
   margin-top: 1em;
   padding-top: 1em;
@@ -164,6 +161,7 @@ div.container {
     padding: 10px;
 }
 
+/* Used for the social media buttons */
 .button {
     padding: 3px 6px;
     text-align: center;
