@@ -40,17 +40,20 @@ html {
 ul.topnav {
   position: fixed;
   top: 0;
-  left:0;
+  left: 0;
   width: 100%;
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
   background-color: #4B4B4B;
+  display: flex;
+  justify-content: center;
 }
 
 /* Float the list items side by side */
-ul.topnav li {float: left;}
+ul.topnav li {float: left;
+}
 
 /* Style the links inside the list items */
 ul.topnav li a {
