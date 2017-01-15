@@ -48,7 +48,7 @@ ul.topnav {
   overflow: hidden;
   background-color: #4B4B4B;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 /* Float the list items side by side */
