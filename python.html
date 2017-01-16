@@ -41,44 +41,56 @@ content="width=device-width, initial-scale=1.0" />
 </div>
 <br>
 
-<h3> IMF API with Python </h3>
-<pre><code class="python"># Example: loading an IFS indicator into pandas from API
-# Example based on Python 2.7
+<h3> IMF API with Python: An example </h3>
+<p>The IMF's API allows machine access to macroeconomic data covering more than 180 countries. Using python, it is easy to retrieve data from this API.</p>
 
-# Import libraries
-import requests
-import pandas as pd
+<p>A simple example below retrieves the latest available import price data for the U.K., including the base year of the index (the year in which values are indexed to 100), the observation values, and the time period for each value, in this case the year and month.</p>
+<p>In[1]:</p>
+<pre><code class="python">import requests # Python 2.7, requests version 2.12.4
 
-# URL for the IMF JSON Restful Web Service, CompactData method,
-# IFS series, quarterly frequency, covering Australia, and 
-# the export price index indicator.
-baseurl = 'http://dataservices.imf.org/REST/SDMX_JSON.svc/'
-method = 'CompactData/'
-series_request = 'IFS/Q.AU.PXP_IX.'    # Adjust as needed
-dates = '?startPeriod=1957&endPeriod=2016'
-url = baseurl + method + series_request + dates
+url = 'http://dataservices.imf.org/REST/SDMX_JSON.svc/'
+key = 'CompactData/IFS/M.GB.PMP_IX' # adjust as needed
+data = requests.get('{}{}'.format(url,key)).json()
+data['CompactData']['DataSet']['Series']['Obs'][-1]
+</code></pre>
+<p>Out[1]:</p>
+<pre>{u'@BASE_YEAR': u'2010',
+ u'@OBS_VALUE': u'103.528581510233',
+ u'@TIME_PERIOD': u'2016-10'}
+</pre>
+<h3> Pandas to clean and save the data to csv </h3>
+<p>Next, we'll use pandas to clean up the data obtained above, save it as a csv file, and produce a simple line plot.</p>
+<p>In[2]:</p>
+<pre><code class="python">import pandas as pd          # pandas version 0.18.1
+    
+# Navigate to observations in JSON data
+obs = data['CompactData']['DataSet']['Series']['Obs']
+baseyr = obs[-1]['@BASE_YEAR']  # Save the base year
 
-# Get data from the above URL using the requests package
-data = requests.get(url).json()
+# Create pandas dataframe from the observations
+df = pd.DataFrame(obs)[['@OBS_VALUE','@TIME_PERIOD']]
+df.columns = ['value', 'date']
+df.loc[:,'value'] = df['value'].astype(float).round(1)
+df = df.set_index(pd.to_datetime(df['date']))['value']
 
-# Load data into a pandas dataframe and set index
-au_xp = pd.DataFrame(data['CompactData']['DataSet']['Series']['Obs'])
-au_xp = au_xp.set_index(pd.to_datetime(au_xp['@TIME_PERIOD']))
+# Save cleaned data as a dataframe
+df.to_csv('data/UK_MP.csv', header=True)
+</code></pre>
+<h3> Simple line plot </h3>
+<p>As the last step for this example, we can visually inspect the results by producing a line plot.</p>
+<p>In[3]:</p>
+<pre><code class="python"># Title and text with recent value
+title = 'U.K. Import Prices (index, {}=100)'.format(baseyr)
+recentdt = obs[-1]['@TIME_PERIOD']
+recentval = df[-1]
+recent = 'Most recent: {}: {}'.format(recentdt, recentval)
 
 # Basic plot 
-au_xp['@OBS_VALUE'].astype(float).plot()
+ax = df.plot(title=title, colormap='Set1')
+ax.set_xlabel(recent)
 </code></pre>
-
-
-<div class="card">
-  <div class="header">
-    <h1>Trade Networks</h1>
-  </div>
-
-  <div class="container">
-    <p>Network analysis of international trade using the NetworkX package in Python 2.7.</p>
-  </div>
-</div>
+<p>Out[3]:</p>
+<img src="https://github.com/bdecon/bdecon.github.io/raw/master/images/UK_MP.png" alt="Pandas Plot Output" style="width: 200px;"/>
 
 <script>
 function myFunction() {
