@@ -58,7 +58,7 @@ data['CompactData']['DataSet']['Series']['Obs'][-1]
  u'@OBS_VALUE': u'103.528581510233',
  u'@TIME_PERIOD': u'2016-10'}
 </pre>
-<h3> Pandas to clean and save the data to csv </h3>
+<h3> Pandas to clean the data and save to csv </h3>
 <p>Next, we'll use pandas to clean up the data obtained above, save it as a csv file, and produce a simple line plot.</p>
 <p>In[2]:</p>
 <pre><code class="python">import pandas as pd          # pandas version 0.18.1
@@ -91,6 +91,21 @@ ax.set_xlabel(recent)
 </code></pre>
 <p>Out[3]:</p>
 <img src="https://github.com/bdecon/bdecon.github.io/raw/master/images/UK_MP.png" alt="Pandas Plot Output" style="width: 500px;"/>
+
+
+<h3>Variations: breaking down the request</h3>
+
+<p>The IMF's API url, combined with a method, series, frequency, area, and indicator specific key, provides a JSON structured dataset. These last five components, which are variable, combine to serve as the key to the request in the short example above, and are explained in more detail as follows:<p>
+
+<ul>
+<li> <p> Method: CompactData retrieves data, DataStructure retrieves metadata;</p> </li>
+<li> <p> Series: The broad group of indicators, in this case International Financial Statistics 'IFS';</p> </li>
+<li> <p> Frequency: For example monthly 'M', quarterly 'Q', or annually 'A'; </p> </li>
+<li> <p> Area: The country, region, or set of countries, for example 'GB' for the U.K., or 'GB+US' for the U.K. and the U.S.; </p> </li>
+<li> <p> Indicator: The code for the indicator of interest--IFS includes more that 2500; and </p> </li>
+<li> <p> Date Range (Optional): Use this to limit the data range returned, for example '?startPeriod=2010&endPeriod=2017' otherwise the full set of data is returned. </p> </li>
+</ul>
+<p>These components are combined as: {Method}/{Series}/{Frequency}.{Area}.{Indicator}.{Date Range}, for example CompactData/IFS/M.GB.PMP_IX.?startPeriod=2010&endPeriod=2017 </p>
 
 <script>
 function myFunction() {
