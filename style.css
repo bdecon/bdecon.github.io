@@ -147,9 +147,9 @@ img {
 		width: 100%;
 		background-color: #4B4B4B;
 	}
-	ul.topnav.responsive {  position: fixed;
-		top: 0;
-		left:0;}
+	ul.topnav.responsive { 
+		visibility: visible;}
+		
 	ul.topnav.responsive li.icon {
 		position: absolute;
 		right: 0;
