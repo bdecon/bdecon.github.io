@@ -1,65 +1,83 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta id="meta" name="viewport"
-content="width=device-width, initial-scale=1.0" />
-<title> bd econ | tools for economists </title>
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-<script src="https://use.fontawesome.com/8f99c5621e.js"></script>
-<meta charset="UTF-8">
-<meta name="description" content="Tools for Economists">
-<meta name="keywords" content="IMF API, Economics Dashboard, Trade Network, Trade Networks, Macroeconomics Dashboard, Macroeconomic Dashboard, Markets Dashboard, Market Dashboard, U.S. Economy, U.S. Economy Dashboard, US economy, US economy dashboard, US economy charts, US economy charts pdf, NetworkX trade, international trade networks, network analysis of trade, International Monetary Fund, IMF Statistics Department, IMF Application Programming Interface, International Monetary Fund Application Programming Interface, International Monetary Fund API">
-<meta name="author" content="Brian Dew">
-<meta name="google-site-verification" content="DP-2kVWWQ6i8lPgl5gqVAy3cjr-beYZzfhNL5-nVbzs" />
+	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title> bd econ | tools for economists </title>
+	<link rel="stylesheet" href="style.css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<script src="https://use.fontawesome.com/8f99c5621e.js"></script>
+	<meta charset="UTF-8">
+	<meta name="description" content="Tools for Economists">
+	<meta name="keywords" content="IMF API, Economics Dashboard, Trade Network, Trade Networks, Macroeconomics Dashboard, Macroeconomic Dashboard, Markets Dashboard, Market Dashboard, U.S. Economy, U.S. Economy Dashboard, US economy, US economy dashboard, US economy charts, US economy charts pdf, NetworkX trade, international trade networks, network analysis of trade, International Monetary Fund, IMF Statistics Department, IMF Application Programming Interface, International Monetary Fund Application Programming Interface, International Monetary Fund API">
+	<meta name="author" content="Brian Dew">
+	<meta name="google-site-verification" content="DP-2kVWWQ6i8lPgl5gqVAy3cjr-beYZzfhNL5-nVbzs" />
 </head>
 <body>
-<div class="container">
+	<div class="container">
 
-<!-- Site navigation menu -->
-<ul class="topnav" id="myTopnav">
-  <li><a class="active" href="index.html">Home</a>
-  <li><a href="http://briandew.wordpress.com">Blog</a>
-  <li><a href="MacroDash.pdf">Dashboard</a>
-  <li><a href="about.html">About</a>
-  <li><a href="python.html">Python</a> 
-  <li class="icon">
-    <a href="javascript:void(0);" style="font-size:15px;" onclick="myFunction()">&#9776;</a>
-  </li>
-</ul>
+	<!-- Site navigation menu -->
+	<nav class="nav">
+	<ul class="topnav" id="myTopnav">
+		<li class="home_nav"><a class="active" href="index.html">BD Economics</a> </li>
+		<li><a href="MacroDash.pdf">Dashboard</a></li>
+		<li><a href="python.html">Python</a> </li>
+		<li><a href="http://briandew.wordpress.com">Blog</a></li>
+		<li><a href="about.html">About</a></li>
+		<li class="icon">
+			<a href="javascript:void(0);" style="font-size:15px;" onclick="myFunction()">&#9776;</a>
+		</li>
+	</ul>
+	</nav>
+	<header>
+	<h1>BD Economics</h1>
+	</header>
 
-<header>
-<h1>bd econ</h1>
-</header>
+	<div>
+	<p>Over 100 indicators of U.S. macroeconomic and market developments, updated weekly: <a href="http://bdecon.github.io/MacroDash.pdf"> U.S. Macro and Markets Dashboard</a></p>
 
-<div>
-<p>Over 100 indicators of U.S. macroeconomic and market developments, updated weekly: <a href="http://bdecon.github.io/MacroDash.pdf"> U.S. Macro and Markets Dashboard</a></p>
+	<p>Future home of the bd econ blog, trade network analysis research, and guides to working with macroeconomic data in Python. The current bd econ blog is located at <a href = "http://briandew.wordpress.com"> http://www.briandew.wordpress.com</a>.</p>
+	</div> 
 
-<p>Future home of the bd econ blog, trade network analysis research, and guides to working with macroeconomic data in Python. The current bd econ blog is located at <a href = "http://briandew.wordpress.com"> http://www.briandew.wordpress.com</a>.</p>
+	<div class="card">
+	  <div class="card_header">
+		<h1>Dashboard</h1>
+	  </div>
 
+	  <div class="card_container">
+		<p>A curated set of the key macroeconomic indicators for the United States. Updated weekly!</p>
+	  </div>
+	</div>
 
-</div>
+	<div class="card">
+	  <div class="card_header1">
+		<h1>Blog</h1>
+	  </div>
 
-<div class="Footer_outer">
-  <div class="Footer_inner_left">Made November 25 2016 <br> by Brian Dew</div>
-  <div class="Footer_inner_right">
-  <a href="https://github.com/bdecon/"><button class="button"><i class="fa fa-github"></i></button></a>
-  <a href="https://www.linkedin.com/in/brian-dew-5788a386/"><button class="button"><i class="fa fa-linkedin"></i></button></a>
-  <a href="https://twitter.com/bd_econ"><button class="button"><i class="fa fa-twitter"></i></button></a>
-  <a href="https://briandew.wordpress.com/"><button class="button"><i class="fa fa-wordpress"></i> </button></a>
-  </div>
-</div> 
+	  <div class="card_container">
+		<p>Infrequent thoughts on economic issues. A more in depth look at specific topics.</p>
+	  </div>
+	</div>
 
-<script>
-function myFunction() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "topnav") {
-        x.className += " responsive";
-    } else {
-        x.className = "topnav";
-    }
-}
-</script>
+	<div class="Footer_outer">
+	  <div class="Footer_inner_left">Made November 25 2016 <br> by Brian Dew</div>
+	  <div class="Footer_inner_right">
+	  <a href="https://github.com/bdecon/"><button class="button"><i class="fa fa-github"></i></button></a>
+	  <a href="https://www.linkedin.com/in/brian-dew-5788a386/"><button class="button"><i class="fa fa-linkedin"></i></button></a>
+	  <a href="https://twitter.com/bd_econ"><button class="button"><i class="fa fa-twitter"></i></button></a>
+	  <a href="https://briandew.wordpress.com/"><button class="button"><i class="fa fa-wordpress"></i> </button></a>
+	  </div>
 
+	</div>
+	<script>
+		function myFunction() {
+			var x = document.getElementById("myTopnav");
+			if (x.className === "topnav") {
+				x.className += " responsive";
+			} else {
+				x.className = "topnav";
+			}
+		}
+	</script>
+	</div>
 </body>
 </html>

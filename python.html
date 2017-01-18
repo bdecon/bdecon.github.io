@@ -1,125 +1,131 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta id="meta" name="viewport"
-content="width=device-width, initial-scale=1.0" />
-<title> bd econ | tools for economists </title>
-<link rel="stylesheet" href="add-ins/github.css">
-<script src="add-ins/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-<script src="https://use.fontawesome.com/8f99c5621e.js"></script>
-<meta charset="UTF-8">
-<meta name="description" content="Tools for Economists">
-<meta name="keywords" content="IMF API, Economics Dashboard, Trade Network, Trade Networks, Macroeconomics Dashboard, Macroeconomic Dashboard, Markets Dashboard, Market Dashboard, U.S. Economy, U.S. Economy Dashboard, US economy, US economy dashboard, US economy charts, US economy charts pdf, NetworkX trade, international trade networks, network analysis of trade, International Monetary Fund, IMF Statistics Department, IMF Application Programming Interface, International Monetary Fund Application Programming Interface, International Monetary Fund API">
-<meta name="author" content="Brian Dew">
+	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title> bd econ | tools for economists </title>
+	<link rel="stylesheet" href="add-ins/github.css">
+	<script src="add-ins/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<link rel="stylesheet" href="style.css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<script src="https://use.fontawesome.com/8f99c5621e.js"></script>
+	<meta charset="UTF-8">
+	<meta name="description" content="Tools for Economists">
+	<meta name="keywords" content="IMF API, Economics Dashboard, Trade Network, Trade Networks, Macroeconomics Dashboard, Macroeconomic Dashboard, Markets Dashboard, Market Dashboard, U.S. Economy, U.S. Economy Dashboard, US economy, US economy dashboard, US economy charts, US economy charts pdf, NetworkX trade, international trade networks, network analysis of trade, International Monetary Fund, IMF Statistics Department, IMF Application Programming Interface, International Monetary Fund Application Programming Interface, International Monetary Fund API">
+	<meta name="author" content="Brian Dew">
 </head>
 <body>
-<div class="container">
+	<div class="container">
 
-<!-- Site navigation menu -->
-<ul class="topnav" id="myTopnav">
-  <li><a href="index.html">Home</a>
-  <li><a href="http://briandew.wordpress.com">Blog</a>
-  <li><a href="MacroDash.pdf">Dashboard</a>
-  <li><a href="about.html">About</a>
-  <li><a class="active" href="python.html">Python</a>  
-  <li class="icon">
-    <a href="javascript:void(0);" style="font-size:15px;" onclick="myFunction()">&#9776;</a>
-  </li>
-</ul>
+	<!-- Site navigation menu -->
+	<nav class="nav">
+	<ul class="topnav" id="myTopnav">
+		<li class="home_nav"><a href="index.html">BD Economics</a> </li>
+		<li><a href="MacroDash.pdf">Dashboard</a></li>
+		<li><a class="active" href="python.html">Python</a> </li>
+		<li><a href="http://briandew.wordpress.com">Blog</a></li>
+		<li><a href="about.html">About</a></li>
+		<li class="icon">
+			<a href="javascript:void(0);" style="font-size:15px;" onclick="myFunction()">&#9776;</a>
+		</li>
+	</ul>
+	</nav>
+	
+	<header>
+	<h1>Python</h1>
+	</header>
+	
 
-<div class="card">
-  <div class="header">
-    <h1>IMF API</h1>
-  </div>
+	<div class="card">
+	  <div class="card_header">
+		<h1>IMF API</h1>
+	  </div>
 
-  <div class="container">
-    <p>Examples of reading data from the International Monetary Fund's application programming interface.</p>
-  </div>
-</div>
-<br>
+	  <div class="card_container">
+		<p>Examples of reading data from the International Monetary Fund's application programming interface.</p>
+	  </div>
+	</div>
+	<br>
 
-<h3> IMF API with Python: An example </h3>
-<p>The IMF's API allows machine access to macroeconomic data covering more than 180 countries. Using python, it is easy to retrieve data from this API.</p>
+	<h3> IMF API with Python: An example </h3>
+	<p>The IMF's API allows machine access to macroeconomic data covering more than 180 countries. Using python, it is easy to retrieve data from this API.</p>
 
-<p>A simple example below retrieves the latest available import price data for the U.K., including the base year of the index (the year in which values are indexed to 100), the observation values, and the time period for each value, in this case the year and month.</p>
-<p>In[1]:</p>
-<pre><code class="python">import requests # Python 2.7, requests version 2.12.4
+	<p>A simple example below retrieves the latest available import price data for the U.K., including the base year of the index (the year in which values are indexed to 100), the observation values, and the time period for each value, in this case the year and month.</p>
+	<p>In[1]:</p>
+	<pre><code class="python">import requests # Python 2.7, requests version 2.12.4
 
-url = 'http://dataservices.imf.org/REST/SDMX_JSON.svc/'
-key = 'CompactData/IFS/M.GB.PMP_IX' # adjust as needed
-data = requests.get('{}{}'.format(url,key)).json()
-data['CompactData']['DataSet']['Series']['Obs'][-1]
-</code></pre>
-<p>Out[1]:</p>
-<pre>{u'@BASE_YEAR': u'2010',
- u'@OBS_VALUE': u'103.528581510233',
- u'@TIME_PERIOD': u'2016-10'}
-</pre>
-<h3> Pandas to clean the data and save to csv </h3>
-<p>Next, we'll use pandas to clean up the data obtained above, save it as a csv file, and produce a simple line plot.</p>
-<p>In[2]:</p>
-<pre><code class="python">import pandas as pd          # pandas version 0.18.1
-    
-# Navigate to observations in JSON data
-obs = data['CompactData']['DataSet']['Series']['Obs']
-baseyr = obs[-1]['@BASE_YEAR']  # Save the base year
+	url = 'http://dataservices.imf.org/REST/SDMX_JSON.svc/'
+	key = 'CompactData/IFS/M.GB.PMP_IX' # adjust as needed
+	data = requests.get('{}{}'.format(url,key)).json()
+	data['CompactData']['DataSet']['Series']['Obs'][-1]
+	</code></pre>
+	<p>Out[1]:</p>
+	<pre>{u'@BASE_YEAR': u'2010',
+	 u'@OBS_VALUE': u'103.528581510233',
+	 u'@TIME_PERIOD': u'2016-10'}
+	</pre>
+	<h3> Pandas to clean the data and save to csv </h3>
+	<p>Next, we'll use pandas to clean up the data obtained above, save it as a csv file, and produce a simple line plot.</p>
+	<p>In[2]:</p>
+	<pre><code class="python">import pandas as pd          # pandas version 0.18.1
+		
+	# Navigate to observations in JSON data
+	obs = data['CompactData']['DataSet']['Series']['Obs']
+	baseyr = obs[-1]['@BASE_YEAR']  # Save the base year
 
-# Create pandas dataframe from the observations
-df = pd.DataFrame(obs)[['@OBS_VALUE','@TIME_PERIOD']]
-df.columns = ['value', 'date']
-df.loc[:,'value'] = df['value'].astype(float).round(1)
-df = df.set_index(pd.to_datetime(df['date']))['value']
+	# Create pandas dataframe from the observations
+	df = pd.DataFrame(obs)[['@OBS_VALUE','@TIME_PERIOD']]
+	df.columns = ['value', 'date']
+	df.loc[:,'value'] = df['value'].astype(float).round(1)
+	df = df.set_index(pd.to_datetime(df['date']))['value']
 
-# Save cleaned data as a dataframe
-df.to_csv('data/UK_MP.csv', header=True)
-</code></pre>
-<h3> Simple line plot </h3>
-<p>As the last step for this example, we can visually inspect the results by producing a line plot.</p>
-<p>In[3]:</p>
-<pre><code class="python"># Title and text with recent value
-title = 'U.K. Import Prices (index, {}=100)'.format(baseyr)
-recentdt = obs[-1]['@TIME_PERIOD']
-recentval = df[-1]
-recent = 'Most recent: {}: {}'.format(recentdt, recentval)
+	# Save cleaned data as a dataframe
+	df.to_csv('data/UK_MP.csv', header=True)
+	</code></pre>
+	<h3> Simple line plot </h3>
+	<p>As the last step for this example, we can visually inspect the results by producing a line plot.</p>
+	<p>In[3]:</p>
+	<pre><code class="python"># Title and text with recent value
+	title = 'U.K. Import Prices (index, {}=100)'.format(baseyr)
+	recentdt = obs[-1]['@TIME_PERIOD']
+	recentval = df[-1]
+	recent = 'Most recent: {}: {}'.format(recentdt, recentval)
 
-# Basic plot 
-ax = df.plot(title=title, colormap='Set1')
-ax.set_xlabel(recent)
-</code></pre>
-<p>Out[3]:</p>
-<img src="https://github.com/bdecon/bdecon.github.io/raw/master/images/UK_MP.png" alt="Pandas Plot Output" style="width: 500px;"/>
+	# Basic plot 
+	ax = df.plot(title=title, colormap='Set1')
+	ax.set_xlabel(recent)
+	</code></pre>
+	<p>Out[3]:</p>
+	<img src="https://github.com/bdecon/bdecon.github.io/raw/master/images/UK_MP.png" alt="Pandas Plot Output" style="max-width: 100%;"/>
 
 
-<h3>Variations: breaking down the request</h3>
+	<h3>Variations: breaking down the request</h3>
 
-<p>The IMF's API url, combined with a method, series, frequency, area, and indicator specific key, provides a JSON structured dataset. These last five components, which are variable, combine to serve as the key to the request in the short example above, and are explained in more detail as follows:<p>
+	<p>The IMF's API url, combined with a method, series, frequency, area, and indicator specific key, provides a JSON structured dataset. These last five components, which are variable, combine to serve as the key to the request in the short example above, and are explained in more detail as follows:<p>
 
-<ul>
-<li> <p> Method: CompactData retrieves data, DataStructure retrieves metadata;</p> </li>
-<li> <p> Series: The broad group of indicators, in this case International Financial Statistics 'IFS';</p> </li>
-<li> <p> Frequency: For example monthly 'M', quarterly 'Q', or annually 'A'; </p> </li>
-<li> <p> Area: The country, region, or set of countries, for example 'GB' for the U.K., or 'GB+US' for the U.K. and the U.S.; </p> </li>
-<li> <p> Indicator: The code for the indicator of interest--IFS includes more that 2500; and </p> </li>
-<li> <p> Date Range (Optional): Use this to limit the data range returned, for example '?startPeriod=2010&endPeriod=2017' otherwise the full set of data is returned. </p> </li>
-</ul>
-<p>These components are combined as: {Method}/{Series}/{Frequency}.{Area}.{Indicator}.{Date Range}, for example: </p>
+	<ul>
+		<li> <p> Method: CompactData retrieves data, DataStructure retrieves metadata;</p> </li>
+		<li> <p> Series: The broad group of indicators, in this case International Financial Statistics 'IFS';</p> </li>
+		li> <p> Frequency: For example monthly 'M', quarterly 'Q', or annually 'A'; </p> </li>
+		<li> <p> Area: The country, region, or set of countries, for example 'GB' for the U.K., or 'GB+US' for the U.K. and the U.S.; </p> </li>
+		<li> <p> Indicator: The code for the indicator of interest--IFS includes more that 2500; and </p> </li>
+		<li> <p> Date Range (Optional): Use this to limit the data range returned, for example '?startPeriod=2010&endPeriod=2017' otherwise the full set of data is returned. </p> </li>
+	</ul>
+	<p>These components are combined as: {Method}/{Series}/{Frequency}.{Area}.{Indicator}.{Date Range}, for example: </p>
 
-<p><a href="http://dataservices.imf.org/REST/SDMX_JSON.svc/CompactData/IFS/M.GB.PMP_IX.?startPeriod=2010&endPeriod=2017">http://dataservices.imf.org/REST/SDMX_JSON.svc/CompactData/IFS/M.GB.PMP_IX.?startPeriod=2010&endPeriod=2017</a></p>
+	<p><a href="http://dataservices.imf.org/REST/SDMX_JSON.svc/CompactData/IFS/M.GB.PMP_IX.?startPeriod=2010&endPeriod=2017">http://dataservices.imf.org/REST/SDMX_JSON.svc/CompactData/IFS/M.GB.PMP_IX.?startPeriod=2010&endPeriod=2017</a></p>
 
-<script>
-function myFunction() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "topnav") {
-        x.className += " responsive";
-    } else {
-        x.className = "topnav";
-    }
-}
-</script>
-
+	<script>
+	function myFunction() {
+		var x = document.getElementById("myTopnav");
+		if (x.className === "topnav") {
+			x.className += " responsive";
+		} else {
+			x.className = "topnav";
+		}
+	}
+	</script>
+	</container>
 </body>
 </html>
 

@@ -5,16 +5,22 @@ body {
   background-color: #FFFFFF 
 }
 
-header, footer {
+header {
     padding: 1em;
     clear: left;
     text-align: center;
+	background-color: #939393;
+    color: white;
+    padding: 10px;
+    font-size: 40px;
+}
+
+.container {
+	padding: 0;
 }
 
 h1 { font-family: 'Montserrat'; line-height: 1.25; margin: 0 0 10px; font-size: 40px; }
-
 h2 { font-family: 'Montserrat'; line-height: 1.25; margin: 0 0 10px; font-size: 32px; }
-
 h3 { font-family: 'Montserrat'; line-height: 1.25; margin: 10px 0 10px; font-size: 20px; }
 
 p {
@@ -26,33 +32,40 @@ p {
 }
 
 p.legibility {
-  text-rendering: optimizeLegibility;
+	text-rendering: optimizeLegibility;
 }
 
 html {
     margin:    0 auto;
     max-width: 900px;
-/*    background: #e1e1e1 */
+/*    background: #f6f6f6     */
 }
 
 /* Top Navigation Bar
  * Remove margins and padding, and add a black background color */
-ul.topnav {
+ 
+.nav {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  list-style-type: none;
-  margin: 0;
+  margin: 0 0 1em 0;
   padding: 0;
   overflow: hidden;
   background-color: #4B4B4B;
-  display: flex;
-  justify-content: flex-start;
+  float:left;	
+}
+
+ul.topnav {
+  list-style: none;	
+  width: 900px;
+  margin: 0 auto;
+  padding: 0;
 }
 
 /* Float the list items side by side */
-ul.topnav li {float: left;
+ul.topnav li {
+	float: left;
 }
 
 /* Style the links inside the list items */
@@ -65,6 +78,12 @@ ul.topnav li a {
     transition: 0.3s;
 	font-family: 'Montserrat';
     font-size: 17px;
+}
+
+/* Home navigator button larger */
+ul.topnav .home_nav {
+    padding: 0 10px 0 10px;
+	font-weight: bold;
 }
 
 /* Change background color of links on hover */
@@ -90,79 +109,99 @@ a:hover {text-decoration: underline;
 
 /* Footer style and split into two columns */
 .Footer_outer{
-  margin-top: 1em;
-  padding-top: 1em;
-  border-top: thin dotted;
-  font-family: georgia;
-  font-size: 12px;
-  font-weight: 100;
-  font-style: italic;
-  color: #6a6a6a;
+	margin-top: 1em;
+	padding-top: 1em;
+	border-top: thin dotted;
+	font-family: georgia;
+	font-size: 12px;
+	font-weight: 100;
+	font-style: italic;
+	color: #6a6a6a;
 }
-
 .Footer_inner_left{
-width: 49%;
-Float: left;
-display:inline;
+	width: 49%;
+	Float: left;
+	display:inline;
 }
-
 .Footer_inner_right{
-width: 49%;
-Float: right;
-display:inline;
-text-align: right;
+	width: 49%;
+	Float: right;
+	display:inline;
+	text-align: right;
+	background-color: 
 }
 
 img {
-  display: inline-block;
-  margin: 0px;
+	display: inline-block;
+	margin: 0px;
 }
 
-/* When the screen is less than 680 pixels wide, hide all list items, except for the first one ("Home"). Show the list item that contains the link to open and close the topnav (li.icon) */
-@media screen and (max-width:680px) {
-  ul.topnav li:not(:first-child) {display: none;}
-  ul.topnav li.icon {
-    float: right;
-    display: inline-block;
-  }
+/* When the screen is less than 600 pixels wide, hide all list items, except for the first one ("Home"). Show the list item that contains the link to open and close the topnav (li.icon) */
+@media screen and (max-width:600px) {
+	ul.topnav li:not(:first-child) {display: none;}
+	ul.topnav li.icon {
+		float: right;
+		display: inline-block;
+	}
 }
 
 /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens */
-@media screen and (max-width:680px) {
-  ul.topnav.responsive {  position: fixed;
-  top: 0;
-  left:0;}
-  ul.topnav.responsive li.icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-  ul.topnav.responsive li {
-    float: none;
-    display: inline;
-  }
-  ul.topnav.responsive li a {
-    display: block;
-    text-align: left;
-  }
+@media screen and (max-width:600px) {
+	ul.topnav.responsive {  position: fixed;
+		top: 0;
+		left:0;}
+	ul.topnav.responsive li.icon {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+	ul.topnav.responsive li {
+		float: none;
+		display: inline;
+	}
+	ul.topnav.responsive li a {
+		display: block;
+		text-align: left;
+	}
+	ul.topnav {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+		background-color: #4B4B4B;
+		float:left;
+	}
 }
 
+/* The cards */
 div.card {
-  width: 250px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  text-align: center;
+	width: 280px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	text-align: center;
+	float:center;
+	margin: 25px;
 }
-
-div.header {
-    background-color: #FF5733;
+div.card_header {
+	background-color: #FF5733;
     color: white;
     padding: 10px;
     font-size: 40px;
 }
-
-div.container {
+div.card_header1 {
+    background-color: #3441de;
+    color: white;
     padding: 10px;
+    font-size: 40px;
 }
+div.card_container {
+    padding: 10px;
+	background-color: white; 
+}
+
 
 /* Used for the social media buttons */
 .button {
@@ -179,7 +218,6 @@ div.container {
     color: #FF5733; 
     border: none;
 }
-
 .button:hover {
     background-color: #FF5733;
     color: white;
