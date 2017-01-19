@@ -50,47 +50,43 @@
 	<p>In[1]:</p>
 	<pre><code class="python">import requests # Python 2.7, requests version 2.12.4
 
-	url = 'http://dataservices.imf.org/REST/SDMX_JSON.svc/'
-	key = 'CompactData/IFS/M.GB.PMP_IX' # adjust as needed
-	data = requests.get('{}{}'.format(url,key)).json()
-	data['CompactData']['DataSet']['Series']['Obs'][-1]
-	</code></pre>
+url = 'http://dataservices.imf.org/REST/SDMX_JSON.svc/'
+key = 'CompactData/IFS/M.GB.PMP_IX' # adjust as needed
+data = requests.get('{}{}'.format(url,key)).json()
+data['CompactData']['DataSet']['Series']['Obs'][-1]</code></pre>
 	<p>Out[1]:</p>
-	<pre>{u'@BASE_YEAR': u'2010',
-	 u'@OBS_VALUE': u'103.528581510233',
-	 u'@TIME_PERIOD': u'2016-10'}
-	</pre>
+	<pre>	{u'@BASE_YEAR': u'2010',
+	u'@OBS_VALUE': u'103.528581510233',
+	u'@TIME_PERIOD': u'2016-10'}</pre>
 	<h3> Pandas to clean the data and save to csv </h3>
 	<p>Next, we'll use pandas to clean up the data obtained above, save it as a csv file, and produce a simple line plot.</p>
 	<p>In[2]:</p>
 	<pre><code class="python">import pandas as pd          # pandas version 0.18.1
 		
-	# Navigate to observations in JSON data
-	obs = data['CompactData']['DataSet']['Series']['Obs']
-	baseyr = obs[-1]['@BASE_YEAR']  # Save the base year
+# Navigate to observations in JSON data
+obs = data['CompactData']['DataSet']['Series']['Obs']
+baseyr = obs[-1]['@BASE_YEAR']  # Save the base year
 
-	# Create pandas dataframe from the observations
-	df = pd.DataFrame(obs)[['@OBS_VALUE','@TIME_PERIOD']]
-	df.columns = ['value', 'date']
-	df.loc[:,'value'] = df['value'].astype(float).round(1)
-	df = df.set_index(pd.to_datetime(df['date']))['value']
+# Create pandas dataframe from the observations
+df = pd.DataFrame(obs)[['@OBS_VALUE','@TIME_PERIOD']]
+df.columns = ['value', 'date']
+df.loc[:,'value'] = df['value'].astype(float).round(1)
+df = df.set_index(pd.to_datetime(df['date']))['value']
 
-	# Save cleaned data as a dataframe
-	df.to_csv('data/UK_MP.csv', header=True)
-	</code></pre>
+# Save cleaned data as a dataframe
+df.to_csv('data/UK_MP.csv', header=True)</code></pre>
 	<h3> Simple line plot </h3>
 	<p>As the last step for this example, we can visually inspect the results by producing a line plot.</p>
 	<p>In[3]:</p>
 	<pre><code class="python"># Title and text with recent value
-	title = 'U.K. Import Prices (index, {}=100)'.format(baseyr)
-	recentdt = obs[-1]['@TIME_PERIOD']
-	recentval = df[-1]
-	recent = 'Most recent: {}: {}'.format(recentdt, recentval)
+title = 'U.K. Import Prices (index, {}=100)'.format(baseyr)
+recentdt = obs[-1]['@TIME_PERIOD']
+recentval = df[-1]
+recent = 'Most recent: {}: {}'.format(recentdt, recentval)
 
-	# Basic plot 
-	ax = df.plot(title=title, colormap='Set1')
-	ax.set_xlabel(recent)
-	</code></pre>
+# Basic plot 
+ax = df.plot(title=title, colormap='Set1')
+ax.set_xlabel(recent)</code></pre>
 	<p>Out[3]:</p>
 	<img src="https://github.com/bdecon/bdecon.github.io/raw/master/images/UK_MP.png" alt="Pandas Plot Output" style="max-width: 100%;"/>
 

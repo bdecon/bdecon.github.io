@@ -127,3 +127,5 @@ section{margin: 5px; padding: 0px;}
     border: none;
 }
 .button_sm:hover{background-color: #FF5733; color: white;}
+
+code {text-align: left;}
