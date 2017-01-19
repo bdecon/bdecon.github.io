@@ -1,71 +1,43 @@
-body {
-	left:0;  
-	padding-top: 40px;
-	font-family: Tahoma, Verdana, Segoe, sans-serif;
-	background-color: #FFFFFF 
-}
+/* Brian Dew BD Economics - style.css */
 
-header {
-    padding: 1em;
-    clear: left;
-    text-align: center;
-	background-color: #939393;
-    color: white;
-    padding: 10px;
-    font-size: 40px;
-}
+/* General document styling */
+html{
+	margin: 0 auto; 
+	max-width: 900px;
+	min-width: 300px;
+	}
+body{
+	left: 0; 
+	font-family: Tahoma, Verdana, Segoe, sans-serif; 
+	background-color: #fff; 
+	}
+p{font-size: 12px; color: #6a6a6a;}
 
-h1 { font-family: 'Montserrat'; line-height: 1.25; margin: 0 0 10px; font-size: 40px; }
-h2 { font-family: 'Montserrat'; line-height: 1.25; margin: 0 0 10px; font-size: 32px; }
-h3 { font-family: 'Montserrat'; line-height: 1.25; margin: 10px 0 10px; font-size: 20px; }
+h1, h2, h3{font-family: 'Montserrat'; line-height: 1.25;}
+hl{margin: 0 0 10px; font-size: 40px;}
+h2{margin: 0 0 10px; font-size: 32px;}
+h3{margin: 10px 0 10px; font-size: 24px;}
 
-p {
-    font-family: Tahoma, Verdana, Segoe, sans-serif;
-    font-size: 12px;
-    left:0;
-    width: 100%;
-	color: #6a6a6a;
-}
+/* Styling for links */
+a:link{text-decoration: none; color: #C70039;}
+a:visited{text-decoration: none; color: #900C3F;}
+a:hover{text-decoration: underline; color: #FFC300;}
 
-p.legibility {
-	text-rendering: optimizeLegibility;
-}
-
-html {
-    margin:    0 auto;
-    max-width: 900px;
-/*    background: #f6f6f6     */
-}
-
-/* Top Navigation Bar
- * Remove margins and padding, and add a black background color */
- 
-.nav {
+/* Top Navigation Bar */
+nav{
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
-	margin: 0 0 1em 0;
-	padding: 0;
+	margin: 0;
 	overflow: hidden;
 	background-color: #4B4B4B;
-	float:left;	
-}
-
-ul.topnav {
-	list-style: none;	
-	width: 900px;
-	margin: 0 auto;
-	padding: 0;
-}
-
-/* Float the list items side by side */
-ul.topnav li {
 	float: left;
-}
-
-/* Style the links inside the list items */
-ul.topnav li a {
+	padding: 0;
+	}
+.ul_nav{list-style: none; max-width: 900px; margin: 0 auto; padding: 0;}
+.ul_nav li{float: left;}
+.ul_nav li a{
     display: inline-block;
     color: #f2f2f2;
     text-align: center;
@@ -74,125 +46,73 @@ ul.topnav li a {
     transition: 0.3s;
 	font-family: 'Montserrat';
     font-size: 17px;
+	}
+.nav_main{font-weight: bold; padding: 0 10px 0 10px;}
+.ul_nav li a:hover{background-color: #111;}
+.active{background-color: #FF5733;}
+.ul_nav li.icon {display: none;}
+
+/* Top Navigation - Responsive */
+@media screen and (max-width:600px) {
+	.ul_nav li:not(:first-child) {display: none;}
+	.ul_nav li.icon {float: right; display: inline-block;}
+	.ul_nav {width: 100%; background-color: #4B4B4B;}
+	.ul_nav.responsive {visibility: visible;}	
+	.ul_nav.responsive li.icon {position: absolute; right: 0; top: 0;}
+	.ul_nav.responsive li {float: none; display: inline;}
+	.ul_nav.responsive li a {display: block; text-align: left;}
 }
 
-/* Home navigator button larger */
-ul.topnav .home_nav {
-    padding: 0 10px 0 10px;
-	font-weight: bold;
+/* Header styling */
+header{
+	padding: 25px 0 0 0;
+    clear: left;
+    text-align: center;
+	background-color: #939393;
+    color: white;
+    font-size: 22px;
 }
+header h1{padding: 0 0 12px 0;}
+header h2{padding: 20px 0 12px 0;}
+header h3{padding: 20px 0 12px 0;}
 
-/* Change background color of links on hover */
-ul.topnav li a:hover {background-color: #111;}
-
-/* Hide the list item that contains the link that should open and close the topnav on small screens */
-ul.topnav li.icon {display: none;}
-
-/* Active page highlighted red */
-ul.topnav .active {
-    background-color: #FF5733
-}
-
-/* General styling of links */
-a:link {text-decoration: none;
-	color:   #C70039;}
-
-a:visited {text-decoration: none;
-	color:   #900C3F ;}
-
-a:hover {text-decoration: underline;
-    color:  #FFC300 ;}
-
-/* Footer style and split into two columns */
-.Footer_outer{
-	margin-top: 1em;
-	padding-top: 1em;
-	border-top: thin dotted;
+/* Footer styling */
+footer{margin: 2em 0 0 0; border-top: thin dotted;}
+.footer_left{
+	width: 49%;
+	Float: left;
+	display: inline;
 	font-family: georgia;
-	font-size: 12px;
-	font-weight: 100;
 	font-style: italic;
 	color: #6a6a6a;
 }
-.Footer_inner_left{
-	width: 49%;
-	Float: left;
-	display:inline;
-}
-.Footer_inner_right{
+.footer_right{
 	width: 49%;
 	Float: right;
 	display:inline;
-	text-align: right;
-	background-color: 
+	text-align: right;	
 }
-
-img {
-	display: inline-block;
-	margin: 0px;
-}
-
-/* When the screen is less than 600 pixels wide, hide all list items, except for the first one ("Home"). Show the list item that contains the link to open and close the topnav (li.icon) */
-@media screen and (max-width:600px) {
-	ul.topnav li:not(:first-child) {display: none;}
-	ul.topnav li.icon {
-		float: right;
-		display: inline-block;
-	}
-}
-
-/* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens */
-@media screen and (max-width:600px) {
-	ul.topnav {
-		width: 100%;
-		background-color: #4B4B4B;
-	}
-	ul.topnav.responsive { 
-		visibility: visible;}
-		
-	ul.topnav.responsive li.icon {
-		position: absolute;
-		right: 0;
-		top: 0;
-	}
-	ul.topnav.responsive li {
-		float: none;
-		display: inline;
-	}
-	ul.topnav.responsive li a {
-		display: block;
-		text-align: left;
-	}
-}
-
-/* The cards */
-div.card {
-	width: 280px;
+/* Section formatting */
+section{margin: 5px; padding: 0px;}
+.article_code{padding-top: 10px;}
+.article_links{padding-top: 5px;}
+/* Cards with Links */
+.card {
+	width: 250px;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	text-align: center;
-	float:center;
-	margin: 25px;
+	margin: 12px;
 }
-div.card_header {
-	background-color: #FF5733;
+.card_head{
+	background-color: #3441de;
     color: white;
     padding: 10px;
     font-size: 40px;
 }
-div.card_header1 {
-    background-color: #3441de;
-    color: white;
-    padding: 10px;
-    font-size: 40px;
-}
-div.card_container {
-    padding: 10px;
-	background-color: white; 
-}
-
+.card_tail{padding: 10px; background-color: white;}
 
 /* Used for the social media buttons */
-.button {
+.button_sm{
     padding: 3px 6px;
     text-align: center;
     text-decoration: none;
@@ -206,7 +126,4 @@ div.card_container {
     color: #FF5733; 
     border: none;
 }
-.button:hover {
-    background-color: #FF5733;
-    color: white;
-}
+.button_sm:hover{background-color: #FF5733; color: white;}

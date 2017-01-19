@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title> bd econ | tools for economists </title>
+	<title> BD Economics | Data, Analysis, and Support for Ideas </title>
 	<link rel="stylesheet" href="add-ins/github.css">
 	<script src="add-ins/highlight.pack.js"></script>
 	<script>hljs.initHighlightingOnLoad();</script>
@@ -15,38 +15,34 @@
 	<meta name="author" content="Brian Dew">
 </head>
 <body>
-	<div class="container">
-
-	<!-- Site navigation menu -->
-	<nav class="nav">
-	<ul class="topnav" id="myTopnav">
-		<li class="home_nav"><a href="index.html">BD Economics</a> </li>
-		<li><a href="MacroDash.pdf">Dashboard</a></li>
-		<li><a class="active" href="python.html">Python</a> </li>
-		<li><a href="http://briandew.wordpress.com">Blog</a></li>
-		<li><a href="about.html">About</a></li>
-		<li class="icon">
-			<a href="javascript:void(0);" style="font-size:15px;" onclick="myFunction()">&#9776;</a>
-		</li>
-	</ul>
+	<nav>
+		<ul class="ul_nav" id="myTopnav">
+			<li class="nav_main"> <a href="index.html">BD Economics</a> </li>
+			<li><a href="MacroDash.pdf">Dashboard</a> </li>
+			<li><a class="active" href="python.html">Python</a> </li>
+			<li><a href="http://briandew.wordpress.com">Blog</a> </li>
+			<li><a href="about.html">About</a> </li>
+			<li class="icon"> <a href="javascript:void(0);" 
+				style="font-size:15px;" onclick="myFunction()">&#9776;</a> 
+			</li>
+		</ul>
 	</nav>
 	
 	<header>
 	<h1>Python</h1>
 	</header>
-	
-
+	<section>
+	<article>
 	<div class="card">
-	  <div class="card_header">
-		<h1>IMF API</h1>
+	  <div class="card_head">
+		<h2>IMF API</h2>
 	  </div>
-
-	  <div class="card_container">
+	  <div class="card_tail">
 		<p>Examples of reading data from the International Monetary Fund's application programming interface.</p>
 	  </div>
 	</div>
-	<br>
-
+	</article>
+	<article class="article_code">
 	<h3> IMF API with Python: An example </h3>
 	<p>The IMF's API allows machine access to macroeconomic data covering more than 180 countries. Using python, it is easy to retrieve data from this API.</p>
 
@@ -114,18 +110,39 @@
 	<p>These components are combined as: {Method}/{Series}/{Frequency}.{Area}.{Indicator}.{Date Range}, for example: </p>
 
 	<p><a href="http://dataservices.imf.org/REST/SDMX_JSON.svc/CompactData/IFS/M.GB.PMP_IX.?startPeriod=2010&endPeriod=2017">http://dataservices.imf.org/REST/SDMX_JSON.svc/CompactData/IFS/M.GB.PMP_IX.?startPeriod=2010&endPeriod=2017</a></p>
-
+	
+	</article>
+	</section>
+	
+		<footer>
+		<div class="footer_left">
+			<p>Made January 18, 2017 <br> by Brian Dew</p>
+		</div>
+		<div class="footer_right">
+			<a href="https://github.com/bdecon/">
+				<button class="button_sm"><i class="fa fa-github"></i></button>
+			</a>
+			<a href="https://www.linkedin.com/in/brian-dew-5788a386/">
+				<button class="button_sm"><i class="fa fa-linkedin"></i></button>
+			</a>
+			<a href="https://twitter.com/bd_econ">
+				<button class="button_sm"><i class="fa fa-twitter"></i></button>
+			</a>
+			<a href="https://briandew.wordpress.com/">
+				<button class="button_sm"><i class="fa fa-wordpress"></i></button>
+			</a>
+		</div>
+	</footer>
 	<script>
-	function myFunction() {
-		var x = document.getElementById("myTopnav");
-		if (x.className === "topnav") {
-			x.className += " responsive";
-		} else {
-			x.className = "topnav";
+		function myFunction() {
+			var x = document.getElementById("myTopnav");
+			if (x.className === "ul_nav") {
+				x.className += " responsive";
+			} else {
+				x.className = "ul_nav";
+			}
 		}
-	}
 	</script>
-	</container>
 </body>
 </html>
 
