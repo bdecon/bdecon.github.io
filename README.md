@@ -1,4 +1,4 @@
-# [bdecon.github.io](https://bdecon.github.io)
+# [bd-econ.com](http://www.bd-econ.com)
 
 Personal website for Brian Dew and project website for bd econ.
 
