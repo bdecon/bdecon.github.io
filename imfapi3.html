@@ -103,7 +103,8 @@ indicator = metadata['GenericMetadata']['MetadataSet']\
             [1]['ReportedAttribute'][4]['Value']['#text']
 print 'Country: {}; Indicator: {}'.format(country, indicator)</code></pre>
 	<p>Out[1]:</p>
-	<pre>Country: United Kingdom; Indicator: Import Price Index, All Commodities</pre>
+	<pre>Country: United Kingdom; 
+Indicator: Import Price Index, All Commodities</pre>
 	<p>The GenericMetadata method returns several options for country and indicator names, so it may be helpful to step into the JSON data and examine what is available directly. </p>
 	<h3> More complex requests </h3>
 	<p>Perhaps we are interested in the share of goods the U.K. imports from the European Union, which requires information on both trade betweeh the U.K and the EU, and on total U.K. trade. The API allows you to combine along a single dimension by adding '+'. For example, searching for the dimension 2 code in part 2 gives us B0 as the code for the EU, and W00 as the code for the world (total trade). </p>

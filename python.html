@@ -49,78 +49,24 @@
 	<h1>Python</h1>
 	</header>
 	<section>
+	<article>
+	<h3> Overview </h3>
+	<p> The power, speed, and versatility of Python and its body of packages make it an increasingly useful tool for those working with macroeconomic data. I’ve written a few examples of how this open-source programming language can be used to work with real-world economic data.</p>
+	
+	<p> The Anaconda distribution of Python, which already includes key packages (such as NumPy, Pandas, SciPy, etc) and tools (Jupyter notebook, Conda), makes getting started, especially on a windows system, much easier. </p>
+	</article>
 	<article class="article_links">
+	<h3> Guides: Python for Macroeconomic Analysis </h3>
+	<a href="imfapi1.html">
 	<div class="card">
 	  <div class="card_head_blue">
 		<h2>IMF API</h2>
 	  </div>
 	  <div class="card_tail">
-		<p>Examples of reading data from the International Monetary Fund's application programming interface.</p>
+		<p>Three-part guide to using the International Monetary Fund's Application Programming Interface to machine-read data.</p>
 	  </div>
 	</div>
-	</article>
-	<article class="article_code">
-	<h3> IMF API with Python: An example </h3>
-	<p>The <a href="http://datahelp.imf.org/knowledgebase/articles/630877-data-services">IMF's API</a> allows machine access to macroeconomic data covering more than 180 countries. Using python, it is easy to retrieve data from this API.</p>
-
-	<p>A simple example below retrieves the latest available import price data for the U.K., including the base year of the index (the year in which values are indexed to 100), the observation values, and the time period for each value, in this case the year and month.</p>
-	<p>In[1]:</p>
-	<pre><code class="python">import requests # Python 2.7, requests version 2.12.4
-
-url = 'http://dataservices.imf.org/REST/SDMX_JSON.svc/'
-key = 'CompactData/IFS/M.GB.PMP_IX' # adjust as needed
-data = requests.get('{}{}'.format(url,key)).json()
-data['CompactData']['DataSet']['Series']['Obs'][-1]</code></pre>
-	<p>Out[1]:</p>
-	<pre>	{u'@BASE_YEAR': u'2010',
-	u'@OBS_VALUE': u'103.528581510233',
-	u'@TIME_PERIOD': u'2016-10'}</pre>
-	<h3> Pandas to clean the data and save to csv </h3>
-	<p>Next, we'll use pandas to clean up the data obtained above, save it as a csv file, and produce a simple line plot.</p>
-	<p>In[2]:</p>
-	<pre><code class="python">import pandas as pd          # pandas version 0.18.1
-		
-# Navigate to observations in JSON data
-obs = data['CompactData']['DataSet']['Series']['Obs']
-baseyr = obs[-1]['@BASE_YEAR']  # Save the base year
-
-# Create pandas dataframe from the observations
-df = pd.DataFrame(obs)[['@OBS_VALUE','@TIME_PERIOD']]
-df.columns = ['value', 'date']
-df.loc[:,'value'] = df['value'].astype(float).round(1)
-df = df.set_index(pd.to_datetime(df['date']))['value']
-
-# Save cleaned data as a dataframe
-df.to_csv('data/UK_MP.csv', header=True)</code></pre>
-	<h3> Simple line plot </h3>
-	<p>As the last step for this example, we can visually inspect the results by producing a line plot.</p>
-	<p>In[3]:</p>
-	<pre><code class="python"># Title and text with recent value
-title = 'U.K. Import Prices (index, {}=100)'.format(baseyr)
-recentdt = obs[-1]['@TIME_PERIOD']
-recentval = df[-1]
-recent = 'Most recent: {}: {}'.format(recentdt, recentval)
-
-# Basic plot 
-ax = df.plot(title=title, colormap='Set1')
-ax.set_xlabel(recent)</code></pre>
-	<p>Out[3]:</p>
-	<img src="https://github.com/bdecon/bdecon.github.io/raw/master/images/UK_MP.png" alt="Pandas Plot Output" style="max-width: 100%;"/>
-
-
-	<h3>Variations: breaking down the request</h3>
-
-	<p>The IMF's API url, combined with a method, series, frequency, area, and indicator specific key, provides a JSON structured dataset. These last five components, which are variable, combine to serve as the key to the request in the short example above, and are explained in more detail as follows:<p>
-
-	<ul>
-		<li> <p> Method: CompactData retrieves data, DataStructure retrieves series information, and GenericMetadata returns the metadata;</p> </li>
-		<li> <p> Series: The broad group of indicators, in this case International Financial Statistics 'IFS';</p> </li>
-		<li> <p> Frequency: For example monthly 'M', quarterly 'Q', or annually 'A'; </p> </li>
-		<li> <p> Area: The country, region, or set of countries, for example 'GB' for the U.K., or 'GB+US' for the U.K. and the U.S.; </p> </li>
-		<li> <p> Indicator: The code for the indicator of interest--IFS includes more that 2500; and </p> </li>
-		<li> <p> Date Range (Optional): Use this to limit the data range returned, for example '?startPeriod=2010&endPeriod=2017' otherwise the full set of data is returned. </p> </li>
-	</ul>
-	<p>These components are combined as: {Method}/{Series}/{Frequency}.{Area}.{Indicator}.{Date Range}</p>
+	</a>
 	</article>
 	</section>
 	
