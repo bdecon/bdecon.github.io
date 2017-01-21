@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title> BD Economics | Python for Macroeconomic Data Analysis </title>
+	<title> BD Economics | IMF API Guide, Part 1 </title>
 	<link rel="stylesheet" href="add-ins/github.css">
 	<script src="add-ins/highlight.pack.js"></script>
 	<script>hljs.initHighlightingOnLoad();</script>
@@ -46,18 +46,40 @@
 	</nav>
 	
 	<header>
-	<h1>Python</h1>
+	<h1>IMF API</h1>
 	</header>
 	<section>
 	<article class="article_links">
+	<a href="imfapi1.html">
 	<div class="card">
 	  <div class="card_head_blue">
-		<h2>IMF API</h2>
+		<h2>Part 1</h2>
 	  </div>
 	  <div class="card_tail">
-		<p>Examples of reading data from the International Monetary Fund's application programming interface.</p>
+		<p>A <strong>quick example</strong> of requesting, cleaning up, saving to csv, and then plotting a series from IFS using the API.</p>
 	  </div>
 	</div>
+	</a>
+	<a href="imfapi2.html">
+	<div class="card_dull">
+	  <div class="card_head_blue">
+		<h2>Part 2</h2>
+	  </div>
+	  <div class="card_tail">
+		<p>An example of how to find the <strong>dimensions and codes</strong> which correspond to your data of interest.</p>
+	  </div>
+	</div>
+	</a>
+	<a href="imfapi3.html">
+	<div class="card_dull">
+	  <div class="card_head_blue">
+		<h2>Part 3</h2>
+	  </div>
+	  <div class="card_tail">
+		<p>How to retrieve the <strong>metadata</strong> for your series of interest and how to make more <strong>advanced requests</strong> from the API.</p>
+	  </div>
+	</div>
+	</a>
 	</article>
 	<article class="article_code">
 	<h3> IMF API with Python: An example </h3>
@@ -117,11 +139,14 @@ ax.set_xlabel(recent)</code></pre>
 		<li> <p> Series: The broad group of indicators, in this case International Financial Statistics 'IFS';</p> </li>
 		<li> <p> Frequency: For example monthly 'M', quarterly 'Q', or annually 'A'; </p> </li>
 		<li> <p> Area: The country, region, or set of countries, for example 'GB' for the U.K., or 'GB+US' for the U.K. and the U.S.; </p> </li>
-		<li> <p> Indicator: The code for the indicator of interest--IFS includes more that 2500; and </p> </li>
+		<li> <p> Indicator: The code for the indicator of interest--IFS includes more that 2,500. In the example above, the code of interest is 'PMP_IX'; and </p> </li>
 		<li> <p> Date Range (Optional): Use this to limit the data range returned, for example '?startPeriod=2010&endPeriod=2017' otherwise the full set of data is returned. </p> </li>
 	</ul>
 	<p>These components are combined as: {Method}/{Series}/{Frequency}.{Area}.{Indicator}.{Date Range}</p>
 	</article>
+	<div class="subfooter">
+	     <a href="imfapi2.html">Next (Part 2) &raquo;</a>
+	</div>
 	</section>
 	
 		<footer>
