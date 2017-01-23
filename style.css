@@ -50,7 +50,7 @@ nav{
 	}
 .nav_main{font-weight: bold; padding: 0 10px 0 10px;}
 .ul_nav li a:hover{background-color: #111;}
-.active{background-color: #FF5733;}
+.active{background-color: #FF2F2F;}
 .ul_nav li.icon {display: none;}
 
 /* Top Navigation - Responsive */
@@ -71,7 +71,7 @@ header{
     text-align: center;
 	background-color: #939393;
     color: white;
-    font-size: 22px;
+    font-size: 20px;
 }
 header h1{padding: 0 0 12px 0;}
 header h2{padding: 20px 0 12px 0;}
@@ -146,9 +146,9 @@ section{margin: 5px; padding: 0px;}
     transition-duration: 0.4s;
     cursor: pointer;
     background-color: white; 
-    color: #FF5733; 
+    color: #FF2F2F; 
     border: none;
 }
-.button_sm:hover{background-color: #FF5733; color: white;}
+.button_sm:hover{background-color: #FF2F2F; color: white;}
 
 code {text-align: left;}
