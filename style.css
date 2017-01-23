@@ -152,3 +152,6 @@ section{margin: 5px; padding: 0px;}
 .button_sm:hover{background-color: #FF2F2F; color: white;}
 
 code {text-align: left;}
+
+.fa.fa-caret-down {color: #FF2F2F;}
+.fa.fa-caret-up {color: #27AE60; font-size: 17px;}
