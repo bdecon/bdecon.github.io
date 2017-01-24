@@ -2,14 +2,14 @@
 
 /* General document styling */
 html{
-	margin: 0 auto; 
+	margin: 0 auto;
 	max-width: 900px;
 	min-width: 300px;
 	}
 body{
-	left: 0; 
-	font-family: Tahoma, Verdana, Segoe, sans-serif; 
-	background-color: #fff; 
+	left: 0;
+	font-family: Tahoma, Verdana, Segoe, sans-serif;
+	background-color: #fff;
 	}
 p{font-size: 12px; color: #6a6a6a;}
 
@@ -58,7 +58,7 @@ nav{
 	.ul_nav li:not(:first-child) {display: none;}
 	.ul_nav li.icon {float: right; display: inline-block;}
 	.ul_nav {width: 100%; background-color: #4B4B4B;}
-	.ul_nav.responsive {visibility: visible;}	
+	.ul_nav.responsive {visibility: visible;}
 	.ul_nav.responsive li.icon {position: absolute; right: 0; top: 0;}
 	.ul_nav.responsive li {float: none; display: inline;}
 	.ul_nav.responsive li a {display: block; text-align: left;}
@@ -91,16 +91,17 @@ footer{display: block; margin: 2em 0 0 0; border-top: thin dotted; }
 	width: 49%;
 	Float: right;
 	display:inline;
-	text-align: right;	
+	text-align: right;
 }
 /* Section formatting */
 section{margin: 5px; padding: 0px;}
 .article_code{padding-top: 10px;}
 .article_links{
-	padding-top: 5px;     
+	padding-top: 5px;
     width: 100%;
 	text-align:center;
 	}
+.article_links a{text-decoration: none;}
 /* Cards with Links */
 .card {
 	width: 250px;
@@ -123,7 +124,7 @@ section{margin: 5px; padding: 0px;}
 }
 .card_dull:hover{opacity: 1;}
 .card:hover{box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
-			width: 252px;}
+			width: 252px; text-decoration: none;}
 .card_head_blue{background-color: #3441de; color: white; padding: 10px; font-size: 40px;}
 .card_head_yellow{background-color: #FFC300; color: white; padding: 10px; font-size: 40px;}
 .card_head_green{background-color: #27AE60; color: white; padding: 10px; font-size: 40px;}
@@ -145,11 +146,12 @@ section{margin: 5px; padding: 0px;}
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
     cursor: pointer;
-    background-color: white; 
-    color: #FF2F2F; 
+    background-color: white;
+    color: #FF2F2F;
     border: none;
 }
 .button_sm:hover{background-color: #FF2F2F; color: white;}
+.footer_right a {text-decoration: none;}
 
 code {text-align: left;}
 
