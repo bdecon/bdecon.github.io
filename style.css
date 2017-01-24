@@ -102,6 +102,7 @@ section{margin: 5px; padding: 0px;}
 	text-align:center;
 	}
 .article_links a{text-decoration: none;}
+
 /* Cards with Links */
 .card {
 	width: 250px;
@@ -111,6 +112,7 @@ section{margin: 5px; padding: 0px;}
 	display: inline-block;
 	text-align: center;
 	text-decoration: none;
+	vertical-align:middle;
 }
 .card_dull{
 	width: 250px;
@@ -121,13 +123,17 @@ section{margin: 5px; padding: 0px;}
 	text-align: center;
 	text-decoration: none;
 	opacity: 0.5;
+	vertical-align:middle;
 }
 .card_dull:hover{opacity: 1;}
 .card:hover{box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
 			width: 252px; text-decoration: none;}
-.card_head_blue{background-color: #3441de; color: white; padding: 10px; font-size: 40px;}
-.card_head_yellow{background-color: #FFC300; color: white; padding: 10px; font-size: 40px;}
-.card_head_green{background-color: #27AE60; color: white; padding: 10px; font-size: 40px;}
+.card_head_blue{background-color: #3441de; color: white; padding: 10px; }
+.card_head_yellow{background-color: #FFC300; color: white; padding: 10px;}
+.card_head_green{background-color: #27AE60; color: white; padding: 10px;}
+.card_head_red{background-color: #FF2F2F; color: white; padding: 10px;}
+.card_head_orange{background-color: #FF8700; color: white; padding: 10px;}
+.card_head_purple{background-color: #6f21de; color: white; padding: 10px;}
 .card_tail{padding: 10px; background-color: white; height: 70px;}
 
 .subfooter{width:100%; text-align: center; font-size: 16px; padding-top:10px;}
