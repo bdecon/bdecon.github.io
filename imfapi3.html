@@ -45,16 +45,16 @@
 	<nav>
 		<ul class="ul_nav" id="myTopnav">
 			<li class="nav_main"> <a href="index.html">BD Economics</a> </li>
-			<li><a href="MacroDash.pdf">Dashboard</a> </li>
+			<li><a href="dash.html">Dashboard</a> </li>
 			<li><a class="active" href="python.html">Python</a> </li>
 			<li><a href="http://briandew.wordpress.com">Blog</a> </li>
 			<li><a href="about.html">About</a> </li>
-			<li class="icon"> <a href="javascript:void(0);" 
-				style="font-size:15px;" onclick="myFunction()">&#9776;</a> 
+			<li class="icon"> <a href="javascript:void(0);"
+				style="font-size:15px;" onclick="myFunction()">&#9776;</a>
 			</li>
 		</ul>
 	</nav>
-	
+
 	<header>
 	<h1>IMF API</h1>
 	</header>
@@ -113,7 +113,7 @@ indicator = metadata['GenericMetadata']['MetadataSet']\
             [1]['ReportedAttribute'][4]['Value']['#text']
 print 'Country: {}; Indicator: {}'.format(country, indicator)</code></pre>
 	<p>Out[1]:</p>
-	<pre>Country: United Kingdom; 
+	<pre>Country: United Kingdom;
 Indicator: Import Price Index, All Commodities</pre>
 	<p>The GenericMetadata method returns several options for country and indicator names, so it may be helpful to step into the JSON data and examine what is available directly. </p>
 	<h3> More complex requests </h3>
@@ -122,7 +122,7 @@ Indicator: Import Price Index, All Commodities</pre>
 	<p>In[2]:</p>
 	<pre><code class="python">import pandas as pd           # pandas version 0.18.1
 
-key = 'CompactData/DOT/M.GB.TMG_CIF_USD.B0+W00' 
+key = 'CompactData/DOT/M.GB.TMG_CIF_USD.B0+W00'
 dates = '?startPeriod=2000'   # add to limit start date
 data = requests.get('{}{}{}'.format(url, key, dates)).json()\
                     ['CompactData']['DataSet']['Series']
@@ -147,15 +147,15 @@ ax.set_xlabel(recent)</code></pre>
 
 The Data Services section of the IMF's website offers useful guidance on the APIs, and has a separate news section, which is a good place to check if something breaks. Finally, some guidance on handling large queries is available here:</p>
 	<p>On the python side: <br>
-	
+
 	</p>
 	<p>R package by Mingjer Lee to access the IMF API: https://github.com/mingjerli/IMFData </p>
 	</article>
 	<div class="subfooter">
-	    <a href="imfapi2.html"> &laquo; Back (Part 2)</a> 
+	    <a href="imfapi2.html"> &laquo; Back (Part 2)</a>
 	</div>
 	</section>
-	
+
 		<footer>
 		<div class="footer_left">
 			<p>Made January 18, 2017 <br> by Brian Dew</p>
@@ -187,4 +187,3 @@ The Data Services section of the IMF's website offers useful guidance on the API
 	</script>
 </body>
 </html>
-

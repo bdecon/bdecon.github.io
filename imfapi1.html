@@ -45,16 +45,16 @@
 	<nav>
 		<ul class="ul_nav" id="myTopnav">
 			<li class="nav_main"> <a href="index.html">BD Economics</a> </li>
-			<li><a href="MacroDash.pdf">Dashboard</a> </li>
+			<li><a href="dash.html">Dashboard</a> </li>
 			<li><a class="active" href="python.html">Python</a> </li>
 			<li><a href="http://briandew.wordpress.com">Blog</a> </li>
 			<li><a href="about.html">About</a> </li>
-			<li class="icon"> <a href="javascript:void(0);" 
-				style="font-size:15px;" onclick="myFunction()">&#9776;</a> 
+			<li class="icon"> <a href="javascript:void(0);"
+				style="font-size:15px;" onclick="myFunction()">&#9776;</a>
 			</li>
 		</ul>
 	</nav>
-	
+
 	<header>
 	<h1>IMF API</h1>
 	</header>
@@ -111,7 +111,7 @@ data['CompactData']['DataSet']['Series']['Obs'][-1]</code></pre>
 	<p>Next, we'll use pandas to clean up the data obtained above, save it as a csv file, and produce a simple line plot.</p>
 	<p>In[2]:</p>
 	<pre><code class="python">import pandas as pd          # pandas version 0.18.1
-		
+
 # Navigate to observations in JSON data
 obs = data['CompactData']['DataSet']['Series']['Obs']
 baseyr = obs[-1]['@BASE_YEAR']  # Save the base year
@@ -133,7 +133,7 @@ recentdt = obs[-1]['@TIME_PERIOD']
 recentval = df[-1]
 recent = 'Most recent: {}: {}'.format(recentdt, recentval)
 
-# Basic plot 
+# Basic plot
 ax = df.plot(title=title, colormap='Set1')
 ax.set_xlabel(recent)</code></pre>
 	<p>Out[3]:</p>
@@ -158,7 +158,7 @@ ax.set_xlabel(recent)</code></pre>
 	     <a href="imfapi2.html">Next (Part 2) &raquo;</a>
 	</div>
 	</section>
-	
+
 		<footer>
 		<div class="footer_left">
 			<p>Made January 18, 2017 <br> by Brian Dew</p>
@@ -188,7 +188,6 @@ ax.set_xlabel(recent)</code></pre>
 			}
 		}
 	</script>
-	
+
 </body>
 </html>
-

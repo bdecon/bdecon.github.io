@@ -45,16 +45,16 @@
 	<nav>
 		<ul class="ul_nav" id="myTopnav">
 			<li class="nav_main"> <a href="index.html">BD Economics</a> </li>
-			<li><a href="MacroDash.pdf">Dashboard</a> </li>
+			<li><a href="dash.html">Dashboard</a> </li>
 			<li><a class="active" href="python.html">Python</a> </li>
 			<li><a href="http://briandew.wordpress.com">Blog</a> </li>
 			<li><a href="about.html">About</a> </li>
-			<li class="icon"> <a href="javascript:void(0);" 
-				style="font-size:15px;" onclick="myFunction()">&#9776;</a> 
+			<li class="icon"> <a href="javascript:void(0);"
+				style="font-size:15px;" onclick="myFunction()">&#9776;</a>
 			</li>
 		</ul>
 	</nav>
-	
+
 	<header>
 	<h1>IMF API</h1>
 	</header>
@@ -99,7 +99,7 @@
 	<p>The 'Dataflow' method offers JSON formatted information on which series are available through the API. To find the series of interest (for example Direction of Trade Statistics) with Python, we can search a dictionary with the series names and their IDs.</p>
 	<p>In[1]:</p>
 	<pre><code class="python">import requests # Python 2.7, requests version 2.12.4
-	
+
 url = 'http://dataservices.imf.org/REST/SDMX_JSON.svc/'
 key = 'Dataflow' # Method with series information
 search_term = 'Trade'  # Term to find in series names
@@ -107,7 +107,7 @@ s_list = requests.get('{}{}'.format(url,key)).json()\
             ['Structure']['Dataflows']['Dataflow']
 # Use dict keys to navigate through results:
 for s in range(len(s_list)):
-    if search_term in s_list[s]['Name']['#text']:    
+    if search_term in s_list[s]['Name']['#text']:
         print '{}: {}'.format(s_list[s]['Name']['#text'],
                               s_list[s]['KeyFamilyRef']
                               ['KeyFamilyID'])</code></pre>
@@ -139,7 +139,7 @@ key = 'CodeList/{}'.format(d_list[2]['@codelist'])
 c_list = requests.get('{}{}'.format(url,key)).json()\
             ['Structure']['CodeLists']['CodeList']['Code']
 for c in range(len(c_list)):
-    print '{}: {}'.format(c_list[c]['Description']['#text'], 
+    print '{}: {}'.format(c_list[c]['Description']['#text'],
                           c_list[c]['@value'])</code></pre>
 	<p>Out[3]:</p>
 	<pre>Goods, Value of Exports, Free on board (FOB), US Dollars: TXG_FOB_USD
@@ -157,7 +157,7 @@ All Indicators: All_Indicators</pre>
 	    <a href="imfapi1.html"> &laquo; Back (Part 1)</a> | <a href="imfapi3.html">Next (Part 3) &raquo;</a>
 	</div>
 	</section>
-	
+
 		<footer>
 		<div class="footer_left">
 			<p>Made January 18, 2017 <br> by Brian Dew</p>
@@ -187,7 +187,6 @@ All Indicators: All_Indicators</pre>
 			}
 		}
 	</script>
-	
+
 </body>
 </html>
-

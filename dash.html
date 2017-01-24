@@ -1,59 +1,130 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta id="meta" name="viewport"
-content="width=device-width, initial-scale=1.0">
-<title> bd econ | tools for economists </title>
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-<script src="https://use.fontawesome.com/8f99c5621e.js"></script>
-<meta charset="UTF-8">
-<meta name="description" content="Tools for Economists">
-<meta name="keywords" content="IMF API, Economics Dashboard, Trade Network, Trade Networks, Macroeconomics Dashboard, Macroeconomic Dashboard, Markets Dashboard, Market Dashboard, U.S. Economy, U.S. Economy Dashboard, US economy, US economy dashboard, US economy charts, US economy charts pdf, NetworkX trade, international trade networks, network analysis of trade, International Monetary Fund, IMF Statistics Department, IMF Application Programming Interface, International Monetary Fund Application Programming Interface, International Monetary Fund API">
-<meta name="author" content="Brian Dew">
+	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+	<title> BD Economics | Macroeconomic and Markets Dashboards</title>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
+	<script src="https://use.fontawesome.com/8f99c5621e.js"></script>
+	<meta charset="UTF-8">
+	<meta name="description" content="Tools for Economists">
+	<meta name="keywords" content="IMF API, Economics Dashboard, Trade Network, Trade Networks, Macroeconomics Dashboard, Macroeconomic Dashboard, Markets Dashboard, Market Dashboard, U.S. Economy, U.S. Economy Dashboard, US economy, US economy dashboard, US economy charts, US economy charts pdf, NetworkX trade, international trade networks, network analysis of trade, International Monetary Fund, IMF Statistics Department, IMF Application Programming Interface, International Monetary Fund Application Programming Interface, International Monetary Fund API">
+	<meta name="author" content="Brian Dew">
+	<meta name="google-site-verification" content="DP-2kVWWQ6i8lPgl5gqVAy3cjr-beYZzfhNL5-nVbzs" />
+	<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="favicon/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+	<link rel="manifest" href="favicon/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-90776928-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 </head>
 <body>
-<div class="container">
+	<nav>
+		<ul class="ul_nav" id="myTopnav">
+			<li class="nav_main"> <a href="index.html">BD Economics</a> </li>
+			<li><a class="active" href="dash.html">Dashboard</a> </li>
+			<li><a href="python.html">Python</a> </li>
+			<li><a href="http://briandew.wordpress.com">Blog</a> </li>
+			<li><a href="about.html">About</a> </li>
+			<li class="icon"> <a href="javascript:void(0);"
+				style="font-size:15px;" onclick="myFunction()">&#9776;</a>
+			</li>
+		</ul>
+	</nav>
+	<header>
+		<h1>Dashboards</h1>
+	</header>
+	<section>
+		<article>
+			<h3>Overview</h3>
+			<p>The Macro and Markets Dashboards are automated visualizations of data collected from the web covering the U.S. economy. By bringing together macroeconomic and financial data from a variety of sources, we can more quickly and more frequently gain insight into trends and interpret developments.</p>
+		</article>
+		<article class="article_links">
+		<h3> Featured content </h3>
+			<a href="MacroDash.pdf">
+			<div class="card">
+				<div class="card_head_green">
+					<h2>Chartbook</h2>
+				</div>
+				<div class="card_tail">
+					<p>Over 100 indicators of U.S. macroeconomic performance in one pdf file, organized by sector and topic.</p>
+				</div>
+			</div>
+			</a>
+			<a href="plot.html">
+			<div class="card">
+				<div class="card_head_yellow">
+					<h2>USD MXN</h2>
+				</div>
+				<div class="card_tail">
+					<p>The Dollar has strengthened considerably against the Mexican Peso following the U.S. Presidential elections.</p>
+				</div>
+			</div>
+			</a>
+			<a href="dash/ExecDash.pdf">
+			<div class="card">
+				<div class="card_head_purple">
+					<h2>ExecDash</h2>
+				</div>
+				<div class="card_tail">
+					<p>One page summary and high-level overview of recent U.S. macroeconomic and market developments.</p>
+				</div>
+			</div>
+			</a>
+		</article>
+	</section>
 
-<!-- Site navigation menu -->
-<ul class="topnav" id="myTopnav">
-  <li><a href="index.html">Home</a>
-  <li><a href="http://briandew.wordpress.com">Blog</a>
-  <li><a class="active" href="dash.html">Dashboard</a>
-  <li><a href="about.html">About</a>
-  <li><a href="python.html">Python</a> 
-  <li class="icon">
-    <a href="javascript:void(0);" style="font-size:15px;" onclick="myFunction()">&#9776;</a>
-  </li>
-</ul>
+	<footer>
+		<div class="footer_left">
+			<p>Made January 24, 2017 <br> by Brian Dew</p>
+		</div>
+		<div class="footer_right">
+			<a href="https://github.com/bdecon/">
+				<button class="button_sm"><i class="fa fa-github"></i></button>
+			</a>
+			<a href="https://www.linkedin.com/in/brian-dew-5788a386/">
+				<button class="button_sm"><i class="fa fa-linkedin"></i></button>
+			</a>
+			<a href="https://twitter.com/bd_econ">
+				<button class="button_sm"><i class="fa fa-twitter"></i></button>
+			</a>
+			<a href="https://briandew.wordpress.com/">
+				<button class="button_sm"><i class="fa fa-wordpress"></i></button>
+			</a>
+		</div>
+	</footer>
 
-<object data="MacroDash.pdf" type="application/pdf" width="100%" height="820px">
-    <embed src="MacroDash.pdf">
-        This browser does not support PDFs. Please download the PDF to view it: <a href="MacroDash.pdf">Download PDF</a>.</p>
-    </embed>
-</object>
-
-<div class="Footer_outer">
-  <div class="Footer_inner_left">Made November 25, 2016 <br> by Brian Dew</div>
-  <div class="Footer_inner_right">
-  <a href="https://github.com/bdecon/"><button class="button"><i class="fa fa-github"></i></button></a>
-  <a href="https://www.linkedin.com/in/brian-dew-5788a386/"><button class="button"><i class="fa fa-linkedin"></i></button></a>
-  <a href="https://twitter.com/bd_econ"><button class="button"><i class="fa fa-twitter"></i></button></a>
-  <a href="https://briandew.wordpress.com/"><button class="button"><i class="fa fa-wordpress"></i> </button></a>
-  </div>
-</div> 
-
-<script>
-function myFunction() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "topnav") {
-        x.className += " responsive";
-    } else {
-        x.className = "topnav";
-    }
-}
-</script>
+	<script>
+		function myFunction() {
+			var x = document.getElementById("myTopnav");
+			if (x.className === "ul_nav") {
+				x.className += " responsive";
+			} else {
+				x.className = "ul_nav";
+			}
+		}
+	</script>
 
 </body>
 </html>
-
