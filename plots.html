@@ -58,11 +58,18 @@
 		</ul>
 	</nav>
 	<header>
-	<h3>German consumer price inflation</h3>
+	<h3>Key Indicators</h3>
 	</header>
 	<section>
 	<article>
-	<div id="targetplot"> Loading... </div>
+	<div class="plot">
+		<h4> German consumer price inflation (annual percent change)
+	<div id="targetplot1"> Loading... </div>
+  </div>
+	<div class="plot">
+		<h4> Mexican pesos per U.S. dollar
+	<div id="targetplot2"> Loading... </div>
+  </div>
 	</article>
 	</section>
 
@@ -97,7 +104,10 @@
 	</script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script type="text/javascript">
-		$('#targetplot').load('plots/de_cpi.html');
+		$('#targetplot1').load('plots/de_cpi.html');
+	</script>
+	<script type="text/javascript">
+		$('#targetplot2').load('plots/usdmxn.html');
 	</script>
 </body>
 </html>
