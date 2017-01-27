@@ -122,23 +122,25 @@ Indicator: Import Price Index, All Commodities</pre>
 	<p>In[2]:</p>
 	<pre><code class="python">import pandas as pd           # pandas version 0.18.1
 
+# key includes two partners, B0 and W00 for EU and world
 key = 'CompactData/DOT/M.GB.TMG_CIF_USD.B0+W00'
-dates = '?startPeriod=2000'   # add to limit start date
+dates = '?startPeriod=2010'     # limit start date
+
 data = requests.get('{}{}{}'.format(url, key, dates)).json()\
                     ['CompactData']['DataSet']['Series']
 # Create a dict of counterpart area code: its pandas dataframe
-d = {data[i]['@COUNTERPART_AREA']: pd.DataFrame(data[i]['Obs'])\
-         .set_index('@TIME_PERIOD') for i in range(len(data))}
-df = pd.concat(d, axis=1).astype(float).reset_index() # Combine
+d = {partner['@COUNTERPART_AREA']: pd.DataFrame(partner['Obs'])
+     .set_index('@TIME_PERIOD')['@OBS_VALUE'] for partner in data}
+df = pd.concat(d, axis=1).astype(float).reset_index()
 df = df.set_index(pd.to_datetime(df['@TIME_PERIOD']))
-eu_share = df['B0']['@OBS_VALUE'].div(df['W00']['@OBS_VALUE'])
+eu_share = df['B0'].div(df['W00'])
 
 # Create a line plot and print most recent value as x label
 title = "U.K. imports of goods: European Union share of total"
 recentdt = d['B0'].index[-1]
 recentval = (eu_share[-1] * 100).round(1)
 recent = 'Most recent: {}: {}%'.format(recentdt, recentval)
-ax = eu_share.plot(title = title, colormap='jet')
+ax = eu_share.plot(title=title, colormap='jet')
 ax.set_xlabel(recent)</code></pre>
 	<p>Out[2]:</p>
 	<img src="https://github.com/bdecon/bdecon.github.io/raw/master/images/UK_M_EUsh.png" alt="Pandas Plot Output" style="max-width: 100%;"/>
