@@ -132,11 +132,11 @@ Dimension 4: CL_COUNTERPART_AREA_DOT
 <p>The codes which correspond to the dimensions identified above are combined, in order, and separated by periods, to complete the API request url. To find the list of possible codes for each dimension, we can use the CodeList method, shown below for dimension 3, indicators <code>CL_INDICATOR_DOT</code>.</p>
 	<p>In[3]:</p>
 	<pre><code class="python"># Example: codes for third dimension, which is 2 in python
-		key = 'CodeList/{}'.format(dimension_list[2]['@codelist'])
-		code_list = requests.get('{}{}'.format(url, key)).json()\
-		            ['Structure']['CodeLists']['CodeList']['Code']
-		for code in code_list:
-		    print '{}: {}'.format(code['Description']['#text'], code['@value'])</code></pre>
+key = 'CodeList/{}'.format(dimension_list[2]['@codelist'])
+code_list = requests.get('{}{}'.format(url, key)).json()\
+		        ['Structure']['CodeLists']['CodeList']['Code']
+for code in code_list:
+	print '{}: {}'.format(code['Description']['#text'], code['@value'])</code></pre>
 	<p>Out[3]:</p>
 	<pre>Goods, Value of Exports, Free on board (FOB), US Dollars: TXG_FOB_USD
 Goods, Value of Imports, Cost, Insurance, Freight (CIF), US Dollars: TMG_CIF_USD
