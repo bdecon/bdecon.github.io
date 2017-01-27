@@ -96,6 +96,7 @@ footer{display: block; margin: 2em 0 0 0; border-top: thin dotted; }
 /* Section formatting */
 section{margin: 5px; padding: 0px;}
 .article_code{padding-top: 10px;}
+.article_code p code {font-weight: bold;}
 .article_links{
 	padding-top: 5px;
     width: 100%;
