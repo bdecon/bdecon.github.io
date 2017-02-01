@@ -63,7 +63,7 @@
 	<section>
 	<article>
 	<div class="plot">
-		<h4> German consumer price inflation (annual percent change)
+		<h4> German consumer price index, annual percent change
 	<div id="targetplot1"> Loading... </div>
   </div>
 	<div class="plot">
@@ -71,8 +71,12 @@
 	<div id="targetplot2"> Loading... </div>
   </div>
 	<div class="plot">
-		<h4> CBOE Volatility Index (VIX), U.S. Equities
+		<h4> CBOE volatility index (VIX), U.S. equities
 	<div id="targetplot3"> Loading... </div>
+  </div>
+	<div class="plot">
+		<h4> U.S. real gross domestic product (GDP), quarterly growth
+	<div id="targetplot4"> Loading... </div>
   </div>
 	</article>
 	</section>
@@ -115,6 +119,9 @@
 	</script>
 	<script type="text/javascript">
 		$('#targetplot3').load('plots/vix.html');
+	</script>
+	<script type="text/javascript">
+		$('#targetplot4').load('plots/gdp.html');
 	</script>
 </body>
 </html>
