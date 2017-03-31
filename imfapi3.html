@@ -106,10 +106,10 @@ url = 'http://dataservices.imf.org/REST/SDMX_JSON.svc/'
 key = 'GenericMetadata/IFS/M.GB.PMP_IX'
 metadata = requests.get('{}{}'.format(url,key)).json()
 country = metadata['GenericMetadata']['MetadataSet']\
-            ['AttributeValueSet'][0]['ReportedAttribute']\
+            ['AttributeValueSet'][1]['ReportedAttribute']\
             [1]['ReportedAttribute'][3]['Value']['#text']
 indicator = metadata['GenericMetadata']['MetadataSet']\
-            ['AttributeValueSet'][1]['ReportedAttribute']\
+            ['AttributeValueSet'][2]['ReportedAttribute']\
             [1]['ReportedAttribute'][4]['Value']['#text']
 print 'Country: {}; Indicator: {}'.format(country, indicator)</code></pre>
 	<p>Out[1]:</p>
@@ -137,7 +137,7 @@ eu_share = df['B0'].div(df['W00'])
 
 # Create a line plot and print most recent value as x label
 title = "U.K. imports of goods: European Union share of total"
-recentdt = d['B0'].index[-1]
+recentdt = eu_share.dropna().index[-1].strftime('%B %Y')
 recentval = (eu_share[-1] * 100).round(1)
 recent = 'Most recent: {}: {}%'.format(recentdt, recentval)
 ax = eu_share.plot(title=title, colormap='jet')
