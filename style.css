@@ -165,3 +165,18 @@ code {text-align: left;}
 
 .fa.fa-caret-down {color: #FF2F2F;}
 .fa.fa-caret-up {color: #27AE60; font-size: 17px;}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+		font-size: 13px
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+img.image_map {width: 100%}
