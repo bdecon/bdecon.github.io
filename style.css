@@ -177,6 +177,8 @@ th, td {
 		font-size: 13px
 }
 
+td:first-child { font-weight: bold }
+
 tr:nth-child(even){background-color: #f2f2f2}
 
 img.image_map {width: 100%}
