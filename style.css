@@ -182,3 +182,7 @@ td:first-child { font-weight: bold }
 tr:nth-child(even){background-color: #f2f2f2}
 
 img.image_map {width: 100%}
+
+table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after {
+    content: " \25B4\25BE"
+}
