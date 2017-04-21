@@ -6,11 +6,6 @@
 	<link rel="stylesheet" href="style.css">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 	<script src="https://use.fontawesome.com/8f99c5621e.js"></script>
-	<link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-0.12.4.min.css" type="text/css" />
-    <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-0.12.4.min.js"></script>
-	<script type="text/javascript">
-    Bokeh.set_log_level("info");
-	</script>
 	<meta charset="UTF-8">
 	<meta name="description" content="Tools for Economists">
 	<meta name="keywords" content="IMF API, Economics Dashboard, Trade Network, Trade Networks, Macroeconomics Dashboard, Macroeconomic Dashboard, Markets Dashboard, Market Dashboard, U.S. Economy, U.S. Economy Dashboard, US economy, US economy dashboard, US economy charts, US economy charts pdf, NetworkX trade, international trade networks, network analysis of trade, International Monetary Fund, IMF Statistics Department, IMF Application Programming Interface, International Monetary Fund Application Programming Interface, International Monetary Fund API">
@@ -43,12 +38,13 @@
   ga('send', 'pageview');
 
 </script>
+	<script src="add-ins/sorttable.js"></script>
 </head>
 <body>
 	<nav>
 		<ul class="ul_nav" id="myTopnav">
 			<li class="nav_main"> <a href="index.html">BD Economics</a> </li>
-			<li><a class="active" href="dash.html">Dashboard</a> </li>
+			<li><a href="dash.html">Dashboard</a> </li>
 			<li><a href="python.html">Python</a> </li>
 			<li><a href="http://briandew.wordpress.com">Blog</a> </li>
 			<li><a href="about.html">About</a> </li>
@@ -62,11 +58,13 @@
 	</header>
 	<section>
 	<article>
-		<p>
-		<img class="image_map" src = "Dash/unemp_map.png"
-				 alt = "Unemployment rate by metro area (map)" />
-		</p>
-	<div id="targetplot"> Loading... </div>
+		<article>
+				<p>
+				<img class="image_map" src = "Dash/unemp_map.png"
+						 alt = "Unemployment rate by metro area (map)" />
+				</p>
+			<div id="targetplot"> Loading... </div>
+			</article>
 	</article>
 	</section>
 
@@ -103,6 +101,5 @@
 	<script type="text/javascript">
 		$('#targetplot').load('Dash/unemp_table.html');
 	</script>
-
 </body>
 </html>
