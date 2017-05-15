@@ -14,21 +14,27 @@
 
     d3.csv("mydata.csv", function (data) {
 
+      var widthScale = d3.scaleLinear()
+                        .domain([0, 50])
+                        .range([0, 450]);
+
         var canvas = d3.select("body").append("svg")
           .attr("width", 500)
-          .attr("height", 500)
+          .attr("height", 800)
+          .append("g")
+          .attr("transform", "translate(20, 0)");
 
         canvas.selectAll("rect")
           .data(data)
           .enter()
             .append("rect")
-            .attr("width", function (d) { return d.age * 10; })
+            .attr("width", function (d) { return d.age * 9; })
             .attr("height", 45)
             .attr("y", function (d, i) { return i * 50; })
             .attr("fill", "blue")
             .on("mouseover", function() {
             d3.select(this)
-              .attr("fill", "red");
+            	.attr("fill", "red");
             })
             .on("mouseout", function() {
             d3.select(this)
@@ -43,6 +49,10 @@
             .attr("y", function (d, i) { return i * 50 + 25; })
             .attr("x", 10)
             .text(function (d) { return d.name; });
+
+            canvas.append("g")
+              .attr("transform", "translate(0, 310)")
+              .call(d3.axisBottom(widthScale).ticks(5));
       });
 
   </script>
