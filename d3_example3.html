@@ -25,7 +25,15 @@
             .attr("width", function (d) { return d.age * 10; })
             .attr("height", 45)
             .attr("y", function (d, i) { return i * 50; })
-            .attr("fill", "blue");
+            .attr("fill", "blue")
+            .on("mouseover", function() {
+            d3.select(this)
+              .attr("fill", "red");
+            })
+            .on("mouseout", function() {
+            d3.select(this)
+              .attr("fill", "blue");
+            });
 
         canvas.selectAll("text")
           .data(data)
@@ -35,7 +43,7 @@
             .attr("y", function (d, i) { return i * 50 + 25; })
             .attr("x", 10)
             .text(function (d) { return d.name; });
-      })
+      });
 
   </script>
 
