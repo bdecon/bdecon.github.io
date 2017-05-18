@@ -1,5 +1,5 @@
 <!doctype html>
-
+<meta charset="utf-8">
 <html>
 
 <head>
@@ -12,48 +12,68 @@
 
   <script>
 
+  var margin = {top: 20, right: 30, bottom: 40, left: 30},
+      width = 350,
+      height = 410,
+      yScale = d3.scaleOrdinal(),
+      yAxis = d3.axisLeft().scale(yScale);
+
     d3.csv("mydata.csv", function (data) {
 
-      var widthScale = d3.scaleLinear()
-                        .domain([0, 50])
-                        .range([0, 450]);
+      var x = d3.scaleLinear()
+              .domain(d3.extent(data, function(d) { return +d.age; }))
+              .range([0, width]);
 
-        var canvas = d3.select("body").append("svg")
-          .attr("width", 500)
-          .attr("height", 800)
-          .append("g")
-          .attr("transform", "translate(20, 0)");
+      var canvas = d3.select("body").append("svg")
+        .attr("width", width + margin.left + margin.right + 10)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-        canvas.selectAll("rect")
-          .data(data)
-          .enter()
-            .append("rect")
-            .attr("width", function (d) { return d.age * 9; })
-            .attr("height", 45)
-            .attr("y", function (d, i) { return i * 50; })
-            .attr("fill", "blue")
-            .on("mouseover", function() {
-            d3.select(this)
-            	.attr("fill", "red");
-            })
-            .on("mouseout", function() {
-            d3.select(this)
-              .attr("fill", "blue");
-            });
+      canvas.selectAll("rect")
+        .data(data)
+        .enter()
+          .append("rect")
+          .attr("width", function (d) { return Math.abs(x(d.age) - x(0)); })
+          .attr("height", 35)
+          .attr("x", function (d) { return x(Math.min(0, d.age)); })
+          .attr("y", function (d, i) { return i * 50; })
+          .attr("fill", "darkblue")
+          .on("mouseover", function() {
+          d3.select(this)
+          	.attr("fill", "steelblue");
+          })
+          .on("mouseout", function() {
+          d3.select(this)
+            .attr("fill", "darkblue");
+          })
+          .attr("transform", "translate(35, 0)");
 
-        canvas.selectAll("text")
-          .data(data)
-          .enter()
-            .append("text")
-            .attr("fill", "white")
-            .attr("y", function (d, i) { return i * 50 + 25; })
-            .attr("x", 10)
-            .text(function (d) { return d.name; });
+      canvas.selectAll("text")
+        .data(data)
+        .enter()
+          .append("text")
+          .attr("fill", "black")
+          .attr("text-anchor", "end")
+          .attr("y", function (d, i) { return i * 50 + 24; })
+          .attr("x", 25)
+          .text(function (d) { return d.name; });
 
-            canvas.append("g")
-              .attr("transform", "translate(0, 310)")
-              .call(d3.axisBottom(widthScale).ticks(5));
-      });
+     canvas.append("g")
+        .attr("transform", "translate(35, 350)")
+        .call(d3.axisBottom(x).ticks(8));
+
+     canvas.append("line")
+      .attr("x1", x(0))
+      .attr("y1", -10)
+      .attr("x2", x(0))
+      .attr("y2", height - margin.top - margin.bottom)
+      .style("stroke-width", 2)
+      .style("stroke", "gray")
+      .style("fill", "none")
+      .attr("transform", "translate(35, 0)");
+
+    });
 
   </script>
 
