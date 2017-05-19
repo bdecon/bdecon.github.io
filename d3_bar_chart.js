@@ -1,7 +1,7 @@
-var margin = {top: 10, right: 30, bottom: 5, left: 30},
-    width = 240,
+var margin = {top: 10, right: 30, bottom: 5, left: 70},
+    width = 200,
     height = 220,
-    shift = 50,
+    shift = 10,
     numberOfTicks = 8,
     fig_height = height - margin.top - margin.bottom;
 
@@ -38,16 +38,35 @@ var margin = {top: 10, right: 30, bottom: 5, left: 30},
         })
         .attr("transform", "translate(" + shift + ", 0)");
 
-    canvas.selectAll("text")
+    canvas.selectAll("text.y_label")
       .data(data)
       .enter()
         .append("text")
+        .attr("class", "y_label")
         .attr("fill", "black")
         .style("font-size", "12px")
         .attr("text-anchor", "end")
         .attr("y", function (d, i) { return i * y_spacing + 12; })
-        .attr("x", shift - 30)
+        .attr("x", shift - 35)
         .text(function (d) { return d.name; });
+
+    canvas.selectAll("text.value_label")
+      .data(data)
+      .enter().append("text")
+        .attr("class", "value_label")
+        .text(function(d) {return d.age;})
+        .attr("text-anchor", "left")
+        .attr("x", function(d, i) {
+            if (d.age <= 0) {
+                console.log(d.age);
+                return  x(Math.min(0, d.age)) + shift - 15;
+            }
+            else {return  x(Math.min(0, d.age)) + Math.abs(x(d.age) - x(0)) + shift + 1;}
+        })
+        .attr("y", function (d, i) { return i * y_spacing + 12; })
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "9px")
+        .attr("fill", "black");
 
    canvas.append("g")
       .attr("transform", "translate(" + shift + "," + fig_height + ")")
