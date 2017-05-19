@@ -1,14 +1,14 @@
-var margin = {top: 10, right: 30, bottom: 5, left: 70},
-    width = 200,
-    height = 220,
+var margin = {top: 10, right: 30, bottom: 5, left: 125},
+    width = 150,
+    height = 240,
     shift = 10,
-    numberOfTicks = 8,
+    numberOfTicks = 5,
     fig_height = height - margin.top - margin.bottom;
 
-  d3.csv("mydata.csv", function (data) {
+  d3.csv("mydata2.csv", function (data) {
 
     var x = d3.scaleLinear()
-            .domain(d3.extent(data, function(d) { return +d.age; }))
+            .domain(d3.extent(data, function(d) { return +d.value; }))
             .range([0, width]);
 
     var y_spacing = fig_height / data.length;
@@ -23,9 +23,9 @@ var margin = {top: 10, right: 30, bottom: 5, left: 70},
       .data(data)
       .enter()
         .append("rect")
-        .attr("width", function (d) { return Math.abs(x(d.age) - x(0)); })
+        .attr("width", function (d) { return Math.abs(x(d.value) - x(0)); })
         .attr("height", y_spacing - 10)
-        .attr("x", function (d) { return x(Math.min(0, d.age)); })
+        .attr("x", function (d) { return x(Math.min(0, d.value)); })
         .attr("y", function (d, i) { return i * y_spacing; })
         .attr("fill", "darkblue")
         .on("mouseover", function() {
@@ -47,21 +47,21 @@ var margin = {top: 10, right: 30, bottom: 5, left: 70},
         .style("font-size", "12px")
         .attr("text-anchor", "end")
         .attr("y", function (d, i) { return i * y_spacing + 12; })
-        .attr("x", shift - 35)
+        .attr("x", shift - 25)
         .text(function (d) { return d.name; });
 
     canvas.selectAll("text.value_label")
       .data(data)
       .enter().append("text")
         .attr("class", "value_label")
-        .text(function(d) {return d.age;})
+        .text(function(d) {return d3.format(".1f")(d.value);})
         .attr("text-anchor", "left")
         .attr("x", function(d, i) {
-            if (d.age <= 0) {
-                console.log(d.age);
-                return  x(Math.min(0, d.age)) + shift - 15;
+            if (d.value <= 0) {
+                console.log(d.value);
+                return  x(Math.min(0, d.value)) + shift - 18;
             }
-            else {return  x(Math.min(0, d.age)) + Math.abs(x(d.age) - x(0)) + shift + 1;}
+            else {return  x(Math.min(0, d.value)) + Math.abs(x(d.value) - x(0)) + shift + 1;}
         })
         .attr("y", function (d, i) { return i * y_spacing + 12; })
         .attr("font-family", "sans-serif")
