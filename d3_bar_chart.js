@@ -31,7 +31,7 @@ var margin = {top: 10, right: 30, bottom: 5, left: 140},
         .attr("fill", "darkblue")
         .on("mouseover", function() {
         d3.select(this)
-          .attr("fill", "orangered");
+          .attr("fill", "firebrick");
         })
         .on("mouseout", function() {
         d3.select(this)

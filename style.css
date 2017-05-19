@@ -18,7 +18,7 @@ h1, h2, h3{font-family: 'Montserrat'; line-height: 1.25;}
 hl{margin: 0 0 10px; font-size: 40px;}
 h2{margin: 0 0 10px; font-size: 32px;}
 h3{margin: 10px 0 10px; font-size: 24px;}
-h4{margin: 0; padding:5px;}
+.chart_title{margin: 0; padding:5px; font-size: 18px;}
 h6{margin: 0 0 5px 15px; padding:0px;}
 
 /* Styling for links */
@@ -195,4 +195,4 @@ table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sor
 
 p.chart_footer {margin:0; padding:4px;}
 
-.outer_chart {margin-left: 3%}
+.outer_chart {margin-left: 2%}
