@@ -14,9 +14,7 @@
 
   var margin = {top: 20, right: 30, bottom: 40, left: 30},
       width = 350,
-      height = 410,
-      yScale = d3.scaleOrdinal(),
-      yAxis = d3.axisLeft().scale(yScale);
+      height = 270;
 
     d3.csv("mydata.csv", function (data) {
 
@@ -35,13 +33,13 @@
         .enter()
           .append("rect")
           .attr("width", function (d) { return Math.abs(x(d.age) - x(0)); })
-          .attr("height", 35)
+          .attr("height", 20)
           .attr("x", function (d) { return x(Math.min(0, d.age)); })
-          .attr("y", function (d, i) { return i * 50; })
+          .attr("y", function (d, i) { return i * 30; })
           .attr("fill", "darkblue")
           .on("mouseover", function() {
           d3.select(this)
-          	.attr("fill", "steelblue");
+          	.attr("fill", "orange");
           })
           .on("mouseout", function() {
           d3.select(this)
@@ -54,13 +52,15 @@
         .enter()
           .append("text")
           .attr("fill", "black")
+          .style("font-size", "12px")
           .attr("text-anchor", "end")
-          .attr("y", function (d, i) { return i * 50 + 24; })
+          .attr("y", function (d, i) { return i * 30 + 12; })
           .attr("x", 25)
           .text(function (d) { return d.name; });
 
      canvas.append("g")
-        .attr("transform", "translate(35, 350)")
+        .attr("transform", "translate(35, 210)")
+        .attr("class", "x axis")
         .call(d3.axisBottom(x).ticks(8));
 
      canvas.append("line")
