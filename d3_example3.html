@@ -3,79 +3,109 @@
 <html>
 
 <head>
-  <title>D3 tutorial</title>
-  <link rel="stylesheet" href="style.css">
   <script src="https://d3js.org/d3.v4.min.js"></script>
+  <meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title> BD Economics | Data, Analysis, and Support for Ideas </title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://use.fontawesome.com/8f99c5621e.js"></script>
+  <script type="text/javascript">
+    Bokeh.set_log_level("info");
+  </script>
+  <meta charset="UTF-8">
+  <meta name="description" content="Tools for Economists">
+  <meta name="keywords" content="IMF API, Economics Dashboard, Trade Network, Trade Networks, Macroeconomics Dashboard, Macroeconomic Dashboard, Markets Dashboard, Market Dashboard, U.S. Economy, U.S. Economy Dashboard, US economy, US economy dashboard, US economy charts, US economy charts pdf, NetworkX trade, international trade networks, network analysis of trade, International Monetary Fund, IMF Statistics Department, IMF Application Programming Interface, International Monetary Fund Application Programming Interface, International Monetary Fund API">
+  <meta name="author" content="Brian Dew">
+  <meta name="google-site-verification" content="DP-2kVWWQ6i8lPgl5gqVAy3cjr-beYZzfhNL5-nVbzs" />
+    <link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="favicon/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="manifest" href="favicon/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-90776928-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 </head>
 
 <body>
+  <nav>
+		<ul class="ul_nav" id="myTopnav">
+			<li class="nav_main"> <a href="index.html">BD Economics</a> </li>
+			<li><a class="active" href="dash.html">Dashboard</a> </li>
+			<li><a href="python.html">Python</a> </li>
+			<li><a href="http://briandew.wordpress.com">Blog</a> </li>
+			<li><a href="about.html">About</a> </li>
+			<li class="icon"> <a href="javascript:void(0);"
+				style="font-size:15px;" onclick="myFunction()">&#9776;</a>
+			</li>
+		</ul>
+	</nav>
+	<header>
+	<h3>D3.js tutorial/practice area</h3>
+	</header>
+	<section>
+	<article>
 
-  <script>
+<h4> Chart of people's ages (in years) </h4>
 
-  var margin = {top: 20, right: 30, bottom: 40, left: 30},
-      width = 350,
-      height = 270;
+<div id="chart"></div>
 
-    d3.csv("mydata.csv", function (data) {
+<script src="d3_bar_chart.js"></script>
 
-      var x = d3.scaleLinear()
-              .domain(d3.extent(data, function(d) { return +d.age; }))
-              .range([0, width]);
+<p class="chart_footer"> Some additional text can go here, as a footer </p>
 
-      var canvas = d3.select("body").append("svg")
-        .attr("width", width + margin.left + margin.right + 10)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+</article>
+</section>
 
-      canvas.selectAll("rect")
-        .data(data)
-        .enter()
-          .append("rect")
-          .attr("width", function (d) { return Math.abs(x(d.age) - x(0)); })
-          .attr("height", 20)
-          .attr("x", function (d) { return x(Math.min(0, d.age)); })
-          .attr("y", function (d, i) { return i * 30; })
-          .attr("fill", "darkblue")
-          .on("mouseover", function() {
-          d3.select(this)
-          	.attr("fill", "orange");
-          })
-          .on("mouseout", function() {
-          d3.select(this)
-            .attr("fill", "darkblue");
-          })
-          .attr("transform", "translate(35, 0)");
-
-      canvas.selectAll("text")
-        .data(data)
-        .enter()
-          .append("text")
-          .attr("fill", "black")
-          .style("font-size", "12px")
-          .attr("text-anchor", "end")
-          .attr("y", function (d, i) { return i * 30 + 12; })
-          .attr("x", 25)
-          .text(function (d) { return d.name; });
-
-     canvas.append("g")
-        .attr("transform", "translate(35, 210)")
-        .attr("class", "x axis")
-        .call(d3.axisBottom(x).ticks(8));
-
-     canvas.append("line")
-      .attr("x1", x(0))
-      .attr("y1", -10)
-      .attr("x2", x(0))
-      .attr("y2", height - margin.top - margin.bottom)
-      .style("stroke-width", 2)
-      .style("stroke", "gray")
-      .style("fill", "none")
-      .attr("transform", "translate(35, 0)");
-
-    });
-
-  </script>
+  <footer>
+  <div class="footer_left">
+    <p>Made May 19, 2017 <br> by Brian Dew</p>
+  </div>
+  <div class="footer_right">
+    <a href="https://github.com/bdecon/">
+      <button class="button_sm"><i class="fa fa-github"></i></button>
+    </a>
+    <a href="https://www.linkedin.com/in/brian-dew-5788a386/">
+      <button class="button_sm"><i class="fa fa-linkedin"></i></button>
+    </a>
+    <a href="https://twitter.com/bd_econ">
+      <button class="button_sm"><i class="fa fa-twitter"></i></button>
+    </a>
+    <a href="https://briandew.wordpress.com/">
+      <button class="button_sm"><i class="fa fa-wordpress"></i></button>
+    </a>
+  </div>
+</footer>
+<script>
+  function myFunction() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "ul_nav") {
+      x.className += " responsive";
+    } else {
+      x.className = "ul_nav";
+    }
+  }
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 </body>
 
