@@ -1,7 +1,7 @@
-var margin = {top: 10, right: 30, bottom: 5, left: 20},
-    width = 250,
+var margin = {top: 10, right: 30, bottom: 5, left: 30},
+    width = 240,
     height = 220,
-    shift = 45,
+    shift = 50,
     numberOfTicks = 8,
     fig_height = height - margin.top - margin.bottom;
 
@@ -46,7 +46,7 @@ var margin = {top: 10, right: 30, bottom: 5, left: 20},
         .style("font-size", "12px")
         .attr("text-anchor", "end")
         .attr("y", function (d, i) { return i * y_spacing + 12; })
-        .attr("x", shift - 20)
+        .attr("x", shift - 30)
         .text(function (d) { return d.name; });
 
    canvas.append("g")
