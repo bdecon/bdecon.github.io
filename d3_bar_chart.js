@@ -1,14 +1,15 @@
-var margin = {top: 10, right: 30, bottom: 5, left: 140},
+var margin = {top: 8, right: 30, bottom: 3, left: 140},
     width = 160,
-    height = 270,
+    height = 260,
     shift = 10,
     numberOfTicks = 5,
-    fig_height = height - margin.top - margin.bottom;
+    fig_height = height - margin.top - margin.bottom,
+    axis_height = fig_height - 4;
 
   d3.csv("mydata2.csv", function (data) {
 
     var x = d3.scaleLinear()
-            .domain(d3.extent(data, function(d) { return +d.value2; }))
+            .domain(d3.extent(data, function(d) { return + d.value2; }))
             .range([0, width]);
 
     var y_spacing = fig_height / data.length;
@@ -108,13 +109,13 @@ var margin = {top: 10, right: 30, bottom: 5, left: 140},
         .attr("fill", "black");
 
    canvas.append("g")
-      .attr("transform", "translate(" + shift + "," + fig_height + ")")
+      .attr("transform", "translate(" + shift + "," + axis_height + ")")
       .attr("class", "x axis")
       .call(d3.axisBottom(x).ticks(numberOfTicks));
 
    canvas.append("line")
     .attr("x1", x(0))
-    .attr("y1", -5)
+    .attr("y1", -3)
     .attr("x2", x(0))
     .attr("y2", fig_height)
     .style("stroke-width", 2)
@@ -124,7 +125,7 @@ var margin = {top: 10, right: 30, bottom: 5, left: 140},
 
     canvas.append("rect")
       .attr("x", width - 40)
-      .attr("y", height - 60)
+      .attr("y", height - 62)
       .attr("height", y_spacing - 20)
       .attr("width", 15)
       .attr("fill", "deepskyblue");
@@ -147,7 +148,7 @@ var margin = {top: 10, right: 30, bottom: 5, left: 140},
       canvas.append("text")
         .text("March 2017")
         .attr("x", width - 22)
-        .attr("y", height - 53)
+        .attr("y", height - 55)
         .attr("font-family", "sans-serif")
         .attr("font-size", "9px")
         .attr("fill", "black");
