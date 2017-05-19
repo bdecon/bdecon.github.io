@@ -1,4 +1,4 @@
-var margin = {top: 10, right: 30, bottom: 5, left: 125},
+var margin = {top: 10, right: 30, bottom: 5, left: 140},
     width = 150,
     height = 240,
     shift = 10,
@@ -75,7 +75,7 @@ var margin = {top: 10, right: 30, bottom: 5, left: 125},
 
    canvas.append("line")
     .attr("x1", x(0))
-    .attr("y1", -10)
+    .attr("y1", -5)
     .attr("x2", x(0))
     .attr("y2", fig_height)
     .style("stroke-width", 2)
