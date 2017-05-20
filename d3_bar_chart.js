@@ -4,7 +4,7 @@ var margin = {top: 8, right: 30, bottom: 3, left: 140},
     shift = 10,
     numberOfTicks = 5,
     fig_height = height - margin.top - margin.bottom,
-    axis_height = fig_height - 4;
+    axis_loc = fig_height - 4;
 
   d3.csv("mydata.csv", function (data) {
 
@@ -14,7 +14,7 @@ var margin = {top: 8, right: 30, bottom: 3, left: 140},
 
     var y_spacing = fig_height / data.length;
 
-    var canvas = d3.select("#chart").append("svg")
+    var canvas = d3.select("#bar_chart").append("svg")
       .attr("width", width + margin.left + margin.right + 10)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
@@ -109,7 +109,7 @@ var margin = {top: 8, right: 30, bottom: 3, left: 140},
         .attr("fill", "black");
 
    canvas.append("g")
-      .attr("transform", "translate(" + shift + "," + axis_height + ")")
+      .attr("transform", "translate(" + shift + "," + axis_loc + ")")
       .attr("class", "x axis")
       .call(d3.axisBottom(x).ticks(numberOfTicks));
 
