@@ -1,7 +1,7 @@
 var margin = {top: 8, right: 30, bottom: 3, left: 140},
-    width = 160,
+    width = 180,
     height = 240,
-    shift = 10,
+    shift = 0,
     numberOfTicks = 5,
     fig_height = height - margin.top - margin.bottom,
     axis_loc = fig_height - 4
@@ -119,14 +119,14 @@ var margin = {top: 8, right: 30, bottom: 3, left: 140},
     .attr("transform", "translate(" + shift + ", 0)");
 
     canvas.append("rect")
-      .attr("x", width - 40)
+      .attr("x", width - 50)
       .attr("y", height - 62)
       .attr("height", y_spacing - bar_gap)
       .attr("width", 15)
       .attr("fill", "deepskyblue");
 
     canvas.append("rect")
-      .attr("x", width - 40)
+      .attr("x", width - 50)
       .attr("y", height - 75)
       .attr("height", y_spacing - bar_gap)
       .attr("width", 15)
@@ -134,7 +134,7 @@ var margin = {top: 8, right: 30, bottom: 3, left: 140},
 
       canvas.append("text")
         .text("April 2017")
-        .attr("x", width - 22)
+        .attr("x", width - 32)
         .attr("y", height - 68)
         .attr("font-family", "sans-serif")
         .attr("font-size", "9px")
@@ -142,7 +142,7 @@ var margin = {top: 8, right: 30, bottom: 3, left: 140},
 
       canvas.append("text")
         .text("March 2017")
-        .attr("x", width - 22)
+        .attr("x", width - 32)
         .attr("y", height - 55)
         .attr("font-family", "sans-serif")
         .attr("font-size", "9px")
