@@ -6,7 +6,7 @@ var margin = {top: 8, right: 30, bottom: 3, left: 140},
     fig_height = height - margin.top - margin.bottom,
     axis_height = fig_height - 4;
 
-  d3.csv("mydata2.csv", function (data) {
+  d3.csv("mydata3.csv", function (data) {
 
     var x = d3.scaleLinear()
             .domain(d3.extent(data, function(d) { return + d.value2; }))
