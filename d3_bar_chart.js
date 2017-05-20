@@ -1,10 +1,11 @@
 var margin = {top: 8, right: 30, bottom: 3, left: 140},
     width = 160,
-    height = 260,
+    height = 240,
     shift = 10,
     numberOfTicks = 5,
     fig_height = height - margin.top - margin.bottom,
-    axis_loc = fig_height - 4;
+    axis_loc = fig_height - 4
+    bar_gap = 16;
 
   d3.csv("mydata.csv", function (data) {
 
@@ -26,7 +27,7 @@ var margin = {top: 8, right: 30, bottom: 3, left: 140},
         .append("rect")
         .attr("class", "value_1")
         .attr("width", function (d) { return Math.abs(x(d.value) - x(0)); })
-        .attr("height", y_spacing - 18)
+        .attr("height", y_spacing - bar_gap)
         .attr("x", function (d) { return x(Math.min(0, d.value)); })
         .attr("y", function (d, i) { return i * y_spacing; })
         .attr("fill", "darkblue")
@@ -46,9 +47,9 @@ var margin = {top: 8, right: 30, bottom: 3, left: 140},
         .append("rect")
         .attr("class", "value_2")
         .attr("width", function (d) { return Math.abs(x(d.value2) - x(0)); })
-        .attr("height", y_spacing - 18)
+        .attr("height", y_spacing - bar_gap)
         .attr("x", function (d) { return x(Math.min(0, d.value2)); })
-        .attr("y", function (d, i) { return i * y_spacing + y_spacing - 18; })
+        .attr("y", function (d, i) { return i * y_spacing + y_spacing - bar_gap; })
         .attr("fill", "deepskyblue")
         .on("mouseover", function() {
         d3.select(this)
@@ -85,10 +86,7 @@ var margin = {top: 8, right: 30, bottom: 3, left: 140},
             }
             else {return  x(Math.min(0, d.value)) + Math.abs(x(d.value) - x(0)) + shift + 1;}
         })
-        .attr("y", function (d, i) { return i * y_spacing + 8; })
-        .attr("font-family", "sans-serif")
-        .attr("font-size", "9px")
-        .attr("fill", "black");
+        .attr("y", function (d, i) { return i * y_spacing + 8; });
 
     canvas.selectAll("text.value_label2")
       .data(data)
@@ -103,10 +101,7 @@ var margin = {top: 8, right: 30, bottom: 3, left: 140},
             }
             else {return  x(Math.min(0, d.value2)) + Math.abs(x(d.value2) - x(0)) + shift + 1;}
         })
-        .attr("y", function (d, i) { return i * y_spacing + 8 + y_spacing - 18; })
-        .attr("font-family", "sans-serif")
-        .attr("font-size", "9px")
-        .attr("fill", "black");
+        .attr("y", function (d, i) { return i * y_spacing + 8 + y_spacing - bar_gap; });
 
    canvas.append("g")
       .attr("transform", "translate(" + shift + "," + axis_loc + ")")
@@ -126,14 +121,14 @@ var margin = {top: 8, right: 30, bottom: 3, left: 140},
     canvas.append("rect")
       .attr("x", width - 40)
       .attr("y", height - 62)
-      .attr("height", y_spacing - 20)
+      .attr("height", y_spacing - bar_gap)
       .attr("width", 15)
       .attr("fill", "deepskyblue");
 
     canvas.append("rect")
       .attr("x", width - 40)
       .attr("y", height - 75)
-      .attr("height", y_spacing - 20)
+      .attr("height", y_spacing - bar_gap)
       .attr("width", 15)
       .attr("fill", "darkblue");
 
