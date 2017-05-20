@@ -1,7 +1,7 @@
 var margin = {top: 8, right: 30, bottom: 3, left: 140},
-    width = 180,
+    width = 175,
     height = 240,
-    shift = 0,
+    shift = 2,
     numberOfTicks = 5,
     fig_height = height - margin.top - margin.bottom,
     axis_loc = fig_height - 4

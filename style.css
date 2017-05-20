@@ -194,8 +194,8 @@ table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sor
 			  display: none;
 			}
 
-p.chart_footer {margin:-3px 0 0 2%; padding:0px;}
+p.chart_footer {margin:-3px 0 0 1%; padding:0px;}
 
-.outer_chart {margin-left: 2%; }
+.outer_chart {margin-left: 1%; }
 
 .value_label, .value_label2 {font-size: 9px; fill: black; font-family: sans-serif}
