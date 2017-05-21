@@ -19,7 +19,7 @@ h1, h2, h3, h4{font-family: 'Montserrat'; line-height: 1.25;}
 hl{margin: 0 0 10px; font-size: 40px;}
 h2{margin: 0 0 10px; font-size: 32px;}
 h3{margin: 10px 0 10px; font-size: 24px;}
-.chart_title{margin: 0 0 2px 5px; padding: 0; font-size: 18px;}
+.chart_title{margin: 20px 0 2px 5px; padding: 0; font-size: 18px;}
 h6{margin: 0 0 2px 15px; padding:0;}
 
 /* Styling for links */
