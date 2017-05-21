@@ -1,7 +1,7 @@
 var margin = {top: 8, right: 30, bottom: 3, left: 140},
     width = 175,
     height = 240,
-    shift = 2,
+    shift = 3,
     numberOfTicks = 5,
     fig_height = height - margin.top - margin.bottom,
     axis_loc = fig_height - 4
@@ -132,20 +132,16 @@ var margin = {top: 8, right: 30, bottom: 3, left: 140},
       .attr("width", 15)
       .attr("fill", "darkblue");
 
-      canvas.append("text")
-        .text("April 2017")
-        .attr("x", width - 32)
-        .attr("y", height - 68)
-        .attr("font-family", "sans-serif")
-        .attr("font-size", "9px")
-        .attr("fill", "black")
+    canvas.append("text")
+      .text("April 2017")
+      .attr("x", width - 32)
+      .attr("y", height - 68)
+      .attr("class", "legend_text");
 
-      canvas.append("text")
-        .text("March 2017")
-        .attr("x", width - 32)
-        .attr("y", height - 55)
-        .attr("font-family", "sans-serif")
-        .attr("font-size", "9px")
-        .attr("fill", "black");
+    canvas.append("text")
+      .text("March 2017")
+      .attr("x", width - 32)
+      .attr("y", height - 55)
+      .attr("class", "legend_text");
 
   });

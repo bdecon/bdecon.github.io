@@ -198,4 +198,4 @@ p.chart_footer {margin:-3px 0 0 1%; padding:0px;}
 
 .outer_chart {margin-left: 1%; }
 
-.value_label, .value_label2 {font-size: 9px; fill: black; font-family: sans-serif}
+.value_label, .value_label2, .legend_text {font-size: 9px; fill: black; font-family: sans-serif}
