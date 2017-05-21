@@ -7,7 +7,7 @@ var margin = {top: 8, right: 30, bottom: 3, left: 140},
     axis_loc = fig_height - 4
     bar_gap = 16;
 
-  d3.json("d3_cpi_data.json", function (data) {
+  d3.json("d3/d3_cpi_data.json", function (data) {
 
     var x = d3.scaleLinear()
             .domain(d3.extent(data, function(d) { return + d.value2; }))
@@ -118,26 +118,26 @@ var margin = {top: 8, right: 30, bottom: 3, left: 140},
     .style("fill", "none")
     .attr("transform", "translate(" + shift + ", 0)");
 
-    canvas.append("rect")
-      .attr("x", width - 60)
-      .attr("y", height - 62)
-      .attr("height", y_spacing - bar_gap)
-      .attr("width", 15)
-      .attr("fill", "deepskyblue");
+  canvas.append("rect")
+    .attr("x", width - 60)
+    .attr("y", height - 62)
+    .attr("height", y_spacing - bar_gap)
+    .attr("width", 15)
+    .attr("fill", "deepskyblue");
 
-    canvas.append("rect")
-      .attr("x", width - 60)
-      .attr("y", height - 75)
-      .attr("height", y_spacing - bar_gap)
-      .attr("width", 15)
-      .attr("fill", "darkblue");
+  canvas.append("rect")
+    .attr("x", width - 60)
+    .attr("y", height - 75)
+    .attr("height", y_spacing - bar_gap)
+    .attr("width", 15)
+    .attr("fill", "darkblue");
 
-    canvas.selectAll("text.legend_text")
-    .data(data)
-    .enter().append("text")
-      .text(function(d) {return d.month;})
-      .attr("x", width - 42)
-      .attr("y", function (d, i) { return i * 14 + height - 68; })
-      .attr("class", "legend_text");
+  canvas.selectAll("text.legend_text")
+  .data(data)
+  .enter().append("text")
+    .text(function(d) {return d.month;})
+    .attr("x", width - 42)
+    .attr("y", function (d, i) { return i * 14 + height - 68; })
+    .attr("class", "legend_text");
 
   });
