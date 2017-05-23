@@ -190,12 +190,16 @@ table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sor
     content: " \25B4\25BE"
 }
 
-.x.axis path {
-			  display: none;
-			}
+.x.axis path, .y.axis path {display: none;}
 
 p.chart_footer {margin:-3px 0 0 1%; padding:0px;}
 
 .outer_chart {margin-left: 1%; }
 
 .value_label, .value_label2, .legend_text {font-size: 9px; fill: black; font-family: sans-serif}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}

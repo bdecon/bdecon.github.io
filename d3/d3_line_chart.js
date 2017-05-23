@@ -1,6 +1,6 @@
-var margin = {top: 20, right: 5, bottom: 20, left: 5},
+var margin = {top: 5, right: 5, bottom: 20, left: 20},
     width = 340 - margin.left - margin.right,
-    height = 230 - margin.top - margin.bottom;
+    height = 200 - margin.top - margin.bottom;
 
 var parseDate = d3.timeParse("%Y-%m-%d");
 
@@ -54,5 +54,15 @@ d3.csv("d3/d3_cpi_line.csv", function (error, data) {
     .datum(data)
     .attr("class", "line")
     .attr("d", line);
+
+  svg.append("line")
+   .attr("x1", margin.left)
+   .attr("y1", y(0))
+   .attr("x2", width - margin.right)
+   .attr("y2", y(0))
+   .style("stroke-width", 1)
+   .style("stroke", "lightgray")
+   .style("fill", "none")
+   .attr("transform", "translate(" + shift + ", 0)");
 
 });
