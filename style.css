@@ -81,6 +81,7 @@ header{
 header h1{padding: 0 0 12px 0;}
 header h2{padding: 20px 0 12px 0;}
 header h3{padding: 20px 0 12px 0; z-index:1; font-size: calc(0.7em + 1vmin)}
+text annotation{font-size: calc(0.7em + 1vmin)}
 
 /* Footer styling */
 footer{display: block; margin: 2em 0 0 0; border-top: thin dotted; }
