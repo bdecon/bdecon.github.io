@@ -220,5 +220,5 @@ p.chart_footer {margin:-3px 0 0 1%; padding:0px;}
 .plotly_map:before {
     content: '';
     display: block;
-    margin-top: -4vh;
+    margin-top: -3.8vh;
 }
