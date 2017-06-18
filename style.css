@@ -76,10 +76,11 @@ header{
 	background-color: #939393;
     color: white;
     font-size: 20px;
+	z-index:-1; position:relative;
 }
 header h1{padding: 0 0 12px 0;}
 header h2{padding: 20px 0 12px 0;}
-header h3{padding: 20px 0 12px 0;}
+header h3{padding: 20px 0 12px 0; z-index:1;}
 
 /* Footer styling */
 footer{display: block; margin: 2em 0 0 0; border-top: thin dotted; }
@@ -202,4 +203,20 @@ p.chart_footer {margin:-3px 0 0 1%; padding:0px;}
   fill: none;
   stroke: steelblue;
   stroke-width: 1.5px;
+}
+
+.plotly_map {
+    line-height: 1;
+    overflow: hidden;
+		margin-left: -2.5em;
+}
+.plotly_map:after {
+    content: '';
+    display: block;
+    margin-bottom: -2.5em;
+}
+.plotly_map:before {
+    content: '';
+    display: block;
+    margin-top: -2.5em;
 }
