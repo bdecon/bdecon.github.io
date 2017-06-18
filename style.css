@@ -81,7 +81,6 @@ header{
 header h1{padding: 0 0 12px 0;}
 header h2{padding: 20px 0 12px 0;}
 header h3{padding: 20px 0 12px 0; z-index:1; font-size: calc(0.7em + 1vmin)}
-.annotation{font-size: calc(0.7em + 1vmin)}
 
 /* Footer styling */
 footer{display: block; margin: 2em 0 0 0; border-top: thin dotted; }
@@ -182,9 +181,16 @@ th, td {
 		font-size: 13px
 }
 
+th {font-size: calc(0.5em + 0.4vmin)}
+
 td:first-child { font-weight: bold }
 
 tr:nth-child(even){background-color: #f2f2f2}
+
+tbody tr td:nth-child(3), tbody tr td:nth-child(2),
+th:nth-child(3), th:nth-child(2) {
+  text-align: center;
+}
 
 img.image_map {width: 100%}
 
