@@ -209,6 +209,7 @@ p.chart_footer {margin:-3px 0 0 1%; padding:0px;}
     line-height: 1;
     overflow: hidden;
 		margin-left: -2.5em;
+		margin-right: -2.5em;
 }
 .plotly_map:after {
     content: '';
