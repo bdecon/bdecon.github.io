@@ -215,10 +215,10 @@ p.chart_footer {margin:-3px 0 0 1%; padding:0px;}
 .plotly_map:after {
     content: '';
     display: block;
-    margin-bottom: -3.5vh;
+    margin-bottom: -4vh;
 }
 .plotly_map:before {
     content: '';
     display: block;
-    margin-top: -3.5vh;
+    margin-top: -5vh;
 }
