@@ -2,16 +2,16 @@
 <html>
 <head>
 	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-	<title> BD Economics | Macroeconomic and Markets Dashboards</title>
-	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<title> BD Economics | Data, Analysis, and Support for Ideas </title>
 	<link rel="stylesheet" href="style.css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 	<script src="https://use.fontawesome.com/8f99c5621e.js"></script>
 	<meta charset="UTF-8">
 	<meta name="description" content="Tools for Economists">
 	<meta name="keywords" content="IMF API, Economics Dashboard, Trade Network, Trade Networks, Macroeconomics Dashboard, Macroeconomic Dashboard, Markets Dashboard, Market Dashboard, U.S. Economy, U.S. Economy Dashboard, US economy, US economy dashboard, US economy charts, US economy charts pdf, NetworkX trade, international trade networks, network analysis of trade, International Monetary Fund, IMF Statistics Department, IMF Application Programming Interface, International Monetary Fund Application Programming Interface, International Monetary Fund API">
 	<meta name="author" content="Brian Dew">
 	<meta name="google-site-verification" content="DP-2kVWWQ6i8lPgl5gqVAy3cjr-beYZzfhNL5-nVbzs" />
-	<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
 	<link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
 	<link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
@@ -38,6 +38,10 @@
   ga('send', 'pageview');
 
 </script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script>
+	   $.getScript("https://www.kryogenix.org/code/browser/sorttable/sorttable.js")
+	</script>
 </head>
 <body>
 	<nav>
@@ -53,81 +57,25 @@
 		</ul>
 	</nav>
 	<header>
-		<h1>Dashboards</h1>
+	<h3>U.S. International Trade</h3>
 	</header>
 	<section>
+	<article>
 		<article>
-			<h3>Overview</h3>
-			<p>The Macro and Markets Dashboards are automated visualizations of data collected from the web covering the U.S. economy. By bringing together macroeconomic and financial data from a variety of sources, we can more quickly and more frequently gain insight into trends and interpret developments.</p>
-		</article>
-		<article class="article_links">
-		<h3> Featured content </h3>
-			<a href="MacroDash.pdf">
-			<div class="card">
-				<div class="card_head_green">
-					<h2>Chartbook</h2>
+				<p>
+					<div class="plotly_map">
+						    <a href="https://plot.ly/~bdew/49/?share_key=3sgR8FBVIMk0Me4mlEv6hy" target="_blank" title="Trade_Dynamics" style="display: block; text-align: center;"><img src="https://plot.ly/~bdew/49.png?share_key=3sgR8FBVIMk0Me4mlEv6hy" alt="Trade Dynamics" style="max-width: 100%;width: 450px;"  width="450" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+						    <script data-plotly="bdew:49" sharekey-plotly="3sgR8FBVIMk0Me4mlEv6hy" src="https://plot.ly/embed.js" async></script>
 				</div>
-				<div class="card_tail">
-					<p>Over 100 indicators of U.S. macroeconomic performance in one pdf file, organized by sector and topic.</p>
-				</div>
-			</div>
-			</a>
-			<a href="plots.html">
-			<div class="card">
-				<div class="card_head_yellow">
-					<h2>Key Series</h2>
-				</div>
-				<div class="card_tail">
-					<p>A selection of key global macroeconomic indicators, presented as interactive web graphics using Bokeh.</p>
-				</div>
-			</div>
-			</a>
-			<a href="Dash/ExecDash.pdf">
-			<div class="card">
-				<div class="card_head_purple">
-					<h2>ExecDash</h2>
-				</div>
-				<div class="card_tail">
-					<p>One-page summary and high-level overview of recent U.S. macroeconomic and market developments.</p>
-				</div>
-			</div>
-			</a>
-			<a href="Dash/JPNDash.pdf">
-			<div class="card">
-				<div class="card_head_blue">
-					<h2>Japan Dash</h2>
-				</div>
-				<div class="card_tail">
-					<p>Two-page summary of recent Japan macroeconomic developments, covering labor, industry, prices, and rates.</p>
-				</div>
-			</div>
-			</a>
-			<a href="unemp.html">
-			<div class="card">
-				<div class="card_head_orange">
-					<h2>Unemp MSA</h2>
-				</div>
-				<div class="card_tail">
-					<p>Map of recent changes to unemployment rates by metropolitan statistical area (MSA) with data table.</p>
-				</div>
-			</div>
-			</a>
-			<a href="trade.html">
-			<div class="card">
-				<div class="card_head_ltblue">
-					<h2>Trade Growth</h2>
-				</div>
-				<div class="card_tail">
-					<p>(Draft) Interactive look at the most recent U.S. international trade data by partner and product.</p>
-				</div>
-			</div>
-			</a>
-		</article>
+			</p>
+			<p>Draft -- Summary text will go here.</p>
+			</article>
+	</article>
 	</section>
 
-	<footer>
+		<footer>
 		<div class="footer_left">
-			<p>Made January 24, 2017 <br> by Brian Dew</p>
+			<p>Made January 18, 2017 <br> by Brian Dew</p>
 		</div>
 		<div class="footer_right">
 			<a href="https://github.com/bdecon/">
@@ -144,7 +92,6 @@
 			</a>
 		</div>
 	</footer>
-
 	<script>
 		function myFunction() {
 			var x = document.getElementById("myTopnav");
@@ -155,6 +102,5 @@
 			}
 		}
 	</script>
-
 </body>
 </html>

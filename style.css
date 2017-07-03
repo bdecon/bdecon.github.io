@@ -135,6 +135,7 @@ section{margin: 5px; padding: 0px;}
 .card:hover{box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
 			width: 252px; text-decoration: none;}
 .card_head_blue{background-color: #3441de; color: white; padding: 10px; }
+.card_head_ltblue{background-color: #1E90FF; color: white; padding: 10px; }
 .card_head_yellow{background-color: #FFC300; color: white; padding: 10px;}
 .card_head_green{background-color: #27AE60; color: white; padding: 10px;}
 .card_head_red{background-color: #FF2F2F; color: white; padding: 10px;}
