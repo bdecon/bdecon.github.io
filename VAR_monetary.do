@@ -2,10 +2,21 @@
 	Brian Dew
 	September 19, 2016
 	
-	Download actual do file here: 
-		
+	Download the do file here: 
+		http://www.bd-econ.com/VAR_monetary.do
 	
-	Overview:
+	Basic idea: A vector autoregression (VAR) model is used to uncover dynamic
+		correlations between monetary policy variables and prices and output.
+		Since these variables affect each other, efforts to show causation are
+		complicated. The VAR approach allows analysis of short-run relationships
+		without the need to specify which variables are endogenous or exogenous.
+		The consequence is that VAR models are a-theoretical, so they can be
+		useful for predictions/forecasts but not for generating policy advice.
+		After estimation of the VAR model, impulse response functions (IRFs) 
+		show how a one unit shock to each variable corresponds to changes in
+		each of the other variables. 
+	
+	Overview of steps:
 	1.) Retrieve GDP, M2, Monetary Base, CPI, and Fed Funds rate data
 	2.) Harmonize data and take natural log and first difference to make
 		all series stationary. Save data to csv file and dta file.
@@ -40,7 +51,7 @@
 	format qtr %tq                         /* Date formatting */
 	tsset qtr							   /* Set quarter as time series */
 
-* Natural logarithm of all variables except fed fudns rate (already in percent)
+* Natural logarithm of all variables except fed funds rate (already in percent)
 	local series_to_log GDPC1 M2SL BOGMBASE CPIAUCSL
 	foreach s in `series_to_log' {
 		gen ln_`s' = ln(`s')
@@ -56,7 +67,7 @@
 * VAR lag length selection order criteria for cointegration test
 	varsoc ln_BOGMBASE ln_M2SL FEDFUNDS ln_CPIAUCSL ln_GDPC1, maxlag(10)
 	
-* Test for cointegration
+* Johansen Test for cointegration
 	vecrank ln_BOGMBASE ln_M2SL FEDFUNDS ln_CPIAUCSL ln_GDPC1, lags(8) ic
 	
 * Take first difference to make values stationary
