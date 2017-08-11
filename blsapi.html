@@ -96,14 +96,14 @@ series = {'id': 'LNS11300000',
 	<p>In[3]:</p>
 	<pre><code class="python">data_url = '{}{}'.format(base_url, series['id'])
 print data_url</code></pre>
-	<a href="https://api.bls.gov/publicAPI/v1/timeseries/data/LNS11300000"><pre>	https://api.bls.gov/publicAPI/v1/timeseries/data/LNS11300000</pre></a>
+	<a href="https://api.bls.gov/publicAPI/v1/timeseries/data/LNS11300000"><pre>https://api.bls.gov/publicAPI/v1/timeseries/data/LNS11300000</pre></a>
 	<h4>Request data from data url</h4>
 	<p>Use the requests package to get data from the <code>data_url</code>. By specifying that the data are in json format, we convert the output to nested python dictionaries and lists. The status of the request is printed and the top-level dictionary is stored as variable <code>r</code>. </p>
 	<p>In[4]:</p>
 	<pre><code class="python">import requests
 
-	r = requests.get(data_url).json()
-	print 'Status: ' + r['status']</code></pre>
+r = requests.get(data_url).json()
+print 'Status: ' + r['status']</code></pre>
 	<pre>Status: REQUEST_SUCCEEDED</pre>
 	<h4>Check latest data value</h4>
 	<p>The dictionary <code>r</code> contains several keys:</p>
@@ -116,7 +116,7 @@ print data_url</code></pre>
 print r[0]</code></pre>
 	<pre>{u'footnotes': [{}], u'periodName': u'July', u'period': u'M07', u'value': u'62.9', u'year': u'2017'}</pre>
 	<h4>Read into pandas</h4>
-	<p>To make further calculations, such as to find the average value over the series, and to graph the results, we can use the pandas package. We create a dataframe by telling pandas the index, data, and name. Since the data in this case are a monthly time series, we can identify that the index for the series contains dates. Below a list of dates, which will be the index of the dataframe, is constructed from the values obtained using the period and year dictionary keys seen above. The first column of the pandas dataframe is the series values, named with the series id. Just in case they contain relevant information, and footnotes are included as a second column.</p>
+	<p>To make further calculations, such as to find the average value over the series, and to graph the results, we can use the pandas package. We create a dataframe by telling pandas the index, data, and name. Since the data in this case are a monthly time series, we can identify that the index for the series contains dates. Below a list of dates, which will be the index of the dataframe, is constructed from the values obtained using the period and year dictionary keys seen above. The first column of the pandas dataframe is the series values, named with the series id. Just in case they contain relevant information, the BLS footnotes are included as a second column.</p>
 	<p>In[7]:</p>
 	<pre><code class="python">import pandas as pd
 
@@ -156,7 +156,7 @@ df.tail(3)</code></pre>
 	  </tbody>
 	</table>
 <h4>Plot the results</h4>
-<p>Calculate the average value for the perios and plot both the monthly and average values to look for trends.</p>
+<p>Calculate the average value for the period and plot both the monthly values and average value to look for trends.</p>
 <p>In[8]:</p>
 <pre><code class="python">%matplotlib inline
 
@@ -165,7 +165,7 @@ df[[series['id'], 'mean']].plot(title=series['name'])</code></pre>
 <p>Out[8]:</p>
 <img src="https://github.com/bdecon/bdecon.github.io/raw/master/images/ex1.png" alt="Pandas Plot Output" style="max-width: 100%;"/>
 <h4>Summary</h4>
-<p>The first example creates a url containing the requested data by combining a base url of the API with the BLS series ID of interest. The result is a dataframe with monthly data, starting in January 2015, on the labor force participation rate. The plot above let's us quickly see when and my how much the series deviated from its full-period average. The example uses the v1 API, so the number of requests is limited as is the functionality. For more complex requests, a technique such as the one shown in example 2 is preferable.</p>
+<p>The first example creates a url containing the requested data by combining a base url of the API with the BLS series ID of interest. The result is a dataframe with monthly data, starting in January 2015, on the labor force participation rate. The plot above lets us quickly see when and by how much the series deviated from its full-period average. The example uses the v1 API, so the number of requests is limited as is the functionality. For more complex requests, a technique such as the one shown in example 2 is preferable.</p>
 <h3>Example 2: Requesting multiple series and specific dates</h3>
 <p>The second examples uses the BLS API v2 (which requires free <a href = "https://data.bls.gov/registrationEngine/">registration</a>) to request more than one series at the same time. The version 2 API has a higher daily query limit, allows more years and series to be returned in each query, and allows some additional options such as requesting data in percent change rather than level. See <a href="https://www.bls.gov/developers/api_faqs.htm#register1">difference between v1 and v2</a>.</p>
 <h4>Parameters</h4>
@@ -208,7 +208,7 @@ p = requests.post(
     headers=headers,
     data=data).json()['Results']['series']</code></pre>
 <h4>Loop through series and convert to pandas format</h4>
-<p>Since the API returns data in a uniform way, a loop can be used to apply formatting or other changes to all series in the returned json data. In the example below, all three series are converted to pandas series with a datetime index and the values converted to floats.</p>
+<p>Since the API returns data in a uniform way, a <code>for</code> loop can be used to apply formatting or other changes to all series in the returned json data. In the example below, all three series are converted to pandas series with a datetime index and the values converted to floats.</p>
 <p>In[11]:</p>
 <pre><code class="python"># Empty dictionary to fill with values
 d = {}
