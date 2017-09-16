@@ -110,13 +110,13 @@ print 'Status: ' + r['status']</code></pre>
 	<p>In[5]:</p>
 	<pre><code class="python">print r.keys()</code></pre>
 	<pre>[u'status', u'message', u'Results', u'responseTime']</pre>
-	<p>The <code>Results</code> dictionary contains a list called series. Since we have only requested one series, the first item in the list (python lists start with item <code>0</code>) contains our data: <code>r['Results']['series'][0]['data']</code>. The data are a list of dictionaries with the first item (<code>[0]</code>) being the most recent set of values, footnotes, and date information. The result is printed below.</p>
+	<p>The <code>Results</code> key contains the series list, of which the first item (python lists start with item <code>0</code>) contains our data: <code>r['Results']['series'][0]['data']</code>. The data are a list of dictionaries with the first item (<code>[0]</code>) being the most recent set of values, footnotes, and date information, printed below.</p>
 	<p>In[6]:</p>
 	<pre><code class="python">r = r['Results']['series'][0]['data']
 print r[0]</code></pre>
 	<pre>{u'footnotes': [{}], u'periodName': u'July', u'period': u'M07', u'value': u'62.9', u'year': u'2017'}</pre>
 	<h4>Read into pandas</h4>
-	<p>To make further calculations, such as to find the average value since 2015, and to graph the results, we can use the pandas package. We create a dataframe by telling pandas which parts of the API request results, <code>r</code>, to use for the index, data, and name. Since the data in this case are a monthly time series, we can identify that the index for the series contains dates. Below, a list of dates, which will be the index of the dataframe, is constructed from the values obtained using the period and year dictionary keys seen in the previously printed result-. The first column of the pandas dataframe is the series values, named with the series id. Just in case they contain relevant information, the BLS footnotes are included as a second column.</p>
+	<p>To make further calculations, such as to find the average value over the series, and to graph the results, we can use the pandas package. We create a dataframe by telling pandas the index, data, and name. Since the data in this case are a monthly time series, we can identify that the index for the series contains dates. Below a list of dates, which will be the index of the dataframe, is constructed from the values obtained using the period and year dictionary keys seen above. The first column of the pandas dataframe is the series values, named with the series id. Just in case they contain relevant information, the BLS footnotes are included as a second column.</p>
 	<p>In[7]:</p>
 	<pre><code class="python">import pandas as pd
 
@@ -165,7 +165,7 @@ df[[series['id'], 'mean']].plot(title=series['name'])</code></pre>
 <p>Out[8]:</p>
 <img src="https://github.com/bdecon/bdecon.github.io/raw/master/images/ex1.png" alt="Pandas Plot Output" style="max-width: 100%;"/>
 <h4>Summary</h4>
-<p>The first example simply combines the url of the API with the BLS series ID of interest to obtain a pandas dataframe with the date, data values since January 2015 (by default) and any footnotes. The example uses the v1 API, so the number of requests is limited as is the functionality. For more complex requests, a technique such as the one shown in example 2 is preferable.</p>
+<p>The first example creates a url containing the requested data by combining a base url of the API with the BLS series ID of interest. The result is a dataframe with monthly data, starting in January 2015, on the labor force participation rate. The plot above lets us quickly see when and by how much the series deviated from its full-period average. The example uses the v1 API, so the number of requests is limited as is the functionality. For more complex requests, a technique such as the one shown in example 2 is preferable.</p>
 <h3>Example 2: Requesting multiple series and specific dates</h3>
 <p>The second examples uses the BLS API v2 (which requires free <a href = "https://data.bls.gov/registrationEngine/">registration</a>) to request more than one series at the same time. The version 2 API has a higher daily query limit, allows more years and series to be returned in each query, and allows some additional options such as requesting data in percent change rather than level. See <a href="https://www.bls.gov/developers/api_faqs.htm#register1">difference between v1 and v2</a>.</p>
 <h4>Parameters</h4>
