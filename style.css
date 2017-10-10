@@ -10,6 +10,7 @@ body{
 	left: 0;
 	font-family: Tahoma, Verdana, Segoe, sans-serif;
 	background-color: #fff;
+
 	}
 
 p{font-size: 12px; color: #6a6a6a;}
@@ -19,8 +20,8 @@ h1, h2, h3, h4{font-family: 'Montserrat'; line-height: 1.25;}
 hl{margin: 0 0 10px; font-size: 40px;}
 h2{margin: 0 0 10px; font-size: 32px;}
 h3{margin: 10px 0 10px; font-size: 24px;}
-.chart_title{margin: 20px 0 2px 5px; padding: 0; font-size: 18px;}
-h6{margin: 0 0 2px 15px; padding:0;}
+.chart_title{font-family: 'Lato', sans-serif; margin: 10px 0px 0px 15px; padding: 0; font-size: 18px; color: #6a6a6a;}
+p.chart_subtitle{font-family: 'Lato', sans-serif; font-weight: 300; margin: 0px 10px 10px 25px; padding:0; font-size: 11px; color: #6a6a6a;}
 
 /* Styling for links */
 a:link{text-decoration: none; color: #C70039;}
@@ -76,11 +77,10 @@ header{
 	background-color: #939393;
     color: white;
     font-size: 20px;
-	z-index:-1; position:relative;
 }
 header h1{padding: 0 0 12px 0;}
 header h2{padding: 20px 0 12px 0;}
-header h3{padding: 20px 0 12px 0; z-index:1; font-size: calc(0.7em + 1vmin)}
+header h3{padding: 20px 0 12px 0;}
 
 /* Footer styling */
 footer{display: block; margin: 2em 0 0 0; border-top: thin dotted; }
@@ -135,7 +135,6 @@ section{margin: 5px; padding: 0px;}
 .card:hover{box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
 			width: 252px; text-decoration: none;}
 .card_head_blue{background-color: #3441de; color: white; padding: 10px; }
-.card_head_ltblue{background-color: #1E90FF; color: white; padding: 10px; }
 .card_head_yellow{background-color: #FFC300; color: white; padding: 10px;}
 .card_head_green{background-color: #27AE60; color: white; padding: 10px;}
 .card_head_red{background-color: #FF2F2F; color: white; padding: 10px;}
@@ -182,16 +181,9 @@ th, td {
 		font-size: 13px
 }
 
-th {font-size: calc(0.5em + 0.4vmin)}
-
 td:first-child { font-weight: bold }
 
 tr:nth-child(even){background-color: #f2f2f2}
-
-tbody tr td:nth-child(3), tbody tr td:nth-child(2),
-th:nth-child(3), th:nth-child(2) {
-  text-align: center;
-}
 
 img.image_map {width: 100%}
 
@@ -201,31 +193,30 @@ table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sor
 
 .x.axis path, .y.axis path {display: none;}
 
-p.chart_footer {margin:-3px 0 0 1%; padding:0px;}
+p.chart_footer {font-family: 'Lato', sans-serif; margin:-3px 0 0 1%; font-weight: 300; font-size: 9px; padding:10px;}
 
-.outer_chart {margin-left: 1%; }
+.outer_chart {margin-left: 1%;  width: 370px;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19);}
 
 .value_label, .value_label2, .legend_text {font-size: 9px; fill: black; font-family: sans-serif}
 
 .line {
   fill: none;
   stroke: steelblue;
-  stroke-width: 1.5px;
+  stroke-width: 3px;
 }
 
-.plotly_map {
-    line-height: 1;
-    overflow: hidden;
-		margin-left: -2.5vw;
-		margin-right: -2.5vw;
+.line2 {
+  fill: none;
+  stroke: orangered;
+  stroke-width: 2px;
+	stroke-dasharray: 2,1;
 }
-.plotly_map:after {
-    content: '';
-    display: block;
-    margin-bottom: -4.8vh;
-}
-.plotly_map:before {
-    content: '';
-    display: block;
-    margin-top: -3.7vh;
-}
+
+.chart_header {background-color: #f0f0f0; color: white; padding: 1px;}
+
+.linechart {padding: 10px;}
+
+.myLabel {font-family: 'Lato', sans-serif; font-weight: 300; font-size: 9px; fill: #6a6a6a;}
+.cpi_all {font-family: 'Lato', sans-serif; font-weight: bold; font-size: 11px;  fill: steelblue;}
+.cpi_core {font-family: 'Lato', sans-serif; font-weight: bold; font-size: 11px;  fill: orangered;}
