@@ -210,19 +210,18 @@ p = requests.post(
 <h4>Loop through series and convert to pandas format</h4>
 <p>Since the API returns data in a uniform way, a <code>for</code> loop can be used to apply formatting or other changes to all series in the returned json data. In the example below, all three series are converted to pandas series with a datetime index and the values converted to floats.</p>
 <p>In[11]:</p>
-<pre><code class="python"># Empty dictionary to fill with values
-d = {}
+<pre><code class="python"># Date index from first series
+date_list = [f"{i['period']} {i['year']}" for i in p[0]['data']]
+
+# Empty dataframe to fill with values
+df = pd.DataFrame()
 
 # Build a pandas series from the API results, p
 for s in p:
-    d[series_dict[s['seriesID']]] = pd.Series(
-        index = pd.to_datetime(
-            ['{} {}'.format(i['period'], i['year']) for i in s['data']]),
+    df[series_dict[s['seriesID']]] = pd.Series(
+        index = pd.to_datetime(datelist),
         data = [i['value'] for i in s['data']]
         ).astype(float).iloc[::-1]
-
-# Combine series into one pandas dataframe
-df = pd.DataFrame(d)
 
 # Show last 5 results
 df.tail()</code></pre>
