@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title> BD Economics | BLS API Guide </title>
+	<link rel="stylesheet" href="add-ins/github.css">
+	<script src="add-ins/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<link rel="stylesheet" href="style.css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<script src="https://use.fontawesome.com/8f99c5621e.js"></script>
+	<meta charset="UTF-8">
+	<meta name="description" content="Tools for Economists">
+	<meta name="keywords" content="Current Population Survey, CPS, CPS microdata, CPS python, Current Population Survey Python, IMF API, Economics Dashboard, Trade Network, Trade Networks, Macroeconomics Dashboard, Macroeconomic Dashboard, Markets Dashboard, Market Dashboard, U.S. Economy, U.S. Economy Dashboard, US economy, US economy dashboard, US economy charts, US economy charts pdf, NetworkX trade, international trade networks, network analysis of trade, International Monetary Fund, IMF Statistics Department, IMF Application Programming Interface, International Monetary Fund Application Programming Interface, International Monetary Fund API">
+	<meta name="author" content="Brian Dew">
+	<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="favicon/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+	<link rel="manifest" href="favicon/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-90776928-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+<body>
+	<nav>
+		<ul class="ul_nav" id="myTopnav">
+			<li class="nav_main"> <a href="index.html">BD Economics</a> </li>
+			<li><a href="dash.html">Dashboard</a> </li>
+			<li><a class="active" href="python.html">Python</a> </li>
+			<li><a href="http://briandew.wordpress.com">Blog</a> </li>
+			<li><a href="about.html">About</a> </li>
+			<li class="icon"> <a href="javascript:void(0);"
+				style="font-size:15px;" onclick="myFunction()">&#9776;</a>
+			</li>
+		</ul>
+	</nav>
+
+	<header>
+	<h1>CPS microdata</h1>
+	</header>
+	<section>
+	<article class="article_code">
+	<h3> Current Population Survey Microdata with Python: a quick example </h3>
+	<p>March 10, 2018</p>
+
+	<h5>Note: <a href="https://cps.ipums.org/cps/">IPUMS</a> is likely the quickest interface for retrieving CPS data. The process below can be avoided by using IPUMS.</h5>
+
+	<h5>See: Tom Augspurger's <a href="https://tomaugspurger.github.io/tackling%20the%20cps.html">blog</a> and <a href="https://github.com/TomAugspurger/pycps">github</a> as the definitive resource for working with CPS microdata in python</h5>
+
+	<p>If your research requires reading raw CPS microdata, which are stored in fixed-width format text files covering one month each, you can use Python to do so.</p>
+
+	<p>The <a href="https://thedataweb.rm.census.gov/ftp/cps_ftp.html">Census FTP page</a> contains the microdata and dictionaries identifying each variable name, location, value range, and whether it applies to a restricted sample.</p>
+
+	<p>In[1]:</p>
+	<pre><code class="python"># Import packages 
+import pandas as pd  # pandas 0.22
+import numpy as np
+import re            # regular expressions</code></pre>
+
+	<h4>Use the January 2017 data dictionary to find variable locations</h4>
+
+	<p>The example will calculate the employment to population ratio for women between the age of 25 and 54 in April 2017. To do this, we need to find the appropriate data dictionary on the Census FTP site, in this case January_2017_Record_Layout.txt, open it with python, and read the text inside. </p>
+
+	<p>We find that the BLS composite weight is called <tt>PWCMPWGT</tt>, the age variable is called <tt>PRTAGE</tt>, the sex variable is called <tt>PESEX</tt> and women are identified by <tt>2</tt>, and the employment status is stored as <tt>PREMPNOT</tt>.</p>
+
+	<p>You may also notice that the dictionary follows a pattern, where variable names and locations are stored on the same line and in the same order. Regular expressions can be used to extract the parts of this pattern that we care about, specifically: the variable name, length, description, and location.</p>
+
+	<p>The python list <tt>dd_sel_var</tt> stores the variable names and locations for the four variables of interest. </p>
+
+	<p>In[2]:</p>
+	<pre><code class="python"># Data dictionary 
+dd_file = 'January_2017_Record_Layout.txt'
+dd_full = open(dd_file, 'r', encoding='iso-8859-1').read()
+
+# Series of interest 
+series = ['PWCMPWGT', 'PRTAGE', 'PREMPNOT', 'PESEX']
+
+# Regular expression finds rows with variable location details
+p = re.compile('\n(\w+)\s+(\d+)\s+(.*?)\t+.*?(\d\d*).*?(\d\d+)')
+
+# Keep adjusted results for series of interest
+dd_sel_var = [(i[0], int(i[3])-1, int(i[4])) 
+              for i in p.findall(dd_full) if i[0] in series]</code></pre>
+
+	<p>In[3]:</p>
+	<pre><code class="python">print(dd_sel_var)</code></pre>
+
+	<pre>[('PRTAGE', 121, 123), ('PESEX', 128, 130), ('PREMPNOT', 392, 394), ('PWCMPWGT', 845, 855)]</pre>
+
+	<h4>Read the CPS microdata for April 2017</h4>
+
+	<p>There are many ways to accomplish this task. One that is simple for small scale projects and still executes quickly involves using python list comprehension to read each line of the microdata and pull out the parts we want, using the locations from the data dictionary.</p>
+
+	<p>Pandas is used to make the data structure a bit more human readable and to make filtering the data a bit more intuitive. The column names come from the data dictionary varible ids.</p>
+
+	<p>In[4]:</p>
+	<pre><code class="python"># Convert raw data into a list of tuples
+data = [tuple(int(line[i[1]:i[2]]) for i in dd_sel_var) 
+        for line in open('apr17pub.dat', 'rb')]
+
+# Convert to pandas dataframe, add variable ids as heading
+df = pd.DataFrame(data, columns=[v[0] for v in dd_sel_var])</code></pre>
+
+	<h4>Benchmarking against BLS published data</h4>
+
+	<p>The last step to show that the example has worked is to compare a sample calculation, the prime age employment rate of women, to the<a href="https://data.bls.gov/timeseries/LNU02300062">BLS published version of that calculation</a>. If the benchmark calculation from the microdata is very close to the BLS result, we can feel a bit better about other calculations that we need to do.</p>
+
+	<p>In[5]:</p>
+	<pre><code class="python"># Temporary dataframe with only women age 25 to 54
+dft = df[(df['PESEX'] == 2) & (df['PRTAGE'].between(25, 54))]
+
+# Identify employed portion of group as 1.0 & the rest as 0.0
+empl = np.where(dft['PREMPNOT'] == 1, 1.0, 0.0)
+
+# Take weighted average of employed portion of group
+epop = np.average(empl, weights=dft['PWCMPWGT']) * 100
+
+# Print out the result to check against LNU02300062
+print(f'April 2017: {round(epop, 1)}')</code></pre>
+
+	<pre>April 2017: 72.3</pre>
+
+	<h4>About the CPS</h4>
+
+	<p>The CPS was initially deployed in 1940 to give a more accurate unemployment rate estimate, and it is still the source of the official unemployment rate. The CPS is a monthly survey of around 65,000 households. Each selected household is surveyed up to 8 times. Interviewers ask basic demographic and employment information for the first three interview months, then ask additional detailed wage questions on the 4th interview. The household is not surveyed again for eight months, and then repeats four months of interviews with detailed wage questions again on the fourth.</p>
+
+	<p>The CPS is not a random sample, but a multi-stage stratified sample. In the first stage, each state and DC are divided into "primary sampling units". In the second stage, a sample of housing units are drawn from the selected PSUs.</p>
+
+	<p>There are also months were each household receives supplemental questions on a topic of interest. The largest such "CPS supplement", conducted each March, is the Annual Social and Economic Supplement. The sample size for this supplement is expanded, and the respondents are asked questions about various sources of income, and about the quality of their jobs (for example, health insurance benefits). Other supplements cover topics like job tenure, or computer and internet use.</p>
+
+	<p>The CPS is a joint product of the U.S. Census Bureau and the Bureau of Labor Statistics.</p>
+
+	</article>
+	<div class="subfooter">
+	     <a href="python.html">Back to Python Examples</a>
+	</div>
+	</section>
+
+		<footer>
+		<div class="footer_left">
+			<p>Made January 18, 2017 <br> by Brian Dew</p>
+		</div>
+		<div class="footer_right">
+			<a href="https://github.com/bdecon/">
+				<button class="button_sm"><i class="fa fa-github"></i></button>
+			</a>
+			<a href="https://www.linkedin.com/in/brian-dew-5788a386/">
+				<button class="button_sm"><i class="fa fa-linkedin"></i></button>
+			</a>
+			<a href="https://twitter.com/bd_econ">
+				<button class="button_sm"><i class="fa fa-twitter"></i></button>
+			</a>
+			<a href="https://briandew.wordpress.com/">
+				<button class="button_sm"><i class="fa fa-wordpress"></i></button>
+			</a>
+		</div>
+	</footer>
+	<script>
+		function myFunction() {
+			var x = document.getElementById("myTopnav");
+			if (x.className === "ul_nav") {
+				x.className += " responsive";
+			} else {
+				x.className = "ul_nav";
+			}
+		}
+	</script>
+
+</body>
+</html>
