@@ -103,7 +103,7 @@ ul li a:hover + .hidden, .hidden:hover {
 	.ul_nav li.icon {float: right; display: inline-block;}
 	.ul_nav li a {min-width: 0; }
 	.ul_nav {width: 100%; background-color: #4B4B4B; }
-	.ul_nav.responsive {visibility: visible;}
+	.ul_nav.responsive {visibility: visible; overflow: visible;}
 	.ul_nav.responsive li.icon {position: absolute; right: 0; top: 0;}
 	.ul_nav.responsive li {float: none; display: inline;}
 	.ul_nav.responsive li a {display: block; text-align: center; min-width: 0; }
