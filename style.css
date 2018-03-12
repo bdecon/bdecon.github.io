@@ -37,13 +37,13 @@ nav{
 	margin: 0;
 	overflow: hidden;
 	background-color: #4B4B4B;
-	float: left;
-	padding: 0;
+	padding: 0 0 0 10px;
 	z-index: 999;
 	}
-.ul_nav{list-style: none; max-width: 900px; margin: 0 auto; padding: 0; z-index: 999;}
-.ul_nav li{float: left;}
-.ul_nav li a{
+.ul_nav{list-style: none; max-width: 882px; margin: 0 auto; padding: 0 20px 0 0; z-index: 999;}
+.ul_nav li:first-child{float: left; }
+.ul_nav li{float: right; }
+.ul_nav li a, .ul_nav li p{
     display: inline-block;
     color: #f2f2f2;
     text-align: center;
@@ -53,20 +53,64 @@ nav{
 	font-family: 'Montserrat';
     font-size: 17px;
 	}
-.nav_main{font-weight: bold; padding: 0 10px 0 10px;}
-.ul_nav li a:hover{background-color: #111;}
+.nav_main{text-align: center; font-weight: bold; }
+.ul_nav li a:hover{background-color: #111; }
 .active{background-color: #FF2F2F;}
 .ul_nav li.icon {display: none;}
 
+/*Style for dropdown links*/
+li:hover ul a {
+	background: #f3f3f3;
+	color: #2f3036;
+	min-width: 220px;
+	text-align: left;
+}
+
+/*Hover state for dropdown links*/
+li:hover ul a:hover {
+	background: #FF2F2F;
+	color: #fff;
+}
+
+/*Hide dropdown links until they are needed*/
+li ul {
+	display: none;
+	position: fixed;
+}
+
+/*Make dropdown links vertical*/
+li ul li {
+	display: inline;
+	float: none;
+	width: 100%;
+}
+
+/*Prevent text wrapping*/
+li ul li a {
+	width: auto;
+	padding: 0 40px 0 0 ;
+	display: block;
+	margin-left: -40px; 
+}
+
+/*Display the dropdown on hover*/
+ul li a:hover + .hidden, .hidden:hover {
+	display: block;
+}
+
 /* Top Navigation - Responsive */
-@media screen and (max-width:600px) {
+@media screen and (max-width:760px) {
 	.ul_nav li:not(:first-child) {display: none;}
 	.ul_nav li.icon {float: right; display: inline-block;}
-	.ul_nav {width: 100%; background-color: #4B4B4B;}
+	.ul_nav li a {min-width: 0; }
+	.ul_nav {width: 100%; background-color: #4B4B4B; }
 	.ul_nav.responsive {visibility: visible;}
 	.ul_nav.responsive li.icon {position: absolute; right: 0; top: 0;}
 	.ul_nav.responsive li {float: none; display: inline;}
-	.ul_nav.responsive li a {display: block; text-align: left;}
+	.ul_nav.responsive li a {display: block; text-align: center; min-width: 0; }
+	.ul_nav.responsive li:hover ul {min-width: 100%; padding: 0px 16px 14px;}
+	.ul_nav.responsive li:hover ul a {text-align: center; }
+	nav{padding: 0;}
 }
 
 /* Header styling */

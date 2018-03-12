@@ -41,14 +41,28 @@
 </head>
 <body>
 	<nav>
-		<ul class="ul_nav" id="myTopnav">
-			<li class="nav_main"> <a class="active" href="index.html">BD Economics</a> </li>
-			<li><a href="dash.html">Dashboard</a> </li>
-			<li><a href="python.html">Python</a> </li>
-			<li><a href="http://briandew.wordpress.com">Blog</a> </li>
+		<ul class="ul_nav" id="menu">
+			<li class="nav_main"> <a href="index.html" class="active">BD Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
+			<li><a href="http://briandew.wordpress.com">Blog</a> </li>
+			<li><a href="python.html">Tools &#65516;</a> 
+				<ul class="hidden">
+					<li><a href="imfapi1.html">IMF API</a></li>
+					<li><a href="blsapi.html">BLS API</a></li>
+					<li><a href="cps.html">CPS Microdata</a></li>
+			</ul>
+			</li>
+		<li>
+			<a href="dash.html">Reports &#65516;</a>
+			<ul class="hidden">
+				<li><a href="MacroDash.pdf">U.S. Chartbook (PDF)</a></li>
+				<li><a href="unemp.html">U.S. Unemployment Map</a></li>
+				<li><a href="Dash/ExecDash.pdf">U.S. Dashboard (PDF)</a></li>
+				<li><a href="Dash/JPNDash.pdf">Japan Dashboard (PDF)</a></li>
+				<li><a href="plots.html">Key Indicators</a></li>
+			</ul>
 			<li class="icon"> <a href="javascript:void(0);"
-				style="font-size:15px;" onclick="myFunction()">&#9776;</a>
+				style="font-size:15px;" onclick="responsiveNav()">&#9776;</a>
 			</li>
 		</ul>
 	</nav>
@@ -58,11 +72,13 @@
 	<section>
 		<article>
 			<h3>Overview</h3>
-			<p>Over 100 indicators of U.S. macroeconomic and market developments, updated weekly: <a href="http://www.bd-econ.com/MacroDash.pdf">U.S. Macro and Markets Dashboard (PDF)</a></p>
+			
+			<h5>Note: Check <a href="https://twitter.com/bd_econ">@bd_econ</a> for updates.</h5>
 
-			<p>Future home of the bd econ blog, trade network analysis research, and guides to working with macroeconomic data in Python. The current blog is located at <a href = "http://briandew.wordpress.com">http://www.briandew.wordpress.com</a>.</p>
+			<p>This site is a repository for code and data that others may find useful for their own research. The reports section has lots of data and data visualizations, while the tools section contains guides for working with economic data using python. My blog is located at <a href = "http://briandew.wordpress.com">http://www.briandew.wordpress.com</a>.</p>
 
-			<p>Interactive <a href="plots.html">plots</a> are a work in progress. The current draft of the executive dash is <a href="Dash/ExecDash.pdf">here</a>.</p>
+			<p>Future plans, some of which are already work in progress, include 1) new guides for working with microdata like the Current Population Survey, American Community Survey, and Survey of Consumer Finance, 2) a trade dynamics dashboard, and 3) a revampled chart book that captures new labor market indicators.</p> 
+
 		</article>
 		<article class="article_links">
 		<h3> Featured content </h3>
@@ -101,7 +117,7 @@
 
 	<footer>
 		<div class="footer_left">
-			<p>Made January 18, 2017 <br> by Brian Dew</p>
+			<p>March 11, 2018<br> by Brian Dew</p>
 		</div>
 		<div class="footer_right">
 			<a href="https://github.com/bdecon/">
@@ -118,10 +134,9 @@
 			</a>
 		</div>
 	</footer>
-
 	<script>
-		function myFunction() {
-			var x = document.getElementById("myTopnav");
+		function responsiveNav() {
+			var x = document.getElementById("menu");
 			if (x.className === "ul_nav") {
 				x.className += " responsive";
 			} else {
@@ -129,6 +144,12 @@
 			}
 		}
 	</script>
-
+<script src="doubletaptogo.js"></script>
+<script>
+	$( function()
+	{
+		$( '#nav li:has(ul)' ).doubleTapToGo();
+	});
+</script>
 </body>
 </html>
