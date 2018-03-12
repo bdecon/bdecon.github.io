@@ -13,15 +13,18 @@ body{
 
 	}
 
-p{font-size: 12px; color: #6a6a6a;}
+p{font-size: 13px; color: #6a6a6a;}
 li{font-size: 12px; color: #6a6a6a;}
 
 h1, h2, h3, h4{font-family: 'Montserrat'; line-height: 1.25;}
 hl{margin: 0 0 10px; font-size: 40px;}
 h2{margin: 0 0 10px; font-size: 32px;}
 h3{margin: 10px 0 10px; font-size: 24px;}
+h5{font-size: 15px;}
 .chart_title{font-family: 'Lato', sans-serif; margin: 10px 0px 0px 15px; padding: 0; font-size: 18px; color: #6a6a6a;}
 p.chart_subtitle{font-family: 'Lato', sans-serif; font-weight: 300; margin: 0px 10px 10px 25px; padding:0; font-size: 11px; color: #6a6a6a;}
+
+p.overview b{font-size: 14px; color: #1e1e1e;}
 
 /* Styling for links */
 a:link{text-decoration: none; color: #C70039;}
@@ -153,7 +156,7 @@ section{margin: 5px; padding: 0px;}
 .article_links a{text-decoration: none;}
 
 /* Cards with Links */
-.card {
+.card, .card_dull {
 	width: 250px;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	text-align: center;
@@ -162,17 +165,10 @@ section{margin: 5px; padding: 0px;}
 	text-align: center;
 	text-decoration: none;
 	vertical-align:middle;
+	min-height: 180px;
 }
 .card_dull{
-	width: 250px;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-	text-align: center;
-	margin: 12px;
-	display: inline-block;
-	text-align: center;
-	text-decoration: none;
 	opacity: 0.5;
-	vertical-align:middle;
 }
 .card_dull:hover{opacity: 1;}
 .card:hover{box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
