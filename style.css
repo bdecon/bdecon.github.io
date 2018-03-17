@@ -21,9 +21,11 @@ hl{margin: 0 0 10px; font-size: 40px;}
 h2{margin: 0 0 10px; font-size: 32px;}
 h3{margin: 10px 0 10px; font-size: 24px;}
 h5{font-size: 15px;}
+h4{margin: 25px 0 0 0; font-size: 14px; font-family: 'Lato', sans-serif;}
+h6{margin: 0 0 0 10px; font-size: 11px; font-style: italic; font-weight: normal; color: #6a6a6a;}
 .chart_title{font-family: 'Lato', sans-serif; margin: 10px 0px 0px 15px; padding: 0; font-size: 18px; color: #6a6a6a;}
 p.chart_subtitle{font-family: 'Lato', sans-serif; font-weight: 300; margin: 0px 10px 10px 25px; padding:0; font-size: 11px; color: #6a6a6a;}
-
+#pfooter{margin: 0 0 0 0;}
 p.overview b{font-size: 14px; color: #1e1e1e;}
 
 /* Styling for links */
@@ -209,6 +211,19 @@ code {text-align: left;}
 
 .fa.fa-caret-down {color: #FF2F2F;}
 .fa.fa-caret-up {color: #27AE60; font-size: 17px;}
+
+.plot {
+	width:47%;
+	display:inline-block;
+	vertical-align:middle;
+	margin: 10px;
+}
+
+@media only screen and (max-width: 900px) {
+    .plot {
+        width: 98%;
+    }
+}
 
 table {
     border-collapse: collapse;
