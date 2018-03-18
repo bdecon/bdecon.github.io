@@ -74,7 +74,7 @@
 	<section>
 	<article class="article_code">
 	<h3> U.S. Bureau of Labor Statistics (BLS) Application Programming Interface with Python: guided examples </h3>
-	<p>The <a href="https://www.bls.gov/developers/">BLS Public Data API</a> allows machine access to an enormous and incredibly useful set of U.S. economic data. Using python, it is easy to integrate BLS data into projects, research, and graphics without the need to manually find, download, and combine files.</p>
+	<p>The <a href="https://www.bls.gov/developers/">BLS Public Data API</a> allows machine access to an enormous and incredibly useful set of U.S. economic data. With python, it is easy to integrate BLS data into projects, research, and graphics without the need to manually find, download, and combine files.</p>
 
 	<p>This notebook offers two examples of using python to request economic data from the BLS API. The first example requests the labor force participation rate from the BLS v1 API. The second example requests unemployment rates by race/origin, and shows a method for requesting multiple series over a longer period of time using the v2 API.</p>
 	<h3>Background</h3>
@@ -88,7 +88,7 @@
 
 	<h4>Python</h4>
 
-	<p>The examples use Python version 2.7 and the requests, json, and pandas packages. </p>
+	<p>The examples use Python version 3.6 and the requests, json, and pandas packages. </p>
 
 	<h3> Example 1: Single series from API v1</h3>
 	<h4>API location</h4>
@@ -108,7 +108,7 @@ series = {'id': 'LNS11300000',
 	<p>Combine the base url and series id into a single string which is the API url with data. Print a link to the data. </p>
 	<p>In[3]:</p>
 	<pre><code class="python">data_url = '{}{}'.format(base_url, series['id'])
-print data_url</code></pre>
+print(data_url)</code></pre>
 	<a href="https://api.bls.gov/publicAPI/v1/timeseries/data/LNS11300000"><pre>https://api.bls.gov/publicAPI/v1/timeseries/data/LNS11300000</pre></a>
 	<h4>Request data from data url</h4>
 	<p>Use the requests package to get data from the <code>data_url</code>. By specifying that the data are in json format, we convert the output to nested python dictionaries and lists. The status of the request is printed and the top-level dictionary is stored as variable <code>r</code>. </p>
@@ -116,17 +116,17 @@ print data_url</code></pre>
 	<pre><code class="python">import requests
 
 r = requests.get(data_url).json()
-print 'Status: ' + r['status']</code></pre>
+print('Status: ' + r['status'])</code></pre>
 	<pre>Status: REQUEST_SUCCEEDED</pre>
 	<h4>Check latest data value</h4>
 	<p>The dictionary <code>r</code> contains several keys:</p>
 	<p>In[5]:</p>
-	<pre><code class="python">print r.keys()</code></pre>
+	<pre><code class="python">print(r.keys())</code></pre>
 	<pre>[u'status', u'message', u'Results', u'responseTime']</pre>
 	<p>The <code>Results</code> key contains the series list, of which the first item (python lists start with item <code>0</code>) contains our data: <code>r['Results']['series'][0]['data']</code>. The data are a list of dictionaries with the first item (<code>[0]</code>) being the most recent set of values, footnotes, and date information, printed below.</p>
 	<p>In[6]:</p>
 	<pre><code class="python">r = r['Results']['series'][0]['data']
-print r[0]</code></pre>
+print(r[0])</code></pre>
 	<pre>{u'footnotes': [{}], u'periodName': u'July', u'period': u'M07', u'value': u'62.9', u'year': u'2017'}</pre>
 	<h4>Read into pandas</h4>
 	<p>To make further calculations, such as to find the average value over the series, and to graph the results, we can use the pandas package. We create a dataframe by telling pandas the index, data, and name. Since the data in this case are a monthly time series, we can identify that the index for the series contains dates. Below a list of dates, which will be the index of the dataframe, is constructed from the values obtained using the period and year dictionary keys seen above. The first column of the pandas dataframe is the series values, named with the series id. Just in case they contain relevant information, the BLS footnotes are included as a second column.</p>

@@ -101,7 +101,7 @@ import re            # regular expressions</code></pre>
 
 	<p>We find that the BLS composite weight is called <tt>PWCMPWGT</tt>, the age variable is called <tt>PRTAGE</tt>, the sex variable is called <tt>PESEX</tt> and women are identified by <tt>2</tt>, and the employment status is stored as <tt>PREMPNOT</tt>.</p>
 
-	<p>You may also notice that the dictionary follows a pattern, where variable names and locations are stored on the same line and in the same order. Regular expressions can be used to extract the parts of this pattern that we care about, specifically: the variable name, length, description, and location.</p>
+	<p>You may also notice that the dictionary follows a pattern, where variable names and locations are stored on the same line and in the same order. Regular expressions can be used to extract the parts of this pattern that we care about, specifically: the variable name, length, description, and location. I've already identified the pattern <tt>p</tt> below, but note that the patterns change over time, and you may need to adjust to match your specific data dictionary.</p>
 
 	<p>The python list <tt>dd_sel_var</tt> stores the variable names and locations for the four variables of interest. </p>
 
@@ -157,6 +157,10 @@ epop = np.average(empl, weights=dft['PWCMPWGT']) * 100
 print(f'April 2017: {round(epop, 1)}')</code></pre>
 
 	<pre>April 2017: 72.3</pre>
+
+	<h4>Scaling up this example</h4>
+
+	<p>The quick example above can be scaled up to work for multiple years worth of monthly data. One example of how I've done this can be found in <a href="https://github.com/bdecon/econ_data/blob/master/micro/CPS_Reader_Feather.ipynb">this jupyter notebook</a>.</p>
 
 	<h4>About the CPS</h4>
 

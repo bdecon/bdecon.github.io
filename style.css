@@ -10,7 +10,6 @@ body{
 	left: 0;
 	font-family: Tahoma, Verdana, Segoe, sans-serif;
 	background-color: #fff;
-
 	}
 
 p{font-size: 13px; color: #6a6a6a;}
@@ -223,7 +222,7 @@ code {text-align: left;}
 	width:98%;
 	display:inline-block;
 	vertical-align:middle;
-	margin: 10px;
+	margin: 5px;
 }
 
 @media only screen and (max-width: 900px) {
