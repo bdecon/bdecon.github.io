@@ -139,8 +139,11 @@
 		if ( $(window).width() > 899) {      
   			$('#targetplot1').load('plots/unemp_map.html');
 		} 
+		if ( $(window).width() < 550) {      
+  			$('#targetplot1').load('plots/unemp_map_small.html');
+		} 
 		else {
-  			$('#targetplot1').load('plots/unemp_map_small.html');}
+  			$('#targetplot1').load('plots/unemp_map_medium.html');}
   		}());
 	</script>
 	<script type="text/javascript">
