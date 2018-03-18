@@ -219,6 +219,13 @@ code {text-align: left;}
 	margin: 10px;
 }
 
+.targetplot1 {
+	width:98%;
+	display:inline-block;
+	vertical-align:middle;
+	margin: 10px;
+}
+
 @media only screen and (max-width: 900px) {
     .plot {
         width: 98%;

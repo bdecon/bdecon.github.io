@@ -6,6 +6,14 @@
 	<link rel="stylesheet" href="style.css">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 	<script src="https://use.fontawesome.com/8f99c5621e.js"></script>
+	<link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-0.12.14.min.css" type="text/css" />
+	<link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.14.min.css" type="text/css" />
+        
+	<script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-0.12.14.min.js"></script>
+	<script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.14.min.js"></script>
+	<script type="text/javascript">
+    	Bokeh.set_log_level("info");
+	</script>
 	<meta charset="UTF-8">
 	<meta name="description" content="Tools for Economists">
 	<meta name="keywords" content="IMF API, Economics Dashboard, Trade Network, Trade Networks, Macroeconomics Dashboard, Macroeconomic Dashboard, Markets Dashboard, Market Dashboard, U.S. Economy, U.S. Economy Dashboard, US economy, US economy dashboard, US economy charts, US economy charts pdf, NetworkX trade, international trade networks, network analysis of trade, International Monetary Fund, IMF Statistics Department, IMF Application Programming Interface, International Monetary Fund Application Programming Interface, International Monetary Fund API">
@@ -76,12 +84,14 @@
 	<section>
 	<article>
 		<article>
-				<p>
-					<div class="plotly_map">
-	    		<a href="https://plot.ly/~bdew/38/?share_key=JjBc0wDnZ1gngVYJGGWRFD" target="_blank" title="MSA_Map" style="display: block; text-align: center;"><img src="https://plot.ly/~bdew/38.png?share_key=JjBc0wDnZ1gngVYJGGWRFD" alt="MSA_Map" style="max-width: 100%;width: 100%;"  width="100%" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
-	    		<script data-plotly="bdew:38" sharekey-plotly="JjBc0wDnZ1gngVYJGGWRFD" src="https://plot.ly/embed.js" async></script>
-				</div>
-				</p>
+			<p>
+  			<div class="plot_map">
+				<h4>Unemployment rate change</h4>
+				<h6>change to share of metro area population that is unemployed and looking for work, in percentage points</h6>
+				<div id="targetplot1"> Loading... </div>
+				<p id="pfooter">Source: U.S. Bureau of Labor Statistics</p>
+  			</div>
+			</p>
 			<div id="targetplot"> Loading... </div>
 			</article>
 	</article>
@@ -123,6 +133,16 @@
 		$( '#nav li:has(ul)' ).doubleTapToGo();
 	});
 </script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script>
+		(function () {
+		if ( $(window).width() > 899) {      
+  			$('#targetplot1').load('plots/unemp_map.html');
+		} 
+		else {
+  			$('#targetplot1').load('plots/unemp_map_small.html');}
+  		}());
+	</script>
 	<script type="text/javascript">
 		$('#targetplot').load('Dash/unemp_table.html');
 	</script>
