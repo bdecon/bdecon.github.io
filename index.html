@@ -108,7 +108,7 @@
 					<h2>Chartbook</h2>
 				</div>
 				<div class="card_tail">
-					<p>Over 100 indicators of U.S. macroeconomic performance in one pdf file, organized by sector and topic.</p>
+					<p>(PDF) Over 100 U.S. macroeconomic indicators, by sector and topic.</p><p>Updated: <span class="cb_update"></span>.</p>
 				</div>
 			</div>
 			</a>
@@ -144,12 +144,9 @@
 			}
 		}
 	</script>
-<script src="doubletaptogo.js"></script>
-<script>
-	$( function()
-	{
-		$( '#nav li:has(ul)' ).doubleTapToGo();
-	});
-</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$('.cb_update').load('MacroDash_update.txt');
+	</script>
 </body>
 </html>
