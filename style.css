@@ -135,7 +135,7 @@ header h3{padding: 20px 0 12px 0;}
 footer{display: block; margin: 2em 0 0 0; border-top: thin dotted; }
 .footer_left{
 	width: 49%;
-	Float: left;
+	float: left;
 	display: inline;
 	font-family: georgia;
 	font-style: italic;
@@ -143,7 +143,7 @@ footer{display: block; margin: 2em 0 0 0; border-top: thin dotted; }
 }
 .footer_right{
 	width: 49%;
-	Float: right;
+	float: right;
 	display:inline;
 	text-align: right;
 }
@@ -210,9 +210,6 @@ section{margin: 5px; padding: 0px;}
 
 code {text-align: left;}
 
-.fa.fa-caret-down {color: #FF2F2F;}
-.fa.fa-caret-up {color: #27AE60; font-size: 17px;}
-
 .plot {
 	width:47%;
 	display:inline-block;
@@ -253,33 +250,3 @@ img.image_map {width: 100%}
 table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after {
     content: " \25B4\25BE"
 }
-
-.x.axis path, .y.axis path {display: none;}
-
-p.chart_footer {font-family: 'Lato', sans-serif; margin:-3px 0 0 1%; font-weight: 300; font-size: 9px; padding:10px;}
-
-.outer_chart {margin-left: 1%;  width: 370px;
-	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19);}
-
-.value_label, .value_label2, .legend_text {font-size: 9px; fill: black; font-family: sans-serif}
-
-.line {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 3px;
-}
-
-.line2 {
-  fill: none;
-  stroke: orangered;
-  stroke-width: 2px;
-	stroke-dasharray: 2,1;
-}
-
-.chart_header {background-color: #f0f0f0; color: white; padding: 1px;}
-
-.linechart {padding: 10px;}
-
-.myLabel {font-family: 'Lato', sans-serif; font-weight: 300; font-size: 9px; fill: #6a6a6a;}
-.cpi_all {font-family: 'Lato', sans-serif; font-weight: bold; font-size: 11px;  fill: steelblue;}
-.cpi_core {font-family: 'Lato', sans-serif; font-weight: bold; font-size: 11px;  fill: orangered;}
