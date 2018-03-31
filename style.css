@@ -211,10 +211,10 @@ section{margin: 5px; padding: 0px;}
 code {text-align: left;}
 
 .plot {
-	width:45%;
+	width:46%;
 	display:inline-block;
 	vertical-align:middle;
-	margin: 4px 18px 10px 18px;
+	margin: 4px 16px 10px 16px;
 }
 
 .targetplot1 {

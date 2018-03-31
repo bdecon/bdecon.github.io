@@ -113,11 +113,11 @@
 	<p>Part 2 explains how to generalize the example in part 1 by finding the codes which correspond to our data of interest and return successful API requests. However, the <code>CompactData</code> method used in part 1 does not return any metadata, such as full country names, the units of measure, or the indicator name.</p>
 	<p>Metadata are obtained by using the <code>GenericMetadata</code> method, demonstrated for the U.K. import price example from part 1 as follows:</p>
 	<p>In[1]:</p>
-	<pre><code class="python">import requests # Python 2.7, requests version 2.12.4
+	<pre><code class="python">import requests # Python 3.6
 
 url = 'http://dataservices.imf.org/REST/SDMX_JSON.svc/'
 key = 'GenericMetadata/IFS/M.GB.PMP_IX'
-metadata = requests.get('{}{}'.format(url,key)).json()
+metadata = requests.get(f'{url}{key}').json()
 country = metadata['GenericMetadata']['MetadataSet']\
             ['AttributeValueSet'][1]['ReportedAttribute']\
             [1]['ReportedAttribute'][3]['Value']['#text']
@@ -133,30 +133,29 @@ Indicator: Import Price Index, All Commodities</pre>
 	<p>Perhaps we are interested in the share of goods the U.K. imports from the European Union, which requires information on both trade between the U.K and the EU, and on total U.K. trade. The API allows you to combine along a single dimension by adding '+'. For example, searching for the dimension 4 (<code>CL_COUNTERPART_AREA_DOT</code>) code using the technique described in part 2 returns <code>B0</code> as the code for the EU, and <code>W00</code> as the code for the world (total trade). </p>
 	<p>Pandas is used for calculations and to make a simple line plot of the result.</p>
 	<p>In[2]:</p>
-	<pre><code class="python">import pandas as pd           # pandas version 0.18.1
+	<pre><code class="python">import pandas as pd           # pandas version 0.22
 
 # key includes two partners, B0 and W00 for EU and world
 key = 'CompactData/DOT/M.GB.TMG_CIF_USD.B0+W00'
-dates = '?startPeriod=2010'     # limit start date
 
-data = requests.get('{}{}{}'.format(url, key, dates)).json()\
-                    ['CompactData']['DataSet']['Series']
-# Create a dict of counterpart area code: its pandas dataframe
-d = {partner['@COUNTERPART_AREA']: pd.DataFrame(partner['Obs'])
-     .set_index('@TIME_PERIOD')['@OBS_VALUE'] for partner in data}
-df = pd.concat(d, axis=1).astype(float).reset_index()
-df = df.set_index(pd.to_datetime(df['@TIME_PERIOD']))
-eu_share = df['B0'].div(df['W00'])
+# Retrieve data from IMF API
+data = requests.get(f'{url}{key}').json()
+
+# Convert results to pandas dataframe
+df = pd.DataFrame({s['@COUNTERPART_AREA'] : {pd.to_datetime(i['@TIME_PERIOD']) : 
+     round(float(i['@OBS_VALUE']), 1) for i in s['Obs']} 
+     for s in data['CompactData']['DataSet']['Series']})
+
+# 12 month moving average of EU share of total
+eu_share = (df['B0'].div(df['W00']) * 100).rolling(12).mean()
 
 # Create a line plot and print most recent value as x label
 title = "U.K. imports of goods: European Union share of total"
-recentdt = eu_share.dropna().index[-1].strftime('%B %Y')
-recentval = (eu_share[-1] * 100).round(1)
-recent = 'Most recent: {}: {}%'.format(recentdt, recentval)
-ax = eu_share.plot(title=title, colormap='jet')
-ax.set_xlabel(recent)</code></pre>
+recent = f"{eu_share.index[-1].strftime('%B %Y')}: {eu_share[-1].round(1)}%"
+ax = eu_share.plot(title=title)
+ax = ax.set_xlabel(recent)</code></pre>
 	<p>Out[2]:</p>
-	<img src="https://github.com/bdecon/bdecon.github.io/raw/master/images/UK_M_EUsh.png" alt="Pandas Plot Output" style="max-width: 100%;"/>
+	<img src="images/uk_im.png" alt="Pandas Plot Output" style="max-width: 100%;"/>
 	<h3> Additional resources </h3>
 	<p> IMF API documentation:<br>
 

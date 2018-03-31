@@ -111,12 +111,12 @@
 	<h3>The series list</h3>
 	<p>The <code>Dataflow</code> method offers JSON formatted information on which series are available through the API. To find the series of interest (for example Direction of Trade Statistics <code>DOT</code>) with Python, we can search a dictionary with the series names and their IDs.</p>
 	<p>In[1]:</p>
-	<pre><code class="python">import requests  # Python 2.7, requests version 2.12.4
+	<pre><code class="python">import requests  # Python 3.6
 
 url = 'http://dataservices.imf.org/REST/SDMX_JSON.svc/'
 key = 'Dataflow'  # Method with series information
 search_term = 'Trade'  # Term to find in series names
-series_list = requests.get('{}{}'.format(url, key)).json()\
+series_list = requests.get(f'{url}{key}').json()\
             ['Structure']['Dataflows']['Dataflow']
 # Use dict keys to navigate through results:
 for series in series_list:
@@ -129,11 +129,11 @@ for series in series_list:
 	<p>The dimensions of the data are found with the DataStructure method and series specific, so that the full key becomes <code>DataStructure/DOT</code></p>
 	<p>In[2]:</p>
 	<pre><code class="python">key = 'DataStructure/DOT'  # Method / series
-dimension_list = requests.get('{}{}'.format(url, key)).json()\
+dimension_list = requests.get(f'{url}{key}').json()\
             ['Structure']['KeyFamilies']['KeyFamily']\
             ['Components']['Dimension']
 for n, dimension in enumerate(dimension_list):
-    print 'Dimension {}: {}'.format(n+1, dimension['@codelist'])</code></pre>
+    print f'Dimension {n+1}: {dimension['@codelist']}'</code></pre>
 	<p>Out[2]:</p>
 <pre>Dimension 1: CL_FREQ
 Dimension 2: CL_AREA_DOT
@@ -145,11 +145,11 @@ Dimension 4: CL_COUNTERPART_AREA_DOT
 <p>The codes which correspond to the dimensions identified above are combined, in order, and separated by periods, to complete the API request url. To find the list of possible codes for each dimension, we can use the CodeList method, shown below for dimension 3, indicators <code>CL_INDICATOR_DOT</code>.</p>
 	<p>In[3]:</p>
 	<pre><code class="python"># Example: codes for third dimension, which is 2 in python
-key = 'CodeList/{}'.format(dimension_list[2]['@codelist'])
-code_list = requests.get('{}{}'.format(url, key)).json()\
+key = f'CodeList/{dimension_list[2]['@codelist']}'
+code_list = requests.get(f'{url}{key}').json()\
 	    ['Structure']['CodeLists']['CodeList']['Code']
 for code in code_list:
-    print '{}: {}'.format(code['Description']['#text'], code['@value'])</code></pre>
+    print f'{code['Description']['#text']}: {code['@value']}'</code></pre>
 	<p>Out[3]:</p>
 	<pre>Goods, Value of Exports, Free on board (FOB), US Dollars: TXG_FOB_USD
 Goods, Value of Imports, Cost, Insurance, Freight (CIF), US Dollars: TMG_CIF_USD
