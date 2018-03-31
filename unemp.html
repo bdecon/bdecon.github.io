@@ -129,14 +129,14 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script>
 		(function () {
-		if ( $(window).width() > 899) {      
-  			$('#targetplot1').load('plots/unemp_map.html');
+		if ( $(window).width() < 800) {      
+  			$('#targetplot1').load('plots/unemp_map_medium.html');
 		} 
 		if ( $(window).width() < 550) {      
   			$('#targetplot1').load('plots/unemp_map_small.html');
 		} 
 		else {
-  			$('#targetplot1').load('plots/unemp_map_medium.html');}
+  			$('#targetplot1').load('plots/unemp_map.html');}
   		}());
 	</script>
 	<script type="text/javascript">
