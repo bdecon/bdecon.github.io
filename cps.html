@@ -85,7 +85,7 @@
 
 	<p>If your research requires reading raw CPS microdata, which are stored in fixed-width format text files covering one month each, you can use Python to do so.</p>
 
-	<p>The <a href="https://thedataweb.rm.census.gov/ftp/cps_ftp.html">Census FTP page</a> contains the microdata and dictionaries identifying each variable name, location, value range, and whether it applies to a restricted sample. To follow this example, download the April 2017 compressed data file that matches your operating system and unpack it in the same location as the python code. Next download the January 2017 data dicationary text file and save it in the same location.</p>
+	<p>The <a href="https://thedataweb.rm.census.gov/ftp/cps_ftp.html">Census FTP page</a> contains the microdata and dictionaries identifying each variable name, location, value range, and whether it applies to a restricted sample. To follow this example, download the April 2017 compressed data file that matches your operating system and unpack it in the same location as the python code. Next download the January 2017 data dictionary text file and save it in the same location.</p>
 
 	<h5>Python 3.6</h5>
 
@@ -129,7 +129,7 @@ dd_sel_var = [(i[0], int(i[3])-1, int(i[4]))
 
 	<p>There are many ways to accomplish this task. One that is simple for small scale projects and still executes quickly involves using python list comprehension to read each line of the microdata and pull out the parts we want, using the locations from the data dictionary.</p>
 
-	<p>Pandas is used to make the data structure a bit more human readable and to make filtering the data a bit more intuitive. The column names come from the data dictionary varible ids.</p>
+	<p>Pandas is used to make the data structure a bit more human readable and to make filtering the data a bit more intuitive. The column names come from the data dictionary variable ids.</p>
 
 	<p>In[4]:</p>
 	<pre><code class="python"># Convert raw data into a list of tuples
