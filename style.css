@@ -211,10 +211,10 @@ section{margin: 5px; padding: 0px;}
 code {text-align: left;}
 
 .plot {
-	width:47%;
+	width:45%;
 	display:inline-block;
 	vertical-align:middle;
-	margin: 4px 10px 10px 8px;
+	margin: 4px 18px 10px 18px;
 }
 
 .targetplot1 {
@@ -227,6 +227,7 @@ code {text-align: left;}
 @media only screen and (max-width: 900px) {
     .plot {
         width: 98%;
+		margin: 4px 8px 10px 8px;
     }
 }
 
