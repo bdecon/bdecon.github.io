@@ -257,7 +257,7 @@ table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sor
 @media screen and (max-width:760px) {
 	th, td {
     	text-align: center;
-    	padding: 6px;
+    	padding: 5px;
 			font-size: 11px
 }
 }
