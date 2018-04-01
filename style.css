@@ -229,6 +229,7 @@ code {text-align: left;}
         width: 98%;
 		margin: 4px 8px 10px 8px;
     }
+
 }
 
 table {
@@ -237,12 +238,12 @@ table {
 }
 
 th, td {
-    text-align: left;
+    text-align: center;
     padding: 8px;
 		font-size: 13px
 }
 
-td:first-child { font-weight: bold }
+td:first-child { font-weight: bold; text-align: left;}
 
 tr:nth-child(even){background-color: #f2f2f2}
 
@@ -251,3 +252,57 @@ img.image_map {width: 100%}
 table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after {
     content: " \25B4\25BE"
 }
+
+/* Top Navigation - Responsive */
+@media screen and (max-width:760px) {
+	th, td {
+    	text-align: center;
+    	padding: 6px;
+			font-size: 11px
+}
+}
+
+/* Style the tab */
+.tab {
+	width: 18%;
+    overflow: hidden;
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: right;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 5px 6px;
+    margin: 2px;
+    width: 45px;
+    transition: 0.3s;
+    font-size: 12px;
+    font-weight: bolder;
+    color: #FF2F2F;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #FF2F2F;
+    color: white ;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #FF2F2F;
+    color: white ;
+}
+
+.plot_map {margin: 0; padding: 0;}
+
+.map_titles h4 {
+	font-size: 18px;}
+
+.map_titles {	display: inline-block;
+width: 80%;}

@@ -1,41 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-	<title> BD Economics | Unemployment by Metro Area </title>
-	<link rel="stylesheet" href="style.css">
-	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-	<script src="https://use.fontawesome.com/8f99c5621e.js"></script>
-	<link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-0.12.15.min.css" type="text/css" />
-	<link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.15.min.css" type="text/css" />
+  <meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title> BD Economics | Unemployment by Metro Area </title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://use.fontawesome.com/8f99c5621e.js"></script>
+  <link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-0.12.15.min.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.15.min.css" type="text/css" />
         
-	<script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-0.12.15.min.js"></script>
-	<script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.15.min.js"></script>
-	<script type="text/javascript">
-    	Bokeh.set_log_level("info");
-	</script>
-	<meta charset="UTF-8">
-	<meta name="description" content="Tools for Economists">
-	<meta name="keywords" content="Bureau of Labor Statistics Local Area Unemployment Statistics, BLS LAUS, BLS MSA Map, BLS MSA Unemployment, BLS unemployment by local area, BLS unemployment map, BLS unemployment rate map, BLS unemployment python, BLS LAUS pyton, BLS LAUS Map, Unemployment map in python, unemployment map bokeh, bokeh economics, bokeh map">
-	<meta name="author" content="Brian Dew">
-	<meta name="google-site-verification" content="DP-2kVWWQ6i8lPgl5gqVAy3cjr-beYZzfhNL5-nVbzs" />
-		<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
-	<link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-icon-114x114.png">
-	<link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
-	<link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-icon-144x144.png">
-	<link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-icon-152x152.png">
-	<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
-	<link rel="icon" type="image/png" sizes="192x192"  href="favicon/android-icon-192x192.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-	<link rel="manifest" href="favicon/manifest.json">
-	<meta name="msapplication-TileColor" content="#ffffff">
-	<meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
-	<meta name="theme-color" content="#ffffff">
+  <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-0.12.15.min.js"></script>
+  <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.15.min.js"></script>
+  <script type="text/javascript">
+      Bokeh.set_log_level("info");
+  </script>
+  <meta charset="UTF-8">
+  <meta name="description" content="Tools for Economists">
+  <meta name="keywords" content="Bureau of Labor Statistics Local Area Unemployment Statistics, BLS LAUS, BLS MSA Map, BLS MSA Unemployment, BLS unemployment by local area, BLS unemployment map, BLS unemployment rate map, BLS unemployment python, BLS LAUS pyton, BLS LAUS Map, Unemployment map in python, unemployment map bokeh, bokeh economics, bokeh map">
+  <meta name="author" content="Brian Dew">
+  <meta name="google-site-verification" content="DP-2kVWWQ6i8lPgl5gqVAy3cjr-beYZzfhNL5-nVbzs" />
+    <link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="favicon/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="manifest" href="favicon/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -46,101 +46,124 @@
   ga('send', 'pageview');
 
 </script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script>
-	   $.getScript("https://www.kryogenix.org/code/browser/sorttable/sorttable.js")
-	</script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script>
+     $.getScript("https://www.kryogenix.org/code/browser/sorttable/sorttable.js")
+  </script>
 </head>
 <body>
-	<nav>
-		<ul class="ul_nav" id="menu">
-			<li class="nav_main"> <a href="index.html">BD Economics</a> </li>
-			<li><a href="about.html">About</a> </li>
-			<li><a href="http://briandew.wordpress.com">Blog</a> </li>
-			<li><a href="python.html">Tools &darr;</a> 
-				<ul class="hidden">
-					<li><a href="imfapi1.html">IMF API</a></li>
-					<li><a href="blsapi.html">BLS API</a></li>
-					<li><a href="cps.html">CPS Microdata</a></li>
-			</ul>
-			</li>
-		<li>
-			<a href="dash.html" class="active">Reports &darr;</a>
-			<ul class="hidden">
-				<li><a href="MacroDash.pdf">U.S. Chartbook (PDF)</a></li>
-				<li><a href="unemp.html">U.S. Unemployment Map</a></li>
-				<li><a href="Dash/ExecDash.pdf">U.S. Dashboard (PDF)</a></li>
-				<li><a href="Dash/JPNDash.pdf">Japan Dashboard (PDF)</a></li>
-				<li><a href="plots.html">Key Indicators</a></li>
-			</ul>
-			<li class="icon"> <a href="javascript:void(0);"
-				style="font-size:15px;" onclick="responsiveNav()">&#9776;</a>
-			</li>
-		</ul>
-	</nav>
-	<header>
-	<h3>Unemployment Rates by Metro Area</h3>
-	</header>
-	<section>
-	<article>
-		<article>
-			<p>
-  			<div class="plot_map">
-				<h4>Unemployment rate change</h4>
-				<h6>change to share of metro area population that is unemployed and looking for work, in percentage points</h6>
-				<div id="targetplot1"> Loading... </div>
-				<p id="pfooter">Source: U.S. Bureau of Labor Statistics</p>
-  			</div>
-			</p>
-			<div id="targetplot"> Loading... </div>
-			</article>
-	</article>
-	</section>
+  <nav>
+    <ul class="ul_nav" id="menu">
+      <li class="nav_main"> <a href="index.html">BD Economics</a> </li>
+      <li><a href="about.html">About</a> </li>
+      <li><a href="http://briandew.wordpress.com">Blog</a> </li>
+      <li><a href="python.html">Tools &darr;</a> 
+        <ul class="hidden">
+          <li><a href="imfapi1.html">IMF API</a></li>
+          <li><a href="blsapi.html">BLS API</a></li>
+          <li><a href="cps.html">CPS Microdata</a></li>
+      </ul>
+      </li>
+    <li>
+      <a href="dash.html" class="active">Reports &darr;</a>
+      <ul class="hidden">
+        <li><a href="MacroDash.pdf">U.S. Chartbook (PDF)</a></li>
+        <li><a href="unemp.html">U.S. Unemployment Map</a></li>
+        <li><a href="Dash/ExecDash.pdf">U.S. Dashboard (PDF)</a></li>
+        <li><a href="Dash/JPNDash.pdf">Japan Dashboard (PDF)</a></li>
+        <li><a href="plots.html">Key Indicators</a></li>
+      </ul>
+      <li class="icon"> <a href="javascript:void(0);"
+        style="font-size:15px;" onclick="responsiveNav()">&#9776;</a>
+      </li>
+    </ul>
+  </nav>
+  <header>
+  <h3>Unemployment Rates by Local Area</h3>
+  </header>
+  <section>
+  <article>
+    <p> The nationwide unemployment rate is a useful measure of the overall health of the job market. The unemployment rate, however, does not tell us about job quality, or about people who are not employed and would like to be, but are not actively looking for work. At a nationwide level, the unemployment rate can also hide large differences between different local job markets. Because local areas are connected by a common currency, and because it is important that people share in economic prosperity, it is helpful to look at local area unemployment rates, which are published by the Bureau of Labor Statistics three or four weeks after the national unemployment rate is released.</p>
 
-		<footer>
-		<div class="footer_left">
-			<p>March 11, 2018<br> by Brian Dew</p>
-		</div>
-		<div class="footer_right">
-			<a href="https://github.com/bdecon/">
-				<button class="button_sm"><i class="fa fa-github"></i></button>
-			</a>
-			<a href="https://www.linkedin.com/in/brian-dew-5788a386/">
-				<button class="button_sm"><i class="fa fa-linkedin"></i></button>
-			</a>
-			<a href="https://twitter.com/bd_econ">
-				<button class="button_sm"><i class="fa fa-twitter"></i></button>
-			</a>
-			<a href="https://briandew.wordpress.com/">
-				<button class="button_sm"><i class="fa fa-wordpress"></i></button>
-			</a>
-		</div>
-	</footer>
-	<script>
-		function responsiveNav() {
-			var x = document.getElementById("menu");
-			if (x.className === "ul_nav") {
-				x.className += " responsive";
-			} else {
-				x.className = "ul_nav";
-			}
-		}
-	</script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script>
-		(function () {
-		if ( $(window).width() < 800) {      
-  			$('#targetplot1').load('plots/unemp_map_medium.html');
-		} 
-		if ( $(window).width() < 550) {      
-  			$('#targetplot1').load('plots/unemp_map_small.html');
-		} 
-		else {
-  			$('#targetplot1').load('plots/unemp_map.html');}
-  		}());
-	</script>
-	<script type="text/javascript">
-		$('#targetplot').load('Dash/unemp_table.html');
-	</script>
+    <p>The map below shows how the unemployment rate is changing in different metropolitan statistical areas (MSAs). To see details about the current unemployment rate or what area is covered in each MSA, hover or tap the location of interest. Each circle size reflects the percentage point amount of change over the time period highlighted above the chart. The color of the circle shows whether the unemployment rate increased (red, means more people are unemployed and looking for work) or decreased (green, means fewer people are unemployed and looking for work), gray means unchanged. The data are adjusted for changes due to seasonal activities. The "3M" change is the three-month moving average at an annualized rate.</p>
+    <article>
+      <p>
+        <div class="plot_map">
+          <div class="map_titles">
+            <h4>Unemployment rate change</h4>
+            <h6>change to share of metro area population that is unemployed and looking for work, in percentage points</h6>
+          </div>
+<div class="tab">
+  <button class="tablinks" onclick="openCalc(event, '1m')"> 1M</button>
+  <button class="tablinks" onclick="openCalc(event, '3m')"> 3M</button>
+  <button class="tablinks" onclick="openCalc(event, '12m')" id="defaultOpen">12M</button>
+</div>
+
+<div id="1m" class="tabcontent"> Loading... </div>
+<div id="3m" class="tabcontent"> Loading... </div>
+<div id="12m" class="tabcontent"> Loading... </div>
+
+        <p id="pfooter">Source: U.S. Bureau of Labor Statistics</p>
+        </div>
+      </p>
+      <div id="unemptable"> Loading... </div>
+      </article>
+  </article>
+  </section>
+
+    <footer>
+    <div class="footer_left">
+      <p>March 11, 2018<br> by Brian Dew</p>
+    </div>
+    <div class="footer_right">
+      <a href="https://github.com/bdecon/">
+        <button class="button_sm"><i class="fa fa-github"></i></button>
+      </a>
+      <a href="https://www.linkedin.com/in/brian-dew-5788a386/">
+        <button class="button_sm"><i class="fa fa-linkedin"></i></button>
+      </a>
+      <a href="https://twitter.com/bd_econ">
+        <button class="button_sm"><i class="fa fa-twitter"></i></button>
+      </a>
+      <a href="https://briandew.wordpress.com/">
+        <button class="button_sm"><i class="fa fa-wordpress"></i></button>
+      </a>
+    </div>
+  </footer>
+
+<script>
+    function responsiveNav() {
+      var x = document.getElementById("menu");
+      if (x.className === "ul_nav") {
+        x.className += " responsive";
+      } else {
+        x.className = "ul_nav";
+      }
+    }
+
+function openCalc(evt, calcName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(calcName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    $('#12m').load('plots/unemp_map_12m.html');
+    $('#3m').load('plots/unemp_map_3m.html');
+    $('#1m').load('plots/unemp_map_1m.html');
+    $('#unemptable').load('Dash/unemp_table.html');
+  </script>
 </body>
-</html>
+</html> 
