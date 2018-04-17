@@ -121,8 +121,7 @@ series_list = requests.get(f'{url}{key}').json()\
 # Use dict keys to navigate through results:
 for series in series_list:
     if search_term in series['Name']['#text']:
-        print '{}: {}'.format(series['Name']['#text'],
-                              series['KeyFamilyRef']['KeyFamilyID'])</code></pre>
+        print(f"{series['Name']['#text']}: {series['KeyFamilyRef']['KeyFamilyID']}")</code></pre>
 	<p>Out[1]:</p><pre>Direction of Trade Statistics (DOTS): DOT</pre>
 	<h3> Finding the dimensions of the series </h3>
 	<p>The exact format of the key in our API request is determined by the structure of the series. Direction of Trade Statistics, which are grouped by importer and exporter pair rather than by country exemplifies the need to first determine series structure.</p>
@@ -133,7 +132,7 @@ dimension_list = requests.get(f'{url}{key}').json()\
             ['Structure']['KeyFamilies']['KeyFamily']\
             ['Components']['Dimension']
 for n, dimension in enumerate(dimension_list):
-    print f'Dimension {n+1}: {dimension['@codelist']}'</code></pre>
+    print(f'Dimension {n+1}: {dimension['@codelist']}')</code></pre>
 	<p>Out[2]:</p>
 <pre>Dimension 1: CL_FREQ
 Dimension 2: CL_AREA_DOT
@@ -149,7 +148,7 @@ key = f'CodeList/{dimension_list[2]['@codelist']}'
 code_list = requests.get(f'{url}{key}').json()\
 	    ['Structure']['CodeLists']['CodeList']['Code']
 for code in code_list:
-    print f'{code['Description']['#text']}: {code['@value']}'</code></pre>
+    print(f'{code['Description']['#text']}: {code['@value']}')</code></pre>
 	<p>Out[3]:</p>
 	<pre>Goods, Value of Exports, Free on board (FOB), US Dollars: TXG_FOB_USD
 Goods, Value of Imports, Cost, Insurance, Freight (CIF), US Dollars: TMG_CIF_USD
