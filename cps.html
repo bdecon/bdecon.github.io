@@ -95,9 +95,9 @@ import pandas as pd  # pandas 0.22
 import numpy as np
 import re            # regular expressions</code></pre>
 
-	<h4>Use the January 2017 data dictionary to find variable locations</h4>
+	<h4>Use the January 2017 data dictionary to find variable names and locations</h4>
 
-	<p>The example will calculate the employment to population ratio for women between the age of 25 and 54 in April 2017. To do this, we need to find the appropriate data dictionary on the Census FTP site, in this case January_2017_Record_Layout.txt, open it with python, and read the text inside. </p>
+	<p>The example will calculate the employment to population ratio, in April 2017, of women between the age of 25 and 54. To do this, we need to find the appropriate data dictionary on the Census FTP site, in this case January_2017_Record_Layout.txt, open it with python, and read the text inside. </p>
 
 	<p>We find that the BLS composite weight is called <tt>PWCMPWGT</tt>, the age variable is called <tt>PRTAGE</tt>, the sex variable is called <tt>PESEX</tt> and women are identified by <tt>2</tt>, and the employment status is stored as <tt>PREMPNOT</tt>.</p>
 
@@ -109,6 +109,7 @@ import re            # regular expressions</code></pre>
 	<pre><code class="python"># Data dictionary 
 dd_file = 'January_2017_Record_Layout.txt'
 dd_full = open(dd_file, 'r', encoding='iso-8859-1').read()
+print(dd_full)
 
 # Series of interest 
 series = ['PWCMPWGT', 'PRTAGE', 'PREMPNOT', 'PESEX']
@@ -127,9 +128,9 @@ dd_sel_var = [(i[0], int(i[3])-1, int(i[4]))
 
 	<h4>Read the CPS microdata for April 2017</h4>
 
-	<p>There are many ways to accomplish this task. One that is simple for small scale projects and still executes quickly involves using python list comprehension to read each line of the microdata and pull out the parts we want, using the locations from the data dictionary.</p>
+	<p>There are many ways to accomplish this task. One that is simple for small scale projects and still executes quickly involves using python list comprehension to read each line of the microdata as a string and slice out the parts we want, using the locations from the data dictionary.</p>
 
-	<p>Pandas is used to make the data structure a bit more human readable and to make filtering the data a bit more intuitive. The column names come from the data dictionary variable ids.</p>
+	<p>Pandas is then used to make the data structure a bit more human readable and to make filtering the data a bit more intuitive. The column names come from the data dictionary variable ids.</p>
 
 	<p>In[4]:</p>
 	<pre><code class="python"># Convert raw data into a list of tuples

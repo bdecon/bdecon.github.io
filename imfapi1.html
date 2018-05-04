@@ -141,7 +141,7 @@ df.to_csv('data/UK_MP.csv', header=True)</code></pre>
 	<p>As the last step for this example, we visually inspect the results by producing a line plot.</p>
 	<p>In[3]:</p>
 	<pre><code class="python"># Title and text with recent value
-title = 'U.K. Import Prices (index, {}=100)'.format(baseyr)
+title = f'U.K. Import Prices (index, {baseyr}=100)'
 recentdt = df.dropna().index[-1].strftime('%B %Y')
 recentval = df.dropna()[-1]
 recent = f'Most recent: {recentdt}: {recentval}'
