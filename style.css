@@ -3,7 +3,7 @@
 /* General document styling */
 html{
 	margin: 0 auto;
-	max-width: 900px;
+	max-width: 1080px;
 	min-width: 300px;
 	}
 body{
@@ -45,7 +45,7 @@ nav{
 	padding: 0 0 0 10px;
 	z-index: 999;
 	}
-.ul_nav{list-style: none; max-width: 882px; margin: 0 auto; padding: 0 20px 0 0; z-index: 999;}
+.ul_nav{list-style: none; max-width: 1062px; margin: 0 auto; padding: 0 20px 0 0; z-index: 999;}
 .ul_nav li:first-child{float: left; }
 .ul_nav li{float: right; }
 .ul_nav li a, .ul_nav li p{
@@ -211,10 +211,14 @@ section{margin: 5px; padding: 0px;}
 code {text-align: left;}
 
 .plot {
-	width:45%;
+	width:47%;
 	display:inline-block;
 	vertical-align:middle;
-	margin: 4px 16px 10px 16px;
+	margin: 4px 13px 10px 13px;
+}
+
+.plot h4 {
+	font-family: 'Lato', sans-serif; margin: 10px 0px 0px 5px; padding: 0; font-size: 18px; color: #6a6a6a;
 }
 
 .targetplot1 {
