@@ -82,12 +82,37 @@
 	<div id="targetplot1"> Loading... </div>
 	<p id="pfooter">Source: U.S. Bureau of Economic Analysis</p>
   </div>
-  <div class="plot">
-		<h4>Contributions to CPI inflation</h4>
-		<h6>share of 12-month growth, all-item CPI, percentage points</h6>
-	<div id="targetplot2"> Loading... </div>
+    <div class="plot">
+		<h4>Labor productivity growth, nonfarm businesses</h4>
+		<h6>output per hour worked, quarterly percent change at annual rate</h6>
+	<div id="targetplot8"> Loading... </div>
 	<p id="pfooter">Source: U.S. Bureau of Labor Statistics</p>
   </div>
+  <div class="plot">
+		<h4>Consumer price index inflation</h4>
+		<h6>12-month growth, percent, core excludes food and energy, seasonally adjusted</h6>
+	<div id="targetplot7"> Loading... </div>
+	<p id="pfooter">Source: U.S. Bureau of Labor Statistics</p>
+  </div>
+  <div class="plot">
+		<h4>Contributions to CPI inflation</h4>
+		<h6>share of 12-month growth, all-item CPI, percentage points, not seasonally adjusted</h6>
+	<div id="targetplot2"> Loading... </div>
+	<p id="pfooter">Source: Author's calculations from U.S. Bureau of Labor Statistics data</p>
+  </div>
+  <div class="plot">
+		<h4>U.S. treasury bond yield</h4>
+		<h6>annual yield on constant maturity bond index, by duration, percent</h6>
+	<div id="targetplot12"> Loading... </div>
+	<p id="pfooter">Source: U.S. Treasury Department</p>
+  </div>
+  <div class="plot">
+		<h4>Oil price</h4>
+		<h6>USD per barrel, front month contract for WTI crude</h6>
+	<div id="targetplot11"> Loading... </div>
+	<p id="pfooter">Source: Quandl</p>
+  </div>
+
   <div class="plot">
 		<h4>New orders, nondefense capital goods ex aircraft</h4>
 		<h6>percent change over previous month, seasonally adjusted</h6>
@@ -110,7 +135,19 @@
 		<h4>Median weekly pay, full-time workers</h4>
 		<h6>Median usual weekly earnings, current U.S. Dollars, adjusted by CPI-U, 12-month moving average</h6>
 	<div id="targetplot6"> Loading... </div>
-	<p id="pfooter">Source: Author's calculations from Current Population Survey</p>
+	<p id="pfooter">Source: Author's calculations from Current Population Survey microdata</p>
+  </div> 
+  <div class="plot">
+		<h4>Trade balance</h4>
+		<h6>balance on goods and services as a percent of GDP</h6>
+	<div id="targetplot9"> Loading... </div>
+	<p id="pfooter">Source: Author's calculations from BEA and Census data</p>
+  </div>
+  <div class="plot">
+		<h4>Trade-weighted dollar</h4>
+		<h6>broad index of USD exchange rates, January 1997=100</h6>
+	<div id="targetplot10"> Loading... </div>
+	<p id="pfooter">Source: U.S. Federal Reserve System</p>
   </div> 
 	</article>
 	</section>
@@ -146,6 +183,12 @@
 	</script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script type="text/javascript">
+		$('#targetplot12').load('plots/treasuries.html');
+		$('#targetplot11').load('plots/oil_price.html');	
+		$('#targetplot10').load('plots/USD_index.html');
+		$('#targetplot9').load('plots/trade_balance.html');		
+		$('#targetplot8').load('plots/labor_productivity.html');
+		$('#targetplot7').load('plots/cpi_lt.html');
 		$('#targetplot6').load('plots/cps_uwe.html');
 		$('#targetplot5').load('plots/epop.html');
 		$('#targetplot4').load('plots/vix.html');
