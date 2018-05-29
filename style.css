@@ -18,7 +18,7 @@ li{font-size: 12px; color: #6a6a6a;}
 h1, h2, h3, h4{font-family: 'Montserrat'; line-height: 1.25;}
 hl{margin: 0 0 10px; font-size: 40px;}
 h2{margin: 0 0 10px; font-size: 32px;}
-h3{margin: 10px 0 10px; font-size: 22px; font-family: 'Roboto', serif; color: #6a6a6a;}
+h3{margin: 10px 0 10px; font-size: 22px; font-family: 'Roboto', sans-serif; color: #6a6a6a; font-weight: 200;}
 h5{font-size: 15px;}
 h4{margin: 25px 0 0 0; font-size: 14px; font-family: 'Roboto', sans-serif;}
 h6{margin: 0 0 0 10px; font-size: 11px; font-style: italic; font-weight: normal; color: #6a6a6a;}
