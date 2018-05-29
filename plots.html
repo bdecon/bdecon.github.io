@@ -126,7 +126,7 @@
 	<p id="pfooter">Source: CBOE</p>
   </div>
   <div class="plot">
-		<h4>Employed share of prime-age population</h4>
+		<h4>Employed share of age 25-54 population</h4>
 		<h6>employed share of non-institutionalized civilians age 25-54</h6>
 	<div id="targetplot5"> Loading... </div>
 	<p id="pfooter">Source: U.S. Bureau of Labor Statistics</p>
@@ -136,6 +136,18 @@
 		<h6>Median usual weekly earnings, current U.S. Dollars, adjusted by CPI-U, 12-month moving average</h6>
 	<div id="targetplot6"> Loading... </div>
 	<p id="pfooter">Source: Author's calculations from Current Population Survey microdata</p>
+  </div> 
+  <div class="plot">
+		<h4>Net jobs added</h4>
+		<h6>one-month change in nonfarm payrolls, thousands of workers</h6>
+	<div id="targetplot13"> Loading... </div>
+	<p id="pfooter">Source: U.S. Bureau of Labor Statistics</p>
+  </div>
+  <div class="plot">
+		<h4>Unemployment by reason</h4>
+		<h6>percentage point share of labor force by reason for unemployment</h6>
+	<div id="targetplot14"> Loading... </div>
+	<p id="pfooter">Source: U.S. Bureau of Labor Statistics</p>
   </div> 
   <div class="plot">
 		<h4>Trade balance</h4>
@@ -183,6 +195,8 @@
 	</script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script type="text/javascript">
+		$('#targetplot14').load('plots/unemp_decomp.html');
+		$('#targetplot13').load('plots/payrolls.html');
 		$('#targetplot12').load('plots/treasuries.html');
 		$('#targetplot11').load('plots/oil_price.html');	
 		$('#targetplot10').load('plots/USD_index.html');
