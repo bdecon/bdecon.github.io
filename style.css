@@ -18,9 +18,9 @@ li{font-size: 12px; color: #6a6a6a;}
 h1, h2, h3, h4{font-family: 'Montserrat'; line-height: 1.25;}
 hl{margin: 0 0 10px; font-size: 40px;}
 h2{margin: 0 0 10px; font-size: 32px;}
-h3{margin: 10px 0 10px; font-size: 24px; font-family: 'Roboto', sans-serif; color: #808080; font-weight: 200;}
+h3{margin: 10px 0 10px; font-size: 26px; font-family: 'Lato', sans-serif; font-weight: 900;}
 h5{font-size: 15px;}
-h4{margin: 25px 0 0 0; font-size: 14px; font-family: 'Roboto', sans-serif;}
+h4{margin: 25px 0 0 0; font-size: 14px; font-family: 'Roboto', sans-serif; color: #808080;}
 h6{margin: 0 0 0 10px; font-size: 11px; font-style: italic; font-weight: normal; color: #6a6a6a;}
 .chart_title{font-family: 'Lato', sans-serif; margin: 10px 0px 0px 15px; padding: 0; font-size: 18px; color: #6a6a6a;}
 p.chart_subtitle{font-family: 'Lato', sans-serif; font-weight: 300; margin: 0px 10px 10px 25px; padding:0; font-size: 11px; color: #6a6a6a;}
@@ -129,7 +129,8 @@ header{
 }
 header h1{padding: 0 0 12px 0;}
 header h2{padding: 20px 0 12px 0;}
-header h3{padding: 20px 0 12px 0; color: white; font-size: 26px;}
+header h3{padding: 20px 0 12px 0; color: white; 
+	font-family: 'Lato', sans-serif; font-weight: 900; font-size: 36px;}
 
 /* Footer styling */
 footer{display: block; margin: 2em 0 0 0; border-top: thin dotted; }
@@ -233,7 +234,8 @@ code {text-align: left;}
         width: 98%;
 		margin: 4px 8px 10px 8px;
     }
-
+    header h3{padding: 20px 0 12px 0; color: white; 
+	font-family: 'Lato', sans-serif; font-weight: 900; font-size: 20px;}
 }
 
 table {
