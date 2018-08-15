@@ -65,7 +65,6 @@
 			<ul class="hidden">
 				<li><a href="MacroDash.pdf">U.S. Chartbook (PDF)</a></li>
 				<li><a href="unemp.html">U.S. Unemployment Map</a></li>
-				<li><a href="Dash/ExecDash.pdf">U.S. Dashboard (PDF)</a></li>
 				<li><a href="Dash/JPNDash.pdf">Japan Dashboard (PDF)</a></li>
 				<li><a href="plots.html">Key Indicators</a></li>
 			</ul>
@@ -79,7 +78,7 @@
 	</header>
 	<section>
 	<article>
-  <p>Updated: July 7, 2018</p>
+  <p>Updated: <span class="cb_update"></span></p>
   <h3>Output and productivity</h3>
   <div class="plot">
 		<h4>Contributions to real GDP growth</h4>
@@ -202,6 +201,10 @@
 				x.className = "ul_nav";
 			}
 		}
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$('.cb_update').load('MacroDash_update.txt');
 	</script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script type="text/javascript">
