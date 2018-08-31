@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
+<title> BD Economics | Notebooks | CPS microdata reader </title>
+<link rel="stylesheet" href="add-ins/github.css">
+<script src="add-ins/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<link rel="stylesheet" href="../style.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lato:900" rel="stylesheet"> 
+<script src="https://use.fontawesome.com/8f99c5621e.js"></script>
+<meta charset="UTF-8">
+<meta name="description" content="Tools for Economists">
+<meta name="keywords" content="Current Population Survey, CPS, CPS microdata, CPS python, Current Population Survey Python, IMF API, Economics Dashboard, Trade Network, Trade Networks, Macroeconomics Dashboard, Macroeconomic Dashboard, Markets Dashboard, Market Dashboard, U.S. Economy, U.S. Economy Dashboard, US economy, US economy dashboard, US economy charts, US economy charts pdf, NetworkX trade, international trade networks, network analysis of trade, Census Bureau CPS Python, Census Bureau CPS Pandas, BLS CPS Pandas, BLS CPS Python">
+<meta name="author" content="Brian Dew">
+<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+<link rel="manifest" href="favicon/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-90776928-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+<body>
+<nav>
+    <ul class="ul_nav" id="menu">
+        <li class="nav_main"> <a href="index.html">BD Economics</a> </li>
+        <li><a href="about.html">About</a> </li>
+        <li><a href="http://briandew.wordpress.com">Blog</a> </li>
+        <li><a href="python.html" class="active">Tools &darr;</a> 
+            <ul class="hidden">
+                <li><a href="imfapi1.html">IMF API</a></li>
+                <li><a href="blsapi.html">BLS API</a></li>
+                <li><a href="cps.html">CPS Microdata</a></li>
+        </ul>
+        </li>
+    <li>
+        <a href="dash.html">Reports &darr;</a>
+        <ul class="hidden">
+            <li><a href="MacroDash.pdf">U.S. Chartbook (PDF)</a></li>
+            <li><a href="unemp.html">U.S. Unemployment Map</a></li>
+            <li><a href="Dash/JPNDash.pdf">Japan Dashboard (PDF)</a></li>
+            <li><a href="plots.html">Key Indicators</a></li>
+        </ul>
+        <li class="icon"> <a href="javascript:void(0);"
+            style="font-size:15px;" onclick="responsiveNav()">&#9776;</a>
+        </li>
+    </ul>
+</nav>
+
+<header>
+<h3>Python Notebooks</h3>
+</header>
+<section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Current-Population-Survey-Microdata-with-Python">Current Population Survey Microdata with Python</h3><p><em>Brian Dew, @bd_econ, August 22, 2018</em></p>
+<p>The following is a minimal working example of using python and the struct method to read CPS microdata. It requires two files to be saved locally: the data dictionary, <code>January_2017_Record_Layout.txt</code>, and the large (13MB compressed, 146MB uncompressed) CPS public use microdata file, <code>apr17pub.dat</code>. Both are downloaded from the <a href="https://thedataweb.rm.census.gov/ftp/cps_ftp.html">Census CPS ftp page</a>.</p>
+<p>First, the Census data dictionary file identifies where the relevant variables are located in the microdata file. Because the microdata file is fixed-width format with no headers, there is nothing inside of the file that tells what each variable is or where it is stored--hence the need for a separate dictionary.</p>
+<p>Once the data structure is identified, the relevant parts of each row of microdata are extracted into a big list. Pandas, which makes further data cleaning and calculations easier, is able to quickly read this list. To confirm that the data are loaded properly, the example successfully benchmarks the results of a local calculation of what share of women age 25-54 are employed in April 2017 against the published BLS estimate.</p>
+<p>The code benefits greatly from the excellent four-part series (<a href="https://tomaugspurger.github.io/tackling%20the%20cps.html">1</a>, <a href="https://tomaugspurger.github.io/tackling%20the%20cps%20%28part%202%29.html">2</a>, <a href="https://tomaugspurger.github.io/tackling%20the%20cps%20%28part%203%29.html">3</a>, <a href="https://tomaugspurger.github.io/tackling%20the%20cps%20%28part%204%29.html">4</a>) by Tom Augspurger and from very patient guidance with the CPS from John Schmitt.</p>
+<p>Grateful for any advice on making the code better!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Requirements:">Requirements:</h4><p>Python (3.6 used, probably works on 2.7+), pandas, and numpy</p>
+<p>Two external files:</p>
+<p>1) January_2017_Record_Layout.txt (a data dictionary text file: <a href="http://thedataweb.rm.census.gov/pub/cps/basic/201701-/January_2017_Record_Layout.txt">http://thedataweb.rm.census.gov/pub/cps/basic/201701-/January_2017_Record_Layout.txt</a>); and 
+ 2) apr17pub.dat (<em>CAUTION</em>: large public use microdata file [13MB compressed, 146MB uncompressed]: <a href="http://thedataweb.rm.census.gov/pub/cps/basic/201501-/apr17pub.zip">http://thedataweb.rm.census.gov/pub/cps/basic/201501-/apr17pub.zip</a>)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight python"><pre><span></span><span class="c1"># Import relevant libraries (python 3.6)</span>
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">re</span><span class="o">,</span> <span class="nn">struct</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># check that two required files saved in the cwd</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">curdir</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[&#39;.ipynb_checkpoints&#39;, &#39;apr17pub.dat&#39;, &#39;cps_example.ipynb&#39;, &#39;January_2017_Record_Layout.txt&#39;]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="CPS-data-dictionary">CPS data dictionary</h4><p>Census posts a <a href="https://thedataweb.rm.census.gov/pub/cps/basic/201701-/January_2017_Record_Layout.txt">file</a> that describes how to read the fixed-width format CPS microdata files. This "data dictionary" file can be machine read. In this example, the January 2017 data dictionary text file is saved locally then used to manually find and type out the "names" of four variables: <code>PRTAGE</code> for age, <code>PESEX</code> for gender, <code>PREMPNOT</code> for employment status, and <code>PWCMPWGT</code> for the sample weight.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight python"><pre><span></span><span class="c1"># read data dictionary text file </span>
+<span class="n">data_dict</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;January_2017_Record_Layout.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="c1"># manually list out the IDs for series of interest </span>
+<span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PRTAGE&#39;</span><span class="p">,</span> <span class="s1">&#39;PESEX&#39;</span><span class="p">,</span> <span class="s1">&#39;PREMPNOT&#39;</span><span class="p">,</span> <span class="s1">&#39;PWCMPWGT&#39;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Regular-expressions">Regular expressions</h4><p>The data dictionary text file follows a pattern that makes it machine readable. In this case, specific rows of interest follow the pattern of: VariableName [space] VariableLength [space] VariableDescription [space] VariableStart - VariableEnd. The regex pattern that captures the data of interest is identified by <code>p</code>.</p>
+<p>The python numbering system starts at zero and does not include the last number from a range. As a result, the start location of a variable, as identified in the data dictionary, is adjusted by -1. Additionally, the length of the variable value, its "width" in the dataset, is stored as a string ending in <code>s</code>, the struct format code for a byte containing a single character.  This will be used later in reading the microdata</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight python"><pre><span></span><span class="c1"># regular expression matching series name and data dict pattern</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">({&quot;|&quot;.join(var_names)})\s+(\d+)\s+.*?</span><span class="se">\t</span><span class="s1">+.*?(\d\d*).*?(\d\d+)&#39;</span>
+
+<span class="c1"># dictionary of variable name: [start, end, and length + &#39;s&#39;]</span>
+<span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{s[1]}</span><span class="s1">s&#39;</span><span class="p">]</span>
+     <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">data_dict</span><span class="p">)}</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&#39;PRTAGE&#39;: [121, 123, &#39;2s&#39;], &#39;PESEX&#39;: [128, 130, &#39;2s&#39;], &#39;PREMPNOT&#39;: [392, 394, &#39;2s&#39;], &#39;PWCMPWGT&#39;: [845, 855, &#39;10s&#39;]}
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Struct-method">Struct method</h4><p>There are at least three ways to read a fixed-width format file in python: 1) string slicing on each row for each variable; 2) pandas.read_fwf(file, colspecs); or 3) use struct and a format string to identify what part of each CPS row to keep as a variable and what part to ignore. The pandas method is the easiest to use, but the slowest. The struct method is the most difficult to use but the fastest. If you need to read 40 variables for all months going back to 1994, you might want to consider writing out a script that applies the struct method.</p>
+<p>Here is a minimal example:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight python"><pre><span></span><span class="c1"># lists of variable starts, ends, and lengths</span>
+<span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">d</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+<span class="c1"># create list of which characters to skip in each row</span>
+<span class="n">skip</span> <span class="o">=</span> <span class="p">([</span><span class="n">f</span><span class="s1">&#39;{s - e}x&#39;</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">end</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]))])</span>
+
+<span class="c1"># create format string by joining skip and variable segments</span>
+<span class="n">unpack_fmt</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">j</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">skip</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">i</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">unpack_fmt</span><span class="p">)</span>
+
+<span class="c1"># struct can interpret row bytes with the format string</span>
+<span class="n">unpacker</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">Struct</span><span class="p">(</span><span class="n">unpack_fmt</span><span class="p">)</span><span class="o">.</span><span class="n">unpack_from</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>121x2s5x2s262x2s451x10s
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Fixed-width-format">Fixed width format</h4><p>The string format above, called <code>unpack_fmt</code>, can be read as: ignore the first 121 characters (<code>121x</code>), store the next two (<code>2s</code>), ignore the next five (<code>5x</code>), store the next two (<code>2s</code>), and so on. This format matches the structure of each line of the fwf data. Here's the first row of the raw CPS microdata, as an example:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight python"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;apr17pub.dat&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>000110116792163 42017 120100-1 1 1-1 115-1-1-1  15049796 1 2 1 7 2 0 205011 2  1 1-1-1-1 36 01 338600001103000   -1-1 1-1420 1 2 1 2-1 243 1-1 9-1 1-1 1 1 1 2 1 2 57 57 57 1 0 0 1 1 1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1 2-150-1-1 50-1-1-1-1 2-1 2-150-1 50-1-1    2 5 5-1 2 3 5 2-1-1-1-1-1 -1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1 -1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1 1-121 1 1 1 6-1-1-1 -1-1-1 1 2-1-1-1-1 1 2 1 6 4      -1-1       4 3 3 1 2 4-1-1 6-138-114-1 1 9-1 3-1 2 1 1 1 0-1-1-1-1  -1  -1  -1  -10-1      -10-1-1      -1      -10-1-1-1-1-1-1-1-1-1 2-1-1 2  15049796  22986106         0  16044411  15280235 0 0 1-1-1-1 0 0 1 0-1 050 0 0 0 0 1 0 0 0-1-1-1 1 0 0-1 1 1 0 1 0 1 1 0 1 1 1 0 1 0 1 1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1 0 0 0-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1 0 1 1 3865 1-1-1-1-1-1-1 1 1 1-1-1-1  1573071277704210  -1  -114-1-1-1-1-1 0-1-1-1-1-15050 1 1 1 2 2 2 2 2 2 2 0 0 0 0 0 0 0-1-1-1-1-1 1 1 1202020                                            A
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If we ignore the first 121 characters and then keep the next two, we find <code>42</code> which is the age of the person in the first row of the microdata.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Read-the-raw-microdata">Read the raw microdata</h4><p>First, open the raw CPS microdata file with the readlines method. The raw data is filtered to only include observations with a positive sample weight. The unpacker identified above is applied to each row of microdata, while the extracted variable values are converted to integers from strings.</p>
+<p>The first five observations are printed. They are much more readable than the raw data, but still not identified by name.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight python"><pre><span></span><span class="c1"># open file (read as binary) and read lines into &quot;raw_data&quot;</span>
+<span class="n">raw_data</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;apr17pub.dat&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+
+<span class="n">wgt</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;PWCMPWGT&#39;</span><span class="p">]</span>  <span class="c1"># Location of sample weight variable</span>
+
+<span class="c1"># unpack and store data of interest if sample weight &gt; 0</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[[</span><span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">unpacker</span><span class="p">(</span><span class="n">row</span><span class="p">))]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">raw_data</span>
+        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">wgt</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">wgt</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[42, 1, 1, 15730712], [26, 2, 1, 14582612], [25, 2, 1, 20672047], [42, 2, 4, 15492377], [47, 1, 1, 18155638]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Create-pandas-dataframe-from-CPS-data">Create pandas dataframe from CPS data</h4><p>Pandas is a useful tool for working with the data--here is it used to filter out the observations by age and gender. I also convert the sample weights to the values they are intended to represent, as the data dictionary indicates that they have four implied decimal places. That is, the first person in the sample below represents "1,458.2612" people in the US population.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight python"><pre><span></span><span class="c1"># Pandas dataframe of women age 25 to 54</span>
+<span class="n">df</span> <span class="o">=</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+      <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;PESEX == 2 and 25 &lt;= PRTAGE &lt;= 54&#39;</span><span class="p">)</span>
+      <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">PWCMPWGT</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;PWCMPWGT&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">10000</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>PRTAGE  PESEX  PREMPNOT   PWCMPWGT
+    26      2         1  1458.2612
+    25      2         1  2067.2047
+    42      2         4  1549.2377
+    49      2         1  1633.0038
+    26      2         1  1611.2316
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Benchmarking-against-BLS-published-data">Benchmarking against BLS published data</h4><p>The <a href="https://data.bls.gov/timeseries/LNU02300062">published value</a> for April 2017 is 72.3%</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight python"><pre><span></span><span class="c1"># identify employed portion of group as 1 &amp; the rest as 0</span>
+<span class="n">empl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;PREMPNOT&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># take sample weighted average of employed portion of group</span>
+<span class="n">epop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">empl</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;PWCMPWGT&#39;</span><span class="p">])</span>
+
+<span class="c1"># print out the result to check against LNU02300062</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;April 2017: {epop*100:.1f}%&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>April 2017: 72.3%
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+ 
+
+</section>
+
+    <footer>
+    <div class="footer_left">
+        <p>site by Brian Dew</p>
+    </div>
+    <div class="footer_right">
+        <a href="https://github.com/bdecon/">
+            <button class="button_sm"><i class="fa fa-github"></i></button>
+        </a>
+        <a href="https://www.linkedin.com/in/brian-dew-5788a386/">
+            <button class="button_sm"><i class="fa fa-linkedin"></i></button>
+        </a>
+        <a href="https://twitter.com/bd_econ">
+            <button class="button_sm"><i class="fa fa-twitter"></i></button>
+        </a>
+        <a href="https://briandew.wordpress.com/">
+            <button class="button_sm"><i class="fa fa-wordpress"></i></button>
+        </a>
+    </div>
+</footer>
+<script>
+    function responsiveNav() {
+        var x = document.getElementById("menu");
+        if (x.className === "ul_nav") {
+            x.className += " responsive";
+        } else {
+            x.className = "ul_nav";
+        }
+    }
+</script>
+</body>
+</html>

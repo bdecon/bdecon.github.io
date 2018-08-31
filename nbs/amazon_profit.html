@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
+<title> BD Economics | Notebooks | Is Amazon killing Walmart? </title>
+<link rel="stylesheet" href="add-ins/github.css">
+<script src="add-ins/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<link rel="stylesheet" href="../style.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lato:900" rel="stylesheet"> 
+<script src="https://use.fontawesome.com/8f99c5621e.js"></script>
+<meta charset="UTF-8">
+<meta name="description" content="Tools for Economists">
+<meta name="keywords" content="Current Population Survey, CPS, CPS microdata, CPS python, Current Population Survey Python, IMF API, Economics Dashboard, Trade Network, Trade Networks, Macroeconomics Dashboard, Macroeconomic Dashboard, Markets Dashboard, Market Dashboard, U.S. Economy, U.S. Economy Dashboard, US economy, US economy dashboard, US economy charts, US economy charts pdf, NetworkX trade, international trade networks, network analysis of trade, Census Bureau CPS Python, Census Bureau CPS Pandas, BLS CPS Pandas, BLS CPS Python">
+<meta name="author" content="Brian Dew">
+<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+<link rel="manifest" href="favicon/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-90776928-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+<body>
+<nav>
+    <ul class="ul_nav" id="menu">
+        <li class="nav_main"> <a href="index.html">BD Economics</a> </li>
+        <li><a href="about.html">About</a> </li>
+        <li><a href="http://briandew.wordpress.com">Blog</a> </li>
+        <li><a href="python.html" class="active">Tools &darr;</a> 
+            <ul class="hidden">
+                <li><a href="imfapi1.html">IMF API</a></li>
+                <li><a href="blsapi.html">BLS API</a></li>
+                <li><a href="cps.html">CPS Microdata</a></li>
+        </ul>
+        </li>
+    <li>
+        <a href="dash.html">Reports &darr;</a>
+        <ul class="hidden">
+            <li><a href="MacroDash.pdf">U.S. Chartbook (PDF)</a></li>
+            <li><a href="unemp.html">U.S. Unemployment Map</a></li>
+            <li><a href="Dash/JPNDash.pdf">Japan Dashboard (PDF)</a></li>
+            <li><a href="plots.html">Key Indicators</a></li>
+        </ul>
+        <li class="icon"> <a href="javascript:void(0);"
+            style="font-size:15px;" onclick="responsiveNav()">&#9776;</a>
+        </li>
+    </ul>
+</nav>
+
+<header>
+<h3>Python Notebooks</h3>
+</header>
+<section>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Is-Amazon-killing-Walmart?">Is Amazon killing Walmart?</h3><p><em>Brian Dew, @bd_econ, August 31, 2018</em></p>
+<p>Last year, I coauthored with Dean Baker a <a href="http://cepr.net/blogs/cepr-blog/is-amazon-s-stock-price-justified-what-it-means-if-it-is">blog post</a> on <strong>Amazon</strong>'s absurdly high price-to-earnings (PE) ratio (~184 at the time the piece was written). The bottom line was that for Amazon's valuation to be in line with historical norms, either its stock price had to go down or its earnings had to go up. Since most of Amazon's early 2017 earnings were coming from its web services (AWS), investors seemed to be betting that the stock price was justified by future profits from the retail and subscription businesses. My sense is that they were specifically betting that Amazon's subscription model for selling retail goods was indeed profitable, but that the company had not turned on the profit part yet. That is, the company was generating cash, but instead of returing it to investors, it was spending the cash to keep growing. A related argument was that Amazon was growing into a company that could turn on its stream of profit by raising prices. Once enough people were subscribed to the convenient service, which Amazon could continue to scale and improve, the once-price-conscious shoppers would be willing to pay more for goods.</p>
+<p>As part of the EPBC series, I've looked again at how Amazon is doing. It turns out that they generated quite large profits during each of the last three quarters. In the most recent quarter, which ended on June 30, 2018, Amazon generated 2.5 billion dollars in net income, by far its all-time largest. The North Americans retail portion of the business has become the largest source of profit, and the AWS stream now explains only about half. What makes the record quarter for Amazon more interesting, is that <strong>Walmart</strong>, by-far the largest private employer in the US (Amazon is second), generated a sizable net loss in Q2. Some of Walmart's quarterly net loss came from a one-off transaction in Brazil, but the timing allows a much different picture of the two companies' profitability to emerge. Amazon is now more profitable than Walmart.</p>
+<p><img src="AmazonWalmartNetIncomeLoss.png" alt="Graph - Net Income/Loss Amazon and Walmart"></p>
+<p>Much more in-depth analysis is required to reach a conclusion about how these two companies will fare in the future, but it's worth noting that Amazon still has an absurd valuation. Amazon's earnings have taken off over the last year, but so has its stock price, which more than doubled. Amazon's market cap is <a href="https://www.bloomberg.com/news/articles/2018-08-29/amazon-and-alphabet-have-a-new-number-one-fan-on-wall-street">nearing a trillion dollars</a>, and its PE ratio is still above 180 (the historic norm for a publically-traded company is around 20). Lower corporate taxes and a strong economic forecast offer some justification for higher stock prices, but the simple point is that Amazon, now massively profitable, is still being treated as a high-growth investment. While a lot has changed over the past year, the bottom line really hasn't. Either Amazon's stock price goes down or its profits go up.</p>
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="EPBC">EPBC</h4><p>Part of the EPBC series (in addition to revisiting older work) is showing my work. In this case, the data work was admittedly very light. I pulled the 2011-onward net income series for both companies from the <a href="http://www.usfundamentals.com/">US Stocks Fundamentals API</a> and then looked through their most recent quarterly reports, retrieved from the companies' investor relations websites (<a href="http://phx.corporate-ir.net/phoenix.zhtml?c=97664&amp;p=irol-sec">Amazon</a>, 
+<a href="http://stock.walmart.com/investors/financial-information/sec-filings/default.aspx">Walmart</a>). I then looked up Amazon's stock price on Google finance (retrieved before market open on August 31, 2018).</p>
+<p>Here's the python script that pulls almost all of the data and generates the graph above:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Requirements:">Requirements:</h4><p>Python (3.6 used) with the requests package and pandas<br>API <code>key</code> from usfundamentals.com (free).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight python"><pre><span></span><span class="c1"># Import python libraries</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="k">import</span> <span class="n">StringIO</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># File containing API key</span>
+<span class="kn">from</span> <span class="nn">config</span> <span class="k">import</span> <span class="n">usfun_key</span> <span class="k">as</span> <span class="n">key</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Get-company-IDs">Get company IDs</h4><p>The company ID is the same one used in SEC filings (the source of the data). Here is an example of how to put in a loose string related to a company name, like 'Amazon' and retrieve, from the US stock fundamentals API, the associated company ID.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight python"><pre><span></span><span class="c1"># For selected companies, get company ID</span>
+<span class="n">sel_comp</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Amazon&#39;</span><span class="p">,</span> <span class="s1">&#39;Walmart&#39;</span><span class="p">]</span>
+
+<span class="n">base</span> <span class="o">=</span> <span class="s1">&#39;https://api.usfundamentals.com/v1/&#39;</span> <span class="c1"># API url</span>
+<span class="n">param</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;companies/xbrl?&amp;format=json&amp;token=</span><span class="si">{key}</span><span class="s1">&#39;</span>
+
+<span class="c1"># Request data from US fundamentals API</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{base}{param}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+<span class="c1"># ID numbers for selected companies</span>
+<span class="n">c</span> <span class="o">=</span> <span class="p">{</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s1">&#39;company_id&#39;</span><span class="p">]):</span> <span class="n">i</span><span class="p">[</span><span class="s1">&#39;name_latest&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">r</span> 
+     <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">sc</span> <span class="ow">in</span> <span class="n">i</span><span class="p">[</span><span class="s1">&#39;name_latest&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">sc</span> <span class="ow">in</span> <span class="n">sel_comp</span><span class="p">)}</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{1018724: &#39;Amazon COM Inc&#39;, 104169: &#39;Walmart Inc.&#39;}
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Retrieve-net-income-for-companies">Retrieve net income for companies</h4><p>I wasn't able to get the API to return the net income data in json format, instead, StringIO makes the API result readable for pandas.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight python"><pre><span></span><span class="c1"># New parameters to retrieve data</span>
+<span class="n">freq</span> <span class="o">=</span> <span class="s1">&#39;frequency=q&#39;</span>
+<span class="n">cik</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;companies={&quot;,&quot;.join([str(k) for k in c.keys()])}&#39;</span>
+<span class="n">ind</span> <span class="o">=</span> <span class="s1">&#39;indicators=NetIncomeLoss&#39;</span>
+<span class="n">param</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;/indicators/xbrl?</span><span class="si">{cik}</span><span class="s1">&amp;</span><span class="si">{ind}</span><span class="s1">&amp;</span><span class="si">{freq}</span><span class="s1">&amp;token=</span><span class="si">{key}</span><span class="s1">&#39;</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{base}{param}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+
+<span class="c1"># Convert API result to pandas dataframe</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">StringIO</span><span class="p">(</span><span class="n">r</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Adding-latest-datapoint-manually">Adding latest datapoint manually</h4><p>The Q2 results from Walmart have been released on August 16, but not yet filed with the SEC. I've used the latest Walmart quarterly report both to check that I am using the right series for net income/loss and to find the latest value and enter it manually into the dataframe:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight python"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;2018Q2&#39;</span><span class="p">,</span> <span class="s1">&#39;Walmart Inc.&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">861000000</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Plotting-the-result">Plotting the result</h4><p>I've put some time into the formatting for this example, but 90% of the result can be obtained from <code>df.plot(kind='bar')</code></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight python"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span> <span class="o">/</span> <span class="mi">1</span><span class="n">_000_000_000</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.78</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;lightgray&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">],</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">ymax</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="c1"># add title and footer</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">7.25</span><span class="p">,</span> <span class="s1">&#39;Quarterly net income (+) or loss (-), in billions of USD&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;dimgray&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">7.0</span><span class="p">,</span> <span class="mf">6.4</span><span class="p">,</span> <span class="s1">&#39;vs.&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;dimgray&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mf">6.25</span><span class="p">,</span> <span class="s1">&#39;Walmart&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">6.25</span><span class="p">,</span> <span class="s1">&#39;Amazon&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.2</span><span class="p">,</span> 
+         <span class="s1">&#39;Sources: US Stock Fundamentals; company quarterly reports. </span><span class="se">\n</span><span class="s1">&#39;</span>
+         <span class="s1">&#39;Not adjusted for inflation.</span><span class="se">\n</span><span class="s1">&#39;</span>
+         <span class="s1">&#39;Python code for reproducing this plot: bd_econ.com/nbs/amazon_profit.html&#39;</span><span class="p">,</span> 
+         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;dimgray&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]:</span>  <span class="c1"># custom horizontal gridlines</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;dimgray&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+
+<span class="n">xticks</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">2018</span><span class="p">):</span>
+    <span class="n">xticks</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;Q1&#39;</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;Q2</span><span class="se">\n\n</span><span class="s1">  </span><span class="si">{year}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;Q3&#39;</span><span class="p">,</span> <span class="s1">&#39;Q4&#39;</span><span class="p">])</span>
+<span class="n">xticks</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;Q1</span><span class="se">\n\n</span><span class="s1">  2018&#39;</span><span class="p">,</span> <span class="s1">&#39;Q2&#39;</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">tick</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">xticks</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">tick</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;dimgray&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;AmazonWalmartNetIncomeLoss.png&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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/6Z/txIjym/DGOgQnSbwXZN4MOJhovbsUaK2Z41qtdqq/LrZ5+tEn8jjiSa5zvNRiogMUqX/+IgiIiIiUjYaappERERERj0FTSIiIiIZFDSJiIiIZFDQJCIiIpJBQZOIiIhIBgVNIiIiIhkUNImIiIhkUNAkIiIikkFBk4iIiEgGBU0iIiIiGRQ0iYiIiGRQ0CQiIiKSQUGTiIiISAYFTSIiIiIZFDSJiIiIZFDQJCIiIpJBQZOIiIhIBgVNIiIiIhkmjHQGZNZQq9Xqrd6rVquV4cyLiIjIYKimSURERCSDgiYRERGRDAqaRERERDIoaBIRERHJoKBJREREJIOCJhEREZEMCppEREREMihoEhEREcmgoElEREQkg4ImERERkQwKmkREREQyKGgSERERyaAJe7vUbiJa0GS0IiIi44VqmkREREQyKGgSERERyaCgSURERCSDgiYRERGRDAqaRERERDLo6TkRGXPaPbWqJ1ZFZKiopklEREQkg4ImERERkQwKmkREREQyKGgSERERyaCgSURERCSDgiYRERGRDAqaRERERDIoaBIRERHJoKBJREREJIOCJhEREZEMmkZFRGQcajfVDGi6GZHBUE2TiIiISAYFTSIiIiIZFDSJiIiIZFCfJpFRpF0/FPVBEREZWappEhEREcmgoElEREQkg4ImERERkQwKmkREREQyKGgSERERyaCgSURERCSDgiYRERGRDAqaRERERDL0JGgysy+a2dW9SEtERERkNOp6RHAzmwtYuQd5EZFRSKOUi4iEXkyj8r/AqcA3e5CWyLBRMCAiIgPRVfOcmc0BrOfuf+5RfkRERERGpW5rmnYCziwvrNVqU4GJXaY9LtRqtWkjsNtDO7x/2LDkItMIlVFbylMe5WnsUjmJzFStVqflrFep11u2UHRkZt8BJgF1YC3gG+5+3KATHIPaNfHAyDTzjLU8jVRTmPKUR3kam0bj54DIWNdVTZO7H9T428yuntUCJhEREZl19GycJnef0qu0REREREYbDW4pIiIikkFBk4iIiEiGXozTNKzUAVRERERGwpgLmkQUOIuMTaPx3h2NeZLRS0HTKKKbd2zSo90iIrMGBU0iMiz0o0BExjp1BBcRERHJoJomaUu1AyIiIkFBk8g4pH5WIiK9p+Y5ERERkQwKmkREREQyKGgSERERyaA+TSIiXVIfMpFZg2qaRERERDIMS02THlsXERGRsU41TSIiIiIZZtk+Tar9EhF9DojIQMyyQZOIyGikQE5k9FLznIiIiEgGBU0iIiIiGRQ0iYiIiGRQ0CQiIiKSQUGTiIiISAY9PSciIm3piT6RoJomERERkQyqaRIRkTFntNV+adLmWYNqmkREREQyKGgSERERyaCgSURERCSD+jSJiIiMIqOtv5bMpJomERERkQwKmkREREQyKGgSERERyaCgSURERCSDgiYRERGRDAqaRERERDIoaBIRERHJoKBJREREJIOCJhEREZEMCppEREREMmgaFRERERkKvga7AAAgAElEQVRfKpWWU9FQrw96KhrVNImIiIhkUNAkIiIikkFBk4iIiEgGBU0iIiIiGRQ0iYiIiGRQ0CQiIiKSQUGTiIiISAYFTSIiIiIZFDSJiIiIZNCI4CIiItJWrVZrOcJ2tVod9AjbY01XQZOZrQUcA7wB3Ozu+/ckVyIiIjLujPXgq9vmuQeBDdx9HWBRM1uxB3kSERERGXW6qmly98cKL2cQNU4iIiIi405POoKb2UrAwu5+Zy/SExERERltuu4IbmYLAccDn24sq9VqU4GJOdvXarVp3eah12kpT2MznV6mpTyNzXR6mZbyNDbT6WVa4z1PvTIaj606wP1Uq9WsfVfq9ZZ9sjoyswnA+cBh7n5Dq/V62fGrV2kNRzrKU+/TGY15GmvlPRrzpGtAedI10Ps89dJoK++OKpXW56NeH/R+um2e2wZYA/iOmV1hZpO7TE9ERERkVOq2I/hZwFk9youIiIjIqKURwUVEREQyaERwERERGbwh6j80GqmmSURERCSDgiYRERGRDGqeExERGYdG49AFY51qmkREREQyKGgSERERyaDmORERERl57Z7Cg1HxJJ5qmkREREQyKGgSERERyaCgSURERCSDgiYRERGRDAqaRERERDIoaBIRERHJoKBJREREJIOCJhEREZEMCppEREREMihoEhEREcmgoElEREQkg4ImERERkQwKmkREREQyKGgSERERyaCgSURERCSDgiYRERGRDAqaRERERDIoaBIRERHJoKBJREREJIOCJhEREZEMCppEREREMihoEhEREckwYaQzICIiQqVSb/t+vV4ZppyItKSaJhEREZEMCppEREREMqh5TkREpJl2TYZqLpwlKWgSEREZagrA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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+ 
+
+</section>
+
+    <footer>
+    <div class="footer_left">
+        <p>site by Brian Dew</p>
+    </div>
+    <div class="footer_right">
+        <a href="https://github.com/bdecon/">
+            <button class="button_sm"><i class="fa fa-github"></i></button>
+        </a>
+        <a href="https://www.linkedin.com/in/brian-dew-5788a386/">
+            <button class="button_sm"><i class="fa fa-linkedin"></i></button>
+        </a>
+        <a href="https://twitter.com/bd_econ">
+            <button class="button_sm"><i class="fa fa-twitter"></i></button>
+        </a>
+        <a href="https://briandew.wordpress.com/">
+            <button class="button_sm"><i class="fa fa-wordpress"></i></button>
+        </a>
+    </div>
+</footer>
+<script>
+    function responsiveNav() {
+        var x = document.getElementById("menu");
+        if (x.className === "ul_nav") {
+            x.className += " responsive";
+        } else {
+            x.className = "ul_nav";
+        }
+    }
+</script>
+</body>
+</html>
