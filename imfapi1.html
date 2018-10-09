@@ -114,41 +114,42 @@
 
 url = 'http://dataservices.imf.org/REST/SDMX_JSON.svc/'
 key = 'CompactData/IFS/M.GB.PMP_IX' # adjust codes here
-data = requests.get(f'{url}{key}').json()
-data['CompactData']['DataSet']['Series']['Obs'][-1]</code></pre>
+
+# Navigate to series in API-returned JSON data
+data = (requests.get(f'{url}{key}').json()
+        ['CompactData']['DataSet']['Series'])
+
+print(data['Obs'][-1]) # Print latest observation</code></pre>
 	<p>Out[1]:</p>
-	<pre>	{u'@BASE_YEAR': u'2010',
-	u'@OBS_VALUE': u'103.528581510233',
-	u'@TIME_PERIOD': u'2016-10'}</pre>
+	<pre>	{'@TIME_PERIOD': '2018-03', '@OBS_VALUE': '108.904109589041'}</pre>
 	<h3> Pandas to clean the data and save to csv </h3>
 	<p>Next, we'll use pandas to clean up the data obtained above, save it as a csv file, and produce a simple line plot.</p>
 	<p>In[2]:</p>
-	<pre><code class="python">import pandas as pd          # pandas version 0.22
+	<pre><code class="python">import pandas as pd          # pandas version 0.23
 
-# Navigate to observations in JSON data
-obs = data['CompactData']['DataSet']['Series']['Obs']
-baseyr = obs[-1]['@BASE_YEAR']  # Save the base year
+baseyr = data['@BASE_YEAR']  # Save the base year
 
 # Create pandas dataframe from the observations
-df = pd.DataFrame(obs)[['@OBS_VALUE','@TIME_PERIOD']]
+df = pd.DataFrame(data['Obs'])
 df.columns = ['value', 'date']
 df.loc[:,'value'] = df['value'].astype(float).round(1)
 df = df.set_index(pd.to_datetime(df['date']))['value']
 
 # Save cleaned datafrane as a csv file
-df.to_csv('data/UK_MP.csv', header=True)</code></pre>
+df.to_csv('UK_import_price_index.csv', header=True)</code></pre>
 	<h3> Simple line plot </h3>
 	<p>As the last step for this example, we visually inspect the results by producing a line plot.</p>
 	<p>In[3]:</p>
 	<pre><code class="python"># Title and text with recent value
-title = f'U.K. Import Prices (index, {baseyr}=100)'
-recentdt = df.dropna().index[-1].strftime('%B %Y')
-recentval = df.dropna()[-1]
+title = f'U.K. Import Prices (index, {baseyr})'
+recentdt = df.index[-1].strftime('%B %Y')
+recentval = round(df[-1], 1)
 recent = f'Most recent: {recentdt}: {recentval}'
+source = 'Source: IMF IFS'
 
 # Basic plot
-ax = df.plot(title=title, colormap='Set1')
-ax.set_xlabel(recent)</code></pre>
+plot = df.plot(title=title, colormap='Set1')
+plot = plot.set_xlabel(f'{recent}; {source}')</code></pre>
 	<p>Out[3]:</p>
 	<img src="https://github.com/bdecon/bdecon.github.io/raw/master/images/UK_MP.png" alt="Pandas Plot Output" style="max-width: 100%;"/>
 
