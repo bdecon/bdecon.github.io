@@ -130,12 +130,14 @@ print(data['Obs'][-1]) # Print latest observation</code></pre>
 baseyr = data['@BASE_YEAR']  # Save the base year
 
 # Create pandas dataframe from the observations
-df = pd.DataFrame(data['Obs'])
-df.columns = ['value', 'date']
-df.loc[:,'value'] = df['value'].astype(float).round(1)
-df = df.set_index(pd.to_datetime(df['date']))['value']
+data_list = [[obs.get('@TIME_PERIOD'), obs.get('@OBS_VALUE')]
+             for obs in data['Obs']]
 
-# Save cleaned datafrane as a csv file
+df = pd.DataFrame(data_list, columns=['date', 'value'])
+     
+df = df.set_index(pd.to_datetime(df['date']))['value'].astype('float')
+
+# Save cleaned dataframe as a csv file
 df.to_csv('UK_import_price_index.csv', header=True)</code></pre>
 	<h3> Simple line plot </h3>
 	<p>As the last step for this example, we visually inspect the results by producing a line plot.</p>
