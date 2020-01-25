@@ -79,7 +79,7 @@
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Current-Population-Survey-Microdata-with-Python">Current Population Survey Microdata with Python</h3><p><em>Brian Dew, @bd_econ, August 22, 2018</em></p>
 <p>The following is a minimal working example of using python and the struct method to read CPS microdata. It requires two files to be saved locally: the data dictionary, <code>January_2017_Record_Layout.txt</code>, and the large (13MB compressed, 146MB uncompressed) CPS public use microdata file, <code>apr17pub.dat</code>. Both are downloaded from the <a href="https://thedataweb.rm.census.gov/ftp/cps_ftp.html">Census CPS ftp page</a>.</p>
-<p>First, the Census data dictionary file identifies where the relevant variables are located in the microdata file. Because the microdata file is fixed-width format with no headers, there is nothing inside of the file that tells what each variable is or where it is stored--hence the need for a separate dictionary.</p>
+<p>First, the Census data dictionary file identifies where the relevant variables are located in the microdata file. Because the microdata file is <a href="https://stackoverflow.com/questions/7666780/why-are-fixed-width-file-formats-still-in-use">fixed-width format</a> with no headers, there is nothing inside of the file that tells what each variable is or where it is stored--hence the need for a separate dictionary.</p>
 <p>Once the data structure is identified, the relevant parts of each row of microdata are extracted into a big list. Pandas, which makes further data cleaning and calculations easier, is able to quickly read this list. To confirm that the data are loaded properly, the example successfully benchmarks the results of a local calculation of what share of women age 25-54 are employed in April 2017 against the published BLS estimate.</p>
 <p>The code benefits greatly from the excellent four-part series (<a href="https://tomaugspurger.github.io/tackling%20the%20cps.html">1</a>, <a href="https://tomaugspurger.github.io/tackling%20the%20cps%20%28part%202%29.html">2</a>, <a href="https://tomaugspurger.github.io/tackling%20the%20cps%20%28part%203%29.html">3</a>, <a href="https://tomaugspurger.github.io/tackling%20the%20cps%20%28part%204%29.html">4</a>) by Tom Augspurger and from very patient guidance with the CPS from John Schmitt.</p>
 <p>Grateful for any advice on making the code better!</p>
@@ -366,7 +366,7 @@
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Create-pandas-dataframe-from-CPS-data">Create pandas dataframe from CPS data</h4><p>Pandas is a useful tool for working with the data--here is it used to filter out the observations by age and gender. I also convert the sample weights to the values they are intended to represent, as the data dictionary indicates that they have four implied decimal places. That is, the first person in the sample below represents "1,458.2612" people in the US population.</p>
+<h4 id="Create-pandas-dataframe-from-CPS-data">Create pandas dataframe from CPS data</h4><p>Pandas is a useful tool for working with the data--here it is used to filter out the observations by age and gender. I also convert the sample weights to the values they are intended to represent, as the data dictionary indicates that they have four implied decimal places. That is, the first person in the sample below represents "1,458.2612" people in the US population.</p>
 
 </div>
 </div>
