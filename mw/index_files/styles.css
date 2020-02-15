@@ -37,9 +37,14 @@ table {
   border-spacing: 0; }
 
 /* END RESET CSS */
-body, html {
-  height: 100%;
-  background: #FFF; }
+html{
+	margin: 0 auto;
+	max-width: 1080px;
+	min-width: 300px;
+	}
+body{
+	left: 0;
+	}
 
 .container-fluid {
   position: absolute;
@@ -70,7 +75,7 @@ li:last-child {
 }
 
 p {
-  font-family: 'Open Sans', serif;
+  font-family: Tahoma, Verdana, Segoe, sans-serif;
   font-size: 1.0em;
   line-height: 1.4em;
   margin-bottom: 12px; }
