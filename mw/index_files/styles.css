@@ -89,6 +89,8 @@ em {
   #recent a {
     font-weight: bold;
     text-decoration: none; }
+  #recent p {
+  	margin-bottom: 8px; }
 
 #mobile-img {
   display: none; }
