@@ -97,8 +97,9 @@ em {
 
 #social-icons #twitter {
   background-image: url(../img/twitter-logo.png);
-  height: 36px;
-  width: 36px; }
+  height: 18px;
+  width: 18px; 
+  text-align: center;}
 
 @media screen and (max-width: 1366px) {
   p {
