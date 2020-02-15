@@ -68,6 +68,10 @@ p {
   font-size: 1.0em;
   line-height: 1.4em;
   margin-bottom: 12px; }
+  
+em {
+  font-style: italic;
+}
 
 #photo {
     background-image: none; }
