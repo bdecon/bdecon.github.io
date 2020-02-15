@@ -46,7 +46,7 @@ body, html {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #000;
+  color: #a9a9a9;
   font-size: 1.125em; }
 
 header h1 {
@@ -63,20 +63,11 @@ p {
   margin-bottom: 12px; }
 
 #photo {
-  background-image: url(../img/mark_speaking.jpg);
-  background-repeat: no-repeat;
-  background-position: left -75px; }
-  #photo p {
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    color: #fff;
-    padding: 6px;
-    background-color: #000; }
+    background-image: none; }
 
 #bio {
   color: #FFF;
-  font-size: 1.125em;
+  font-size: 1.115em;
   margin: 0 24px; }
   #bio a {
     font-weight: bold;
