@@ -60,6 +60,14 @@ header h2 {
   color: #000;
   padding: 24px 32px 24px 24px;
   font-size: 1.5em; }
+  
+li {
+  margin-bottom: 15px;
+}
+
+li:last-child {
+ margin-bottom: 0px;
+}
 
 p {
   font-family: 'Open Sans', serif;
