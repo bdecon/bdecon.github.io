@@ -39,19 +39,19 @@ table {
 /* END RESET CSS */
 body, html {
   height: 100%;
-  background: #000; }
+  background: #FFF; }
 
 .container-fluid {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #000;
+  color: #FFF;
   font-size: 1.125em; }
 
 header h1 {
   font-family: 'Bitter', serif;
-  color: #FFF;
+  color: #000;
   padding: 24px 32px 24px 24px;
   font-size: 2.5em; }
   
@@ -75,7 +75,7 @@ em {
     background-image: none; }
 
 #bio {
-  color: #FFF;
+  color: #000;
   font-size: 1.0em;
   margin: 0 24px; }
   #bio a {
@@ -83,7 +83,7 @@ em {
     text-decoration: none; }
     
 #recent {
-  color: #FFF;
+  color: #000;
   font-size: 0.9em;
   margin: 0 24px; }
   #bio a {
