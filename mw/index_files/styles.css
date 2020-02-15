@@ -55,6 +55,13 @@ header h1 {
   text-align: center;
   padding: 24px 32px 24px 24px;
   font-size: 2.0em; }
+  
+header h1 {
+  font-family: 'Bitter', serif;
+  color: #FFF;
+  text-align: center;
+  padding: 24px 32px 24px 24px;
+  font-size: 1.5em; }
 
 p {
   font-family: 'Open Sans', serif;
@@ -66,6 +73,14 @@ p {
     background-image: none; }
 
 #bio {
+  color: #FFF;
+  font-size: 1.0em;
+  margin: 0 24px; }
+  #bio a {
+    font-weight: bold;
+    text-decoration: none; }
+    
+#recent {
   color: #FFF;
   font-size: 1.0em;
   margin: 0 24px; }
