@@ -1,0 +1,133 @@
+/* RESET CSS */
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after {
+  content: '';
+  content: none; }
+
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/* END RESET CSS */
+body, html {
+  height: 100%;
+  background: #000; }
+
+.container-fluid {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #000;
+  font-size: 1.125em; }
+
+header h1 {
+  font-family: 'Bitter', serif;
+  color: #FFF;
+  text-align: center;
+  padding: 24px 32px 24px 24px;
+  font-size: 2.56578em; }
+
+p {
+  font-family: 'Open Sans', serif;
+  font-size: 1.125em;
+  line-height: 1.42383em;
+  margin-bottom: 12px; }
+
+#photo {
+  background-image: url(../img/mark_speaking.jpg);
+  background-repeat: no-repeat;
+  background-position: left -75px; }
+  #photo p {
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    color: #fff;
+    padding: 6px;
+    background-color: #000; }
+
+#bio {
+  color: #FFF;
+  font-size: 1.125em;
+  margin: 0 24px; }
+  #bio a {
+    font-weight: bold;
+    text-decoration: none; }
+
+#mobile-img {
+  display: none; }
+
+#social-icons #facebook {
+  background-image: url(../img/fb-logo.png);
+  height: 72px;
+  width: 72px; }
+#social-icons #twitter {
+  background-image: url(../img/twitter-logo.png);
+  height: 72px;
+  width: 72px; }
+
+@media screen and (max-width: 1366px) {
+  p {
+    font-size: 1em; } }
+@media screen and (max-width: 960px) {
+  .container-fluid {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    padding: 12px 6px; }
+
+  #photo {
+    background-position: -125px top; }
+
+  p {
+    font-size: 0.79012em; } }
+@media screen and (max-width: 400px) {
+  #photo {
+    background-image: none; }
+
+  #mobile-img {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+    padding: 0 12px 24px 12px; }
+
+  header h1 {
+    font-size: 2.02729em; }
+
+  p {
+    font-size: 1em; }
+
+  #bio {
+    font-size: 1em; } }
+
+/*# sourceMappingURL=styles.css.map */
