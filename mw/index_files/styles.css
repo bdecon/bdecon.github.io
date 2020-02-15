@@ -46,7 +46,7 @@ body, html {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #a9a9a9;
+  color: #000;
   font-size: 1.125em; }
 
 header h1 {
@@ -58,7 +58,7 @@ header h1 {
 
 p {
   font-family: 'Open Sans', serif;
-  font-size: 1.05em;
+  font-size: 1.0em;
   line-height: 1.4em;
   margin-bottom: 12px; }
 
@@ -67,7 +67,7 @@ p {
 
 #bio {
   color: #FFF;
-  font-size: 1.115em;
+  font-size: 1.0em;
   margin: 0 24px; }
   #bio a {
     font-weight: bold;
