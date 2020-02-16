@@ -107,6 +107,13 @@ em {
 
 #mobile-img {
   display: none; }
+  
+#photo {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  padding: 0 12px 24px 12px; }
 
 #social-icons #twitter {
   background-image: url(../img/twitter-logo.png);
@@ -125,9 +132,6 @@ em {
     transform: none;
     padding: 12px 6px; }
 
-  #photo {
-    background-position: -125px top; }
-
   p {
     font-size: 0.79012em; } }
 @media screen and (max-width: 400px) {
@@ -141,6 +145,9 @@ em {
     width: 100%;
     padding: 0 12px 24px 12px; }
 
+  #photo {
+    display: none; }
+    
   header h1 {
     font-size: 2.0em; }
 
