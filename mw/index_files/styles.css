@@ -109,7 +109,8 @@ em {
   display: block;
   margin: 0 auto;
   text-align: center;
-  width: 100%;
+  width: 80%;
+  height: auto;
   padding: 18px 24px 12px 24px; }
   
 #news-logo {
