@@ -116,9 +116,9 @@ em {
   display: inline-block;
   margin: 0 auto;
   text-align: left;
-  width:10px; 
+  width:14px; 
   height: auto;
-  padding: 0px 0px 2px 0px; }
+  padding: 0px 2px 2px 0px; }
 
 #social-icons #twitter {
   background-image: url(../img/twitter-logo.png);
