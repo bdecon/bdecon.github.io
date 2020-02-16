@@ -108,9 +108,9 @@ em {
   display: block;
   margin: 0 auto;
   text-align: center;
-  width: 75%;
+  width: 72%;
   height: auto;
-  padding: 8px 24px 4px 24px; }
+  padding: 8px 24px 0px 24px; }
   
 #news-logo {
   display: inline-block;
