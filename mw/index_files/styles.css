@@ -49,7 +49,7 @@ body{
 .container-fluid {
   position: absolute;
   left: 50%;
-  transform: translate(-50%, 2%);
+  transform: translate(-50%, 1%);
   color: #FFF;
   font-size: 1.125em; }
 
@@ -127,6 +127,14 @@ em {
   text-align: center;}
 
 @media screen and (max-width: 1366px) {
+  #photo {
+  	display: block;
+  	margin: 0 auto;
+  	text-align: center;
+  	width: 90%;
+  	height: auto;
+  	padding: 8px 12px 0px 12px; }
+  
   p {
     font-size: 1em; } }
 @media screen and (max-width: 960px) {
