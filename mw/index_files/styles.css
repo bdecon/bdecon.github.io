@@ -114,6 +114,10 @@ em {
   
 #news-logo {
   display: inline-block;
+  margin: 0 auto;
+  text-align: left;
+  width:10px; 
+  height: auto;
   padding: 0px 0px 2px 0px; }
 
 #social-icons #twitter {
