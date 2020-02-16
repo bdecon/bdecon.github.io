@@ -111,6 +111,13 @@ em {
   text-align: center;
   width: 100%;
   padding: 12px 24px 0px 24px; }
+  
+#news-logo {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  padding: 0px 0px 2px 0px; }
 
 #social-icons #twitter {
   background-image: url(../img/twitter-logo.png);
