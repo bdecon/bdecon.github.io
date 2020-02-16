@@ -48,6 +48,8 @@ body{
 
 .container-fluid {
   position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0%);
   color: #FFF;
   font-size: 1.125em; }
 
