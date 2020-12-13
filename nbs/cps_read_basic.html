@@ -78,7 +78,7 @@
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Current-Population-Survey-Microdata-with-Python">Current Population Survey Microdata with Python</h3><p><em>Brian Dew, @bd_econ, August 22, 2018</em></p>
-<p>The following is a minimal working example of using python and the struct method to read CPS microdata. It requires two files to be saved locally: the data dictionary, <code>January_2017_Record_Layout.txt</code>, and the large (13MB compressed, 146MB uncompressed) CPS public use microdata file, <code>apr17pub.dat</code>. Both are downloaded from the <a href="https://thedataweb.rm.census.gov/ftp/cps_ftp.html">Census CPS ftp page</a>.</p>
+<p>The following is a minimal working example of using python and the struct method to read CPS microdata. It requires two files to be saved locally: the data dictionary, <code>January_2017_Record_Layout.txt</code>, and the large (13MB compressed, 146MB uncompressed) CPS public use microdata file, <code>apr17pub.dat</code>. Both are downloaded from the <a href="https://www.census.gov/data/datasets/time-series/demo/cps/cps-basic.html">Census Basic Monthly CPS page</a>.</p>
 <p>First, the Census data dictionary file identifies where the relevant variables are located in the microdata file. Because the microdata file is <a href="https://stackoverflow.com/questions/7666780/why-are-fixed-width-file-formats-still-in-use">fixed-width format</a> with no headers, there is nothing inside of the file that tells what each variable is or where it is stored--hence the need for a separate dictionary.</p>
 <p>Once the data structure is identified, the relevant parts of each row of microdata are extracted into a big list. Pandas, which makes further data cleaning and calculations easier, is able to quickly read this list. To confirm that the data are loaded properly, the example successfully benchmarks the results of a local calculation of what share of women age 25-54 are employed in April 2017 against the published BLS estimate.</p>
 <p>The code benefits greatly from the excellent four-part series (<a href="https://tomaugspurger.github.io/tackling%20the%20cps.html">1</a>, <a href="https://tomaugspurger.github.io/tackling%20the%20cps%20%28part%202%29.html">2</a>, <a href="https://tomaugspurger.github.io/tackling%20the%20cps%20%28part%203%29.html">3</a>, <a href="https://tomaugspurger.github.io/tackling%20the%20cps%20%28part%204%29.html">4</a>) by Tom Augspurger and from very patient guidance with the CPS from John Schmitt.</p>
@@ -93,8 +93,8 @@
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Requirements:">Requirements:</h4><p>Python (3.6 used, probably works on 2.7+), pandas, and numpy</p>
 <p>Two external files:</p>
-<p>1) January_2017_Record_Layout.txt (a data dictionary text file: <a href="http://thedataweb.rm.census.gov/pub/cps/basic/201701-/January_2017_Record_Layout.txt">http://thedataweb.rm.census.gov/pub/cps/basic/201701-/January_2017_Record_Layout.txt</a>); and 
- 2) apr17pub.dat (<em>CAUTION</em>: large public use microdata file [13MB compressed, 146MB uncompressed]: <a href="http://thedataweb.rm.census.gov/pub/cps/basic/201501-/apr17pub.zip">http://thedataweb.rm.census.gov/pub/cps/basic/201501-/apr17pub.zip</a>)</p>
+<p>1) January_2017_Record_Layout.txt (a data dictionary text file: <a href="https://www2.census.gov/programs-surveys/cps/datasets/2017/basic/January_2017_Record_Layout.txt">https://www2.census.gov/programs-surveys/cps/datasets/2017/basic/January_2017_Record_Layout.txt</a>); and 
+ 2) apr17pub.dat (<em>CAUTION</em>: large public use microdata file [13MB compressed, 146MB uncompressed]: <a href="https://www2.census.gov/programs-surveys/cps/datasets/2017/basic/apr17pub.zip">https://www2.census.gov/programs-surveys/cps/datasets/2017/basic/apr17pub.zip</a>)</p>
 
 </div>
 </div>
