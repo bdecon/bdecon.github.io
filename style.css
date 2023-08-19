@@ -60,7 +60,7 @@ nav{
 	}
 .nav_main{text-align: center; font-weight: bold; }
 .ul_nav li a:hover{background-color: #111; }
-.active{background-color: #000000;}
+.active{background-color: #FF2F2F;}
 .ul_nav li.icon {display: none;}
 
 /*Style for dropdown links*/
@@ -73,9 +73,8 @@ li:hover ul a {
 
 /*Hover state for dropdown links*/
 li:hover ul a:hover {
-	background: #fff;
-	/*background: #FF2F2F; */
-	color: #000000;
+	background: #FF2F2F; 
+	color: #fff;
 }
 
 /*Hide dropdown links until they are needed*/
