@@ -75,7 +75,7 @@
 					<h2>Chartbook</h2>
 				</div>
 				<div class="card_tail">
-					<p><b>(PDF)</b> Notes on the US economy, including charts and links to data and source code. <div id="dynamic-text"></div></p>
+					<p><b>(PDF)</b> Notes on the US economy, including charts and links to data and source code.</p><p>Updated: <span class="cb_update"></span>.</p>
 				</div>
 			</div>
 			</a>
@@ -101,26 +101,9 @@
 			</a>
 		</div>
 	</footer>
-	<script>
-		function responsiveNav() {
-			var x = document.getElementById("menu");
-			if (x.className === "ul_nav") {
-				x.className += " responsive";
-			} else {
-				x.className = "ul_nav";
-			}
-		}
+	<script type="text/javascript">
+		$('.cb_update').load('date.txt');
 	</script>
-	
-	<script>
-	document.addEventListener("DOMContentLoaded", function() {
-  	fetch('date.txt')
-    	.then(response => response.text())
-    	.then(text => {
-      	document.getElementById('dynamic-text').innerText = text;
-    	})
-    	.catch(error => console.error('Error:', error));
-	});
-	</script>
+
 </body>
 </html>
