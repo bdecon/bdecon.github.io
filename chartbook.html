@@ -75,7 +75,7 @@
 					<h2>Chartbook</h2>
 				</div>
 				<div class="card_tail">
-					<p><b>(PDF)</b> Notes on the US economy, including charts and links to data and source code.</p>
+					<p><b>(PDF)</b> Notes on the US economy, including charts and links to data and source code. <div id="dynamic-text"></div></p>
 				</div>
 			</div>
 			</a>
@@ -110,6 +110,17 @@
 				x.className = "ul_nav";
 			}
 		}
+	</script>
+	
+	<script>
+	document.addEventListener("DOMContentLoaded", function() {
+  	fetch('date.txt')
+    	.then(response => response.text())
+    	.then(text => {
+      	document.getElementById('dynamic-text').innerText = text;
+    	})
+    	.catch(error => console.error('Error:', error));
+	});
 	</script>
 </body>
 </html>
