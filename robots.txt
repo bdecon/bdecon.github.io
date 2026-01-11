@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /plots/
+Disallow: /nbs/
+Disallow: /Dash/
+
+Sitemap: https://www.bd-econ.com/sitemap.xml
