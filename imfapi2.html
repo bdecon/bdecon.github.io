@@ -11,20 +11,20 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:900" rel="stylesheet"> 
 	<script src="https://use.fontawesome.com/8f99c5621e.js"></script>
 	<meta charset="UTF-8">
-	<meta name="description" content="Python tutorial: Accessing datasets and indicators through the IMF API.">
-	<meta name="keywords" content="IMF API, Economics Dashboard, Trade Network, Trade Networks, Macroeconomics Dashboard, Macroeconomic Dashboard, Markets Dashboard, Market Dashboard, U.S. Economy, U.S. Economy Dashboard, US economy, US economy dashboard, US economy charts, US economy charts pdf, NetworkX trade, international trade networks, network analysis of trade, International Monetary Fund, IMF Statistics Department, IMF Application Programming Interface, International Monetary Fund Application Programming Interface, International Monetary Fund API">
+	<meta name="description" content="Python tutorial: Discovering IMF datasets and parameters with sdmx1, plus an advanced UK trade example.">
+	<meta name="keywords" content="IMF API, sdmx1, SDMX Python, dataflow, codelist, Economics Dashboard, Macroeconomics Dashboard, International Monetary Fund, IMF Statistics Department, Python pandas, economic data API, UK trade">
 	<meta name="author" content="Brian Dew">
 	<link rel="canonical" href="https://www.bd-econ.com/imfapi2.html">
 	<!-- Open Graph -->
 	<meta property="og:title" content="IMF API Guide, Part 2">
-	<meta property="og:description" content="Python tutorial: Accessing datasets and indicators through the IMF API.">
+	<meta property="og:description" content="Python tutorial: Discovering IMF datasets and parameters with sdmx1, plus an advanced UK trade example.">
 	<meta property="og:url" content="https://www.bd-econ.com/imfapi2.html">
 	<meta property="og:type" content="article">
 	<meta property="og:image" content="https://www.bd-econ.com/images/01_bdlogo.png">
 	<!-- Twitter Card -->
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="IMF API Guide, Part 2">
-	<meta name="twitter:description" content="Python tutorial: Accessing datasets and indicators through the IMF API.">
+	<meta name="twitter:description" content="Python tutorial: Discovering IMF datasets and parameters with sdmx1, plus an advanced UK trade example.">
 	<meta name="twitter:image" content="https://www.bd-econ.com/images/01_bdlogo.png">
 	<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
 	<link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
@@ -89,7 +89,7 @@
 		<h2>Part 1</h2>
 	  </div>
 	  <div class="card_tail">
-		<p>A <strong>quick example</strong> of requesting, cleaning up, saving to csv, and then plotting a series from IFS using the API.</p>
+		<p>A <strong>basic example</strong> of retrieving CPI inflation data using the sdmx1 library, converting to pandas, and plotting results.</p>
 	  </div>
 	</div>
 	</a>
@@ -99,86 +99,115 @@
 		<h2>Part 2</h2>
 	  </div>
 	  <div class="card_tail">
-		<p>An example of how to find the <strong>dimensions and codes</strong> which correspond to your data of interest.</p>
-	  </div>
-	</div>
-	</a>
-	<a href="imfapi3.html">
-	<div class="card_dull">
-	  <div class="card_head_blue">
-		<h2>Part 3</h2>
-	  </div>
-	  <div class="card_tail">
-		<p>How to retrieve the <strong>metadata</strong> for your series of interest and how to make more <strong>advanced requests</strong> from the API.</p>
+		<p>How to <strong>find datasets and parameters</strong> using dataflow and codelist methods, plus an advanced UK trade example.</p>
 	  </div>
 	</div>
 	</a>
 	</article>
 	<article class="article_code">
-	<h3> IMF API with Python: Finding dimensions and codes </h3>
-	<p>The example presented in part 1 accesses data from the IMF API. Here in part 2, techniques for finding the right codes to make successful API requests are presented, using the requests package and Python 2.7.</p>
+	<h3> IMF API with Python: Finding Datasets and Parameters </h3>
+	<p>Part 1 showed a basic example of retrieving data. Here in Part 2, we explore how to discover available datasets and find the correct parameter codes using the sdmx1 library's <code>dataflow()</code> and <code>codelist</code> methods.</p>
 
-	<h3>The series list</h3>
-	<p>The <code>Dataflow</code> method offers JSON formatted information on which series are available through the API. To find the series of interest (for example Direction of Trade Statistics <code>DOT</code>) with Python, we can search a dictionary with the series names and their IDs.</p>
+	<h3>Searching for Datasets</h3>
+	<p>The <code>dataflow()</code> method returns information about all available datasets. We can search through these to find datasets of interest:</p>
 	<p>In[1]:</p>
-	<pre><code class="python">import requests  # Python 3.6
+	<pre><code class="python">import sdmx
 
-url = 'http://dataservices.imf.org/REST/SDMX_JSON.svc/'
-key = 'Dataflow'  # Method with series information
-search_term = 'Trade'  # Term to find in series names
-series_list = requests.get(f'{url}{key}').json()\
-            ['Structure']['Dataflows']['Dataflow']
-# Use dict keys to navigate through results:
-for series in series_list:
-    if search_term in series['Name']['#text']:
-        print(f"{series['Name']['#text']}: {series['KeyFamilyRef']['KeyFamilyID']}")</code></pre>
-	<p>Out[1]:</p><pre>Direction of Trade Statistics (DOTS): DOT</pre>
-	<h3> Finding the dimensions of the series </h3>
-	<p>The exact format of the key in our API request is determined by the structure of the series. Direction of Trade Statistics, which are grouped by importer and exporter pair rather than by country exemplifies the need to first determine series structure.</p>
-	<p>The dimensions of the data are found with the DataStructure method and series specific, so that the full key becomes <code>DataStructure/DOT</code></p>
+IMF_DATA = sdmx.Client('IMF_DATA')
+
+# Get all dataflows
+f = IMF_DATA.dataflow()
+
+# Search for datasets containing "Trade"
+{i: v for i, v in f.dataflow.items() if 'Trade' in v.name['en']}</code></pre>
+	<p>Out[1]:</p>
+<pre>{'ITG_WCA': &lt;DataflowDefinition IMF.STA:ITG_WCA(2.0.4): International Trade in Goods, World and Country Aggregates&gt;,
+ 'CTOT': &lt;DataflowDefinition IMF.RES:CTOT(5.0.1): Commodity Terms of Trade (CTOT)&gt;,
+ 'ITG': &lt;DataflowDefinition IMF.STA:ITG(4.0.0): International Trade in Goods (ITG)&gt;,
+ 'TEG': &lt;DataflowDefinition IMF.STA:TEG(3.0.2): Trade in Low Carbon Technology Goods (TEG)&gt;,
+ 'ITS': &lt;DataflowDefinition IMF.RES:ITS(3.0.1): International Trade in Services (ITS)&gt;,
+ 'IMTS': &lt;DataflowDefinition IMF.STA:IMTS(1.0.0): International Trade in Goods (by partner country) (IMTS)&gt;}</pre>
+	<p>The dictionary comprehension filters datasets whose English name contains "Trade". Each result shows the dataset ID (e.g., <code>IMTS</code>) and a description.</p>
+
+	<h3>Getting Dataset Structure</h3>
+	<p>Once you identify a dataset, retrieve its structure to find the available dimensions. The dimensions determine how you construct the key for your data request:</p>
 	<p>In[2]:</p>
-	<pre><code class="python">key = 'DataStructure/DOT'  # Method / series
-dimension_list = requests.get(f'{url}{key}').json()\
-            ['Structure']['KeyFamilies']['KeyFamily']\
-            ['Components']['Dimension']
-for n, dimension in enumerate(dimension_list):
-    print(f'Dimension {n+1}: {dimension['@codelist']}')</code></pre>
+	<pre><code class="python"># Get metadata for 'IMTS'
+f = IMF_DATA.dataflow('IMTS')
+dsd = f.structure['DSD_IMTS']
+dsd.dimensions.components</code></pre>
 	<p>Out[2]:</p>
-<pre>Dimension 1: CL_FREQ
-Dimension 2: CL_AREA_DOT
-Dimension 3: CL_INDICATOR_DOT
-Dimension 4: CL_COUNTERPART_AREA_DOT
-</pre>
-	<p>In this case, the dimensions correspond to: 1) frequency, 2) country or reference area 1, 3) indicator (such as total exports), and 4) country or reference area 2. That is, the monthly value of goods exports from Italy to France would be <code>M.IT.TXG_FOB.FR</code></p>
-<h3>Finding the codes for each dimension</h3>
-<p>The codes which correspond to the dimensions identified above are combined, in order, and separated by periods, to complete the API request url. To find the list of possible codes for each dimension, we can use the CodeList method, shown below for dimension 3, indicators <code>CL_INDICATOR_DOT</code>.</p>
+<pre>[&lt;Dimension COUNTRY&gt;,
+ &lt;Dimension INDICATOR&gt;,
+ &lt;Dimension COUNTERPART_COUNTRY&gt;,
+ &lt;Dimension FREQUENCY&gt;,
+ &lt;TimeDimension TIME_PERIOD&gt;]</pre>
+	<p>This tells us the IMTS dataset has four dimensions plus time: country, indicator, counterpart country (trading partner), and frequency. The key string must specify values for each dimension in this order.</p>
+
+	<h3>Finding Dimension Codes</h3>
+	<p>Use the <code>codelist</code> attribute to find valid codes for each dimension. Here we look up available indicators:</p>
 	<p>In[3]:</p>
-	<pre><code class="python"># Example: codes for third dimension, which is 2 in python
-key = f"CodeList/{dimension_list[2]['@codelist']}"
-code_list = requests.get(f'{url}{key}').json()\
-	    ['Structure']['CodeLists']['CodeList']['Code']
-for code in code_list:
-    print(f"{code['Description']['#text']}: {code['@value']}")</code></pre>
+	<pre><code class="python"># Indicator codes
+codes = f.codelist.CL_IMTS_INDICATOR
+sdmx.to_pandas(codes)</code></pre>
 	<p>Out[3]:</p>
-	<pre>Goods, Value of Exports, Free on board (FOB), US Dollars: TXG_FOB_USD
-Goods, Value of Imports, Cost, Insurance, Freight (CIF), US Dollars: TMG_CIF_USD
-Goods, Value of Imports, Free on board (FOB), US Dollars: TMG_FOB_USD
-All Indicators: All_Indicators</pre>
+<pre>CL_IMTS_INDICATOR
+XG_FOB_USD     Exports of goods, Free on board (FOB), US dollar
+MG_FOB_USD     Imports of goods, Free on board (FOB), US dollar
+MG_CIF_USD    Imports of goods, Cost insurance freight (CIF)...
+TBG_USD                          Trade balance goods, US dollar
+Name: International Trade in Goods (by partner country) (IMTS) Indicator, dtype: object</pre>
+	<p>We can also search within a codelist. Here we find the code for "World" in the country list:</p>
+	<p>In[4]:</p>
+	<pre><code class="python"># Country codes - search for specific values
+codes = f.codelist.CL_IMTS_COUNTRY
+res = sdmx.to_pandas(codes)
+res.loc[res.str.contains('World')]</code></pre>
+	<p>Out[4]:</p>
+<pre>CL_IMTS_COUNTRY
+G001    World
+Name: International Trade in Goods (by partner country) (IMTS) Country, dtype: object</pre>
 
+	<h3>Advanced Example: UK Imports from the EU</h3>
+	<p>Using what we've learned, let's calculate the European Union's share of UK goods imports over time. The key <code>GBR.MG_CIF_USD.G001+G998.M</code> requests UK imports from both World (<code>G001</code>) and EU (<code>G998</code>) at monthly frequency:</p>
+	<p>In[5]:</p>
+	<pre><code class="python">import pandas as pd
 
-	<h3>Variations and notes</h3>
-	<p>Once a series has been identified, it can be a challenge to determine which combination of codes returns valid data. Often an indicator has data available at only one frequency--whichever frequency of compilation occurs in the source country, though there are exceptions.</p>
-	<p>The number of indicators varies by series. In the case of International Financial Statistics (IFS), there are more than 2500 indicators, while there are four indicators in the Direction of Trade Statistics series. The same search technique used to find the series names can be used to filter IFS indicators.</p>
-	<p>Part 3 shows how to retrieve metadata and make a request with more than one reference area (country).</p>
+# Retrieve data: UK imports from World (G001) and EU (G998)
+data_msg = IMF_DATA.data('IMTS', key='GBR.MG_CIF_USD.G001+G998.M')
+
+# Convert to pandas
+df = sdmx.to_pandas(data_msg).reset_index()
+df = df.set_index(['TIME_PERIOD', 'COUNTERPART_COUNTRY'])['value'].unstack()
+df.index = pd.to_datetime(df.index, format='%Y-M%m')</code></pre>
+	<p>With both series in our DataFrame, we can calculate the EU share and apply a 12-month moving average to smooth seasonal variation:</p>
+	<p>In[6]:</p>
+	<pre><code class="python"># Calculate EU share of UK imports of goods
+eu_share = ((df['G998'] / df['G001']) * 100).rolling(12).mean()
+
+# Create a line plot
+title = "U.K. imports of goods: European Union share of total"
+recent = f"{eu_share.index[-1].strftime('%B %Y')}: {eu_share.iloc[-1]:.1f}%"
+ax = eu_share.plot(title=title)
+ax = ax.set_xlabel(recent)</code></pre>
+	<p>Out[6]:</p>
+	<img src="images/uk_imports_eu_share.png" alt="UK Imports EU Share" style="max-width: 100%;"/>
+
+	<h3>Additional Resources</h3>
+	<ul>
+		<li><p><a href="https://pypi.org/project/sdmx1/">sdmx1 on PyPI</a> - Installation and basic documentation</p></li>
+		<li><p><a href="https://sdmx1.readthedocs.io/">sdmx1 documentation</a> - Full library reference</p></li>
+		<li><p><a href="https://data.imf.org/">IMF Data Portal</a> - Browse available datasets interactively</p></li>
+	</ul>
 	</article>
 	<div class="subfooter">
-	    <a href="imfapi1.html"> &laquo; Back (Part 1)</a> | <a href="imfapi3.html">Next (Part 3) &raquo;</a>
+	    <a href="imfapi1.html">&laquo; Back (Part 1)</a>
 	</div>
 	</section>
 
 		<footer>
 		<div class="footer_left">
-			<p>March 11, 2018<br> by Brian Dew</p>
+			<p>January 2026<br> by Brian Dew</p>
 		</div>
 		<div class="footer_right">
 			<a href="https://github.com/bdecon/">
