@@ -248,7 +248,22 @@ section{margin: 5px; padding: 0px;}
 .card_head_purple { background-color: var(--color-card-purple); }
 .card_head_ltblue { background-color: var(--color-card-ltblue); }
 .card_head_black { background-color: var(--color-card-black); }
-.card_tail{padding: 10px; background-color: white; height: 100px;}
+.card_tail{padding: 5px 10px 10px 10px; background-color: white; height: 100px;}
+.card_banner_wrap {
+	height: 34px;
+	overflow: hidden;
+}
+.card_banner_wrap_blue { background-color: color-mix(in srgb, var(--color-card-blue) 40%, white); }
+.card_banner_wrap_yellow { background-color: color-mix(in srgb, var(--color-card-yellow) 40%, white); }
+.card_banner_wrap_green { background-color: color-mix(in srgb, var(--color-card-green) 40%, white); }
+.card_banner {
+	height: 34px;
+	width: 100%;
+	object-fit: cover;
+	display: block;
+	opacity: 0.8;
+	mix-blend-mode: multiply;
+}
 
 .subfooter{width:100%; text-align: center; font-size: 16px; padding-top:10px;}
 .subfooter a {text-decoration: none;}
