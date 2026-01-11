@@ -218,7 +218,7 @@ section{margin: 5px; padding: 0px;}
 
 /* Cards with Links */
 .card, .card_dull {
-	width: 250px;
+	width: 300px;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	text-align: center;
 	margin: 12px;
@@ -233,11 +233,11 @@ section{margin: 5px; padding: 0px;}
 }
 .card_dull:hover{opacity: 1;}
 .card:hover{box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
-			width: 252px; text-decoration: none;}
+			width: 302px; text-decoration: none;}
 /* Card header base styles */
 [class^="card_head_"] {
   color: white;
-  padding: 6px;
+  padding: 6px 6px 2px 6px;
 }
 /* Card header color variants */
 .card_head_blue { background-color: var(--color-card-blue); }
@@ -248,7 +248,7 @@ section{margin: 5px; padding: 0px;}
 .card_head_purple { background-color: var(--color-card-purple); }
 .card_head_ltblue { background-color: var(--color-card-ltblue); }
 .card_head_black { background-color: var(--color-card-black); }
-.card_tail{padding: 5px 10px 10px 10px; background-color: white; height: 100px;}
+.card_tail{padding: 2px 10px 10px 10px; background-color: white; height: 105px;}
 .card_banner_wrap {
 	height: 34px;
 	overflow: hidden;
@@ -408,7 +408,187 @@ width: 80%;}
 
 .highlight {text-align: left; background-color: var(--color-bg-highlight); padding: 1px 15px 1px 15px; margin:5px;}
 
+/* ===== HERO SECTION ===== */
+.hero {
+	text-align: center;
+	padding: 70px 20px 30px 20px;
+	background-color: var(--color-bg-header);
+	color: white;
+}
 
+.hero h1 {
+	font-family: 'Lato', sans-serif;
+	font-weight: 900;
+	font-size: 42px;
+	margin: 0 0 10px 0;
+	color: white;
+}
+
+.hero_subtitle {
+	font-size: 18px;
+	color: rgba(255, 255, 255, 0.9);
+	margin: 0 0 15px 0;
+	font-weight: normal;
+}
+
+.hero_description {
+	font-size: 14px;
+	color: rgba(255, 255, 255, 0.85);
+	max-width: 600px;
+	margin: 0 auto 20px auto;
+	line-height: 1.6;
+}
+
+.hero_cta {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 12px;
+}
+
+.hero_secondary {
+	font-size: 13px;
+	color: rgba(255, 255, 255, 0.8);
+}
+
+.hero_secondary a {
+	color: rgba(255, 255, 255, 0.9);
+}
+
+.hero_secondary a:hover {
+	color: var(--color-accent-yellow);
+}
+
+/* Primary CTA Button */
+.button_primary {
+	display: inline-block;
+	background-color: var(--color-card-green);
+	color: white;
+	padding: 14px 28px;
+	font-size: 16px;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: bold;
+	border-radius: 4px;
+	text-decoration: none;
+	transition: background-color 0.3s, transform 0.2s;
+}
+
+.button_primary:hover {
+	background-color: #219a52;
+	transform: translateY(-2px);
+	text-decoration: none;
+	color: white;
+}
+
+.button_primary:visited {
+	color: white;
+}
+
+.button_primary i {
+	margin-right: 8px;
+}
+
+/* ===== HERO CARD ===== */
+.card_hero {
+	width: 100%;
+	max-width: 420px;
+	min-height: 180px;
+}
+
+.card_hero:hover {
+	width: 100%;
+	max-width: 422px;
+}
+
+.card_tail_hero {
+	height: auto;
+	min-height: 80px;
+	padding: 12px 15px 15px 15px;
+}
+
+.card_tail_hero p {
+	font-size: 13px;
+	margin: 0 0 8px 0;
+}
+
+.card_meta {
+	font-size: 12px;
+	color: var(--color-text-gray);
+	margin-top: 8px;
+	border-top: 1px solid #eee;
+	padding-top: 8px;
+}
+
+/* ===== TUTORIAL CARDS SECTION ===== */
+.article_tutorials {
+	padding-top: 15px;
+	margin-top: 10px;
+}
+
+.article_tutorials h3 {
+	font-size: 20px;
+	color: var(--color-heading-gray);
+	margin-bottom: 5px;
+}
+
+.card_small {
+	width: 200px;
+	min-height: 120px;
+}
+
+.card_small:hover {
+	width: 202px;
+}
+
+.card_small .card_tail {
+	height: 60px;
+	padding: 8px 10px;
+}
+
+.card_small .card_tail p {
+	font-size: 12px;
+}
+
+.card_small h2 {
+	font-size: 22px;
+}
+
+/* ===== RESPONSIVE - HERO ===== */
+@media screen and (max-width: 760px) {
+	.hero {
+		padding: 60px 15px 25px 15px;
+	}
+
+	.hero h1 {
+		font-size: 28px;
+	}
+
+	.hero_subtitle {
+		font-size: 15px;
+	}
+
+	.hero_description {
+		font-size: 13px;
+		padding: 0 10px;
+	}
+
+	.button_primary {
+		padding: 12px 24px;
+		font-size: 14px;
+	}
+
+	.card_hero {
+		max-width: 280px;
+	}
+
+	.card_small {
+		width: 250px;
+	}
+
+	.card_small:hover {
+		width: 252px;
+	}
+}
 
  .hll { background-color: #e0e1e3 }
   { background: #efefef; color: #f8f8f2 }
