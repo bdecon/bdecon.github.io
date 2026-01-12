@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title> BD Economics | Census API Guide </title>
+	<link rel="stylesheet" href="add-ins/github.css">
+	<script src="add-ins/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<link rel="stylesheet" href="style.css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:900" rel="stylesheet">
+	<script src="https://use.fontawesome.com/8f99c5621e.js"></script>
+	<meta charset="UTF-8">
+	<meta name="description" content="Python tutorial: Using the Census Bureau API for manufacturing and trade data.">
+	<meta name="keywords" content="Census API, Census Bureau API, M3 Survey, Manufacturing Data, Python Census API, Advance Durable Goods, Capital Goods Orders, Economics Dashboard, Macroeconomics Dashboard, US economy, US manufacturing data, Python pandas requests">
+	<meta name="author" content="Brian Dew">
+	<link rel="canonical" href="https://www.bd-econ.com/censusapi.html">
+	<!-- Open Graph -->
+	<meta property="og:title" content="Census API Guide">
+	<meta property="og:description" content="Python tutorial: Using the Census Bureau API for manufacturing and trade data.">
+	<meta property="og:url" content="https://www.bd-econ.com/censusapi.html">
+	<meta property="og:type" content="article">
+	<meta property="og:image" content="https://www.bd-econ.com/images/01_bdlogo.png">
+	<!-- Twitter Card -->
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Census API Guide">
+	<meta name="twitter:description" content="Python tutorial: Using the Census Bureau API for manufacturing and trade data.">
+	<meta name="twitter:image" content="https://www.bd-econ.com/images/01_bdlogo.png">
+	<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="favicon/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+	<link rel="manifest" href="favicon/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2J5HVG07X3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-2J5HVG07X3');
+</script>
+
+</head>
+<body>
+	<nav>
+		<ul class="ul_nav" id="menu">
+			<li class="nav_main"> <a href="index.html">BD Economics</a> </li>
+			<li><a href="about.html">About</a> </li>
+			<li><a href="http://briandew.wordpress.com">Blog</a> </li>
+			<li><a href="python.html" class="active">Guides &darr;</a>
+				<ul class="hidden">
+					<li><a href="imfapi1.html">IMF API</a></li>
+					<li><a href="blsapi.html">BLS API</a></li>
+					<li><a href="censusapi.html">Census API</a></li>
+					<li><a href="cps.html">CPS Microdata</a></li>
+			</ul>
+			</li>
+		<li>
+			<a href="chartbook.html">Reports &darr;</a>
+			<ul class="hidden">
+				<li><a href="chartbook.pdf">US Chartbook (PDF)</a></li>
+			</ul>
+			<li class="icon"> <a href="javascript:void(0);"
+				style="font-size:15px;" onclick="responsiveNav()">&#9776;</a>
+			</li>
+		</ul>
+	</nav>
+	<header>
+	<h3>Census API</h3>
+	</header>
+	<section>
+	<article class="article_code">
+	<h3> U.S. Census Bureau Application Programming Interface with Python </h3>
+	<p>The <a href="https://www.census.gov/data/developers/data-sets/economic-indicators.html">Census Bureau API</a> provides access to a wide range of economic indicators, including manufacturing, trade, and business data. This tutorial demonstrates how to retrieve data from the M3 Manufacturers' Shipments, Inventories, and Orders survey using Python.</p>
+
+	<p>The example below retrieves the value of new orders for nondefense capital goods excluding aircraft. This serves as a proxy for new investment in business equipment and is a closely watched indicator of business investment trends.</p>
+
+	<h3>Background</h3>
+	<h4>Census Bureau</h4>
+	<p>The U.S. Census Bureau collects data on manufacturing activity through several surveys. The <a href="https://www.census.gov/manufacturing/m3/index.html">M3 survey</a> provides monthly estimates of shipments, inventories, and orders for domestic manufacturing establishments.</p>
+
+	<h4>API Documentation</h4>
+	<p>Information on what is required to make the API call is available in the <a href="https://api.census.gov/data/timeseries/eits/m3/variables.html">variables documentation</a>. The list of individual series codes is in the <a href="https://www2.census.gov/programs-surveys/m3/technical-documentation/code-lists/sichist.pdf">code list PDF</a>.</p>
+
+	<h4>Python</h4>
+	<p>This example uses Python 3 and the requests and pandas packages.</p>
+
+	<h3>Example: Nondefense Capital Goods Orders</h3>
+	<h4>Setup</h4>
+	<p>The Census API key is stored locally in a file called <code>config.py</code>. You can register for a free API key at the <a href="https://api.census.gov/data/key_signup.html">Census Bureau website</a>.</p>
+
+	<p>In[1]:</p>
+	<pre><code class="python">import requests
+import pandas as pd
+import config
+key = config.census_key</code></pre>
+
+	<h4>Build the API URL</h4>
+	<p>In this example, <code>category_code</code> is <code>NXA</code> which represents nondefense capital goods excluding aircraft. The <code>data_type_code</code> is the seasonally adjusted value, <code>VS</code>. Data are retrieved for the period from 2022 onward.</p>
+
+	<p>In[2]:</p>
+	<pre><code class="python">base = 'https://api.census.gov/data/timeseries/eits/advm3'
+param = 'cell_value,time_slot_id'
+time = '&time=from+2022'
+cat = '&category_code=NXA'
+dtc = '&data_type_code=VS'
+oth = '&for=us&seasonally_adj=yes'
+
+url = f'{base}?get={param}&key={key}{cat}{dtc}{time}{oth}'</code></pre>
+
+	<h4>Request data from the API</h4>
+	<p>Request data from the API and interpret the result as JSON. This will convert the JSON response into a Python list of lists.</p>
+
+	<p>In[3]:</p>
+	<pre><code class="python">r = requests.get(url).json()</code></pre>
+
+	<h4>Convert to pandas DataFrame</h4>
+	<p>Read the results into a pandas DataFrame. The first row (index 0) contains the headers. Convert the dates to datetime format and calculate the 12-month growth rate in percent.</p>
+
+	<p>In[4]:</p>
+	<pre><code class="python">df = pd.DataFrame(r[1:], columns=r[0])
+df.index = pd.to_datetime(df['time'] + '-01')
+df.index.name = ''
+df = df.sort_index()
+data = df['cell_value'].astype('float').pct_change(12) * 100</code></pre>
+
+	<h4>Plot the results</h4>
+	<p>Create a line plot showing the 12-month percent change since 2024.</p>
+
+	<p>In[5]:</p>
+	<pre><code class="python">title = ('New Orders: Nondefense capital goods excluding aircraft,'+
+         '\n12-month percent change')
+data.loc['2024':].plot(title=title)
+plt.axhline(0, lw=0.5, color='gray', zorder=0)
+plt.show()</code></pre>
+	<p>Out[5]:</p>
+	<img src="images/census_m3_growth.png" alt="Census M3 New Orders Growth Rate" style="max-width: 100%;"/>
+
+	<h4>Conclusion</h4>
+	<p>The Census API provides straightforward access to key manufacturing and trade indicators. By adjusting the <code>category_code</code> and <code>data_type_code</code> parameters, you can retrieve various series from the M3 survey, including shipments, inventories, and orders across different product categories.</p>
+	</article>
+	<div class="subfooter">
+	     <a href="python.html">Back to Python Examples</a>
+	</div>
+	</section>
+
+		<footer>
+		<div class="footer_left">
+			<p>January 11, 2026<br> by Brian Dew</p>
+		</div>
+		<div class="footer_right">
+			<a href="https://github.com/bdecon/">
+				<button class="button_sm"><i class="fa fa-github"></i></button>
+			</a>
+			<a href="https://www.linkedin.com/in/brian-dew-5788a386/">
+				<button class="button_sm"><i class="fa fa-linkedin"></i></button>
+			</a>
+			<a href="https://twitter.com/bd_econ">
+				<button class="button_sm"><i class="fa fa-twitter"></i></button>
+			</a>
+			<a href="https://briandew.wordpress.com/">
+				<button class="button_sm"><i class="fa fa-wordpress"></i></button>
+			</a>
+		</div>
+	</footer>
+	<script>
+		function responsiveNav() {
+			var x = document.getElementById("menu");
+			if (x.className === "ul_nav") {
+				x.className += " responsive";
+			} else {
+				x.className = "ul_nav";
+			}
+		}
+	</script>
+</body>
+</html>
