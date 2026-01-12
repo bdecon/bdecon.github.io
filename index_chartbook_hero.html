@@ -59,11 +59,10 @@
 			<li class="nav_main"> <a href="index.html" class="active">BD Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
 			<li><a href="http://briandew.wordpress.com">Blog</a> </li>
-			<li><a href="python.html">Guides &darr;</a> 
+			<li><a href="python.html">Tools &darr;</a> 
 				<ul class="hidden">
 					<li><a href="imfapi1.html">IMF API</a></li>
 					<li><a href="blsapi.html">BLS API</a></li>
-					<li><a href="censusapi.html">Census API</a></li>
 					<li><a href="cps.html">CPS Microdata</a></li>
 			</ul>
 			</li>
@@ -77,56 +76,67 @@
 			</li>
 		</ul>
 	</nav>
-	<header>
-		<h3>BD Economics</h3>
-	</header>
+	<section class="hero">
+		<h1>US Economic Chartbook</h1>
+		<p class="hero_subtitle">120+ curated indicators on the US economy, updated regularly</p>
+		<p class="hero_description">A comprehensive, open-source reference for economists and researchers. Covers labor markets, inflation, GDP, trade, and financial markets with context and analysis.</p>
+		<div class="hero_cta">
+			<a href="chartbook.pdf" class="button_primary">
+				<i class="fa fa-download"></i> Download Chartbook (PDF)
+			</a>
+			<div class="hero_secondary">
+				Updated: <span class="cb_update"></span> &nbsp;|&nbsp;
+				<a href="https://twitter.com/bd_econ"><i class="fa fa-twitter"></i> Follow for updates</a>
+			</div>
+		</div>
+	</section>
 	<section>
-		<article>
-			<h3>Overview</h3>
-			
-			<h5>Follow <a href="https://twitter.com/bd_econ">@bd_econ</a> for updates</h5>
-
-			<p class="overview">Open-source tools for economists and researchers. The <b><a href="http://www.bd-econ.com/python.html">Python tutorials</a></b> show how to access economic data from the IMF, BLS, and Census APIs. The <b><a href="http://www.bd-econ.com/chartbook.html">US Chartbook</a></b> provides 120+ indicators on labor markets, inflation, GDP, and trade.</p>
-
-		</article>
 		<article class="article_links">
-		<h3> Featured content </h3>
-			<a href="imfapi1.html">
-			<div class="card">
-				<div class="card_banner_wrap card_banner_wrap_blue">
-					<img src="images/imf_banner.png" alt="" class="card_banner">
-				</div>
-				<div class="card_head_blue">
-					<h2>IMF API</h2>
-				</div>
-				<div class="card_tail">
-					<p>Access international economic data from the IMF using Python. Covers GDP, trade, prices, and more for 190+ countries.</p>
-				</div>
-			</div>
-			</a>
-			<a href="nbs/cps_read_basic.html">
-			<div class="card">
-				<div class="card_banner_wrap card_banner_wrap_yellow">
-					<img src="images/cps_banner.png" alt="" class="card_banner">
-				</div>
-				<div class="card_head_yellow">
-					<h2>CPS data</h2>
-				</div>
-				<div class="card_tail">
-					<p>Read and analyze Current Population Survey microdata with Python. Build custom labor market statistics from household-level data.</p>
-				</div>
-			</div>
-			</a>
+		<h3>Featured</h3>
 			<a href="chartbook.pdf">
-			<div class="card">
+			<div class="card card_hero">
 				<div class="card_banner_wrap card_banner_wrap_green">
 					<img src="images/chartbook_banner.png" alt="" class="card_banner">
 				</div>
 				<div class="card_head_green">
-					<h2>Chartbook <i class="fa fa-download"></i></h2>
+					<h2>US Economic Chartbook</h2>
+				</div>
+				<div class="card_tail card_tail_hero">
+					<p>120+ indicators covering labor markets, inflation, GDP, trade, and financial markets. Includes source code and data links.</p>
+					<p class="card_meta">Open source &nbsp;|&nbsp; Updated: <span class="cb_update"></span></p>
+				</div>
+			</div>
+			</a>
+		</article>
+		<article class="article_links article_tutorials">
+		<h3>Python Tutorials</h3>
+			<a href="imfapi1.html">
+			<div class="card card_small">
+				<div class="card_head_blue">
+					<h2>IMF API</h2>
 				</div>
 				<div class="card_tail">
-					<p>120+ charts on the US economy: labor markets, inflation, GDP, trade, and more. Includes data sources and code.</p><p><b>PDF</b> · Updated: <span class="cb_update"></span></p>
+					<p>Access international economic data using Python.</p>
+				</div>
+			</div>
+			</a>
+			<a href="blsapi.html">
+			<div class="card card_small">
+				<div class="card_head_purple">
+					<h2>BLS API</h2>
+				</div>
+				<div class="card_tail">
+					<p>Retrieve US labor statistics programmatically.</p>
+				</div>
+			</div>
+			</a>
+			<a href="cps.html">
+			<div class="card card_small">
+				<div class="card_head_yellow">
+					<h2>CPS Microdata</h2>
+				</div>
+				<div class="card_tail">
+					<p>Work with Current Population Survey data.</p>
 				</div>
 			</div>
 			</a>
