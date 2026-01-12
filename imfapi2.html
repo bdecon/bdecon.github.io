@@ -110,7 +110,7 @@
 	<h3> IMF API with Python: Finding Datasets and Parameters </h3>
 	<p>Part 1 showed a basic example of retrieving data. Here in Part 2, we explore how to discover available datasets and find the correct parameter codes using the sdmx1 library's <code>dataflow()</code> and <code>codelist</code> methods.</p>
 
-	<h3>Searching for Datasets</h3>
+	<h3 class="section-title">Searching for Datasets</h3>
 	<p>The <code>dataflow()</code> method returns information about all available datasets. We can search through these to find datasets of interest:</p>
 	<p>In[1]:</p>
 	<pre><code class="python">import sdmx
@@ -131,7 +131,7 @@ f = IMF_DATA.dataflow()
  'IMTS': &lt;DataflowDefinition IMF.STA:IMTS(1.0.0): International Trade in Goods (by partner country) (IMTS)&gt;}</pre>
 	<p>The dictionary comprehension filters datasets whose English name contains "Trade". Each result shows the dataset ID (e.g., <code>IMTS</code>) and a description.</p>
 
-	<h3>Getting Dataset Structure</h3>
+	<h3 class="section-title">Getting Dataset Structure</h3>
 	<p>Once you identify a dataset, retrieve its structure to find the available dimensions. The dimensions determine how you construct the key for your data request:</p>
 	<p>In[2]:</p>
 	<pre><code class="python"># Get metadata for 'IMTS'
@@ -146,7 +146,7 @@ dsd.dimensions.components</code></pre>
  &lt;TimeDimension TIME_PERIOD&gt;]</pre>
 	<p>This tells us the IMTS dataset has four dimensions plus time: country, indicator, counterpart country (trading partner), and frequency. The key string must specify values for each dimension in this order.</p>
 
-	<h3>Finding Dimension Codes</h3>
+	<h3 class="section-title">Finding Dimension Codes</h3>
 	<p>Use the <code>codelist</code> attribute to find valid codes for each dimension. Here we look up available indicators:</p>
 	<p>In[3]:</p>
 	<pre><code class="python"># Indicator codes
@@ -170,7 +170,7 @@ res.loc[res.str.contains('World')]</code></pre>
 G001    World
 Name: International Trade in Goods (by partner country) (IMTS) Country, dtype: object</pre>
 
-	<h3>Advanced Example: UK Imports from the EU</h3>
+	<h3 class="section-title">Advanced Example: UK Imports from the EU</h3>
 	<p>Using what we've learned, let's calculate the European Union's share of UK goods imports over time. The key <code>GBR.MG_CIF_USD.G001+G998.M</code> requests UK imports from both World (<code>G001</code>) and EU (<code>G998</code>) at monthly frequency:</p>
 	<p>In[5]:</p>
 	<pre><code class="python">import pandas as pd
@@ -195,7 +195,7 @@ ax = ax.set_xlabel(recent)</code></pre>
 	<p>Out[6]:</p>
 	<img src="images/uk_imports_eu_share.png" alt="UK Imports EU Share" style="max-width: 100%;"/>
 
-	<h3>Additional Resources</h3>
+	<h3 class="section-title">Additional Resources</h3>
 	<ul>
 		<li><p><a href="https://pypi.org/project/sdmx1/">sdmx1 on PyPI</a> - Installation and basic documentation</p></li>
 		<li><p><a href="https://sdmx1.readthedocs.io/">sdmx1 documentation</a> - Full library reference</p></li>

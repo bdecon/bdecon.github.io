@@ -115,17 +115,17 @@
 
 	<p>The example below retrieves monthly Consumer Price Index (CPI) data for Brazil, Chile, and Colombia, calculates year-over-year inflation rates, and plots the results. This demonstrates the core workflow: connecting to the API, building a request key, fetching data, and converting it to a pandas DataFrame for analysis.</p>
 
-	<h3>Setup</h3>
+	<h3 class="section-title">Setup</h3>
 	<p>First, install the sdmx1 library if you haven't already:</p>
 	<pre><code class="bash">pip install sdmx1</code></pre>
 
-	<h3>Import Libraries</h3>
+	<h3 class="section-title">Import Libraries</h3>
 	<p>We need pandas for data manipulation and sdmx for accessing the IMF API:</p>
 	<p>In[1]:</p>
 	<pre><code class="python">import pandas as pd
 import sdmx</code></pre>
 
-	<h3>Set Parameters</h3>
+	<h3 class="section-title">Set Parameters</h3>
 	<p>Define the countries, dataset, and series codes. The key string combines these parameters using dots as separators, with multiple countries joined by <code>+</code> signs:</p>
 	<p>In[2]:</p>
 	<pre><code class="python"># parameters
@@ -135,7 +135,7 @@ series = '_T.IX.M'
 key = f"{'+'.join(countries)}.{dataset}.{series}"</code></pre>
 	<p>The key <code>BRA+CHL+COL.CPI._T.IX.M</code> requests all-items (<code>_T</code>) price index (<code>IX</code>) data at monthly (<code>M</code>) frequency for the three countries.</p>
 
-	<h3>Retrieve Data</h3>
+	<h3 class="section-title">Retrieve Data</h3>
 	<p>Create an SDMX client for the IMF and fetch the data. The <code>sdmx.Client</code> connects to the IMF's data endpoint, and the <code>.data()</code> method retrieves observations for the specified dataset and key:</p>
 	<p>In[3]:</p>
 	<pre><code class="python"># retrieve data
@@ -148,7 +148,7 @@ df = sdmx.to_pandas(data_msg).reset_index()
 df = df.set_index(['TIME_PERIOD', 'COUNTRY'])['value'].unstack()</code></pre>
 	<p>The <code>sdmx.to_pandas()</code> function converts the SDMX message into a pandas structure. After reshaping, we have a DataFrame with dates as rows and countries as columns.</p>
 
-	<h3>Calculate Inflation and Plot</h3>
+	<h3 class="section-title">Calculate Inflation and Plot</h3>
 	<p>Convert the index to datetime, calculate year-over-year percent changes, and create a line plot:</p>
 	<p>In[4]:</p>
 	<pre><code class="python"># Convert index to datetime
@@ -163,7 +163,7 @@ res.plot(title='CPI, one-year percent change',
 	<p>Out[4]:</p>
 	<img src="images/imf_cpi_inflation.png" alt="CPI Inflation Chart" style="max-width: 100%;"/>
 
-	<h3>Key Concepts</h3>
+	<h3 class="section-title">Key Concepts</h3>
 	<p>This example demonstrates the core workflow for accessing IMF data with sdmx1:</p>
 	<ul>
 		<li><p><code>sdmx.Client('IMF_DATA')</code> creates a connection to the IMF's SDMX endpoint;</p></li>

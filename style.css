@@ -55,6 +55,7 @@ h1, h2, h3, h4{font-family: 'Montserrat'; line-height: 1.25;}
 hl{margin: 0 0 10px; font-size: 40px;}
 h2{margin: 0 0 10px; font-size: 32px;}
 h3{margin: 10px 0 10px; font-size: 26px; font-family: 'Lato', sans-serif; font-weight: 900;}
+.section-title { font-size: 20px; }
 h5{font-size: 15px;}
 h4{margin: 35px 0 10px 0; font-size: 16px; font-family: 'Roboto', sans-serif; color: var(--color-heading-gray);}
 h6{margin: 0 0 0 10px; font-size: 11px; font-style: italic; font-weight: normal; color: var(--color-text-gray);}
