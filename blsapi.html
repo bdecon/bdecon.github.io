@@ -100,7 +100,7 @@
 
 	<h4>Python</h4>
 
-	<p>The examples use Python version 3.6 and the requests, json, and pandas packages. </p>
+	<p>The examples use Python 3.x and the requests, json, and pandas packages. </p>
 
 	<h3> Example 1: Single series from API v1</h3>
 	<h4>API location</h4>
@@ -119,7 +119,7 @@ series = {'id': 'LNS11300000',
 	<h4>Combine base url and series id</h4>
 	<p>Combine the base url and series id into a single string which is the API url with data. Print a link to the data. </p>
 	<p>In[3]:</p>
-	<pre><code class="python">data_url = '{}{}'.format(base_url, series['id'])
+	<pre><code class="python">data_url = f'{base_url}{series["id"]}'
 print(data_url)</code></pre>
 	<a href="https://api.bls.gov/publicAPI/v1/timeseries/data/LNS11300000"><pre>https://api.bls.gov/publicAPI/v1/timeseries/data/LNS11300000</pre></a>
 	<h4>Request data from data url</h4>
@@ -134,61 +134,67 @@ print('Status: ' + r['status'])</code></pre>
 	<p>The dictionary <code>r</code> contains several keys:</p>
 	<p>In[5]:</p>
 	<pre><code class="python">print(r.keys())</code></pre>
-	<pre>[u'status', u'message', u'Results', u'responseTime']</pre>
+	<pre>dict_keys(['status', 'responseTime', 'message', 'Results'])</pre>
 	<p>The <code>Results</code> key contains the series list, of which the first item (python lists start with item <code>0</code>) contains our data: <code>r['Results']['series'][0]['data']</code>. The data are a list of dictionaries with the first item (<code>[0]</code>) being the most recent set of values, footnotes, and date information, printed below.</p>
 	<p>In[6]:</p>
 	<pre><code class="python">r = r['Results']['series'][0]['data']
 print(r[0])</code></pre>
-	<pre>{u'footnotes': [{}], u'periodName': u'July', u'period': u'M07', u'value': u'62.9', u'year': u'2017'}</pre>
+	<pre>{'year': '2025', 'period': 'M12', 'periodName': 'December', 'latest': 'true', 'value': '62.4', 'footnotes': [{}]}</pre>
 	<h4>Read into pandas</h4>
-	<p>To make further calculations, such as to find the average value over the series, and to graph the results, we can use the pandas package. We create a dataframe by telling pandas the index, data, and name. Since the data in this case are a monthly time series, we can identify that the index for the series contains dates. Below a list of dates, which will be the index of the dataframe, is constructed from the values obtained using the period and year dictionary keys seen above. The first column of the pandas dataframe is the series values, named with the series id. Just in case they contain relevant information, the BLS footnotes are included as a second column.</p>
+	<p>To make further calculations, such as to find the average value over the series, and to graph the results, we can use the pandas package. We create a dataframe directly from the list of dictionaries returned by the API.</p>
 	<p>In[7]:</p>
 	<pre><code class="python">import pandas as pd
+df = pd.DataFrame(r)</code></pre>
+	<p>Since the data in this case are a monthly time series, we identify that the index for the series contains dates. Below we construct a date column from the year and period dictionary keys seen above. The footnotes column is also cleaned up to extract any footnote text. The dataframe is then reorganized with the date as the index and just the value and note columns.</p>
+	<p>In[8]:</p>
+	<pre><code class="python"># Combine year and period to create datetime column
+df['date'] = pd.to_datetime(df['year'] + '-' + df.period.str[1:] + '-01')
+# Extract footnote text
+df['note'] = [i[0]['text'] if len(i[0]) > 1 else '' for i in df['footnotes']]
 
-dates = ['{} {}'.format(i['period'], i['year']) for i in r]
-index = pd.to_datetime(dates)
-data = {series['id']: [float(i['value']) for i in r],
-        'footnotes': [i['footnotes'][0] for i in r]}
-
-df = pd.DataFrame(index=index, data=data).iloc[::-1]
-
+# Reorganize data
+df = df.set_index('date')[['value', 'note']].sort_index().replace('-', None)
+df['value'] = df.value.astype('float')
 df.tail(3)</code></pre>
-	<p>Out[7]:</p>
-	<table class="dataframe" style="width: 100%; max-width: 300px; table-layout: fixed;">
+	<p>Out[8]:</p>
+	<table class="dataframe" style="width: 100%; max-width: 500px; table-layout: fixed;">
 	  <thead>
 	    <tr style="text-align: right;">
 	      <th></th>
-	      <th>LNS11300000</th>
-	      <th>footnotes</th>
+	      <th>value</th>
+	      <th>note</th>
+	    </tr>
+	    <tr>
+	      <th>date</th>
+	      <th></th>
+	      <th></th>
 	    </tr>
 	  </thead>
 	  <tbody>
 	    <tr>
-	      <th>2017-05-01</th>
-	      <td>62.7</td>
-	      <td>{}</td>
+	      <th>2025-10-01</th>
+	      <td>NaN</td>
+	      <td>Data unavailable due to the 2025 lapse in appropriations.</td>
 	    </tr>
 	    <tr>
-	      <th>2017-06-01</th>
-	      <td>62.8</td>
-	      <td>{}</td>
+	      <th>2025-11-01</th>
+	      <td>62.5</td>
+	      <td></td>
 	    </tr>
 	    <tr>
-	      <th>2017-07-01</th>
-	      <td>62.9</td>
-	      <td>{}</td>
+	      <th>2025-12-01</th>
+	      <td>62.4</td>
+	      <td></td>
 	    </tr>
 	  </tbody>
 	</table>
 <h4>Plot the results</h4>
 <p>Calculate the average value for the period and plot both the monthly values and average value to look for trends.</p>
-<p>In[8]:</p>
-<pre><code class="python">%matplotlib inline
-
-df['mean'] = df[series['id']].mean()
-df[[series['id'], 'mean']].plot(title=series['name'])</code></pre>
-<p>Out[8]:</p>
-<img src="https://github.com/bdecon/bdecon.github.io/raw/master/images/ex1.png" alt="Pandas Plot Output" style="max-width: 100%;"/>
+<p>In[9]:</p>
+<pre><code class="python">df['mean'] = df['value'].mean()
+df[['value', 'mean']].plot(title=series['name']);</code></pre>
+<p>Out[9]:</p>
+<img src="images/ex1_update.png" alt="Pandas Plot Output" style="max-width: 100%;"/>
 <h4>Summary</h4>
 <p>The first example creates a url containing the requested data by combining a base url of the API with the BLS series ID of interest. The result is a dataframe with monthly data, starting in January 2015, on the labor force participation rate. The plot above lets us quickly see when and by how much the series deviated from its full-period average. The example uses the v1 API, so the number of requests is limited as is the functionality. For more complex requests, a technique such as the one shown in example 2 is preferable.</p>
 <h3>Example 2: Requesting multiple series and specific dates</h3>
@@ -309,7 +315,7 @@ df.plot(title='Unemployment Rates by Race or Origin')</code></pre>
 
 		<footer>
 		<div class="footer_left">
-			<p>March 11, 2018<br> by Brian Dew</p>
+			<p>January 12, 2026<br> by Brian Dew</p>
 		</div>
 		<div class="footer_right">
 			<a href="https://github.com/bdecon/">
