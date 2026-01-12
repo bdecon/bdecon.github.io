@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title> BD Economics | BEA API Guide </title>
+	<link rel="stylesheet" href="add-ins/github.css">
+	<script src="add-ins/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<link rel="stylesheet" href="style.css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:900" rel="stylesheet">
+	<script src="https://use.fontawesome.com/8f99c5621e.js"></script>
+	<meta charset="UTF-8">
+	<meta name="description" content="Python tutorial: Using the Bureau of Economic Analysis API for GDP, consumer spending, and industry data.">
+	<meta name="keywords" content="BEA API, Bureau of Economic Analysis API, NIPA API, GDP data Python, consumer spending data, national accounts API, BEA Python, economic data API">
+	<meta name="author" content="Brian Dew">
+	<link rel="canonical" href="https://www.bd-econ.com/beaapi.html">
+	<!-- Open Graph -->
+	<meta property="og:title" content="BEA API Guide">
+	<meta property="og:description" content="Python tutorial: Using the Bureau of Economic Analysis API for GDP, consumer spending, and industry data.">
+	<meta property="og:url" content="https://www.bd-econ.com/beaapi.html">
+	<meta property="og:type" content="article">
+	<meta property="og:image" content="https://www.bd-econ.com/images/01_bdlogo.png">
+	<!-- Twitter Card -->
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="BEA API Guide">
+	<meta name="twitter:description" content="Python tutorial: Using the Bureau of Economic Analysis API for GDP, consumer spending, and industry data.">
+	<meta name="twitter:image" content="https://www.bd-econ.com/images/01_bdlogo.png">
+	<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="favicon/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+	<link rel="manifest" href="favicon/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PGVF5S620Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PGVF5S620Y');
+</script>
+
+</head>
+<body>
+	<nav>
+		<ul class="ul_nav" id="menu">
+			<li class="nav_main"> <a href="index.html">BD Economics</a> </li>
+			<li><a href="about.html">About</a> </li>
+			<li><a href="http://briandew.wordpress.com">Blog</a> </li>
+			<li><a href="python.html" class="active">Guides &darr;</a>
+				<ul class="hidden">
+					<li><a href="imfapi1.html">IMF API</a></li>
+					<li><a href="blsapi.html">BLS API</a></li>
+					<li><a href="beaapi.html">BEA API</a></li>
+					<li><a href="censusapi.html">Census API</a></li>
+					<li><a href="treasuryapi.html">Treasury API</a></li>
+					<li><a href="cps.html">CPS Microdata</a></li>
+			</ul>
+			</li>
+		<li>
+			<a href="chartbook.html">Reports &darr;</a>
+			<ul class="hidden">
+				<li><a href="chartbook.pdf">US Chartbook (PDF)</a></li>
+			</ul>
+			<li class="icon"> <a href="javascript:void(0);"
+				style="font-size:15px;" onclick="responsiveNav()">&#9776;</a>
+			</li>
+		</ul>
+	</nav>
+	<header>
+	<h3>BEA API</h3>
+	</header>
+	<section>
+	<article class="article_code">
+	<h3> Bureau of Economic Analysis (BEA) API with Python </h3>
+	<p>The <a href="https://www.bea.gov/resources/for-developers">BEA API</a> provides access to national accounts data including GDP, consumer spending, and industry statistics. This tutorial demonstrates how to use Python to retrieve and analyze data from the BEA API.</p>
+
+	<p>This notebook offers two examples: the first fetches NIPA table data to calculate consumer spending growth by category, and the second shows how to navigate API metadata to find dataset parameters.</p>
+
+	<h3 class="section-title">Background</h3>
+	<h4>BEA</h4>
+	<p>The Bureau of Economic Analysis is part of the U.S. Department of Commerce. BEA produces economic statistics including GDP, personal income, and industry accounts. You can read more about BEA <a href="https://www.bea.gov/about">here</a>.</p>
+
+	<h4>API Registration</h4>
+	<p>To use the BEA API, you need to <a href="https://apps.bea.gov/API/signup/">register for a free API key</a>. The examples below assume the API key is stored in a separate config file.</p>
+
+	<h4>Python</h4>
+	<p>The examples use Python 3.x with the requests and pandas packages.</p>
+
+	<h3 class="section-title">Example 1: Fetch NIPA Table</h3>
+	<p>This example requests NIPA table 2.3.6 (Real Personal Consumption Expenditures by Major Type of Product) for the latest five years.</p>
+
+	<h4>Import Libraries</h4>
+	<p>In[1]:</p>
+	<pre><code class="python">import requests
+import pandas as pd
+from config import bea_key as api_key   # File with API key</code></pre>
+
+	<h4>Construct API Request</h4>
+	<p>The API URL is built from several components: the base URL with your API key, the dataset name, table ID, frequency, years, and format.</p>
+	<p>In[2]:</p>
+	<pre><code class="python"># Components of request
+base = f'https://apps.bea.gov/api/data/?&UserID={api_key}'
+dset = '&method=GetData&datasetname=NIPA'
+tbl = 'T20306' # Real PCE by Major Type of Product: NIPA Table 2.3.6.
+freq = '&Frequency=Q'
+yr = ','.join(map(str, range(2021, 2026)))
+fmt = '&ResultFormat=json'
+url = f'{base}{dset}&TableName={tbl}{freq}&Year={yr}{fmt}'</code></pre>
+
+	<h4>Request Data</h4>
+	<p>In[3]:</p>
+	<pre><code class="python"># Request data
+r = requests.get(url)</code></pre>
+
+	<h4>Process the Data</h4>
+	<p>The API returns JSON data which Python converts to a dictionary. The data includes thousands separators which are removed. The <code>TimePeriod</code> column is converted to datetime. Consumer spending growth (<code>pce</code>) and category contributions (<code>res</code>) are then calculated.</p>
+	<p>In[4]:</p>
+	<pre><code class="python"># Read as pandas dataframe and organize
+df = pd.DataFrame(r.json()['BEAAPI']['Results']['Data'])
+df['Value'] = df.DataValue.str.replace(',','').astype('float')
+df['Date'] = pd.to_datetime(df.TimePeriod, format='mixed')
+data = df.set_index(['Date', 'SeriesCode'])['Value'].unstack()
+pce = (((data['DPCERX'].pct_change() + 1) ** 4) - 1) * 100
+
+s = {'DSERRX': 'Services', 'DNDGRX': 'Nondurable Goods',
+     'DDURRX': 'Durable Goods'}
+res = (data[s.keys()].diff().div(data['DPCERX'].diff(), axis=0)
+              .multiply(pce, axis=0).dropna()
+              .loc['2022':].rename(s, axis=1))
+res.index.name = ''</code></pre>
+
+	<h4>Visualize Results</h4>
+	<p>A stacked bar chart shows the contribution of each category to overall consumer spending growth.</p>
+	<p>In[5]:</p>
+	<pre><code class="python"># Create chart
+ax = (res.plot(kind='bar', stacked=True, figsize=(6.7, 4),
+               rot=0, color=['mediumblue', 'deepskyblue', 'darkorange'],
+               width=0.8, zorder=3))
+ax.legend(ncols=3, loc='upper center')
+ax.set_ylim(-2, 6)
+ax.axhline(0, lw=0.5, color='gray', zorder=0)
+ax.grid(axis='y', zorder=0, color='lightgray')
+ax.set_xticklabels([f'Q1\n{i.year}' if i.month == 1 else f'Q{(i.month+2)/3:.0f}'
+                    for i in res.index])
+title = 'Contribution to Real Consumer Spending Growth, by Category'
+subtitle = 'quarterly change, annualized, in percent'
+ax.text(-0.02, 1.09, title, transform=ax.transAxes, fontsize=12);
+ax.text(-0.01, 1.03, subtitle, transform=ax.transAxes, fontsize=9, style='italic');
+footer = 'Source: Bureau of Economic Analysis, NIPA Table 2.3.6'
+ax.text(-0.03, -0.2, footer, transform=ax.transAxes, fontsize=10);</code></pre>
+	<p>Out[5]:</p>
+	<img src="images/bea_ex1.png" alt="Consumer Spending Growth Chart" style="max-width: 100%;"/>
+
+	<h3 class="section-title">Example 2: Collect API Parameters</h3>
+	<p>This example shows how to navigate API metadata to find dataset parameters. Using the metadata, we can discover the codes for tables and industries we want to request.</p>
+
+	<h4>Fetch Table List</h4>
+	<p>Request the list of available tables in the GDPbyIndustry dataset. Table 25 (Composition of Gross Output) is what we want for this example.</p>
+	<p>In[6]:</p>
+	<pre><code class="python"># Components of request
+base = f'https://apps.bea.gov/api/data/?&UserID={api_key}'
+get_param = '&method=GetParameterValues'
+dataset = '&DataSetName=GDPbyIndustry'
+param = 'TableID'
+
+# Construct URL from parameters above
+url = f'{base}{get_param}{dataset}&ParameterName={param}&ResultFormat=json'
+
+# Request parameter information from BEA API
+r = requests.get(url)
+
+# Show the results as a table:
+pd.DataFrame(r.json()['BEAAPI']['Results']['ParamValue']).set_index('Key').head()</code></pre>
+	<p>Out[6]:</p>
+	<table class="dataframe" style="width: 100%; max-width: 600px; table-layout: fixed;">
+	  <thead>
+	    <tr style="text-align: right;">
+	      <th></th>
+	      <th>Desc</th>
+	    </tr>
+	    <tr>
+	      <th>Key</th>
+	      <th></th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <th>1</th>
+	      <td>Value Added by Industry (A) (Q)</td>
+	    </tr>
+	    <tr>
+	      <th>5</th>
+	      <td>Value added by Industry as a Percentage of Gross Domestic Product (A) (Q)</td>
+	    </tr>
+	    <tr>
+	      <th>6</th>
+	      <td>Components of Value Added by Industry (A)</td>
+	    </tr>
+	    <tr>
+	      <th>7</th>
+	      <td>Components of Value Added by Industry as a Percentage of Value Added (A)</td>
+	    </tr>
+	    <tr>
+	      <th>8</th>
+	      <td>Chain-Type Quantity Indexes for Value Added by Industry (A) (Q)</td>
+	    </tr>
+	  </tbody>
+	</table>
+
+	<h4>Fetch Industry List</h4>
+	<p>Request the list of industry codes. Industry code 23 is the Construction industry.</p>
+	<p>In[7]:</p>
+	<pre><code class="python">param = 'Industry'
+
+# Construct URL from parameters above
+url = f'{base}{get_param}{dataset}&ParameterName={param}&ResultFormat=json'
+
+# Request parameter information from BEA API
+r = requests.get(url).json()
+
+# Show the results as a table:
+pd.DataFrame(r['BEAAPI']['Results']['ParamValue']).set_index('Key').head(10)</code></pre>
+	<p>Out[7]:</p>
+	<table class="dataframe" style="width: 100%; max-width: 600px; table-layout: fixed;">
+	  <thead>
+	    <tr style="text-align: right;">
+	      <th></th>
+	      <th>Desc</th>
+	    </tr>
+	    <tr>
+	      <th>Key</th>
+	      <th></th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <th>11</th>
+	      <td>Agriculture, forestry, fishing, and hunting (A,Q)</td>
+	    </tr>
+	    <tr>
+	      <th>111CA</th>
+	      <td>Farms (A,Q)</td>
+	    </tr>
+	    <tr>
+	      <th>113FF</th>
+	      <td>Forestry, fishing, and related activities (A,Q)</td>
+	    </tr>
+	    <tr>
+	      <th>21</th>
+	      <td>Mining (A,Q)</td>
+	    </tr>
+	    <tr>
+	      <th>211</th>
+	      <td>Oil and gas extraction (A,Q)</td>
+	    </tr>
+	    <tr>
+	      <th>212</th>
+	      <td>Mining, except oil and gas (A,Q)</td>
+	    </tr>
+	    <tr>
+	      <th>213</th>
+	      <td>Support activities for mining (A,Q)</td>
+	    </tr>
+	    <tr>
+	      <th>22</th>
+	      <td>Utilities (A,Q)</td>
+	    </tr>
+	    <tr>
+	      <th>23</th>
+	      <td>Construction (A,Q)</td>
+	    </tr>
+	    <tr>
+	      <th>311FT</th>
+	      <td>Food and beverage and tobacco products (A,Q)</td>
+	    </tr>
+	  </tbody>
+	</table>
+
+	<h4>Fetch Industry Data</h4>
+	<p>Using the parameters discovered above, fetch table 25 for industry 23 (Construction). The results are organized into a pandas dataframe.</p>
+	<p>In[8]:</p>
+	<pre><code class="python">m = '&method=GetData'
+ind = '&TableId=25'
+freq = '&Frequency=A'
+year = '&Year=ALL'
+fmt = '&ResultFormat=json'
+indus = '&Industry=23'  # Construction Industry
+
+# Combined url for request
+url = f'{base}{m}{dataset}{year}{indus}{ind}{freq}{fmt}'
+
+r = requests.get(url)
+
+df = pd.DataFrame(r.json()['BEAAPI']['Results'][0]['Data'])
+df = df.replace('Construction', 'Gross Output')
+df = df.set_index([pd.to_datetime(df['Year']),
+                   'IndustrYDescription'])['DataValue'].unstack(1)
+df = df.apply(pd.to_numeric)
+df.tail()</code></pre>
+	<p>Out[8]:</p>
+	<table class="dataframe" style="width: 100%; max-width: 100%; table-layout: fixed; font-size: 14px;">
+	  <thead>
+	    <tr style="text-align: right;">
+	      <th></th>
+	      <th>Compensation of employees</th>
+	      <th>Energy inputs</th>
+	      <th>Gross Output</th>
+	      <th>Gross operating surplus</th>
+	      <th>Intermediate inputs</th>
+	      <th>Materials inputs</th>
+	      <th>Purchased-services inputs</th>
+	      <th>Taxes less subsidies</th>
+	      <th>Value added</th>
+	    </tr>
+	    <tr>
+	      <th>Year</th>
+	      <th></th>
+	      <th></th>
+	      <th></th>
+	      <th></th>
+	      <th></th>
+	      <th></th>
+	      <th></th>
+	      <th></th>
+	      <th></th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <th>2020</th>
+	      <td>597.8</td>
+	      <td>30.3</td>
+	      <td>1804.4</td>
+	      <td>415.3</td>
+	      <td>845.7</td>
+	      <td>636.6</td>
+	      <td>178.8</td>
+	      <td>-54.4</td>
+	      <td>958.7</td>
+	    </tr>
+	    <tr>
+	      <th>2021</th>
+	      <td>636.9</td>
+	      <td>45.7</td>
+	      <td>1985.6</td>
+	      <td>400.8</td>
+	      <td>973.5</td>
+	      <td>749.7</td>
+	      <td>178.1</td>
+	      <td>-25.6</td>
+	      <td>1012.1</td>
+	    </tr>
+	    <tr>
+	      <th>2022</th>
+	      <td>694.3</td>
+	      <td>50.9</td>
+	      <td>2204.0</td>
+	      <td>404.5</td>
+	      <td>1091.6</td>
+	      <td>840.5</td>
+	      <td>200.3</td>
+	      <td>13.6</td>
+	      <td>1112.4</td>
+	    </tr>
+	    <tr>
+	      <th>2023</th>
+	      <td>745.0</td>
+	      <td>51.0</td>
+	      <td>2389.0</td>
+	      <td>465.4</td>
+	      <td>1164.5</td>
+	      <td>854.9</td>
+	      <td>258.6</td>
+	      <td>14.1</td>
+	      <td>1224.6</td>
+	    </tr>
+	    <tr>
+	      <th>2024</th>
+	      <td>799.3</td>
+	      <td>45.4</td>
+	      <td>2511.5</td>
+	      <td>491.2</td>
+	      <td>1206.1</td>
+	      <td>869.9</td>
+	      <td>290.7</td>
+	      <td>14.9</td>
+	      <td>1305.4</td>
+	    </tr>
+	  </tbody>
+	</table>
+
+	<h4>Visualize Results</h4>
+	<p>Create a chart showing the labor income share of gross value added in the construction industry.</p>
+	<p>In[9]:</p>
+	<pre><code class="python"># Labor income share of industry value added
+data = (df['Compensation of employees'] / df['Value added']) * 100
+data.index.name = ''
+title = 'Labor Income Share of Gross Value Added, Construction Industry'
+ax = data.plot(color='red', title=title);</code></pre>
+	<p>Out[9]:</p>
+	<img src="images/bea_ex2.png" alt="Labor Income Share Chart" style="max-width: 100%;"/>
+
+	<h4>Conclusion</h4>
+	<p>The BEA API provides access to a wealth of national accounts data. By exploring the API metadata, you can discover available datasets, tables, and parameters to construct targeted data requests.</p>
+	</article>
+	<div class="subfooter">
+	     <a href="python.html">Back to Python Examples</a>
+	</div>
+	</section>
+
+		<footer>
+		<div class="footer_left">
+			<p>January 12, 2026<br> by Brian Dew</p>
+		</div>
+		<div class="footer_right">
+			<a href="https://github.com/bdecon/">
+				<button class="button_sm"><i class="fa fa-github"></i></button>
+			</a>
+			<a href="https://www.linkedin.com/in/brian-dew-5788a386/">
+				<button class="button_sm"><i class="fa fa-linkedin"></i></button>
+			</a>
+			<a href="https://twitter.com/bd_econ">
+				<button class="button_sm"><i class="fa fa-twitter"></i></button>
+			</a>
+			<a href="https://briandew.wordpress.com/">
+				<button class="button_sm"><i class="fa fa-wordpress"></i></button>
+			</a>
+		</div>
+	</footer>
+	<script>
+		function responsiveNav() {
+			var x = document.getElementById("menu");
+			if (x.className === "ul_nav") {
+				x.className += " responsive";
+			} else {
+				x.className = "ul_nav";
+			}
+		}
+	</script>
+</body>
+</html>
