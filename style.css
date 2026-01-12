@@ -258,6 +258,7 @@ section{margin: 5px; padding: 0px;}
 .card_banner_wrap_green { background-color: color-mix(in srgb, var(--color-card-green) 40%, white); }
 .card_banner_wrap_orange { background-color: color-mix(in srgb, var(--color-card-orange) 40%, white); }
 .card_banner_wrap_purple { background-color: color-mix(in srgb, var(--color-card-purple) 40%, white); }
+.card_banner_wrap_red { background-color: color-mix(in srgb, var(--color-card-red) 40%, white); }
 .card_banner {
 	height: 34px;
 	width: 100%;
