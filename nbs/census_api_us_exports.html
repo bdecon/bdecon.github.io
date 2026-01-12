@@ -31,15 +31,12 @@
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PGVF5S620Y"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-90776928-1', 'auto');
-  ga('send', 'pageview');
-
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PGVF5S620Y');
 </script>
 </head>
 <body>
@@ -48,21 +45,20 @@
         <li class="nav_main"> <a href="https://www.bd-econ.com/index.html">BD Economics</a> </li>
         <li><a href="https://www.bd-econ.com/about.html">About</a> </li>
         <li><a href="http://briandew.wordpress.com">Blog</a> </li>
-        <li><a href="https://www.bd-econ.com/python.html" class="active">Guides &darr;</a> 
+        <li><a href="https://www.bd-econ.com/python.html" class="active">Guides &darr;</a>
             <ul class="hidden">
                 <li><a href="https://www.bd-econ.com/imfapi1.html">IMF API</a></li>
                 <li><a href="https://www.bd-econ.com/blsapi.html">BLS API</a></li>
+                <li><a href="https://www.bd-econ.com/censusapi.html">Census API</a></li>
+                <li><a href="https://www.bd-econ.com/treasuryapi.html">Treasury API</a></li>
                 <li><a href="https://www.bd-econ.com/cps.html">CPS Microdata</a></li>
-        </ul>
+            </ul>
         </li>
-    <li>
-        <a href="https://www.bd-econ.com/dash.html">Reports &darr;</a>
-        <ul class="hidden">
-            <li><a href="https://www.bd-econ.com/MacroDash.pdf">U.S. Chartbook (PDF)</a></li>
-            <li><a href="https://www.bd-econ.com/unemp.html">U.S. Unemployment Map</a></li>
-            <li><a href="https://www.bd-econ.com/Dash/JPNDash.pdf">Japan Dashboard (PDF)</a></li>
-            <li><a href="https://www.bd-econ.com/plots.html">Key Indicators</a></li>
-        </ul>
+        <li><a href="https://www.bd-econ.com/chartbook.html">Reports &darr;</a>
+            <ul class="hidden">
+                <li><a href="https://www.bd-econ.com/chartbook.pdf">US Chartbook (PDF)</a></li>
+            </ul>
+        </li>
         <li class="icon"> <a href="javascript:void(0);"
             style="font-size:15px;" onclick="responsiveNav()">&#9776;</a>
         </li>
