@@ -58,6 +58,7 @@
       "decimals": 1,
       "color": "green",
       "timeSeries": false,
+      "showDataLabels": true,
       "category": "Output",
       "order": 2
     },
