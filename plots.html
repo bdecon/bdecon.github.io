@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title> BD Economics | Interactive Charts </title>
+	<link rel="stylesheet" href="style.css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:900" rel="stylesheet">
+	<script src="https://use.fontawesome.com/8f99c5621e.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+	<meta charset="UTF-8">
+	<meta name="description" content="Interactive economic charts with hover tooltips showing time series data.">
+	<meta name="keywords" content="interactive charts, economic data visualization, time series charts, US economy charts">
+	<meta name="author" content="Brian Dew">
+	<link rel="canonical" href="https://www.bd-econ.com/plots.html">
+	<!-- Open Graph -->
+	<meta property="og:title" content="BD Economics | Interactive Charts">
+	<meta property="og:description" content="Interactive economic charts with hover tooltips showing time series data.">
+	<meta property="og:url" content="https://www.bd-econ.com/plots.html">
+	<meta property="og:type" content="website">
+	<meta property="og:image" content="https://www.bd-econ.com/images/01_bdlogo.png">
+	<!-- Twitter Card -->
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="BD Economics | Interactive Charts">
+	<meta name="twitter:description" content="Interactive economic charts with hover tooltips showing time series data.">
+	<meta name="twitter:image" content="https://www.bd-econ.com/images/01_bdlogo.png">
+	<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="favicon/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+	<link rel="manifest" href="favicon/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PGVF5S620Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PGVF5S620Y');
+</script>
+
+<style>
+	.chart-container {
+		position: relative;
+		width: 100%;
+		max-width: 400px;
+		margin: 1rem auto;
+		background: #fff;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	}
+	.chart-header {
+		background-color: var(--color-card-blue);
+		color: white;
+		padding: 6px 10px 5px 10px;
+	}
+	.chart-header h4 {
+		font-family: 'Montserrat', sans-serif;
+		font-size: 15px;
+		margin: 0;
+		font-weight: 600;
+		color: white;
+	}
+	.chart-subtitle {
+		font-size: 10px;
+		font-style: italic;
+		color: #6a6a6a;
+		margin: 0 0 4px 0;
+	}
+	.chart-body {
+		padding: 4px 10px 0 10px;
+	}
+	.chart-source {
+		font-size: 9px;
+		color: var(--color-text-gray);
+		text-align: right;
+		padding: 0 10px 5px 10px;
+		font-style: italic;
+	}
+	.chart-selector {
+		max-width: 400px;
+		margin: 0 auto 1rem auto;
+		font-family: 'Montserrat', sans-serif;
+		font-size: 14px;
+	}
+	.chart-selector label {
+		margin-right: 8px;
+		color: #333;
+	}
+	.chart-selector select {
+		font-family: 'Montserrat', sans-serif;
+		font-size: 14px;
+		padding: 6px 12px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		background: white;
+		cursor: pointer;
+	}
+	.chart-selector select:hover {
+		border-color: var(--color-card-blue);
+	}
+</style>
+
+</head>
+<body>
+	<nav>
+		<ul class="ul_nav" id="menu">
+			<li class="nav_main"> <a href="index.html">BD Economics</a> </li>
+			<li><a href="about.html">About</a> </li>
+			<li><a href="http://briandew.wordpress.com">Blog</a> </li>
+			<li><a href="python.html">Guides &darr;</a>
+				<ul class="hidden">
+					<li><a href="imfapi1.html">IMF API</a></li>
+					<li><a href="blsapi.html">BLS API</a></li>
+					<li><a href="beaapi.html">BEA API</a></li>
+					<li><a href="censusapi.html">Census API</a></li>
+					<li><a href="treasuryapi.html">Treasury API</a></li>
+					<li><a href="cps.html">CPS Microdata</a></li>
+			</ul>
+			</li>
+		<li>
+			<a href="chartbook.html">Reports &darr;</a>
+			<ul class="hidden">
+				<li><a href="chartbook.pdf">US Chartbook (PDF)</a></li>
+			</ul>
+			<li class="icon"> <a href="javascript:void(0);"
+				style="font-size:15px;" onclick="responsiveNav()">&#9776;</a>
+			</li>
+		</ul>
+	</nav>
+
+	<header>
+	<h3>Interactive Charts</h3>
+	</header>
+	<section>
+	<article>
+	<p>Interactive visualizations of economic time series data. Hover over points to see values.</p>
+	</article>
+
+	<article>
+		<div class="chart-selector">
+			<label for="dataset-select">Select chart:</label>
+			<select id="dataset-select"></select>
+		</div>
+		<div class="chart-container">
+			<div class="chart-header">
+				<h4 id="chart-title">M2 Money Supply / GDP</h4>
+			</div>
+			<div class="chart-body">
+				<p class="chart-subtitle" id="chart-subtitle">index, 1988=1</p>
+				<canvas id="lineChart"></canvas>
+			</div>
+			<p class="chart-source" id="chart-source">Source: Federal Reserve, BEA</p>
+		</div>
+	</article>
+
+	</section>
+
+	<footer>
+		<div class="footer_left">
+			<p>January 12, 2026<br> by Brian Dew</p>
+		</div>
+		<div class="footer_right">
+			<a href="https://github.com/bdecon/">
+				<button class="button_sm"><i class="fa fa-github"></i></button>
+			</a>
+			<a href="https://www.linkedin.com/in/brian-dew-5788a386/">
+				<button class="button_sm"><i class="fa fa-linkedin"></i></button>
+			</a>
+			<a href="https://twitter.com/bd_econ">
+				<button class="button_sm"><i class="fa fa-twitter"></i></button>
+			</a>
+			<a href="https://briandew.wordpress.com/">
+				<button class="button_sm"><i class="fa fa-wordpress"></i></button>
+			</a>
+		</div>
+	</footer>
+	<script>
+		function responsiveNav() {
+			var x = document.getElementById("menu");
+			if (x.className === "ul_nav") {
+				x.className += " responsive";
+			} else {
+				x.className = "ul_nav";
+			}
+		}
+	</script>
+
+	<script>
+		// Global state
+		let manifest = null;
+		let chart = null;
+		let currentDateFormat = null;
+
+		// Color mapping to CSS variables
+		const colorMap = {
+			blue: {
+				border: getComputedStyle(document.documentElement).getPropertyValue('--color-card-blue').trim() || '#3441de',
+				background: 'rgba(52, 65, 222, 0.08)',
+				backgroundStrong: 'rgba(52, 65, 222, 0.3)'
+			},
+			green: {
+				border: getComputedStyle(document.documentElement).getPropertyValue('--color-card-green').trim() || '#27AE60',
+				background: 'rgba(39, 174, 96, 0.08)',
+				backgroundStrong: 'rgba(39, 174, 96, 0.3)'
+			},
+			red: {
+				border: getComputedStyle(document.documentElement).getPropertyValue('--color-card-red').trim() || '#FF2F2F',
+				background: 'rgba(255, 47, 47, 0.08)',
+				backgroundStrong: 'rgba(255, 47, 47, 0.3)'
+			},
+			orange: {
+				border: getComputedStyle(document.documentElement).getPropertyValue('--color-card-orange').trim() || '#FF8700',
+				background: 'rgba(255, 135, 0, 0.08)',
+				backgroundStrong: 'rgba(255, 135, 0, 0.3)'
+			},
+			purple: {
+				border: getComputedStyle(document.documentElement).getPropertyValue('--color-card-purple').trim() || '#721ce7',
+				background: 'rgba(114, 28, 231, 0.08)',
+				backgroundStrong: 'rgba(114, 28, 231, 0.3)'
+			},
+			yellow: {
+				border: getComputedStyle(document.documentElement).getPropertyValue('--color-card-yellow').trim() || '#FFC300',
+				background: 'rgba(255, 195, 0, 0.08)',
+				backgroundStrong: 'rgba(255, 195, 0, 0.3)'
+			},
+			ltblue: {
+				border: getComputedStyle(document.documentElement).getPropertyValue('--color-card-ltblue').trim() || '#1E90FF',
+				background: 'rgba(30, 144, 255, 0.08)',
+				backgroundStrong: 'rgba(30, 144, 255, 0.3)'
+			}
+		};
+
+		// Chart type configurations
+		function getChartTypeConfig(type, colors, config) {
+			const baseDataset = {
+				borderColor: colors.border,
+				backgroundColor: colors.background,
+				borderWidth: 1.5,
+				pointRadius: 1,
+				pointHoverRadius: 4,
+				pointBackgroundColor: colors.border,
+				pointHoverBackgroundColor: colors.border
+			};
+
+			switch (type) {
+				case 'line':
+					return {
+						type: 'line',
+						dataset: {
+							...baseDataset,
+							fill: config.fill !== false,
+							tension: 0.1
+						}
+					};
+				case 'area':
+					return {
+						type: 'line',
+						dataset: {
+							...baseDataset,
+							fill: true,
+							tension: 0.1,
+							backgroundColor: colors.backgroundStrong
+						}
+					};
+				case 'bar':
+					return {
+						type: 'bar',
+						dataset: {
+							backgroundColor: colors.border,
+							borderColor: colors.border,
+							borderWidth: 0
+						}
+					};
+				case 'scatter':
+					return {
+						type: 'scatter',
+						dataset: {
+							backgroundColor: colors.border,
+							borderColor: colors.border,
+							pointRadius: 3,
+							pointHoverRadius: 5
+						}
+					};
+				default:
+					return {
+						type: 'line',
+						dataset: baseDataset
+					};
+			}
+		}
+
+		// Date formatting based on frequency
+		function getDateFormatConfig(dateFormat) {
+			switch (dateFormat) {
+				case 'monthly':
+					return {
+						tickCallback: function(value, index) {
+							if (index % 12 === 0) {
+								const dateStr = this.getLabelForValue(index);
+								return dateStr.substring(0, 4);
+							}
+							return '';
+						},
+						tooltipTitle: function(context) {
+							const date = new Date(context[0].label);
+							const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+								'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+							return months[date.getUTCMonth()] + ' ' + date.getUTCFullYear();
+						},
+						lastValueFormat: function(date) {
+							const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+								'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+							return [months[date.getUTCMonth()], date.getUTCFullYear()];
+						}
+					};
+				case 'annual':
+					return {
+						tickCallback: function(value, index) {
+							const dateStr = this.getLabelForValue(index);
+							return dateStr.substring(0, 4);
+						},
+						tooltipTitle: function(context) {
+							const date = new Date(context[0].label);
+							return date.getUTCFullYear().toString();
+						},
+						lastValueFormat: function(date) {
+							return [date.getUTCFullYear()];
+						}
+					};
+				case 'daily':
+					return {
+						tickCallback: function(value, index) {
+							if (index % 30 === 0) {
+								const dateStr = this.getLabelForValue(index);
+								return dateStr.substring(0, 7);
+							}
+							return '';
+						},
+						tooltipTitle: function(context) {
+							return context[0].label;
+						},
+						lastValueFormat: function(date) {
+							return [date.toISOString().substring(0, 10)];
+						}
+					};
+				case 'quarterly':
+				default:
+					return {
+						tickCallback: function(value, index) {
+							if (index % 3 === 0) {
+								const dateStr = this.getLabelForValue(index);
+								return dateStr.substring(0, 4);
+							}
+							return '';
+						},
+						tooltipTitle: function(context) {
+							const date = new Date(context[0].label);
+							const quarter = Math.ceil((date.getUTCMonth() + 1) / 3);
+							return 'Q' + quarter + ' ' + date.getUTCFullYear();
+						},
+						lastValueFormat: function(date) {
+							const quarter = 'Q' + Math.ceil((date.getUTCMonth() + 1) / 3);
+							return [quarter, date.getUTCFullYear()];
+						}
+					};
+			}
+		}
+
+		// Custom plugin to draw last value label
+		const lastValuePlugin = {
+			id: 'lastValueLabel',
+			afterDraw: function(chart) {
+				const dataset = chart.data.datasets[0];
+				const meta = chart.getDatasetMeta(0);
+				const lastIndex = dataset.data.length - 1;
+				const lastPoint = meta.data[lastIndex];
+
+				if (!lastPoint) return;
+
+				const ctx = chart.ctx;
+				const x = lastPoint.x + 8;
+				const y = lastPoint.y;
+
+				const lastDate = new Date(chart.data.labels[lastIndex]);
+				const decimals = chart.config._config.datasetConfig?.decimals ?? 2;
+				const valueStr = dataset.data[lastIndex].toFixed(decimals);
+
+				const dateLabels = currentDateFormat
+					? currentDateFormat.lastValueFormat(lastDate)
+					: ['Q' + Math.ceil((lastDate.getUTCMonth() + 1) / 3), lastDate.getUTCFullYear()];
+
+				ctx.save();
+				ctx.font = '9px Tahoma, Verdana, sans-serif';
+				ctx.fillStyle = '#6a6a6a';
+				ctx.textAlign = 'left';
+				ctx.textBaseline = 'middle';
+
+				dateLabels.forEach((label, i) => {
+					ctx.fillText(label, x, y - 12 + (i * 12));
+				});
+				ctx.fillText(valueStr, x, y + (dateLabels.length - 1) * 12);
+
+				ctx.restore();
+			}
+		};
+
+		// Show error message
+		function showError(message) {
+			document.getElementById('chart-title').textContent = 'Error';
+			document.getElementById('chart-subtitle').textContent = message;
+			document.getElementById('chart-source').textContent = '';
+			if (chart) {
+				chart.destroy();
+				chart = null;
+			}
+		}
+
+		// Populate dropdown with optional grouping
+		function populateDropdown() {
+			const select = document.getElementById('dataset-select');
+			select.innerHTML = '';
+
+			const charts = manifest.charts;
+			const hasCategories = charts.some(d => d.category);
+
+			if (hasCategories) {
+				// Group by category
+				const groups = {};
+				charts.forEach(ds => {
+					const cat = ds.category || 'Other';
+					if (!groups[cat]) groups[cat] = [];
+					groups[cat].push(ds);
+				});
+
+				Object.keys(groups).sort().forEach(category => {
+					const optgroup = document.createElement('optgroup');
+					optgroup.label = category;
+					groups[category].forEach(ds => {
+						const option = document.createElement('option');
+						option.value = ds.id;
+						option.textContent = ds.title;
+						optgroup.appendChild(option);
+					});
+					select.appendChild(optgroup);
+				});
+			} else {
+				// Flat list
+				charts.forEach(ds => {
+					const option = document.createElement('option');
+					option.value = ds.id;
+					option.textContent = ds.title;
+					select.appendChild(option);
+				});
+			}
+		}
+
+		// Load and display chart for given dataset
+		async function loadChart(datasetId) {
+			const config = manifest.charts.find(d => d.id === datasetId);
+			if (!config) {
+				showError('Dataset not found: ' + datasetId);
+				return;
+			}
+
+			// Update URL hash for sharing
+			window.history.replaceState(null, '', '#' + datasetId);
+
+			// Update DOM elements
+			document.getElementById('chart-title').textContent = config.title;
+			document.getElementById('chart-subtitle').textContent = config.subtitle || '';
+			document.getElementById('chart-source').textContent = 'Source: ' + config.source;
+
+			// Update header color
+			const header = document.querySelector('.chart-header');
+			const colors = colorMap[config.color || 'blue'];
+			header.style.backgroundColor = colors.border;
+
+			try {
+				const response = await fetch(config.file);
+				if (!response.ok) {
+					throw new Error('Failed to load ' + config.file);
+				}
+				const csv = await response.text();
+
+				// Parse CSV
+				const lines = csv.trim().split('\n');
+				const data = lines.slice(1).map(line => {
+					const [date, value] = line.split(',');
+					return { date, value: parseFloat(value) };
+				});
+
+				// Destroy existing chart
+				if (chart) {
+					chart.destroy();
+				}
+
+				// Get configurations
+				const typeConfig = getChartTypeConfig(config.type || 'line', colors, config);
+				currentDateFormat = getDateFormatConfig(config.dateFormat || 'quarterly');
+
+				const ctx = document.getElementById('lineChart').getContext('2d');
+
+				chart = new Chart(ctx, {
+					type: typeConfig.type,
+					datasetConfig: config,
+					data: {
+						labels: data.map(d => d.date),
+						datasets: [{
+							label: config.tooltipLabel || config.title,
+							data: data.map(d => d.value),
+							...typeConfig.dataset
+						}]
+					},
+					plugins: [lastValuePlugin],
+					options: {
+						responsive: true,
+						maintainAspectRatio: true,
+						layout: {
+							padding: { right: 32 }
+						},
+						interaction: {
+							intersect: false,
+							mode: 'index'
+						},
+						plugins: {
+							tooltip: {
+								enabled: true,
+								backgroundColor: 'rgba(75, 75, 75, 0.95)',
+								titleFont: { size: 11, family: "'Montserrat', sans-serif" },
+								bodyFont: { size: 10, family: "Tahoma, Verdana, sans-serif" },
+								padding: 8,
+								cornerRadius: 2,
+								displayColors: false,
+								callbacks: {
+									title: currentDateFormat.tooltipTitle,
+									label: function(context) {
+										const label = config.tooltipLabel || config.title;
+										const decimals = config.decimals ?? 2;
+										return label + ': ' + context.parsed.y.toFixed(decimals);
+									}
+								}
+							},
+							legend: { display: false }
+						},
+						scales: {
+							x: {
+								type: 'category',
+								bounds: 'data',
+								grid: { display: false },
+								ticks: {
+									font: { size: 9, family: "Tahoma, Verdana, sans-serif" },
+									color: '#6a6a6a',
+									callback: currentDateFormat.tickCallback,
+									maxRotation: 0,
+									minRotation: 0
+								}
+							},
+							y: {
+								grace: '5%',
+								border: { display: false },
+								grid: { color: 'rgba(0, 0, 0, 0.06)' },
+								ticks: {
+									font: { size: 9, family: "Tahoma, Verdana, sans-serif" },
+									color: '#6a6a6a'
+								},
+								title: { display: false },
+								beginAtZero: config.beginAtZero || false,
+								min: config.yAxisMin ?? undefined,
+								max: config.yAxisMax ?? undefined
+							}
+						}
+					}
+				});
+			} catch (error) {
+				console.error('Error loading chart:', error);
+				showError(error.message);
+			}
+		}
+
+		// Initialize application
+		async function init() {
+			try {
+				const response = await fetch('files/charts.json');
+				if (!response.ok) {
+					throw new Error('Failed to load charts.json');
+				}
+				manifest = await response.json();
+
+				// Sort by order if present, then by title
+				manifest.charts.sort((a, b) => {
+					if (a.order !== undefined && b.order !== undefined) {
+						return a.order - b.order;
+					}
+					if (a.order !== undefined) return -1;
+					if (b.order !== undefined) return 1;
+					return a.title.localeCompare(b.title);
+				});
+
+				populateDropdown();
+
+				// Load chart from URL hash or first chart
+				const hashId = window.location.hash.slice(1);
+				const initialId = hashId && manifest.charts.find(d => d.id === hashId)
+					? hashId
+					: manifest.charts[0].id;
+
+				document.getElementById('dataset-select').value = initialId;
+				loadChart(initialId);
+
+			} catch (error) {
+				console.error('Initialization error:', error);
+				showError(error.message);
+			}
+		}
+
+		// Handle dropdown changes
+		document.getElementById('dataset-select').addEventListener('change', (e) => {
+			loadChart(e.target.value);
+		});
+
+		// Initialize on page load
+		init();
+	</script>
+</body>
+</html>
