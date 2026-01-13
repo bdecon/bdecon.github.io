@@ -60,6 +60,21 @@
       "timeSeries": false,
       "category": "Output",
       "order": 2
+    },
+    {
+      "id": "cpi",
+      "file": "files/cpi.csv",
+      "type": "line",
+      "title": "CPI Inflation Rate",
+      "subtitle": "one-year change, in percent",
+      "source": "BLS",
+      "tooltipLabel": "CPI",
+      "decimals": 1,
+      "color": "red",
+      "timeSeries": true,
+      "dateFormat": "monthly",
+      "category": "Prices",
+      "order": 5
     }
   ]
 }
