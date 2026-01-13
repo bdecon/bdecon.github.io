@@ -83,11 +83,17 @@
 	.chart-body {
 		padding: 4px 10px 0 10px;
 	}
+	.chart-footer {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 10px 5px 10px;
+	}
 	.chart-source {
 		font-size: 9px;
 		color: var(--color-text-gray);
 		text-align: right;
-		padding: 0 10px 5px 10px;
+		margin: 0;
 		font-style: italic;
 	}
 	.chart-selector {
@@ -111,6 +117,20 @@
 	}
 	.chart-selector select:hover {
 		border-color: var(--color-card-blue);
+	}
+	.chart-filter {
+		font-size: 9px;
+		color: #6a6a6a;
+		margin: 0;
+		visibility: hidden;
+	}
+	.chart-filter a {
+		color: var(--color-card-blue);
+		text-decoration: none;
+		cursor: pointer;
+	}
+	.chart-filter a:hover {
+		text-decoration: underline;
 	}
 </style>
 
@@ -163,7 +183,10 @@
 				<p class="chart-subtitle" id="chart-subtitle">index, 1988=1</p>
 				<canvas id="lineChart"></canvas>
 			</div>
-			<p class="chart-source" id="chart-source">Source: Federal Reserve, BEA</p>
+			<div class="chart-footer">
+				<p class="chart-filter" id="chart-filter"><a onclick="toggleTimeRange()">Recent 3 years</a></p>
+				<p class="chart-source" id="chart-source">Source: Federal Reserve, BEA</p>
+			</div>
 		</div>
 	</article>
 
@@ -204,6 +227,9 @@
 		let manifest = null;
 		let chart = null;
 		let currentDateFormat = null;
+		let fullData = null;
+		let isFilteredView = false;
+		let currentConfig = null;
 
 		// Color mapping to CSS variables
 		const colorMap = {
@@ -309,11 +335,8 @@
 				case 'monthly':
 					return {
 						tickCallback: function(value, index) {
-							if (index % 12 === 0) {
-								const dateStr = this.getLabelForValue(index);
-								return dateStr.substring(0, 4);
-							}
-							return '';
+							const dateStr = this.getLabelForValue(value);
+							return dateStr ? dateStr.substring(0, 4) : '';
 						},
 						tooltipTitle: function(context) {
 							const date = new Date(context[0].label);
@@ -361,11 +384,8 @@
 				default:
 					return {
 						tickCallback: function(value, index) {
-							if (index % 3 === 0) {
-								const dateStr = this.getLabelForValue(index);
-								return dateStr.substring(0, 4);
-							}
-							return '';
+							const dateStr = this.getLabelForValue(value);
+							return dateStr ? dateStr.substring(0, 4) : '';
 						},
 						tooltipTitle: function(context) {
 							const date = new Date(context[0].label);
@@ -427,6 +447,65 @@
 				chart.destroy();
 				chart = null;
 			}
+		}
+
+		// Filter data to last N years
+		function filterToLastYears(data, years) {
+			const cutoffDate = new Date();
+			cutoffDate.setFullYear(cutoffDate.getFullYear() - years);
+			return data.filter(d => new Date(d.date) >= cutoffDate);
+		}
+
+		// Tick callback for filtered view (shows month/quarter + year)
+		function getFilteredTickCallback(dateFormat) {
+			const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+				'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+			return function(value, index) {
+				const dateStr = this.getLabelForValue(value);
+				if (!dateStr) return '';
+				const date = new Date(dateStr);
+				const month = date.getUTCMonth();
+				const year = date.getUTCFullYear();
+
+				if (dateFormat === 'monthly') {
+					return months[month] + ' ' + year;
+				} else if (dateFormat === 'quarterly') {
+					const quarter = Math.floor(month / 3) + 1;
+					return 'Q' + quarter + ' ' + year;
+				} else if (dateFormat === 'annual') {
+					return year.toString();
+				} else {
+					return months[month] + ' ' + year;
+				}
+			};
+		}
+
+		// Toggle between full data and last 3 years
+		function toggleTimeRange() {
+			if (!chart || !fullData) return;
+
+			const filterLink = document.getElementById('chart-filter').querySelector('a');
+			const dateFormat = currentConfig?.dateFormat || 'quarterly';
+
+			if (isFilteredView) {
+				// Show all data
+				chart.data.labels = fullData.map(d => d.date);
+				chart.data.datasets[0].data = fullData.map(d => d.value);
+				chart.options.scales.x.ticks.callback = currentDateFormat.tickCallback;
+				filterLink.textContent = 'Recent 3 years';
+				isFilteredView = false;
+			} else {
+				// Filter to last 3 years
+				const filtered = filterToLastYears(fullData, 3);
+				chart.data.labels = filtered.map(d => d.date);
+				chart.data.datasets[0].data = filtered.map(d => d.value);
+				chart.options.scales.x.ticks.callback = getFilteredTickCallback(dateFormat);
+				filterLink.textContent = 'Full history';
+				isFilteredView = true;
+			}
+
+			chart.update();
 		}
 
 		// Populate dropdown with optional grouping
@@ -503,6 +582,20 @@
 					return { date, value: parseFloat(value) };
 				});
 
+				// Store full data for filtering and reset view state
+				fullData = data;
+				isFilteredView = false;
+				currentConfig = config;
+
+				// Show/hide filter link (only for time series charts)
+				const filterEl = document.getElementById('chart-filter');
+				if (config.timeSeries !== false) {
+					filterEl.style.visibility = 'visible';
+					filterEl.querySelector('a').textContent = 'Recent 3 years';
+				} else {
+					filterEl.style.visibility = 'hidden';
+				}
+
 				// Destroy existing chart
 				if (chart) {
 					chart.destroy();
@@ -530,7 +623,10 @@
 						responsive: true,
 						maintainAspectRatio: true,
 						layout: {
-							padding: { right: config.timeSeries !== false ? 32 : 0 }
+							padding: {
+								right: config.timeSeries !== false ? 36 : 0,
+								top: config.timeSeries !== false ? 15 : 0
+							}
 						},
 						interaction: {
 							intersect: false,

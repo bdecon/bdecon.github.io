@@ -75,6 +75,36 @@
       "dateFormat": "monthly",
       "category": "Prices",
       "order": 5
+    },
+    {
+      "id": "tbal",
+      "file": "files/tbal.csv",
+      "type": "line",
+      "title": "Trade Balance / GDP",
+      "subtitle": "Goods and services, share of GDP, percent",
+      "source": "BEA, Author",
+      "tooltipLabel": "Balance",
+      "decimals": 2,
+      "color": "purple",
+      "timeSeries": true,
+      "dateFormat": "monthly",
+      "category": "Trade",
+      "order": 6
+    },
+    {
+      "id": "tariff",
+      "file": "files/tariff.csv",
+      "type": "line",
+      "title": "Tariff Rate",
+      "subtitle": "Tariff revenue share of goods imports, percent",
+      "source": "Treasury, Census, Author",
+      "tooltipLabel": "Rate",
+      "decimals": 1,
+      "color": "purple",
+      "timeSeries": true,
+      "dateFormat": "monthly",
+      "category": "Trade",
+      "order": 7
     }
   ]
 }
