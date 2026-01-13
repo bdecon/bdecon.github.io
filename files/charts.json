@@ -15,14 +15,14 @@
       "dateFormat": "quarterly",
       "fill": false,
       "category": "Monetary",
-      "order": 2
+      "order": 3
     },
     {
       "id": "gdppc",
       "file": "files/gdppc.csv",
       "type": "line",
-      "title": "GDP per Capita",
-      "subtitle": "Thousands of dollars",
+      "title": "Real GDP per Capita",
+      "subtitle": "US dollars, in thousands",
       "source": "BEA, Census",
       "tooltipLabel": "GDP/capita",
       "decimals": 2,
@@ -37,7 +37,7 @@
       "file": "files/ffrate.csv",
       "type": "line",
       "title": "Federal Funds Rate",
-      "subtitle": "percent",
+      "subtitle": "Annual rate, in percent",
       "source": "Federal Reserve",
       "tooltipLabel": "FFR",
       "decimals": 2,
@@ -45,7 +45,21 @@
       "dateFormat": "monthly",
       "fill": true,
       "category": "Monetary",
-      "order": 3
+      "order": 4
+    },
+    {
+      "id": "lprodbar",
+      "file": "files/lprodbar.csv",
+      "type": "bar",
+      "title": "Labor Productivity, Selected Countries",
+      "subtitle": "GDP per hour of work, 2023",
+      "source": "OECD",
+      "tooltipLabel": "GDP/hour",
+      "decimals": 1,
+      "color": "green",
+      "timeSeries": false,
+      "category": "Output",
+      "order": 2
     }
   ]
 }

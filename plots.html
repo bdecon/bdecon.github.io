@@ -525,12 +525,12 @@
 							...typeConfig.dataset
 						}]
 					},
-					plugins: [lastValuePlugin],
+					plugins: config.timeSeries !== false ? [lastValuePlugin] : [],
 					options: {
 						responsive: true,
 						maintainAspectRatio: true,
 						layout: {
-							padding: { right: 32 }
+							padding: { right: config.timeSeries !== false ? 32 : 0 }
 						},
 						interaction: {
 							intersect: false,
@@ -546,7 +546,9 @@
 								cornerRadius: 2,
 								displayColors: false,
 								callbacks: {
-									title: currentDateFormat.tooltipTitle,
+									title: config.timeSeries !== false
+										? currentDateFormat.tooltipTitle
+										: function(context) { return context[0].label; },
 									label: function(context) {
 										const label = config.tooltipLabel || config.title;
 										const decimals = config.decimals ?? 2;
@@ -564,7 +566,9 @@
 								ticks: {
 									font: { size: 9, family: "Tahoma, Verdana, sans-serif" },
 									color: '#6a6a6a',
-									callback: currentDateFormat.tickCallback,
+									callback: config.timeSeries !== false
+										? currentDateFormat.tickCallback
+										: function(value, index) { return this.getLabelForValue(index); },
 									maxRotation: 0,
 									minRotation: 0
 								}
@@ -578,7 +582,7 @@
 									color: '#6a6a6a'
 								},
 								title: { display: false },
-								beginAtZero: config.beginAtZero || false,
+								beginAtZero: config.type === 'bar' || config.beginAtZero || false,
 								min: config.yAxisMin ?? undefined,
 								max: config.yAxisMax ?? undefined
 							}
