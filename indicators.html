@@ -504,6 +504,8 @@
 				const config = chart.config._config.datasetConfig;
 				const isMultiSeries = config?.series && config.series.length > 1;
 				const decimals = config?.decimals ?? 2;
+				const prefix = config?.valuePrefix || '';
+				const suffix = config?.valueSuffix || '';
 				const ctx = chart.ctx;
 
 				// For multi-series, position labels at actual y-positions (or stack if overlapping)
@@ -567,7 +569,7 @@
 
 						// Draw each visible series value with its color
 						sortedByValue.forEach(({ ds }) => {
-							const valueStr = ds.data[lastIndex].toFixed(decimals);
+							const valueStr = prefix + ds.data[lastIndex].toFixed(decimals) + suffix;
 							ctx.fillStyle = ds.borderColor;
 							ctx.fillText(valueStr, x, y);
 							y += 11;
@@ -586,7 +588,7 @@
 
 						// Draw each value at its actual y position
 						labelData.forEach(({ ds, yPos }) => {
-							const valueStr = ds.data[lastIndex].toFixed(decimals);
+							const valueStr = prefix + ds.data[lastIndex].toFixed(decimals) + suffix;
 							ctx.fillStyle = ds.borderColor;
 							ctx.fillText(valueStr, x, yPos);
 						});
@@ -606,7 +608,7 @@
 					const y = lastPoint.y;
 
 					const lastDate = new Date(chart.data.labels[lastIndex]);
-					const valueStr = dataset.data[lastIndex].toFixed(decimals);
+					const valueStr = prefix + dataset.data[lastIndex].toFixed(decimals) + suffix;
 
 					const dateLabels = currentDateFormat
 						? currentDateFormat.lastValueFormat(lastDate)
@@ -1035,11 +1037,14 @@
 										: function(context) { return context[0].label; },
 									label: function(context) {
 										const decimals = config.decimals ?? 2;
+										const prefix = config.valuePrefix || '';
+										const suffix = config.valueSuffix || '';
+										const formattedValue = prefix + context.parsed.y.toFixed(decimals) + suffix;
 										if (isMultiSeries) {
-											return context.dataset.label + ': ' + context.parsed.y.toFixed(decimals);
+											return context.dataset.label + ': ' + formattedValue;
 										}
 										const label = config.tooltipLabel || config.title;
-										return label + ': ' + context.parsed.y.toFixed(decimals);
+										return label + ': ' + formattedValue;
 									}
 								}
 							},
