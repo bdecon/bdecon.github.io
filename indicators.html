@@ -586,11 +586,13 @@
 							dateY += 11;
 						});
 
-						// Draw each value at its actual y position
+						// Draw each value at its actual y position (or offset if too close to date area)
+						const dateAreaBottom = 12 + (dateLabels.length * 11) + 3;
 						labelData.forEach(({ ds, yPos }) => {
 							const valueStr = prefix + ds.data[lastIndex].toFixed(decimals) + suffix;
 							ctx.fillStyle = ds.borderColor;
-							ctx.fillText(valueStr, x, yPos);
+							const adjustedY = yPos < dateAreaBottom ? dateAreaBottom : yPos;
+							ctx.fillText(valueStr, x, adjustedY);
 						});
 					}
 
@@ -1014,7 +1016,7 @@
 						maintainAspectRatio: true,
 						layout: {
 							padding: {
-								right: config.timeSeries !== false ? 36 : 0,
+								right: config.timeSeries !== false ? 40 : 0,
 								top: config.timeSeries !== false ? 15 : 0
 							}
 						},
