@@ -134,13 +134,11 @@
       "file": "files/indpro.csv",
       "type": "line",
       "title": "Industrial Production",
-      "subtitle": "index, 2012 = 100",
+      "subtitle": "manufacturing, index, 2012 = 100",
       "source": "Federal Reserve",
-      "series": [
-        { "label": "Manufacturing", "color": "green" },
-        { "label": "Total", "color": "blue" }
-      ],
+      "tooltipLabel": "Index",
       "decimals": 1,
+      "color": "green",
       "timeSeries": true,
       "dateFormat": "monthly",
       "category": "Output",
