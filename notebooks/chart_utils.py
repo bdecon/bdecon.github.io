@@ -174,6 +174,6 @@ def publish_chart(df, config, date_col='date', value_col='value'):
     # Register chart
     register_chart(config)
 
-    print(f"Chart published: https://www.bd-econ.com/plots.html#{config['id']}")
+    print(f"Chart published: https://www.bd-econ.com/indicators.html#{config['id']}")
 
     return config
