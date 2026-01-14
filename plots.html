@@ -505,7 +505,7 @@
 				const decimals = config?.decimals ?? 2;
 				const ctx = chart.ctx;
 
-				// For multi-series, stack labels vertically at right edge
+				// For multi-series, position labels at actual y-positions (or stack if overlapping)
 				if (isMultiSeries) {
 					const visibleDatasets = chart.data.datasets
 						.map((ds, i) => ({ ds, i }))
@@ -525,32 +525,71 @@
 					if (!xPos) return;
 
 					const x = xPos + 8;
-					let y = 12; // Start near top
+
+					// Get actual y-positions for each dataset
+					const labelData = visibleDatasets.map(({ ds, i }) => {
+						const meta = chart.getDatasetMeta(i);
+						const lastPoint = meta.data[lastIndex];
+						return {
+							ds,
+							i,
+							value: ds.data[lastIndex],
+							yPos: lastPoint.y
+						};
+					});
+
+					// Check for overlap (labels within 25px of each other)
+					const sortedByY = [...labelData].sort((a, b) => a.yPos - b.yPos);
+					const hasOverlap = sortedByY.length > 1 &&
+						sortedByY.some((item, idx) =>
+							idx > 0 && Math.abs(item.yPos - sortedByY[idx-1].yPos) < 25
+						);
 
 					ctx.save();
 					ctx.font = '9px Tahoma, Verdana, sans-serif';
 					ctx.textAlign = 'left';
-					ctx.textBaseline = 'top';
 
-					// Draw date labels first
-					ctx.fillStyle = '#6a6a6a';
-					dateLabels.forEach((label) => {
-						ctx.fillText(label, x, y);
-						y += 11;
-					});
+					if (hasOverlap) {
+						// Stack labels at top when lines are close together
+						ctx.textBaseline = 'top';
+						let y = 12;
 
-					// Sort by value descending so labels match visual line order
-					const sortedDatasets = [...visibleDatasets].sort((a, b) =>
-						b.ds.data[lastIndex] - a.ds.data[lastIndex]
-					);
+						// Draw date labels first
+						ctx.fillStyle = '#6a6a6a';
+						dateLabels.forEach((label) => {
+							ctx.fillText(label, x, y);
+							y += 11;
+						});
 
-					// Draw each visible series value with its color
-					sortedDatasets.forEach(({ ds, i }) => {
-						const valueStr = ds.data[lastIndex].toFixed(decimals);
-						ctx.fillStyle = ds.borderColor;
-						ctx.fillText(valueStr, x, y);
-						y += 11;
-					});
+						// Sort by value descending so labels match visual line order
+						const sortedByValue = [...labelData].sort((a, b) => b.value - a.value);
+
+						// Draw each visible series value with its color
+						sortedByValue.forEach(({ ds }) => {
+							const valueStr = ds.data[lastIndex].toFixed(decimals);
+							ctx.fillStyle = ds.borderColor;
+							ctx.fillText(valueStr, x, y);
+							y += 11;
+						});
+					} else {
+						// Position labels at actual y-positions when lines are far apart
+						ctx.textBaseline = 'middle';
+
+						// Draw date at top
+						ctx.fillStyle = '#6a6a6a';
+						let dateY = 12;
+						dateLabels.forEach((label) => {
+							ctx.fillText(label, x, dateY);
+							dateY += 11;
+						});
+
+						// Draw each value at its actual y position
+						labelData.forEach(({ ds, yPos }) => {
+							const valueStr = ds.data[lastIndex].toFixed(decimals);
+							ctx.fillStyle = ds.borderColor;
+							ctx.fillText(valueStr, x, yPos);
+						});
+					}
 
 					ctx.restore();
 				} else {

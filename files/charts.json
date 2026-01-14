@@ -256,6 +256,23 @@
       "showDataLabels": true,
       "category": "Government",
       "order": 17
+    },
+    {
+      "id": "gdppw",
+      "file": "files/gdppw.csv",
+      "type": "line",
+      "title": "Output and Wages",
+      "subtitle": "inflation-adjusted USD, in thousands",
+      "source": "BEA, BLS, Author",
+      "series": [
+        { "label": "GDP per Worker", "color": "green" },
+        { "label": "Median Earnings", "color": "blue" }
+      ],
+      "decimals": 1,
+      "timeSeries": true,
+      "dateFormat": "monthly",
+      "category": "Output",
+      "order": 18
     }
   ]
 }
