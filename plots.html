@@ -132,6 +132,101 @@
 	.chart-filter a:hover {
 		text-decoration: underline;
 	}
+	.chart-legend {
+		display: flex;
+		justify-content: center;
+		gap: 16px;
+		margin-bottom: 6px;
+		font-size: 10px;
+		font-family: 'Montserrat', sans-serif;
+	}
+	.chart-legend-item {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+		cursor: pointer;
+		color: #333;
+	}
+	.chart-legend-item:hover {
+		opacity: 0.8;
+	}
+	.chart-legend-item.hidden {
+		opacity: 0.4;
+		text-decoration: line-through;
+	}
+	.chart-legend-box {
+		width: 14px;
+		height: 3px;
+		border-radius: 1px;
+	}
+	/* Dual bar chart styles */
+	.dual-bar-container {
+		display: flex;
+		gap: 10px;
+	}
+	.dual-bar-panel {
+		flex: 1;
+		min-width: 0;
+	}
+	.dual-bar-panel h5 {
+		font-size: 10px;
+		color: #6a6a6a;
+		margin: 0 0 6px 0;
+		text-align: center;
+		font-family: 'Montserrat', sans-serif;
+		font-weight: 600;
+	}
+	.hbar-rows-container {
+		position: relative;
+	}
+	.hbar-zero-line {
+		position: absolute;
+		left: 50%;
+		top: 0;
+		bottom: 0;
+		width: 1px;
+		background: #666;
+	}
+	.hbar-row {
+		display: flex;
+		align-items: center;
+		margin-bottom: 7px;
+		font-size: 9px;
+		font-family: Tahoma, Verdana, sans-serif;
+		height: 22px;
+	}
+	.hbar-row:last-child {
+		margin-bottom: 0;
+	}
+	.hbar-left {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		height: 20px;
+	}
+	.hbar-right {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		height: 20px;
+	}
+	.hbar-fill {
+		height: 100%;
+		background: var(--color-card-red);
+	}
+	.hbar-label {
+		color: #333;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		padding: 0 3px;
+	}
+	.hbar-value {
+		font-size: 9px;
+		color: #333;
+		white-space: nowrap;
+		padding: 0 2px;
+	}
 </style>
 
 </head>
@@ -181,6 +276,7 @@
 			</div>
 			<div class="chart-body">
 				<p class="chart-subtitle" id="chart-subtitle">index, 1988=1</p>
+				<div class="chart-legend" id="chart-legend"></div>
 				<canvas id="lineChart"></canvas>
 			</div>
 			<div class="chart-footer">
@@ -404,37 +500,91 @@
 		const lastValuePlugin = {
 			id: 'lastValueLabel',
 			afterDraw: function(chart) {
-				const dataset = chart.data.datasets[0];
-				const meta = chart.getDatasetMeta(0);
-				const lastIndex = dataset.data.length - 1;
-				const lastPoint = meta.data[lastIndex];
-
-				if (!lastPoint) return;
-
+				const config = chart.config._config.datasetConfig;
+				const isMultiSeries = config?.series && config.series.length > 1;
+				const decimals = config?.decimals ?? 2;
 				const ctx = chart.ctx;
-				const x = lastPoint.x + 8;
-				const y = lastPoint.y;
 
-				const lastDate = new Date(chart.data.labels[lastIndex]);
-				const decimals = chart.config._config.datasetConfig?.decimals ?? 2;
-				const valueStr = dataset.data[lastIndex].toFixed(decimals);
+				// For multi-series, stack labels vertically at right edge
+				if (isMultiSeries) {
+					const visibleDatasets = chart.data.datasets
+						.map((ds, i) => ({ ds, i }))
+						.filter(({ i }) => chart.isDatasetVisible(i));
 
-				const dateLabels = currentDateFormat
-					? currentDateFormat.lastValueFormat(lastDate)
-					: ['Q' + Math.ceil((lastDate.getUTCMonth() + 1) / 3), lastDate.getUTCFullYear()];
+					if (visibleDatasets.length === 0) return;
 
-				ctx.save();
-				ctx.font = '9px Tahoma, Verdana, sans-serif';
-				ctx.fillStyle = '#6a6a6a';
-				ctx.textAlign = 'left';
-				ctx.textBaseline = 'middle';
+					const lastIndex = chart.data.datasets[0].data.length - 1;
+					const lastDate = new Date(chart.data.labels[lastIndex]);
+					const dateLabels = currentDateFormat
+						? currentDateFormat.lastValueFormat(lastDate)
+						: ['Q' + Math.ceil((lastDate.getUTCMonth() + 1) / 3), lastDate.getUTCFullYear()];
 
-				dateLabels.forEach((label, i) => {
-					ctx.fillText(label, x, y - 12 + (i * 12));
-				});
-				ctx.fillText(valueStr, x, y + (dateLabels.length - 1) * 12);
+					// Get x position from first visible dataset's last point
+					const firstMeta = chart.getDatasetMeta(visibleDatasets[0].i);
+					const xPos = firstMeta.data[lastIndex]?.x;
+					if (!xPos) return;
 
-				ctx.restore();
+					const x = xPos + 8;
+					let y = 12; // Start near top
+
+					ctx.save();
+					ctx.font = '9px Tahoma, Verdana, sans-serif';
+					ctx.textAlign = 'left';
+					ctx.textBaseline = 'top';
+
+					// Draw date labels first
+					ctx.fillStyle = '#6a6a6a';
+					dateLabels.forEach((label) => {
+						ctx.fillText(label, x, y);
+						y += 11;
+					});
+
+					// Sort by value descending so labels match visual line order
+					const sortedDatasets = [...visibleDatasets].sort((a, b) =>
+						b.ds.data[lastIndex] - a.ds.data[lastIndex]
+					);
+
+					// Draw each visible series value with its color
+					sortedDatasets.forEach(({ ds, i }) => {
+						const valueStr = ds.data[lastIndex].toFixed(decimals);
+						ctx.fillStyle = ds.borderColor;
+						ctx.fillText(valueStr, x, y);
+						y += 11;
+					});
+
+					ctx.restore();
+				} else {
+					// Single series - original behavior
+					const dataset = chart.data.datasets[0];
+					const meta = chart.getDatasetMeta(0);
+					const lastIndex = dataset.data.length - 1;
+					const lastPoint = meta.data[lastIndex];
+
+					if (!lastPoint) return;
+
+					const x = lastPoint.x + 8;
+					const y = lastPoint.y;
+
+					const lastDate = new Date(chart.data.labels[lastIndex]);
+					const valueStr = dataset.data[lastIndex].toFixed(decimals);
+
+					const dateLabels = currentDateFormat
+						? currentDateFormat.lastValueFormat(lastDate)
+						: ['Q' + Math.ceil((lastDate.getUTCMonth() + 1) / 3), lastDate.getUTCFullYear()];
+
+					ctx.save();
+					ctx.font = '9px Tahoma, Verdana, sans-serif';
+					ctx.fillStyle = '#6a6a6a';
+					ctx.textAlign = 'left';
+					ctx.textBaseline = 'middle';
+
+					dateLabels.forEach((label, i) => {
+						ctx.fillText(label, x, y - 12 + (i * 12));
+					});
+					ctx.fillText(valueStr, x, y + (dateLabels.length - 1) * 12);
+
+					ctx.restore();
+				}
 			}
 		};
 
@@ -463,6 +613,61 @@
 				ctx.restore();
 			}
 		};
+
+		// Render dual horizontal bar chart
+		function renderDualBarChart(config, data) {
+			const top5 = data.slice(0, 5);
+			const bottom5 = data.slice(-5);
+
+			// Shared scale: use max absolute value across ALL data
+			const maxVal = Math.max(...data.map(d => Math.abs(d.value)));
+			const minVal = Math.min(...data.map(d => d.value));
+
+			// Calculate left side width based on whether there are negative values
+			// Left side needs space for: negative bars OR positive labels
+			const hasNegative = minVal < 0;
+			const negBarMax = hasNegative ? Math.abs(minVal) / maxVal * 50 : 0;
+			const leftWidth = 50; // Fixed 50% for left side (labels or neg bars)
+			const rightWidth = 50; // Fixed 50% for right side (pos bars or labels)
+
+			function renderPanel(items, title) {
+				const rows = items.map(d => {
+					const valueStr = d.value.toFixed(2);
+					const barPct = (Math.abs(d.value) / maxVal) * 100;
+
+					let leftContent, rightContent;
+
+					if (d.value >= 0) {
+						// Positive: label on left (right-aligned), bar+value on right
+						leftContent = `<span class="hbar-label" title="${d.name}">${d.name}</span>`;
+						rightContent = `<div class="hbar-fill" style="width: ${barPct}%;"></div><span class="hbar-value">${valueStr}</span>`;
+					} else {
+						// Negative: value+bar on left, label on right
+						leftContent = `<span class="hbar-value">${valueStr}</span><div class="hbar-fill" style="width: ${barPct}%;"></div>`;
+						rightContent = `<span class="hbar-label" title="${d.name}">${d.name}</span>`;
+					}
+
+					return `
+					<div class="hbar-row">
+						<div class="hbar-left" style="width: ${leftWidth}%;">${leftContent}</div>
+						<div class="hbar-right" style="width: ${rightWidth}%;">${rightContent}</div>
+					</div>`;
+				}).join('');
+
+				return `<div class="dual-bar-panel">
+					<h5>${title}</h5>
+					<div class="hbar-rows-container">
+						<div class="hbar-zero-line"></div>
+						${rows}
+					</div>
+				</div>`;
+			}
+
+			return `<div class="dual-bar-container">
+				${renderPanel(top5, 'Top 5')}
+				${renderPanel(bottom5, 'Bottom 5')}
+			</div>`;
+		}
 
 		// Show error message
 		function showError(message) {
@@ -513,11 +718,18 @@
 
 			const filterLink = document.getElementById('chart-filter').querySelector('a');
 			const dateFormat = currentConfig?.dateFormat || 'quarterly';
+			const isMultiSeries = currentConfig?.series && currentConfig.series.length > 1;
 
 			if (isFilteredView) {
 				// Show all data
 				chart.data.labels = fullData.map(d => d.date);
-				chart.data.datasets[0].data = fullData.map(d => d.value);
+				if (isMultiSeries) {
+					chart.data.datasets.forEach((ds, i) => {
+						ds.data = fullData.map(d => d.values[i]);
+					});
+				} else {
+					chart.data.datasets[0].data = fullData.map(d => d.value);
+				}
 				chart.options.scales.x.ticks.callback = currentDateFormat.tickCallback;
 				filterLink.textContent = 'Recent 3 years';
 				isFilteredView = false;
@@ -525,13 +737,52 @@
 				// Filter to last 3 years
 				const filtered = filterToLastYears(fullData, 3);
 				chart.data.labels = filtered.map(d => d.date);
-				chart.data.datasets[0].data = filtered.map(d => d.value);
+				if (isMultiSeries) {
+					chart.data.datasets.forEach((ds, i) => {
+						ds.data = filtered.map(d => d.values[i]);
+					});
+				} else {
+					chart.data.datasets[0].data = filtered.map(d => d.value);
+				}
 				chart.options.scales.x.ticks.callback = getFilteredTickCallback(dateFormat);
 				filterLink.textContent = 'Full history';
 				isFilteredView = true;
 			}
 
 			chart.update();
+		}
+
+		// Render legend for multi-series charts
+		function renderLegend(config) {
+			const legendContainer = document.getElementById('chart-legend');
+
+			if (!config.series || config.series.length <= 1) {
+				legendContainer.innerHTML = '';
+				legendContainer.style.display = 'none';
+				return;
+			}
+
+			legendContainer.style.display = 'flex';
+			legendContainer.innerHTML = config.series.map((s, i) => {
+				const colors = colorMap[s.color || config.color || 'blue'];
+				return `
+					<div class="chart-legend-item" data-index="${i}">
+						<span class="chart-legend-box" style="background-color: ${colors.border}"></span>
+						<span>${s.label}</span>
+					</div>
+				`;
+			}).join('');
+
+			// Add click handlers
+			legendContainer.querySelectorAll('.chart-legend-item').forEach(item => {
+				item.addEventListener('click', () => {
+					const index = parseInt(item.dataset.index);
+					const isVisible = chart.isDatasetVisible(index);
+					chart.setDatasetVisibility(index, !isVisible);
+					item.classList.toggle('hidden', isVisible);
+					chart.update();
+				});
+			});
 		}
 
 		// Populate dropdown with optional grouping
@@ -589,10 +840,13 @@
 			document.getElementById('chart-subtitle').textContent = config.subtitle || '';
 			document.getElementById('chart-source').textContent = 'Source: ' + config.source;
 
-			// Update header color
+			// Update header color (use first series color for multi-series)
 			const header = document.querySelector('.chart-header');
-			const colors = colorMap[config.color || 'blue'];
-			header.style.backgroundColor = colors.border;
+			const isMultiSeries = config.series && config.series.length > 1;
+			const headerColor = isMultiSeries
+				? colorMap[config.series[0].color || 'blue']
+				: colorMap[config.color || 'blue'];
+			header.style.backgroundColor = headerColor.border;
 
 			try {
 				const response = await fetch(config.file);
@@ -601,12 +855,23 @@
 				}
 				const csv = await response.text();
 
-				// Parse CSV
+				// Parse CSV - handle multi-series differently
 				const lines = csv.trim().split('\n');
-				const data = lines.slice(1).map(line => {
-					const [date, value] = line.split(',');
-					return { date, value: parseFloat(value) };
-				});
+				let data;
+				if (isMultiSeries) {
+					data = lines.slice(1).map(line => {
+						const parts = line.split(',');
+						return {
+							date: parts[0],
+							values: parts.slice(1).map(v => parseFloat(v))
+						};
+					});
+				} else {
+					data = lines.slice(1).map(line => {
+						const [date, value] = line.split(',');
+						return { date, value: parseFloat(value) };
+					});
+				}
 
 				// Store full data for filtering and reset view state
 				fullData = data;
@@ -625,24 +890,78 @@
 				// Destroy existing chart
 				if (chart) {
 					chart.destroy();
+					chart = null;
+				}
+
+				// Handle dual bar chart type
+				if (config.type === 'dualBar') {
+					const dualData = lines.slice(1).map(line => {
+						const parts = line.split(',');
+						return { name: parts[0], value: parseFloat(parts[1]) };
+					});
+
+					// Hide canvas, show custom chart
+					document.getElementById('lineChart').style.display = 'none';
+					document.getElementById('chart-legend').style.display = 'none';
+					let customContainer = document.getElementById('custom-chart');
+					if (!customContainer) {
+						customContainer = document.createElement('div');
+						customContainer.id = 'custom-chart';
+						document.querySelector('.chart-body').appendChild(customContainer);
+					}
+					customContainer.style.display = 'block';
+					customContainer.innerHTML = renderDualBarChart(config, dualData);
+					return;
+				}
+
+				// Show canvas for regular charts, hide custom container
+				document.getElementById('lineChart').style.display = 'block';
+				const customContainer = document.getElementById('custom-chart');
+				if (customContainer) {
+					customContainer.style.display = 'none';
 				}
 
 				// Get configurations
-				const typeConfig = getChartTypeConfig(config.type || 'line', colors, config);
 				currentDateFormat = getDateFormatConfig(config.dateFormat || 'quarterly');
-
 				const ctx = document.getElementById('lineChart').getContext('2d');
 
+				// Build datasets based on single vs multi-series
+				let datasets;
+				let chartType = config.type || 'line';
+				if (isMultiSeries) {
+					datasets = config.series.map((s, i) => {
+						const seriesColors = colorMap[s.color || config.color || 'blue'];
+						return {
+							label: s.label,
+							data: data.map(d => d.values[i]),
+							borderColor: seriesColors.border,
+							backgroundColor: seriesColors.background,
+							pointBackgroundColor: seriesColors.border,
+							pointHoverBackgroundColor: seriesColors.border,
+							borderWidth: 1.5,
+							pointRadius: 1,
+							pointHoverRadius: 4,
+							fill: false,
+							tension: 0.1
+						};
+					});
+				} else {
+					const colors = colorMap[config.color || 'blue'];
+					const typeConfig = getChartTypeConfig(config.type || 'line', colors, config);
+					chartType = typeConfig.type;
+					datasets = [{
+						label: config.tooltipLabel || config.title,
+						data: data.map(d => d.value),
+						...typeConfig.dataset
+					}];
+				}
+
 				chart = new Chart(ctx, {
-					type: typeConfig.type,
+					type: chartType,
 					datasetConfig: config,
 					data: {
 						labels: data.map(d => d.date),
-						datasets: [{
-							label: config.tooltipLabel || config.title,
-							data: data.map(d => d.value),
-							...typeConfig.dataset
-						}]
+						datasets: datasets
 					},
 					plugins: [
 						...(config.timeSeries !== false ? [lastValuePlugin] : []),
@@ -669,14 +988,17 @@
 								bodyFont: { size: 10, family: "Tahoma, Verdana, sans-serif" },
 								padding: 8,
 								cornerRadius: 2,
-								displayColors: false,
+								displayColors: isMultiSeries,
 								callbacks: {
 									title: config.timeSeries !== false
 										? currentDateFormat.tooltipTitle
 										: function(context) { return context[0].label; },
 									label: function(context) {
-										const label = config.tooltipLabel || config.title;
 										const decimals = config.decimals ?? 2;
+										if (isMultiSeries) {
+											return context.dataset.label + ': ' + context.parsed.y.toFixed(decimals);
+										}
+										const label = config.tooltipLabel || config.title;
 										return label + ': ' + context.parsed.y.toFixed(decimals);
 									}
 								}
@@ -714,6 +1036,9 @@
 						}
 					}
 				});
+
+				// Render legend for multi-series charts
+				renderLegend(config);
 			} catch (error) {
 				console.error('Error loading chart:', error);
 				showError(error.message);

@@ -34,6 +34,7 @@
   --color-card-purple: #721ce7;
   --color-card-ltblue: #1E90FF;
   --color-card-black: #000000;
+  --color-card-brown: #8B5A2B;
 }
 
 /* General document styling */
@@ -249,6 +250,7 @@ section{margin: 5px; padding: 0px;}
 .card_head_purple { background-color: var(--color-card-purple); }
 .card_head_ltblue { background-color: var(--color-card-ltblue); }
 .card_head_black { background-color: var(--color-card-black); }
+.card_head_brown { background-color: var(--color-card-brown); }
 .card_tail{padding: 2px 10px 10px 10px; background-color: white; height: 105px;}
 .card_banner_wrap {
 	height: 34px;
@@ -260,6 +262,8 @@ section{margin: 5px; padding: 0px;}
 .card_banner_wrap_orange { background-color: color-mix(in srgb, var(--color-card-orange) 40%, white); }
 .card_banner_wrap_purple { background-color: color-mix(in srgb, var(--color-card-purple) 40%, white); }
 .card_banner_wrap_red { background-color: color-mix(in srgb, var(--color-card-red) 40%, white); }
+.card_banner_wrap_brown { background-color: color-mix(in srgb, var(--color-card-brown) 40%, white); }
+.card_banner_wrap_ltblue { background-color: color-mix(in srgb, var(--color-card-ltblue) 40%, white); }
 .card_banner {
 	height: 34px;
 	width: 100%;
