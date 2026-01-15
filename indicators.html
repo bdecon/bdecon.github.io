@@ -66,6 +66,18 @@
 		background-color: var(--color-card-blue);
 		color: white;
 		padding: 6px 10px 5px 10px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.chart-header a {
+		color: white;
+		opacity: 0.7;
+		font-size: 13px;
+		text-decoration: none;
+	}
+	.chart-header a:hover {
+		opacity: 1;
 	}
 	.chart-header h4 {
 		font-family: 'Montserrat', sans-serif;
@@ -274,6 +286,7 @@
 		<div class="chart-container">
 			<div class="chart-header">
 				<h4 id="chart-title">M2 Money Supply / GDP</h4>
+				<a id="chart-download" href="files/m2gdp.csv" title="Download as .csv" download><i class="fa fa-download"></i></a>
 			</div>
 			<div class="chart-body">
 				<p class="chart-subtitle" id="chart-subtitle">index, 1988=1</p>
@@ -883,6 +896,7 @@
 			document.getElementById('chart-title').textContent = config.title;
 			document.getElementById('chart-subtitle').textContent = config.subtitle || '';
 			document.getElementById('chart-source').textContent = 'Source: ' + config.source;
+			document.getElementById('chart-download').href = config.file;
 
 			// Update header color (use first series color for multi-series)
 			const header = document.querySelector('.chart-header');
