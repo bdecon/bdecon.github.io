@@ -195,10 +195,15 @@ ul li a:hover + .hidden, .hidden:hover {
 	nav{padding: 0;}
 	.card_tail {
 		height: auto;
-		min-height: 125px;
+		min-height: 80px;
+		overflow: visible;
 	}
 	.card_tail p {
 		margin-bottom: 5px;
+		font-size: 13px;
+	}
+	.card {
+		min-height: auto;
 	}
 }
 
