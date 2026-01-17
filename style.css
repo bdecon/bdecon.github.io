@@ -11,7 +11,7 @@
   --color-nav-hover: #111;
 
   /* Text Colors */
-  --color-text-gray: #6a6a6a;
+  --color-text-gray: #555555;
   --color-text-dark: #1e1e1e;
   --color-heading-gray: #696969;
 
@@ -49,10 +49,11 @@ body{
 	background-color: var(--color-bg-white);
 	}
 
-p{font-size: 13px; color: var(--color-text-gray);}
-li{font-size: 12px; color: var(--color-text-gray);}
+p{font-size: 15px; color: var(--color-text-gray); line-height: 1.6;}
+li{font-size: 14px; color: var(--color-text-gray);}
 
 h1, h2, h3, h4{font-family: 'Montserrat'; line-height: 1.25;}
+h1{margin: 10px 0 10px;}
 hl{margin: 0 0 10px; font-size: 40px;}
 h2{margin: 0 0 10px; font-size: 32px;}
 h3{margin: 10px 0 10px; font-size: 26px; font-family: 'Lato', sans-serif; font-weight: 900;}
@@ -70,7 +71,7 @@ p.overview b{font-size: 14px; color: var(--color-text-dark);}
 /* Styling for links */
 a:link{text-decoration: none; color: var(--color-link);}
 a:visited{text-decoration: none; color: var(--color-link-visited);}
-a:hover{text-decoration: underline; color: var(--color-accent-yellow);}
+a:hover{text-decoration: underline; color: #CC9900;}
 
 /* Top Navigation Bar */
 nav{
@@ -216,6 +217,9 @@ footer{
 	font-style: italic;
 	color: var(--color-text-gray);
 }
+.footer_left p{
+	font-size: 12px;
+}
 .footer_right{
 	text-align: right;
 }
@@ -246,7 +250,7 @@ section{margin: 5px; padding: 0px;}
 /* Cards with Links */
 .card, .card_dull {
 	width: 300px;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.06);
 	text-align: center;
 	margin: 12px;
 	display: inline-block;
@@ -254,13 +258,17 @@ section{margin: 5px; padding: 0px;}
 	text-decoration: none;
 	vertical-align:middle;
 	min-height: 180px;
+	transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 .card_dull{
 	opacity: 0.5;
 }
 .card_dull:hover{opacity: 1;}
-.card:hover{box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
-			width: 302px; text-decoration: none;}
+.card:hover{
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 8px 24px rgba(0, 0, 0, 0.1);
+	transform: translateY(-2px);
+	text-decoration: none;
+}
 /* Card header base styles */
 [class^="card_head_"] {
   color: white;
@@ -276,7 +284,8 @@ section{margin: 5px; padding: 0px;}
 .card_head_ltblue { background-color: var(--color-card-ltblue); }
 .card_head_black { background-color: var(--color-card-black); }
 .card_head_brown { background-color: var(--color-card-brown); }
-.card_tail{padding: 2px 10px 10px 10px; background-color: white; height: 105px;}
+.card_tail{padding: 2px 10px 10px 10px; background-color: white; height: 125px;}
+.card_tail p{margin-top: 10px; margin-bottom: 0;}
 .card_banner_wrap {
 	height: 34px;
 	overflow: hidden;
