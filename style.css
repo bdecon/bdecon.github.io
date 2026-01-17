@@ -199,7 +199,7 @@ ul li a:hover + .hidden, .hidden:hover {
 		overflow: visible;
 	}
 	.card_tail p {
-		margin-bottom: 5px;
+		margin-bottom: 8px;
 		font-size: 13px;
 	}
 	.card {
