@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title> BD Economics | Data, Analysis, and Support for Ideas </title>
+	<title>BD Economics | About</title>
 	<link rel="stylesheet" href="style.css">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,6 +42,19 @@
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "About",
+    "description": "About Brian Dew and BD Economics - macroeconomic research and data analysis.",
+    "url": "https://www.bd-econ.com/about.html",
+    "author": {
+        "@type": "Person",
+        "name": "Brian Dew"
+    }
+}
+</script>
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PGVF5S620Y"></script>
@@ -59,7 +72,7 @@
 		<ul class="ul_nav" id="menu">
 			<li class="nav_main"> <a href="index.html">BD Economics</a> </li>
 			<li><a href="about.html" class="active">About</a> </li>
-			<li><a href="http://briandew.wordpress.com">Blog</a> </li>
+			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
 			<li><a href="python.html">Guides &darr;</a>
 				<ul class="hidden">
 					<li><a href="imfapi1.html">IMF API</a></li>
@@ -77,14 +90,15 @@
 				<li><a href="indicators.html">Economic Indicators</a></li>
 			</ul>
 			</li>
-			<li class="icon"> <a href="javascript:void(0);"
-				style="font-size:15px;" onclick="responsiveNav()">&#9776;</a>
+			<li class="icon">
+				<button type="button" onclick="responsiveNav()" aria-label="Toggle navigation menu" aria-expanded="false">&#9776;</button>
 			</li>
 		</ul>
 	</nav>
 	<header>
-	<h3>About</h3>
+	<h1>About</h1>
 	</header>
+	<main>
 	<section>
 		<article>
 		<p>I created <strong>BD Economics</strong> to share macroeconomic research and practical guides for working with economic data.</p>
@@ -97,10 +111,11 @@
 		<p>Reach me at <a href="mailto:brian@bd-econ.com">brian@bd-econ.com</a></p>
 		</article>
 	</section>
+	</main>
 
 		<footer>
 		<div class="footer_left">
-			<p>January 11, 2026 <br> by Brian Dew</p>
+			<p><time datetime="2026-01-11">January 11, 2026</time><br> by Brian Dew</p>
 		</div>
 		<div class="footer_right">
 			<a href="https://github.com/bdecon/">
@@ -119,12 +134,11 @@
 	</footer>
 	<script>
 		function responsiveNav() {
-			var x = document.getElementById("menu");
-			if (x.className === "ul_nav") {
-				x.className += " responsive";
-			} else {
-				x.className = "ul_nav";
-			}
+			const menu = document.getElementById("menu");
+			const button = document.querySelector(".icon button");
+			menu.classList.toggle("responsive");
+			const expanded = menu.classList.contains("responsive");
+			button.setAttribute("aria-expanded", expanded);
 		}
 	</script>
 </body>

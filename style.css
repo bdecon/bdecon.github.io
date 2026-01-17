@@ -114,6 +114,17 @@ nav{
 .active{background-color: var(--color-accent-red);}
 .ul_nav li.icon {display: none;}
 
+/* Navigation toggle button */
+.ul_nav .icon button {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-family: inherit;
+  font-size: 15px;
+}
+
 /*Style for dropdown links*/
 li:hover ul a {
 	background: var(--color-bg-alt);
@@ -186,9 +197,10 @@ header{
     color: white;
 
 }
-header h1{padding: 0 0 12px 0;}
+header h1{padding: 20px 0 12px 0; color: white;
+	font-family: 'Lato', sans-serif; font-weight: 900; font-size: 36px;}
 header h2{padding: 20px 0 12px 0;}
-header h3{padding: 20px 0 12px 0; color: white; 
+header h3{padding: 20px 0 12px 0; color: white;
 	font-family: 'Lato', sans-serif; font-weight: 900; font-size: 36px;}
 
 /* Footer styling */
@@ -211,6 +223,19 @@ footer{
 section{margin: 5px; padding: 0px;}
 .article_code{padding-top: 10px;}
 .article_code p code {font-weight: bold;}
+.article_code img {max-width: 100%;}
+
+/* Dataframe tables */
+.dataframe {
+	width: 100%;
+	max-width: 600px;
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+.dataframe.wide {max-width: 100%; font-size: 14px;}
+.dataframe th, .dataframe td {text-align: right; padding: 4px 8px;}
+.dataframe th {border-bottom: 1px solid #ddd;}
+.dataframe tbody tr:hover {background-color: #f5f5f5;}
 .article_links{
 	padding-top: 5px;
     width: 100%;
@@ -321,7 +346,9 @@ code {text-align: left;}
         width: 98%;
 		margin: 4px 8px 10px 8px;
     }
-    header h3{padding: 20px 0 12px 0; color: white; 
+    header h1{padding: 20px 0 12px 0; color: white;
+	font-family: 'Lato', sans-serif; font-weight: 900; font-size: 20px;}
+    header h3{padding: 20px 0 12px 0; color: white;
 	font-family: 'Lato', sans-serif; font-weight: 900; font-size: 20px;}
 }
 
