@@ -58,7 +58,7 @@ hl{margin: 0 0 10px; font-size: 40px;}
 h2{margin: 0 0 10px; font-size: 32px;}
 h3{margin: 10px 0 10px; font-size: 26px; font-family: 'Lato', sans-serif; font-weight: 900;}
 .section-title { font-size: 20px; }
-h5{font-size: 15px;}
+h5{font-size: 16px;}
 h4{margin: 35px 0 10px 0; font-size: 16px; font-family: 'Roboto', sans-serif; color: var(--color-heading-gray);}
 h6{margin: 0 0 0 10px; font-size: 11px; font-style: italic; font-weight: normal; color: var(--color-text-gray);}
 .chart_title{font-family: 'Lato', sans-serif; margin: 10px 0px 0px 15px; padding: 0; font-size: 18px; color: var(--color-text-gray);}
@@ -109,6 +109,7 @@ nav{
     transition: 0.3s;
 	font-family: 'Montserrat';
     font-size: 17px;
+    font-weight: 500;
 	}
 .nav_main{text-align: center; font-weight: bold; }
 .ul_nav li a:hover{background-color: var(--color-nav-hover); }
@@ -242,7 +243,7 @@ footer{
 	text-align: right;
 }
 /* Section formatting */
-section{margin: 5px; padding: 0px;}
+section{margin: 5px; padding: 6px 0 0 0;}
 .article_code{padding-top: 10px;}
 .article_code p code {font-weight: bold;}
 .article_code img {max-width: 100%;}
@@ -262,6 +263,12 @@ section{margin: 5px; padding: 0px;}
 	padding-top: 5px;
     width: 100%;
 	text-align:center;
+	}
+.article_links h3{
+	display: table;
+	margin: 10px auto 5px auto;
+	padding-bottom: 8px;
+	border-bottom: 3px solid var(--color-accent-red);
 	}
 .article_links a{text-decoration: none;}
 
