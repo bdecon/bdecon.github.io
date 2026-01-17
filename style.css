@@ -173,8 +173,9 @@ ul li a:hover + .hidden, .hidden:hover {
 	.ul_nav {width: 100%; background-color: var(--color-nav-bg); }
 	.ul_nav .icon button {
 		color: white;
-		font-size: 28px;
-		padding: 10px 18px;
+		font-size: 24px;
+		padding: 4px 18px;
+		line-height: 1;
 	}
 	.ul_nav.responsive {
 		flex-direction: column;
@@ -195,6 +196,9 @@ ul li a:hover + .hidden, .hidden:hover {
 	.card_tail {
 		height: auto;
 		min-height: 125px;
+	}
+	.card_tail p {
+		margin-bottom: 5px;
 	}
 }
 
