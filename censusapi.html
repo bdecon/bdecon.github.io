@@ -7,9 +7,11 @@
 	<script src="add-ins/highlight.pack.js"></script>
 	<script>hljs.initHighlightingOnLoad();</script>
 	<link rel="stylesheet" href="style.css">
-	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato:900" rel="stylesheet">
-	<script src="https://use.fontawesome.com/8f99c5621e.js"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:900&display=swap" rel="stylesheet">
+	<script src="https://use.fontawesome.com/8f99c5621e.js" defer></script>
 	<meta charset="UTF-8">
 	<meta name="description" content="Python tutorial: Using the Census Bureau API for manufacturing and trade data.">
 	<meta name="keywords" content="Census API, Census Bureau API, M3 Survey, Manufacturing Data, Python Census API, Advance Durable Goods, Capital Goods Orders, Economics Dashboard, Macroeconomics Dashboard, US economy, US manufacturing data, Python pandas requests">
@@ -77,6 +79,7 @@
 				<li><a href="chartbook.html">US Chartbook</a></li>
 				<li><a href="indicators.html">Economic Indicators</a></li>
 			</ul>
+			</li>
 			<li class="icon"> <a href="javascript:void(0);"
 				style="font-size:15px;" onclick="responsiveNav()">&#9776;</a>
 			</li>
@@ -179,7 +182,7 @@ data.loc['2024':].plot(title=title)
 plt.axhline(0, lw=0.5, color='gray', zorder=0)
 plt.show()</code></pre>
 	<p>Out[5]:</p>
-	<img src="images/census_m3_growth.png" alt="Census M3 New Orders Growth Rate" style="max-width: 100%;"/>
+	<img src="images/census_m3_growth.png" alt="Census M3 New Orders Growth Rate" style="max-width: 100%;" loading="lazy"/>
 
 	<h4>Conclusion</h4>
 	<p>The Census API provides straightforward access to key manufacturing and trade indicators. By adjusting the <code>category_code</code> and <code>data_type_code</code> parameters, you can retrieve various series from the M3 survey, including shipments, inventories, and orders across different product categories.</p>

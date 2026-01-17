@@ -7,9 +7,11 @@
 	<script src="add-ins/highlight.pack.js"></script>
 	<script>hljs.initHighlightingOnLoad();</script>
 	<link rel="stylesheet" href="style.css">
-	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato:900" rel="stylesheet"> 
-	<script src="https://use.fontawesome.com/8f99c5621e.js"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:900&display=swap" rel="stylesheet">
+	<script src="https://use.fontawesome.com/8f99c5621e.js" defer></script>
 	<meta charset="UTF-8">
 	<meta name="description" content="Python tutorial: Using the sdmx1 library to retrieve CPI inflation data from the IMF API.">
 	<meta name="keywords" content="IMF API, sdmx1, SDMX Python, CPI inflation, Economics Dashboard, Macroeconomics Dashboard, International Monetary Fund, IMF Statistics Department, IMF Application Programming Interface, Python pandas, economic data API">
@@ -77,6 +79,7 @@
 				<li><a href="chartbook.html">US Chartbook</a></li>
 				<li><a href="indicators.html">Economic Indicators</a></li>
 			</ul>
+			</li>
 			<li class="icon"> <a href="javascript:void(0);"
 				style="font-size:15px;" onclick="responsiveNav()">&#9776;</a>
 			</li>
@@ -166,7 +169,7 @@ res = (df.pct_change(12) * 100).round(1).dropna()
 res.plot(title='CPI, one-year percent change',
          color=['dodgerblue', 'green', 'darkblue'])</code></pre>
 	<p>Out[4]:</p>
-	<img src="images/imf_cpi_inflation.png" alt="CPI Inflation Chart" style="max-width: 100%;"/>
+	<img src="images/imf_cpi_inflation.png" alt="CPI Inflation Chart" style="max-width: 100%;" loading="lazy"/>
 
 	<h3 class="section-title">Key Concepts</h3>
 	<p>This example demonstrates the core workflow for accessing IMF data with sdmx1:</p>

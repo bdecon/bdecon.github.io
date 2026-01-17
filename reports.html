@@ -4,9 +4,11 @@
 	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title> BD Economics | Reports </title>
 	<link rel="stylesheet" href="style.css">
-	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato:900" rel="stylesheet">
-	<script src="https://use.fontawesome.com/8f99c5621e.js"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:900&display=swap" rel="stylesheet">
+	<script src="https://use.fontawesome.com/8f99c5621e.js" defer></script>
 	<meta charset="UTF-8">
 	<meta name="description" content="Economic reports and interactive indicators including the US Chartbook with 120+ charts on labor markets, inflation, GDP, and trade.">
 	<meta name="keywords" content="US Economic Chartbook, Economic Indicators, US economy charts, US economy dashboard, Macroeconomics Dashboard, labor markets, inflation, GDP, trade">
@@ -74,6 +76,7 @@
 				<li><a href="chartbook.html">US Chartbook</a></li>
 				<li><a href="indicators.html">Economic Indicators</a></li>
 			</ul>
+			</li>
 			<li class="icon"> <a href="javascript:void(0);"
 				style="font-size:15px;" onclick="responsiveNav()">&#9776;</a>
 			</li>
@@ -148,9 +151,10 @@
 			}
 		}
 	</script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script type="text/javascript">
-		$('.cb_update').load('date.txt');
+	<script>
+		fetch('date.txt').then(r => r.text()).then(t => {
+			document.querySelectorAll('.cb_update').forEach(el => el.textContent = t.trim());
+		});
 	</script>
 </body>
 </html>

@@ -3,10 +3,12 @@
 <head>
 	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 	<title> BD Economics | Data, Analysis, and Support for Ideas</title>
-	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato:900" rel="stylesheet"> 
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:900&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="style.css">
-	<script src="https://use.fontawesome.com/8f99c5621e.js"></script>
+	<script src="https://use.fontawesome.com/8f99c5621e.js" defer></script>
 	<meta charset="UTF-8">
 	<meta name="description" content="BD Economics provides macroeconomic research tools, data analysis, and Python tutorials for economists.">
 	<meta name="keywords" content="IMF API, Economics Dashboard, Trade Network, Trade Networks, Macroeconomics Dashboard, Macroeconomic Dashboard, Markets Dashboard, Market Dashboard, U.S. Economy, U.S. Economy Dashboard, US economy, US economy dashboard, US economy charts, US economy charts pdf, NetworkX trade, international trade networks, network analysis of trade, International Monetary Fund, IMF Statistics Department, IMF Application Programming Interface, International Monetary Fund Application Programming Interface, International Monetary Fund API, Current Population Survey, CPS with python, Current Population Survey microdata, Economic microdata, CPS Pandas, Consumer Price Index excluding shelter">
@@ -75,6 +77,7 @@
 				<li><a href="chartbook.html">US Chartbook</a></li>
 				<li><a href="indicators.html">Economic Indicators</a></li>
 			</ul>
+			</li>
 			<li class="icon"> <a href="javascript:void(0);"
 				style="font-size:15px;" onclick="responsiveNav()">&#9776;</a>
 			</li>
@@ -163,9 +166,10 @@
 			}
 		}
 	</script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script type="text/javascript">
-		$('.cb_update').load('date.txt');
+	<script>
+		fetch('date.txt').then(r => r.text()).then(t => {
+			document.querySelectorAll('.cb_update').forEach(el => el.textContent = t.trim());
+		});
 	</script>
 </body>
 </html>

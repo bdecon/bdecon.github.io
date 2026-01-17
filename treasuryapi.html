@@ -7,9 +7,11 @@
 	<script src="add-ins/highlight.pack.js"></script>
 	<script>hljs.initHighlightingOnLoad();</script>
 	<link rel="stylesheet" href="style.css">
-	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato:900" rel="stylesheet">
-	<script src="https://use.fontawesome.com/8f99c5621e.js"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:900&display=swap" rel="stylesheet">
+	<script src="https://use.fontawesome.com/8f99c5621e.js" defer></script>
 	<meta charset="UTF-8">
 	<meta name="description" content="Python tutorial: Using the US Treasury Fiscal Data API to access federal finance data.">
 	<meta name="keywords" content="Treasury API, Fiscal Data API, US Treasury, Federal Revenue, Python Treasury Data, Treasury API Python, Federal Finance Data, Government Revenue API, Corporate Income Tax, Customs Duties, Monthly Treasury Statement, MTS Data">
@@ -77,6 +79,7 @@
 				<li><a href="chartbook.html">US Chartbook</a></li>
 				<li><a href="indicators.html">Economic Indicators</a></li>
 			</ul>
+			</li>
 			<li class="icon"> <a href="javascript:void(0);"
 				style="font-size:15px;" onclick="responsiveNav()">&#9776;</a>
 			</li>
@@ -140,7 +143,7 @@ title = ('Corporate Income Taxes and Customs Duties\n'+
          'in percent, trailing 12 months')
 res.loc['2023-01-01':].plot(title=title, figsize=(4.5,5))</code></pre>
 	<p>Out[4]:</p>
-	<img src="images/treasury_tax.png" alt="Federal Revenue by Type" style="max-width: 100%;"/>
+	<img src="images/treasury_tax.png" alt="Federal Revenue by Type" style="max-width: 100%;" loading="lazy"/>
 
 	<h4>Summary</h4>
 	<p>The Treasury Fiscal Data API provides straightforward access to federal finance data. In this example, we retrieved monthly revenue data, calculated trailing 12-month totals, and visualized how corporate income taxes and customs duties have changed as a share of total federal revenue. The API offers many other datasets covering debt, spending, interest rates, and more.</p>
