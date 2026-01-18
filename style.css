@@ -55,21 +55,19 @@ body{
 p{font-size: 15px; color: var(--color-text-gray); line-height: 1.6;}
 li{font-size: 14px; color: var(--color-text-gray);}
 
-h1, h2, h3, h4{font-family: 'Montserrat', sans-serif; line-height: 1.25;}
+h1, h2, h3, h4{font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.25;}
 h1{margin: 10px 0 10px;}
 hl{margin: 0 0 10px; font-size: 40px;}
 h2{margin: 0 0 10px; font-size: 32px;}
-h3{margin: 10px 0 10px; font-size: 26px; font-family: 'Lato', sans-serif; font-weight: 900;}
+h3{margin: 10px 0 10px; font-size: 26px; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-weight: 900;}
 .section-title { font-size: 20px; }
 h5{font-size: 16px;}
-h4{margin: 35px 0 10px 0; font-size: 16px; font-family: 'Lato', sans-serif; color: var(--color-heading-gray);}
+h4{margin: 35px 0 10px 0; font-size: 16px; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-weight: 900; color: var(--color-heading-gray);}
 h6{margin: 0 0 0 10px; font-size: 11px; font-style: italic; font-weight: normal; color: var(--color-text-gray);}
-.chart_title{font-family: 'Lato', sans-serif; margin: 10px 0px 0px 15px; padding: 0; font-size: 18px; color: var(--color-text-gray);}
-p.chart_subtitle{font-family: 'Lato', sans-serif; font-weight: 300; margin: 0px 10px 10px 25px; padding:0; font-size: 11px; color: var(--color-text-gray);}
-.pfooter{margin: 0 0 0 0;}
+p.chart_subtitle{font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-weight: 300; margin: 0px 10px 10px 25px; padding:0; font-size: 11px; color: var(--color-text-gray);}
 p.overview b{font-size: 14px; color: var(--color-text-dark);}
 
-.cb_update{font-family: 'Lato', sans-serif; font-weight: bold; color: var(--color-text-gray);}
+.cb_update{font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-weight: bold; color: var(--color-text-gray);}
 
 /* Styling for links */
 a:link{text-decoration: none; color: var(--color-link);}
@@ -110,7 +108,7 @@ nav{
     padding: 14px 16px;
     text-decoration: none;
     transition: 0.3s;
-	font-family: 'Montserrat', sans-serif;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     font-size: 17px;
     font-weight: 400;
 	}
@@ -221,10 +219,10 @@ header{
 
 }
 header h1{padding: 20px 0 12px 0; color: white;
-	font-family: 'Lato', sans-serif; font-weight: 900; font-size: 36px;}
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-weight: 900; font-size: 36px;}
 header h2{padding: 20px 0 12px 0;}
 header h3{padding: 20px 0 12px 0; color: white;
-	font-family: 'Lato', sans-serif; font-weight: 900; font-size: 36px;}
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-weight: 900; font-size: 36px;}
 
 /* Footer styling */
 footer{
@@ -235,7 +233,7 @@ footer{
 	border-top: thin dotted;
 }
 .footer_left{
-	font-family: 'Montserrat', sans-serif;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 	font-style: italic;
 	font-weight: 400;
 	color: var(--color-text-gray);
@@ -369,14 +367,7 @@ code {text-align: left;}
 }
 
 .plot h4 {
-	font-family: 'Lato', sans-serif; margin: 10px 0px 0px 5px; padding: 0; font-size: 16px; font-weight: 800;
-}
-
-.targetplot1 {
-	width:98%;
-	display:inline-block;
-	vertical-align:middle;
-	margin: 5px;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; margin: 10px 0px 0px 5px; padding: 0; font-size: 16px; font-weight: 800;
 }
 
 @media only screen and (max-width: 900px) {
@@ -385,9 +376,9 @@ code {text-align: left;}
 		margin: 4px 8px 10px 8px;
     }
     header h1{padding: 20px 0 12px 0; color: white;
-	font-family: 'Lato', sans-serif; font-weight: 900; font-size: 20px;}
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-weight: 900; font-size: 20px;}
     header h3{padding: 20px 0 12px 0; color: white;
-	font-family: 'Lato', sans-serif; font-weight: 900; font-size: 20px;}
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-weight: 900; font-size: 20px;}
 }
 
 table {
@@ -420,55 +411,6 @@ table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sor
 }
 }
 
-/* Style the tab */
-.tab {
-	width: 18%;
-    overflow: hidden;
-    display: inline-block;
-    padding: 0;
-    margin: 0;
-}
-
-/* Style the buttons inside the tab */
-.tab button {
-    background-color: inherit;
-    float: right;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 5px 6px;
-    margin: 2px;
-    width: 45px;
-    transition: 0.3s;
-    font-size: 12px;
-    font-weight: bolder;
-    color: var(--color-accent-red);
-}
-
-/* Change background color of buttons on hover */
-.tab button:hover {
-    background-color: var(--color-accent-red);
-    color: white ;
-}
-
-/* Create an active/current tablink class */
-.tab button.active {
-    background-color: var(--color-accent-red);
-    color: white ;
-}
-
-.plot_map {margin: 0; padding: 0;}
-
-.map_titles h4 {
-	font-size: 18px;}
-
-.map_titles {	display: inline-block;
-width: 80%;}
-
-
-
-.prompt {font-size: 14px; font-family: 'Courier New', monospace; font-weight: 600;}
-
 .text_cell_render h3 {padding: 20px 0 12px 0;}
 
 .output_subarea pre {
@@ -481,188 +423,7 @@ width: 80%;}
 
 .highlight {text-align: left; background-color: var(--color-bg-highlight); padding: 1px 15px 1px 15px; margin:5px;}
 
-/* ===== HERO SECTION ===== */
-.hero {
-	text-align: center;
-	padding: 70px 20px 30px 20px;
-	background-color: var(--color-bg-header);
-	color: white;
-}
-
-.hero h1 {
-	font-family: 'Lato', sans-serif;
-	font-weight: 900;
-	font-size: 42px;
-	margin: 0 0 10px 0;
-	color: white;
-}
-
-.hero_subtitle {
-	font-size: 18px;
-	color: rgba(255, 255, 255, 0.9);
-	margin: 0 0 15px 0;
-	font-weight: normal;
-}
-
-.hero_description {
-	font-size: 14px;
-	color: rgba(255, 255, 255, 0.85);
-	max-width: 600px;
-	margin: 0 auto 20px auto;
-	line-height: 1.6;
-}
-
-.hero_cta {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 12px;
-}
-
-.hero_secondary {
-	font-size: 13px;
-	color: rgba(255, 255, 255, 0.8);
-}
-
-.hero_secondary a {
-	color: rgba(255, 255, 255, 0.9);
-}
-
-.hero_secondary a:hover {
-	color: var(--color-accent-yellow);
-}
-
-/* Primary CTA Button */
-.button_primary {
-	display: inline-block;
-	background-color: var(--color-card-green);
-	color: white;
-	padding: 14px 28px;
-	font-size: 16px;
-	font-family: 'Montserrat', sans-serif;
-	font-weight: bold;
-	border-radius: 4px;
-	text-decoration: none;
-	transition: background-color 0.3s, transform 0.2s;
-}
-
-.button_primary:hover {
-	background-color: #219a52;
-	transform: translateY(-2px);
-	text-decoration: none;
-	color: white;
-}
-
-.button_primary:visited {
-	color: white;
-}
-
-.button_primary i {
-	margin-right: 8px;
-}
-
-/* ===== HERO CARD ===== */
-.card_hero {
-	width: 100%;
-	max-width: 420px;
-	min-height: 180px;
-}
-
-.card_hero:hover {
-	width: 100%;
-	max-width: 422px;
-}
-
-.card_tail_hero {
-	height: auto;
-	min-height: 80px;
-	padding: 12px 15px 15px 15px;
-}
-
-.card_tail_hero p {
-	font-size: 13px;
-	margin: 0 0 8px 0;
-}
-
-.card_meta {
-	font-size: 12px;
-	color: var(--color-text-gray);
-	margin-top: 8px;
-	border-top: 1px solid #eee;
-	padding-top: 8px;
-}
-
-/* ===== TUTORIAL CARDS SECTION ===== */
-.article_tutorials {
-	padding-top: 15px;
-	margin-top: 10px;
-}
-
-.article_tutorials h3 {
-	font-size: 20px;
-	color: var(--color-heading-gray);
-	margin-bottom: 5px;
-}
-
-.card_small {
-	width: 200px;
-	min-height: 120px;
-}
-
-.card_small:hover {
-	width: 202px;
-}
-
-.card_small .card_tail {
-	height: 60px;
-	padding: 8px 10px;
-}
-
-.card_small .card_tail p {
-	font-size: 12px;
-}
-
-.card_small h2 {
-	font-size: 22px;
-}
-
-/* ===== RESPONSIVE - HERO ===== */
-@media screen and (max-width: 760px) {
-	.hero {
-		padding: 60px 15px 25px 15px;
-	}
-
-	.hero h1 {
-		font-size: 28px;
-	}
-
-	.hero_subtitle {
-		font-size: 15px;
-	}
-
-	.hero_description {
-		font-size: 13px;
-		padding: 0 10px;
-	}
-
-	.button_primary {
-		padding: 12px 24px;
-		font-size: 14px;
-	}
-
-	.card_hero {
-		max-width: 280px;
-	}
-
-	.card_small {
-		width: 250px;
-	}
-
-	.card_small:hover {
-		width: 252px;
-	}
-}
-
+/* Syntax highlighting */
  .hll { background-color: #e0e1e3 }
   { background: #efefef; color: #f8f8f2 }
  .c { color: #8d8d8d } /* Comment */
