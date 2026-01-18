@@ -52,14 +52,14 @@ body{
 p{font-size: 15px; color: var(--color-text-gray); line-height: 1.6;}
 li{font-size: 14px; color: var(--color-text-gray);}
 
-h1, h2, h3, h4{font-family: 'Montserrat'; line-height: 1.25;}
+h1, h2, h3, h4{font-family: 'Montserrat', sans-serif; line-height: 1.25;}
 h1{margin: 10px 0 10px;}
 hl{margin: 0 0 10px; font-size: 40px;}
 h2{margin: 0 0 10px; font-size: 32px;}
 h3{margin: 10px 0 10px; font-size: 26px; font-family: 'Lato', sans-serif; font-weight: 900;}
 .section-title { font-size: 20px; }
 h5{font-size: 16px;}
-h4{margin: 35px 0 10px 0; font-size: 16px; font-family: 'Roboto', sans-serif; color: var(--color-heading-gray);}
+h4{margin: 35px 0 10px 0; font-size: 16px; font-family: 'Lato', sans-serif; color: var(--color-heading-gray);}
 h6{margin: 0 0 0 10px; font-size: 11px; font-style: italic; font-weight: normal; color: var(--color-text-gray);}
 .chart_title{font-family: 'Lato', sans-serif; margin: 10px 0px 0px 15px; padding: 0; font-size: 18px; color: var(--color-text-gray);}
 p.chart_subtitle{font-family: 'Lato', sans-serif; font-weight: 300; margin: 0px 10px 10px 25px; padding:0; font-size: 11px; color: var(--color-text-gray);}
@@ -107,13 +107,13 @@ nav{
     padding: 14px 16px;
     text-decoration: none;
     transition: 0.3s;
-	font-family: 'Montserrat';
+	font-family: 'Montserrat', sans-serif;
     font-size: 17px;
-    font-weight: 500;
+    font-weight: 400;
 	}
 .nav_main{text-align: center; font-weight: bold; }
 .ul_nav li a:hover{background-color: var(--color-nav-hover); }
-.active{background-color: var(--color-accent-red); font-weight: 600;}
+.ul_nav li a.active{background-color: var(--color-accent-red); font-weight: 700;}
 .ul_nav li.icon {display: none;}
 
 /* Navigation toggle button */
@@ -232,8 +232,9 @@ footer{
 	border-top: thin dotted;
 }
 .footer_left{
-	font-family: 'Montserrat';
+	font-family: 'Montserrat', sans-serif;
 	font-style: italic;
+	font-weight: 400;
 	color: var(--color-text-gray);
 }
 .footer_left p{
