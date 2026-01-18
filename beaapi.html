@@ -103,12 +103,12 @@
 	<main>
 	<section>
 	<article class="article_code">
-	<h3> Bureau of Economic Analysis (BEA) API with Python </h3>
+	<p class="subtitle">Bureau of Economic Analysis (BEA) API with Python</p>
 	<p>The <a href="https://www.bea.gov/resources/for-developers">BEA API</a> provides access to national accounts data including GDP, consumer spending, and industry statistics. This tutorial demonstrates how to use Python to retrieve and analyze data from the BEA API.</p>
 
 	<p>This notebook offers two examples: the first fetches NIPA table data to calculate consumer spending growth by category, and the second shows how to navigate API metadata to find dataset parameters.</p>
 
-	<h3 class="section-title">Background</h3>
+	<h2 class="section-title">Background</h2>
 	<h4>BEA</h4>
 	<p>The Bureau of Economic Analysis is part of the U.S. Department of Commerce. BEA produces economic statistics including GDP, personal income, and industry accounts. You can read more about BEA <a href="https://www.bea.gov/about">here</a>.</p>
 
@@ -118,7 +118,7 @@
 	<h4>Python</h4>
 	<p>The examples use Python 3.x with the requests and pandas packages.</p>
 
-	<h3 class="section-title">Example 1: Fetch NIPA Table</h3>
+	<h2 class="section-title">Example 1: Fetch NIPA Table</h2>
 	<p>This example requests NIPA table 2.3.6 (Real Personal Consumption Expenditures by Major Type of Product) for the latest five years.</p>
 
 	<h4>Import Libraries</h4>
@@ -183,7 +183,7 @@ ax.text(-0.03, -0.2, footer, transform=ax.transAxes, fontsize=10);</code></pre>
 	<p>Out[5]:</p>
 	<img src="images/bea_ex1.png" alt="Consumer Spending Growth Chart" loading="lazy"/>
 
-	<h3 class="section-title">Example 2: Collect API Parameters</h3>
+	<h2 class="section-title">Example 2: Collect API Parameters</h2>
 	<p>This example shows how to navigate API metadata to find dataset parameters. Using the metadata, we can discover the codes for tables and industries we want to request.</p>
 
 	<h4>Fetch Table List</h4>

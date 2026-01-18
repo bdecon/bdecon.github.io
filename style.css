@@ -63,6 +63,52 @@ h3{margin: 10px 0 10px; font-size: 26px; font-family: system-ui, -apple-system, 
 .section-title { font-size: 20px; }
 h5{font-size: 16px;}
 h4{margin: 35px 0 10px 0; font-size: 16px; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-weight: 900; color: var(--color-heading-gray);}
+
+/* Tagline - replaces h5 used for short notes/follow links */
+.tagline {
+	font-size: 16px;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+	font-weight: bold;
+	line-height: 1.25;
+	margin: 10px 0;
+}
+
+/* Note - replaces h5 used for informational notes */
+.note {
+	font-size: 16px;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+	font-weight: bold;
+	line-height: 1.25;
+	margin: 10px 0;
+}
+
+/* Subtitle - replaces h3 used for page subtitles in tutorials */
+.subtitle {
+	font-size: 26px;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+	font-weight: 900;
+	line-height: 1.25;
+	margin: 10px 0 10px;
+}
+
+/* Section heading - h2 styled like old h3 (26px) for content sections */
+h2.section-heading {
+	font-size: 26px;
+	font-weight: 900;
+}
+
+/* Small section heading - h2 styled like old h5 (16px) */
+h2.section-heading-sm {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+/* Card titles - h3 styled like old h2 (32px) to preserve appearance */
+[class^="card_head_"] h3 {
+	font-size: 32px;
+	font-weight: bold;
+	margin: 0 0 10px;
+}
 h6{margin: 0 0 0 10px; font-size: 11px; font-style: italic; font-weight: normal; color: var(--color-text-gray);}
 p.chart_subtitle{font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-weight: 300; margin: 0px 10px 10px 25px; padding:0; font-size: 11px; color: var(--color-text-gray);}
 p.overview b{font-size: 14px; color: var(--color-text-dark);}
@@ -266,12 +312,18 @@ section{margin: 5px; padding: 6px 0 0 0;}
     width: 100%;
 	text-align:center;
 	}
-.article_links h3{
+.article_links > h2,
+.article_links > h3 {
 	display: table;
 	margin: 10px auto 5px auto;
 	padding-bottom: 8px;
 	border-bottom: 3px solid var(--color-accent-red);
-	}
+}
+/* Section headers in article_links - h2 styled like old h3 (26px) */
+.article_links > h2 {
+	font-size: 26px;
+	font-weight: 900;
+}
 .article_links a{text-decoration: none;}
 
 /* Cards with Links */

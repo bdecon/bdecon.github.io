@@ -109,7 +109,7 @@
 	    <img src="images/imf_banner1.png" alt="IMF API tutorial Part 1" class="card_banner">
 	  </div>
 	  <div class="card_head_blue">
-		<h2>Part 1</h2>
+		<h3>Part 1</h3>
 	  </div>
 	  <div class="card_tail">
 		<p>A <strong>basic example</strong> of retrieving CPI inflation data using the sdmx1 library, converting to pandas, and plotting results.</p>
@@ -122,7 +122,7 @@
 	    <img src="images/imf_banner.png" alt="IMF API tutorial Part 2" class="card_banner">
 	  </div>
 	  <div class="card_head_blue">
-		<h2>Part 2</h2>
+		<h3>Part 2</h3>
 	  </div>
 	  <div class="card_tail">
 		<p>How to <strong>find datasets and parameters</strong> using dataflow and codelist methods, plus an advanced UK trade example.</p>
@@ -131,22 +131,22 @@
 	</a>
 	</article>
 	<article class="article_code">
-	<h3> IMF API with Python: A Basic Example </h3>
+	<p class="subtitle">IMF API with Python: A Basic Example</p>
 	<p>The <a href="https://data.imf.org/">IMF's data portal</a> provides access to macroeconomic data covering more than 180 countries. Using Python's <a href="https://pypi.org/project/sdmx1/">sdmx1 library</a>, it is straightforward to retrieve data through the IMF's SDMX API.</p>
 
 	<p>The example below retrieves monthly Consumer Price Index (CPI) data for Brazil, Chile, and Colombia, calculates year-over-year inflation rates, and plots the results. This demonstrates the core workflow: connecting to the API, building a request key, fetching data, and converting it to a pandas DataFrame for analysis.</p>
 
-	<h3 class="section-title">Setup</h3>
+	<h2 class="section-title">Setup</h2>
 	<p>First, install the sdmx1 library if you haven't already:</p>
 	<pre><code class="bash">pip install sdmx1</code></pre>
 
-	<h3 class="section-title">Import Libraries</h3>
+	<h2 class="section-title">Import Libraries</h2>
 	<p>We need pandas for data manipulation and sdmx for accessing the IMF API:</p>
 	<p>In[1]:</p>
 	<pre><code class="python">import pandas as pd
 import sdmx</code></pre>
 
-	<h3 class="section-title">Set Parameters</h3>
+	<h2 class="section-title">Set Parameters</h2>
 	<p>Define the countries, dataset, and series codes. The key string combines these parameters using dots as separators, with multiple countries joined by <code>+</code> signs:</p>
 	<p>In[2]:</p>
 	<pre><code class="python"># parameters
@@ -156,7 +156,7 @@ series = '_T.IX.M'
 key = f"{'+'.join(countries)}.{dataset}.{series}"</code></pre>
 	<p>The key <code>BRA+CHL+COL.CPI._T.IX.M</code> requests all-items (<code>_T</code>) price index (<code>IX</code>) data at monthly (<code>M</code>) frequency for the three countries.</p>
 
-	<h3 class="section-title">Retrieve Data</h3>
+	<h2 class="section-title">Retrieve Data</h2>
 	<p>Create an SDMX client for the IMF and fetch the data. The <code>sdmx.Client</code> connects to the IMF's data endpoint, and the <code>.data()</code> method retrieves observations for the specified dataset and key:</p>
 	<p>In[3]:</p>
 	<pre><code class="python"># retrieve data
@@ -169,7 +169,7 @@ df = sdmx.to_pandas(data_msg).reset_index()
 df = df.set_index(['TIME_PERIOD', 'COUNTRY'])['value'].unstack()</code></pre>
 	<p>The <code>sdmx.to_pandas()</code> function converts the SDMX message into a pandas structure. After reshaping, we have a DataFrame with dates as rows and countries as columns.</p>
 
-	<h3 class="section-title">Calculate Inflation and Plot</h3>
+	<h2 class="section-title">Calculate Inflation and Plot</h2>
 	<p>Convert the index to datetime, calculate year-over-year percent changes, and create a line plot:</p>
 	<p>In[4]:</p>
 	<pre><code class="python"># Convert index to datetime
@@ -184,7 +184,7 @@ res.plot(title='CPI, one-year percent change',
 	<p>Out[4]:</p>
 	<img src="images/imf_cpi_inflation.png" alt="CPI Inflation Chart" loading="lazy"/>
 
-	<h3 class="section-title">Key Concepts</h3>
+	<h2 class="section-title">Key Concepts</h2>
 	<p>This example demonstrates the core workflow for accessing IMF data with sdmx1:</p>
 	<ul>
 		<li><p><code>sdmx.Client('IMF_DATA')</code> creates a connection to the IMF's SDMX endpoint;</p></li>

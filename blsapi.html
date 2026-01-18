@@ -103,11 +103,11 @@
 	<main>
 	<section>
 	<article class="article_code">
-	<h3> Bureau of Labor Statistics (BLS) API with Python </h3>
+	<p class="subtitle">Bureau of Labor Statistics (BLS) API with Python</p>
 	<p>The <a href="https://www.bls.gov/developers/">BLS Public Data API</a> allows machine access to an enormous and incredibly useful set of U.S. economic data. With python, it is easy to integrate BLS data into projects, research, and graphics without the need to manually find, download, and combine files.</p>
 
 	<p>This notebook offers two examples of using python to request economic data from the BLS API. The first example requests the labor force participation rate from the BLS v1 API. The second example requests unemployment rates by race/origin, and shows a method for requesting multiple series over a longer period of time using the v2 API.</p>
-	<h3 class="section-title">Background</h3>
+	<h2 class="section-title">Background</h2>
 	<h4>BLS</h4>
 	<p>The U.S. Bureau of Labor Statistics is part of the Department of Labor. You can read more about BLS <a href="https://www.bls.gov/bls/infohome.htm">here</a>.</p>
 
@@ -120,7 +120,7 @@
 
 	<p>The examples use Python 3.x and the requests, json, and pandas packages. </p>
 
-	<h3 class="section-title"> Example 1: Single series from API v1</h3>
+	<h2 class="section-title">Example 1: Single series from API v1</h2>
 	<h4>API location</h4>
 	<p>The version 1 API, which does not require registration, is located at the URL <code>base_url</code> below.</p>
 
@@ -215,7 +215,7 @@ df[['value', 'mean']].plot(title=series['name']);</code></pre>
 <img src="images/ex1_update.png" alt="Pandas Plot Output" loading="lazy"/>
 <h4>Summary</h4>
 <p>The first example creates a url containing the requested data by combining a base url of the API with the BLS series ID of interest. The result is a dataframe with monthly data, starting in January 2015, on the labor force participation rate. The plot above lets us quickly see when and by how much the series deviated from its full-period average. The example uses the v1 API, so the number of requests is limited as is the functionality. For more complex requests, a technique such as the one shown in example 2 is preferable.</p>
-<h3 class="section-title">Example 2: Requesting multiple series and specific dates</h3>
+<h2 class="section-title">Example 2: Requesting multiple series and specific dates</h2>
 <p>The second example uses the BLS API v2 (which requires free <a href = "https://data.bls.gov/registrationEngine/">registration</a>) to request more than one series at the same time. The version 2 API has a higher daily query limit, allows more years and series to be returned in each query, and allows some additional options such as requesting data in percent change rather than level. See <a href="https://www.bls.gov/developers/api_faqs.htm#register1">difference between v1 and v2</a>.</p>
 <h4>Parameters</h4>
 <p>The new url, registration key, and data parameters are shown below.</p>
