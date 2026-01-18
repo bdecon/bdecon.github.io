@@ -113,7 +113,7 @@ nav{
 	}
 .nav_main{text-align: center; font-weight: bold; }
 .ul_nav li a:hover{background-color: var(--color-nav-hover); }
-.active{background-color: var(--color-accent-red);}
+.active{background-color: var(--color-accent-red); font-weight: 600;}
 .ul_nav li.icon {display: none;}
 
 /* Navigation toggle button */
