@@ -47,6 +47,8 @@ body{
 	left: 0;
 	font-family: Tahoma, Verdana, Segoe, sans-serif;
 	background-color: var(--color-bg-white);
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
 	}
 
 p{font-size: 15px; color: var(--color-text-gray); line-height: 1.6;}
