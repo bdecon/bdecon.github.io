@@ -22,7 +22,7 @@
   --color-bg-highlight: #F5F5F5;
 
   /* Links */
-  --color-link: #C70039;
+  --color-link: #A80038;
   --color-link-visited: #900C3F;
 
   /* Card Header Colors */
@@ -344,10 +344,10 @@ section{margin: 5px; padding: 6px 0 0 0;}
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 44px;
-    min-height: 44px;
-    padding: 10px;
-    margin: 2px;
+    min-width: 36px;
+    min-height: 36px;
+    padding: 6px;
+    margin: 1px;
     text-decoration: none;
     font-size: 20px;
     -webkit-transition-duration: 0.4s;
