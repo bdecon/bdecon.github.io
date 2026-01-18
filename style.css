@@ -26,11 +26,11 @@
   --color-link-visited: #900C3F;
 
   /* Card Header Colors */
-  --color-card-blue: #3441de;
+  --color-card-blue: #2d38c7;
   --color-card-yellow: #FFC300;
-  --color-card-green: #27AE60;
+  --color-card-green: #229a54;
   --color-card-red: #FF2F2F;
-  --color-card-orange: #FF8700;
+  --color-card-orange: #e67a00;
   --color-card-purple: #721ce7;
   --color-card-ltblue: #1E90FF;
   --color-card-black: #000000;
@@ -303,7 +303,7 @@ section{margin: 5px; padding: 6px 0 0 0;}
 }
 /* Card header color variants */
 .card_head_blue { background-color: var(--color-card-blue); }
-.card_head_yellow { background-color: var(--color-card-yellow); }
+.card_head_yellow { background-color: var(--color-card-yellow); color: #222; }
 .card_head_green { background-color: var(--color-card-green); }
 .card_head_red { background-color: var(--color-card-red); }
 .card_head_orange { background-color: var(--color-card-orange); }
@@ -339,23 +339,27 @@ section{margin: 5px; padding: 6px 0 0 0;}
 .subfooter a:hover {font-size: 17px;}
 
 
-/* Used for the social media buttons */
-.button_sm{
-    padding: 3px 6px;
-    text-align: center;
+/* Used for the social media links */
+.footer_right a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 10px;
+    margin: 2px;
     text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    -webkit-transition-duration: 0.4s; /* Safari */
+    font-size: 20px;
+    -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
-    cursor: pointer;
     background-color: white;
     color: var(--color-accent-red);
-    border: none;
+    border-radius: 4px;
 }
-.button_sm:hover{background-color: var(--color-accent-red); color: white;}
-.footer_right a {text-decoration: none;}
+.footer_right a:hover {
+    background-color: var(--color-accent-red);
+    color: white;
+}
 
 code {text-align: left;}
 

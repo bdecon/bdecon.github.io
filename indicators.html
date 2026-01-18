@@ -82,7 +82,7 @@
 		align-items: center;
 	}
 	.chart-header a {
-		color: white;
+		color: inherit;
 		opacity: 0.7;
 		font-size: 13px;
 		text-decoration: none;
@@ -95,7 +95,7 @@
 		font-size: 15px;
 		margin: 0;
 		font-weight: 600;
-		color: white;
+		color: inherit;
 	}
 	.chart-subtitle {
 		font-size: 10px;
@@ -321,18 +321,10 @@
 			<p><time datetime="2026-01-12">January 12, 2026</time><br> by Brian Dew</p>
 		</div>
 		<div class="footer_right">
-			<a href="https://github.com/bdecon/">
-				<button class="button_sm"><i class="fa fa-github"></i></button>
-			</a>
-			<a href="https://www.linkedin.com/in/brian-dew-5788a386/">
-				<button class="button_sm"><i class="fa fa-linkedin"></i></button>
-			</a>
-			<a href="https://twitter.com/bd_econ">
-				<button class="button_sm"><i class="fa fa-twitter"></i></button>
-			</a>
-			<a href="https://briandew.wordpress.com/">
-				<button class="button_sm"><i class="fa fa-wordpress"></i></button>
-			</a>
+			<a href="https://github.com/bdecon/" aria-label="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
+			<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+			<a href="https://twitter.com/bd_econ" aria-label="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+			<a href="https://briandew.wordpress.com/" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
 		</div>
 	</footer>
 	<script>
@@ -914,10 +906,13 @@
 			// Update header color (use first series color for multi-series)
 			const header = document.querySelector('.chart-header');
 			const isMultiSeries = config.series && config.series.length > 1;
-			const headerColor = isMultiSeries
-				? colorMap[config.series[0].color || 'blue']
-				: colorMap[config.color || 'blue'];
+			const colorKey = isMultiSeries
+				? (config.series[0].color || 'blue')
+				: (config.color || 'blue');
+			const headerColor = colorMap[colorKey];
 			header.style.backgroundColor = headerColor.border;
+			// Use dark text for low-contrast backgrounds (yellow)
+			header.style.color = colorKey === 'yellow' ? '#222' : 'white';
 
 			try {
 				const response = await fetch(config.file);
