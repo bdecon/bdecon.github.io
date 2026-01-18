@@ -42,6 +42,7 @@ html{
 	margin: 0 auto;
 	max-width: 1080px;
 	min-width: 300px;
+	overflow-x: hidden;
 	}
 body{
 	left: 0;
