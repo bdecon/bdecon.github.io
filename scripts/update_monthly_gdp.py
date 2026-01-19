@@ -87,7 +87,11 @@ def fetch_pce_nowcast():
 
 
 def calculate_monthly_gdp(gdp, gdpnow_value, pce_value, nowcast_date):
-    """Calculate monthly GDP estimates from quarterly data and nowcasts."""
+    """Calculate monthly GDP estimates from quarterly data and nowcasts.
+
+    Returns:
+        tuple: (gdpm, gdpq_chart) - monthly interpolated series and quarterly data for chart
+    """
     print("Calculating monthly GDP estimates...")
 
     # Calculate growth rates for current quarter
@@ -95,6 +99,11 @@ def calculate_monthly_gdp(gdp, gdpnow_value, pce_value, nowcast_date):
     real_growth = gdpnow_value
     print(f"  Nominal GDP growth estimate: {nominal_growth:.1f}%")
     print(f"  Real GDP growth estimate: {real_growth:.1f}%")
+
+    # Save quarterly data for comparison chart BEFORE any modifications
+    # Uses original dates (start of quarter) and only published data (no nowcast)
+    gdpq_chart = gdp[['nominal']].iloc[-5:].copy()  # Last 5 quarters of published data
+    gdpq_chart.index.name = 'date'
 
     # Estimate GDP for current quarter
     gdpq = gdp.copy()
@@ -125,7 +134,7 @@ def calculate_monthly_gdp(gdp, gdpnow_value, pce_value, nowcast_date):
     print(f"  Latest nominal: ${gdpm['nominal'].iloc[-1]:,.1f}B")
     print(f"  Latest real: ${gdpm['real'].iloc[-1]:,.1f}B (in latest period dollars)")
 
-    return gdpm
+    return gdpm, gdpq_chart
 
 
 def main():
@@ -141,12 +150,17 @@ def main():
         pce_value, pce_date = fetch_with_retry(fetch_pce_nowcast)
 
         # Calculate monthly estimates
-        gdpm = calculate_monthly_gdp(gdp, gdpnow_value, pce_value, pce_date)
+        gdpm, gdpq_recent = calculate_monthly_gdp(gdp, gdpnow_value, pce_value, pce_date)
 
-        # Save CSV (rounded to 3 decimal places)
+        # Save monthly CSV (rounded to 3 decimal places)
         filepath = FILES_DIR / 'gdpm.csv'
         gdpm.round(3).to_csv(filepath, date_format='%Y-%m-%d')
         print(f"\nData saved: {filepath}")
+
+        # Save quarterly CSV for comparison chart (last 12 quarters)
+        filepath_q = FILES_DIR / 'gdpq.csv'
+        gdpq_recent.round(3).to_csv(filepath_q, date_format='%Y-%m-%d')
+        print(f"Quarterly data saved: {filepath_q}")
 
         # Save timestamp
         timestamp = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')

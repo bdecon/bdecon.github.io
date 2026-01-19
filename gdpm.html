@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>BD Economics | Monthly GDP</title>
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+	<meta charset="UTF-8">
+	<meta name="description" content="Monthly estimates of US GDP, freely available for download. Useful for expressing economic data relative to overall activity.">
+	<meta name="keywords" content="monthly GDP, US GDP, nominal GDP, real GDP, GDPNow, economic indicators, GDP estimate">
+	<meta name="author" content="Brian Dew">
+	<link rel="canonical" href="https://bd-econ.com/gdpm.html">
+	<!-- Open Graph -->
+	<meta property="og:title" content="BD Economics | Monthly GDP">
+	<meta property="og:description" content="Monthly estimates of US GDP, freely available for download. Useful for expressing economic data relative to overall activity.">
+	<meta property="og:url" content="https://bd-econ.com/gdpm.html">
+	<meta property="og:type" content="website">
+	<meta property="og:image" content="https://bd-econ.com/images/01_bdlogo.png">
+	<!-- Twitter Card -->
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="BD Economics | Monthly GDP">
+	<meta name="twitter:description" content="Monthly estimates of US GDP, freely available for download. Useful for expressing economic data relative to overall activity.">
+	<meta name="twitter:image" content="https://bd-econ.com/images/01_bdlogo.png">
+	<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="favicon/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+	<link rel="manifest" href="favicon/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Monthly GDP",
+    "description": "Monthly estimates of US GDP, freely available for download. Useful for expressing economic data relative to overall activity.",
+    "url": "https://bd-econ.com/gdpm.html",
+    "author": {
+        "@type": "Person",
+        "name": "Brian Dew"
+    }
+}
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PGVF5S620Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PGVF5S620Y');
+</script>
+
+<style>
+	.chart-container {
+		position: relative;
+		width: 100%;
+		max-width: 400px;
+		margin: 1rem auto;
+		background: #fff;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.06);
+	}
+	.chart-header {
+		background-color: var(--color-card-red);
+		color: white;
+		padding: 6px 10px 5px 10px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.chart-header a {
+		color: inherit;
+		opacity: 0.7;
+		font-size: 13px;
+		text-decoration: none;
+	}
+	.chart-header a:hover {
+		opacity: 1;
+	}
+	.chart-header h4 {
+		font-family: 'Montserrat', sans-serif;
+		font-size: 15px;
+		margin: 0;
+		font-weight: 600;
+		color: inherit;
+	}
+	.chart-subtitle {
+		font-size: 10px;
+		font-style: italic;
+		color: #6a6a6a;
+		margin: 0;
+	}
+	.chart-body {
+		padding: 6px 10px 6px 10px;
+	}
+	.chart-body-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		margin-bottom: 4px;
+	}
+	.chart-footer {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 10px 7px 10px;
+	}
+	.chart-source {
+		font-size: 9px;
+		color: var(--color-text-gray);
+		text-align: right;
+		margin: 0;
+		font-style: italic;
+	}
+	.chart-filter {
+		font-size: 9px;
+		color: #6a6a6a;
+		margin: 0;
+	}
+	.chart-filter a {
+		color: var(--color-card-blue);
+		text-decoration: none;
+		cursor: pointer;
+	}
+	.chart-filter a:hover {
+		text-decoration: underline;
+	}
+	.chart-toggle {
+		display: flex;
+		gap: 0;
+		font-size: 10px;
+		font-family: 'Montserrat', sans-serif;
+		margin-top: 4px;
+	}
+	.chart-toggle-btn {
+		padding: 4px 12px;
+		border: 1px solid #ccc;
+		background: #fff;
+		cursor: pointer;
+		color: #666;
+		transition: all 0.15s ease;
+	}
+	.chart-toggle-btn:first-child {
+		border-radius: 3px 0 0 3px;
+	}
+	.chart-toggle-btn:last-child {
+		border-radius: 0 3px 3px 0;
+		border-left: none;
+	}
+	.chart-toggle-btn:hover {
+		background: #f5f5f5;
+	}
+	.chart-toggle-btn.active {
+		background: var(--color-card-red);
+		border-color: var(--color-card-red);
+		color: white;
+	}
+	.info-boxes {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+	.info-section {
+		background: #f8f9fa;
+		border: 1px solid #e9ecef;
+		border-radius: 4px;
+		padding: 1rem;
+	}
+	.info-section h3 {
+		margin: 0 0 0.5rem 0;
+		font-size: 14px;
+	}
+	.info-section p {
+		margin: 0 0 0.75rem 0;
+		font-size: 13px;
+		color: #666;
+	}
+	.estimate-value {
+		font-size: 28px;
+		font-weight: 600;
+		color: #333;
+		font-family: 'Montserrat', sans-serif;
+		margin: 0 0 0.5rem 0 !important;
+	}
+	.estimate-text {
+		font-size: 13px;
+		color: #555;
+		line-height: 1.5;
+		margin: 0 !important;
+	}
+	.download-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		background: #555;
+		color: white !important;
+		padding: 8px 16px;
+		border-radius: 4px;
+		text-decoration: none;
+		font-size: 13px;
+		font-weight: 600;
+		font-family: 'Montserrat', sans-serif;
+	}
+	.download-btn:hover {
+		background: #444;
+	}
+	.chart-row {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+	@media (min-width: 800px) {
+		.chart-row {
+			flex-direction: row;
+			align-items: flex-start;
+			gap: 2rem;
+		}
+		.chart-container {
+			margin: 0;
+		}
+		.info-boxes {
+			flex: 1;
+			max-width: none;
+		}
+	}
+	.method-section {
+		margin-top: 2rem;
+	}
+	.method-section h2 {
+		font-size: 18px;
+		margin-bottom: 1rem;
+	}
+	.method-section h3 {
+		font-size: 15px;
+		margin: 1.5rem 0 0.5rem 0;
+	}
+	.data-sources {
+		margin-top: 1rem;
+	}
+	.data-sources li {
+		margin-bottom: 0.5rem;
+	}
+	.comparison-chart-container {
+		max-width: 500px;
+		margin: 1.5rem 0;
+		padding: 1rem;
+		background: #f8f9fa;
+		border: 1px solid #e9ecef;
+		border-radius: 4px;
+	}
+</style>
+
+</head>
+<body>
+	<nav>
+		<ul class="ul_nav" id="menu">
+			<li class="nav_main"> <a href="index.html">BD Economics</a> </li>
+			<li><a href="about.html">About</a> </li>
+			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
+			<li><a href="python.html">Guides &darr;</a>
+				<ul class="hidden">
+					<li><a href="imfapi1.html">IMF API</a></li>
+					<li><a href="blsapi.html">BLS API</a></li>
+					<li><a href="beaapi.html">BEA API</a></li>
+					<li><a href="censusapi.html">Census API</a></li>
+					<li><a href="treasuryapi.html">Treasury API</a></li>
+					<li><a href="cps.html">CPS Microdata</a></li>
+			</ul>
+			</li>
+		<li>
+			<a href="reports.html" class="active">Reports &darr;</a>
+			<ul class="hidden">
+				<li><a href="chartbook.html">US Chartbook</a></li>
+				<li><a href="indicators.html">Economic Indicators</a></li>
+				<li><a href="gdpm.html">Monthly GDP</a></li>
+			</ul>
+			</li>
+			<li class="icon">
+				<button type="button" onclick="responsiveNav()" aria-label="Toggle navigation menu" aria-expanded="false">&#9776;</button>
+			</li>
+		</ul>
+	</nav>
+
+	<header>
+	<h1>Monthly GDP</h1>
+	</header>
+	<main>
+	<section>
+	<article>
+	<div class="chart-row">
+		<div class="chart-container">
+			<div class="chart-header">
+				<h4>Monthly US GDP</h4>
+				<a href="files/gdpm.csv" title="Download as .csv" download><i class="fa fa-download"></i></a>
+			</div>
+			<div class="chart-body">
+				<div class="chart-body-header">
+					<p class="chart-subtitle">USD, seasonally adjusted annual rate</p>
+					<div class="chart-toggle">
+						<button class="chart-toggle-btn active" data-series="nominal">Nominal</button>
+						<button class="chart-toggle-btn" data-series="real">Real</button>
+					</div>
+				</div>
+				<canvas id="lineChart"></canvas>
+			</div>
+			<div class="chart-footer">
+				<p class="chart-filter"><a onclick="toggleTimeRange()">Recent 3 years</a></p>
+				<p class="chart-source">Source: BEA, Atlanta Fed, Cleveland Fed</p>
+			</div>
+		</div>
+
+		<div class="info-boxes">
+			<div class="info-section">
+				<h3>Latest Estimate</h3>
+				<p class="estimate-value" id="estimate-value">—</p>
+				<p class="estimate-text">US GDP for <span id="estimate-month">—</span> is estimated at <strong id="estimate-amount">—</strong> (seasonally adjusted annual rate). Updated <span id="estimate-asof">—</span>.</p>
+			</div>
+
+			<div class="info-section">
+				<h3>Download Data</h3>
+				<p>CSV file with columns: date, nominal, real. Values in billions of USD, seasonally adjusted annual rate. Size: <span id="file-size">—</span>. Last updated: <span id="last-updated">loading...</span></p>
+				<a href="files/gdpm.csv" class="download-btn" download><i class="fa fa-download"></i> Download gdpm.csv</a>
+			</div>
+		</div>
+	</div>
+	</article>
+
+	<article class="method-section">
+	<h2>Methodology</h2>
+
+	<h3>Overview</h3>
+	<p>Monthly GDP provides a way to put other economic data into context. GDP is the broadest measure of economic activity, but it's only published quarterly, with a lag of several months. This creates a gap when comparing recent data to overall economic scale.</p>
+
+	<p>For example, suppose you want to track education spending over time. The latest spending figure might be more recent than the latest GDP release. Without a monthly GDP estimate, you're left comparing raw dollar amounts—which can be misleading. Headlines might declare that "spending is at record highs" or "increasing rapidly," when in fact spending <em>as a share of GDP</em> has fallen over time. <strong>The denominator matters.</strong></p>
+
+	<p>The same applies to credit card debt, the trade deficit, wage income, the size of the stock market, or any other dollar-denominated measure. This tool provides simple monthly estimates of US nominal and real GDP, updated daily and freely available for download, making it easy to express data relative to overall economic activity.</p>
+
+	<h3>Approach</h3>
+	<p>The monthly GDP series is constructed using simple assumptions to interpolate quarterly data to monthly frequency:</p>
+	<ol>
+		<li><strong>Quarterly GDP:</strong> Published nominal and real GDP from the Bureau of Economic Analysis (via FRED)</li>
+		<li><strong>Current quarter estimate:</strong> For the most recent quarter, the Atlanta Fed's GDPNow provides a real GDP growth nowcast. Combined with the Cleveland Fed's PCE inflation nowcast, this yields an estimate of nominal GDP growth, which is applied to the prior quarter's level.</li>
+		<li><strong>Interpolation:</strong> Quarterly values are assigned to the final month of each quarter, then linearly interpolated to fill in the intermediate months. This produces a smooth series without attempting to model within-quarter fluctuations.</li>
+		<li><strong>Rebasing:</strong> Real GDP is rebased to latest-period dollars, so the most recent month's real and nominal GDP are equal. This expresses historical GDP values in current-dollar terms.</li>
+	</ol>
+
+	<p>The chart below illustrates the interpolation process. The stepped gray line shows published quarterly GDP values (assigned to end-of-quarter months). The smooth red line shows the monthly interpolated series. The most recent quarter includes the nowcast estimate.</p>
+
+	<div class="comparison-chart-container">
+		<canvas id="comparisonChart"></canvas>
+	</div>
+
+	<h3>Data Sources</h3>
+	<ul class="data-sources">
+		<li><strong>Quarterly Nominal GDP:</strong> <a href="https://fred.stlouisfed.org/series/GDP">FRED (GDP)</a></li>
+		<li><strong>Quarterly Real GDP:</strong> <a href="https://fred.stlouisfed.org/series/GDPC1">FRED (GDPC1)</a></li>
+		<li><strong>Real GDP Nowcast:</strong> <a href="https://www.atlantafed.org/cqer/research/gdpnow">Atlanta Fed GDPNow</a></li>
+		<li><strong>Inflation Nowcast:</strong> <a href="https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting">Cleveland Fed Inflation Nowcasting</a></li>
+	</ul>
+
+	<h3>Updates</h3>
+	<p>The data file is updated daily. Source code is available on <a href="https://github.com/bdecon/bdecon.github.io">GitHub</a>.</p>
+
+	</article>
+	</section>
+	</main>
+
+	<footer>
+		<div class="footer_left">
+			<p><time datetime="2026">2026</time>, by Brian Dew</p>
+		</div>
+		<div class="footer_right">
+			<a href="https://github.com/bdecon/" aria-label="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
+			<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+			<a href="https://twitter.com/bd_econ" aria-label="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+			<a href="https://briandew.wordpress.com/" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
+		</div>
+	</footer>
+	<script>
+		function responsiveNav() {
+			const menu = document.getElementById("menu");
+			const button = document.querySelector(".icon button");
+			menu.classList.toggle("responsive");
+			const expanded = menu.classList.contains("responsive");
+			button.setAttribute("aria-expanded", expanded);
+		}
+	</script>
+
+	<script>
+		// Color
+		const chartColor = {
+			border: getComputedStyle(document.documentElement).getPropertyValue('--color-card-red').trim() || '#FF2F2F',
+			background: 'rgba(255, 47, 47, 0.08)'
+		};
+
+		let chart = null;
+		let fullData = null;
+		let isFilteredView = false;
+		let currentSeries = 'nominal';
+
+		// Date formatting for monthly data
+		function formatTickLabel(value, index) {
+			const dateStr = this.getLabelForValue(value);
+			return dateStr ? dateStr.substring(0, 4) : '';
+		}
+
+		function formatTooltipTitle(context) {
+			const date = new Date(context[0].label);
+			const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+				'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+			return months[date.getUTCMonth()] + ' ' + date.getUTCFullYear();
+		}
+
+		function formatLastValueDate(date) {
+			const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+				'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+			return [months[date.getUTCMonth()], date.getUTCFullYear()];
+		}
+
+		// Filtered view tick callback
+		function getFilteredTickCallback() {
+			const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+				'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+			return function(value, index) {
+				const dateStr = this.getLabelForValue(value);
+				if (!dateStr) return '';
+				const date = new Date(dateStr);
+				return months[date.getUTCMonth()] + ' ' + date.getUTCFullYear();
+			};
+		}
+
+		// Custom plugin to draw last value label
+		const lastValuePlugin = {
+			id: 'lastValueLabel',
+			afterDraw: function(chart) {
+				const ctx = chart.ctx;
+				const dataset = chart.data.datasets[0];
+				const meta = chart.getDatasetMeta(0);
+				const lastIndex = dataset.data.length - 1;
+				const lastPoint = meta.data[lastIndex];
+
+				if (!lastPoint) return;
+
+				const x = lastPoint.x + 8;
+				const y = lastPoint.y;
+
+				const lastDate = new Date(chart.data.labels[lastIndex]);
+				const dateLabels = formatLastValueDate(lastDate);
+				const valueStr = '$' + (dataset.data[lastIndex] / 1000).toFixed(1) + 'T';
+
+				ctx.save();
+				ctx.font = '9px Tahoma, Verdana, sans-serif';
+				ctx.fillStyle = '#6a6a6a';
+				ctx.textAlign = 'left';
+				ctx.textBaseline = 'middle';
+
+				dateLabels.forEach((label, i) => {
+					ctx.fillText(label, x, y - 12 + (i * 12));
+				});
+				ctx.fillText(valueStr, x, y + (dateLabels.length - 1) * 12);
+
+				ctx.restore();
+			}
+		};
+
+		// Filter data to last N years
+		function filterToLastYears(data, years) {
+			const cutoffDate = new Date();
+			cutoffDate.setFullYear(cutoffDate.getFullYear() - years);
+			return data.filter(d => new Date(d.date) >= cutoffDate);
+		}
+
+		// Get current data based on series and filter state
+		function getCurrentData() {
+			const data = isFilteredView ? filterToLastYears(fullData, 3) : fullData;
+			return data.map(d => currentSeries === 'nominal' ? d.nominal : d.real);
+		}
+
+		// Toggle between full data and last 3 years
+		function toggleTimeRange() {
+			if (!chart || !fullData) return;
+
+			const filterLink = document.querySelector('.chart-filter a');
+			isFilteredView = !isFilteredView;
+
+			const data = isFilteredView ? filterToLastYears(fullData, 3) : fullData;
+			chart.data.labels = data.map(d => d.date);
+			chart.data.datasets[0].data = getCurrentData();
+			chart.options.scales.x.ticks.callback = isFilteredView ? getFilteredTickCallback() : formatTickLabel;
+			filterLink.textContent = isFilteredView ? 'Full history' : 'Recent 3 years';
+
+			chart.update();
+		}
+
+		// Switch series
+		function switchSeries(series) {
+			if (!chart || !fullData || series === currentSeries) return;
+
+			currentSeries = series;
+			const label = series === 'nominal' ? 'Nominal GDP' : 'Real GDP';
+
+			chart.data.datasets[0].label = label;
+			chart.data.datasets[0].data = getCurrentData();
+			chart.update();
+
+			// Update toggle buttons
+			document.querySelectorAll('.chart-toggle-btn').forEach(btn => {
+				btn.classList.toggle('active', btn.dataset.series === series);
+			});
+		}
+
+		// Load and display chart
+		async function init() {
+			try {
+				const response = await fetch('files/gdpm.csv');
+				if (!response.ok) {
+					throw new Error('Failed to load gdpm.csv');
+				}
+				const csv = await response.text();
+
+				// Parse CSV
+				const lines = csv.trim().split('\n');
+				const data = lines.slice(1).map(line => {
+					const [date, nominal, real] = line.split(',');
+					return {
+						date,
+						nominal: parseFloat(nominal),
+						real: parseFloat(real)
+					};
+				});
+
+				fullData = data;
+
+				// Populate latest estimate
+				const latest = data[data.length - 1];
+				const latestDate = new Date(latest.date + 'T00:00:00');
+				const months = ['January', 'February', 'March', 'April', 'May', 'June',
+					'July', 'August', 'September', 'October', 'November', 'December'];
+				const monthYear = months[latestDate.getUTCMonth()] + ' ' + latestDate.getUTCFullYear();
+				const billions = latest.nominal.toLocaleString(undefined, {
+					minimumFractionDigits: 1,
+					maximumFractionDigits: 1
+				});
+				document.getElementById('estimate-value').textContent = monthYear + ': $' + billions + ' billion';
+				document.getElementById('estimate-month').textContent = monthYear;
+				document.getElementById('estimate-amount').textContent = '$' + billions + ' billion';
+
+				const ctx = document.getElementById('lineChart').getContext('2d');
+
+				chart = new Chart(ctx, {
+					type: 'line',
+					data: {
+						labels: data.map(d => d.date),
+						datasets: [
+							{
+								label: 'Nominal GDP',
+								data: data.map(d => d.nominal),
+								borderColor: chartColor.border,
+								backgroundColor: chartColor.background,
+								pointBackgroundColor: chartColor.border,
+								pointHoverBackgroundColor: chartColor.border,
+								borderWidth: 1.5,
+								pointRadius: 1,
+								pointHoverRadius: 4,
+								fill: true,
+								tension: 0.1
+							}
+						]
+					},
+					plugins: [lastValuePlugin],
+					options: {
+						responsive: true,
+						maintainAspectRatio: true,
+						layout: {
+							padding: {
+								right: 40,
+								top: 15
+							}
+						},
+						interaction: {
+							intersect: false,
+							mode: 'index'
+						},
+						plugins: {
+							tooltip: {
+								enabled: true,
+								backgroundColor: 'rgba(75, 75, 75, 0.95)',
+								titleFont: { size: 11, family: "'Montserrat', sans-serif" },
+								bodyFont: { size: 10, family: "Tahoma, Verdana, sans-serif" },
+								padding: 8,
+								cornerRadius: 2,
+								displayColors: false,
+								callbacks: {
+									title: formatTooltipTitle,
+									label: function(context) {
+										const value = '$' + context.parsed.y.toLocaleString(undefined, {
+											minimumFractionDigits: 1,
+											maximumFractionDigits: 1
+										}) + 'B';
+										return context.dataset.label + ': ' + value;
+									}
+								}
+							},
+							legend: { display: false }
+						},
+						scales: {
+							x: {
+								type: 'category',
+								bounds: 'data',
+								grid: { display: false },
+								ticks: {
+									font: { size: 9, family: "Tahoma, Verdana, sans-serif" },
+									color: '#6a6a6a',
+									callback: formatTickLabel,
+									maxRotation: 0,
+									minRotation: 0
+								}
+							},
+							y: {
+								min: 0,
+								border: { display: false },
+								grid: { color: 'rgba(0, 0, 0, 0.06)' },
+								ticks: {
+									font: { size: 9, family: "Tahoma, Verdana, sans-serif" },
+									color: '#6a6a6a',
+									callback: function(value) {
+										return '$' + (value / 1000).toFixed(0) + 'T';
+									}
+								},
+								title: { display: false }
+							}
+						}
+					}
+				});
+
+				// Set up toggle button handlers
+				document.querySelectorAll('.chart-toggle-btn').forEach(btn => {
+					btn.addEventListener('click', () => switchSeries(btn.dataset.series));
+				});
+			} catch (error) {
+				console.error('Error loading chart:', error);
+			}
+		}
+
+		init();
+
+		// Fetch file size using HEAD request
+		fetch('files/gdpm.csv', { method: 'HEAD' })
+			.then(r => {
+				const bytes = r.headers.get('Content-Length');
+				if (bytes) {
+					const kb = (parseInt(bytes) / 1024).toFixed(0);
+					document.getElementById('file-size').textContent = kb + ' KB';
+				}
+			})
+			.catch(() => {
+				document.getElementById('file-size').textContent = '—';
+			});
+
+		// Fetch and display last updated date
+		fetch('files/gdpm_updated.txt')
+			.then(r => r.text())
+			.then(t => {
+				const dateStr = t.trim().split(' ')[0];
+				const date = new Date(dateStr + 'T00:00:00');
+				const shortFormatted = date.toLocaleDateString('en-US', {
+					year: 'numeric',
+					month: 'short',
+					day: 'numeric'
+				});
+				const longFormatted = date.toLocaleDateString('en-US', {
+					year: 'numeric',
+					month: 'long',
+					day: 'numeric'
+				});
+				document.getElementById('last-updated').textContent = shortFormatted;
+				document.getElementById('estimate-asof').textContent = longFormatted;
+			})
+			.catch(() => {
+				document.getElementById('last-updated').textContent = 'recently';
+				document.getElementById('estimate-asof').textContent = 'the latest update';
+			});
+
+		// Comparison chart: quarterly vs monthly GDP
+		async function initComparisonChart() {
+			try {
+				// Load both CSV files
+				const [monthlyRes, quarterlyRes] = await Promise.all([
+					fetch('files/gdpm.csv'),
+					fetch('files/gdpq.csv')
+				]);
+
+				if (!monthlyRes.ok || !quarterlyRes.ok) {
+					throw new Error('Failed to load data files');
+				}
+
+				const [monthlyCsv, quarterlyCsv] = await Promise.all([
+					monthlyRes.text(),
+					quarterlyRes.text()
+				]);
+
+				// Parse quarterly CSV (original dates at start of quarter, published data only)
+				const quarterlyLines = quarterlyCsv.trim().split('\n');
+				const quarterlyData = quarterlyLines.slice(1).map(line => {
+					const [date, nominal] = line.split(',');
+					return { date, nominal: parseFloat(nominal) };
+				});
+
+				// Get start date from first quarterly data point
+				const startDate = quarterlyData[0].date;
+
+				// Parse monthly CSV and filter from start date
+				const monthlyLines = monthlyCsv.trim().split('\n');
+				const monthlyData = monthlyLines.slice(1).map(line => {
+					const [date, nominal] = line.split(',');
+					return { date, nominal: parseFloat(nominal) };
+				});
+				const monthlyFiltered = monthlyData.filter(d => d.date >= startDate);
+
+				// Create quarterly map for lookup
+				const quarterlyMap = new Map();
+				quarterlyData.forEach(q => {
+					quarterlyMap.set(q.date, q.nominal);
+				});
+
+				// Align quarterly to monthly dates with forward-fill
+				// Quarterly values appear at start of quarter and extend forward
+				let lastQuarterlyValue = null;
+				const quarterlyAligned = monthlyFiltered.map(m => {
+					if (quarterlyMap.has(m.date)) {
+						lastQuarterlyValue = quarterlyMap.get(m.date);
+					}
+					return lastQuarterlyValue;
+				});
+
+				const ctx = document.getElementById('comparisonChart').getContext('2d');
+
+				new Chart(ctx, {
+					type: 'line',
+					data: {
+						labels: monthlyFiltered.map(d => d.date),
+						datasets: [
+							{
+								label: 'GDP',
+								data: quarterlyAligned,
+								borderColor: '#555',
+								backgroundColor: 'transparent',
+								borderWidth: 2,
+								pointRadius: 0,
+								stepped: 'before',
+								order: 2
+							},
+							{
+								label: 'Monthly GDP',
+								data: monthlyFiltered.map(d => d.nominal),
+								borderColor: chartColor.border,
+								backgroundColor: 'transparent',
+								borderWidth: 2,
+								pointRadius: 0,
+								tension: 0.1,
+								order: 1
+							}
+						]
+					},
+					options: {
+						responsive: true,
+						maintainAspectRatio: true,
+						interaction: {
+							intersect: false,
+							mode: 'index'
+						},
+						plugins: {
+							title: {
+								display: true,
+								text: 'Monthly GDP vs. GDP',
+								font: { size: 13, family: "'Montserrat', sans-serif", weight: '600' },
+								padding: { bottom: 10 }
+							},
+							legend: {
+								display: true,
+								position: 'bottom',
+								labels: {
+									usePointStyle: true,
+									pointStyle: 'line',
+									padding: 15,
+									font: { size: 11, family: "Tahoma, Verdana, sans-serif" }
+								}
+							},
+							tooltip: {
+								enabled: true,
+								backgroundColor: 'rgba(75, 75, 75, 0.95)',
+								titleFont: { size: 11, family: "'Montserrat', sans-serif" },
+								bodyFont: { size: 10, family: "Tahoma, Verdana, sans-serif" },
+								padding: 8,
+								cornerRadius: 2,
+								callbacks: {
+									title: formatTooltipTitle,
+									label: function(context) {
+										if (context.parsed.y === null) return null;
+										const value = '$' + context.parsed.y.toLocaleString(undefined, {
+											minimumFractionDigits: 0,
+											maximumFractionDigits: 0
+										}) + 'B';
+										return context.dataset.label + ': ' + value;
+									}
+								}
+							}
+						},
+						scales: {
+							x: {
+								type: 'category',
+								grid: { display: false },
+								ticks: {
+									font: { size: 9, family: "Tahoma, Verdana, sans-serif" },
+									color: '#6a6a6a',
+									callback: function(value, index) {
+										const dateStr = this.getLabelForValue(value);
+										if (!dateStr) return '';
+										const date = new Date(dateStr);
+										const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+											'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+										// Show label every 3 months (quarterly)
+										if (date.getUTCMonth() % 3 === 0) {
+											return months[date.getUTCMonth()] + ' ' + date.getUTCFullYear();
+										}
+										return '';
+									},
+									maxRotation: 0,
+									minRotation: 0
+								}
+							},
+							y: {
+								border: { display: false },
+								grid: { color: 'rgba(0, 0, 0, 0.06)' },
+								ticks: {
+									font: { size: 9, family: "Tahoma, Verdana, sans-serif" },
+									color: '#6a6a6a',
+									callback: function(value) {
+										return '$' + (value / 1000).toFixed(1) + 'T';
+									}
+								}
+							}
+						}
+					}
+				});
+			} catch (error) {
+				console.error('Error loading comparison chart:', error);
+			}
+		}
+
+		initComparisonChart();
+	</script>
+</body>
+</html>
