@@ -1,0 +1,42 @@
+name: Update Monthly GDP
+
+on:
+  schedule:
+    # Run daily at 6 PM ET (23:00 UTC in winter, 22:00 UTC in summer)
+    # Using 23:00 UTC to cover EST; during EDT it will run at 7 PM ET
+    - cron: '0 23 * * *'
+  workflow_dispatch:  # Allow manual trigger from GitHub UI
+
+jobs:
+  update-gdp:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pandas openpyxl lxml
+
+      - name: Run update script
+        run: python scripts/update_monthly_gdp.py
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git diff --quiet files/gdpm.csv || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push if changed
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add files/gdpm.csv files/gdpm_updated.txt
+          git commit -m "Update monthly GDP data"
+          git push

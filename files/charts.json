@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "lastUpdated": "2026-01-12T00:00:00Z",
+  "lastUpdated": "2026-01-19T05:44:41.946506+00:00",
   "charts": [
     {
       "id": "m2gdp",
@@ -275,8 +275,14 @@
       "subtitle": "Inflation-adjusted USD, in thousands",
       "source": "BEA, BLS, Author",
       "series": [
-        { "label": "GDP per Worker", "color": "green" },
-        { "label": "Median Earnings", "color": "blue" }
+        {
+          "label": "GDP per Worker",
+          "color": "green"
+        },
+        {
+          "label": "Median Earnings",
+          "color": "blue"
+        }
       ],
       "decimals": 1,
       "valuePrefix": "$",
