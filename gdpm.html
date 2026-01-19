@@ -195,11 +195,19 @@
 		font-family: 'Montserrat', sans-serif;
 		margin: 0 0 0.5rem 0 !important;
 	}
-	.estimate-text {
+	.estimate-updated {
+		font-size: 12px;
+		color: #888;
+		margin: 0;
+	}
+	.download-desc {
 		font-size: 13px;
-		color: #555;
-		line-height: 1.5;
-		margin: 0 !important;
+		color: #666;
+		margin: 0 0 0.75rem 0;
+	}
+	.file-meta {
+		font-weight: 400;
+		opacity: 0.85;
 	}
 	.download-btn {
 		display: inline-flex;
@@ -260,6 +268,46 @@
 		background: #f8f9fa;
 		border: 1px solid #e9ecef;
 		border-radius: 4px;
+	}
+	.step-cards {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		margin: 1rem 0;
+	}
+	.step-card {
+		display: flex;
+		gap: 0.75rem;
+		padding: 0.75rem;
+		background: #f8f9fa;
+		border: 1px solid #e9ecef;
+		border-radius: 4px;
+	}
+	.step-number {
+		flex-shrink: 0;
+		width: 28px;
+		height: 28px;
+		background: var(--color-card-red);
+		color: white;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 13px;
+		font-weight: 600;
+		font-family: 'Montserrat', sans-serif;
+	}
+	.step-content h4 {
+		margin: 0 0 0.25rem 0;
+		font-size: 14px;
+		font-weight: 600;
+		color: #333;
+	}
+	.step-content p {
+		margin: 0;
+		font-size: 13px;
+		color: #555;
+		line-height: 1.4;
 	}
 </style>
 
@@ -326,13 +374,13 @@
 			<div class="info-section">
 				<h3>Latest Estimate</h3>
 				<p class="estimate-value" id="estimate-value">—</p>
-				<p class="estimate-text">US GDP for <span id="estimate-month">—</span> is estimated at <strong id="estimate-amount">—</strong> (seasonally adjusted annual rate). Updated <span id="estimate-asof">—</span>.</p>
+				<p class="estimate-updated">Updated <span id="estimate-asof">—</span></p>
 			</div>
 
 			<div class="info-section">
 				<h3>Download Data</h3>
-				<p>CSV file with columns: date, nominal, real. Values in billions of USD, seasonally adjusted annual rate. Size: <span id="file-size">—</span>. Last updated: <span id="last-updated">loading...</span></p>
-				<a href="files/gdpm.csv" class="download-btn" download><i class="fa fa-download"></i> Download gdpm.csv</a>
+				<p class="download-desc">Monthly nominal and real GDP in billions USD (SAAR)</p>
+				<a href="files/gdpm.csv" class="download-btn" download><i class="fa fa-download"></i> gdpm.csv<span class="file-meta" id="file-meta"></span></a>
 			</div>
 		</div>
 	</div>
@@ -349,13 +397,37 @@
 	<p>The same applies to credit card debt, the trade deficit, wage income, the size of the stock market, or any other dollar-denominated measure. This tool provides simple monthly estimates of US nominal and real GDP, updated daily and freely available for download, making it easy to express data relative to overall economic activity.</p>
 
 	<h3>Approach</h3>
-	<p>The monthly GDP series is constructed using simple assumptions to interpolate quarterly data to monthly frequency:</p>
-	<ol>
-		<li><strong>Quarterly GDP:</strong> Published nominal and real GDP from the Bureau of Economic Analysis (via FRED)</li>
-		<li><strong>Current quarter estimate:</strong> For the most recent quarter, the Atlanta Fed's GDPNow provides a real GDP growth nowcast. Combined with the Cleveland Fed's PCE inflation nowcast, this yields an estimate of nominal GDP growth, which is applied to the prior quarter's level.</li>
-		<li><strong>Interpolation:</strong> Quarterly values are assigned to the final month of each quarter, then linearly interpolated to fill in the intermediate months. This produces a smooth series without attempting to model within-quarter fluctuations.</li>
-		<li><strong>Rebasing:</strong> Real GDP is rebased to latest-period dollars, so the most recent month's real and nominal GDP are equal. This expresses historical GDP values in current-dollar terms.</li>
-	</ol>
+	<p>The monthly GDP series is constructed by interpolating quarterly data to monthly frequency:</p>
+	<div class="step-cards">
+		<div class="step-card">
+			<div class="step-number">1</div>
+			<div class="step-content">
+				<h4>Quarterly GDP</h4>
+				<p>Start with official nominal and real GDP from BEA (via FRED).</p>
+			</div>
+		</div>
+		<div class="step-card">
+			<div class="step-number">2</div>
+			<div class="step-content">
+				<h4>Current Quarter</h4>
+				<p>Estimate the latest quarter using Atlanta Fed GDPNow (real growth) and Cleveland Fed inflation nowcast to derive nominal growth.</p>
+			</div>
+		</div>
+		<div class="step-card">
+			<div class="step-number">3</div>
+			<div class="step-content">
+				<h4>Interpolate</h4>
+				<p>Assign quarterly values to end-of-quarter months, then linearly fill intermediate months.</p>
+			</div>
+		</div>
+		<div class="step-card">
+			<div class="step-number">4</div>
+			<div class="step-content">
+				<h4>Rebase (Real series)</h4>
+				<p>Convert historical real GDP into current dollars, so past values reflect today's price level.</p>
+			</div>
+		</div>
+	</div>
 
 	<p>The chart below illustrates the interpolation process. The stepped gray line shows published quarterly GDP values (assigned to end-of-quarter months). The smooth red line shows the monthly interpolated series. The most recent quarter includes the nowcast estimate.</p>
 
@@ -554,9 +626,7 @@
 					minimumFractionDigits: 1,
 					maximumFractionDigits: 1
 				});
-				document.getElementById('estimate-value').textContent = monthYear + ': $' + billions + ' billion';
-				document.getElementById('estimate-month').textContent = monthYear;
-				document.getElementById('estimate-amount').textContent = '$' + billions + ' billion';
+				document.getElementById('estimate-value').textContent = monthYear + ': $' + billions + 'B';
 
 				const ctx = document.getElementById('lineChart').getContext('2d');
 
@@ -657,18 +727,16 @@
 
 		init();
 
-		// Fetch file size using HEAD request
+		// Fetch file size and build download button metadata
 		fetch('files/gdpm.csv', { method: 'HEAD' })
 			.then(r => {
 				const bytes = r.headers.get('Content-Length');
 				if (bytes) {
 					const kb = (parseInt(bytes) / 1024).toFixed(0);
-					document.getElementById('file-size').textContent = kb + ' KB';
+					document.getElementById('file-meta').textContent = ' · ' + kb + ' KB';
 				}
 			})
-			.catch(() => {
-				document.getElementById('file-size').textContent = '—';
-			});
+			.catch(() => {});
 
 		// Fetch and display last updated date
 		fetch('files/gdpm_updated.txt')
@@ -676,22 +744,15 @@
 			.then(t => {
 				const dateStr = t.trim().split(' ')[0];
 				const date = new Date(dateStr + 'T00:00:00');
-				const shortFormatted = date.toLocaleDateString('en-US', {
-					year: 'numeric',
-					month: 'short',
-					day: 'numeric'
-				});
 				const longFormatted = date.toLocaleDateString('en-US', {
 					year: 'numeric',
 					month: 'long',
 					day: 'numeric'
 				});
-				document.getElementById('last-updated').textContent = shortFormatted;
 				document.getElementById('estimate-asof').textContent = longFormatted;
 			})
 			.catch(() => {
-				document.getElementById('last-updated').textContent = 'recently';
-				document.getElementById('estimate-asof').textContent = 'the latest update';
+				document.getElementById('estimate-asof').textContent = 'recently';
 			});
 
 		// Comparison chart: quarterly vs monthly GDP
@@ -826,20 +887,21 @@
 								ticks: {
 									font: { size: 9, family: "Tahoma, Verdana, sans-serif" },
 									color: '#6a6a6a',
+									autoSkip: false,
+									maxRotation: 0,
+									minRotation: 0,
 									callback: function(value, index) {
 										const dateStr = this.getLabelForValue(value);
 										if (!dateStr) return '';
 										const date = new Date(dateStr);
 										const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
 											'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-										// Show label every 3 months (quarterly)
+										// Show label for each quarter (Jan, Apr, Jul, Oct)
 										if (date.getUTCMonth() % 3 === 0) {
 											return months[date.getUTCMonth()] + ' ' + date.getUTCFullYear();
 										}
 										return '';
-									},
-									maxRotation: 0,
-									minRotation: 0
+									}
 								}
 							},
 							y: {
