@@ -26,12 +26,12 @@
   --color-link-visited: #900C3F;
 
   /* Card Header Colors */
-  --color-card-blue: #2d38c7;
+  --color-card-blue: #2933b7;
   --color-card-yellow: #FFC300;
   --color-card-green: #229a54;
   --color-card-red: #FF2F2F;
-  --color-card-orange: #e67a00;
-  --color-card-purple: #721ce7;
+  --color-card-orange: #ca5c00;
+  --color-card-purple: #553581;
   --color-card-ltblue: #1E90FF;
   --color-card-black: #000000;
   --color-card-brown: #8B5A2B;
@@ -366,7 +366,7 @@ section{margin: 5px; padding: 6px 0 0 0;}
 .card_tail{padding: 2px 10px 10px 10px; background-color: white; height: 125px;}
 .card_tail p{margin-top: 10px; margin-bottom: 0;}
 .card_banner_wrap {
-	height: 34px;
+	height: 30px;
 	overflow: hidden;
 }
 .card_banner_wrap_blue { background-color: color-mix(in srgb, var(--color-card-blue) 40%, white); }
@@ -378,7 +378,7 @@ section{margin: 5px; padding: 6px 0 0 0;}
 .card_banner_wrap_brown { background-color: color-mix(in srgb, var(--color-card-brown) 40%, white); }
 .card_banner_wrap_ltblue { background-color: color-mix(in srgb, var(--color-card-ltblue) 40%, white); }
 .card_banner {
-	height: 34px;
+	height: 30px;
 	width: 100%;
 	object-fit: cover;
 	display: block;
