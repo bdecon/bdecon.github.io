@@ -180,27 +180,31 @@
 		padding: 1rem;
 	}
 	.info-section h3 {
+		display: table;
 		margin: 0 0 0.5rem 0;
+		padding-bottom: 5px;
 		font-size: 14px;
+		border-bottom: 2px solid var(--color-accent-red);
 	}
 	.info-section p {
 		margin: 0 0 0.75rem 0;
 		font-size: 13px;
 		color: #666;
 	}
-	.estimate-value {
-		font-size: 28px;
+	.info-section p.estimate-value {
+		font-size: 16px;
 		font-weight: 600;
 		color: #333;
-		font-family: 'Montserrat', sans-serif;
-		margin: 0 0 0.5rem 0 !important;
+		font-family: 'SF Mono', 'Fira Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+		margin: 0 0 0.5rem 0;
+		letter-spacing: -0.5px;
 	}
-	.estimate-updated {
+	.info-section p.estimate-updated {
 		font-size: 12px;
 		color: #888;
 		margin: 0;
 	}
-	.download-desc {
+	.info-section p.download-desc {
 		font-size: 13px;
 		color: #666;
 		margin: 0 0 0.75rem 0;
@@ -379,7 +383,7 @@
 
 			<div class="info-section">
 				<h3>Download Data</h3>
-				<p class="download-desc">Monthly nominal and real GDP in billions USD (SAAR)</p>
+				<p class="download-desc">Monthly nominal and real GDP in billions of USD, seasonally adjusted annual rate</p>
 				<a href="files/gdpm.csv" class="download-btn" download><i class="fa fa-download"></i> gdpm.csv<span class="file-meta" id="file-meta"></span></a>
 			</div>
 		</div>
@@ -491,8 +495,8 @@
 
 		function formatTooltipTitle(context) {
 			const date = new Date(context[0].label);
-			const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-				'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+			const months = ['January', 'February', 'March', 'April', 'May', 'June',
+				'July', 'August', 'September', 'October', 'November', 'December'];
 			return months[date.getUTCMonth()] + ' ' + date.getUTCFullYear();
 		}
 
@@ -628,6 +632,11 @@
 				});
 				document.getElementById('estimate-value').textContent = monthYear + ': $' + billions + 'B';
 
+				// Calculate actual file size from fetched data
+				const fileBytes = new Blob([csv]).size;
+				const fileKb = (fileBytes / 1024).toFixed(0);
+				document.getElementById('file-meta').textContent = ' · ' + fileKb + ' KB';
+
 				const ctx = document.getElementById('lineChart').getContext('2d');
 
 				chart = new Chart(ctx, {
@@ -727,17 +736,6 @@
 
 		init();
 
-		// Fetch file size and build download button metadata
-		fetch('files/gdpm.csv', { method: 'HEAD' })
-			.then(r => {
-				const bytes = r.headers.get('Content-Length');
-				if (bytes) {
-					const kb = (parseInt(bytes) / 1024).toFixed(0);
-					document.getElementById('file-meta').textContent = ' · ' + kb + ' KB';
-				}
-			})
-			.catch(() => {});
-
 		// Fetch and display last updated date
 		fetch('files/gdpm_updated.txt')
 			.then(r => r.text())
@@ -821,6 +819,7 @@
 								backgroundColor: 'transparent',
 								borderWidth: 2,
 								pointRadius: 0,
+								pointStyle: 'line',
 								stepped: 'before',
 								order: 2
 							},
@@ -831,6 +830,7 @@
 								backgroundColor: 'transparent',
 								borderWidth: 2,
 								pointRadius: 0,
+								pointStyle: 'line',
 								tension: 0.1,
 								order: 1
 							}
@@ -867,6 +867,7 @@
 								bodyFont: { size: 10, family: "Tahoma, Verdana, sans-serif" },
 								padding: 8,
 								cornerRadius: 2,
+								usePointStyle: true,
 								callbacks: {
 									title: formatTooltipTitle,
 									label: function(context) {
