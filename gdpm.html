@@ -503,6 +503,14 @@
 			return months[date.getUTCMonth()] + ' ' + date.getUTCFullYear();
 		}
 
+		function formatTooltipTitleWithQuarter(context) {
+			const date = new Date(context[0].label);
+			const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+				'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+			const quarter = 'Q' + (Math.floor(date.getUTCMonth() / 3) + 1);
+			return months[date.getUTCMonth()] + ' ' + date.getUTCFullYear() + ' (' + quarter + ')';
+		}
+
 		function formatLastValueDate(date) {
 			const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
 				'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -816,7 +824,7 @@
 						labels: monthlyFiltered.map(d => d.date),
 						datasets: [
 							{
-								label: 'GDP',
+								label: 'Quarterly GDP',
 								data: quarterlyAligned,
 								borderColor: '#555',
 								backgroundColor: 'transparent',
@@ -872,7 +880,7 @@
 								cornerRadius: 2,
 								usePointStyle: true,
 								callbacks: {
-									title: formatTooltipTitle,
+									title: formatTooltipTitleWithQuarter,
 									label: function(context) {
 										if (context.parsed.y === null) return null;
 										const value = '$' + context.parsed.y.toLocaleString(undefined, {
