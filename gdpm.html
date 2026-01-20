@@ -421,7 +421,7 @@
 			<div class="step-number">3</div>
 			<div class="step-content">
 				<h4>Interpolate</h4>
-				<p>Assign quarterly values to end-of-quarter months, then linearly fill intermediate months.</p>
+				<p>Assign quarterly values to mid-quarter months, then linearly interpolate. This preserves the quarterly average.</p>
 			</div>
 		</div>
 		<div class="step-card">
@@ -433,7 +433,7 @@
 		</div>
 	</div>
 
-	<p>The chart below illustrates the interpolation process. The stepped gray line shows published quarterly GDP values (assigned to end-of-quarter months). The smooth red line shows the monthly interpolated series. The most recent quarter includes the nowcast estimate.</p>
+	<p>The chart below illustrates the interpolation process. The stepped gray line shows published quarterly GDP values. The smooth red line shows the monthly interpolated series. The most recent quarter includes the nowcast estimate.</p>
 
 	<div class="comparison-chart-container">
 		<canvas id="comparisonChart"></canvas>

@@ -94,11 +94,15 @@ def calculate_monthly_gdp(gdp, gdpnow_value, pce_value, nowcast_date):
     """
     print("Calculating monthly GDP estimates...")
 
-    # Calculate growth rates for current quarter
-    nominal_growth = gdpnow_value + pce_value
-    real_growth = gdpnow_value
-    print(f"  Nominal GDP growth estimate: {nominal_growth:.1f}%")
-    print(f"  Real GDP growth estimate: {real_growth:.1f}%")
+    # Convert annualized rates to quarterly multipliers via compounding
+    nominal_mult = ((1 + gdpnow_value/100) * (1 + pce_value/100)) ** 0.25
+    real_mult = (1 + gdpnow_value/100) ** 0.25
+
+    # For display: convert back to annualized rates
+    nominal_growth = (nominal_mult ** 4 - 1) * 100
+    real_growth = (real_mult ** 4 - 1) * 100
+    print(f"  Nominal GDP growth estimate: {nominal_growth:.1f}% (annualized)")
+    print(f"  Real GDP growth estimate: {real_growth:.1f}% (annualized)")
 
     # Save quarterly data for comparison chart BEFORE any modifications
     # Uses original dates (start of quarter) and only published data (no nowcast)
@@ -107,8 +111,6 @@ def calculate_monthly_gdp(gdp, gdpnow_value, pce_value, nowcast_date):
 
     # Estimate GDP for current quarter
     gdpq = gdp.copy()
-    nominal_mult = ((nominal_growth / 4) / 100) + 1
-    real_mult = ((real_growth / 4) / 100) + 1
 
     # Add nowcast quarter estimates
     nowcast_nominal = gdpq['nominal'].iloc[-1] * nominal_mult
@@ -116,15 +118,29 @@ def calculate_monthly_gdp(gdp, gdpnow_value, pce_value, nowcast_date):
     gdpq.loc[nowcast_date] = [nowcast_nominal, nowcast_real]
     gdpq = gdpq.sort_index()
 
-    print(f"  Q4 nominal estimate: ${nowcast_nominal:,.1f}B")
-    print(f"  Q4 real estimate: ${nowcast_real:,.1f}B")
+    print(f"  Nowcast nominal estimate: ${nowcast_nominal:,.1f}B")
+    print(f"  Nowcast real estimate: ${nowcast_real:,.1f}B")
 
-    # Prepare dates for interpolation (shift to end of quarter)
-    gdpq.index = pd.to_datetime((gdpq.index + pd.DateOffset(months=2)))
+    # Assign quarterly values to middle month (Feb, May, Aug, Nov) so that
+    # linear interpolation preserves the quarterly average
+    gdpq.index = pd.to_datetime((gdpq.index + pd.DateOffset(months=1)))
 
-    # Interpolate to create monthly series
-    gdpm = gdpq.resample('MS').interpolate()
+    # Create monthly index extending to end of current quarter
+    end_of_quarter = nowcast_date + pd.DateOffset(months=2)
+    gdpm = gdpq.reindex(
+        pd.date_range(gdpq.index.min(), end_of_quarter, freq='MS')
+    ).interpolate()
     gdpm.index.name = 'date'
+
+    # Extrapolate final month(s) using the nowcast's implied monthly growth rate
+    last_anchor = gdpq.index[-1]
+    if gdpm.index[-1] > last_anchor:
+        nominal_monthly_mult = nominal_mult ** (1/3)
+        real_monthly_mult = real_mult ** (1/3)
+        for month in gdpm.loc[last_anchor:].index[1:]:
+            months_past = (month.year - last_anchor.year) * 12 + (month.month - last_anchor.month)
+            gdpm.loc[month, 'nominal'] = gdpq.loc[last_anchor, 'nominal'] * nominal_monthly_mult ** months_past
+            gdpm.loc[month, 'real'] = gdpq.loc[last_anchor, 'real'] * real_monthly_mult ** months_past
 
     # Rebase real GDP to latest period dollars (latest nominal = latest real)
     rebase_factor = gdpm['nominal'].iloc[-1] / gdpm['real'].iloc[-1]
