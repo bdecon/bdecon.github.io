@@ -15,6 +15,7 @@ import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 import pandas as pd
 
@@ -178,8 +179,9 @@ def main():
         gdpq_recent.round(3).to_csv(filepath_q, date_format='%Y-%m-%d')
         print(f"Quarterly data saved: {filepath_q}")
 
-        # Save timestamp
-        timestamp = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
+        # Save timestamp (use Eastern Time for US economic data)
+        eastern = ZoneInfo('America/New_York')
+        timestamp = datetime.now(eastern).strftime('%Y-%m-%d %H:%M ET')
         (FILES_DIR / 'gdpm_updated.txt').write_text(timestamp)
         print(f"Timestamp saved: {timestamp}")
 
