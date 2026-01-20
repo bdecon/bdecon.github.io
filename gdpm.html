@@ -5,8 +5,8 @@
 	<title>BD Economics | Monthly GDP</title>
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0"></script>
 	<meta charset="UTF-8">
 	<meta name="description" content="Monthly estimates of US GDP, freely available for download. Useful for expressing economic data relative to overall activity.">
 	<meta name="keywords" content="monthly GDP, US GDP, nominal GDP, real GDP, GDPNow, economic indicators, GDP estimate">
@@ -130,12 +130,15 @@
 		color: #6a6a6a;
 		margin: 0;
 	}
-	.chart-filter a {
+	.chart-filter button {
+		background: none;
+		border: none;
+		padding: 0;
+		font: inherit;
 		color: var(--color-card-blue);
-		text-decoration: none;
 		cursor: pointer;
 	}
-	.chart-filter a:hover {
+	.chart-filter button:hover {
 		text-decoration: underline;
 	}
 	.chart-toggle {
@@ -369,7 +372,7 @@
 				<canvas id="lineChart"></canvas>
 			</div>
 			<div class="chart-footer">
-				<p class="chart-filter"><a onclick="toggleTimeRange()">Recent 3 years</a></p>
+				<p class="chart-filter"><button type="button" onclick="toggleTimeRange()">Recent 3 years</button></p>
 				<p class="chart-source">Source: BEA, Atlanta Fed, Cleveland Fed</p>
 			</div>
 		</div>
@@ -378,7 +381,7 @@
 			<div class="info-section">
 				<h3>Latest Estimate</h3>
 				<p class="estimate-value" id="estimate-value">—</p>
-				<p class="estimate-updated">Updated <span id="estimate-asof">—</span></p>
+				<p class="estimate-updated">Data as of <span id="estimate-asof">—</span></p>
 			</div>
 
 			<div class="info-section">
@@ -569,7 +572,7 @@
 		function toggleTimeRange() {
 			if (!chart || !fullData) return;
 
-			const filterLink = document.querySelector('.chart-filter a');
+			const filterLink = document.querySelector('.chart-filter button');
 			isFilteredView = !isFilteredView;
 
 			const data = isFilteredView ? filterToLastYears(fullData, 3) : fullData;
@@ -622,7 +625,7 @@
 
 				// Populate latest estimate
 				const latest = data[data.length - 1];
-				const latestDate = new Date(latest.date + 'T00:00:00');
+				const latestDate = new Date(latest.date + 'T12:00:00Z');
 				const months = ['January', 'February', 'March', 'April', 'May', 'June',
 					'July', 'August', 'September', 'October', 'November', 'December'];
 				const monthYear = months[latestDate.getUTCMonth()] + ' ' + latestDate.getUTCFullYear();
@@ -741,7 +744,7 @@
 			.then(r => r.text())
 			.then(t => {
 				const dateStr = t.trim().split(' ')[0];
-				const date = new Date(dateStr + 'T00:00:00');
+				const date = new Date(dateStr + 'T12:00:00Z');
 				const longFormatted = date.toLocaleDateString('en-US', {
 					year: 'numeric',
 					month: 'long',
@@ -846,7 +849,7 @@
 						plugins: {
 							title: {
 								display: true,
-								text: 'Monthly GDP vs. GDP',
+								text: 'Monthly GDP vs. Quarterly GDP',
 								font: { size: 13, family: "'Montserrat', sans-serif", weight: '600' },
 								padding: { bottom: 10 }
 							},

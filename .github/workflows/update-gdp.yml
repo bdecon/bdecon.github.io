@@ -30,13 +30,13 @@ jobs:
       - name: Check for changes
         id: changes
         run: |
-          git diff --quiet files/gdpm.csv || echo "changed=true" >> $GITHUB_OUTPUT
+          git diff --quiet files/gdpm.csv files/gdpq.csv || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Commit and push if changed
         if: steps.changes.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add files/gdpm.csv files/gdpm_updated.txt
+          git add files/gdpm.csv files/gdpq.csv files/gdpm_updated.txt
           git commit -m "Update monthly GDP data"
           git push
