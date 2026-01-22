@@ -27,6 +27,8 @@ if git diff --quiet && git diff --staged --quiet; then
 fi
 
 echo "Staging all changes..."
+# Always reset server files to remote right before staging (safety measure)
+git checkout origin/master -- files/gdpm.csv files/gdpq.csv files/gdpm_updated.txt
 git add .
 
 echo "Committing with message: $COMMIT_MSG"
