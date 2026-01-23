@@ -34,6 +34,9 @@ git add .
 echo "Committing with message: $COMMIT_MSG"
 git commit -m "$COMMIT_MSG"
 
+echo "Rebasing onto remote..."
+git pull --rebase origin master
+
 echo "Pushing to remote..."
 git push
 
