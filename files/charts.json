@@ -16,7 +16,8 @@
       "dateFormat": "monthly",
       "fill": false,
       "category": "Monetary",
-      "order": 3
+      "order": 3,
+      "description": "M2 measures the money supply including cash, checking deposits, savings deposits, and money market funds. This chart shows M2 as a share of nominal GDP."
     },
     {
       "id": "gdppc",
@@ -32,7 +33,8 @@
       "dateFormat": "quarterly",
       "fill": true,
       "category": "Output",
-      "order": 1
+      "order": 1,
+      "description": "Real GDP per capita divides inflation-adjusted gross domestic product by population. It is a broad measure of average economic output per person."
     },
     {
       "id": "ffrate",
@@ -48,7 +50,8 @@
       "dateFormat": "monthly",
       "fill": true,
       "category": "Monetary",
-      "order": 4
+      "order": 4,
+      "description": "The federal funds rate is the interest rate at which banks lend reserves to each other overnight. It is the Federal Reserve's primary tool for conducting monetary policy."
     },
     {
       "id": "lprodbar",
@@ -64,7 +67,8 @@
       "timeSeries": false,
       "showDataLabels": true,
       "category": "Output",
-      "order": 2
+      "order": 2,
+      "description": "Labor productivity measures GDP per hour worked, reflecting how efficiently an economy converts labor into output. Higher productivity supports higher wages and living standards."
     },
     {
       "id": "cpi",
@@ -80,7 +84,8 @@
       "timeSeries": true,
       "dateFormat": "monthly",
       "category": "Prices",
-      "order": 5
+      "order": 5,
+      "description": "The Consumer Price Index measures the average change in prices paid by urban consumers for a basket of goods and services. This chart shows the year-over-year percent change."
     },
     {
       "id": "tbal",
@@ -96,7 +101,8 @@
       "timeSeries": true,
       "dateFormat": "monthly",
       "category": "Trade",
-      "order": 6
+      "order": 6,
+      "description": "The trade balance is exports minus imports of goods and services, shown here as a share of GDP. A negative value indicates a trade deficit."
     },
     {
       "id": "tariff",
@@ -112,7 +118,8 @@
       "timeSeries": true,
       "dateFormat": "monthly",
       "category": "Trade",
-      "order": 7
+      "order": 7,
+      "description": "The effective tariff rate is calculated as customs duties collected divided by the value of goods imports. It reflects the average tax rate on imported goods."
     },
     {
       "id": "epop",
@@ -128,7 +135,8 @@
       "timeSeries": true,
       "dateFormat": "monthly",
       "category": "Labor",
-      "order": 8
+      "order": 8,
+      "description": "The employment-population ratio shows the share of prime-age adults (25\u201354) who are employed. It is a broad measure of labor market health that is not affected by changes in labor force participation."
     },
     {
       "id": "indpro",
@@ -143,7 +151,8 @@
       "timeSeries": true,
       "dateFormat": "monthly",
       "category": "Output",
-      "order": 9
+      "order": 9,
+      "description": "The industrial production index measures the real output of the manufacturing sector. It is published by the Federal Reserve and indexed to 2012."
     },
     {
       "id": "unrate",
@@ -159,7 +168,8 @@
       "timeSeries": true,
       "dateFormat": "monthly",
       "category": "Labor",
-      "order": 10
+      "order": 10,
+      "description": "The unemployment rate is the share of the labor force that is actively seeking work but unable to find a job. It is one of the most widely followed indicators of labor market conditions."
     },
     {
       "id": "joun",
@@ -169,12 +179,13 @@
       "subtitle": "Job openings per unemployed person",
       "source": "BLS",
       "tooltipLabel": "Ratio",
-      "decimals": 1,
+      "decimals": 2,
       "color": "orange",
       "timeSeries": true,
       "dateFormat": "monthly",
       "category": "Labor",
-      "order": 11
+      "order": 11,
+      "description": "This ratio divides the number of job openings (from the JOLTS survey) by the number of unemployed persons. A higher ratio indicates a tighter labor market with more opportunities per job seeker."
     },
     {
       "id": "p10rw",
@@ -190,7 +201,8 @@
       "timeSeries": true,
       "dateFormat": "monthly",
       "category": "Labor",
-      "order": 12
+      "order": 12,
+      "description": "Real weekly earnings at the 10th percentile of full-time workers, adjusted for inflation. This tracks wage growth for lower-paid workers using Current Population Survey microdata."
     },
     {
       "id": "treasrcpt",
@@ -206,7 +218,8 @@
       "timeSeries": true,
       "dateFormat": "monthly",
       "category": "Government",
-      "order": 13
+      "order": 13,
+      "description": "Total federal government receipts (taxes, fees, and other revenue) over a trailing 12-month period, expressed as a share of GDP. This smooths seasonal variation in tax collections."
     },
     {
       "id": "povbar",
@@ -222,7 +235,8 @@
       "timeSeries": false,
       "showDataLabels": true,
       "category": "Government",
-      "order": 14
+      "order": 14,
+      "description": "The relative poverty rate measures the share of population living below 50% of the national median disposable income. It allows cross-country comparison of income adequacy."
     },
     {
       "id": "hpi",
@@ -237,7 +251,8 @@
       "timeSeries": true,
       "dateFormat": "quarterly",
       "category": "Prices",
-      "order": 15
+      "order": 15,
+      "description": "The FHFA House Price Index tracks changes in single-family home prices based on repeat sales data from mortgages purchased or guaranteed by Fannie Mae and Freddie Mac."
     },
     {
       "id": "cpicomp",
@@ -249,8 +264,11 @@
       "decimals": 2,
       "color": "red",
       "timeSeries": false,
+      "latestDateSource": "files/cpi.csv",
+      "latestDateFormat": "monthly",
       "category": "Prices",
-      "order": 16
+      "order": 16,
+      "description": "This chart decomposes the Consumer Price Index into contributions by category, showing which goods and services are driving inflation up or down the most."
     },
     {
       "id": "govexpbar",
@@ -266,7 +284,8 @@
       "timeSeries": false,
       "showDataLabels": true,
       "category": "Government",
-      "order": 17
+      "order": 17,
+      "description": "Total general government expenditure (federal, state, and local) as a share of GDP. This includes spending on social programs, defense, infrastructure, and public services."
     },
     {
       "id": "gdppw",
@@ -290,7 +309,8 @@
       "timeSeries": true,
       "dateFormat": "monthly",
       "category": "Output",
-      "order": 18
+      "order": 18,
+      "description": "This chart compares inflation-adjusted GDP per worker with median earnings (annualized from usual weekly earnings), both in thousands of dollars. The gap between the two lines reflects how broadly economic gains are shared."
     },
     {
       "id": "cprof",
@@ -306,7 +326,8 @@
       "timeSeries": true,
       "dateFormat": "quarterly",
       "category": "Businesses",
-      "order": 20
+      "order": 20,
+      "description": "Corporate profits as a share of net national income, measuring the portion of total economic output that accrues to businesses after production costs and depreciation."
     },
     {
       "id": "busnfi",
@@ -322,7 +343,8 @@
       "timeSeries": true,
       "dateFormat": "quarterly",
       "category": "Businesses",
-      "order": 19
+      "order": 19,
+      "description": "Private nonresidential fixed investment minus depreciation, as a share of GDP. This measures net additions to the economy's productive capital stock, including equipment, structures, and intellectual property."
     }
   ]
 }

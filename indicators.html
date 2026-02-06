@@ -65,11 +65,86 @@
 </script>
 
 <style>
+	.chart-flip-wrapper {
+		perspective: 1000px;
+		max-width: 400px;
+		margin: 1rem auto;
+	}
+	.chart-flip-inner {
+		position: relative;
+		transform-style: preserve-3d;
+		transition: transform 0.6s;
+	}
+	.chart-flip-wrapper.flipped .chart-flip-inner {
+		transform: rotateY(180deg);
+	}
+	.chart-flip-front,
+	.chart-flip-back {
+		backface-visibility: hidden;
+		-webkit-backface-visibility: hidden;
+	}
+	.chart-flip-back {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		transform: rotateY(180deg);
+	}
+	.chart-flip-back .chart-container {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		box-sizing: border-box;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.chart-flip-inner {
+			transition: none;
+		}
+	}
+	.chart-download-link {
+		display: inline-block;
+		margin-top: 12px;
+		font-size: 11px;
+		font-family: 'Montserrat', sans-serif;
+		color: var(--color-card-blue);
+		text-decoration: none;
+	}
+	.chart-download-link:hover {
+		text-decoration: underline;
+	}
+	.chart-download-link .fa {
+		margin-right: 3px;
+	}
+	.chart-back-body {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: 16px 10px;
+	}
+	.chart-back-body p {
+		font-size: 12px;
+		line-height: 1.5;
+		color: #444;
+		margin: 0 0 12px 0;
+		font-family: 'Lato', sans-serif;
+	}
+	.chart-info-latest {
+		border-left: 3px solid #ccc;
+		padding: 6px 10px;
+		font-size: 11px;
+		font-family: 'Lato', sans-serif;
+		color: #333;
+		line-height: 1.5;
+		background: #f9f9f9;
+	}
+	.chart-info-latest strong {
+		font-weight: 700;
+	}
 	.chart-container {
 		position: relative;
 		width: 100%;
-		max-width: 400px;
-		margin: 1rem auto;
 		background: #fff;
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.06);
 	}
@@ -86,6 +161,7 @@
 		opacity: 0.7;
 		font-size: 13px;
 		text-decoration: none;
+		cursor: pointer;
 	}
 	.chart-header a:hover {
 		opacity: 1;
@@ -131,12 +207,20 @@
 	}
 	.chart-selector select {
 		font-family: 'Montserrat', sans-serif;
-		font-size: 14px;
+		font-size: 13px;
 		padding: 6px 12px;
 		border: 1px solid #ccc;
 		border-radius: 4px;
 		background: white;
 		cursor: pointer;
+	}
+	.chart-selector select option {
+		font-size: 12px;
+		padding: 1px 4px;
+	}
+	.chart-selector select optgroup {
+		font-size: 12px;
+		padding-top: 2px;
 	}
 	.chart-selector select:hover {
 		border-color: var(--color-card-blue);
@@ -297,19 +381,42 @@
 			<label for="dataset-select">Select chart:</label>
 			<select id="dataset-select"></select>
 		</div>
-		<div class="chart-container">
-			<div class="chart-header">
-				<h4 id="chart-title">M2 Money Supply / GDP</h4>
-				<a id="chart-download" href="files/m2gdp.csv" title="Download as .csv" download><i class="fa fa-download"></i></a>
-			</div>
-			<div class="chart-body">
-				<p class="chart-subtitle" id="chart-subtitle">index, 1988=1</p>
-				<div class="chart-legend" id="chart-legend"></div>
-				<canvas id="lineChart"></canvas>
-			</div>
-			<div class="chart-footer">
-				<p class="chart-filter" id="chart-filter"><a onclick="toggleTimeRange()">Recent 3 years</a></p>
-				<p class="chart-source" id="chart-source">Source: Federal Reserve, BEA</p>
+		<div class="chart-flip-wrapper">
+			<div class="chart-flip-inner">
+				<div class="chart-flip-front">
+					<div class="chart-container">
+						<div class="chart-header">
+							<h4 id="chart-title">M2 Money Supply / GDP</h4>
+							<a id="chart-info" title="About this indicator"><i class="fa fa-info-circle"></i></a>
+						</div>
+						<div class="chart-body">
+							<p class="chart-subtitle" id="chart-subtitle">index, 1988=1</p>
+							<div class="chart-legend" id="chart-legend"></div>
+							<canvas id="lineChart"></canvas>
+						</div>
+						<div class="chart-footer">
+							<p class="chart-filter" id="chart-filter"><a onclick="toggleTimeRange()">Recent 3 years</a></p>
+							<p class="chart-source" id="chart-source">Source: Federal Reserve, BEA</p>
+						</div>
+					</div>
+				</div>
+				<div class="chart-flip-back">
+					<div class="chart-container">
+						<div class="chart-header">
+							<h4 id="chart-title-back"></h4>
+							<a id="chart-back-btn" title="Back to chart"><i class="fa fa-arrow-left"></i></a>
+						</div>
+						<div class="chart-body chart-back-body">
+							<p id="chart-description"></p>
+							<div class="chart-info-latest" id="chart-latest"></div>
+							<a id="chart-download" href="files/m2gdp.csv" class="chart-download-link" download><i class="fa fa-download"></i> Download data (.csv)</a>
+						</div>
+						<div class="chart-footer">
+							<p></p>
+							<p class="chart-source" id="chart-source-back"></p>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</article>
@@ -346,6 +453,7 @@
 		let fullData = null;
 		let isFilteredView = false;
 		let currentConfig = null;
+		let isFlipped = false;
 
 		// Color mapping to CSS variables
 		const colorMap = {
@@ -848,6 +956,107 @@
 			});
 		}
 
+		// Flip card functions
+		function flipCard() {
+			const wrapper = document.querySelector('.chart-flip-wrapper');
+			wrapper.classList.toggle('flipped');
+			isFlipped = !isFlipped;
+		}
+
+		function resetFlip() {
+			const wrapper = document.querySelector('.chart-flip-wrapper');
+			wrapper.classList.remove('flipped');
+			isFlipped = false;
+		}
+
+		function updateBackFace(config, data, latestDate) {
+			// Title and source
+			document.getElementById('chart-title-back').textContent = config.title;
+			document.getElementById('chart-source-back').textContent = 'Source: ' + config.source;
+
+			// Header color
+			const backHeader = document.querySelector('.chart-flip-back .chart-header');
+			const isMultiSeries = config.series && config.series.length > 1;
+			const colorKey = isMultiSeries
+				? (config.series[0].color || 'blue')
+				: (config.color || 'blue');
+			const headerColor = colorMap[colorKey];
+			backHeader.style.backgroundColor = headerColor.border;
+			backHeader.style.color = colorKey === 'yellow' ? '#222' : 'white';
+
+			// Description
+			const descEl = document.getElementById('chart-description');
+			if (config.description) {
+				descEl.textContent = config.description;
+				descEl.style.display = '';
+			} else {
+				descEl.style.display = 'none';
+			}
+
+			// Latest value summary
+			const latestEl = document.getElementById('chart-latest');
+			latestEl.innerHTML = generateLatestSummary(config, data, latestDate);
+
+			// Latest value border color
+			latestEl.style.borderLeftColor = headerColor.border;
+
+			// Show/hide info icon
+			const infoBtn = document.getElementById('chart-info');
+			infoBtn.style.display = config.description ? '' : 'none';
+		}
+
+		function generateLatestSummary(config, data, latestDate) {
+			const decimals = config.decimals ?? 2;
+			const prefix = config.valuePrefix || '';
+			const suffix = config.valueSuffix || '';
+			const isMultiSeries = config.series && config.series.length > 1;
+			const units = config.subtitle ? `<em>${config.subtitle}</em><br>` : '';
+
+			if (config.type === 'dualBar') {
+				// Non-time-series dual bar: show top and bottom values
+				const lines = data;
+				if (!lines || lines.length === 0) return '';
+				const top = lines[0];
+				const bottom = lines[lines.length - 1];
+				let html = units;
+				if (latestDate) {
+					const dateFmt = getDateFormatConfig(config.latestDateFormat || 'monthly');
+					const dateStr = dateFmt.lastValueFormat(new Date(latestDate)).join(' ');
+					html += `<strong>As of</strong> ${dateStr}<br>`;
+				}
+				html += `<strong>Highest:</strong> ${top.name} (${prefix}${top.value.toFixed(decimals)}${suffix})<br>`;
+				html += `<strong>Lowest:</strong> ${bottom.name} (${prefix}${bottom.value.toFixed(decimals)}${suffix})`;
+				return html;
+			}
+
+			if (config.timeSeries === false) {
+				// Non-time-series bar/scatter
+				if (!data || data.length === 0) return '';
+				const last = data[data.length - 1];
+				return units + `<strong>Latest:</strong> ${prefix}${last.value.toFixed(decimals)}${suffix}`;
+			}
+
+			// Time series charts
+			const dateFormat = getDateFormatConfig(config.dateFormat || 'quarterly');
+
+			if (isMultiSeries) {
+				const last = data[data.length - 1];
+				const lastDate = new Date(last.date);
+				const dateStr = dateFormat.lastValueFormat(lastDate).join(' ');
+				const lines = config.series.map((s, i) => {
+					const val = prefix + last.values[i].toFixed(decimals) + suffix;
+					return `<strong>${s.label}:</strong> ${val}`;
+				});
+				return units + `<strong>As of</strong> ${dateStr}<br>` + lines.join('<br>');
+			} else {
+				const last = data[data.length - 1];
+				const lastDate = new Date(last.date);
+				const dateStr = dateFormat.lastValueFormat(lastDate).join(' ');
+				const val = prefix + last.value.toFixed(decimals) + suffix;
+				return units + `<strong>Latest value:</strong> ${val}<br><strong>As of</strong> ${dateStr}`;
+			}
+		}
+
 		// Populate dropdown with optional grouping
 		function populateDropdown() {
 			const select = document.getElementById('dataset-select');
@@ -889,6 +1098,8 @@
 
 		// Load and display chart for given dataset
 		async function loadChart(datasetId) {
+			resetFlip();
+
 			const config = manifest.charts.find(d => d.id === datasetId);
 			if (!config) {
 				showError('Dataset not found: ' + datasetId);
@@ -905,7 +1116,7 @@
 			document.getElementById('chart-download').href = config.file;
 
 			// Update header color (use first series color for multi-series)
-			const header = document.querySelector('.chart-header');
+			const header = document.querySelector('.chart-flip-front .chart-header');
 			const isMultiSeries = config.series && config.series.length > 1;
 			const colorKey = isMultiSeries
 				? (config.series[0].color || 'blue')
@@ -967,6 +1178,25 @@
 						return { name: parts[0], value: parseFloat(parts[1]) };
 					});
 
+					// Fetch latest date from a related time series if configured
+					let latestDate = null;
+					if (config.latestDateSource) {
+						try {
+							const dateResp = await fetch(config.latestDateSource);
+							if (dateResp.ok) {
+								const dateCsv = await dateResp.text();
+								const dateLines = dateCsv.trim().split('\n');
+								latestDate = dateLines[dateLines.length - 1].split(',')[0];
+								const dateFmt = getDateFormatConfig(config.latestDateFormat || 'monthly');
+								const dateStr = dateFmt.lastValueFormat(new Date(latestDate)).join(' ');
+								document.getElementById('chart-subtitle').textContent =
+									config.subtitle + ', ' + dateStr;
+							}
+						} catch (e) {
+							console.warn('Could not fetch latest date:', e);
+						}
+					}
+
 					// Hide canvas, show custom chart
 					document.getElementById('lineChart').style.display = 'none';
 					document.getElementById('chart-legend').style.display = 'none';
@@ -974,10 +1204,11 @@
 					if (!customContainer) {
 						customContainer = document.createElement('div');
 						customContainer.id = 'custom-chart';
-						document.querySelector('.chart-body').appendChild(customContainer);
+						document.querySelector('.chart-flip-front .chart-body').appendChild(customContainer);
 					}
 					customContainer.style.display = 'block';
 					customContainer.innerHTML = renderDualBarChart(config, dualData);
+					updateBackFace(config, dualData, latestDate);
 					return;
 				}
 
@@ -1109,6 +1340,9 @@
 
 				// Render legend for multi-series charts
 				renderLegend(config);
+
+				// Update back face with description and latest value
+				updateBackFace(config, data);
 			} catch (error) {
 				console.error('Error loading chart:', error);
 				showError(error.message);
@@ -1155,6 +1389,10 @@
 		document.getElementById('dataset-select').addEventListener('change', (e) => {
 			loadChart(e.target.value);
 		});
+
+		// Flip card event listeners
+		document.getElementById('chart-info').addEventListener('click', flipCard);
+		document.getElementById('chart-back-btn').addEventListener('click', flipCard);
 
 		// Initialize on page load
 		init();
