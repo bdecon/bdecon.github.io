@@ -64,14 +64,24 @@
   gtag('config', 'G-PGVF5S620Y');
 </script>
 
+<script>
+(function() {
+	var saved = localStorage.getItem('theme');
+	if (saved) {
+		document.documentElement.setAttribute('data-theme', saved);
+	} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+		document.documentElement.setAttribute('data-theme', 'dark');
+	}
+})();
+</script>
 <style>
 	.chart-container {
 		position: relative;
 		width: 100%;
 		max-width: 400px;
 		margin: 1rem auto;
-		background: #fff;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.06);
+		background: var(--color-bg-white);
+		box-shadow: 0 2px 8px var(--color-shadow), 0 4px 16px rgba(0, 0, 0, 0.06);
 	}
 	.chart-header {
 		background-color: var(--color-card-red);
@@ -100,7 +110,7 @@
 	.chart-subtitle {
 		font-size: 10px;
 		font-style: italic;
-		color: #6a6a6a;
+		color: var(--color-axis-text);
 		margin: 0;
 	}
 	.chart-body {
@@ -127,7 +137,7 @@
 	}
 	.chart-filter {
 		font-size: 9px;
-		color: #6a6a6a;
+		color: var(--color-axis-text);
 		margin: 0;
 	}
 	.chart-filter button {
@@ -141,6 +151,9 @@
 	.chart-filter button:hover {
 		text-decoration: underline;
 	}
+	[data-theme="dark"] .chart-filter button {
+		color: #7b8aff;
+	}
 	.chart-toggle {
 		display: flex;
 		gap: 0;
@@ -150,10 +163,10 @@
 	}
 	.chart-toggle-btn {
 		padding: 4px 12px;
-		border: 1px solid #ccc;
-		background: #fff;
+		border: 1px solid var(--color-border-light);
+		background: var(--color-bg-white);
 		cursor: pointer;
-		color: #666;
+		color: var(--color-text-muted);
 		transition: all 0.15s ease;
 	}
 	.chart-toggle-btn:first-child {
@@ -164,7 +177,7 @@
 		border-left: none;
 	}
 	.chart-toggle-btn:hover {
-		background: #f5f5f5;
+		background: var(--color-bg-highlight);
 	}
 	.chart-toggle-btn.active {
 		background: var(--color-card-red);
@@ -177,8 +190,8 @@
 		gap: 1rem;
 	}
 	.info-section {
-		background: #f8f9fa;
-		border: 1px solid #e9ecef;
+		background: var(--color-bg-highlight);
+		border: 1px solid var(--color-border);
 		border-radius: 4px;
 		padding: 1rem;
 	}
@@ -192,24 +205,24 @@
 	.info-section p {
 		margin: 0 0 0.75rem 0;
 		font-size: 13px;
-		color: #666;
+		color: var(--color-text-muted);
 	}
 	.info-section p.estimate-value {
 		font-size: 16px;
 		font-weight: 600;
-		color: #333;
+		color: var(--color-text-dark);
 		font-family: 'SF Mono', 'Fira Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
 		margin: 0 0 0.5rem 0;
 		letter-spacing: -0.5px;
 	}
 	.info-section p.estimate-updated {
 		font-size: 12px;
-		color: #888;
+		color: var(--color-text-subtle);
 		margin: 0;
 	}
 	.info-section p.download-desc {
 		font-size: 13px;
-		color: #666;
+		color: var(--color-text-muted);
 		margin: 0 0 0.75rem 0;
 	}
 	.file-meta {
@@ -220,7 +233,7 @@
 		display: inline-flex;
 		align-items: center;
 		gap: 6px;
-		background: #555;
+		background: var(--color-nav-bg);
 		color: white !important;
 		padding: 8px 16px;
 		border-radius: 4px;
@@ -230,7 +243,7 @@
 		font-family: 'Montserrat', sans-serif;
 	}
 	.download-btn:hover {
-		background: #444;
+		background: var(--color-nav-hover);
 	}
 	.chart-row {
 		display: flex;
@@ -272,8 +285,8 @@
 		max-width: 500px;
 		margin: 1.5rem 0;
 		padding: 1rem;
-		background: #f8f9fa;
-		border: 1px solid #e9ecef;
+		background: var(--color-bg-highlight);
+		border: 1px solid var(--color-border);
 		border-radius: 4px;
 	}
 	.step-cards {
@@ -286,8 +299,8 @@
 		display: flex;
 		gap: 0.75rem;
 		padding: 0.75rem;
-		background: #f8f9fa;
-		border: 1px solid #e9ecef;
+		background: var(--color-bg-highlight);
+		border: 1px solid var(--color-border);
 		border-radius: 4px;
 	}
 	.step-number {
@@ -308,12 +321,12 @@
 		margin: 0 0 0.25rem 0;
 		font-size: 14px;
 		font-weight: 600;
-		color: #333;
+		color: var(--color-text-dark);
 	}
 	.step-content p {
 		margin: 0;
 		font-size: 13px;
-		color: #555;
+		color: var(--color-text-gray);
 		line-height: 1.4;
 	}
 </style>
@@ -322,7 +335,7 @@
 <body>
 	<nav>
 		<ul class="ul_nav" id="menu">
-			<li class="nav_main"> <a href="index.html">BD Economics</a> </li>
+			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
 			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
 			<li><a href="python.html">Guides &darr;</a>
@@ -343,6 +356,7 @@
 				<li><a href="gdpm.html">Monthly GDP</a></li>
 			</ul>
 			</li>
+			<li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><i class="fa fa-moon-o" id="theme-icon"></i></button></li>
 			<li class="icon">
 				<button type="button" onclick="responsiveNav()" aria-label="Toggle navigation menu" aria-expanded="false">&#9776;</button>
 			</li>
@@ -476,16 +490,45 @@
 			const expanded = menu.classList.contains("responsive");
 			button.setAttribute("aria-expanded", expanded);
 		}
+		function toggleTheme() {
+			const current = document.documentElement.getAttribute('data-theme');
+			const next = current === 'dark' ? 'light' : 'dark';
+			document.documentElement.setAttribute('data-theme', next);
+			localStorage.setItem('theme', next);
+			updateThemeIcon();
+			if (typeof refreshChartColors === 'function') refreshChartColors();
+		}
+		function updateThemeIcon() {
+			const icon = document.getElementById('theme-icon');
+			if (!icon) return;
+			const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+			icon.className = isDark ? 'fa fa-sun-o' : 'fa fa-moon-o';
+		}
+		updateThemeIcon();
 	</script>
 
 	<script>
+		// Read theme colors from CSS variables
+		function getThemeColors() {
+			const style = getComputedStyle(document.documentElement);
+			const get = (name) => style.getPropertyValue(name).trim();
+			return {
+				grid: get('--color-grid') || 'rgba(0, 0, 0, 0.06)',
+				axisText: get('--color-axis-text') || '#6a6a6a',
+				tooltipBg: get('--color-tooltip-bg') || 'rgba(75, 75, 75, 0.95)'
+			};
+		}
+
 		// Color
 		const chartColor = {
-			border: getComputedStyle(document.documentElement).getPropertyValue('--color-card-red').trim() || '#FF2F2F',
-			background: 'rgba(255, 47, 47, 0.08)'
+			border: getComputedStyle(document.documentElement).getPropertyValue('--color-card-red').trim() || '#FF2F2F'
 		};
+		function getChartFillAlpha() {
+			return document.documentElement.getAttribute('data-theme') === 'dark' ? 0.18 : 0.08;
+		}
 
 		let chart = null;
+		let comparisonChart = null;
 		let fullData = null;
 		let isFilteredView = false;
 		let currentSeries = 'nominal';
@@ -550,7 +593,7 @@
 
 				ctx.save();
 				ctx.font = '9px Tahoma, Verdana, sans-serif';
-				ctx.fillStyle = '#6a6a6a';
+				ctx.fillStyle = getThemeColors().axisText;
 				ctx.textAlign = 'left';
 				ctx.textBaseline = 'middle';
 
@@ -650,6 +693,7 @@
 
 				const ctx = document.getElementById('lineChart').getContext('2d');
 
+				const tc = getThemeColors();
 				chart = new Chart(ctx, {
 					type: 'line',
 					data: {
@@ -659,7 +703,7 @@
 								label: 'Nominal GDP',
 								data: data.map(d => d.nominal),
 								borderColor: chartColor.border,
-								backgroundColor: chartColor.background,
+								backgroundColor: `rgba(255, 47, 47, ${getChartFillAlpha()})`,
 								pointBackgroundColor: chartColor.border,
 								pointHoverBackgroundColor: chartColor.border,
 								borderWidth: 1.5,
@@ -687,7 +731,7 @@
 						plugins: {
 							tooltip: {
 								enabled: true,
-								backgroundColor: 'rgba(75, 75, 75, 0.95)',
+								backgroundColor: tc.tooltipBg,
 								titleFont: { size: 11, family: "'Montserrat', sans-serif" },
 								bodyFont: { size: 10, family: "Tahoma, Verdana, sans-serif" },
 								padding: 8,
@@ -713,19 +757,20 @@
 								grid: { display: false },
 								ticks: {
 									font: { size: 9, family: "Tahoma, Verdana, sans-serif" },
-									color: '#6a6a6a',
+									color: tc.axisText,
 									callback: formatTickLabel,
 									maxRotation: 0,
-									minRotation: 0
+									minRotation: 0,
+									autoSkipPadding: 12
 								}
 							},
 							y: {
 								min: 0,
 								border: { display: false },
-								grid: { color: 'rgba(0, 0, 0, 0.06)' },
+								grid: { color: tc.grid },
 								ticks: {
 									font: { size: 9, family: "Tahoma, Verdana, sans-serif" },
-									color: '#6a6a6a',
+									color: tc.axisText,
 									callback: function(value) {
 										return '$' + (value / 1000).toFixed(0) + 'T';
 									}
@@ -742,6 +787,31 @@
 				});
 			} catch (error) {
 				console.error('Error loading chart:', error);
+			}
+		}
+
+		// Update chart colors after theme toggle
+		function refreshChartColors() {
+			const tc = getThemeColors();
+			if (chart) {
+				chart.options.scales.x.ticks.color = tc.axisText;
+				chart.options.scales.y.ticks.color = tc.axisText;
+				chart.options.scales.y.grid.color = tc.grid;
+				chart.options.plugins.tooltip.backgroundColor = tc.tooltipBg;
+				chart.data.datasets[0].backgroundColor = `rgba(255, 47, 47, ${getChartFillAlpha()})`;
+				chart.update();
+			}
+			if (comparisonChart) {
+				const textDark = getComputedStyle(document.documentElement).getPropertyValue('--color-text-dark').trim();
+				const textGray = getComputedStyle(document.documentElement).getPropertyValue('--color-text-gray').trim();
+				comparisonChart.options.plugins.title.color = textDark;
+				comparisonChart.options.plugins.legend.labels.color = tc.axisText;
+				comparisonChart.options.scales.x.ticks.color = tc.axisText;
+				comparisonChart.options.scales.y.ticks.color = tc.axisText;
+				comparisonChart.options.scales.y.grid.color = tc.grid;
+				comparisonChart.options.plugins.tooltip.backgroundColor = tc.tooltipBg;
+				comparisonChart.data.datasets[0].borderColor = textGray;
+				comparisonChart.update();
 			}
 		}
 
@@ -817,8 +887,9 @@
 				});
 
 				const ctx = document.getElementById('comparisonChart').getContext('2d');
+				const tc2 = getThemeColors();
 
-				new Chart(ctx, {
+				comparisonChart = new Chart(ctx, {
 					type: 'line',
 					data: {
 						labels: monthlyFiltered.map(d => d.date),
@@ -826,7 +897,7 @@
 							{
 								label: 'Quarterly GDP',
 								data: quarterlyAligned,
-								borderColor: '#555',
+								borderColor: getComputedStyle(document.documentElement).getPropertyValue('--color-text-gray').trim() || '#555',
 								backgroundColor: 'transparent',
 								borderWidth: 2,
 								pointRadius: 0,
@@ -859,6 +930,7 @@
 								display: true,
 								text: 'Monthly GDP vs. Quarterly GDP',
 								font: { size: 13, family: "'Montserrat', sans-serif", weight: '600' },
+								color: getComputedStyle(document.documentElement).getPropertyValue('--color-text-dark').trim(),
 								padding: { bottom: 10 }
 							},
 							legend: {
@@ -868,12 +940,13 @@
 									usePointStyle: true,
 									pointStyle: 'line',
 									padding: 15,
-									font: { size: 11, family: "Tahoma, Verdana, sans-serif" }
+									font: { size: 11, family: "Tahoma, Verdana, sans-serif" },
+									color: tc2.axisText
 								}
 							},
 							tooltip: {
 								enabled: true,
-								backgroundColor: 'rgba(75, 75, 75, 0.95)',
+								backgroundColor: tc2.tooltipBg,
 								titleFont: { size: 11, family: "'Montserrat', sans-serif" },
 								bodyFont: { size: 10, family: "Tahoma, Verdana, sans-serif" },
 								padding: 8,
@@ -898,7 +971,7 @@
 								grid: { display: false },
 								ticks: {
 									font: { size: 9, family: "Tahoma, Verdana, sans-serif" },
-									color: '#6a6a6a',
+									color: tc2.axisText,
 									autoSkip: false,
 									maxRotation: 0,
 									minRotation: 0,
@@ -918,10 +991,10 @@
 							},
 							y: {
 								border: { display: false },
-								grid: { color: 'rgba(0, 0, 0, 0.06)' },
+								grid: { color: tc2.grid },
 								ticks: {
 									font: { size: 9, family: "Tahoma, Verdana, sans-serif" },
-									color: '#6a6a6a',
+									color: tc2.axisText,
 									callback: function(value) {
 										return '$' + (value / 1000).toFixed(1) + 'T';
 									}

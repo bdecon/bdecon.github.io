@@ -39,6 +39,16 @@
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
+<script>
+(function() {
+	var saved = localStorage.getItem('theme');
+	if (saved) {
+		document.documentElement.setAttribute('data-theme', saved);
+	} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+		document.documentElement.setAttribute('data-theme', 'dark');
+	}
+})();
+</script>
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -72,7 +82,7 @@
 <body>
 	<nav>
 		<ul class="ul_nav" id="menu">
-			<li class="nav_main"> <a href="index.html">BD Economics</a> </li>
+			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
 			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
 			<li><a href="python.html" class="active">Guides &darr;</a>
@@ -93,6 +103,7 @@
 				<li><a href="gdpm.html">Monthly GDP</a></li>
 			</ul>
 			</li>
+			<li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><i class="fa fa-moon-o" id="theme-icon"></i></button></li>
 			<li class="icon">
 				<button type="button" onclick="responsiveNav()" aria-label="Toggle navigation menu" aria-expanded="false">&#9776;</button>
 			</li>
@@ -324,6 +335,20 @@ print(f'April 2017: {epop*100:.1f}%')</code></pre>
 			const expanded = menu.classList.contains("responsive");
 			button.setAttribute("aria-expanded", expanded);
 		}
+			function toggleTheme() {
+			const current = document.documentElement.getAttribute('data-theme');
+			const next = current === 'dark' ? 'light' : 'dark';
+			document.documentElement.setAttribute('data-theme', next);
+			localStorage.setItem('theme', next);
+			updateThemeIcon();
+		}
+		function updateThemeIcon() {
+			const icon = document.getElementById('theme-icon');
+			if (!icon) return;
+			const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+			icon.className = isDark ? 'fa fa-sun-o' : 'fa fa-moon-o';
+		}
+		updateThemeIcon();
 	</script>
 	<script src="add-ins/highlight.pack.js"></script>
 	<script>hljs.initHighlighting();</script>

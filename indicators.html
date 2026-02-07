@@ -64,11 +64,26 @@
   gtag('config', 'G-PGVF5S620Y');
 </script>
 
+<script>
+(function() {
+	var saved = localStorage.getItem('theme');
+	if (saved) {
+		document.documentElement.setAttribute('data-theme', saved);
+	} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+		document.documentElement.setAttribute('data-theme', 'dark');
+	}
+})();
+</script>
 <style>
 	.chart-flip-wrapper {
 		perspective: 1000px;
 		max-width: 400px;
 		margin: 1rem auto;
+	}
+	@media (min-width: 760px) {
+		.chart-flip-wrapper {
+			max-width: 550px;
+		}
 	}
 	.chart-flip-inner {
 		position: relative;
@@ -96,6 +111,12 @@
 		flex-direction: column;
 		height: 100%;
 		box-sizing: border-box;
+	}
+	[data-theme="dark"] .chart-flip-inner {
+		border: 1px solid var(--color-border);
+	}
+	[data-theme="dark"] .chart-flip-wrapper .chart-container {
+		border: none;
 	}
 	@media (prefers-reduced-motion: reduce) {
 		.chart-flip-inner {
@@ -126,18 +147,18 @@
 	.chart-back-body p {
 		font-size: 12px;
 		line-height: 1.5;
-		color: #444;
+		color: var(--color-text-gray);
 		margin: 0 0 12px 0;
 		font-family: 'Lato', sans-serif;
 	}
 	.chart-info-latest {
-		border-left: 3px solid #ccc;
+		border-left: 3px solid var(--color-border-light);
 		padding: 6px 10px;
 		font-size: 11px;
 		font-family: 'Lato', sans-serif;
-		color: #333;
+		color: var(--color-text-dark);
 		line-height: 1.5;
-		background: #f9f9f9;
+		background: var(--color-bg-highlight);
 	}
 	.chart-info-latest strong {
 		font-weight: 700;
@@ -145,8 +166,8 @@
 	.chart-container {
 		position: relative;
 		width: 100%;
-		background: #fff;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.06);
+		background: var(--color-bg-white);
+		box-shadow: 0 2px 8px var(--color-shadow), 0 4px 16px rgba(0, 0, 0, 0.06);
 	}
 	.chart-header {
 		background-color: var(--color-card-blue);
@@ -176,7 +197,7 @@
 	.chart-subtitle {
 		font-size: 10px;
 		font-style: italic;
-		color: #6a6a6a;
+		color: var(--color-axis-text);
 		margin: 0 0 4px 0;
 	}
 	.chart-body {
@@ -203,15 +224,16 @@
 	}
 	.chart-selector label {
 		margin-right: 8px;
-		color: #333;
+		color: var(--color-text-dark);
 	}
 	.chart-selector select {
 		font-family: 'Montserrat', sans-serif;
 		font-size: 13px;
 		padding: 6px 12px;
-		border: 1px solid #ccc;
+		border: 1px solid var(--color-border-light);
 		border-radius: 4px;
-		background: white;
+		background: var(--color-bg-white);
+		color: var(--color-text-dark);
 		cursor: pointer;
 	}
 	.chart-selector select option {
@@ -227,7 +249,7 @@
 	}
 	.chart-filter {
 		font-size: 9px;
-		color: #6a6a6a;
+		color: var(--color-axis-text);
 		margin: 0;
 		visibility: hidden;
 	}
@@ -238,6 +260,12 @@
 	}
 	.chart-filter a:hover {
 		text-decoration: underline;
+	}
+	[data-theme="dark"] .chart-filter a {
+		color: #7b8aff;
+	}
+	[data-theme="dark"] .chart-download-link {
+		color: #7b8aff;
 	}
 	.chart-legend {
 		display: flex;
@@ -252,7 +280,7 @@
 		align-items: center;
 		gap: 4px;
 		cursor: pointer;
-		color: #333;
+		color: var(--color-text-dark);
 	}
 	.chart-legend-item:hover {
 		opacity: 0.8;
@@ -277,7 +305,7 @@
 	}
 	.dual-bar-panel h5 {
 		font-size: 10px;
-		color: #6a6a6a;
+		color: var(--color-axis-text);
 		margin: 0 0 6px 0;
 		text-align: center;
 		font-family: 'Montserrat', sans-serif;
@@ -292,7 +320,7 @@
 		top: 0;
 		bottom: 0;
 		width: 1px;
-		background: #666;
+		background: var(--color-text-muted);
 	}
 	.hbar-row {
 		display: flex;
@@ -322,7 +350,7 @@
 		background: var(--color-card-red);
 	}
 	.hbar-label {
-		color: #333;
+		color: var(--color-text-dark);
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -330,7 +358,7 @@
 	}
 	.hbar-value {
 		font-size: 9px;
-		color: #333;
+		color: var(--color-text-dark);
 		white-space: nowrap;
 		padding: 0 2px;
 	}
@@ -340,7 +368,7 @@
 <body>
 	<nav>
 		<ul class="ul_nav" id="menu">
-			<li class="nav_main"> <a href="index.html">BD Economics</a> </li>
+			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
 			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
 			<li><a href="python.html">Guides &darr;</a>
@@ -361,6 +389,7 @@
 				<li><a href="gdpm.html">Monthly GDP</a></li>
 			</ul>
 			</li>
+			<li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><i class="fa fa-moon-o" id="theme-icon"></i></button></li>
 			<li class="icon">
 				<button type="button" onclick="responsiveNav()" aria-label="Toggle navigation menu" aria-expanded="false">&#9776;</button>
 			</li>
@@ -412,7 +441,7 @@
 							<a id="chart-download" href="files/m2gdp.csv" class="chart-download-link" download><i class="fa fa-download"></i> Download data (.csv)</a>
 						</div>
 						<div class="chart-footer">
-							<p></p>
+							<svg viewBox="0 0 9 5" width="16" height="9" style="fill: var(--color-text-subtle); opacity: 0.5;" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
 							<p class="chart-source" id="chart-source-back"></p>
 						</div>
 					</div>
@@ -443,9 +472,36 @@
 			const expanded = menu.classList.contains("responsive");
 			button.setAttribute("aria-expanded", expanded);
 		}
+		function toggleTheme() {
+			const current = document.documentElement.getAttribute('data-theme');
+			const next = current === 'dark' ? 'light' : 'dark';
+			document.documentElement.setAttribute('data-theme', next);
+			localStorage.setItem('theme', next);
+			updateThemeIcon();
+			if (typeof refreshChartColors === 'function') refreshChartColors();
+		}
+		function updateThemeIcon() {
+			const icon = document.getElementById('theme-icon');
+			if (!icon) return;
+			const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+			icon.className = isDark ? 'fa fa-sun-o' : 'fa fa-moon-o';
+		}
+		updateThemeIcon();
 	</script>
 
 	<script>
+		// Read theme colors from CSS variables
+		function getThemeColors() {
+			const style = getComputedStyle(document.documentElement);
+			const get = (name) => style.getPropertyValue(name).trim();
+			return {
+				grid: get('--color-grid') || 'rgba(0, 0, 0, 0.06)',
+				axisText: get('--color-axis-text') || '#6a6a6a',
+				tooltipBg: get('--color-tooltip-bg') || 'rgba(75, 75, 75, 0.95)',
+				textDark: get('--color-text-dark') || '#333'
+			};
+		}
+
 		// Global state
 		let manifest = null;
 		let chart = null;
@@ -455,44 +511,52 @@
 		let currentConfig = null;
 		let isFlipped = false;
 
-		// Color mapping to CSS variables
-		const colorMap = {
-			blue: {
-				border: getComputedStyle(document.documentElement).getPropertyValue('--color-card-blue').trim() || '#3441de',
-				background: 'rgba(52, 65, 222, 0.08)',
-				backgroundStrong: 'rgba(52, 65, 222, 0.3)'
-			},
-			green: {
-				border: getComputedStyle(document.documentElement).getPropertyValue('--color-card-green').trim() || '#27AE60',
-				background: 'rgba(39, 174, 96, 0.08)',
-				backgroundStrong: 'rgba(39, 174, 96, 0.3)'
-			},
-			red: {
-				border: getComputedStyle(document.documentElement).getPropertyValue('--color-card-red').trim() || '#FF2F2F',
-				background: 'rgba(255, 47, 47, 0.08)',
-				backgroundStrong: 'rgba(255, 47, 47, 0.3)'
-			},
-			orange: {
-				border: getComputedStyle(document.documentElement).getPropertyValue('--color-card-orange').trim() || '#FF8700',
-				background: 'rgba(255, 135, 0, 0.08)',
-				backgroundStrong: 'rgba(255, 135, 0, 0.3)'
-			},
-			purple: {
-				border: getComputedStyle(document.documentElement).getPropertyValue('--color-card-purple').trim() || '#721ce7',
-				background: 'rgba(114, 28, 231, 0.08)',
-				backgroundStrong: 'rgba(114, 28, 231, 0.3)'
-			},
-			yellow: {
-				border: getComputedStyle(document.documentElement).getPropertyValue('--color-card-yellow').trim() || '#FFC300',
-				background: 'rgba(255, 195, 0, 0.08)',
-				backgroundStrong: 'rgba(255, 195, 0, 0.3)'
-			},
-			ltblue: {
-				border: getComputedStyle(document.documentElement).getPropertyValue('--color-card-ltblue').trim() || '#1E90FF',
-				background: 'rgba(30, 144, 255, 0.08)',
-				backgroundStrong: 'rgba(30, 144, 255, 0.3)'
-			}
-		};
+		// Color mapping to CSS variables (rebuilt on each chart load for theme changes)
+		let colorMap = null;
+		function updateColorMap() {
+			const style = getComputedStyle(document.documentElement);
+			const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+			const a = isDark ? 0.18 : 0.08;
+			const aStrong = isDark ? 0.35 : 0.3;
+			colorMap = {
+				blue: {
+					border: style.getPropertyValue('--color-card-blue').trim() || '#3441de',
+					background: `rgba(52, 65, 222, ${a})`,
+					backgroundStrong: `rgba(52, 65, 222, ${aStrong})`
+				},
+				green: {
+					border: style.getPropertyValue('--color-card-green').trim() || '#27AE60',
+					background: `rgba(39, 174, 96, ${a})`,
+					backgroundStrong: `rgba(39, 174, 96, ${aStrong})`
+				},
+				red: {
+					border: style.getPropertyValue('--color-card-red').trim() || '#FF2F2F',
+					background: `rgba(255, 47, 47, ${a})`,
+					backgroundStrong: `rgba(255, 47, 47, ${aStrong})`
+				},
+				orange: {
+					border: style.getPropertyValue('--color-card-orange').trim() || '#FF8700',
+					background: `rgba(255, 135, 0, ${a})`,
+					backgroundStrong: `rgba(255, 135, 0, ${aStrong})`
+				},
+				purple: {
+					border: style.getPropertyValue('--color-card-purple').trim() || '#721ce7',
+					background: `rgba(114, 28, 231, ${a})`,
+					backgroundStrong: `rgba(114, 28, 231, ${aStrong})`
+				},
+				yellow: {
+					border: style.getPropertyValue('--color-card-yellow').trim() || '#FFC300',
+					background: `rgba(255, 195, 0, ${a})`,
+					backgroundStrong: `rgba(255, 195, 0, ${aStrong})`
+				},
+				ltblue: {
+					border: style.getPropertyValue('--color-card-ltblue').trim() || '#1E90FF',
+					background: `rgba(30, 144, 255, ${a})`,
+					backgroundStrong: `rgba(30, 144, 255, ${aStrong})`
+				}
+			};
+		}
+		updateColorMap();
 
 		// Chart type configurations
 		function getChartTypeConfig(type, colors, config) {
@@ -685,7 +749,7 @@
 						let y = 12;
 
 						// Draw date labels first
-						ctx.fillStyle = '#6a6a6a';
+						ctx.fillStyle = getThemeColors().axisText;
 						dateLabels.forEach((label) => {
 							ctx.fillText(label, x, y);
 							y += 11;
@@ -706,7 +770,7 @@
 						ctx.textBaseline = 'middle';
 
 						// Draw date at top
-						ctx.fillStyle = '#6a6a6a';
+						ctx.fillStyle = getThemeColors().axisText;
 						let dateY = 12;
 						dateLabels.forEach((label) => {
 							ctx.fillText(label, x, dateY);
@@ -745,7 +809,7 @@
 
 					ctx.save();
 					ctx.font = '9px Tahoma, Verdana, sans-serif';
-					ctx.fillStyle = '#6a6a6a';
+					ctx.fillStyle = getThemeColors().axisText;
 					ctx.textAlign = 'left';
 					ctx.textBaseline = 'middle';
 
@@ -772,7 +836,7 @@
 
 				ctx.save();
 				ctx.font = '9px Tahoma, Verdana, sans-serif';
-				ctx.fillStyle = '#333';
+				ctx.fillStyle = getThemeColors().textDark;
 				ctx.textAlign = 'center';
 				ctx.textBaseline = 'bottom';
 
@@ -1098,6 +1162,7 @@
 
 		// Load and display chart for given dataset
 		async function loadChart(datasetId) {
+			updateColorMap();
 			resetFlip();
 
 			const config = manifest.charts.find(d => d.id === datasetId);
@@ -1254,6 +1319,7 @@
 					}];
 				}
 
+				const tc = getThemeColors();
 				chart = new Chart(ctx, {
 					type: chartType,
 					datasetConfig: config,
@@ -1281,7 +1347,7 @@
 						plugins: {
 							tooltip: {
 								enabled: true,
-								backgroundColor: 'rgba(75, 75, 75, 0.95)',
+								backgroundColor: tc.tooltipBg,
 								titleFont: { size: 11, family: "'Montserrat', sans-serif" },
 								bodyFont: { size: 10, family: "Tahoma, Verdana, sans-serif" },
 								padding: 8,
@@ -1313,21 +1379,22 @@
 								grid: { display: false },
 								ticks: {
 									font: { size: 9, family: "Tahoma, Verdana, sans-serif" },
-									color: '#6a6a6a',
+									color: tc.axisText,
 									callback: config.timeSeries !== false
 										? currentDateFormat.tickCallback
 										: function(value, index) { return this.getLabelForValue(index); },
 									maxRotation: 0,
-									minRotation: 0
+									minRotation: 0,
+									autoSkipPadding: 12
 								}
 							},
 							y: {
 								grace: '5%',
 								border: { display: false },
-								grid: { color: 'rgba(0, 0, 0, 0.06)' },
+								grid: { color: tc.grid },
 								ticks: {
 									font: { size: 9, family: "Tahoma, Verdana, sans-serif" },
-									color: '#6a6a6a'
+									color: tc.axisText
 								},
 								title: { display: false },
 								beginAtZero: config.type === 'bar' || config.beginAtZero || false,
@@ -1382,6 +1449,14 @@
 			} catch (error) {
 				console.error('Initialization error:', error);
 				showError(error.message);
+			}
+		}
+
+		// Update chart colors after theme toggle
+		function refreshChartColors() {
+			const select = document.getElementById('dataset-select');
+			if (select && select.value) {
+				loadChart(select.value);
 			}
 		}
 
