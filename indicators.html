@@ -84,6 +84,12 @@
 		.chart-flip-wrapper {
 			max-width: 550px;
 		}
+		.chart-flip-wrapper.card-vertical {
+			max-width: 320px;
+		}
+		.chart-flip-wrapper.card-vertical .chart-body {
+			min-height: 320px;
+		}
 	}
 	.chart-flip-inner {
 		position: relative;
@@ -117,6 +123,8 @@
 	}
 	[data-theme="dark"] .chart-flip-wrapper .chart-container {
 		border: none;
+		background: var(--color-bg-alt);
+		box-shadow: 0 0 8px rgba(255, 255, 255, 0.12), 0 0 24px rgba(255, 255, 255, 0.06);
 	}
 	@media (prefers-reduced-motion: reduce) {
 		.chart-flip-inner {
@@ -141,8 +149,9 @@
 		flex: 1;
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
+		justify-content: flex-start;
 		padding: 16px 10px;
+		overflow-y: auto;
 	}
 	.chart-back-body p {
 		font-size: 12px;
@@ -151,17 +160,64 @@
 		margin: 0 0 12px 0;
 		font-family: 'Lato', sans-serif;
 	}
-	.chart-info-latest {
-		border-left: 3px solid var(--color-border-light);
-		padding: 6px 10px;
-		font-size: 11px;
+	.card-stats-table {
+		width: 100%;
+		border-collapse: collapse;
+		font-size: 10px;
 		font-family: 'Lato', sans-serif;
 		color: var(--color-text-dark);
-		line-height: 1.5;
-		background: var(--color-bg-highlight);
 	}
-	.chart-info-latest strong {
+	.card-stats-table th {
+		text-align: left;
+		font-weight: 600;
+		padding: 3px 6px;
+		border-bottom: 2px solid var(--color-border);
+		font-size: 8px;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+		color: var(--color-text-muted);
+	}
+	.card-stats-table th:not(:first-child) {
+		text-align: right;
+	}
+	.card-stats-table td {
+		padding: 3px 6px;
+		border-bottom: 1px solid var(--color-border-light);
+		font-size: 10px;
+	}
+	.card-stats-table td:not(:first-child) {
+		text-align: right;
+		font-variant-numeric: tabular-nums;
+	}
+	.card-stats-table tr:last-child td {
+		border-bottom: none;
+	}
+	.card-stats-table .stat-highlight {
 		font-weight: 700;
+	}
+	.chart-back-subtitle {
+		font-size: 12px;
+		font-style: italic;
+		color: var(--color-axis-text);
+		margin: 0 0 8px 0;
+		font-family: 'Lato', sans-serif;
+	}
+	.card-category-badge {
+		font-size: 9px;
+		padding: 1px 7px;
+		border-radius: 8px;
+		background: rgba(255,255,255,0.25);
+		font-family: 'Montserrat', sans-serif;
+		margin-left: 8px;
+		font-weight: 500;
+		white-space: nowrap;
+	}
+	.card-number {
+		font-size: 9px;
+		font-family: 'Montserrat', sans-serif;
+		color: var(--color-text-subtle);
+		font-weight: 600;
+		letter-spacing: 0.5px;
 	}
 	.chart-container {
 		position: relative;
@@ -177,14 +233,16 @@
 		justify-content: space-between;
 		align-items: center;
 	}
-	.chart-header a {
+	.chart-header button {
+		background: none;
+		border: none;
 		color: inherit;
 		opacity: 0.7;
 		font-size: 13px;
-		text-decoration: none;
 		cursor: pointer;
+		padding: 2px 4px;
 	}
-	.chart-header a:hover {
+	.chart-header button:hover {
 		opacity: 1;
 	}
 	.chart-header h4 {
@@ -221,6 +279,10 @@
 		margin: 0 auto 1rem auto;
 		font-family: 'Montserrat', sans-serif;
 		font-size: 14px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 6px;
 	}
 	.chart-selector label {
 		margin-right: 8px;
@@ -297,73 +359,177 @@
 		height: 3px;
 		border-radius: 1px;
 	}
-	/* Dual bar chart styles */
-	.dual-bar-container {
+	/* Horizontal bar chart styles */
+	.hbar-chart-container {
 		display: flex;
-		gap: 10px;
+		flex-direction: column;
+		gap: 4px;
 	}
-	.dual-bar-panel {
-		flex: 1;
-		min-width: 0;
+	.hbar-legend {
+		display: flex;
+		justify-content: center;
+		gap: 14px;
+		font-size: 9px;
+		font-family: 'Lato', sans-serif;
+		color: var(--color-text-muted);
+		margin-bottom: 2px;
 	}
-	.dual-bar-panel h5 {
-		font-size: 10px;
-		color: var(--color-axis-text);
-		margin: 0 0 6px 0;
-		text-align: center;
-		font-family: 'Montserrat', sans-serif;
-		font-weight: 600;
+	.hbar-legend-item {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+	}
+	.hbar-legend-swatch {
+		width: 12px;
+		height: 8px;
+		border-radius: 1px;
 	}
 	.hbar-rows-container {
 		position: relative;
+		padding: 6px 0;
 	}
 	.hbar-zero-line {
 		position: absolute;
-		left: 50%;
 		top: 0;
 		bottom: 0;
 		width: 1px;
 		background: var(--color-text-muted);
+		pointer-events: none;
+	}
+	.hbar-group {
+		display: flex;
+		align-items: center;
+		margin-bottom: 7px;
+		position: relative;
+	}
+	.hbar-group:last-child {
+		margin-bottom: 0;
+	}
+	.hbar-bars {
+		flex: 1;
+		min-width: 0;
 	}
 	.hbar-row {
 		display: flex;
 		align-items: center;
-		margin-bottom: 7px;
-		font-size: 9px;
-		font-family: Tahoma, Verdana, sans-serif;
-		height: 22px;
+		font-size: 10px;
+		font-family: 'Lato', sans-serif;
+		height: 14px;
 	}
-	.hbar-row:last-child {
-		margin-bottom: 0;
+	.hbar-row-label {
+		font-size: 11px;
+		font-family: 'Lato', sans-serif;
+		color: var(--color-text-dark);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		flex-shrink: 0;
+		box-sizing: border-box;
+	}
+	.hbar-group-tooltip {
+		display: none;
+		position: absolute;
+		z-index: 10;
+		background: var(--color-tooltip-bg, #333);
+		color: #fff;
+		padding: 5px 8px;
+		border-radius: 4px;
+		font-size: 10px;
+		font-family: 'Lato', sans-serif;
+		white-space: nowrap;
+		pointer-events: none;
+		top: -32px;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+	.hbar-group:hover .hbar-group-tooltip {
+		display: block;
 	}
 	.hbar-left {
 		display: flex;
 		justify-content: flex-end;
 		align-items: center;
-		height: 20px;
+		height: 100%;
 	}
 	.hbar-right {
 		display: flex;
 		justify-content: flex-start;
 		align-items: center;
-		height: 20px;
+		height: 100%;
 	}
 	.hbar-fill {
 		height: 100%;
 		background: var(--color-card-red);
+	}
+	.hbar-fill-prev {
+		height: 100%;
+		background: var(--color-axis-text);
+		opacity: 0.45;
 	}
 	.hbar-label {
 		color: var(--color-text-dark);
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		padding: 0 3px;
+		padding: 0 4px;
 	}
-	.hbar-value {
-		font-size: 9px;
-		color: var(--color-text-dark);
+	.hbar-bar-label {
+		font-size: 7px;
+		color: var(--color-text-muted);
 		white-space: nowrap;
 		padding: 0 2px;
+		line-height: 14px;
+	}
+	/* Navigation buttons */
+	.chart-nav-btn {
+		background: none;
+		border: 1px solid var(--color-border-light);
+		border-radius: 4px;
+		color: var(--color-text-muted);
+		cursor: pointer;
+		padding: 6px 10px;
+		font-size: 11px;
+		line-height: 1;
+		transition: border-color 0.2s, color 0.2s;
+	}
+	.chart-nav-btn:hover {
+		border-color: var(--color-card-blue);
+		color: var(--color-card-blue);
+	}
+	/* Loading overlay */
+	.chart-loading {
+		position: absolute;
+		inset: 0;
+		background: var(--color-bg-white);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 5;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.15s;
+	}
+	.chart-loading.active {
+		opacity: 0.8;
+		pointer-events: auto;
+	}
+	.chart-loading-spinner {
+		width: 22px;
+		height: 22px;
+		border: 2.5px solid var(--color-border-light);
+		border-top-color: var(--color-card-blue);
+		border-radius: 50%;
+		animation: spin 0.6s linear infinite;
+	}
+	@keyframes spin {
+		to { transform: rotate(360deg); }
+	}
+	/* Fade transition for chart swaps */
+	.chart-flip-front .chart-body {
+		transition: opacity 0.15s ease;
+	}
+	.chart-flip-front .chart-body.fading {
+		opacity: 0;
 	}
 </style>
 
@@ -410,16 +576,18 @@
 
 	<article>
 		<div class="chart-selector">
-			<label for="dataset-select">Select chart:</label>
-			<select id="dataset-select"></select>
+			<button class="chart-nav-btn" id="chart-prev" title="Previous chart" aria-label="Previous chart"><i class="fa fa-chevron-left"></i></button>
+			<select id="dataset-select" aria-label="Select chart"></select>
+			<button class="chart-nav-btn" id="chart-next" title="Next chart" aria-label="Next chart"><i class="fa fa-chevron-right"></i></button>
 		</div>
-		<div class="chart-flip-wrapper">
+		<div class="chart-flip-wrapper" role="region" aria-label="Economic indicator chart">
 			<div class="chart-flip-inner">
-				<div class="chart-flip-front">
+				<div class="chart-flip-front" aria-hidden="false">
 					<div class="chart-container">
+						<div class="chart-loading" id="chart-loading"><div class="chart-loading-spinner"></div></div>
 						<div class="chart-header">
-							<h4 id="chart-title">M2 Money Supply / GDP</h4>
-							<a id="chart-info" title="About this indicator"><i class="fa fa-info-circle"></i></a>
+							<h4><span id="chart-title">M2 Money Supply / GDP</span> <span class="card-category-badge" id="card-category-front"></span></h4>
+							<button id="chart-info" title="About this indicator" aria-label="About this indicator"><i class="fa fa-info-circle"></i></button>
 						</div>
 						<div class="chart-body">
 							<p class="chart-subtitle" id="chart-subtitle">index, 1988=1</p>
@@ -428,23 +596,27 @@
 						</div>
 						<div class="chart-footer">
 							<p class="chart-filter" id="chart-filter"><a onclick="toggleTimeRange()">Recent 3 years</a></p>
-							<p class="chart-source" id="chart-source">Source: Federal Reserve, BEA</p>
+<p class="chart-source" id="chart-source">Source: Federal Reserve, BEA</p>
 						</div>
 					</div>
 				</div>
-				<div class="chart-flip-back">
+				<div class="chart-flip-back" aria-hidden="true">
 					<div class="chart-container">
 						<div class="chart-header">
-							<h4 id="chart-title-back"></h4>
-							<a id="chart-back-btn" title="Back to chart"><i class="fa fa-arrow-left"></i></a>
+							<h4><span id="chart-title-back"></span> <span class="card-category-badge" id="card-category"></span></h4>
+							<button id="chart-back-btn" title="Back to chart" aria-label="Back to chart"><i class="fa fa-arrow-left"></i></button>
 						</div>
 						<div class="chart-body chart-back-body">
 							<p id="chart-description"></p>
-							<div class="chart-info-latest" id="chart-latest"></div>
+							<div class="chart-back-subtitle" id="chart-subtitle-back"></div>
+							<div id="chart-latest"></div>
 							<a id="chart-download" href="files/m2gdp.csv" class="chart-download-link" download><i class="fa fa-download"></i> Download data (.csv)</a>
 						</div>
 						<div class="chart-footer">
-							<svg viewBox="0 0 9 5" width="16" height="9" style="fill: var(--color-text-subtle); opacity: 0.5;" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+							<span style="display: flex; align-items: center; gap: 10px;">
+								<svg viewBox="0 0 9 5" width="16" height="9" style="fill: var(--color-text-subtle); opacity: 0.5;" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+								<span class="card-number" id="card-number"></span>
+							</span>
 							<p class="chart-source" id="chart-source-back"></p>
 						</div>
 					</div>
@@ -513,6 +685,61 @@
 		let isFilteredView = false;
 		let currentConfig = null;
 		let isFlipped = false;
+		const csvCache = new Map();
+
+		// NBER recession periods [start, end]
+		const recessionPeriods = [
+			['1948-11-01', '1949-10-01'],
+			['1953-07-01', '1954-05-01'],
+			['1957-08-01', '1958-04-01'],
+			['1960-04-01', '1961-02-01'],
+			['1969-12-01', '1970-11-01'],
+			['1973-11-01', '1975-03-01'],
+			['1980-01-01', '1980-07-01'],
+			['1981-07-01', '1982-11-01'],
+			['1990-07-01', '1991-03-01'],
+			['2001-03-01', '2001-11-01'],
+			['2007-12-01', '2009-06-01'],
+			['2020-02-01', '2020-04-01']
+		];
+
+		// Recession shading plugin
+		const recessionPlugin = {
+			id: 'recessionShading',
+			beforeDraw: function(chart) {
+				const config = chart.config._config.datasetConfig;
+				if (config?.timeSeries === false) return;
+
+				const ctx = chart.ctx;
+				const xAxis = chart.scales.x;
+				const yAxis = chart.scales.y;
+				const labels = chart.data.labels;
+				if (!labels || labels.length === 0) return;
+
+				const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+				ctx.save();
+				ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.06)';
+
+				recessionPeriods.forEach(([start, end]) => {
+					if (end < labels[0] || start > labels[labels.length - 1]) return;
+
+					let startIdx = 0, endIdx = labels.length - 1;
+					for (let i = labels.length - 1; i >= 0; i--) {
+						if (labels[i] <= start) { startIdx = i; break; }
+					}
+					for (let i = labels.length - 1; i >= 0; i--) {
+						if (labels[i] <= end) { endIdx = i; break; }
+					}
+					if (startIdx > endIdx) return;
+
+					const x1 = xAxis.getPixelForValue(startIdx);
+					const x2 = xAxis.getPixelForValue(endIdx);
+					ctx.fillRect(x1, yAxis.top, x2 - x1, yAxis.bottom - yAxis.top);
+				});
+
+				ctx.restore();
+			}
+		};
 
 		// Color mapping to CSS variables (rebuilt on each chart load for theme changes)
 		let colorMap = null;
@@ -852,58 +1079,64 @@
 			}
 		};
 
-		// Render dual horizontal bar chart
-		function renderDualBarChart(config, data) {
-			const top5 = data.slice(0, 5);
-			const bottom5 = data.slice(-5);
+		// Render horizontal bar chart with latest + previous period bars
+		function renderDualBarChart(config, data, latestLabel, prevLabel) {
+			const allVals = data.flatMap(d => [d.value, d.previous].filter(v => v != null));
+			const maxVal = Math.max(...allVals.map(v => Math.abs(v)));
+			const maxNeg = Math.max(...allVals.filter(v => v < 0).map(v => Math.abs(v)), 0);
 
-			// Shared scale: use max absolute value across ALL data
-			const maxVal = Math.max(...data.map(d => Math.abs(d.value)));
-			const minVal = Math.min(...data.map(d => d.value));
+			// Labels on left (labelPct%), bars on right (barPct%)
+			// Within bar zone, zero line offset by negative share
+			const labelPct = 32;
+			const barPct = 100 - labelPct;
+			const negShare = maxNeg > 0 ? Math.max(maxNeg / (maxVal + maxNeg), 0.15) : 0;
+			const zeroInBar = negShare * 100; // % within bar zone
 
-			// Calculate left side width based on whether there are negative values
-			// Left side needs space for: negative bars OR positive labels
-			const hasNegative = minVal < 0;
-			const negBarMax = hasNegative ? Math.abs(minVal) / maxVal * 50 : 0;
-			const leftWidth = 50; // Fixed 50% for left side (labels or neg bars)
-			const rightWidth = 50; // Fixed 50% for right side (pos bars or labels)
-
-			function renderPanel(items, title) {
-				const rows = items.map(d => {
-					const valueStr = d.value.toFixed(2);
-					const barPct = (Math.abs(d.value) / maxVal) * 100;
-
-					let leftContent, rightContent;
-
-					if (d.value >= 0) {
-						// Positive: label on left (right-aligned), bar+value on right
-						leftContent = `<span class="hbar-label" title="${d.name}">${d.name}</span>`;
-						rightContent = `<div class="hbar-fill" style="width: ${barPct}%;"></div><span class="hbar-value">${valueStr}</span>`;
-					} else {
-						// Negative: value+bar on left, label on right
-						leftContent = `<span class="hbar-value">${valueStr}</span><div class="hbar-fill" style="width: ${barPct}%;"></div>`;
-						rightContent = `<span class="hbar-label" title="${d.name}">${d.name}</span>`;
-					}
-
-					return `
-					<div class="hbar-row">
-						<div class="hbar-left" style="width: ${leftWidth}%;">${leftContent}</div>
-						<div class="hbar-right" style="width: ${rightWidth}%;">${rightContent}</div>
+			function renderBar(val, fillClass) {
+				if (val == null) return '';
+				const pct = val >= 0
+					? (Math.abs(val) / maxVal) * (100 - zeroInBar)
+					: (Math.abs(val) / maxNeg) * zeroInBar;
+				const valStr = val.toFixed(2);
+				if (val >= 0) {
+					return `<div class="hbar-row">
+						<div class="hbar-left" style="width: ${zeroInBar}%;"></div>
+						<div class="hbar-right" style="width: ${100 - zeroInBar}%;"><div class="${fillClass}" style="width: ${pct}%;"></div><span class="hbar-bar-label">${valStr}</span></div>
 					</div>`;
-				}).join('');
-
-				return `<div class="dual-bar-panel">
-					<h5>${title}</h5>
-					<div class="hbar-rows-container">
-						<div class="hbar-zero-line"></div>
-						${rows}
-					</div>
-				</div>`;
+				} else {
+					return `<div class="hbar-row">
+						<div class="hbar-left" style="width: ${zeroInBar}%;"><span class="hbar-bar-label">${valStr}</span><div class="${fillClass}" style="width: ${pct}%;"></div></div>
+						<div class="hbar-right" style="width: ${100 - zeroInBar}%;"></div>
+					</div>`;
+				}
 			}
 
-			return `<div class="dual-bar-container">
-				${renderPanel(top5, 'Top 5')}
-				${renderPanel(bottom5, 'Bottom 5')}
+			const groups = data.map(d => {
+				const tipText = `${d.name}: ${d.value.toFixed(2)} (${latestLabel})` +
+					(d.previous != null ? `, ${d.previous.toFixed(2)} (${prevLabel})` : '');
+				return `<div class="hbar-group">
+					<div class="hbar-row-label" style="width: ${labelPct}%; text-align: right; padding-right: 6px;">${d.name}</div>
+					<div class="hbar-bars" style="width: ${barPct}%;">
+						${renderBar(d.value, 'hbar-fill')}
+						${renderBar(d.previous, 'hbar-fill-prev')}
+					</div>
+					<div class="hbar-group-tooltip">${tipText}</div>
+				</div>`;
+			}).join('');
+
+			const legend = `<div class="hbar-legend">
+				<div class="hbar-legend-item"><div class="hbar-legend-swatch" style="background: var(--color-card-red);"></div>${latestLabel || 'Latest'}</div>
+				<div class="hbar-legend-item"><div class="hbar-legend-swatch" style="background: var(--color-axis-text); opacity: 0.45;"></div>${prevLabel || 'Previous'}</div>
+			</div>`;
+
+			const zeroLinePos = labelPct + negShare * barPct;
+
+			return `<div class="hbar-chart-container">
+				${legend}
+				<div class="hbar-rows-container">
+					<div class="hbar-zero-line" style="left: ${zeroLinePos}%;"></div>
+					${groups}
+				</div>
 			</div>`;
 		}
 
@@ -1028,6 +1261,8 @@
 			const wrapper = document.querySelector('.chart-flip-wrapper');
 			wrapper.classList.toggle('flipped');
 			isFlipped = !isFlipped;
+			document.querySelector('.chart-flip-front').setAttribute('aria-hidden', isFlipped);
+			document.querySelector('.chart-flip-back').setAttribute('aria-hidden', !isFlipped);
 		}
 
 		function resetFlip() {
@@ -1036,7 +1271,7 @@
 			isFlipped = false;
 		}
 
-		function updateBackFace(config, data, latestDate) {
+		function updateBackFace(config, data, latestDate, prevDate) {
 			// Title and source
 			document.getElementById('chart-title-back').textContent = config.title;
 			document.getElementById('chart-source-back').textContent = 'Source: ' + config.source;
@@ -1051,6 +1286,24 @@
 			backHeader.style.backgroundColor = headerColor.border;
 			backHeader.style.color = colorKey === 'yellow' ? '#222' : 'white';
 
+			// Category badge (back and front)
+			const categoryEl = document.getElementById('card-category');
+			const categoryFrontEl = document.getElementById('card-category-front');
+			if (config.category) {
+				categoryEl.textContent = config.category;
+				categoryEl.style.display = '';
+				categoryFrontEl.textContent = config.category;
+				categoryFrontEl.style.display = '';
+			} else {
+				categoryEl.style.display = 'none';
+				categoryFrontEl.style.display = 'none';
+			}
+
+			// Card number
+			const cardIndex = manifest.charts.indexOf(config) + 1;
+			const cardTotal = manifest.charts.length;
+			document.getElementById('card-number').textContent = `#${cardIndex} / ${cardTotal}`;
+
 			// Description
 			const descEl = document.getElementById('chart-description');
 			if (config.description) {
@@ -1060,68 +1313,193 @@
 				descEl.style.display = 'none';
 			}
 
-			// Latest value summary
-			const latestEl = document.getElementById('chart-latest');
-			latestEl.innerHTML = generateLatestSummary(config, data, latestDate);
+			// Subtitle (units / scale info)
+			const subtitleBackEl = document.getElementById('chart-subtitle-back');
+			if (config.subtitle) {
+				subtitleBackEl.textContent = config.subtitle;
+				subtitleBackEl.style.display = '';
+			} else {
+				subtitleBackEl.style.display = 'none';
+			}
 
-			// Latest value border color
-			latestEl.style.borderLeftColor = headerColor.border;
+			// Stats table
+			const latestEl = document.getElementById('chart-latest');
+			latestEl.innerHTML = generateStatsTable(config, data, latestDate, prevDate);
 
 			// Show/hide info icon
 			const infoBtn = document.getElementById('chart-info');
 			infoBtn.style.display = config.description ? '' : 'none';
 		}
 
-		function generateLatestSummary(config, data, latestDate) {
+		function generateStatsTable(config, data, latestDate, prevDate) {
 			const decimals = config.decimals ?? 2;
 			const prefix = config.valuePrefix || '';
 			const suffix = config.valueSuffix || '';
 			const isMultiSeries = config.series && config.series.length > 1;
-			const units = config.subtitle ? `<em>${config.subtitle}</em><br>` : '';
+			const formatVal = (v) => prefix + v.toFixed(decimals) + suffix;
 
 			if (config.type === 'dualBar') {
-				// Non-time-series dual bar: show top and bottom values
-				const lines = data;
-				if (!lines || lines.length === 0) return '';
-				const top = lines[0];
-				const bottom = lines[lines.length - 1];
-				let html = units;
+				// Table of all categories with period-labeled columns
+				if (!data || data.length === 0) return '';
+				let latestLabel = 'Latest';
+				let prevLabel = 'Previous';
 				if (latestDate) {
 					const dateFmt = getDateFormatConfig(config.latestDateFormat || 'monthly');
-					const dateStr = dateFmt.lastValueFormat(new Date(latestDate)).join(' ');
-					html += `<strong>As of</strong> ${dateStr}<br>`;
+					latestLabel = dateFmt.lastValueFormat(new Date(latestDate)).join(' ');
 				}
-				html += `<strong>Highest:</strong> ${top.name} (${prefix}${top.value.toFixed(decimals)}${suffix})<br>`;
-				html += `<strong>Lowest:</strong> ${bottom.name} (${prefix}${bottom.value.toFixed(decimals)}${suffix})`;
+				if (prevDate) {
+					const dateFmt = getDateFormatConfig(config.latestDateFormat || 'monthly');
+					prevLabel = dateFmt.lastValueFormat(new Date(prevDate)).join(' ');
+				}
+				let html = `<table class="card-stats-table"><thead><tr><th>Category</th><th>${latestLabel}</th><th>${prevLabel}</th></tr></thead><tbody>`;
+				data.forEach(d => {
+					html += `<tr><td>${d.name}</td><td>${formatVal(d.value)}</td>`;
+					html += `<td>${d.previous != null ? formatVal(d.previous) : '\u2014'}</td></tr>`;
+				});
+				html += '</tbody></table>';
 				return html;
 			}
 
 			if (config.timeSeries === false) {
-				// Non-time-series bar/scatter
+				// Non-time-series bar: table of all entries
 				if (!data || data.length === 0) return '';
-				const last = data[data.length - 1];
-				return units + `<strong>Latest:</strong> ${prefix}${last.value.toFixed(decimals)}${suffix}`;
+				let html = '<table class="card-stats-table"><tbody>';
+				data.forEach(d => {
+					const name = d.date || d.name;
+					const isUSA = /^(United States|USA|US)$/i.test(name);
+					const cls = isUSA ? ' class="stat-highlight"' : '';
+					html += `<tr><td${cls}>${name}</td><td${cls}>${formatVal(d.value)}</td></tr>`;
+				});
+				html += '</tbody></table>';
+				return html;
 			}
 
-			// Time series charts
-			const dateFormat = getDateFormatConfig(config.dateFormat || 'quarterly');
-
+			// Time series - multi-series
 			if (isMultiSeries) {
 				const last = data[data.length - 1];
 				const lastDate = new Date(last.date);
-				const dateStr = dateFormat.lastValueFormat(lastDate).join(' ');
-				const lines = config.series.map((s, i) => {
-					const val = prefix + last.values[i].toFixed(decimals) + suffix;
-					return `<strong>${s.label}:</strong> ${val}`;
+				const dateFormat = getDateFormatConfig(config.dateFormat || 'quarterly');
+
+				function findClosestMulti(targetDate) {
+					let closest = null;
+					let minDiff = Infinity;
+					for (const entry of data) {
+						const diff = Math.abs(new Date(entry.date) - targetDate);
+						if (diff < minDiff) {
+							minDiff = diff;
+							closest = entry;
+						}
+					}
+					return closest && minDiff < 45 * 24 * 60 * 60 * 1000 ? closest : null;
+				}
+
+				const rows = [];
+				for (let yr = 6; yr >= 0; yr--) {
+					const target = new Date(lastDate);
+					target.setFullYear(target.getFullYear() - yr);
+					const entry = yr === 0 ? last : findClosestMulti(target);
+					if (entry) rows.push({ entry, isLatest: yr === 0 });
+				}
+
+				let html = '<table class="card-stats-table"><thead><tr><th>Period</th>';
+				config.series.forEach(s => { html += `<th>${s.label}</th>`; });
+				html += '</tr></thead><tbody>';
+				rows.forEach(({ entry, isLatest }) => {
+					const d = new Date(entry.date);
+					const label = dateFormat.lastValueFormat(d).join(' ');
+					const b = isLatest ? '<strong>' : '';
+					const bc = isLatest ? '</strong>' : '';
+					html += `<tr><td>${b}${label}${bc}</td>`;
+					config.series.forEach((s, i) => {
+						const v = entry.values[i] != null ? formatVal(entry.values[i]) : '\u2014';
+						html += `<td>${b}${v}${bc}</td>`;
+					});
+					html += '</tr>';
 				});
-				return units + `<strong>As of</strong> ${dateStr}<br>` + lines.join('<br>');
-			} else {
-				const last = data[data.length - 1];
-				const lastDate = new Date(last.date);
-				const dateStr = dateFormat.lastValueFormat(lastDate).join(' ');
-				const val = prefix + last.value.toFixed(decimals) + suffix;
-				return units + `<strong>Latest value:</strong> ${val}<br><strong>As of</strong> ${dateStr}`;
+				html += '</tbody></table>';
+				return html;
 			}
+
+			// Time series - single series: 5 consecutive years
+			const last = data[data.length - 1];
+			const lastDate = new Date(last.date);
+			const dateFormat = getDateFormatConfig(config.dateFormat || 'quarterly');
+
+			function findClosest(targetDate) {
+				let closest = null;
+				let minDiff = Infinity;
+				for (const entry of data) {
+					const diff = Math.abs(new Date(entry.date) - targetDate);
+					if (diff < minDiff) {
+						minDiff = diff;
+						closest = entry;
+					}
+				}
+				// Only use if within 45 days of target
+				return closest && minDiff < 45 * 24 * 60 * 60 * 1000 ? closest : null;
+			}
+
+			// Build rows for latest + 6 prior years, chronological order
+			const rows = [];
+			for (let yr = 6; yr >= 0; yr--) {
+				const target = new Date(lastDate);
+				target.setFullYear(target.getFullYear() - yr);
+				const entry = yr === 0 ? last : findClosest(target);
+				if (entry) rows.push({ entry, isLatest: yr === 0 });
+			}
+
+			const hasComponents = config.components && rows.some(r => r.entry.components);
+
+			if (hasComponents) {
+				// Table with component columns instead of change
+				const comps = config.components;
+				let html = '<table class="card-stats-table"><thead><tr><th>Period</th><th>' +
+					(config.tooltipLabel || 'Value');
+				comps.forEach(c => { html += `</th><th>${c.label}`; });
+				html += '</th></tr></thead><tbody>';
+				rows.forEach(({ entry, isLatest }) => {
+					const d = new Date(entry.date);
+					const label = dateFormat.lastValueFormat(d).join(' ');
+					const b = isLatest ? '<strong>' : '';
+					const bc = isLatest ? '</strong>' : '';
+					html += `<tr><td>${b}${label}${bc}</td><td>${b}${formatVal(entry.value)}${bc}</td>`;
+					comps.forEach((c, ci) => {
+						const cv = entry.components && entry.components[ci] != null
+							? (c.prefix || '') + entry.components[ci].toFixed(c.decimals ?? 1) + (c.suffix || '')
+							: '\u2014';
+						html += `<td>${b}${cv}${bc}</td>`;
+					});
+					html += '</tr>';
+				});
+				html += '</tbody></table>';
+				return html;
+			}
+
+			// Standard table with year-over-year change
+			const pctChange = config.changeType === 'percent';
+			const formatChange = (curr, prev) => {
+				if (pctChange) {
+					const pct = ((curr - prev) / Math.abs(prev)) * 100;
+					const sign = pct >= 0 ? '+' : '';
+					return sign + pct.toFixed(1) + '%';
+				}
+				const diff = curr - prev;
+				const sign = diff >= 0 ? '+' : '';
+				return sign + diff.toFixed(decimals);
+			};
+
+			const chgHeader = pctChange ? 'Chg %' : 'Chg';
+			let html = `<table class="card-stats-table"><thead><tr><th>Period</th><th>Value</th><th>${chgHeader}</th></tr></thead><tbody>`;
+			rows.forEach(({ entry, isLatest }, i) => {
+				const d = new Date(entry.date);
+				const label = dateFormat.lastValueFormat(d).join(' ');
+				const change = i === 0 ? '\u2014' : formatChange(entry.value, rows[i - 1].entry.value);
+				const b = isLatest ? '<strong>' : '';
+				const bc = isLatest ? '</strong>' : '';
+				html += `<tr><td>${b}${label}${bc}</td><td>${b}${formatVal(entry.value)}${bc}</td><td>${b}${change}${bc}</td></tr>`;
+			});
+			html += '</tbody></table>';
+			return html;
 		}
 
 		// Populate dropdown with optional grouping
@@ -1177,6 +1555,12 @@
 			// Update URL hash for sharing
 			window.history.replaceState(null, '', '#' + datasetId);
 
+			// Fade out chart body and show loading
+			const chartBody = document.querySelector('.chart-flip-front .chart-body');
+			const loadingEl = document.getElementById('chart-loading');
+			chartBody.classList.add('fading');
+			loadingEl.classList.add('active');
+
 			// Update DOM elements
 			document.getElementById('chart-title').textContent = config.title;
 			document.getElementById('chart-subtitle').textContent = config.subtitle || '';
@@ -1195,11 +1579,18 @@
 			header.style.color = colorKey === 'yellow' ? '#222' : 'white';
 
 			try {
-				const response = await fetch(config.file);
-				if (!response.ok) {
-					throw new Error('Failed to load ' + config.file);
+				// Use cached CSV if available
+				let csv;
+				if (csvCache.has(config.file)) {
+					csv = csvCache.get(config.file);
+				} else {
+					const response = await fetch(config.file);
+					if (!response.ok) {
+						throw new Error('Failed to load ' + config.file);
+					}
+					csv = await response.text();
+					csvCache.set(config.file, csv);
 				}
-				const csv = await response.text();
 
 				// Parse CSV - handle multi-series differently
 				const lines = csv.trim().split('\n');
@@ -1214,8 +1605,12 @@
 					});
 				} else {
 					data = lines.slice(1).map(line => {
-						const [date, value] = line.split(',');
-						return { date, value: parseFloat(value) };
+						const parts = line.split(',');
+						const entry = { date: parts[0], value: parseFloat(parts[1]) };
+						if (parts.length > 2) {
+							entry.components = parts.slice(2).map(v => parseFloat(v));
+						}
+						return entry;
 					});
 				}
 
@@ -1239,26 +1634,42 @@
 					chart = null;
 				}
 
+				// Toggle vertical card orientation for bar-only charts
+				const wrapper = document.querySelector('.chart-flip-wrapper');
+				if (config.type === 'dualBar') {
+					wrapper.classList.add('card-vertical');
+				} else {
+					wrapper.classList.remove('card-vertical');
+				}
+
 				// Handle dual bar chart type
 				if (config.type === 'dualBar') {
 					const dualData = lines.slice(1).map(line => {
 						const parts = line.split(',');
-						return { name: parts[0], value: parseFloat(parts[1]) };
+						return { name: parts[0], value: parseFloat(parts[1]), previous: parts[2] ? parseFloat(parts[2]) : null };
 					});
 
-					// Fetch latest date from a related time series if configured
+					// Fetch latest and previous dates from a related time series if configured
 					let latestDate = null;
+					let prevDate = null;
 					if (config.latestDateSource) {
 						try {
-							const dateResp = await fetch(config.latestDateSource);
-							if (dateResp.ok) {
-								const dateCsv = await dateResp.text();
+							let dateCsv;
+							if (csvCache.has(config.latestDateSource)) {
+								dateCsv = csvCache.get(config.latestDateSource);
+							} else {
+								const dateResp = await fetch(config.latestDateSource);
+								if (dateResp.ok) {
+									dateCsv = await dateResp.text();
+									csvCache.set(config.latestDateSource, dateCsv);
+								}
+							}
+							if (dateCsv) {
 								const dateLines = dateCsv.trim().split('\n');
 								latestDate = dateLines[dateLines.length - 1].split(',')[0];
-								const dateFmt = getDateFormatConfig(config.latestDateFormat || 'monthly');
-								const dateStr = dateFmt.lastValueFormat(new Date(latestDate)).join(' ');
-								document.getElementById('chart-subtitle').textContent =
-									config.subtitle + ', ' + dateStr;
+								if (dateLines.length > 2) {
+									prevDate = dateLines[dateLines.length - 2].split(',')[0];
+								}
 							}
 						} catch (e) {
 							console.warn('Could not fetch latest date:', e);
@@ -1275,8 +1686,13 @@
 						document.querySelector('.chart-flip-front .chart-body').appendChild(customContainer);
 					}
 					customContainer.style.display = 'block';
-					customContainer.innerHTML = renderDualBarChart(config, dualData);
-					updateBackFace(config, dualData, latestDate);
+					const dateFmt2 = getDateFormatConfig(config.latestDateFormat || 'monthly');
+					const latestLabel = latestDate ? dateFmt2.lastValueFormat(new Date(latestDate)).join(' ') : 'Latest';
+					const prevLabel = prevDate ? dateFmt2.lastValueFormat(new Date(prevDate)).join(' ') : 'Previous';
+					customContainer.innerHTML = renderDualBarChart(config, dualData, latestLabel, prevLabel);
+					updateBackFace(config, dualData, latestDate, prevDate);
+					chartBody.classList.remove('fading');
+					loadingEl.classList.remove('active');
 					return;
 				}
 
@@ -1331,7 +1747,7 @@
 						datasets: datasets
 					},
 					plugins: [
-						...(config.timeSeries !== false ? [lastValuePlugin] : []),
+						...(config.timeSeries !== false ? [lastValuePlugin, recessionPlugin] : []),
 						...(config.showDataLabels ? [dataLabelsPlugin] : [])
 					],
 					options: {
@@ -1369,7 +1785,20 @@
 											return context.dataset.label + ': ' + formattedValue;
 										}
 										const label = config.tooltipLabel || config.title;
-										return label + ': ' + formattedValue;
+										const lines = [label + ': ' + formattedValue];
+										if (config.components && fullData) {
+											const dateLabel = chart.data.labels[context.dataIndex];
+											const entry = fullData.find(d => d.date === dateLabel);
+											if (entry && entry.components) {
+												config.components.forEach((comp, ci) => {
+													if (entry.components[ci] != null) {
+														const cv = (comp.prefix || '') + entry.components[ci].toFixed(comp.decimals ?? 1) + (comp.suffix || '');
+														lines.push('  ' + comp.label + ': ' + cv);
+													}
+												});
+											}
+										}
+										return lines;
 									}
 								}
 							},
@@ -1413,9 +1842,15 @@
 
 				// Update back face with description and latest value
 				updateBackFace(config, data);
+
+				// Fade in
+				chartBody.classList.remove('fading');
+				loadingEl.classList.remove('active');
 			} catch (error) {
 				console.error('Error loading chart:', error);
 				showError(error.message);
+				chartBody.classList.remove('fading');
+				loadingEl.classList.remove('active');
 			}
 		}
 
@@ -1457,10 +1892,23 @@
 
 		// Update chart colors after theme toggle
 		function refreshChartColors() {
+			csvCache.clear();
 			const select = document.getElementById('dataset-select');
 			if (select && select.value) {
 				loadChart(select.value);
 			}
+		}
+
+		// Navigate to previous or next chart
+		function navigateChart(direction) {
+			if (!manifest) return;
+			const select = document.getElementById('dataset-select');
+			const options = Array.from(select.querySelectorAll('option'));
+			const currentIdx = options.findIndex(o => o.value === select.value);
+			const newIdx = currentIdx + direction;
+			if (newIdx < 0 || newIdx >= options.length) return;
+			select.value = options[newIdx].value;
+			loadChart(select.value);
 		}
 
 		// Handle dropdown changes
@@ -1471,6 +1919,25 @@
 		// Flip card event listeners
 		document.getElementById('chart-info').addEventListener('click', flipCard);
 		document.getElementById('chart-back-btn').addEventListener('click', flipCard);
+
+		// Navigation button listeners
+		document.getElementById('chart-prev').addEventListener('click', () => navigateChart(-1));
+		document.getElementById('chart-next').addEventListener('click', () => navigateChart(1));
+
+		// Keyboard navigation
+		document.addEventListener('keydown', (e) => {
+			// Skip if user is typing in an input/select/textarea
+			const tag = document.activeElement.tagName;
+			if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+
+			if (e.key === 'ArrowLeft') {
+				e.preventDefault();
+				navigateChart(-1);
+			} else if (e.key === 'ArrowRight') {
+				e.preventDefault();
+				navigateChart(1);
+			}
+		});
 
 		// Initialize on page load
 		init();

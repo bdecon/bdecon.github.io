@@ -17,7 +17,11 @@
       "fill": false,
       "category": "Monetary",
       "order": 3,
-      "description": "M2 measures the money supply including cash, checking deposits, savings deposits, and money market funds. This chart shows M2 as a share of nominal GDP."
+      "description": "M2 measures the money supply including cash, checking deposits, savings deposits, and money market funds. This chart shows M2 as a share of nominal GDP.",
+      "components": [
+        {"col": "m2_level", "label": "M2", "prefix": "$", "suffix": "T", "decimals": 1},
+        {"col": "gdp", "label": "GDP", "prefix": "$", "suffix": "T", "decimals": 1}
+      ]
     },
     {
       "id": "gdppc",
@@ -34,7 +38,11 @@
       "fill": true,
       "category": "Output",
       "order": 1,
-      "description": "Real GDP per capita divides inflation-adjusted gross domestic product by population. It is a broad measure of average economic output per person."
+      "description": "Real GDP per capita divides inflation-adjusted gross domestic product by population. It is a broad measure of average economic output per person.",
+      "components": [
+        {"col": "rgdp", "label": "GDP", "prefix": "$", "suffix": "T", "decimals": 1},
+        {"col": "pop", "label": "Pop", "suffix": "M", "decimals": 1}
+      ]
     },
     {
       "id": "ffrate",
@@ -49,6 +57,7 @@
       "color": "blue",
       "dateFormat": "monthly",
       "fill": true,
+      "beginAtZero": true,
       "category": "Monetary",
       "order": 4,
       "description": "The federal funds rate is the interest rate at which banks lend reserves to each other overnight. It is the Federal Reserve's primary tool for conducting monetary policy."
@@ -102,7 +111,11 @@
       "dateFormat": "monthly",
       "category": "Trade",
       "order": 6,
-      "description": "The trade balance is exports minus imports of goods and services, shown here as a share of GDP. A negative value indicates a trade deficit."
+      "description": "The trade balance is exports minus imports of goods and services, shown here as a share of GDP. A negative value indicates a trade deficit.",
+      "components": [
+        {"col": "balance", "label": "Bal", "prefix": "$", "suffix": "B", "decimals": 0},
+        {"col": "gdp", "label": "GDP", "prefix": "$", "suffix": "T", "decimals": 1}
+      ]
     },
     {
       "id": "tariff",
@@ -119,7 +132,11 @@
       "dateFormat": "monthly",
       "category": "Trade",
       "order": 7,
-      "description": "The effective tariff rate is calculated as customs duties collected divided by the value of goods imports. It reflects the average tax rate on imported goods."
+      "description": "The effective tariff rate is calculated as customs duties collected divided by the value of goods imports. It reflects the average tax rate on imported goods.",
+      "components": [
+        {"col": "duties", "label": "Duties", "prefix": "$", "suffix": "B", "decimals": 1},
+        {"col": "imports", "label": "Imports", "prefix": "$", "suffix": "B", "decimals": 0}
+      ]
     },
     {
       "id": "epop",
@@ -136,7 +153,11 @@
       "dateFormat": "monthly",
       "category": "Labor",
       "order": 8,
-      "description": "The employment-population ratio shows the share of prime-age adults (25\u201354) who are employed. It is a broad measure of labor market health that is not affected by changes in labor force participation."
+      "description": "The employment-population ratio shows the share of prime-age adults (25\u201354) who are employed. The prime-age range excludes younger adults who may be in school and older adults who may be retired. It is a broad measure of labor market health that is not affected by changes in labor force participation.",
+      "components": [
+        {"col": "emp_pa", "label": "Emp", "suffix": "M", "decimals": 1},
+        {"col": "pop_pa", "label": "Pop", "suffix": "M", "decimals": 1}
+      ]
     },
     {
       "id": "indpro",
@@ -152,7 +173,8 @@
       "dateFormat": "monthly",
       "category": "Output",
       "order": 9,
-      "description": "The industrial production index measures the real output of the manufacturing sector. It is published by the Federal Reserve and indexed to 2012."
+      "description": "The industrial production index measures the real output of the manufacturing sector. It is published by the Federal Reserve and indexed to 2012. A value above 100 indicates higher output than in 2012.",
+      "changeType": "percent"
     },
     {
       "id": "unrate",
@@ -169,7 +191,11 @@
       "dateFormat": "monthly",
       "category": "Labor",
       "order": 10,
-      "description": "The unemployment rate is the share of the labor force that is actively seeking work but unable to find a job. It is one of the most widely followed indicators of labor market conditions."
+      "description": "The unemployment rate is the share of the labor force that is actively seeking work but unable to find a job. It is one of the most widely followed indicators of labor market conditions.",
+      "components": [
+        {"col": "unemp", "label": "Unemp", "suffix": "M", "decimals": 1},
+        {"col": "lf", "label": "LF", "suffix": "M", "decimals": 1}
+      ]
     },
     {
       "id": "joun",
@@ -185,7 +211,11 @@
       "dateFormat": "monthly",
       "category": "Labor",
       "order": 11,
-      "description": "This ratio divides the number of job openings (from the JOLTS survey) by the number of unemployed persons. A higher ratio indicates a tighter labor market with more opportunities per job seeker."
+      "description": "This ratio divides the number of job openings (from the JOLTS survey) by the number of unemployed persons. A value above 1.0 means there are more job openings than unemployed persons. A higher ratio indicates a tighter labor market with more opportunities per job seeker.",
+      "components": [
+        {"col": "openings", "label": "Openings", "suffix": "M", "decimals": 1},
+        {"col": "unemp", "label": "Unemp", "suffix": "M", "decimals": 1}
+      ]
     },
     {
       "id": "p10rw",
@@ -202,7 +232,8 @@
       "dateFormat": "monthly",
       "category": "Labor",
       "order": 12,
-      "description": "Real weekly earnings at the 10th percentile of full-time workers, adjusted for inflation. This tracks wage growth for lower-paid workers using Current Population Survey microdata."
+      "description": "Real weekly earnings at the 10th percentile of full-time workers, adjusted for inflation. The 10th percentile means 90% of full-time workers earn more than this amount. This tracks wage growth for lower-paid workers using Current Population Survey microdata.",
+      "changeType": "percent"
     },
     {
       "id": "treasrcpt",
@@ -219,7 +250,11 @@
       "dateFormat": "monthly",
       "category": "Government",
       "order": 13,
-      "description": "Total federal government receipts (taxes, fees, and other revenue) over a trailing 12-month period, expressed as a share of GDP. This smooths seasonal variation in tax collections."
+      "description": "Total federal government receipts (taxes, fees, and other revenue) over a trailing 12-month period, expressed as a share of GDP. This smooths seasonal variation in tax collections.",
+      "components": [
+        {"col": "receipts", "label": "Rcpts", "prefix": "$", "suffix": "T", "decimals": 2},
+        {"col": "gdp", "label": "GDP", "prefix": "$", "suffix": "T", "decimals": 1}
+      ]
     },
     {
       "id": "povbar",
@@ -252,7 +287,8 @@
       "dateFormat": "quarterly",
       "category": "Prices",
       "order": 15,
-      "description": "The FHFA House Price Index tracks changes in single-family home prices based on repeat sales data from mortgages purchased or guaranteed by Fannie Mae and Freddie Mac."
+      "description": "The FHFA House Price Index tracks changes in single-family home prices based on repeat sales data from mortgages purchased or guaranteed by Fannie Mae and Freddie Mac.",
+      "changeType": "percent"
     },
     {
       "id": "cpicomp",
@@ -268,7 +304,7 @@
       "latestDateFormat": "monthly",
       "category": "Prices",
       "order": 16,
-      "description": "This chart decomposes the Consumer Price Index into contributions by category, showing which goods and services are driving inflation up or down the most."
+      "description": "This chart decomposes the Consumer Price Index into contributions by category, showing which goods and services are driving inflation up or down the most. Each category's contribution reflects both its price change and its weight in consumer spending."
     },
     {
       "id": "govexpbar",
@@ -327,7 +363,11 @@
       "dateFormat": "quarterly",
       "category": "Businesses",
       "order": 20,
-      "description": "Corporate profits as a share of net national income, measuring the portion of total economic output that accrues to businesses after production costs and depreciation."
+      "description": "Corporate profits as a share of net national income, measuring the portion of total economic output that accrues to businesses after production costs and depreciation.",
+      "components": [
+        {"col": "profits", "label": "Profits", "prefix": "$", "suffix": "T", "decimals": 1},
+        {"col": "nni", "label": "NNI", "prefix": "$", "suffix": "T", "decimals": 1}
+      ]
     },
     {
       "id": "busnfi",
@@ -344,7 +384,11 @@
       "dateFormat": "quarterly",
       "category": "Businesses",
       "order": 19,
-      "description": "Private nonresidential fixed investment minus depreciation, as a share of GDP. This measures net additions to the economy's productive capital stock, including equipment, structures, and intellectual property."
+      "description": "Private nonresidential fixed investment minus depreciation, as a share of GDP. This measures net additions to the economy's productive capital stock, including equipment, structures, and intellectual property.",
+      "components": [
+        {"col": "net_invest", "label": "Invest", "prefix": "$", "suffix": "T", "decimals": 2},
+        {"col": "gdp", "label": "GDP", "prefix": "$", "suffix": "T", "decimals": 1}
+      ]
     }
   ]
 }
