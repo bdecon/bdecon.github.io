@@ -70,7 +70,7 @@
       "subtitle": "GDP per hour of work, 2023",
       "source": "OECD",
       "tooltipLabel": "GDP/hour",
-      "decimals": 1,
+      "decimals": 2,
       "valuePrefix": "$",
       "color": "green",
       "timeSeries": false,
