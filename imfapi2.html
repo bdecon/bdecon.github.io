@@ -141,6 +141,19 @@
 	  </div>
 	</div>
 	</a>
+	<a href="imfapi3.html">
+	<div class="card_dull">
+	  <div class="card_banner_wrap card_banner_wrap_blue">
+	    <img src="images/imf_banner2.png" alt="IMF API tutorial Part 3" class="card_banner">
+	  </div>
+	  <div class="card_head_blue">
+		<h3>Part 3</h3>
+	  </div>
+	  <div class="card_tail">
+		<p>Practical examples: <strong>WEO forecasts, commodity prices</strong>, and accessing data from ECB, BIS, and other SDMX sources.</p>
+	  </div>
+	</div>
+	</a>
 	</article>
 	<article class="article_code">
 	<p class="subtitle">IMF API with Python: Finding Datasets and Parameters</p>
@@ -231,6 +244,16 @@ ax = ax.set_xlabel(recent)</code></pre>
 	<p>Out[6]:</p>
 	<img src="images/uk_imports_eu_share.png" alt="UK Imports EU Share" loading="lazy"/>
 
+	<h2 class="section-title">Tips</h2>
+	<p>A few patterns that make working with the API more efficient:</p>
+	<ul>
+		<li><p><strong>Wildcards</strong>: Leave a key position empty to request all values for that dimension. For example, <code>USA.CPI._T.IX.</code> (trailing dot, no frequency) returns annual, quarterly, and monthly data.</p></li>
+		<li><p><strong>Date precision</strong>: The <code>startPeriod</code> and <code>endPeriod</code> parameters accept month-level strings like <code>'2024-01'</code>, not just years.</p></li>
+		<li><p><strong>Suppress warnings</strong>: Add <code>import logging; logging.getLogger('sdmx').setLevel(logging.ERROR)</code> to silence the <code>xml.Reader</code> diagnostic message.</p></li>
+	</ul>
+
+	<p>Part 3 covers practical examples with popular datasets including economic forecasts, commodity prices, and accessing data from other providers.</p>
+
 	<h2 class="section-title">Additional Resources</h2>
 	<ul>
 		<li><p><a href="https://pypi.org/project/sdmx1/">sdmx1 on PyPI</a> - Installation and basic documentation</p></li>
@@ -240,6 +263,7 @@ ax = ax.set_xlabel(recent)</code></pre>
 	</article>
 	<div class="subfooter">
 	    <a href="imfapi1.html">&laquo; Back (Part 1)</a>
+	    <a href="imfapi3.html">Next (Part 3) &raquo;</a>
 	</div>
 	</section>
 	</main>

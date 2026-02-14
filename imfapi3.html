@@ -1,13 +1,386 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=imfapi2.html">
-    <link rel="canonical" href="https://bd-econ.com/imfapi2.html">
-    <title>Redirecting to IMF API Guide, Part 2</title>
-    <script>window.location.href = "imfapi2.html";</script>
+	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>BD Economics | IMF API Guide, Part 3</title>
+	<link rel="stylesheet" href="add-ins/github.css">
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<meta charset="UTF-8">
+	<meta name="description" content="Python tutorial: Practical examples with WEO forecasts, commodity prices, and accessing data from ECB, BIS, and other SDMX sources.">
+	<meta name="keywords" content="IMF API, sdmx1, SDMX Python, WEO forecasts, commodity prices, ECB, BIS, OECD, Economics Dashboard, Macroeconomics Dashboard, International Monetary Fund, Python pandas, economic data API">
+	<meta name="author" content="Brian Dew">
+	<link rel="canonical" href="https://bd-econ.com/imfapi3.html">
+	<!-- Open Graph -->
+	<meta property="og:title" content="IMF API Guide, Part 3">
+	<meta property="og:description" content="Python tutorial: Practical examples with WEO forecasts, commodity prices, and accessing data from ECB, BIS, and other SDMX sources.">
+	<meta property="og:url" content="https://bd-econ.com/imfapi3.html">
+	<meta property="og:type" content="article">
+	<meta property="og:image" content="https://bd-econ.com/images/01_bdlogo.png">
+	<!-- Twitter Card -->
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="IMF API Guide, Part 3">
+	<meta name="twitter:description" content="Python tutorial: Practical examples with WEO forecasts, commodity prices, and accessing data from ECB, BIS, and other SDMX sources.">
+	<meta name="twitter:image" content="https://bd-econ.com/images/01_bdlogo.png">
+	<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="favicon/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+	<link rel="manifest" href="favicon/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+<script>
+(function() {
+	var saved = localStorage.getItem('theme');
+	if (saved) {
+		document.documentElement.setAttribute('data-theme', saved);
+	} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+		document.documentElement.setAttribute('data-theme', 'dark');
+	}
+})();
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "IMF API Python Tutorial, Part 3",
+    "description": "Python tutorial: Practical examples with WEO forecasts, commodity prices, and accessing data from ECB, BIS, and other SDMX sources.",
+    "author": {
+        "@type": "Person",
+        "name": "Brian Dew"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "BD Economics",
+        "url": "https://bd-econ.com"
+    },
+    "mainEntityOfPage": "https://bd-econ.com/imfapi3.html"
+}
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PGVF5S620Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PGVF5S620Y');
+</script>
+
 </head>
 <body>
-    <p>This page has been consolidated. Redirecting to <a href="imfapi2.html">Part 2</a>...</p>
+	<nav>
+		<ul class="ul_nav" id="menu">
+			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
+			<li><a href="about.html">About</a> </li>
+			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
+			<li><a href="python.html" class="active">Guides &darr;</a>
+				<ul class="hidden">
+					<li><a href="imfapi1.html">IMF API</a></li>
+					<li><a href="blsapi.html">BLS API</a></li>
+					<li><a href="beaapi.html">BEA API</a></li>
+					<li><a href="censusapi.html">Census API</a></li>
+					<li><a href="treasuryapi.html">Treasury API</a></li>
+					<li><a href="cps.html">CPS Microdata</a></li>
+			</ul>
+			</li>
+		<li>
+			<a href="reports.html">Reports &darr;</a>
+			<ul class="hidden">
+				<li><a href="chartbook.html">US Chartbook</a></li>
+				<li><a href="indicators.html">Economic Indicators</a></li>
+				<li><a href="gdpm.html">Monthly GDP</a></li>
+			</ul>
+			</li>
+			<li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><i class="fa fa-moon-o" id="theme-icon"></i></button></li>
+			<li class="icon">
+				<button type="button" onclick="responsiveNav()" aria-label="Toggle navigation menu" aria-expanded="false">&#9776;</button>
+			</li>
+		</ul>
+	</nav>
+	<header>
+	<h1>IMF API</h1>
+	</header>
+	<main>
+	<section>
+	<article class="article_links">
+	<a href="imfapi1.html">
+	<div class="card_dull">
+	  <div class="card_banner_wrap card_banner_wrap_blue">
+	    <img src="images/imf_banner1.png" alt="IMF API tutorial Part 1" class="card_banner">
+	  </div>
+	  <div class="card_head_blue">
+		<h3>Part 1</h3>
+	  </div>
+	  <div class="card_tail">
+		<p>A <strong>basic example</strong> of retrieving CPI inflation data using the sdmx1 library, converting to pandas, and plotting results.</p>
+	  </div>
+	</div>
+	</a>
+	<a href="imfapi2.html">
+	<div class="card_dull">
+	  <div class="card_banner_wrap card_banner_wrap_blue">
+	    <img src="images/imf_banner.png" alt="IMF API tutorial Part 2" class="card_banner">
+	  </div>
+	  <div class="card_head_blue">
+		<h3>Part 2</h3>
+	  </div>
+	  <div class="card_tail">
+		<p>How to <strong>find datasets and parameters</strong> using dataflow and codelist methods, plus an advanced UK trade example.</p>
+	  </div>
+	</div>
+	</a>
+	<a href="imfapi3.html">
+	<div class="card">
+	  <div class="card_banner_wrap card_banner_wrap_blue">
+	    <img src="images/imf_banner2.png" alt="IMF API tutorial Part 3" class="card_banner">
+	  </div>
+	  <div class="card_head_blue">
+		<h3>Part 3</h3>
+	  </div>
+	  <div class="card_tail">
+		<p>Practical examples: <strong>WEO forecasts, commodity prices</strong>, and accessing data from ECB, BIS, and other SDMX sources.</p>
+	  </div>
+	</div>
+	</a>
+	</article>
+	<article class="article_code">
+	<p class="subtitle">IMF API with Python: Practical Examples</p>
+	<p>Parts 1 and 2 covered the basics of retrieving data and discovering datasets. Here we apply both&mdash;combining the discovery tools from Part 2 with practical workflows&mdash;to work through three examples: economic forecasts, commodity prices, and data from providers beyond the IMF.</p>
+
+	<h2 class="section-title">Economic Forecasts (WEO)</h2>
+	<p>The World Economic Outlook (WEO) dataset contains IMF projections for over 40 indicators&mdash;GDP, inflation, unemployment, government debt, current account, and more&mdash;covering nearly every country. Data includes historical values and forecasts several years forward.</p>
+	<p>In[1]:</p>
+	<pre><code class="python">import sdmx
+import pandas as pd
+import matplotlib.pyplot as plt
+import logging
+logging.getLogger('sdmx').setLevel(logging.ERROR)
+
+IMF_DATA = sdmx.Client('IMF_DATA')</code></pre>
+	<p>We can use the discovery methods from Part 2 to explore the WEO dataset and find the right indicator code. Here we look at the dataset's dimensions and search for GDP-related indicators:</p>
+	<p>In[2]:</p>
+	<pre><code class="python"># Explore WEO structure (Part 2 techniques)
+f = IMF_DATA.dataflow('WEO')
+dsd = list(f.structure.values())[0]
+print('Dimensions:', [d.id for d in dsd.dimensions.components])
+
+# Search for GDP growth indicators
+for name, cl in f.codelist.items():
+    codes = sdmx.to_pandas(cl)
+    matches = codes[codes.str.contains('GDP.*constant', case=False)]
+    if not matches.empty:
+        print(f'\n{matches}')</code></pre>
+	<p>Out[2]:</p>
+<pre>Dimensions: ['COUNTRY', 'SUBJECT', 'FREQUENCY', 'TIME_PERIOD']
+
+SUBJECT
+NGDP_R       Gross domestic product, constant prices (National currency)
+NGDP_RPCH    Gross domestic product, constant prices (Percent change)
+Name: ..., dtype: object</pre>
+	<p>The indicator we want is <code>NGDP_RPCH</code>&mdash;annual percent change in real GDP. Let's compare Thailand and Vietnam, two fast-growing Southeast Asian economies:</p>
+	<p>In[3]:</p>
+	<pre><code class="python"># Real GDP growth: Thailand vs. Vietnam
+key = 'THA+VNM.NGDP_RPCH.A'
+data_msg = IMF_DATA.data('WEO', key=key)
+
+df = sdmx.to_pandas(data_msg).reset_index()
+df = df.set_index(['TIME_PERIOD', 'COUNTRY'])['value'].unstack()
+df.index = pd.to_datetime(df.index, format='%Y')
+df = df.sort_index()
+df = df.rename(columns={'THA': 'Thailand', 'VNM': 'Vietnam'})</code></pre>
+	<p>The DataFrame includes both historical values and IMF projections extending several years beyond the present. We can plot them with dashed lines to distinguish forecasts:</p>
+	<p>In[4]:</p>
+	<pre><code class="python">fig, ax = plt.subplots()
+forecast_start = pd.Timestamp('2025')
+
+for col in df.columns:
+    hist = df.loc[df.index < forecast_start, col]
+    proj = df.loc[df.index >= forecast_start, col]
+    line, = ax.plot(hist.index, hist, linewidth=1.5, label=col)
+    ax.plot(proj.index, proj, linewidth=1.5,
+            linestyle='--', color=line.get_color())
+
+ax.axhline(0, color='gray', linewidth=0.5)
+ax.set_title('Real GDP Growth (%, annual)')
+ax.legend(frameon=False)
+ax.set_xlabel('Source: IMF World Economic Outlook')</code></pre>
+	<p>Out[4]:</p>
+	<img src="images/imf_gdp_growth.png" alt="Thailand vs Vietnam GDP Growth from WEO" loading="lazy"/>
+	<p>Vietnam has sustained higher growth rates over most of this period, with both countries hit hard by COVID-19 in 2020&ndash;2021. Other popular WEO indicators include <code>PCPIPCH</code> (CPI inflation), <code>LUR</code> (unemployment rate), and <code>GGXWDG_NGDP</code> (government debt as % of GDP).</p>
+
+	<h2 class="section-title">Commodity Prices (PCPS)</h2>
+	<p>The Primary Commodity Price System (PCPS) dataset tracks world benchmark prices for over 100 commodities. Let's explore its structure and search for metals:</p>
+	<p>In[5]:</p>
+	<pre><code class="python"># Explore PCPS structure
+f = IMF_DATA.dataflow('PCPS')
+dsd = list(f.structure.values())[0]
+print('Dimensions:', [d.id for d in dsd.dimensions.components])
+
+# Search for aluminum and copper
+for name, cl in f.codelist.items():
+    codes = sdmx.to_pandas(cl)
+    matches = codes[codes.str.contains('Aluminum|Copper', case=False)]
+    if not matches.empty:
+        print(f'\n{matches}')</code></pre>
+	<p>Out[5]:</p>
+<pre>Dimensions: ['FREQ', 'REF_AREA', 'COMMODITY', 'UNIT_MEASURE', 'TIME_PERIOD']
+
+COMMODITY
+PALUM    Aluminum, 99.5% minimum purity, LME spot price, ...
+PCOPP    Copper, grade A cathode, LME spot price, CIF Eur...
+Name: ..., dtype: object</pre>
+	<p>PCPS reports global benchmark prices&mdash;the reference area is <code>W00</code> (world), so there are no country-specific prices. The key places frequency first, then reference area, commodity, and unit:</p>
+	<p>In[6]:</p>
+	<pre><code class="python"># Aluminum and copper monthly prices from 2000
+key = 'M.W00.PALUM+PCOPP.USD'
+data_msg = IMF_DATA.data('PCPS', key=key,
+                          params={'startPeriod': 2000})
+
+df = sdmx.to_pandas(data_msg).reset_index()
+df = df.set_index(['TIME_PERIOD', 'COMMODITY'])['value'].unstack()
+df.index = pd.to_datetime(df.index)
+df = df.sort_index()
+df.columns = ['Aluminum ($/mt)', 'Copper ($/mt)']</code></pre>
+	<p>With two metals on different scales (aluminum ~$2,500/mt, copper ~$9,000/mt), a dual-axis chart shows both clearly:</p>
+	<p>In[7]:</p>
+	<pre><code class="python">fig, ax1 = plt.subplots()
+ax1.plot(df.index, df['Aluminum ($/mt)'],
+         color='#7f8c8d', label='Aluminum')
+ax1.set_ylabel('Aluminum ($/mt)')
+
+ax2 = ax1.twinx()
+ax2.plot(df.index, df['Copper ($/mt)'],
+         color='#b87333', label='Copper')
+ax2.set_ylabel('Copper ($/mt)')
+
+ax1.set_title('Commodity Prices')
+ax1.set_xlabel('Source: IMF Primary Commodity Prices (PCPS)')
+lines = ax1.lines + ax2.lines
+ax1.legend(lines, [l.get_label() for l in lines],
+           loc='upper left', frameon=False)</code></pre>
+	<p>Out[7]:</p>
+	<img src="images/imf_commodities.png" alt="Aluminum and Copper Commodity Prices" loading="lazy"/>
+	<p>Both metals track global industrial activity, but copper's sharper swings reflect its role as a leading economic indicator. Other key commodity codes include <code>PGOLD</code> (gold), <code>POILAPSP</code> (crude oil), <code>PNGAS</code> (natural gas), and <code>PWHEAMT</code> (wheat). Use the codelist methods from Part 2 to browse the full list.</p>
+
+	<h2 class="section-title">Beyond the IMF</h2>
+	<p>The sdmx1 library supports over 30 SDMX data providers through the same interface. Here we use the European Central Bank's Interest Rate Statistics (IRS) dataset to fetch 10-year government bond yields for four large euro area economies:</p>
+	<p>In[8]:</p>
+	<pre><code class="python">ECB = sdmx.Client('ECB')
+
+# 10-year government bond yields (monthly)
+# Key: FREQ.REF_AREA.IR_TYPE.TR_TYPE.MATURITY_CAT
+#      .BS_COUNT_SECTOR.CURRENCY_TRANS.IR_BUS_COV.IR_FV_TYPE
+key = 'M.DE+FR+IT+ES.L.L40.CI.0000.EUR.N.Z'
+data_msg = ECB.data('IRS', key=key,
+                     params={'startPeriod': '2014'})
+
+df = sdmx.to_pandas(data_msg).reset_index()
+df = df.set_index(['TIME_PERIOD', 'REF_AREA'])['value'].unstack()
+df.index = pd.to_datetime(df.index)
+df = df.sort_index()
+df = df.rename(columns={'DE': 'Germany', 'ES': 'Spain',
+                         'FR': 'France', 'IT': 'Italy'})</code></pre>
+	<p>The nine-dimension key looks complex, but it follows from the same discovery workflow covered in Part 2: get the dataflow, examine <code>dsd.dimensions.components</code>, and search the codelists. With yield levels in hand, the one-year change highlights the 2022 rate shock:</p>
+	<p>In[9]:</p>
+	<pre><code class="python"># One-year change in yields (percentage points)
+change = df.diff(12).dropna()
+ax = change.plot(title='10-Year Bond Yields: One-Year Change (pp)')
+ax.axhline(0, color='gray', linewidth=0.5)
+ax.set_xlabel('Source: European Central Bank (IRS)')</code></pre>
+	<p>Out[9]:</p>
+	<img src="images/imf_ecb_yields.png" alt="Euro Area 10-Year Bond Yield Changes" loading="lazy"/>
+	<p>Italy and Spain show larger swings than Germany, reflecting the credit spread component of their yields. The 2022 spike corresponds to the ECB's fastest rate-hiking cycle on record. To see all available providers:</p>
+	<p>In[10]:</p>
+	<pre><code class="python">print(sdmx.list_sources())</code></pre>
+	<p>Some of the most useful for economic data:</p>
+	<ul>
+		<li><p><strong>ECB</strong> &mdash; Exchange rates, monetary aggregates, interest rates</p></li>
+		<li><p><strong>BIS</strong> &mdash; Banking statistics, property prices, credit to the private sector</p></li>
+		<li><p><strong>OECD</strong> &mdash; National accounts, labor markets, trade, education</p></li>
+		<li><p><strong>WB</strong> (World Bank) &mdash; Development indicators, poverty, demographics</p></li>
+		<li><p><strong>ILO</strong> &mdash; Employment, wages, labor force statistics</p></li>
+		<li><p><strong>ESTAT</strong> (Eurostat) &mdash; European economic and social statistics</p></li>
+	</ul>
+	<p>The workflow is always the same: create a <code>Client</code>, use <code>dataflow()</code> to browse datasets, and <code>.data()</code> to fetch observations.</p>
+
+	<h2 class="section-title">Key Concepts</h2>
+	<ul>
+		<li><p>The discovery methods from Part 2&mdash;<code>dataflow()</code>, <code>dsd.dimensions</code>, and codelist searches&mdash;are essential for working with new datasets</p></li>
+		<li><p>WEO provides IMF forecasts, valuable for projections and scenario analysis</p></li>
+		<li><p>PCPS provides world benchmark commodity prices; the reference area <code>W00</code> covers all series</p></li>
+		<li><p>The same sdmx1 library and workflow apply to ECB, BIS, OECD, and many other SDMX providers</p></li>
+		<li><p>Always call <code>.sort_index()</code> after converting the time index&mdash;SDMX responses are not guaranteed to be in chronological order</p></li>
+	</ul>
+
+	<h2 class="section-title">Additional Resources</h2>
+	<ul>
+		<li><p><a href="https://pypi.org/project/sdmx1/">sdmx1 on PyPI</a> &mdash; Installation and basic documentation</p></li>
+		<li><p><a href="https://sdmx1.readthedocs.io/">sdmx1 documentation</a> &mdash; Full library reference, including the list of supported providers</p></li>
+		<li><p><a href="https://data.imf.org/">IMF Data Portal</a> &mdash; Browse available IMF datasets interactively</p></li>
+		<li><p><a href="https://data.ecb.europa.eu/">ECB Data Portal</a> &mdash; European Central Bank statistical data</p></li>
+	</ul>
+	</article>
+	<div class="subfooter">
+	    <a href="imfapi2.html">&laquo; Back (Part 2)</a>
+	</div>
+	</section>
+	</main>
+
+		<footer>
+		<div class="footer_left">
+			<p><time datetime="2026">2026</time>, by Brian Dew</p>
+		</div>
+		<div class="footer_right">
+			<a href="https://github.com/bdecon/" aria-label="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
+			<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+			<a href="https://twitter.com/bd_econ" aria-label="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+			<a href="https://briandew.wordpress.com/" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
+		</div>
+	</footer>
+	<script>
+		function responsiveNav() {
+			const menu = document.getElementById("menu");
+			const button = document.querySelector(".icon button");
+			menu.classList.toggle("responsive");
+			const expanded = menu.classList.contains("responsive");
+			button.setAttribute("aria-expanded", expanded);
+		}
+		document.addEventListener("click", function(e) {
+			const menu = document.getElementById("menu");
+			if (!menu.classList.contains("responsive")) return;
+			if (!e.target.closest("nav")) {
+				menu.classList.remove("responsive");
+				document.querySelector(".icon button").setAttribute("aria-expanded", "false");
+			}
+		});
+			function toggleTheme() {
+			const current = document.documentElement.getAttribute('data-theme');
+			const next = current === 'dark' ? 'light' : 'dark';
+			document.documentElement.setAttribute('data-theme', next);
+			localStorage.setItem('theme', next);
+			updateThemeIcon();
+		}
+		function updateThemeIcon() {
+			const icon = document.getElementById('theme-icon');
+			if (!icon) return;
+			const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+			icon.className = isDark ? 'fa fa-sun-o' : 'fa fa-moon-o';
+		}
+		updateThemeIcon();
+	</script>
+	<script src="add-ins/highlight.pack.js"></script>
+	<script>hljs.initHighlighting();</script>
 </body>
 </html>
