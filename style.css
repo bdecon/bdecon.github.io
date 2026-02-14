@@ -364,6 +364,9 @@ ul li a:hover + .hidden, .hidden:hover {
 	.card {
 		min-height: auto;
 	}
+	p {
+		font-size: 12px;
+	}
 }
 
 /* Header styling */

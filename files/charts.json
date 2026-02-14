@@ -14,7 +14,7 @@
       "valueSuffix": "%",
       "color": "blue",
       "dateFormat": "monthly",
-      "fill": false,
+      "fill": true,
       "category": "Monetary",
       "order": 3,
       "description": "M2 measures the money supply including cash, checking deposits, savings deposits, and money market funds. This chart shows M2 as a share of nominal GDP.",
@@ -153,7 +153,7 @@
       "dateFormat": "monthly",
       "category": "Labor",
       "order": 8,
-      "description": "The employment-population ratio shows the share of prime-age adults (25\u201354) who are employed. The prime-age range excludes younger adults who may be in school and older adults who may be retired. It is a broad measure of labor market health that is not affected by changes in labor force participation.",
+      "description": "The employment-population ratio shows the share of prime-age adults (25\u201354) who are employed. The prime-age range excludes younger adults who may be in school and older adults who may be retired. Unlike the unemployment rate, it does not fall when discouraged workers stop looking for jobs.",
       "components": [
         {"col": "emp_pa", "label": "Emp", "suffix": "M", "decimals": 1},
         {"col": "pop_pa", "label": "Pop", "suffix": "M", "decimals": 1}
@@ -363,7 +363,7 @@
       "dateFormat": "quarterly",
       "category": "Businesses",
       "order": 20,
-      "description": "Corporate profits as a share of net national income, measuring the portion of total economic output that accrues to businesses after production costs and depreciation.",
+      "description": "Corporate profits before tax as a share of net national income. Profits are adjusted to exclude inventory price gains and use consistent depreciation. Net national income excludes depreciation, which isn't received as income.",
       "components": [
         {"col": "profits", "label": "Profits", "prefix": "$", "suffix": "T", "decimals": 1},
         {"col": "nni", "label": "NNI", "prefix": "$", "suffix": "T", "decimals": 1}

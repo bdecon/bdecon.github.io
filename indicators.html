@@ -2,26 +2,26 @@
 <html lang="en">
 <head>
 	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>BD Economics | Selected Economic Indicators</title>
+	<title>US Economic Indicators | Interactive Charts | BD Economics</title>
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
 	<meta charset="UTF-8">
-	<meta name="description" content="Selected US economic indicators with interactive charts. Track key measures of GDP, employment, inflation, and more.">
+	<meta name="description" content="Interactive charts for 20 US economic indicators including GDP, unemployment, CPI inflation, tariffs, federal funds rate, and more. Browse output, labor, prices, trade, and monetary data with downloadable CSVs.">
 	<meta name="keywords" content="interactive charts, economic data visualization, time series charts, US economy charts">
 	<meta name="author" content="Brian Dew">
 	<link rel="canonical" href="https://bd-econ.com/indicators.html">
 	<!-- Open Graph -->
-	<meta property="og:title" content="BD Economics | Selected Economic Indicators">
-	<meta property="og:description" content="Selected US economic indicators with interactive charts. Track key measures of GDP, employment, inflation, and more.">
+	<meta property="og:title" content="US Economic Indicators | Interactive Charts | BD Economics">
+	<meta property="og:description" content="Interactive charts for 20 US economic indicators including GDP, unemployment, CPI inflation, tariffs, federal funds rate, and more.">
 	<meta property="og:url" content="https://bd-econ.com/indicators.html">
 	<meta property="og:type" content="website">
 	<meta property="og:image" content="https://bd-econ.com/images/01_bdlogo.png">
 	<!-- Twitter Card -->
 	<meta name="twitter:card" content="summary">
-	<meta name="twitter:title" content="BD Economics | Selected Economic Indicators">
-	<meta name="twitter:description" content="Selected US economic indicators with interactive charts. Track key measures of GDP, employment, inflation, and more.">
+	<meta name="twitter:title" content="US Economic Indicators | Interactive Charts | BD Economics">
+	<meta name="twitter:description" content="Interactive charts for 20 US economic indicators including GDP, unemployment, CPI inflation, tariffs, federal funds rate, and more.">
 	<meta name="twitter:image" content="https://bd-econ.com/images/01_bdlogo.png">
 	<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
 	<link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
@@ -44,12 +44,39 @@
 {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "Economic Indicators",
-    "description": "Selected US economic indicators with interactive charts. Track key measures of GDP, employment, inflation, and more.",
+    "name": "US Economic Indicators",
+    "description": "Interactive charts for 20 US economic indicators including GDP, unemployment, CPI inflation, tariffs, federal funds rate, and more.",
     "url": "https://bd-econ.com/indicators.html",
     "author": {
         "@type": "Person",
         "name": "Brian Dew"
+    },
+    "mainEntity": {
+        "@type": "ItemList",
+        "name": "US Economic Indicators",
+        "numberOfItems": 20,
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Real GDP per Capita", "description": "Real GDP per capita divides inflation-adjusted gross domestic product by population. It is a broad measure of average economic output per person.", "url": "https://bd-econ.com/indicators.html#gdppc"},
+            {"@type": "ListItem", "position": 2, "name": "Productivity, Selected Countries", "description": "Labor productivity measures GDP per hour worked, reflecting how efficiently an economy converts labor into output.", "url": "https://bd-econ.com/indicators.html#lprodbar"},
+            {"@type": "ListItem", "position": 3, "name": "Money Supply", "description": "M2 measures the money supply including cash, checking deposits, savings deposits, and money market funds. This chart shows M2 as a share of nominal GDP.", "url": "https://bd-econ.com/indicators.html#m2gdp"},
+            {"@type": "ListItem", "position": 4, "name": "Federal Funds Rate", "description": "The federal funds rate is the interest rate at which banks lend reserves to each other overnight. It is the Federal Reserve's primary tool for conducting monetary policy.", "url": "https://bd-econ.com/indicators.html#ffrate"},
+            {"@type": "ListItem", "position": 5, "name": "CPI Inflation Rate", "description": "The Consumer Price Index measures the average change in prices paid by urban consumers for a basket of goods and services.", "url": "https://bd-econ.com/indicators.html#cpi"},
+            {"@type": "ListItem", "position": 6, "name": "Trade Balance", "description": "The trade balance is exports minus imports of goods and services, shown here as a share of GDP.", "url": "https://bd-econ.com/indicators.html#tbal"},
+            {"@type": "ListItem", "position": 7, "name": "Tariff Rate", "description": "The effective tariff rate is calculated as customs duties collected divided by the value of goods imports. It reflects the average tax rate on imported goods.", "url": "https://bd-econ.com/indicators.html#tariff"},
+            {"@type": "ListItem", "position": 8, "name": "Employment Rate", "description": "The employment-population ratio shows the share of prime-age adults (25-54) who are employed.", "url": "https://bd-econ.com/indicators.html#epop"},
+            {"@type": "ListItem", "position": 9, "name": "Industrial Production", "description": "The industrial production index measures the real output of the manufacturing sector.", "url": "https://bd-econ.com/indicators.html#indpro"},
+            {"@type": "ListItem", "position": 10, "name": "Unemployment Rate", "description": "The unemployment rate is the share of the labor force that is actively seeking work but unable to find a job.", "url": "https://bd-econ.com/indicators.html#unrate"},
+            {"@type": "ListItem", "position": 11, "name": "Job Openings per Unemployed", "description": "This ratio divides the number of job openings by the number of unemployed persons. A higher ratio indicates a tighter labor market.", "url": "https://bd-econ.com/indicators.html#joun"},
+            {"@type": "ListItem", "position": 12, "name": "Weekly Earnings, 10th Percentile", "description": "Real weekly earnings at the 10th percentile of full-time workers, adjusted for inflation.", "url": "https://bd-econ.com/indicators.html#p10rw"},
+            {"@type": "ListItem", "position": 13, "name": "Federal Receipts", "description": "Total federal government receipts over a trailing 12-month period, expressed as a share of GDP.", "url": "https://bd-econ.com/indicators.html#treasrcpt"},
+            {"@type": "ListItem", "position": 14, "name": "Poverty Rate, Selected Countries", "description": "The relative poverty rate measures the share of population living below 50% of the national median disposable income.", "url": "https://bd-econ.com/indicators.html#povbar"},
+            {"@type": "ListItem", "position": 15, "name": "House Price Index", "description": "The FHFA House Price Index tracks changes in single-family home prices based on repeat sales data.", "url": "https://bd-econ.com/indicators.html#hpi"},
+            {"@type": "ListItem", "position": 16, "name": "Inflation Contributions", "description": "Decomposes the Consumer Price Index into contributions by category, showing which goods and services are driving inflation.", "url": "https://bd-econ.com/indicators.html#cpicomp"},
+            {"@type": "ListItem", "position": 17, "name": "Government Spending", "description": "Total general government expenditure as a share of GDP, including spending on social programs, defense, infrastructure, and public services.", "url": "https://bd-econ.com/indicators.html#govexpbar"},
+            {"@type": "ListItem", "position": 18, "name": "Output and Wages", "description": "Compares inflation-adjusted GDP per worker with median earnings. The gap reflects how broadly economic gains are shared.", "url": "https://bd-econ.com/indicators.html#gdppw"},
+            {"@type": "ListItem", "position": 19, "name": "Business Investment", "description": "Private nonresidential fixed investment minus depreciation, as a share of GDP.", "url": "https://bd-econ.com/indicators.html#busnfi"},
+            {"@type": "ListItem", "position": 20, "name": "Corporate Profits", "description": "Corporate profits before tax as a share of net national income. Profits are adjusted to exclude inventory price gains and use consistent depreciation.", "url": "https://bd-econ.com/indicators.html#cprof"}
+        ]
     }
 }
 </script>
@@ -126,6 +153,9 @@
 		background: var(--color-bg-alt);
 		box-shadow: 0 0 8px rgba(255, 255, 255, 0.12), 0 0 24px rgba(255, 255, 255, 0.06);
 	}
+	[data-theme="dark"] .chart-flip-front .chart-container {
+		border-bottom: 4px solid var(--chart-color, var(--color-card-blue));
+	}
 	@media (prefers-reduced-motion: reduce) {
 		.chart-flip-inner {
 			transition: none;
@@ -133,8 +163,8 @@
 	}
 	.chart-download-link {
 		display: inline-block;
-		margin-top: 12px;
-		font-size: 11px;
+		margin: 0;
+		font-size: 9px;
 		font-family: 'Montserrat', sans-serif;
 		color: var(--color-card-blue);
 		text-decoration: none;
@@ -228,10 +258,15 @@
 	.chart-header {
 		background-color: var(--color-card-blue);
 		color: white;
-		padding: 6px 10px 5px 10px;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+	}
+	.chart-flip-front .chart-header {
+		padding: 10px 10px 8px 10px;
+	}
+	.chart-flip-back .chart-header {
+		padding: 6px 10px 5px 10px;
 	}
 	.chart-header button {
 		background: none;
@@ -247,10 +282,15 @@
 	}
 	.chart-header h4 {
 		font-family: 'Montserrat', sans-serif;
-		font-size: 15px;
 		margin: 0;
 		font-weight: 600;
 		color: inherit;
+	}
+	.chart-flip-front .chart-header h4 {
+		font-size: 17px;
+	}
+	.chart-flip-back .chart-header h4 {
+		font-size: 14px;
 	}
 	.chart-subtitle {
 		font-size: 10px;
@@ -273,6 +313,9 @@
 		text-align: right;
 		margin: 0;
 		font-style: italic;
+	}
+	.chart-flip-front .chart-container {
+		border-bottom: 4px solid var(--chart-color, var(--color-card-blue));
 	}
 	.chart-selector {
 		max-width: 400px;
@@ -571,7 +614,8 @@
 	<main>
 	<section>
 	<article>
-	<p>Browse 20 interactive charts across seven categories: output, labor, prices, trade, monetary policy, government, and business. Tap the info button on each chart for descriptions, historical data, and a downloadable CSV. Use the dropdown or arrow keys to navigate. For a broader view, see the <a href="chartbook.html">US Chartbook</a> with 120+ charts.</p>
+	<p>Browse 20 interactive charts across seven categories: output, labor, prices, trade, monetary policy, government, and business. Tap the info button on each chart for descriptions, historical data, and a downloadable CSV. Use the dropdown or arrow keys to navigate.</p>
+	<p>For a broader view, see the <a href="chartbook.html">US Chartbook</a> with 120+ charts.</p>
 	</article>
 
 	<article>
@@ -610,13 +654,13 @@
 							<p id="chart-description"></p>
 							<div class="chart-back-subtitle" id="chart-subtitle-back"></div>
 							<div id="chart-latest"></div>
-							<a id="chart-download" href="files/m2gdp.csv" class="chart-download-link" download><i class="fa fa-download"></i> Download data (.csv)</a>
 						</div>
 						<div class="chart-footer">
 							<span style="display: flex; align-items: center; gap: 10px;">
 								<svg viewBox="0 0 9 5" width="16" height="9" style="fill: var(--color-text-subtle); opacity: 0.5;" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
 								<span class="card-number" id="card-number"></span>
 							</span>
+							<a id="chart-download" href="files/m2gdp.csv" class="chart-download-link" download><i class="fa fa-download"></i> Download (.csv)</a>
 							<p class="chart-source" id="chart-source-back"></p>
 						</div>
 					</div>
@@ -937,83 +981,107 @@
 
 					if (visibleDatasets.length === 0) return;
 
-					const lastIndex = chart.data.datasets[0].data.length - 1;
-					const lastDate = new Date(chart.data.labels[lastIndex]);
-					const dateLabels = currentDateFormat
-						? currentDateFormat.lastValueFormat(lastDate)
-						: ['Q' + Math.ceil((lastDate.getUTCMonth() + 1) / 3), lastDate.getUTCFullYear()];
-
-					// Get x position from first visible dataset's last point
-					const firstMeta = chart.getDatasetMeta(visibleDatasets[0].i);
-					const xPos = firstMeta.data[lastIndex]?.x;
-					if (!xPos) return;
-
-					const x = xPos + 8;
-
-					// Get actual y-positions for each dataset
+					// Find each dataset's last valid (non-NaN) data point
 					const labelData = visibleDatasets.map(({ ds, i }) => {
-						const meta = chart.getDatasetMeta(i);
-						const lastPoint = meta.data[lastIndex];
-						return {
-							ds,
-							i,
-							value: ds.data[lastIndex],
-							yPos: lastPoint.y
-						};
-					});
+						let lastIdx = ds.data.length - 1;
+						while (lastIdx >= 0 && (ds.data[lastIdx] == null || isNaN(ds.data[lastIdx]))) {
+							lastIdx--;
+						}
+						if (lastIdx < 0) return null;
 
-					// Check for overlap (labels within 25px of each other)
-					const sortedByY = [...labelData].sort((a, b) => a.yPos - b.yPos);
-					const hasOverlap = sortedByY.length > 1 &&
-						sortedByY.some((item, idx) =>
-							idx > 0 && Math.abs(item.yPos - sortedByY[idx-1].yPos) < 25
-						);
+						const meta = chart.getDatasetMeta(i);
+						const lastPoint = meta.data[lastIdx];
+						if (!lastPoint) return null;
+
+						const lastDate = new Date(chart.data.labels[lastIdx]);
+						const dateLabels = currentDateFormat
+							? currentDateFormat.lastValueFormat(lastDate)
+							: ['Q' + Math.ceil((lastDate.getUTCMonth() + 1) / 3), lastDate.getUTCFullYear()];
+
+						return {
+							ds, i, lastIdx,
+							value: ds.data[lastIdx],
+							xPos: lastPoint.x,
+							yPos: lastPoint.y,
+							dateLabels
+						};
+					}).filter(Boolean);
+
+					if (labelData.length === 0) return;
+
+					const allSameEnd = labelData.every(d => d.lastIdx === labelData[0].lastIdx);
 
 					ctx.save();
 					ctx.font = '9px Tahoma, Verdana, sans-serif';
 					ctx.textAlign = 'left';
 
-					if (hasOverlap) {
-						// Stack labels at top when lines are close together
-						ctx.textBaseline = 'top';
-						let y = 12;
+					if (allSameEnd && labelData.length > 1) {
+						// Multiple series share the same end date — one shared date label
+						const x = labelData[0].xPos + 8;
 
-						// Draw date labels first
-						ctx.fillStyle = getThemeColors().axisText;
-						dateLabels.forEach((label) => {
-							ctx.fillText(label, x, y);
-							y += 11;
-						});
+						// Check for overlap (labels within 25px of each other)
+						const sortedByY = [...labelData].sort((a, b) => a.yPos - b.yPos);
+						const hasOverlap = sortedByY.some((item, idx) =>
+								idx > 0 && Math.abs(item.yPos - sortedByY[idx-1].yPos) < 25
+							);
 
-						// Sort by value descending so labels match visual line order
-						const sortedByValue = [...labelData].sort((a, b) => b.value - a.value);
+						if (hasOverlap) {
+							// Stack labels at top when lines are close together
+							ctx.textBaseline = 'top';
+							let y = 12;
 
-						// Draw each visible series value with its color
-						sortedByValue.forEach(({ ds }) => {
-							const valueStr = prefix + ds.data[lastIndex].toFixed(decimals) + suffix;
-							ctx.fillStyle = ds.borderColor;
-							ctx.fillText(valueStr, x, y);
-							y += 11;
-						});
+							ctx.fillStyle = getThemeColors().axisText;
+							labelData[0].dateLabels.forEach((label) => {
+								ctx.fillText(label, x, y);
+								y += 11;
+							});
+
+							const sortedByValue = [...labelData].sort((a, b) => b.value - a.value);
+							sortedByValue.forEach(({ ds, value }) => {
+								const valueStr = prefix + value.toFixed(decimals) + suffix;
+								ctx.fillStyle = ds.borderColor;
+								ctx.fillText(valueStr, x, y);
+								y += 11;
+							});
+						} else {
+							// Position labels at actual y-positions when lines are far apart
+							ctx.textBaseline = 'middle';
+
+							ctx.fillStyle = getThemeColors().axisText;
+							let dateY = 12;
+							labelData[0].dateLabels.forEach((label) => {
+								ctx.fillText(label, x, dateY);
+								dateY += 11;
+							});
+
+							const dateAreaBottom = 12 + (labelData[0].dateLabels.length * 11) + 3;
+							labelData.forEach(({ ds, value, yPos }) => {
+								const valueStr = prefix + value.toFixed(decimals) + suffix;
+								ctx.fillStyle = ds.borderColor;
+								const adjustedY = yPos < dateAreaBottom ? dateAreaBottom : yPos;
+								ctx.fillText(valueStr, x, adjustedY);
+							});
+						}
 					} else {
-						// Position labels at actual y-positions when lines are far apart
-						ctx.textBaseline = 'middle';
+						// Series end at different dates — each gets its own date+value label
+						ctx.textBaseline = 'top';
 
-						// Draw date at top
-						ctx.fillStyle = getThemeColors().axisText;
-						let dateY = 12;
-						dateLabels.forEach((label) => {
-							ctx.fillText(label, x, dateY);
-							dateY += 11;
-						});
+						labelData.forEach(item => {
+							const x = item.xPos + 8;
+							const blockHeight = (item.dateLabels.length + 1) * 11;
+							let startY = item.yPos - blockHeight / 2;
+							if (startY < 4) startY = 4;
 
-						// Draw each value at its actual y position (or offset if too close to date area)
-						const dateAreaBottom = 12 + (dateLabels.length * 11) + 3;
-						labelData.forEach(({ ds, yPos }) => {
-							const valueStr = prefix + ds.data[lastIndex].toFixed(decimals) + suffix;
-							ctx.fillStyle = ds.borderColor;
-							const adjustedY = yPos < dateAreaBottom ? dateAreaBottom : yPos;
-							ctx.fillText(valueStr, x, adjustedY);
+							let y = startY;
+							ctx.fillStyle = getThemeColors().axisText;
+							item.dateLabels.forEach(label => {
+								ctx.fillText(label, x, y);
+								y += 11;
+							});
+
+							const valueStr = prefix + item.value.toFixed(decimals) + suffix;
+							ctx.fillStyle = item.ds.borderColor;
+							ctx.fillText(valueStr, x, y);
 						});
 					}
 
@@ -1376,7 +1444,14 @@
 
 			// Time series - multi-series
 			if (isMultiSeries) {
-				const last = data[data.length - 1];
+				// Anchor on the last row where all series have data
+				let last = data[data.length - 1];
+				for (let ri = data.length - 1; ri >= 0; ri--) {
+					if (data[ri].values.every(v => v != null && !isNaN(v))) {
+						last = data[ri];
+						break;
+					}
+				}
 				const lastDate = new Date(last.date);
 				const dateFormat = getDateFormatConfig(config.dateFormat || 'quarterly');
 
@@ -1411,7 +1486,7 @@
 					const bc = isLatest ? '</strong>' : '';
 					html += `<tr><td>${b}${label}${bc}</td>`;
 					config.series.forEach((s, i) => {
-						const v = entry.values[i] != null ? formatVal(entry.values[i]) : '\u2014';
+						const v = entry.values[i] != null && !isNaN(entry.values[i]) ? formatVal(entry.values[i]) : '\u2014';
 						html += `<td>${b}${v}${bc}</td>`;
 					});
 					html += '</tr>';
@@ -1575,6 +1650,8 @@
 				: (config.color || 'blue');
 			const headerColor = colorMap[colorKey];
 			header.style.backgroundColor = headerColor.border;
+			// Set CSS custom property for gradient fade
+			document.querySelector('.chart-flip-wrapper').style.setProperty('--chart-color', headerColor.border);
 			// Use dark text for low-contrast backgrounds (yellow)
 			header.style.color = colorKey === 'yellow' ? '#222' : 'white';
 
@@ -1724,7 +1801,8 @@
 							pointRadius: 1,
 							pointHoverRadius: 4,
 							fill: false,
-							tension: 0.1
+							tension: 0.1,
+							spanGaps: true
 						};
 					});
 				} else {
@@ -1777,6 +1855,7 @@
 										? currentDateFormat.tooltipTitle
 										: function(context) { return context[0].label; },
 									label: function(context) {
+										if (context.parsed.y == null || isNaN(context.parsed.y)) return null;
 										const decimals = config.decimals ?? 2;
 										const prefix = config.valuePrefix || '';
 										const suffix = config.valueSuffix || '';
