@@ -137,7 +137,7 @@
 		<h3>Part 2</h3>
 	  </div>
 	  <div class="card_tail">
-		<p>How to <strong>find datasets and parameters</strong> using dataflow and codelist methods, plus an advanced UK trade example.</p>
+		<p>How to <strong>find datasets and parameters</strong> using dataflow and codelist methods, plus <strong>direct API access</strong> with requests.</p>
 	  </div>
 	</div>
 	</a>
@@ -150,7 +150,7 @@
 		<h3>Part 3</h3>
 	  </div>
 	  <div class="card_tail">
-		<p>Practical examples: <strong>WEO forecasts, commodity prices</strong>, and accessing data from ECB, BIS, and other SDMX sources.</p>
+		<p>Practical examples: <strong>WEO forecasts, commodity prices</strong>, ECB bond yields, and <strong>bulk downloads</strong> with requests.</p>
 	  </div>
 	</div>
 	</a>
@@ -176,9 +176,9 @@ import sdmx</code></pre>
 	<p>In[2]:</p>
 	<pre><code class="python"># parameters
 countries = ['BRA', 'CHL', 'COL']
-dataset = 'CPI'
+classification = 'CPI'
 series = '_T.IX.M'
-key = f"{'+'.join(countries)}.{dataset}.{series}"</code></pre>
+key = f"{'+'.join(countries)}.{classification}.{series}"</code></pre>
 	<p>The key <code>BRA+CHL+COL.CPI._T.IX.M</code> requests all-items (<code>_T</code>) price index (<code>IX</code>) data at monthly (<code>M</code>) frequency for the three countries.</p>
 
 	<h2 class="section-title">Retrieve Data</h2>
@@ -187,7 +187,7 @@ key = f"{'+'.join(countries)}.{dataset}.{series}"</code></pre>
 	<pre><code class="python"># retrieve data
 IMF_DATA = sdmx.Client('IMF_DATA')
 data_msg = IMF_DATA.data('CPI', key=key,
-                         params={'startPeriod': 2018})
+                         params={'startPeriod': '2018'})
 
 # convert to pandas
 df = sdmx.to_pandas(data_msg).reset_index()
@@ -197,8 +197,9 @@ df = df.set_index(['TIME_PERIOD', 'COUNTRY'])['value'].unstack()</code></pre>
 	<h2 class="section-title">Calculate Inflation and Plot</h2>
 	<p>Convert the index to datetime, calculate year-over-year percent changes, and create a line plot:</p>
 	<p>In[4]:</p>
-	<pre><code class="python"># Convert index to datetime
+	<pre><code class="python"># Convert index to datetime and sort
 df.index = pd.to_datetime(df.index, format='%Y-M%m')
+df = df.sort_index()
 
 # Calculate inflation rate and drop empty rows
 res = (df.pct_change(12) * 100).round(1).dropna()

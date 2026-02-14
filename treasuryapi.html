@@ -150,7 +150,7 @@ r = requests.get(f'{url}{endpt}{param}')</code></pre>
       'classification_desc': 'Category'}
 df = pd.DataFrame(r.json()['data']).rename(rn, axis=1).query('Line != "33"')
 df['Date'] = pd.to_datetime(df['record_date'])
-df = df.sort_index()
+df = df.sort_values('Date')
 df = df.set_index(['Category', 'Date'])
 data = (df['Value'].unstack().T.astype('float') / 1_000_000).rolling(12).sum().dropna()</code></pre>
 

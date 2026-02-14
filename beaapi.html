@@ -337,8 +337,9 @@ r = requests.get(url)
 
 df = pd.DataFrame(r.json()['BEAAPI']['Results'][0]['Data'])
 df = df.replace('Construction', 'Gross Output')
+df['DataValue'] = df['DataValue'].str.replace(',', '')  # strip commas
 df = df.set_index([pd.to_datetime(df['Year']),
-                   'IndustrYDescription'])['DataValue'].unstack(1)
+                   'IndustrYDescription'])['DataValue'].unstack(1)  # note: capital Y is a BEA quirk
 df = df.apply(pd.to_numeric)
 df.tail()</code></pre>
 	<p>Out[8]:</p>

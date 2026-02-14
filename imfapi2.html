@@ -7,20 +7,20 @@
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<meta charset="UTF-8">
-	<meta name="description" content="Python tutorial: Discovering IMF datasets and parameters with sdmx1, plus an advanced UK trade example.">
-	<meta name="keywords" content="IMF API, sdmx1, SDMX Python, dataflow, codelist, Economics Dashboard, Macroeconomics Dashboard, International Monetary Fund, IMF Statistics Department, Python pandas, economic data API, UK trade">
+	<meta name="description" content="Python tutorial: Discovering IMF datasets and parameters with sdmx1, plus direct API access with requests.">
+	<meta name="keywords" content="IMF API, sdmx1, SDMX Python, requests, dataflow, codelist, Economics Dashboard, Macroeconomics Dashboard, International Monetary Fund, IMF Statistics Department, Python pandas, economic data API, UK trade">
 	<meta name="author" content="Brian Dew">
 	<link rel="canonical" href="https://bd-econ.com/imfapi2.html">
 	<!-- Open Graph -->
 	<meta property="og:title" content="IMF API Guide, Part 2">
-	<meta property="og:description" content="Python tutorial: Discovering IMF datasets and parameters with sdmx1, plus an advanced UK trade example.">
+	<meta property="og:description" content="Python tutorial: Discovering IMF datasets and parameters with sdmx1, plus direct API access with requests.">
 	<meta property="og:url" content="https://bd-econ.com/imfapi2.html">
 	<meta property="og:type" content="article">
 	<meta property="og:image" content="https://bd-econ.com/images/01_bdlogo.png">
 	<!-- Twitter Card -->
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="IMF API Guide, Part 2">
-	<meta name="twitter:description" content="Python tutorial: Discovering IMF datasets and parameters with sdmx1, plus an advanced UK trade example.">
+	<meta name="twitter:description" content="Python tutorial: Discovering IMF datasets and parameters with sdmx1, plus direct API access with requests.">
 	<meta name="twitter:image" content="https://bd-econ.com/images/01_bdlogo.png">
 	<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
 	<link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
@@ -54,7 +54,7 @@
     "@context": "https://schema.org",
     "@type": "TechArticle",
     "headline": "IMF API Python Tutorial, Part 2",
-    "description": "Python tutorial: Discovering IMF datasets and parameters with sdmx1, plus an advanced UK trade example.",
+    "description": "Python tutorial: Discovering IMF datasets and parameters with sdmx1, plus direct API access with requests.",
     "author": {
         "@type": "Person",
         "name": "Brian Dew"
@@ -137,7 +137,7 @@
 		<h3>Part 2</h3>
 	  </div>
 	  <div class="card_tail">
-		<p>How to <strong>find datasets and parameters</strong> using dataflow and codelist methods, plus an advanced UK trade example.</p>
+		<p>How to <strong>find datasets and parameters</strong> using dataflow and codelist methods, plus <strong>direct API access</strong> with requests.</p>
 	  </div>
 	</div>
 	</a>
@@ -150,7 +150,7 @@
 		<h3>Part 3</h3>
 	  </div>
 	  <div class="card_tail">
-		<p>Practical examples: <strong>WEO forecasts, commodity prices</strong>, and accessing data from ECB, BIS, and other SDMX sources.</p>
+		<p>Practical examples: <strong>WEO forecasts, commodity prices</strong>, ECB bond yields, and <strong>bulk downloads</strong> with requests.</p>
 	  </div>
 	</div>
 	</a>
@@ -163,6 +163,7 @@
 	<p>The <code>dataflow()</code> method returns information about all available datasets. We can search through these to find datasets of interest:</p>
 	<p>In[1]:</p>
 	<pre><code class="python">import sdmx
+import pandas as pd
 
 IMF_DATA = sdmx.Client('IMF_DATA')
 
@@ -222,15 +223,14 @@ Name: International Trade in Goods (by partner country) (IMTS) Country, dtype: o
 	<h2 class="section-title">Advanced Example: UK Imports from the EU</h2>
 	<p>Using what we've learned, let's calculate the European Union's share of UK goods imports over time. The key <code>GBR.MG_CIF_USD.G001+G998.M</code> requests UK imports from both World (<code>G001</code>) and EU (<code>G998</code>) at monthly frequency:</p>
 	<p>In[5]:</p>
-	<pre><code class="python">import pandas as pd
-
-# Retrieve data: UK imports from World (G001) and EU (G998)
+	<pre><code class="python"># Retrieve data: UK imports from World (G001) and EU (G998)
 data_msg = IMF_DATA.data('IMTS', key='GBR.MG_CIF_USD.G001+G998.M')
 
 # Convert to pandas
 df = sdmx.to_pandas(data_msg).reset_index()
 df = df.set_index(['TIME_PERIOD', 'COUNTERPART_COUNTRY'])['value'].unstack()
-df.index = pd.to_datetime(df.index, format='%Y-M%m')</code></pre>
+df.index = pd.to_datetime(df.index, format='%Y-M%m')
+df = df.sort_index()</code></pre>
 	<p>With both series in our DataFrame, we can calculate the EU share and apply a 12-month moving average to smooth seasonal variation:</p>
 	<p>In[6]:</p>
 	<pre><code class="python"># Calculate EU share of UK imports of goods
@@ -250,6 +250,56 @@ ax = ax.set_xlabel(recent)</code></pre>
 		<li><p><strong>Wildcards</strong>: Leave a key position empty to request all values for that dimension. For example, <code>USA.CPI._T.IX.</code> (trailing dot, no frequency) returns annual, quarterly, and monthly data.</p></li>
 		<li><p><strong>Date precision</strong>: The <code>startPeriod</code> and <code>endPeriod</code> parameters accept month-level strings like <code>'2024-01'</code>, not just years.</p></li>
 		<li><p><strong>Suppress warnings</strong>: Add <code>import logging; logging.getLogger('sdmx').setLevel(logging.ERROR)</code> to silence the <code>xml.Reader</code> diagnostic message.</p></li>
+	</ul>
+
+	<h2 class="section-title">Direct API Access with Requests</h2>
+	<p>The sdmx1 library is a convenience wrapper around standard HTTP calls. If you prefer to avoid the dependency&mdash;or want to understand what's happening underneath&mdash;you can query the same API directly with <code>requests</code>. Ask for CSV format and you get a pandas-ready response:</p>
+	<p>In[7]:</p>
+	<pre><code class="python">import requests
+import io
+
+# The same CPI query from Part 1, without sdmx1
+url = ("https://api.imf.org/external/sdmx/3.0/data/"
+       "dataflow/IMF.STA/CPI/~/"
+       "BRA+CHL+COL.CPI._T.IX.M"
+       "?c[TIME_PERIOD]=ge:2018-M01")
+
+resp = requests.get(url, headers={"Accept": "text/csv"})
+df = pd.read_csv(io.StringIO(resp.text))</code></pre>
+	<p>Out[7]:</p>
+<pre>288 rows, 3 countries
+COUNTRY TIME_PERIOD  OBS_VALUE
+    BRA    2018-M01    4930.72
+    BRA    2018-M02    4946.50
+    BRA    2018-M03    4950.95
+    BRA    2018-M04    4961.84</pre>
+	<p>The URL follows a consistent pattern:</p>
+<pre>https://api.imf.org/external/sdmx/3.0/data/dataflow/{agency}/{dataflow}/{version}/{key}
+ &bull; Agency:    IMF.STA (Statistics Dept) or IMF.RES (Research Dept)
+ &bull; Dataflow:  CPI, WEO, BOP, IFS, etc.
+ &bull; Version:   ~ means "latest"
+ &bull; Key:       dimension values separated by dots; + joins multiple values</pre>
+	<p>From here, the reshaping and calculation are the same as Part 1:</p>
+	<p>In[8]:</p>
+	<pre><code class="python"># Reshape and calculate inflation (same steps as Part 1)
+result = df.set_index(['TIME_PERIOD', 'COUNTRY'])['OBS_VALUE'].unstack()
+result.index = pd.to_datetime(result.index.str.replace('-M', '-'))
+result = result.sort_index()
+
+inflation = (result.pct_change(12) * 100).round(1).dropna()
+inflation.tail(4)</code></pre>
+	<p>Out[8]:</p>
+<pre>COUNTRY      BRA  CHL  COL
+2025-09-01   5.2  4.4  5.2
+2025-10-01   4.7  3.4  5.5
+2025-11-01   4.5  3.4  5.3
+2025-12-01   4.3  3.4  5.1</pre>
+	<p>A few gotchas to watch for with direct API access:</p>
+	<ul>
+		<li><p><strong>Version wildcard</strong>: Use <code>~</code> for latest version. Using <code>*</code> causes a 500 error.</p></li>
+		<li><p><strong>Time filtering</strong>: Use <code>?c[TIME_PERIOD]=ge:2018-M01</code> for the content constraint. The <code>startPeriod</code> parameter may not be supported on all endpoints.</p></li>
+		<li><p><strong>Country codes</strong>: Must be ISO alpha-3 (e.g., <code>USA</code> not <code>US</code>). Using an invalid code returns 200 with zero data rows&mdash;no error.</p></li>
+		<li><p><strong>Monthly dates</strong>: Time periods are formatted <code>2024-M01</code> rather than <code>2024-01</code>, so a <code>.str.replace('-M', '-')</code> is needed before <code>pd.to_datetime()</code>.</p></li>
 	</ul>
 
 	<p>Part 3 covers practical examples with popular datasets including economic forecasts, commodity prices, and accessing data from other providers.</p>
