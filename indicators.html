@@ -682,6 +682,20 @@
 	.chart-flip-front .chart-body.fading {
 		opacity: 0;
 	}
+	.chart-latest-mobile {
+		display: none;
+		font-size: 11px;
+		font-family: 'Lato', sans-serif;
+		color: var(--color-axis-text);
+		margin: 4px 0 0 0;
+		text-align: center;
+	}
+	@media (max-width: 760px) {
+		.chart-latest-mobile.active {
+			display: block;
+			font-size: 13px;
+		}
+	}
 </style>
 
 </head>
@@ -753,6 +767,7 @@
 							<p class="chart-subtitle" id="chart-subtitle">index, 1988=1</p>
 							<div class="chart-legend" id="chart-legend"></div>
 							<canvas id="lineChart"></canvas>
+							<p class="chart-latest-mobile" id="chart-latest-mobile"></p>
 						</div>
 						<div class="chart-footer">
 							<p class="chart-filter" id="chart-filter"><a onclick="toggleTimeRange()">Recent 3 years</a></p>
@@ -1112,6 +1127,7 @@
 		const lastValuePlugin = {
 			id: 'lastValueLabel',
 			afterDraw: function(chart) {
+				if (window.innerWidth <= 760) return;
 				const config = chart.config._config.datasetConfig;
 				const isMultiSeries = config?.series && config.series.length > 1;
 				const decimals = config?.decimals ?? 2;
@@ -1418,6 +1434,8 @@
 				chart.options.scales.x.ticks.callback = currentDateFormat.tickCallback;
 				filterLink.textContent = 'Recent 3 years';
 				isFilteredView = false;
+				chart.options.scales.y.suggestedMin = undefined;
+				chart.options.scales.y.suggestedMax = undefined;
 			} else {
 				// Filter to last 3 years
 				const filtered = filterToLastYears(fullData, 3);
@@ -1432,6 +1450,10 @@
 				chart.options.scales.x.ticks.callback = getFilteredTickCallback(dateFormat);
 				filterLink.textContent = 'Full history';
 				isFilteredView = true;
+				if (currentConfig.filteredYRef != null) {
+					chart.options.scales.y.suggestedMin = currentConfig.filteredYRef;
+					chart.options.scales.y.suggestedMax = currentConfig.filteredYRef;
+				}
 			}
 
 			chart.update();
@@ -1925,6 +1947,7 @@
 					const latestLabel = latestDate ? dateFmt2.lastValueFormat(new Date(latestDate)).join(' ') : 'Latest';
 					const prevLabel = prevDate ? dateFmt2.lastValueFormat(new Date(prevDate)).join(' ') : 'Previous';
 					customContainer.innerHTML = renderDualBarChart(config, dualData, latestLabel, prevLabel);
+					document.getElementById('chart-latest-mobile').classList.remove('active');
 					updateBackFace(config, dualData, latestDate, prevDate);
 					chartBody.classList.remove('fading');
 					loadingEl.classList.remove('active');
@@ -1991,8 +2014,8 @@
 						maintainAspectRatio: true,
 						layout: {
 							padding: {
-								right: config.timeSeries !== false ? 40 : 0,
-								top: config.timeSeries !== false ? 15 : 0
+								right: config.timeSeries !== false ? (window.innerWidth <= 760 ? 5 : 40) : 0,
+								top: config.timeSeries !== false ? (window.innerWidth <= 760 ? 5 : 15) : 0
 							}
 						},
 						interaction: {
@@ -2073,6 +2096,39 @@
 						}
 					}
 				});
+
+				// Populate mobile annotation
+				const mobileLatest = document.getElementById('chart-latest-mobile');
+				if (config.timeSeries !== false) {
+					const lastEntry = data[data.length - 1];
+					const lastDate = new Date(lastEntry.date);
+					const dateLabels = currentDateFormat.lastValueFormat(lastDate);
+					const dateStr = dateLabels.join(' ');
+					const prefix = config.valuePrefix || '';
+					const suffix = config.valueSuffix || '';
+					const decimals = config.decimals ?? 2;
+
+					if (isMultiSeries) {
+						const parts = config.series.map((s, i) => {
+							let val = null;
+							for (let j = data.length - 1; j >= 0; j--) {
+								if (data[j].values[i] != null && !isNaN(data[j].values[i])) {
+									val = data[j].values[i];
+									break;
+								}
+							}
+							return val != null ? `${s.label}: ${prefix}${val.toFixed(decimals)}${suffix}` : null;
+						}).filter(Boolean);
+						mobileLatest.textContent = `Latest: ${parts.join(', ')} (${dateStr})`;
+					} else {
+						const val = prefix + lastEntry.value.toFixed(decimals) + suffix;
+						mobileLatest.textContent = `Latest: ${val} (${dateStr})`;
+					}
+					mobileLatest.classList.add('active');
+				} else {
+					mobileLatest.textContent = '';
+					mobileLatest.classList.remove('active');
+				}
 
 				// Render legend for multi-series charts
 				renderLegend(config);
