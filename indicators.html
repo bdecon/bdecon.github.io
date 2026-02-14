@@ -571,7 +571,7 @@
 	<main>
 	<section>
 	<article>
-	<p>This page presents a curated selection of US economic indicators covering areas like output, employment, prices, and trade. Use the dropdown to browse available charts.</p>
+	<p>Browse 20 interactive charts across seven categories: output, labor, prices, trade, monetary policy, government, and business. Tap the info button on each chart for descriptions, historical data, and a downloadable CSV. Use the dropdown or arrow keys to navigate. For a broader view, see the <a href="chartbook.html">US Chartbook</a> with 120+ charts.</p>
 	</article>
 
 	<article>
@@ -1938,6 +1938,22 @@
 				navigateChart(1);
 			}
 		});
+
+		// Touch swipe navigation
+		(function() {
+			const wrapper = document.querySelector('.chart-flip-wrapper');
+			let startX = null;
+			wrapper.addEventListener('touchstart', (e) => {
+				startX = e.touches[0].clientX;
+			}, { passive: true });
+			wrapper.addEventListener('touchend', (e) => {
+				if (startX === null) return;
+				const dx = e.changedTouches[0].clientX - startX;
+				startX = null;
+				if (Math.abs(dx) < 50) return;
+				navigateChart(dx > 0 ? -1 : 1);
+			}, { passive: true });
+		})();
 
 		// Initialize on page load
 		init();
