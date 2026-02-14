@@ -335,6 +335,14 @@ print(f'April 2017: {epop*100:.1f}%')</code></pre>
 			const expanded = menu.classList.contains("responsive");
 			button.setAttribute("aria-expanded", expanded);
 		}
+		document.addEventListener("click", function(e) {
+			const menu = document.getElementById("menu");
+			if (!menu.classList.contains("responsive")) return;
+			if (!e.target.closest("nav")) {
+				menu.classList.remove("responsive");
+				document.querySelector(".icon button").setAttribute("aria-expanded", "false");
+			}
+		});
 			function toggleTheme() {
 			const current = document.documentElement.getAttribute('data-theme');
 			const next = current === 'dark' ? 'light' : 'dark';

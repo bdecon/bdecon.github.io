@@ -198,6 +198,14 @@ res.loc['2023-01-01':].plot(title=title, figsize=(4.5,5))</code></pre>
 			const expanded = menu.classList.contains("responsive");
 			button.setAttribute("aria-expanded", expanded);
 		}
+		document.addEventListener("click", function(e) {
+			const menu = document.getElementById("menu");
+			if (!menu.classList.contains("responsive")) return;
+			if (!e.target.closest("nav")) {
+				menu.classList.remove("responsive");
+				document.querySelector(".icon button").setAttribute("aria-expanded", "false");
+			}
+		});
 			function toggleTheme() {
 			const current = document.documentElement.getAttribute('data-theme');
 			const next = current === 'dark' ? 'light' : 'dark';
