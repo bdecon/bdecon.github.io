@@ -159,6 +159,9 @@
 	[data-theme="dark"] .chart-flip-front .chart-container.refractor-card {
 		border-bottom: 6px solid var(--chart-color, var(--color-card-blue));
 	}
+	[data-theme="dark"] .chart-header:not(.dark-text) .card-category-badge {
+		background: rgba(0, 0, 0, 0.3);
+	}
 	@media (prefers-reduced-motion: reduce) {
 		.chart-flip-inner {
 			transition: none;
@@ -169,11 +172,14 @@
 		margin: 0;
 		font-size: 9px;
 		font-family: 'Montserrat', sans-serif;
-		color: var(--color-card-blue);
+		color: var(--color-link);
 		text-decoration: none;
 	}
 	.chart-download-link:hover {
 		text-decoration: underline;
+	}
+	.chart-download-link:visited {
+		color: var(--color-link-visited);
 	}
 	.chart-download-link .fa {
 		margin-right: 3px;
@@ -236,9 +242,10 @@
 		font-family: 'Lato', sans-serif;
 	}
 	.card-category-badge {
-		font-size: 9px;
-		padding: 1px 7px;
+		font-size: 10px;
+		padding: 2px 8px;
 		border-radius: 8px;
+		vertical-align: middle;
 		background: rgba(255,255,255,0.25);
 		font-family: 'Montserrat', sans-serif;
 		margin-left: 8px;
@@ -295,7 +302,7 @@
 		border: none;
 		color: inherit;
 		opacity: 0.7;
-		font-size: 13px;
+		font-size: 15px;
 		cursor: pointer;
 		padding: 2px 4px;
 	}
@@ -315,7 +322,7 @@
 		font-size: 14px;
 	}
 	.chart-subtitle {
-		font-size: 10px;
+		font-size: 11px;
 		font-style: italic;
 		color: var(--color-axis-text);
 		margin: 0 0 4px 0;
@@ -330,7 +337,7 @@
 		padding: 0 10px 7px 10px;
 	}
 	.chart-source {
-		font-size: 9px;
+		font-size: 10px;
 		color: var(--color-text-gray);
 		text-align: right;
 		margin: 0;
@@ -453,24 +460,18 @@
 		border-color: var(--color-card-blue);
 	}
 	.chart-filter {
-		font-size: 9px;
+		font-size: 10px;
 		color: var(--color-axis-text);
 		margin: 0;
 		visibility: hidden;
 	}
 	.chart-filter a {
-		color: var(--color-card-blue);
+		color: var(--color-link);
 		text-decoration: none;
 		cursor: pointer;
 	}
 	.chart-filter a:hover {
 		text-decoration: underline;
-	}
-	[data-theme="dark"] .chart-filter a {
-		color: #7b8aff;
-	}
-	[data-theme="dark"] .chart-download-link {
-		color: #7b8aff;
 	}
 	.chart-legend {
 		display: flex;
@@ -1469,7 +1470,9 @@
 				: (config.color || 'blue');
 			const headerColor = colorMap[colorKey];
 			backHeader.style.backgroundColor = headerColor.border;
-			backHeader.style.color = colorKey === 'yellow' ? '#222' : 'white';
+			const isDarkText = colorKey === 'yellow';
+			backHeader.style.color = isDarkText ? '#222' : 'white';
+			backHeader.classList.toggle('dark-text', isDarkText);
 
 			// Category badge (back and front)
 			const categoryEl = document.getElementById('card-category');
@@ -1773,7 +1776,9 @@
 			// Set CSS custom property for gradient fade
 			document.querySelector('.chart-flip-wrapper').style.setProperty('--chart-color', headerColor.border);
 			// Use dark text for low-contrast backgrounds (yellow)
-			header.style.color = colorKey === 'yellow' ? '#222' : 'white';
+			const isDarkText = colorKey === 'yellow';
+			header.style.color = isDarkText ? '#222' : 'white';
+			header.classList.toggle('dark-text', isDarkText);
 
 			// Toggle refractor effect for featured chart
 			const isFeatured = datasetId === FEATURED_CHART;
@@ -2014,7 +2019,7 @@
 								bounds: 'data',
 								grid: { display: false },
 								ticks: {
-									font: { size: 9, family: "Tahoma, Verdana, sans-serif" },
+									font: { size: 10, family: "Tahoma, Verdana, sans-serif" },
 									color: tc.axisText,
 									callback: config.timeSeries !== false
 										? currentDateFormat.tickCallback
@@ -2029,7 +2034,7 @@
 								border: { display: false },
 								grid: { color: tc.grid },
 								ticks: {
-									font: { size: 9, family: "Tahoma, Verdana, sans-serif" },
+									font: { size: 10, family: "Tahoma, Verdana, sans-serif" },
 									color: tc.axisText
 								},
 								title: { display: false },
