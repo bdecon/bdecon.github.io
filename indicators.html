@@ -57,7 +57,7 @@
         "numberOfItems": 20,
         "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "Real GDP per Capita", "description": "Real GDP per capita divides inflation-adjusted gross domestic product by population. It is a broad measure of average economic output per person.", "url": "https://bd-econ.com/indicators.html#gdppc"},
-            {"@type": "ListItem", "position": 2, "name": "Productivity, Selected Countries", "description": "Labor productivity measures GDP per hour worked, reflecting how efficiently an economy converts labor into output.", "url": "https://bd-econ.com/indicators.html#lprodbar"},
+            {"@type": "ListItem", "position": 2, "name": "Productivity", "description": "Labor productivity measures GDP per hour worked, reflecting how efficiently an economy converts labor into output.", "url": "https://bd-econ.com/indicators.html#lprodbar"},
             {"@type": "ListItem", "position": 3, "name": "Money Supply", "description": "M2 measures the money supply including cash, checking deposits, savings deposits, and money market funds. This chart shows M2 as a share of nominal GDP.", "url": "https://bd-econ.com/indicators.html#m2gdp"},
             {"@type": "ListItem", "position": 4, "name": "Federal Funds Rate", "description": "The federal funds rate is the interest rate at which banks lend reserves to each other overnight. It is the Federal Reserve's primary tool for conducting monetary policy.", "url": "https://bd-econ.com/indicators.html#ffrate"},
             {"@type": "ListItem", "position": 5, "name": "CPI Inflation Rate", "description": "The Consumer Price Index measures the average change in prices paid by urban consumers for a basket of goods and services.", "url": "https://bd-econ.com/indicators.html#cpi"},
@@ -69,7 +69,7 @@
             {"@type": "ListItem", "position": 11, "name": "Job Openings per Unemployed", "description": "This ratio divides the number of job openings by the number of unemployed persons. A higher ratio indicates a tighter labor market.", "url": "https://bd-econ.com/indicators.html#joun"},
             {"@type": "ListItem", "position": 12, "name": "Weekly Earnings, 10th Percentile", "description": "Real weekly earnings at the 10th percentile of full-time workers, adjusted for inflation.", "url": "https://bd-econ.com/indicators.html#p10rw"},
             {"@type": "ListItem", "position": 13, "name": "Federal Receipts", "description": "Total federal government receipts over a trailing 12-month period, expressed as a share of GDP.", "url": "https://bd-econ.com/indicators.html#treasrcpt"},
-            {"@type": "ListItem", "position": 14, "name": "Poverty Rate, Selected Countries", "description": "The relative poverty rate measures the share of population living below 50% of the national median disposable income.", "url": "https://bd-econ.com/indicators.html#povbar"},
+            {"@type": "ListItem", "position": 14, "name": "Poverty Rate", "description": "The relative poverty rate measures the share of population living below 50% of the national median disposable income.", "url": "https://bd-econ.com/indicators.html#povbar"},
             {"@type": "ListItem", "position": 15, "name": "House Price Index", "description": "The FHFA House Price Index tracks changes in single-family home prices based on repeat sales data.", "url": "https://bd-econ.com/indicators.html#hpi"},
             {"@type": "ListItem", "position": 16, "name": "Inflation Contributions", "description": "Decomposes the Consumer Price Index into contributions by category, showing which goods and services are driving inflation.", "url": "https://bd-econ.com/indicators.html#cpicomp"},
             {"@type": "ListItem", "position": 17, "name": "Government Spending", "description": "Total general government expenditure as a share of GDP, including spending on social programs, defense, infrastructure, and public services.", "url": "https://bd-econ.com/indicators.html#govexpbar"},
@@ -316,7 +316,10 @@
 		color: inherit;
 	}
 	.chart-flip-front .chart-header h4 {
-		font-size: 17px;
+		font-size: 18px;
+	}
+	.chart-flip-front .chart-header button {
+		font-size: 16px;
 	}
 	.chart-flip-back .chart-header h4 {
 		font-size: 14px;
@@ -666,6 +669,13 @@
 		to { transform: rotate(360deg); }
 	}
 	/* Fade transition for chart swaps */
+	.chart-flip-front .chart-subtitle {
+		font-size: 12px;
+	}
+	.chart-flip-front .chart-source,
+	.chart-flip-front .chart-filter {
+		font-size: 11px;
+	}
 	.chart-flip-front .chart-body {
 		transition: opacity 0.15s ease;
 	}
@@ -720,7 +730,7 @@
 	</svg>
 	<section>
 	<article>
-	<p>Browse 20 interactive charts across seven categories: output, labor, prices, trade, monetary policy, government, and business. Tap the info button on each chart for descriptions, historical data, and a downloadable CSV. Use the dropdown or arrow keys to navigate.</p>
+	<p>Browse 20 interactive charts covering the US economy across seven categories: output, labor, prices, trade, monetary policy, government, and business. Tap the info button on each chart for descriptions, historical data, and a downloadable CSV. Use the dropdown or arrow keys to navigate.</p>
 	<p>For a broader view, see the <a href="chartbook.html">US Chartbook</a> with 120+ charts.</p>
 	</article>
 
@@ -902,44 +912,62 @@
 
 		// Color mapping to CSS variables (rebuilt on each chart load for theme changes)
 		let colorMap = null;
+		// Mix a hex color toward white by a given ratio (0 = original, 1 = white)
+		function lighten(hex, ratio) {
+			const r = parseInt(hex.slice(1, 3), 16);
+			const g = parseInt(hex.slice(3, 5), 16);
+			const b = parseInt(hex.slice(5, 7), 16);
+			const lr = Math.round(r + (255 - r) * ratio);
+			const lg = Math.round(g + (255 - g) * ratio);
+			const lb = Math.round(b + (255 - b) * ratio);
+			return `rgb(${lr}, ${lg}, ${lb})`;
+		}
 		function updateColorMap() {
 			const style = getComputedStyle(document.documentElement);
 			const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
 			const a = isDark ? 0.18 : 0.08;
 			const aStrong = isDark ? 0.35 : 0.3;
+			const mix = isDark ? 0.25 : 0;
 			colorMap = {
 				blue: {
 					border: style.getPropertyValue('--color-card-blue').trim() || '#3441de',
+					line: lighten(style.getPropertyValue('--color-card-blue').trim() || '#3441de', mix),
 					background: `rgba(52, 65, 222, ${a})`,
 					backgroundStrong: `rgba(52, 65, 222, ${aStrong})`
 				},
 				green: {
 					border: style.getPropertyValue('--color-card-green').trim() || '#27AE60',
+					line: lighten(style.getPropertyValue('--color-card-green').trim() || '#27AE60', mix),
 					background: `rgba(39, 174, 96, ${a})`,
 					backgroundStrong: `rgba(39, 174, 96, ${aStrong})`
 				},
 				red: {
 					border: style.getPropertyValue('--color-card-red').trim() || '#FF2F2F',
+					line: lighten(style.getPropertyValue('--color-card-red').trim() || '#FF2F2F', mix),
 					background: `rgba(255, 47, 47, ${a})`,
 					backgroundStrong: `rgba(255, 47, 47, ${aStrong})`
 				},
 				orange: {
 					border: style.getPropertyValue('--color-card-orange').trim() || '#FF8700',
+					line: lighten(style.getPropertyValue('--color-card-orange').trim() || '#FF8700', mix),
 					background: `rgba(255, 135, 0, ${a})`,
 					backgroundStrong: `rgba(255, 135, 0, ${aStrong})`
 				},
 				purple: {
 					border: style.getPropertyValue('--color-card-purple').trim() || '#721ce7',
+					line: lighten(style.getPropertyValue('--color-card-purple').trim() || '#721ce7', mix),
 					background: `rgba(114, 28, 231, ${a})`,
 					backgroundStrong: `rgba(114, 28, 231, ${aStrong})`
 				},
 				yellow: {
 					border: style.getPropertyValue('--color-card-yellow').trim() || '#FFC300',
+					line: lighten(style.getPropertyValue('--color-card-yellow').trim() || '#FFC300', mix),
 					background: `rgba(255, 195, 0, ${a})`,
 					backgroundStrong: `rgba(255, 195, 0, ${aStrong})`
 				},
 				ltblue: {
 					border: style.getPropertyValue('--color-card-ltblue').trim() || '#1E90FF',
+					line: lighten(style.getPropertyValue('--color-card-ltblue').trim() || '#1E90FF', mix),
 					background: `rgba(30, 144, 255, ${a})`,
 					backgroundStrong: `rgba(30, 144, 255, ${aStrong})`
 				}
@@ -953,13 +981,13 @@
 		// Chart type configurations
 		function getChartTypeConfig(type, colors, config) {
 			const baseDataset = {
-				borderColor: colors.border,
+				borderColor: colors.line,
 				backgroundColor: colors.background,
 				borderWidth: 1.5,
 				pointRadius: 1,
 				pointHoverRadius: 4,
-				pointBackgroundColor: colors.border,
-				pointHoverBackgroundColor: colors.border
+				pointBackgroundColor: colors.line,
+				pointHoverBackgroundColor: colors.line
 			};
 
 			switch (type) {
@@ -986,8 +1014,8 @@
 					return {
 						type: 'bar',
 						dataset: {
-							backgroundColor: colors.border,
-							borderColor: colors.border,
+							backgroundColor: colors.line,
+							borderColor: colors.line,
 							borderWidth: 0
 						}
 					};
@@ -995,8 +1023,8 @@
 					return {
 						type: 'scatter',
 						dataset: {
-							backgroundColor: colors.border,
-							borderColor: colors.border,
+							backgroundColor: colors.line,
+							borderColor: colors.line,
 							pointRadius: 3,
 							pointHoverRadius: 5
 						}
@@ -1424,7 +1452,7 @@
 				const colors = colorMap[s.color || config.color || 'blue'];
 				return `
 					<div class="chart-legend-item" data-index="${i}">
-						<span class="chart-legend-box" style="background-color: ${colors.border}"></span>
+						<span class="chart-legend-box" style="background-color: ${colors.line}"></span>
 						<span>${s.label}</span>
 					</div>
 				`;
@@ -1709,18 +1737,18 @@
 			const hasCategories = charts.some(d => d.category);
 
 			if (hasCategories) {
-				// Group by category
-				const groups = {};
+				// Group by category, preserving order from manifest
+				const groups = new Map();
 				charts.forEach(ds => {
 					const cat = ds.category || 'Other';
-					if (!groups[cat]) groups[cat] = [];
-					groups[cat].push(ds);
+					if (!groups.has(cat)) groups.set(cat, []);
+					groups.get(cat).push(ds);
 				});
 
-				Object.keys(groups).sort().forEach(category => {
+				groups.forEach((items, category) => {
 					const optgroup = document.createElement('optgroup');
 					optgroup.label = category;
-					groups[category].forEach(ds => {
+					items.forEach(ds => {
 						const option = document.createElement('option');
 						option.value = ds.id;
 						option.textContent = ds.title;
@@ -1923,10 +1951,10 @@
 						return {
 							label: s.label,
 							data: data.map(d => d.values[i]),
-							borderColor: seriesColors.border,
+							borderColor: seriesColors.line,
 							backgroundColor: seriesColors.background,
-							pointBackgroundColor: seriesColors.border,
-							pointHoverBackgroundColor: seriesColors.border,
+							pointBackgroundColor: seriesColors.line,
+							pointHoverBackgroundColor: seriesColors.line,
 							borderWidth: 1.5,
 							pointRadius: 1,
 							pointHoverRadius: 4,
