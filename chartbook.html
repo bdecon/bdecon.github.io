@@ -75,6 +75,7 @@
 
 </head>
 <body>
+	<a href="#main" class="skip-link">Skip to main content</a>
 	<nav>
 		<ul class="ul_nav" id="menu">
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
@@ -91,11 +92,12 @@
 			</ul>
 			</li>
 		<li>
-			<a href="reports.html" class="active">Reports &darr;</a>
+			<a href="reports.html" class="active" aria-current="page">Reports &darr;</a>
 			<ul class="hidden">
 				<li><a href="chartbook.html">US Chartbook</a></li>
 				<li><a href="indicators.html">Economic Indicators</a></li>
 				<li><a href="gdpm.html">Monthly GDP</a></li>
+				<li><a href="imfweo.html">IMF WEO</a></li>
 			</ul>
 			</li>
 			<li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><i class="fa fa-moon-o" id="theme-icon"></i></button></li>
@@ -107,7 +109,7 @@
 	<header>
 		<h1>US Chartbook</h1>
 	</header>
-	<main>
+	<main id="main">
 	<section>
 		<article>
 		<h2 class="section-heading-sm">About the Chartbook</h2>
@@ -125,7 +127,7 @@
 			<a href="chartbook.pdf" onclick="gtag('event', 'chartbook_download', {link_url: 'chartbook.pdf', link_text: 'Chartbook'});">
 			<div class="card">
 				<div class="card_banner_wrap card_banner_wrap_green">
-					<img src="images/chartbook_banner.png" alt="US Economic Chartbook" class="card_banner">
+					<img src="images/chartbook_banner.png" alt="US Economic Chartbook" class="card_banner" width="293" height="68">
 				</div>
 				<div class="card_head_green">
 					<h3>Chartbook <i class="fa fa-download"></i></h3>

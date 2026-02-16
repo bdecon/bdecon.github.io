@@ -700,6 +700,7 @@
 
 </head>
 <body>
+	<a href="#main" class="skip-link">Skip to main content</a>
 	<nav>
 		<ul class="ul_nav" id="menu">
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
@@ -716,11 +717,12 @@
 			</ul>
 			</li>
 		<li>
-			<a href="reports.html" class="active">Reports &darr;</a>
+			<a href="reports.html" class="active" aria-current="page">Reports &darr;</a>
 			<ul class="hidden">
 				<li><a href="chartbook.html">US Chartbook</a></li>
 				<li><a href="indicators.html">Economic Indicators</a></li>
 				<li><a href="gdpm.html">Monthly GDP</a></li>
+				<li><a href="imfweo.html">IMF WEO</a></li>
 			</ul>
 			</li>
 			<li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><i class="fa fa-moon-o" id="theme-icon"></i></button></li>
@@ -733,7 +735,7 @@
 	<header>
 	<h1>Economic Indicators</h1>
 	</header>
-	<main>
+	<main id="main">
 	<svg width="0" height="0" style="position:absolute">
 		<defs>
 			<filter id="cracked-ice" x="-20%" y="-100%" width="140%" height="300%">
@@ -766,7 +768,7 @@
 						<div class="chart-body">
 							<p class="chart-subtitle" id="chart-subtitle">index, 1988=1</p>
 							<div class="chart-legend" id="chart-legend"></div>
-							<canvas id="lineChart"></canvas>
+							<canvas id="lineChart" role="img" aria-label="Line chart showing selected US economic indicator over time"></canvas>
 							<p class="chart-latest-mobile" id="chart-latest-mobile"></p>
 						</div>
 						<div class="chart-footer">
@@ -788,7 +790,7 @@
 						</div>
 						<div class="chart-footer">
 							<span style="display: flex; align-items: center; gap: 10px;">
-								<svg id="card-back-logo" viewBox="0 0 9 5" width="16" height="9" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+								<svg id="card-back-logo" viewBox="0 0 9 5" width="16" height="9" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
 								<span class="card-number" id="card-number"></span>
 								<span class="featured-badge" id="featured-badge">Featured</span>
 							</span>

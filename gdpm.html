@@ -333,6 +333,7 @@
 
 </head>
 <body>
+	<a href="#main" class="skip-link">Skip to main content</a>
 	<nav>
 		<ul class="ul_nav" id="menu">
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
@@ -349,11 +350,12 @@
 			</ul>
 			</li>
 		<li>
-			<a href="reports.html" class="active">Reports &darr;</a>
+			<a href="reports.html" class="active" aria-current="page">Reports &darr;</a>
 			<ul class="hidden">
 				<li><a href="chartbook.html">US Chartbook</a></li>
 				<li><a href="indicators.html">Economic Indicators</a></li>
 				<li><a href="gdpm.html">Monthly GDP</a></li>
+				<li><a href="imfweo.html">IMF WEO</a></li>
 			</ul>
 			</li>
 			<li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><i class="fa fa-moon-o" id="theme-icon"></i></button></li>
@@ -366,7 +368,7 @@
 	<header>
 	<h1>Monthly GDP</h1>
 	</header>
-	<main>
+	<main id="main">
 	<section>
 	<article>
 	<div class="chart-row">
@@ -383,7 +385,7 @@
 						<button class="chart-toggle-btn" data-series="real">Real</button>
 					</div>
 				</div>
-				<canvas id="lineChart"></canvas>
+				<canvas id="lineChart" role="img" aria-label="Line chart showing monthly US GDP estimates"></canvas>
 			</div>
 			<div class="chart-footer">
 				<p class="chart-filter"><button type="button" onclick="toggleTimeRange()">Recent 3 years</button></p>
@@ -453,7 +455,7 @@
 	<p>The chart below illustrates the interpolation process. The stepped gray line shows published quarterly GDP values. The smooth red line shows the monthly interpolated series. The most recent quarter includes the nowcast estimate.</p>
 
 	<div class="comparison-chart-container">
-		<canvas id="comparisonChart"></canvas>
+		<canvas id="comparisonChart" role="img" aria-label="Line chart comparing GDP estimates across sources"></canvas>
 	</div>
 
 	<h3>Data Sources</h3>

@@ -80,12 +80,13 @@
 
 </head>
 <body>
+	<a href="#main" class="skip-link">Skip to main content</a>
 	<nav>
 		<ul class="ul_nav" id="menu">
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
 			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
-			<li><a href="python.html" class="active">Guides &darr;</a>
+			<li><a href="python.html" class="active" aria-current="page">Guides &darr;</a>
 				<ul class="hidden">
 					<li><a href="imfapi1.html">IMF API</a></li>
 					<li><a href="blsapi.html">BLS API</a></li>
@@ -101,6 +102,7 @@
 				<li><a href="chartbook.html">US Chartbook</a></li>
 				<li><a href="indicators.html">Economic Indicators</a></li>
 				<li><a href="gdpm.html">Monthly GDP</a></li>
+				<li><a href="imfweo.html">IMF WEO</a></li>
 			</ul>
 			</li>
 			<li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><i class="fa fa-moon-o" id="theme-icon"></i></button></li>
@@ -113,7 +115,7 @@
 	<header>
 	<h1>CPS Microdata</h1>
 	</header>
-	<main>
+	<main id="main">
 	<section>
 	<article class="article_code">
 	<p class="subtitle">Current Population Survey Microdata with Python</p>

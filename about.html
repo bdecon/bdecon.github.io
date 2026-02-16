@@ -6,20 +6,20 @@
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<meta charset="UTF-8">
-	<meta name="description" content="About Brian Dew and BD Economics - macroeconomic research and data analysis.">
+	<meta name="description" content="About Brian Dew and BD Economics. Open-source macroeconomic research, data tools, and API guides. Previously at CEPR, the IMF, and IIF.">
 	<meta name="keywords" content="BD Economics, Brian Dew, Brian Wilson Dew, Brian Dew CEPR, Brian Dew Economics, BD Econ, BD Econ API, BD Econ IMF, BD Economics IMF, Brian Dew IMF, Center for Economic and Policy Research">
 	<meta name="author" content="Brian Dew">
 	<link rel="canonical" href="https://bd-econ.com/about.html">
 	<!-- Open Graph -->
 	<meta property="og:title" content="About BD Economics">
-	<meta property="og:description" content="About Brian Dew and BD Economics - macroeconomic research and data analysis.">
+	<meta property="og:description" content="About Brian Dew and BD Economics. Open-source macroeconomic research, data tools, and API guides.">
 	<meta property="og:url" content="https://bd-econ.com/about.html">
 	<meta property="og:type" content="website">
 	<meta property="og:image" content="https://bd-econ.com/images/01_bdlogo.png">
 	<!-- Twitter Card -->
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="About BD Economics">
-	<meta name="twitter:description" content="About Brian Dew and BD Economics - macroeconomic research and data analysis.">
+	<meta name="twitter:description" content="About Brian Dew and BD Economics. Open-source macroeconomic research, data tools, and API guides.">
 	<meta name="twitter:image" content="https://bd-econ.com/images/01_bdlogo.png">
 	<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
 	<link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
@@ -53,7 +53,7 @@
     "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "About",
-    "description": "About Brian Dew and BD Economics - macroeconomic research and data analysis.",
+    "description": "About Brian Dew and BD Economics. Open-source macroeconomic research, data tools, and API guides.",
     "url": "https://bd-econ.com/about.html",
     "author": {
         "@type": "Person",
@@ -74,10 +74,11 @@
 
 </head>
 <body>
+	<a href="#main" class="skip-link">Skip to main content</a>
 	<nav>
 		<ul class="ul_nav" id="menu">
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
-			<li><a href="about.html" class="active">About</a> </li>
+			<li><a href="about.html" class="active" aria-current="page">About</a> </li>
 			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
 			<li><a href="python.html">Guides &darr;</a>
 				<ul class="hidden">
@@ -95,6 +96,7 @@
 				<li><a href="chartbook.html">US Chartbook</a></li>
 				<li><a href="indicators.html">Economic Indicators</a></li>
 				<li><a href="gdpm.html">Monthly GDP</a></li>
+				<li><a href="imfweo.html">IMF WEO</a></li>
 			</ul>
 			</li>
 			<li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><i class="fa fa-moon-o" id="theme-icon"></i></button></li>
@@ -106,14 +108,30 @@
 	<header>
 	<h1>About</h1>
 	</header>
-	<main>
+	<main id="main">
 	<section>
 		<article>
-		<p>I created <strong>BD Economics</strong> to share macroeconomic research and practical guides for working with economic data.</p>
+		<div style="display: flex; align-items: flex-start; gap: 24px; margin-bottom: 20px; flex-wrap: wrap;">
+			<img src="images/briandew.png" alt="Brian Dew" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; flex-shrink: 0;">
+			<div style="flex: 1; min-width: 200px;">
+				<h2 class="section-heading" style="margin-top: 0;">Brian Dew</h2>
+				<p style="margin-top: 4px;">I build data tools and visualizations for macroeconomic research. I've worked across think tanks, international organizations, and the private sector &mdash; including the <a href="https://cepr.net">Center for Economic and Policy Research</a>, the <a href="https://www.imf.org">IMF</a> Statistics Department, and the <a href="https://www.iif.com">Institute of International Finance</a>. Past projects include internal IMF tools for tracking statistical coverage across member countries, an emerging markets finance dashboard, economic chartbooks, and contributions to open-source Census microdata projects. I hold a master's in economics from American University.</p>
+			</div>
+		</div>
 
-		<h2 class="section-heading">Brian Dew (<i class="fa fa-twitter"></i> <a href="https://twitter.com/bd_econ">@bd_econ</a>)</h2>
+		<h2 class="section-heading">About this site</h2>
+		<p><strong>BD Economics</strong> is a personal project for sharing macroeconomic research, data visualizations, and practical guides for working with economic data APIs. Everything here is open source. I don't collect personal data, run ads, or sell anything.</p>
 
-		<p>I research the U.S. labor market and international trade. Previously, I worked at the Center for Economic and Policy Research, the IMF Statistics Department, and the Institute of International Finance. I hold a master's in economics from American University and a bachelor's in psychology and organizational sciences from George Washington University.</p>
+		<h2 class="section-heading">Selected work</h2>
+		<ul style="line-height: 1.8; padding-left: 20px;">
+			<li><a href="https://www.imf.org/en/Publications/WP/Issues/2017/02/13/Assessing-the-Fragility-of-Global-Trade-The-Impact-of-Localized-Supply-Shocks-Using-Network-44656">Assessing the Fragility of Global Trade</a> &mdash; IMF Working Paper, 2017 (with Korniyenko &amp; Pinat)</li>
+			<li><a href="https://cepr.net/publications/the-collapse-of-obamacare-big-problem-in-republican-states/">The Collapse of Obamacare: Big Problem in Republican States</a> &mdash; CEPR, 2017</li>
+			<li><a href="https://cepr.net/publications/the-problem-with-blaming-men-for-not-working-a-comparison-of-labor-market-outcomes-for-men-and-women/">The Problem with Blaming Men for Not Working</a> &mdash; CEPR, 2017</li>
+			<li><a href="https://cepr.net/publications/union-membership-byte-2018/">Union Membership Byte</a> &mdash; CEPR, 2018</li>
+			<li><a href="https://www.peoplespolicyproject.org/2018/12/19/us-companies-are-flush-with-left-over-cash/">US Companies Are Flush with Left Over Cash</a> &mdash; People's Policy Project, 2018</li>
+			<li><a href="https://www.peoplespolicyproject.org/2020/07/28/the-long-reach-of-unemployment-benefits/">The Long Reach of Unemployment Benefits</a> &mdash; People's Policy Project, 2020</li>
+			<li><a href="https://briandew.wordpress.com/2023/12/18/trends-in-hours-worked-in-the-us/">Trends in Hours Worked in the US</a> &mdash; BD Economics blog, 2023</li>
+		</ul>
 
 		<h2 class="section-heading">Contact</h2>
 		<p>Reach me at <a href="mailto:brian@bd-econ.com">brian@bd-econ.com</a></p>

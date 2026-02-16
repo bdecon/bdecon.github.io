@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>BD Economics | IMF WEO Forecast Tracker</title>
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7"></script>
+	<meta charset="UTF-8">
+	<meta name="description" content="Interactive visualization of IMF World Economic Outlook forecast revisions across 39 vintages (2006-2025). Track how economic forecasts evolved over time for 196 countries.">
+	<meta name="keywords" content="IMF, World Economic Outlook, WEO, forecast revisions, GDP growth, current account, economic forecasts">
+	<meta name="author" content="Brian Dew">
+	<link rel="canonical" href="https://bd-econ.com/imfweo.html">
+	<meta property="og:title" content="BD Economics | IMF WEO Forecast Tracker">
+	<meta property="og:description" content="Interactive visualization of IMF World Economic Outlook forecast revisions across 39 vintages (2006-2025).">
+	<meta property="og:url" content="https://bd-econ.com/imfweo.html">
+	<meta property="og:type" content="website">
+	<meta property="og:image" content="https://bd-econ.com/images/01_bdlogo.png">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="BD Economics | IMF WEO Forecast Tracker">
+	<meta name="twitter:description" content="Interactive visualization of IMF World Economic Outlook forecast revisions across 39 vintages (2006-2025).">
+	<meta name="twitter:image" content="https://bd-econ.com/images/01_bdlogo.png">
+	<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192" href="favicon/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+	<link rel="manifest" href="favicon/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+<script type="application/ld+json">
+{
+	"@context": "https://schema.org",
+	"@type": "Dataset",
+	"name": "IMF WEO Forecast Tracker",
+	"description": "Interactive visualization tracking IMF World Economic Outlook forecast revisions across 39 editions (2006–2025) for 196 countries and 5 macroeconomic indicators: GDP growth, inflation, current account balance, government debt, and unemployment.",
+	"url": "https://bd-econ.com/imfweo.html",
+	"creator": {
+		"@type": "Person",
+		"name": "Brian Dew",
+		"url": "https://bd-econ.com"
+	},
+	"temporalCoverage": "2006/2025",
+	"spatialCoverage": {
+		"@type": "Place",
+		"name": "World (196 countries)"
+	},
+	"variableMeasured": [
+		{"@type": "PropertyValue", "name": "Real GDP Growth", "unitText": "Annual percent change"},
+		{"@type": "PropertyValue", "name": "Current Account Balance", "unitText": "Percent of GDP"},
+		{"@type": "PropertyValue", "name": "CPI Inflation", "unitText": "Annual percent change"},
+		{"@type": "PropertyValue", "name": "Government Debt", "unitText": "Percent of GDP"},
+		{"@type": "PropertyValue", "name": "Unemployment Rate", "unitText": "Percent of labor force"}
+	],
+	"isBasedOn": {
+		"@type": "Dataset",
+		"name": "IMF World Economic Outlook Database",
+		"url": "https://www.imf.org/en/Publications/WEO",
+		"creator": {"@type": "Organization", "name": "International Monetary Fund"}
+	},
+	"license": "https://www.imf.org/external/terms.htm"
+}
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PGVF5S620Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PGVF5S620Y');
+</script>
+
+<script>
+(function() {
+	var saved = localStorage.getItem('theme');
+	if (saved) {
+		document.documentElement.setAttribute('data-theme', saved);
+	} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+		document.documentElement.setAttribute('data-theme', 'dark');
+	}
+})();
+</script>
+<style>
+	.weo-controls {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		margin: 1rem auto;
+		max-width: 420px;
+	}
+	.weo-control-row {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+	}
+	.weo-control-row label {
+		font-size: 12px;
+		font-weight: 600;
+		color: var(--color-text-muted);
+		white-space: nowrap;
+		min-width: 62px;
+	}
+	.weo-controls select {
+		flex: 1;
+		min-width: 0;
+		padding: 6px 8px;
+		font-size: 13px;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		border: 1px solid var(--color-border-light);
+		border-radius: 3px;
+		background: var(--color-bg-white);
+		color: var(--color-text-dark);
+	}
+	.chart-container {
+		position: relative;
+		width: 100%;
+		max-width: 420px;
+		margin: 0 auto;
+		background: var(--color-bg-white);
+		box-shadow: 0 2px 8px var(--color-shadow), 0 4px 16px rgba(0, 0, 0, 0.06);
+	}
+	.chart-header {
+		background-color: var(--color-card-blue);
+		color: white;
+		padding: 6px 10px 5px 10px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.chart-header h4 {
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		font-size: 17px;
+		margin: 0;
+		font-weight: 600;
+		color: inherit;
+	}
+	.chart-header-indicator {
+		font-size: 12px;
+		font-weight: 400;
+		color: rgba(255,255,255,0.8);
+		margin: 1px 0 0 0;
+	}
+	.chart-header-indicator strong {
+		font-weight: 600;
+		color: #fff;
+	}
+	.chart-body {
+		padding: 6px 10px 2px 10px;
+	}
+	.chart-subtitle {
+		font-size: 10px;
+		font-style: italic;
+		color: var(--color-axis-text);
+		margin: 0 0 2px 0;
+	}
+	.chart-legend {
+		display: grid;
+		grid-template-columns: auto auto auto;
+		grid-template-rows: auto auto auto auto;
+		gap: 0 14px;
+		column-gap: 14px;
+		font-size: 10.5px;
+		color: var(--color-text-muted);
+		margin-bottom: 6px;
+		line-height: 1.5;
+		padding: 4px 0;
+		border-bottom: 1px solid var(--color-border);
+	}
+	.legend-col-header {
+		font-weight: 700;
+		font-size: 10px;
+		text-transform: uppercase;
+		letter-spacing: 0.3px;
+		color: var(--color-text-dark);
+		padding-bottom: 2px;
+		margin-bottom: 5px;
+		border-bottom: 3.5px solid var(--color-card-blue);
+	}
+	.legend-hdr-latest { grid-column: 1; grid-row: 1; }
+	.legend-hdr-prev { grid-column: 2 / 4; grid-row: 1; }
+	.legend-hdr-nc { grid-column: 3; grid-row: 2; margin-left: -4px; font-size: 8px; border-bottom-width: 1.5px; margin-bottom: 3px; }
+	.legend-col1 { grid-column: 1; }
+	.legend-col2 { grid-column: 2; }
+	.legend-col3 { grid-column: 3; margin-left: -4px; }
+	.chart-legend-item {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		white-space: nowrap;
+		cursor: pointer;
+		user-select: none;
+	}
+	.chart-legend-item.legend-off {
+		opacity: 0.35;
+	}
+	.legend-swatch {
+		display: inline-block;
+		flex-shrink: 0;
+	}
+	.legend-line, .legend-line-dashed, .legend-line-gray, .legend-line-region {
+		width: 14px;
+	}
+	.weo-tooltip-icon {
+		display: inline-block;
+		flex-shrink: 0;
+		margin-right: 3px;
+		vertical-align: middle;
+	}
+	.chart-footer {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 10px 7px 10px;
+	}
+	.chart-source {
+		font-size: 10px;
+		color: var(--color-text-gray);
+		text-align: right;
+		margin: 0;
+		font-style: italic;
+	}
+	[data-theme="dark"] .chart-source {
+		color: #bbb;
+	}
+	/* Tooltip */
+	.weo-tooltip {
+		position: absolute;
+		pointer-events: none;
+		background: var(--color-tooltip-bg);
+		color: #fff;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		font-size: 11px;
+		padding: 8px 10px;
+		border-radius: 4px;
+		z-index: 100;
+		max-width: 220px;
+		line-height: 1.45;
+		opacity: 0;
+		transition: opacity 0.15s;
+	}
+	.weo-tooltip.visible {
+		opacity: 1;
+	}
+	.weo-tooltip-header {
+		font-weight: 600;
+		margin-bottom: 4px;
+		font-size: 12px;
+		border-bottom: 1px solid rgba(255,255,255,0.2);
+		padding-bottom: 3px;
+	}
+	.weo-tooltip-latest {
+		font-weight: 600;
+		margin-bottom: 4px;
+	}
+	.weo-tooltip-list {
+		max-height: 180px;
+		overflow-y: auto;
+	}
+	.weo-tooltip-row {
+		display: flex;
+		justify-content: space-between;
+		gap: 8px;
+	}
+	.weo-tooltip-dot {
+		display: inline-block;
+		border-radius: 50%;
+		margin-right: 3px;
+		vertical-align: middle;
+	}
+	/* Info box */
+	.weo-info {
+		max-width: 420px;
+		margin: 0.75rem auto;
+		padding: 8px 12px;
+		background: var(--color-bg-highlight);
+		border-radius: 4px;
+		font-size: 13px;
+		color: var(--color-text-muted);
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		gap: 10px;
+	}
+	.weo-info strong {
+		color: var(--color-text-dark);
+		display: block;
+		font-size: 11px;
+		text-transform: uppercase;
+		letter-spacing: 0.3px;
+	}
+	/* Collapsible sections */
+	.weo-details {
+		max-width: 420px;
+		margin: 0.75rem auto;
+	}
+	.weo-details summary {
+		font-size: 14px;
+		font-weight: 600;
+		cursor: pointer;
+		padding: 6px 0;
+		color: var(--color-text-dark);
+		border-bottom: 1px solid var(--color-border-light);
+	}
+	.weo-details[open] summary {
+		margin-bottom: 8px;
+	}
+	.weo-details p, .weo-details li {
+		font-size: 13px;
+		color: var(--color-text-muted);
+		line-height: 1.5;
+	}
+	.weo-glossary-table {
+		width: 100%;
+		font-size: 12px;
+		border-collapse: collapse;
+	}
+	.weo-glossary-table th, .weo-glossary-table td {
+		text-align: left;
+		padding: 4px 8px;
+		border-bottom: 1px solid var(--color-border-light);
+	}
+	.weo-glossary-table th {
+		font-weight: 600;
+		color: var(--color-text-dark);
+	}
+	.weo-details ul {
+		padding-left: 1.2em;
+		margin: 0.5em 0;
+	}
+	.weo-countries p { margin: 0.4em 0; }
+	.weo-countries strong { font-size: 13px; color: var(--color-text-dark); }
+</style>
+</head>
+<body>
+	<a href="#main" class="skip-link">Skip to main content</a>
+	<nav>
+		<ul class="ul_nav" id="menu">
+			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
+			<li><a href="about.html">About</a> </li>
+			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
+			<li><a href="python.html">Guides &darr;</a>
+				<ul class="hidden">
+					<li><a href="imfapi1.html">IMF API</a></li>
+					<li><a href="blsapi.html">BLS API</a></li>
+					<li><a href="beaapi.html">BEA API</a></li>
+					<li><a href="censusapi.html">Census API</a></li>
+					<li><a href="treasuryapi.html">Treasury API</a></li>
+					<li><a href="cps.html">CPS Microdata</a></li>
+				</ul>
+			</li>
+		<li>
+			<a href="reports.html" class="active" aria-current="page">Reports &darr;</a>
+			<ul class="hidden">
+				<li><a href="chartbook.html">US Chartbook</a></li>
+				<li><a href="indicators.html">Economic Indicators</a></li>
+				<li><a href="gdpm.html">Monthly GDP</a></li>
+				<li><a href="imfweo.html">IMF WEO</a></li>
+			</ul>
+			</li>
+			<li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><i class="fa fa-moon-o" id="theme-icon"></i></button></li>
+			<li class="icon">
+				<button type="button" onclick="responsiveNav()" aria-label="Toggle navigation menu" aria-expanded="false">&#9776;</button>
+			</li>
+		</ul>
+	</nav>
+
+	<header>
+	<h1>IMF WEO Forecast Tracker</h1>
+	</header>
+	<main id="main">
+	<section>
+	<article>
+
+	<p>The IMF publishes the <a href="https://www.imf.org/en/Publications/WEO">World Economic Outlook</a> twice a year (April and October), with macroeconomic forecasts for nearly 200 countries. This tool tracks how those forecasts have evolved across editions from April 2008 to October 2025.</p>
+
+	<p>Each dot below is a forecast from a previous WEO edition. Larger, fainter dots are longer-range forecasts; smaller, brighter dots are nearer-term. The solid line shows the latest actual data; the dashed line shows the latest forecasts. Where dots cluster tightly, forecasters agreed; where they spread, there was uncertainty or revision.</p>
+
+	<div class="weo-info" id="weo-info">
+		<span><strong>Latest edition</strong><span id="weo-info-edition">...</span></span>
+		<span><strong>Next update</strong><span id="weo-info-next">...</span></span>
+		<span><a href="https://www.imf.org/en/Publications/WEO">IMF WEO page &rarr;</a></span>
+	</div>
+
+	<div class="weo-controls">
+		<div class="weo-control-row">
+			<label for="country-select">Country:</label>
+			<select id="country-select"></select>
+		</div>
+		<div class="weo-control-row">
+			<label for="indicator-select">Indicator:</label>
+			<select id="indicator-select"></select>
+		</div>
+	</div>
+
+	<div class="chart-container">
+		<div class="chart-header">
+			<div>
+				<h4 id="chart-title">Loading...</h4>
+				<p class="chart-header-indicator" id="chart-indicator"></p>
+			</div>
+		</div>
+		<div class="chart-body">
+			<p class="chart-subtitle" id="chart-units"></p>
+			<div class="chart-legend" id="chart-legend">
+				<div class="legend-col-header legend-hdr-latest" id="legend-latest-header">Oct 2025 WEO</div>
+				<div class="legend-col-header legend-hdr-prev">Previous WEOs</div>
+				<div class="legend-col-header legend-hdr-nc">Same-year nowcast</div>
+				<div class="chart-legend-item legend-col1" style="grid-row:2" data-toggle="actual"><span class="legend-swatch legend-line"></span> Actual</div>
+				<div class="chart-legend-item legend-col1" style="grid-row:3" data-toggle="forecast"><span class="legend-swatch legend-line-dashed"></span> Forecast/est.</div>
+				<div class="chart-legend-item legend-col1 legend-off" style="grid-row:4" data-toggle="world"><span class="legend-swatch legend-line-gray"></span> World average</div>
+				<div class="chart-legend-item legend-col1 legend-off" style="grid-row:5" data-toggle="region" id="legend-region"><span class="legend-swatch legend-line-region"></span> <span id="legend-region-name">Region average</span></div>
+				<div class="chart-legend-item legend-col2" style="grid-row:2" data-toggle="cloud_far"><span class="legend-swatch legend-dot-h5"></span> 5-year forecast</div>
+				<div class="chart-legend-item legend-col2" style="grid-row:3" data-toggle="cloud_mid"><span class="legend-swatch legend-dot-h3"></span> 3-year forecast</div>
+				<div class="chart-legend-item legend-col2" style="grid-row:4" data-toggle="cloud_near"><span class="legend-swatch legend-dot-h1"></span> 1-year forecast</div>
+				<div class="chart-legend-item legend-col3" style="grid-row:3" data-toggle="nc_apr"><span class="legend-swatch legend-nc-diamond"></span> April</div>
+				<div class="chart-legend-item legend-col3" style="grid-row:4" data-toggle="nc_oct"><span class="legend-swatch legend-nc-square"></span> October</div>
+			</div>
+			<canvas id="weoChart" role="img" aria-label="Scatter chart showing how IMF World Economic Outlook forecasts evolved across editions"></canvas>
+		</div>
+		<div class="chart-footer">
+			<p class="chart-source">Source: IMF World Economic Outlook</p>
+			<svg viewBox="0 0 9 5" width="16" height="9" aria-hidden="true" style="fill: var(--color-text-gray); opacity: 0.5;"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+		</div>
+		<div class="weo-tooltip" id="weo-tooltip"></div>
+	</div>
+
+	<details class="weo-details">
+		<summary>Notable Examples</summary>
+		<ul>
+			<li><strong>Greece &mdash; Government Debt</strong>: The IMF's own Independent Evaluation Office criticized the austerity-era debt forecasts. The dot cloud shows how projections kept underestimating Greek debt as the crisis deepened.</li>
+			<li><strong>Japan &mdash; CPI Inflation</strong>: For years, forecasts predicted inflation would return to 2%&mdash;and it never did. The cloud fans out above the flatline, until post-COVID inflation finally arrived and caught forecasters going the other way.</li>
+			<li><strong>Ethiopia &mdash; Real GDP Growth</strong>: Ethiopia pursued an ambitious state-led development strategy that produced consistently strong GDP growth, frequently exceeding IMF forecasts. The dot cloud shows a pattern of upward revisions as actual growth outpaced earlier projections.</li>
+			<li><strong>Germany &mdash; Real GDP Growth</strong>: Recent forecasts show persistent optimism about a rebound that hasn't materialized. The &ldquo;sick man of Europe&rdquo; narrative is visible in the gap between forecast dots and the actual line.</li>
+		</ul>
+	</details>
+
+	<details class="weo-details">
+		<summary>About the WEO</summary>
+		<p>The World Economic Outlook is the IMF's flagship forecast publication, covering GDP growth, inflation, fiscal balances, current account balances, and more for nearly every country. It has been published twice yearly (April and October) since 1980.</p>
+		<p>Each edition contains forecasts extending 5&ndash;6 years forward. As the forecast horizon shrinks, estimates generally converge toward the actual outcome&mdash;but not always. The IMF's <a href="https://ieo.imf.org/en/evaluations/completed/03-18-2014-imf-forecasts-process-quality-and-country-perspectives">Independent Evaluation Office found</a> systematic optimism bias during recessions. Research by <a href="https://www.imf.org/en/Publications/WP/Issues/2018/03/05/How-Well-Do-Economists-Forecast-Recessions-45672">Loungani et al. (2018)</a> showed the &ldquo;record of failure to predict recessions is virtually unblemished.&rdquo; A <a href="https://www.imf.org/-/media/files/publications/wp/2025/english/wpiea2025031-print-pdf.pdf">2025 IMF working paper</a> found forecasts overreact to good news while responding more cautiously to bad news.</p>
+		<p>By overlaying all 39 editions, you can see these patterns directly&mdash;the cloud of dots reveals where forecasts converged or diverged, and how the latest estimates compare to historical predictions.</p>
+	</details>
+
+	<details class="weo-details">
+		<summary>Indicator Glossary</summary>
+		<table class="weo-glossary-table">
+			<thead>
+				<tr><th>Code</th><th>Name</th><th>Units</th><th>Description</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>NGDP_RPCH</td><td>Real GDP Growth</td><td>% change</td><td>Year-over-year change in inflation-adjusted GDP. The broadest measure of economic growth.</td></tr>
+				<tr><td>BCA_NGDPD</td><td>Current Account Balance</td><td>% of GDP</td><td>Net flow of goods, services, and transfers with the rest of the world. Negative = deficit.</td></tr>
+				<tr><td>PCPIPCH</td><td>CPI Inflation</td><td>% change</td><td>Year-over-year change in consumer prices.</td></tr>
+				<tr><td>GGXWDG_NGDP</td><td>Government Debt</td><td>% of GDP</td><td>Gross general government debt relative to GDP.</td></tr>
+				<tr><td>LUR</td><td>Unemployment Rate</td><td>% of labor force</td><td>Share of the labor force that is unemployed. Not available for all countries.</td></tr>
+			</tbody>
+		</table>
+	</details>
+
+	<details class="weo-details weo-countries">
+		<summary>Countries Included (196)</summary>
+		<p><strong>Advanced Economies (41)</strong><br>
+		Andorra, Australia, Austria, Belgium, Canada, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hong Kong SAR, Iceland, Ireland, Israel, Italy, Japan, Korea, Latvia, Lithuania, Luxembourg, Macao SAR, Malta, Netherlands, New Zealand, Norway, Portugal, Puerto Rico, San Marino, Singapore, Slovak Republic, Slovenia, Spain, Sweden, Switzerland, Taiwan Province of China, United Kingdom, United States</p>
+		<p><strong>Emerging &amp; Developing Asia (30)</strong><br>
+		Bangladesh, Bhutan, Brunei Darussalam, Cambodia, China, Fiji, India, Indonesia, Kiribati, Lao P.D.R., Malaysia, Maldives, Marshall Islands, Micronesia, Mongolia, Myanmar, Nauru, Nepal, Palau, Papua New Guinea, Philippines, Samoa, Solomon Islands, Sri Lanka, Thailand, Timor-Leste, Tonga, Tuvalu, Vanuatu, Vietnam</p>
+		<p><strong>Emerging &amp; Developing Europe (15)</strong><br>
+		Albania, Belarus, Bosnia and Herzegovina, Bulgaria, Hungary, Kosovo, Moldova, Montenegro, North Macedonia, Poland, Romania, Russia, Serbia, Turkey, Ukraine</p>
+		<p><strong>Latin America &amp; Caribbean (33)</strong><br>
+		Antigua and Barbuda, Argentina, Aruba, The Bahamas, Barbados, Belize, Bolivia, Brazil, Chile, Colombia, Costa Rica, Dominica, Dominican Republic, Ecuador, El Salvador, Grenada, Guatemala, Guyana, Haiti, Honduras, Jamaica, Mexico, Nicaragua, Panama, Paraguay, Peru, St. Kitts and Nevis, St. Lucia, St. Vincent and the Grenadines, Suriname, Trinidad and Tobago, Uruguay, Venezuela</p>
+		<p><strong>Middle East &amp; Central Asia (32)</strong><br>
+		Afghanistan, Algeria, Armenia, Azerbaijan, Bahrain, Djibouti, Egypt, Georgia, Iran, Iraq, Jordan, Kazakhstan, Kuwait, Kyrgyz Republic, Lebanon, Libya, Mauritania, Morocco, Oman, Pakistan, Qatar, Saudi Arabia, Somalia, Sudan, Syria, Tajikistan, Tunisia, Turkmenistan, United Arab Emirates, Uzbekistan, West Bank and Gaza, Yemen</p>
+		<p><strong>Sub-Saharan Africa (45)</strong><br>
+		Angola, Benin, Botswana, Burkina Faso, Burundi, Cameroon, Cape Verde, Central African Republic, Chad, Comoros, Democratic Republic of the Congo, Republic of Congo, C&ocirc;te d'Ivoire, Equatorial Guinea, Eritrea, Eswatini, Ethiopia, Gabon, The Gambia, Ghana, Guinea, Guinea-Bissau, Kenya, Lesotho, Liberia, Madagascar, Malawi, Mali, Mauritius, Mozambique, Namibia, Niger, Nigeria, Rwanda, S&atilde;o Tom&eacute; and Pr&iacute;ncipe, Senegal, Seychelles, Sierra Leone, South Africa, South Sudan, Tanzania, Togo, Uganda, Zambia, Zimbabwe</p>
+	</details>
+
+	<details class="weo-details">
+		<summary>Further Reading</summary>
+		<ul>
+			<li><a href="https://ieo.imf.org/en/evaluations/completed/03-18-2014-imf-forecasts-process-quality-and-country-perspectives">IEO: IMF Forecasts &mdash; Process, Quality, and Country Perspectives (2014)</a></li>
+			<li><a href="https://www.imf.org/en/Publications/WP/Issues/2018/03/05/How-Well-Do-Economists-Forecast-Recessions-45672">An, Jalles &amp; Loungani: How Well Do Economists Forecast Recessions? (2018)</a></li>
+			<li><a href="https://www.imf.org/-/media/Files/Publications/WP/2021/English/wpiea2021216-print-pdf.ashx">Celasun et al.: An Evaluation of WEO Growth Forecasts 2004&ndash;17 (2021)</a></li>
+			<li><a href="https://www.imf.org/-/media/files/publications/wp/2025/english/wpiea2025031-print-pdf.pdf">Evidence of Asymmetry in WEO Forecasts (2025)</a></li>
+			<li><a href="https://www.elibrary.imf.org/view/journals/001/2021/136/article-A001-en.xml">Hadzi-Vaskov et al.: Patterns in IMF Growth Forecast Revisions (2021)</a></li>
+			<li><a href="imfapi3.html">IMF API Guide &mdash; Working with WEO Data</a></li>
+			<li><a href="https://github.com/bdecon/bdecon.github.io">Source code on GitHub</a></li>
+		</ul>
+	</details>
+
+	</article>
+	</section>
+	</main>
+
+	<footer>
+		<div class="footer_left">
+			<p><time datetime="2026">2026</time>, by Brian Dew</p>
+		</div>
+		<div class="footer_right">
+			<a href="https://github.com/bdecon/" aria-label="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
+			<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+			<a href="https://twitter.com/bd_econ" aria-label="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+			<a href="https://briandew.wordpress.com/" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
+		</div>
+	</footer>
+	<script>
+		function responsiveNav() {
+			const menu = document.getElementById("menu");
+			const button = document.querySelector(".icon button");
+			menu.classList.toggle("responsive");
+			const expanded = menu.classList.contains("responsive");
+			button.setAttribute("aria-expanded", expanded);
+		}
+		document.addEventListener("click", function(e) {
+			const menu = document.getElementById("menu");
+			if (!menu.classList.contains("responsive")) return;
+			if (!e.target.closest("nav")) {
+				menu.classList.remove("responsive");
+				document.querySelector(".icon button").setAttribute("aria-expanded", "false");
+			}
+		});
+		function toggleTheme() {
+			const current = document.documentElement.getAttribute('data-theme');
+			const next = current === 'dark' ? 'light' : 'dark';
+			document.documentElement.setAttribute('data-theme', next);
+			localStorage.setItem('theme', next);
+			updateThemeIcon();
+			if (typeof refreshChartColors === 'function') refreshChartColors();
+		}
+		function updateThemeIcon() {
+			const icon = document.getElementById('theme-icon');
+			if (!icon) return;
+			const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+			icon.className = isDark ? 'fa fa-sun-o' : 'fa fa-moon-o';
+		}
+		updateThemeIcon();
+	</script>
+	<script>
+	(function() {
+		'use strict';
+
+		// --- State ---
+		let DATA = null;
+		let chart = null;
+		let currentISO = 'USA';
+		let currentIndicator = 'NGDP_RPCH';
+		let yearMin = 2013;
+		let yearMax = 2030;
+
+		// --- Horizon styles (matching vintage_dots.py) ---
+		function isDark() {
+			return document.documentElement.getAttribute('data-theme') === 'dark';
+		}
+
+		function horizonColor(h) {
+			const t = Math.min((h - 1) / 4, 1);
+			if (isDark()) {
+				// Bright cyan-blue gradient that reads on dark backgrounds
+				const r = Math.round(80 + t * 40);    // 80 → 120
+				const g = Math.round(160 + t * (-30)); // 160 → 130
+				const b = Math.round(255 + t * (-40)); // 255 → 215
+				return `rgb(${r},${g},${b})`;
+			}
+			// Light mode: blue (#0000FF) → dark navy (#01153D)
+			const r = Math.round(0 + t * 1);
+			const g = Math.round(0 + t * 21);
+			const b = Math.round(255 + t * (61 - 255));
+			return `rgb(${r},${g},${b})`;
+		}
+
+		const HORIZON_ALPHA = {1: 1.0, 2: 0.20, 3: 0.16, 4: 0.12, 5: 0.08};
+		const HORIZON_RADIUS = {1: 3.5, 2: 5.0, 3: 6.5, 4: 8.0, 5: 9.5};
+		const NC_RADIUS = 5;
+
+		const HORIZON_ALPHA_DARK = {1: 1.0, 2: 0.30, 3: 0.24, 4: 0.18, 5: 0.12};
+		function horizonAlpha(h) {
+			const table = isDark() ? HORIZON_ALPHA_DARK : HORIZON_ALPHA;
+			return table[Math.min(h, 5)];
+		}
+		function horizonRadius(h) {
+			if (h <= 5) return HORIZON_RADIUS[h];
+			return 9.5 + (h - 5) * 0.8;
+		}
+
+		function ncColor() { return isDark() ? '#c060c0' : '#8b008b'; }
+
+		// Format large numbers for clip annotation
+		function fmtClip(v) {
+			const a = Math.abs(v), s = v < 0 ? '−' : '';
+			if (a >= 1e6) return s + (a / 1e6).toFixed(1).replace(/\.0$/, '') + 'M';
+			if (a >= 1e4) return s + (a / 1e3).toFixed(0) + 'k';
+			if (a >= 100) return s + a.toFixed(0);
+			return s + a.toFixed(1);
+		}
+
+		// --- Y-axis defaults per indicator ---
+		const Y_DEFAULTS = {
+			'NGDP_RPCH': [-4, 6],
+			'PCPIPCH': [-2, 15],
+			'BCA_NGDPD': [-10, 10],
+			'GGXWDG_NGDP': [0, 100],
+			'GGD_NGDP': [0, 100],
+			'GGXONLB_NGDP': [-8, 4],
+			'TX_RPCH': [-10, 15],
+			'LUR': [0, 12]
+		};
+
+		// Hard ceilings: clamp y-axis so extreme outliers (hyperinflation,
+		// post-war rebounds) don't make the chart unreadable.  Dots beyond
+		// these bounds are clipped by Chart.js; tooltip still shows values.
+		const Y_SENSIBLE_MAX = {
+			'NGDP_RPCH': [-35, 55],
+			'BCA_NGDPD': [-40, 40],
+			'PCPIPCH': [-5, 120],
+			'GGXWDG_NGDP': [0, 250],
+			'LUR': [0, 35]
+		};
+
+		// --- Theme colors ---
+		function getThemeColors() {
+			const style = getComputedStyle(document.documentElement);
+			const get = (name) => style.getPropertyValue(name).trim();
+			return {
+				grid: get('--color-grid') || 'rgba(0, 0, 0, 0.06)',
+				axisText: get('--color-axis-text') || '#6a6a6a',
+				tooltipBg: get('--color-tooltip-bg') || 'rgba(75, 75, 75, 0.95)',
+				textDark: get('--color-text-dark') || '#1e1e1e'
+			};
+		}
+
+		function latestLineColor() {
+			return isDark() ? '#f0f0f0' : '#1a1a2e';
+		}
+
+		function worldLineColor() {
+			return isDark() ? 'rgba(255,255,255,0.2)' : '#c0c0c0';
+		}
+		function regionLineColor() {
+			return isDark() ? 'rgba(180,140,255,0.35)' : 'rgba(120,80,200,0.45)';
+		}
+
+		// --- Dynamic legend swatches (sizes match chart constants) ---
+		function updateLegendSwatches() {
+			const lc = latestLineColor();
+			const nc = ncColor();
+			const r1 = horizonRadius(1) * 2;  // diameter in px
+			const r5 = horizonRadius(5) * 2;
+			const ncD = NC_RADIUS * 2;
+
+			const el = (sel) => document.querySelector(sel);
+
+			// Latest line swatches
+			const lineActual = el('.legend-line');
+			if (lineActual) Object.assign(lineActual.style, { height: '2px', background: lc });
+
+			const lineDashed = el('.legend-line-dashed');
+			if (lineDashed) Object.assign(lineDashed.style, {
+				height: '0', borderTop: `2px dashed ${lc}`, background: 'none'
+			});
+
+			const lineGray = el('.legend-line-gray');
+			if (lineGray) Object.assign(lineGray.style, { height: '2.5px', background: worldLineColor() });
+
+			const lineRegion = el('.legend-line-region');
+			if (lineRegion) Object.assign(lineRegion.style, { height: '2.5px', background: regionLineColor() });
+
+			// Forecast dots — h=5, h=3, h=1
+			for (const h of [5, 3, 1]) {
+				const dot = el('.legend-dot-h' + h);
+				if (dot) {
+					const d = horizonRadius(h) * 2;
+					Object.assign(dot.style, {
+						width: d + 'px', height: d + 'px', borderRadius: '50%',
+						background: horizonColor(h), opacity: Math.min(horizonAlpha(h) * 2, 1)
+					});
+				}
+			}
+
+			// April nowcast diamond — scale down slightly (CSS looks larger than canvas)
+			const ncLegendSize = NC_RADIUS * 1.5;
+			const ncDiamond = el('.legend-nc-diamond');
+			if (ncDiamond) Object.assign(ncDiamond.style, {
+				width: ncLegendSize + 'px', height: ncLegendSize + 'px',
+				background: nc, transform: 'rotate(45deg)'
+			});
+
+			// October nowcast square
+			const ncSquare = el('.legend-nc-square');
+			if (ncSquare) Object.assign(ncSquare.style, {
+				width: ncLegendSize + 'px', height: ncLegendSize + 'px', background: nc
+			});
+		}
+
+		// --- Legend toggle (click to show/hide series) ---
+		// Maps legend data-toggle keys to dataset label patterns
+		const TOGGLE_MAP = {
+			actual: ['_actual'],
+			forecast: ['_forecast_line'],
+			world: ['_world'],
+			region: ['_region'],
+			cloud_far: ['_cloud_h4', '_cloud_h5', '_cloud_h6', '_cloud_h7', '_cloud_h8'],
+			cloud_mid: ['_cloud_h3'],
+			cloud_near: ['_cloud_h1', '_cloud_h2'],
+			nc_apr: ['_nc_apr'],
+			nc_oct: ['_nc_oct']
+		};
+		const hiddenSeries = new Set(['world', 'region']);
+
+		function initLegendToggle() {
+			document.querySelectorAll('.chart-legend-item[data-toggle]').forEach(item => {
+				item.addEventListener('click', () => {
+					const key = item.dataset.toggle;
+					if (hiddenSeries.has(key)) {
+						hiddenSeries.delete(key);
+						item.classList.remove('legend-off');
+					} else {
+						hiddenSeries.add(key);
+						item.classList.add('legend-off');
+					}
+					applyLegendToggle();
+				});
+			});
+		}
+
+		function applyLegendToggle() {
+			if (!chart) return;
+			for (const [key, labels] of Object.entries(TOGGLE_MAP)) {
+				const hidden = hiddenSeries.has(key);
+				for (const ds of chart.data.datasets) {
+					if (labels.includes(ds.label)) {
+						ds.hidden = hidden;
+					}
+				}
+			}
+			chart.update('none');
+		}
+
+		// --- Tooltip icon helpers (match chart symbols) ---
+		function tooltipDotHTML(h) {
+			const d = horizonRadius(h) * 2;
+			const color = horizonColor(h);
+			// On dark tooltip bg, boost alpha for visibility
+			const alpha = Math.min(horizonAlpha(h) * 3, 1);
+			return `<span class="weo-tooltip-icon" style="width:${d}px;height:${d}px;border-radius:50%;background:${color};opacity:${alpha}"></span>`;
+		}
+
+		function tooltipNowcastHTML(isOct) {
+			const d = NC_RADIUS * 2;
+			const color = isDark() ? '#c060c0' : '#da70d6';  // lighter for dark tooltip bg
+			if (isOct) {
+				return `<span class="weo-tooltip-icon" style="width:${d}px;height:${d}px;background:${color}"></span>`;
+			}
+			return `<span class="weo-tooltip-icon" style="width:${d}px;height:${d}px;background:${color};transform:rotate(45deg)"></span>`;
+		}
+
+		// --- Data loading ---
+		async function loadData() {
+			const resp = await fetch('files/imfweo/data.json');
+			DATA = await resp.json();
+			populateInfoBox();
+			initDropdowns();
+			initLegendToggle();
+			restoreState();
+			renderChart();
+		}
+
+		function populateInfoBox() {
+			const lastV = DATA.v[DATA.v.length - 1];
+			const abbr = lastV[0]; // e.g. "Oct"
+			const year = lastV[1]; // e.g. 2025
+			const FULL = {Jan:'January',Feb:'February',Mar:'March',Apr:'April',
+				May:'May',Jun:'June',Jul:'July',Aug:'August',
+				Sep:'September',Oct:'October',Nov:'November',Dec:'December'};
+			const month = FULL[abbr] || abbr;
+			document.getElementById('weo-info-edition').textContent = month + ' ' + year;
+			const nextMonth = (abbr === 'Oct' || abbr === 'Sep') ? 'April' : 'October';
+			const nextYear = (abbr === 'Oct' || abbr === 'Sep') ? year + 1 : year;
+			document.getElementById('weo-info-next').textContent = nextMonth + ' ' + nextYear;
+		}
+
+		function updateIndicatorDropdown() {
+			const is = document.getElementById('indicator-select');
+			const country = DATA.c[currentISO];
+			const prev = is.value;
+			is.innerHTML = '';
+			for (const [code, meta] of Object.entries(DATA.i)) {
+				if (!country || country[code]) {
+					const opt = document.createElement('option');
+					opt.value = code;
+					opt.textContent = meta[0];
+					is.appendChild(opt);
+				}
+			}
+			// Keep current indicator if still available, otherwise use first
+			if (country && country[prev]) {
+				is.value = prev;
+			} else {
+				is.value = is.options[0].value;
+				currentIndicator = is.value;
+			}
+		}
+
+		function initDropdowns() {
+			const cs = document.getElementById('country-select');
+
+			// Countries sorted by name
+			const entries = Object.entries(DATA.c).sort((a, b) => a[1].n.localeCompare(b[1].n));
+			for (const [iso, c] of entries) {
+				const opt = document.createElement('option');
+				opt.value = iso;
+				opt.textContent = c.n;
+				cs.appendChild(opt);
+			}
+
+			updateIndicatorDropdown();
+
+			cs.addEventListener('change', () => { currentISO = cs.value; updateIndicatorDropdown(); onSelectionChange(); });
+			document.getElementById('indicator-select').addEventListener('change', () => { currentIndicator = document.getElementById('indicator-select').value; onSelectionChange(); });
+		}
+
+		function onSelectionChange() {
+			saveState();
+			renderChart();
+		}
+
+		// --- URL hash + localStorage ---
+		function saveState() {
+			location.hash = currentISO + '/' + currentIndicator;
+			localStorage.setItem('weo_iso', currentISO);
+			localStorage.setItem('weo_ind', currentIndicator);
+		}
+
+		function restoreState() {
+			const hash = location.hash.replace('#', '');
+			if (hash && hash.includes('/')) {
+				const [iso, ind] = hash.split('/');
+				if (DATA.c[iso]) currentISO = iso;
+				if (DATA.i[ind]) currentIndicator = ind;
+			} else {
+				const savedISO = localStorage.getItem('weo_iso');
+				const savedInd = localStorage.getItem('weo_ind');
+				if (savedISO && DATA.c[savedISO]) currentISO = savedISO;
+				if (savedInd && DATA.i[savedInd]) currentIndicator = savedInd;
+			}
+			document.getElementById('country-select').value = currentISO;
+			updateIndicatorDropdown();
+			document.getElementById('indicator-select').value = currentIndicator;
+		}
+
+		window.addEventListener('hashchange', () => {
+			const hash = location.hash.replace('#', '');
+			if (hash && hash.includes('/')) {
+				const [iso, ind] = hash.split('/');
+				if (DATA.c[iso]) currentISO = iso;
+				if (DATA.i[ind]) currentIndicator = ind;
+				document.getElementById('country-select').value = currentISO;
+				updateIndicatorDropdown();
+				document.getElementById('indicator-select').value = currentIndicator;
+				renderChart();
+			}
+		});
+
+		// --- Smart y-axis range (matches vintage_dots.py logic) ---
+		function niceStep(range) {
+			// Smallest step from [1,2,5]×10^n that yields at most 11 ticks
+			const mag = Math.pow(10, Math.floor(Math.log10(Math.max(range, 0.1))));
+			for (const ns of [0.1, 0.2, 0.5, 1, 2, 5, 10]) {
+				const step = ns * mag;
+				if (range / step <= 11) return step;
+			}
+			return mag * 10;
+		}
+
+		function computeYRange(allVals, indicator) {
+			const defaults = Y_DEFAULTS[indicator] || [-10, 20];
+			if (!allVals.length) return { min: defaults[0], max: defaults[1], step: niceStep(defaults[1] - defaults[0]) };
+
+			const dmin = Math.min(...allVals);
+			const dmax = Math.max(...allVals);
+			const range = dmax - dmin;
+			const pad = Math.max(range * 0.04, 0.5);
+
+			let yLo = Math.min(defaults[0], dmin - pad);
+			let yHi = Math.max(defaults[1], dmax + pad);
+			if (dmin - pad > defaults[0]) yLo = dmin - pad;
+			if (dmax + pad < defaults[1]) yHi = dmax + pad;
+
+			// Clamp to sensible max so extreme outliers clip instead of
+			// blowing up the axis (e.g. Venezuela hyperinflation)
+			const sensible = Y_SENSIBLE_MAX[indicator];
+			if (sensible) {
+				yLo = Math.max(yLo, sensible[0]);
+				yHi = Math.min(yHi, sensible[1]);
+			}
+
+			// Snap to integers for clean axis edges (adds at most ~1 unit)
+			yLo = Math.floor(yLo);
+			yHi = Math.ceil(yHi);
+
+			const step = niceStep(yHi - yLo);
+
+			// Count values that fall outside the final range
+			const nAbove = allVals.filter(v => v > yHi).length;
+			const nBelow = allVals.filter(v => v < yLo).length;
+
+			return { min: yLo, max: yHi, step, nAbove, nBelow, dataMax: dmax, dataMin: dmin };
+		}
+
+		// --- Build datasets ---
+		function buildDatasets() {
+			const country = DATA.c[currentISO];
+			if (!country || !country[currentIndicator]) return { datasets: [], allVals: [], dataYears: [] };
+
+			const d = country[currentIndicator];
+			const world = DATA.w[currentIndicator] || [];
+			const lc = latestLineColor();
+
+			const yMin = yearMin;
+			const yMax = yearMax;
+
+			const inRange = (y) => y >= yMin && y <= yMax;
+			const datasets = [];
+			const allVals = [];
+
+			// 1a. World reference line (excluded from allVals — hidden by default,
+			//     shouldn't drive the y-axis for the country)
+			const worldPts = world.filter(p => inRange(p[0])).map(p => ({x: p[0], y: p[1]}));
+			if (worldPts.length) {
+				datasets.push({
+					type: 'line',
+					data: worldPts,
+					borderColor: worldLineColor(),
+					borderWidth: 2.5,
+					pointRadius: 0,
+					pointHoverRadius: 0,
+					fill: false,
+					order: 10,
+					label: '_world'
+				});
+			}
+
+			// 1b. Regional reference line (excluded from allVals — hidden by default)
+			const regionISO = country.r;
+			const regionData = regionISO && DATA.r && DATA.r[regionISO];
+			const regionSeries = regionData && regionData[currentIndicator];
+			if (regionSeries) {
+				const regionPts = regionSeries.filter(p => inRange(p[0])).map(p => ({x: p[0], y: p[1]}));
+				if (regionPts.length) {
+					datasets.push({
+						type: 'line',
+						data: regionPts,
+						borderColor: regionLineColor(),
+						borderWidth: 2.5,
+						pointRadius: 0,
+						pointHoverRadius: 0,
+						fill: false,
+						order: 10,
+						label: '_region'
+					});
+				}
+			}
+
+			// 2. Forecast cloud — one dataset per horizon (h=8 down to h=1)
+			for (let h = 8; h >= 1; h--) {
+				const pts = d.f.filter(p => p[2] === h && inRange(p[0]))
+					.map(p => ({x: p[0], y: p[1], vid: p[3]}));
+				if (!pts.length) continue;
+				pts.forEach(p => allVals.push(p.y));
+
+				const alpha = horizonAlpha(h);
+				const color = horizonColor(h);
+				const r = horizonRadius(h);
+
+				datasets.push({
+					type: 'scatter',
+					data: pts,
+					backgroundColor: color,
+					borderColor: h === 1 ? (isDark() ? 'rgba(200,200,200,0.3)' : 'rgba(232,232,232,1)') : 'transparent',
+					borderWidth: h === 1 ? 0.5 : 0,
+					pointRadius: r,
+					pointHoverRadius: r + 1.5,
+					order: 9 - h,
+					label: '_cloud_h' + h,
+					_horizon: h,
+					_alpha: alpha
+				});
+			}
+
+			// 3. Nowcasts
+			const ncApr = d.nc.filter(p => p[2] === 0 && inRange(p[0]))
+				.map(p => ({x: p[0], y: p[1]}));
+			const ncOct = d.nc.filter(p => p[2] === 1 && inRange(p[0]))
+				.map(p => ({x: p[0], y: p[1]}));
+			if (ncApr.length) {
+				ncApr.forEach(p => allVals.push(p.y));
+				datasets.push({
+					type: 'scatter',
+					data: ncApr,
+					backgroundColor: ncColor(),
+					borderColor: isDark() ? 'rgba(200,200,200,0.3)' : 'rgba(232,232,232,1)',
+					borderWidth: 0.5,
+					pointRadius: NC_RADIUS,
+					pointHoverRadius: NC_RADIUS * 1.5,
+					pointStyle: 'rectRot',
+					order: 2,
+					label: '_nc_apr'
+				});
+			}
+			if (ncOct.length) {
+				ncOct.forEach(p => allVals.push(p.y));
+				datasets.push({
+					type: 'scatter',
+					data: ncOct,
+					backgroundColor: ncColor(),
+					borderColor: isDark() ? 'rgba(200,200,200,0.3)' : 'rgba(232,232,232,1)',
+					borderWidth: 0.5,
+					pointRadius: NC_RADIUS,
+					pointHoverRadius: NC_RADIUS * 1.5,
+					pointStyle: 'rect',
+					order: 2,
+					label: '_nc_oct'
+				});
+			}
+
+			// 4. Latest vintage — actuals (solid) + forecasts (dashed)
+			const actPts = d.a.filter(p => inRange(p[0])).map(p => ({x: p[0], y: p[1]}));
+			const fcPts = d.p.filter(p => inRange(p[0])).map(p => ({x: p[0], y: p[1]}));
+
+			if (actPts.length) {
+				actPts.forEach(p => allVals.push(p.y));
+				datasets.push({
+					type: 'line',
+					data: actPts,
+					borderColor: lc,
+					borderWidth: 2,
+					pointRadius: 0,
+					pointHoverRadius: 3,
+					fill: false,
+					order: 1,
+					label: '_actual',
+					tension: 0
+				});
+			}
+			if (fcPts.length) {
+				// Connect from last actual
+				const fLine = [];
+				if (actPts.length) fLine.push(actPts[actPts.length - 1]);
+				fLine.push(...fcPts);
+				fcPts.forEach(p => allVals.push(p.y));
+				datasets.push({
+					type: 'line',
+					data: fLine,
+					borderColor: lc,
+					borderWidth: 2,
+					borderDash: [4, 3],
+					pointRadius: 0,
+					pointHoverRadius: 3,
+					fill: false,
+					order: 1,
+					label: '_forecast_line',
+					tension: 0
+				});
+			}
+
+			return { datasets, allVals, yMin, yMax };
+		}
+
+		// --- Render chart ---
+		function renderChart() {
+			if (!DATA) return;
+			updateLegendSwatches();
+
+			const country = DATA.c[currentISO];
+			const indMeta = DATA.i[currentIndicator];
+			const countryName = country ? country.n : currentISO;
+
+			document.getElementById('chart-title').textContent = countryName;
+			const indLabel = indMeta ? indMeta[0] : '';
+			const indUnits = indMeta ? indMeta[1] : '';
+			document.getElementById('chart-indicator').innerHTML = `<strong>${indLabel}</strong>` + (indUnits ? ', ' + indUnits.toLowerCase() : '');
+			document.getElementById('chart-units').textContent = '';
+			const lastV = DATA.v[DATA.v.length - 1];
+			document.getElementById('legend-latest-header').textContent = lastV[0] + ' ' + lastV[1] + ' WEO';
+
+			// Update region legend label
+			const regionISO = country ? country.r : null;
+			const regionInfo = regionISO && DATA.r && DATA.r[regionISO];
+			const regionEl = document.getElementById('legend-region');
+			const regionNameEl = document.getElementById('legend-region-name');
+			if (regionInfo && regionInfo[currentIndicator]) {
+				regionNameEl.textContent = regionInfo.n;
+				regionEl.style.display = '';
+			} else {
+				regionEl.style.display = 'none';
+			}
+
+			if (!country || !country[currentIndicator]) {
+				if (chart) { chart.destroy(); chart = null; }
+				document.getElementById('chart-title').textContent = countryName + ' — No data';
+				return;
+			}
+
+			const { datasets, allVals, yMin, yMax } = buildDatasets();
+			const yRange = computeYRange(allVals, currentIndicator);
+			const tc = getThemeColors();
+
+			// Apply per-dataset alpha via plugin
+			for (const ds of datasets) {
+				if (ds._alpha !== undefined) {
+					const a = ds._alpha;
+					const base = ds.backgroundColor;
+					// Parse rgb and add alpha
+					const m = base.match(/rgb\((\d+),(\d+),(\d+)\)/);
+					if (m) {
+						ds.backgroundColor = `rgba(${m[1]},${m[2]},${m[3]},${a})`;
+					}
+				}
+			}
+
+			const config = {
+				type: 'scatter',
+				data: { datasets },
+				options: {
+					responsive: true,
+					maintainAspectRatio: true,
+					aspectRatio: 0.95,
+					animation: { duration: 0 },
+					interaction: {
+						mode: 'nearest',
+						intersect: false,
+						axis: 'x'
+					},
+					layout: { padding: { top: 13, right: 5, bottom: 0, left: 2 } },
+					scales: {
+						x: {
+							type: 'linear',
+							min: yMin - 0.5,
+							max: yMax + 0.5,
+							afterBuildTicks: (axis) => {
+								const ticks = [];
+								// Label: first year, every 5/0, and last year if ≥2 from last labeled
+								const labeled = [yMin];
+								for (let y = yMin + 1; y < yMax; y++) {
+									if (y % 5 === 0) labeled.push(y);
+								}
+								// Add last year only if ≥2 past the last labeled tick
+								const lastLabeled = labeled[labeled.length - 1];
+								if (yMax - lastLabeled >= 2) labeled.push(yMax);
+								for (const y of labeled) {
+									ticks.push({ value: y });
+								}
+								axis.ticks = ticks;
+							},
+							ticks: {
+								color: tc.axisText,
+								font: { size: 11 },
+								callback: (v) => v.toString()
+							},
+							grid: {
+								color: tc.grid,
+								lineWidth: 0.5
+							},
+							border: { display: false }
+						},
+						y: {
+							min: yRange.min,
+							max: yRange.max,
+							ticks: {
+								stepSize: yRange.step,
+								display: false
+							},
+							grid: {
+								color: tc.grid,
+								lineWidth: 0.5
+							},
+							border: { display: false }
+						}
+					},
+					plugins: {
+						legend: { display: false },
+						tooltip: { enabled: false },
+						_clipInfo: (yRange.nAbove || yRange.nBelow) ? {
+							nAbove: yRange.nAbove, nBelow: yRange.nBelow,
+							dataMax: yRange.dataMax, dataMin: yRange.dataMin
+						} : null
+					},
+					onHover: null
+				},
+				plugins: [yLabelPlugin, zeroLinePlugin, clipAnnotationPlugin]
+			};
+
+			if (chart) {
+				chart.destroy();
+			}
+			const ctx = document.getElementById('weoChart').getContext('2d');
+			chart = new Chart(ctx, config);
+			applyLegendToggle();
+		}
+
+		// --- Zero line plugin ---
+		// Plugin: draw y-axis labels above each gridline (WSJ style)
+		const yLabelPlugin = {
+			id: 'yLabelsAboveTick',
+			afterDraw(chart) {
+				const yScale = chart.scales.y;
+				const ctx = chart.ctx;
+				const tc = getThemeColors();
+				ctx.save();
+				ctx.font = '10px system-ui, -apple-system, sans-serif';
+				ctx.fillStyle = tc.axisText;
+				ctx.textAlign = 'left';
+				ctx.textBaseline = 'bottom';
+				const left = chart.chartArea.left - 3;
+				for (const tick of yScale.ticks) {
+					const v = tick.value;
+					const py = yScale.getPixelForValue(v);
+					// Skip if label would render above the canvas
+					if (py < chart.chartArea.top - 3) continue;
+					let label;
+					if (Math.abs(v) >= 1000) label = (v / 1000) + 'k';
+					else label = String(parseFloat(v.toPrecision(10)));
+					ctx.fillText(label, left, py - 2);
+				}
+				ctx.restore();
+			}
+		};
+
+		const zeroLinePlugin = {
+			id: 'zeroLine',
+			afterDraw(chart) {
+				const yScale = chart.scales.y;
+				if (yScale.min <= 0 && yScale.max >= 0) {
+					const ctx = chart.ctx;
+					const y = yScale.getPixelForValue(0);
+					ctx.save();
+					ctx.beginPath();
+					ctx.moveTo(chart.chartArea.left, y);
+					ctx.lineTo(chart.chartArea.right, y);
+					ctx.strokeStyle = '#999';
+					ctx.lineWidth = 0.5;
+					ctx.stroke();
+					ctx.restore();
+				}
+			}
+		};
+
+		// --- Clip annotation plugin: shows when dots are beyond the y-axis ---
+		const clipAnnotationPlugin = {
+			id: 'clipAnnotation',
+			afterDraw(chart) {
+				const info = chart.options.plugins._clipInfo;
+				if (!info || (!info.nAbove && !info.nBelow)) return;
+				const ctx = chart.ctx;
+				const area = chart.chartArea;
+				const tc = getThemeColors();
+				ctx.save();
+				ctx.font = '9px system-ui, -apple-system, sans-serif';
+				ctx.fillStyle = tc.axisText;
+				ctx.textAlign = 'right';
+				if (info.nAbove) {
+					ctx.textBaseline = 'top';
+					ctx.fillText('\u25B2 ' + info.nAbove + ' off-chart (max ' + fmtClip(info.dataMax) + ')', area.right, area.top + 2);
+				}
+				if (info.nBelow) {
+					ctx.textBaseline = 'bottom';
+					ctx.fillText('\u25BC ' + info.nBelow + ' off-chart (min ' + fmtClip(info.dataMin) + ')', area.right, area.bottom - 2);
+				}
+				ctx.restore();
+			}
+		};
+
+		// --- Tooltip ---
+		const tooltip = document.getElementById('weo-tooltip');
+		let tooltipYear = null;
+
+		function handleHover(evt, elements) {
+			if (!chart || !chart.scales || !chart.scales.x) return;
+			const nativeEvt = evt.native || evt;
+			if (!nativeEvt) return;
+
+			// Get canvas-relative coordinates
+			const canvas = document.getElementById('weoChart');
+			const canvasRect = canvas.getBoundingClientRect();
+			const cx = (nativeEvt.clientX || (nativeEvt.touches && nativeEvt.touches[0].clientX)) - canvasRect.left;
+			const cy = (nativeEvt.clientY || (nativeEvt.touches && nativeEvt.touches[0].clientY)) - canvasRect.top;
+
+			// Check if cursor is within the chart area
+			const chartArea = chart.chartArea;
+			if (!chartArea || cx < chartArea.left || cx > chartArea.right || cy < chartArea.top || cy > chartArea.bottom) {
+				tooltip.classList.remove('visible');
+				tooltipYear = null;
+				return;
+			}
+
+			const xVal = chart.scales.x.getValueForPixel(cx);
+			const year = Math.round(xVal);
+
+			if (year === tooltipYear) return;
+			tooltipYear = year;
+
+			const country = DATA.c[currentISO];
+			const d = country[currentIndicator];
+			const vintages = DATA.v;
+			const indMeta = DATA.i[currentIndicator];
+
+			// Forecasts for this year (chronological)
+			const history = d.f
+				.filter(p => p[0] === year)
+				.map(p => ({ vid: p[3], val: p[1], h: p[2] }))
+				.sort((a, b) => a.vid - b.vid);
+
+			// Nowcasts for this year
+			const ncs = d.nc
+				.filter(p => p[0] === year)
+				.map(p => ({ val: p[1], isOct: p[2] }))
+				.sort((a, b) => a.isOct - b.isOct); // Apr first, then Oct
+
+			// Latest value
+			const latestAct = d.a.find(p => p[0] === year);
+			const latestFc = d.p.find(p => p[0] === year);
+			const latestVal = latestAct || latestFc;
+			const latestLabel = latestAct ? 'Actual' : 'Forecast';
+
+			if (!history.length && !ncs.length && !latestVal) {
+				tooltip.classList.remove('visible');
+				return;
+			}
+
+			let html = `<div class="weo-tooltip-header">${year} &mdash; ${indMeta[0]}</div>`;
+
+			// Always-visible: latest value + nowcasts
+			if (latestVal) {
+				const lastV = vintages[vintages.length - 1];
+				html += `<div class="weo-tooltip-latest">${lastV[0]} ${lastV[1]} (${latestLabel}): ${latestVal[1].toFixed(2)}</div>`;
+			}
+			if (ncs.length) {
+				for (const nc of ncs) {
+					const label = nc.isOct ? 'Oct nowcast' : 'Apr nowcast';
+					html += `<div class="weo-tooltip-row"><span>${tooltipNowcastHTML(nc.isOct)}${label}</span><span>${nc.val.toFixed(2)}</span></div>`;
+				}
+			}
+
+			// Scrollable: forecast history
+			if (history.length) {
+				html += '<div class="weo-tooltip-list">';
+				for (const entry of history) {
+					const v = vintages[entry.vid];
+					html += `<div class="weo-tooltip-row"><span>${tooltipDotHTML(entry.h)}${v[0]} ${v[1]}</span><span>${entry.val.toFixed(2)}</span></div>`;
+				}
+				html += '</div>';
+			}
+
+			tooltip.innerHTML = html;
+			tooltip.classList.add('visible');
+
+			// Position tooltip relative to chart-container using page coordinates
+			const containerRect = document.querySelector('.chart-container').getBoundingClientRect();
+			const pageX = nativeEvt.clientX || (nativeEvt.touches && nativeEvt.touches[0].clientX);
+			const pageY = nativeEvt.clientY || (nativeEvt.touches && nativeEvt.touches[0].clientY);
+			let left = pageX - containerRect.left + 15;
+			let top = pageY - containerRect.top - 20;
+
+			// Keep in viewport
+			const tw = tooltip.offsetWidth;
+			const th = tooltip.offsetHeight;
+			if (left + tw > containerRect.width - 5) left = pageX - containerRect.left - tw - 15;
+			if (top + th > containerRect.height) top = containerRect.height - th - 5;
+			if (top < 0) top = 5;
+
+			tooltip.style.left = left + 'px';
+			tooltip.style.top = top + 'px';
+		}
+
+		// Attach hover/touch to canvas directly for reliable triggering
+		const weoCanvas = document.getElementById('weoChart');
+		weoCanvas.addEventListener('mousemove', (e) => { if (chart) handleHover(e, [1]); });
+		weoCanvas.addEventListener('touchmove', (e) => { if (chart) handleHover(e, [1]); }, { passive: true });
+		weoCanvas.addEventListener('mouseleave', () => {
+			tooltip.classList.remove('visible');
+			tooltipYear = null;
+		});
+
+		// --- Theme refresh ---
+		window.refreshChartColors = function() {
+			renderChart();
+		};
+
+		// --- Init ---
+		loadData();
+	})();
+	</script>
+</body>
+</html>

@@ -75,9 +75,10 @@
 
 </head>
 <body>
+	<a href="#main" class="skip-link">Skip to main content</a>
 	<nav>
 		<ul class="ul_nav" id="menu">
-			<li class="nav_main"> <a href="index.html" class="active"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
+			<li class="nav_main"> <a href="index.html" class="active" aria-current="page"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
 			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
 			<li><a href="python.html">Guides &darr;</a>
@@ -96,6 +97,7 @@
 				<li><a href="chartbook.html">US Chartbook</a></li>
 				<li><a href="indicators.html">Economic Indicators</a></li>
 				<li><a href="gdpm.html">Monthly GDP</a></li>
+				<li><a href="imfweo.html">IMF WEO</a></li>
 			</ul>
 			</li>
 			<li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><i class="fa fa-moon-o" id="theme-icon"></i></button></li>
@@ -105,12 +107,12 @@
 		</ul>
 	</nav>
 	<div class="announcement">
-		<a href="indicators.html">New: 20 interactive charts on the US economy &rarr;</a>
+		<a href="imfweo.html">New: IMF WEO Forecast Tracker &mdash; 196 countries, 39 editions &rarr;</a>
 	</div>
-	<main>
+	<main id="main">
 	<section>
 		<article>
-			<p class="tagline" style="margin-top: 25px;">Follow <a href="https://twitter.com/bd_econ">@bd_econ</a> for updates</p>
+			<p class="tagline" style="margin-top: 25px;">Macroeconomic data tools, tutorials, and visualizations</p>
 
 			<p class="overview">Open-source tools for economists and researchers. The <b><a href="https://bd-econ.com/python.html">Python tutorials</a></b> show how to access economic data from the IMF, BLS, and Census APIs. The <b><a href="https://bd-econ.com/chartbook.html">US Chartbook</a></b> provides 120+ indicators on labor markets, inflation, GDP, and trade.</p>
 
@@ -120,7 +122,7 @@
 			<a href="imfapi1.html">
 			<div class="card">
 				<div class="card_banner_wrap card_banner_wrap_blue">
-					<img src="images/imf_banner.png" alt="IMF API tutorials" class="card_banner">
+					<img src="images/imf_banner.png" alt="IMF API tutorials" class="card_banner" width="293" height="68">
 				</div>
 				<div class="card_head_blue">
 					<h3>IMF API</h3>
@@ -132,10 +134,10 @@
 			</a>
 			<a href="cps.html">
 			<div class="card">
-				<div class="card_banner_wrap card_banner_wrap_yellow">
-					<img src="images/cps_banner.png" alt="CPS microdata tutorials" class="card_banner">
+				<div class="card_banner_wrap card_banner_wrap_teal">
+					<img src="images/cps_banner.png" alt="CPS microdata tutorials" class="card_banner" width="542" height="130">
 				</div>
-				<div class="card_head_yellow">
+				<div class="card_head_teal">
 					<h3>CPS data</h3>
 				</div>
 				<div class="card_tail">
@@ -146,7 +148,7 @@
 			<a href="chartbook.pdf" onclick="gtag('event', 'chartbook_download', {link_url: 'chartbook.pdf', link_text: 'Chartbook'});">
 			<div class="card">
 				<div class="card_banner_wrap card_banner_wrap_green">
-					<img src="images/chartbook_banner.png" alt="US Economic Chartbook" class="card_banner">
+					<img src="images/chartbook_banner.png" alt="US Economic Chartbook" class="card_banner" width="293" height="68">
 				</div>
 				<div class="card_head_green">
 					<h3>Chartbook <i class="fa fa-download"></i></h3>

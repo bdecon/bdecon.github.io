@@ -2,8 +2,8 @@
 
 :root {
   /* Brand Colors */
-  --color-accent-red: #FF2F2F;
-  --color-accent-yellow: #FFC300;
+  --color-accent-red: #E04040;
+  --color-accent-yellow: #F0B400;
 
   /* Navigation */
   --color-nav-bg: #4B4B4B;
@@ -60,13 +60,14 @@
   --color-social-bg: #fff;
 
   /* Card Header Colors */
-  --color-card-blue: #2933b7;
-  --color-card-yellow: #FFC300;
+  --color-card-blue: #3450B2;
+  --color-card-yellow: #F0B400;
   --color-card-green: #229a54;
-  --color-card-red: #FF2F2F;
+  --color-card-red: #E04040;
   --color-card-orange: #ca5c00;
   --color-card-purple: #553581;
   --color-card-ltblue: #1E90FF;
+  --color-card-teal: #2A8A8A;
   --color-card-black: #000000;
   --color-card-brown: #8B5A2B;
 }
@@ -118,14 +119,46 @@
 
   --color-social-bg: transparent;
 
-  --color-card-blue: #4a56e0;
+  --color-card-blue: #4e64e0;
   --color-card-green: #2fbf6a;
-  --color-card-red: #ff4f4f;
+  --color-card-red: #e85a5a;
   --color-card-orange: #e87a20;
   --color-card-purple: #7a50b0;
   --color-card-ltblue: #4aa5ff;
+  --color-card-teal: #3aadad;
   --color-card-black: #888;
   --color-card-brown: #b07a4a;
+}
+
+/* Focus styles for keyboard navigation */
+a:focus-visible,
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--color-link);
+  outline-offset: 2px;
+}
+.ul_nav a:focus-visible,
+.ul_nav button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -2px;
+}
+
+/* Skip-to-content link */
+.skip-link {
+  position: absolute;
+  top: -50px;
+  left: 0;
+  background: var(--color-accent-red);
+  color: #fff;
+  padding: 8px 16px;
+  z-index: 1000;
+  font-size: 14px;
+  text-decoration: none;
+}
+.skip-link:focus {
+  top: 0;
+  color: #fff;
 }
 
 /* General document styling */
@@ -323,6 +356,17 @@ ul li a:hover + .hidden, .hidden:hover {
 @media screen and (max-width:760px) {
 	.ul_nav li:not(:first-child) {display: none;}
 	.ul_nav li.icon {display: inline-block;}
+	.ul_nav li:has(.theme-toggle) {
+		display: inline-block !important;
+		position: absolute;
+		right: 50px;
+		top: 11px;
+	}
+	.ul_nav li:has(.theme-toggle) .theme-toggle {
+		padding: 6px 20px;
+		font-size: 17px;
+		line-height: 1;
+	}
 	.ul_nav li a {min-width: 0; }
 	.ul_nav {width: 100%; background-color: var(--color-nav-bg); }
 	.ul_nav .icon button {
@@ -337,8 +381,10 @@ ul li a:hover + .hidden, .hidden:hover {
 		visibility: visible;
 		overflow: visible;
 	}
-	.ul_nav.responsive li.icon {position: absolute; right: 0; top: 0;}
+	.ul_nav.responsive li.icon {position: absolute; right: 0; top: 7px;}
+	.ul_nav.responsive li:has(.theme-toggle) {position: absolute; right: 50px; top: 11px;}
 	.ul_nav.responsive li {display: block;}
+	.ul_nav.responsive li:has(.theme-toggle) {display: none !important;}
 	.ul_nav.responsive li:first-child {
 		order: 0;
 		margin-right: 0;
@@ -347,10 +393,19 @@ ul li a:hover + .hidden, .hidden:hover {
 	.ul_nav.responsive li:nth-child(4) { order: 2; }
 	.ul_nav.responsive li:nth-child(3) { order: 3; }
 	.ul_nav.responsive li:nth-child(2) { order: 4; }
-	.ul_nav.responsive li:nth-child(6) { order: 5; }
-	.ul_nav.responsive li a {display: block; text-align: center; min-width: 0; }
-	.ul_nav.responsive li:hover ul {min-width: 100%; padding: 0px 16px 14px;}
-	.ul_nav.responsive li:hover ul a {text-align: center; }
+	.ul_nav.responsive li a {display: block; text-align: center; min-width: 0; font-size: 15px; padding: 14px 16px; }
+	.ul_nav.responsive ul.hidden {
+		display: block !important;
+		position: static;
+		padding: 0;
+		margin: 0;
+	}
+	.ul_nav.responsive ul.hidden li a {
+		font-size: 13px;
+		padding: 12px 16px;
+		margin-left: 0;
+		opacity: 0.8;
+	}
 	nav{padding: 0;}
 	.card_tail {
 		height: auto;
@@ -459,6 +514,24 @@ section{margin: 5px; padding: 6px 0 0 0;}
 }
 .article_links a{text-decoration: none;}
 
+/* Reports grid — 2×2 on desktop, 1-col on mobile */
+.reports-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 300px);
+	gap: 24px;
+	justify-content: center;
+	padding: 12px 0;
+}
+.reports-grid a { text-decoration: none; }
+.reports-grid .card {
+	width: auto;
+	margin: 0;
+	display: block;
+}
+@media screen and (max-width: 680px) {
+	.reports-grid { grid-template-columns: 1fr; max-width: 300px; margin: 0 auto; }
+}
+
 /* Cards with Links */
 .card, .card_dull {
 	width: 300px;
@@ -494,6 +567,7 @@ section{margin: 5px; padding: 6px 0 0 0;}
 .card_head_orange { background-color: var(--color-card-orange); }
 .card_head_purple { background-color: var(--color-card-purple); }
 .card_head_ltblue { background-color: var(--color-card-ltblue); }
+.card_head_teal { background-color: var(--color-card-teal); }
 .card_head_black { background-color: var(--color-card-black); }
 .card_head_brown { background-color: var(--color-card-brown); }
 .card_tail{padding: 2px 10px 10px 10px; background-color: var(--color-card-tail-bg); height: 125px;}
@@ -502,14 +576,15 @@ section{margin: 5px; padding: 6px 0 0 0;}
 	height: 30px;
 	overflow: hidden;
 }
-.card_banner_wrap_blue { background-color: color-mix(in srgb, var(--color-card-blue) 40%, white); }
-.card_banner_wrap_yellow { background-color: color-mix(in srgb, var(--color-card-yellow) 40%, white); }
-.card_banner_wrap_green { background-color: color-mix(in srgb, var(--color-card-green) 40%, white); }
-.card_banner_wrap_orange { background-color: color-mix(in srgb, var(--color-card-orange) 40%, white); }
-.card_banner_wrap_purple { background-color: color-mix(in srgb, var(--color-card-purple) 40%, white); }
-.card_banner_wrap_red { background-color: color-mix(in srgb, var(--color-card-red) 40%, white); }
-.card_banner_wrap_brown { background-color: color-mix(in srgb, var(--color-card-brown) 40%, white); }
-.card_banner_wrap_ltblue { background-color: color-mix(in srgb, var(--color-card-ltblue) 40%, white); }
+.card_banner_wrap_blue { background-color: color-mix(in srgb, var(--color-card-blue) 25%, white); }
+.card_banner_wrap_yellow { background-color: color-mix(in srgb, var(--color-card-yellow) 25%, white); }
+.card_banner_wrap_green { background-color: color-mix(in srgb, var(--color-card-green) 25%, white); }
+.card_banner_wrap_orange { background-color: color-mix(in srgb, var(--color-card-orange) 25%, white); }
+.card_banner_wrap_purple { background-color: color-mix(in srgb, var(--color-card-purple) 25%, white); }
+.card_banner_wrap_red { background-color: color-mix(in srgb, var(--color-card-red) 25%, white); }
+.card_banner_wrap_teal { background-color: color-mix(in srgb, var(--color-card-teal) 25%, white); }
+.card_banner_wrap_brown { background-color: color-mix(in srgb, var(--color-card-brown) 25%, white); }
+.card_banner_wrap_ltblue { background-color: color-mix(in srgb, var(--color-card-ltblue) 25%, white); }
 .card_banner {
 	height: 30px;
 	width: 100%;
@@ -746,6 +821,7 @@ table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sor
   color: var(--color-nav-text);
   cursor: pointer;
   padding: 14px 10px;
+  margin-right: 6px;
   font-size: 16px;
   line-height: 1;
   opacity: 0.7;
@@ -756,14 +832,15 @@ table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sor
 }
 
 /* Card banner wraps in dark mode */
-[data-theme="dark"] .card_banner_wrap_blue { background-color: color-mix(in srgb, var(--color-card-blue) 40%, #161616); }
-[data-theme="dark"] .card_banner_wrap_yellow { background-color: color-mix(in srgb, var(--color-card-yellow) 40%, #161616); }
-[data-theme="dark"] .card_banner_wrap_green { background-color: color-mix(in srgb, var(--color-card-green) 40%, #161616); }
-[data-theme="dark"] .card_banner_wrap_orange { background-color: color-mix(in srgb, var(--color-card-orange) 40%, #161616); }
-[data-theme="dark"] .card_banner_wrap_purple { background-color: color-mix(in srgb, var(--color-card-purple) 40%, #161616); }
-[data-theme="dark"] .card_banner_wrap_red { background-color: color-mix(in srgb, var(--color-card-red) 40%, #161616); }
-[data-theme="dark"] .card_banner_wrap_brown { background-color: color-mix(in srgb, var(--color-card-brown) 40%, #161616); }
-[data-theme="dark"] .card_banner_wrap_ltblue { background-color: color-mix(in srgb, var(--color-card-ltblue) 40%, #161616); }
+[data-theme="dark"] .card_banner_wrap_blue { background-color: color-mix(in srgb, var(--color-card-blue) 25%, #161616); }
+[data-theme="dark"] .card_banner_wrap_yellow { background-color: color-mix(in srgb, var(--color-card-yellow) 25%, #161616); }
+[data-theme="dark"] .card_banner_wrap_green { background-color: color-mix(in srgb, var(--color-card-green) 25%, #161616); }
+[data-theme="dark"] .card_banner_wrap_orange { background-color: color-mix(in srgb, var(--color-card-orange) 25%, #161616); }
+[data-theme="dark"] .card_banner_wrap_purple { background-color: color-mix(in srgb, var(--color-card-purple) 25%, #161616); }
+[data-theme="dark"] .card_banner_wrap_red { background-color: color-mix(in srgb, var(--color-card-red) 25%, #161616); }
+[data-theme="dark"] .card_banner_wrap_teal { background-color: color-mix(in srgb, var(--color-card-teal) 25%, #161616); }
+[data-theme="dark"] .card_banner_wrap_brown { background-color: color-mix(in srgb, var(--color-card-brown) 25%, #161616); }
+[data-theme="dark"] .card_banner_wrap_ltblue { background-color: color-mix(in srgb, var(--color-card-ltblue) 25%, #161616); }
 
 /* Card banner images in dark mode — multiply makes images invisible on dark backgrounds */
 [data-theme="dark"] .card_banner {

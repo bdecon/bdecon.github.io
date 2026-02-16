@@ -80,12 +80,13 @@
 
 </head>
 <body>
+	<a href="#main" class="skip-link">Skip to main content</a>
 	<nav>
 		<ul class="ul_nav" id="menu">
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
 			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
-			<li><a href="python.html" class="active">Guides &darr;</a>
+			<li><a href="python.html" class="active" aria-current="page">Guides &darr;</a>
 				<ul class="hidden">
 					<li><a href="imfapi1.html">IMF API</a></li>
 					<li><a href="blsapi.html">BLS API</a></li>
@@ -101,6 +102,7 @@
 				<li><a href="chartbook.html">US Chartbook</a></li>
 				<li><a href="indicators.html">Economic Indicators</a></li>
 				<li><a href="gdpm.html">Monthly GDP</a></li>
+				<li><a href="imfweo.html">IMF WEO</a></li>
 			</ul>
 			</li>
 			<li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><i class="fa fa-moon-o" id="theme-icon"></i></button></li>
@@ -112,13 +114,13 @@
 	<header>
 	<h1>Census API</h1>
 	</header>
-	<main>
+	<main id="main">
 	<section>
 	<article class="article_links">
 	<a href="censusapi.html">
 	<div class="card">
 	  <div class="card_banner_wrap card_banner_wrap_green">
-	    <img src="images/census_banner.png" alt="Census API tutorial Part 1" class="card_banner">
+	    <img src="images/census_banner.png" alt="Census API tutorial Part 1" class="card_banner" width="207" height="68">
 	  </div>
 	  <div class="card_head_green">
 		<h3>Part 1</h3>
@@ -131,7 +133,7 @@
 	<a href="censusapi2.html">
 	<div class="card_dull">
 	  <div class="card_banner_wrap card_banner_wrap_green">
-	    <img src="images/census_banner2.png" alt="Census API tutorial Part 2" class="card_banner">
+	    <img src="images/census_banner2.png" alt="Census API tutorial Part 2" class="card_banner" width="387" height="68">
 	  </div>
 	  <div class="card_head_green">
 		<h3>Part 2</h3>
@@ -208,7 +210,7 @@ data.loc['2024':].plot(title=title)
 plt.axhline(0, lw=0.5, color='gray', zorder=0)
 plt.show()</code></pre>
 	<p>Out[5]:</p>
-	<img src="images/census_m3_growth.png" alt="Census M3 New Orders Growth Rate" loading="lazy"/>
+	<img src="images/census_m3_growth.png" alt="Census M3 New Orders Growth Rate" loading="lazy" width="567" height="471"/>
 
 	<h4>Conclusion</h4>
 	<p>The Census API provides straightforward access to key manufacturing and trade indicators. By adjusting the <code>category_code</code> and <code>data_type_code</code> parameters, you can retrieve various series from the M3 survey, including shipments, inventories, and orders across different product categories.</p>

@@ -80,12 +80,13 @@
 
 </head>
 <body>
+	<a href="#main" class="skip-link">Skip to main content</a>
 	<nav>
 		<ul class="ul_nav" id="menu">
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
 			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
-			<li><a href="python.html" class="active">Guides &darr;</a>
+			<li><a href="python.html" class="active" aria-current="page">Guides &darr;</a>
 				<ul class="hidden">
 					<li><a href="imfapi1.html">IMF API</a></li>
 					<li><a href="blsapi.html">BLS API</a></li>
@@ -101,6 +102,7 @@
 				<li><a href="chartbook.html">US Chartbook</a></li>
 				<li><a href="indicators.html">Economic Indicators</a></li>
 				<li><a href="gdpm.html">Monthly GDP</a></li>
+				<li><a href="imfweo.html">IMF WEO</a></li>
 			</ul>
 			</li>
 			<li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><i class="fa fa-moon-o" id="theme-icon"></i></button></li>
@@ -112,13 +114,13 @@
 	<header>
 	<h1>IMF API</h1>
 	</header>
-	<main>
+	<main id="main">
 	<section>
 	<article class="article_links">
 	<a href="imfapi1.html">
 	<div class="card_dull">
 	  <div class="card_banner_wrap card_banner_wrap_blue">
-	    <img src="images/imf_banner1.png" alt="IMF API tutorial Part 1" class="card_banner">
+	    <img src="images/imf_banner1.png" alt="IMF API tutorial Part 1" class="card_banner" width="425" height="68">
 	  </div>
 	  <div class="card_head_blue">
 		<h3>Part 1</h3>
@@ -131,7 +133,7 @@
 	<a href="imfapi2.html">
 	<div class="card_dull">
 	  <div class="card_banner_wrap card_banner_wrap_blue">
-	    <img src="images/imf_banner.png" alt="IMF API tutorial Part 2" class="card_banner">
+	    <img src="images/imf_banner.png" alt="IMF API tutorial Part 2" class="card_banner" width="293" height="68">
 	  </div>
 	  <div class="card_head_blue">
 		<h3>Part 2</h3>
@@ -144,7 +146,7 @@
 	<a href="imfapi3.html">
 	<div class="card">
 	  <div class="card_banner_wrap card_banner_wrap_blue">
-	    <img src="images/imf_banner2.png" alt="IMF API tutorial Part 3" class="card_banner">
+	    <img src="images/imf_banner2.png" alt="IMF API tutorial Part 3" class="card_banner" width="350" height="68">
 	  </div>
 	  <div class="card_head_blue">
 		<h3>Part 3</h3>
@@ -217,9 +219,55 @@ ax.set_title('Real GDP Growth (%, annual)')
 ax.legend(frameon=False)
 ax.set_xlabel('Source: IMF World Economic Outlook')</code></pre>
 	<p>Out[4]:</p>
-	<img src="images/imf_gdp_growth.png" alt="Thailand vs Vietnam GDP Growth from WEO" loading="lazy"/>
+	<img src="images/imf_gdp_growth.png" alt="Thailand vs Vietnam GDP Growth from WEO" loading="lazy" width="558" height="443"/>
 	<p>Vietnam has sustained higher growth rates over most of this period, with both countries hit hard by COVID-19 in 2020&ndash;2021. Other popular WEO indicators include <code>PCPIPCH</code> (CPI inflation), <code>LUR</code> (unemployment rate), and <code>GGXWDG_NGDP</code> (government debt as % of GDP).</p>
 	<p>Note that the SDMX API only serves the <strong>latest WEO edition</strong>. The IMF publishes the WEO twice a year (April and October), but older editions are not available through the API&mdash;the dataflow is overwritten each cycle. To access archived WEO vintages (back to 2007), download them from the <a href="https://www.imf.org/en/Publications/SPROLLs/world-economic-outlook-databases">WEO Database page</a> or use a package like <a href="https://pypi.org/project/weo/">weo</a>.</p>
+
+	<h3>Distinguishing Forecasts from Actuals</h3>
+	<p>WEO data mixes historical values and projections, but the API does not flag which is which in the main data response. To find the boundary, request the <code>LATEST_ACTUAL_ANNUAL_DATA</code> attribute. This returns the last year of actual data for each country&ndash;indicator pair; any year after that is a forecast.</p>
+	<p>In[5a]:</p>
+	<pre><code class="python">import requests
+
+# Request the forecast boundary attribute via SDMX JSON
+url = ("https://api.imf.org/external/sdmx/3.0/data/"
+       "dataflow/IMF.RES/WEO/~/*"
+       "?attributes=LATEST_ACTUAL_ANNUAL_DATA"
+       "&detail=serieskeysonly")
+
+resp = requests.get(url, headers={"Accept": "application/json"})
+meta = resp.json()
+
+# The attribute is in dimensionGroupAttributes
+attrs = meta['dataSets'][0]['dimensionGroupAttributes']
+
+# Each key is "{country_idx}:{indicator_idx}::", value is [[year]]
+# Map dimension indices back to codes
+dims = meta['structure']['dimensions']['observation']
+countries = {str(i): c['id']
+             for i, c in enumerate(dims[0]['values'])}
+indicators = {str(i): ind['id']
+              for i, ind in enumerate(dims[1]['values'])}
+
+estimates_start = {}
+for key, val in attrs.items():
+    parts = key.split(':')
+    iso = countries[parts[0]]
+    ind = indicators[parts[1]]
+    year_str = val[0][0]
+    # Handle fiscal year format: "FY2023/24" -> 2023
+    if year_str.startswith('FY'):
+        year = int(year_str[2:6])
+    else:
+        year = int(year_str)
+    estimates_start[(iso, ind)] = year
+
+# Example: last actual year for US real GDP growth
+print(f"USA NGDP_RPCH: actuals through "
+      f"{estimates_start[('USA', 'NGDP_RPCH')]}")</code></pre>
+	<p>Out[5a]:</p>
+<pre>USA NGDP_RPCH: actuals through 2024</pre>
+	<p>With this boundary, you can split any WEO series into historical data and forecasts programmatically&mdash;no hard-coding of dates needed. About 19 countries (including India, Egypt, and Ethiopia) use fiscal years in the format <code>FY2023/24</code>; the first year is the conventional cutoff.</p>
+	<p>To explore how WEO forecasts have evolved across editions, see the <a href="imfweo.html">WEO Forecast Tracker</a>.</p>
 
 	<h2 class="section-title">Commodity Prices (PCPS)</h2>
 	<p>The Primary Commodity Price System (PCPS) dataset tracks world benchmark prices for over 100 commodities. Let's explore its structure and search for metals:</p>
@@ -272,7 +320,7 @@ lines = ax1.lines + ax2.lines
 ax1.legend(lines, [l.get_label() for l in lines],
            loc='upper left', frameon=False)</code></pre>
 	<p>Out[7]:</p>
-	<img src="images/imf_commodities.png" alt="Aluminum and Copper Commodity Prices" loading="lazy"/>
+	<img src="images/imf_commodities.png" alt="Aluminum and Copper Commodity Prices" loading="lazy" width="558" height="443"/>
 	<p>Both metals track global industrial activity, but copper's sharper swings reflect its role as a leading economic indicator. Other key commodity codes include <code>PGOLD</code> (gold), <code>POILAPSP</code> (crude oil), <code>PNGAS</code> (natural gas), and <code>PWHEAMT</code> (wheat). Use the codelist methods from Part 2 to browse the full list.</p>
 
 	<h2 class="section-title">Beyond the IMF</h2>
@@ -301,7 +349,7 @@ ax = change.plot(title='10-Year Bond Yields: One-Year Change (pp)')
 ax.axhline(0, color='gray', linewidth=0.5)
 ax.set_xlabel('Source: European Central Bank (IRS)')</code></pre>
 	<p>Out[9]:</p>
-	<img src="images/imf_ecb_yields.png" alt="Euro Area 10-Year Bond Yield Changes" loading="lazy"/>
+	<img src="images/imf_ecb_yields.png" alt="Euro Area 10-Year Bond Yield Changes" loading="lazy" width="559" height="443"/>
 	<p>Italy and Spain show larger swings than Germany, reflecting the credit spread component of their yields. The 2022 spike corresponds to the ECB's fastest rate-hiking cycle on record. To see all available providers:</p>
 	<p>In[10]:</p>
 	<pre><code class="python">print(sdmx.list_sources())</code></pre>
