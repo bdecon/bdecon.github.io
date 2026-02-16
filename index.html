@@ -107,8 +107,48 @@
 		</ul>
 	</nav>
 	<div class="announcement">
-		<a href="imfweo.html">New: IMF WEO Forecast Tracker &mdash; 196 countries, 39 editions &rarr;</a>
+		<button class="announce-arrow" aria-label="Previous announcement">&#8249;</button>
+		<span class="announce-text"><a href="imfweo.html" id="announce-link">New: IMF WEO Forecast Tracker &mdash; 196 countries, 39 editions &rarr;</a></span>
+		<button class="announce-arrow" aria-label="Next announcement">&#8250;</button>
 	</div>
+	<script>
+	(function() {
+		var msgs = [
+			{text: "New: IMF WEO Forecast Tracker \u2014 196 countries, 39 editions \u2192", href: "imfweo.html"},
+			{text: "Explore 20+ interactive charts on the US economy \u2192", href: "indicators.html"},
+			{text: "Guide: Access US Treasury fiscal data with Python \u2192", href: "treasuryapi.html"}
+		];
+		var idx = Math.floor(Math.random() * msgs.length);
+		var span = document.querySelector(".announce-text");
+		var link = document.getElementById("announce-link");
+		var arrows = document.querySelectorAll(".announce-arrow");
+		var timer;
+
+		function show(i) {
+			link.textContent = msgs[i].text;
+			link.href = msgs[i].href;
+		}
+		function fadeTo(i) {
+			span.classList.add("fade-out");
+			setTimeout(function() {
+				idx = i;
+				show(idx);
+				span.classList.remove("fade-out");
+			}, 400);
+		}
+		function next() { fadeTo((idx + 1) % msgs.length); }
+		function prev() { fadeTo((idx - 1 + msgs.length) % msgs.length); }
+		function resetTimer() {
+			clearInterval(timer);
+			timer = setInterval(next, 6000);
+		}
+
+		show(idx);
+		arrows[0].addEventListener("click", function() { prev(); resetTimer(); });
+		arrows[1].addEventListener("click", function() { next(); resetTimer(); });
+		timer = setInterval(next, 6000);
+	})();
+	</script>
 	<main id="main">
 	<section>
 		<article>

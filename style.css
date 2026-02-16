@@ -438,10 +438,21 @@ header h3{padding: 20px 0 12px 0; color: white;
 
 .announcement {
 	background: #e8e8e8;
-	padding: 10px 20px;
+	padding: 8px 20px;
 	margin-top: 52px;
 	font-size: 13px;
 	border-bottom: 1px solid #d0d0d0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+}
+.announce-text {
+	transition: opacity 0.4s ease;
+	opacity: 1;
+}
+.announce-text.fade-out {
+	opacity: 0;
 }
 .announcement a {
 	color: #555;
@@ -450,11 +461,30 @@ header h3{padding: 20px 0 12px 0; color: white;
 .announcement a:hover {
 	text-decoration: underline;
 }
+.announce-arrow {
+	background: none;
+	border: none;
+	color: #999;
+	cursor: pointer;
+	font-size: 14px;
+	padding: 2px 4px;
+	line-height: 1;
+	flex-shrink: 0;
+}
+.announce-arrow:hover {
+	color: #555;
+}
 [data-theme="dark"] .announcement {
 	background: #252525;
 	border-bottom-color: #333;
 }
 [data-theme="dark"] .announcement a {
+	color: #bbb;
+}
+[data-theme="dark"] .announce-arrow {
+	color: #666;
+}
+[data-theme="dark"] .announce-arrow:hover {
 	color: #bbb;
 }
 
