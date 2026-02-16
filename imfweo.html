@@ -339,6 +339,11 @@
 	}
 	.weo-countries p { margin: 0.4em 0; }
 	.weo-countries strong { font-size: 13px; color: var(--color-text-dark); }
+	@media (min-width: 500px) {
+		.weo-controls, .chart-container, .weo-info, .weo-details {
+			max-width: 480px;
+		}
+	}
 </style>
 </head>
 <body>
@@ -462,6 +467,9 @@
 				<tr><td>BCA_NGDPD</td><td>Current Account Balance</td><td>% of GDP</td><td>Net flow of goods, services, and transfers with the rest of the world. Negative = deficit.</td></tr>
 				<tr><td>PCPIPCH</td><td>CPI Inflation</td><td>% change</td><td>Year-over-year change in consumer prices.</td></tr>
 				<tr><td>GGXWDG_NGDP</td><td>Government Debt</td><td>% of GDP</td><td>Gross general government debt relative to GDP.</td></tr>
+				<tr><td>GGXCNL_NGDP</td><td>Fiscal Balance</td><td>% of GDP</td><td>General government net lending/borrowing. Negative = deficit.</td></tr>
+				<tr><td>NID_NGDP</td><td>Investment</td><td>% of GDP</td><td>Total investment (gross capital formation) as a share of GDP.</td></tr>
+				<tr><td>NGAP_NPGDP</td><td>Output Gap</td><td>% of potential GDP</td><td>How far GDP is above or below estimated potential. Negative = slack. Available for ~30 advanced economies.</td></tr>
 				<tr><td>LUR</td><td>Unemployment Rate</td><td>% of labor force</td><td>Share of the labor force that is unemployed. Not available for all countries.</td></tr>
 			</tbody>
 		</table>
@@ -552,7 +560,7 @@
 		let chart = null;
 		let currentISO = 'USA';
 		let currentIndicator = 'NGDP_RPCH';
-		let yearMin = 2013;
+		let yearMin = 2010;
 		let yearMax = 2030;
 
 		// --- Horizon styles (matching vintage_dots.py) ---
@@ -607,6 +615,9 @@
 			'PCPIPCH': [-2, 15],
 			'BCA_NGDPD': [-10, 10],
 			'GGXWDG_NGDP': [0, 100],
+			'GGXCNL_NGDP': [-12, 4],
+			'NID_NGDP': [10, 40],
+			'NGAP_NPGDP': [-6, 4],
 			'GGD_NGDP': [0, 100],
 			'GGXONLB_NGDP': [-8, 4],
 			'TX_RPCH': [-10, 15],
@@ -621,6 +632,9 @@
 			'BCA_NGDPD': [-40, 40],
 			'PCPIPCH': [-5, 120],
 			'GGXWDG_NGDP': [0, 250],
+			'GGXCNL_NGDP': [-60, 50],
+			'NID_NGDP': [0, 80],
+			'NGAP_NPGDP': [-15, 15],
 			'LUR': [0, 35]
 		};
 
