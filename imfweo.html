@@ -921,6 +921,11 @@
 
 			const step = niceStep(yHi - yLo);
 
+			// Snap bounds to multiples of step so ticks always
+			// land on clean values (e.g. step=2 → …, -2, 0, 2, …)
+			yLo = Math.floor(yLo / step) * step;
+			yHi = Math.ceil(yHi / step) * step;
+
 			// Count values that fall outside the final range
 			const nAbove = allVals.filter(v => v > yHi).length;
 			const nBelow = allVals.filter(v => v < yLo).length;
@@ -1010,9 +1015,9 @@
 
 			// 3. Nowcasts
 			const ncApr = d.nc.filter(p => p[2] === 0 && inRange(p[0]))
-				.map(p => ({x: p[0], y: p[1]}));
+				.map(p => ({x: p[0], y: p[1], vid: p[3]}));
 			const ncOct = d.nc.filter(p => p[2] === 1 && inRange(p[0]))
-				.map(p => ({x: p[0], y: p[1]}));
+				.map(p => ({x: p[0], y: p[1], vid: p[3]}));
 			if (ncApr.length) {
 				ncApr.forEach(p => allVals.push(p.y));
 				datasets.push({
@@ -1208,7 +1213,7 @@
 					},
 					onHover: null
 				},
-				plugins: [yLabelPlugin, zeroLinePlugin, clipAnnotationPlugin]
+				plugins: [vintageLinePlugin, yLabelPlugin, zeroLinePlugin, clipAnnotationPlugin]
 			};
 
 			if (chart) {
@@ -1243,6 +1248,54 @@
 					else label = String(parseFloat(v.toPrecision(10)));
 					ctx.fillText(label, left, py - 2);
 				}
+				ctx.restore();
+			}
+		};
+
+		// Plugin: thin lines connecting dots from the same vintage
+		const vintageLinePlugin = {
+			id: 'vintageLines',
+			beforeDatasetsDraw(chart) {
+				const ctx = chart.ctx;
+				const xScale = chart.scales.x;
+				const yScale = chart.scales.y;
+
+				// Collect all cloud + nowcast points grouped by vid
+				const byVid = {};
+				for (const ds of chart.data.datasets) {
+					if (!ds.label || (!ds.label.startsWith('_cloud_h') && !ds.label.startsWith('_nc_'))) continue;
+					const dsIndex = chart.data.datasets.indexOf(ds);
+					const meta = chart.getDatasetMeta(dsIndex);
+					if (meta.hidden) continue;
+					for (const pt of ds.data) {
+						if (pt.vid == null) continue;
+						(byVid[pt.vid] ||= []).push(pt);
+					}
+				}
+
+				ctx.save();
+				ctx.strokeStyle = isDark() ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.08)';
+				ctx.lineWidth = 0.7;
+				const area = chart.chartArea;
+
+				for (const vid in byVid) {
+					const pts = byVid[vid].sort((a, b) => a.x - b.x);
+					if (pts.length < 2) continue;
+					ctx.beginPath();
+					let started = false;
+					for (const p of pts) {
+						const px = xScale.getPixelForValue(p.x);
+						const py = yScale.getPixelForValue(p.y);
+						if (px < area.left || px > area.right || py < area.top || py > area.bottom) {
+							started = false;
+							continue;
+						}
+						if (!started) { ctx.moveTo(px, py); started = true; }
+						else ctx.lineTo(px, py);
+					}
+					ctx.stroke();
+				}
+
 				ctx.restore();
 			}
 		};
