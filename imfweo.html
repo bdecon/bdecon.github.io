@@ -310,6 +310,24 @@
 		padding: 6px 0;
 		color: var(--color-text-dark);
 		border-bottom: 1px solid var(--color-border-light);
+		list-style: none;
+	}
+	.weo-details summary::-webkit-details-marker {
+		display: none;
+	}
+	.weo-details summary::before {
+		content: '';
+		display: inline-block;
+		width: 0;
+		height: 0;
+		border-left: 5px solid var(--color-text-dark);
+		border-top: 4px solid transparent;
+		border-bottom: 4px solid transparent;
+		margin-right: 8px;
+		transition: transform 0.15s;
+	}
+	.weo-details[open] summary::before {
+		transform: rotate(90deg);
 	}
 	.weo-details[open] summary {
 		margin-bottom: 8px;
