@@ -6,20 +6,20 @@
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<meta charset="UTF-8">
-	<meta name="description" content="US Economic Chartbook with 120+ indicators covering labor markets, inflation, GDP, and financial markets.">
-	<meta name="keywords" content="IMF API, Economics Dashboard, Trade Network, Trade Networks, Macroeconomics Dashboard, Macroeconomic Dashboard, Markets Dashboard, Market Dashboard, U.S. Economy, U.S. Economy Dashboard, US economy, US economy dashboard, US economy charts, US economy charts pdf, NetworkX trade, international trade networks, network analysis of trade, International Monetary Fund, IMF Statistics Department, IMF Application Programming Interface, International Monetary Fund Application Programming Interface, International Monetary Fund API">
+	<meta name="description" content="Open source chartbook tracking the US economy since 1989. 185 pages covering GDP, labor markets, inflation, wages, trade, financial markets, household wealth, government finances, and more. Updated regularly with public data from BEA, BLS, Census, the Federal Reserve, and Treasury.">
+	<meta name="keywords" content="US economy, US economic chartbook, US economy charts, GDP charts, labor market data, inflation charts, US trade data, financial markets, household wealth, government finances, macroeconomics, economic indicators, FRED, BLS data, BEA data, open source economics">
 	<meta name="author" content="Brian Dew">
 	<link rel="canonical" href="https://bd-econ.com/chartbook.html">
 	<!-- Open Graph -->
 	<meta property="og:title" content="US Chartbook | BD Economics">
-	<meta property="og:description" content="US Economic Chartbook with 120+ indicators covering labor markets, inflation, GDP, and financial markets.">
+	<meta property="og:description" content="Open source chartbook tracking the US economy since 1989. 185 pages covering GDP, labor markets, inflation, trade, financial markets, and more.">
 	<meta property="og:url" content="https://bd-econ.com/chartbook.html">
 	<meta property="og:type" content="website">
 	<meta property="og:image" content="https://bd-econ.com/images/01_bdlogo.png">
 	<!-- Twitter Card -->
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="US Chartbook | BD Economics">
-	<meta name="twitter:description" content="US Economic Chartbook with 120+ indicators covering labor markets, inflation, GDP, and financial markets.">
+	<meta name="twitter:description" content="Open source chartbook tracking the US economy since 1989. 185 pages covering GDP, labor markets, inflation, trade, financial markets, and more.">
 	<meta name="twitter:image" content="https://bd-econ.com/images/01_bdlogo.png">
 	<meta name="google-site-verification" content="DP-2kVWWQ6i8lPgl5gqVAy3cjr-beYZzfhNL5-nVbzs" />
 	<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
@@ -39,6 +39,97 @@
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
+<style>
+	.cb-content {
+		max-width: 520px;
+		margin: 0 auto;
+	}
+	.cb-details {
+		max-width: 520px;
+		margin: 0.75rem auto;
+	}
+	.cb-details summary {
+		font-size: 14px;
+		font-weight: 600;
+		cursor: pointer;
+		padding: 8px 0;
+		border-bottom: 1px solid var(--color-border-light);
+		list-style: none;
+	}
+	.cb-details summary::-webkit-details-marker {
+		display: none;
+	}
+	.cb-details summary::before {
+		content: '';
+		display: inline-block;
+		width: 0;
+		height: 0;
+		border-top: 5px solid transparent;
+		border-bottom: 5px solid transparent;
+		border-left: 6px solid var(--color-text-muted);
+		margin-right: 8px;
+		transition: transform 0.15s;
+	}
+	.cb-details[open] summary::before {
+		transform: rotate(90deg);
+	}
+	.cb-details[open] summary {
+		margin-bottom: 8px;
+	}
+	.cb-details p, .cb-details li {
+		font-size: 13px;
+		color: var(--color-text-muted);
+		line-height: 1.5;
+	}
+	.cb-details ol {
+		padding-left: 1.4em;
+		margin: 0.5em 0;
+	}
+	.cb-free {
+		text-align: center;
+		font-size: 13px;
+		color: var(--color-text-muted);
+		margin: 8px 0 4px 0;
+	}
+	.cb-previews {
+		display: flex;
+		gap: 12px;
+		flex-wrap: wrap;
+		justify-content: center;
+		margin: 8px 0;
+	}
+	.cb-previews img {
+		width: 160px;
+		border: 1px solid var(--color-grid);
+		border-radius: 4px;
+		cursor: pointer;
+	}
+	.cb-previews img:hover {
+		opacity: 0.85;
+	}
+	.cb-lightbox {
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0, 0, 0, 0.8);
+		z-index: 1000;
+		justify-content: center;
+		align-items: center;
+		cursor: pointer;
+	}
+	.cb-lightbox.active {
+		display: flex;
+	}
+	.cb-lightbox img {
+		max-width: 90%;
+		max-height: 90%;
+		border-radius: 4px;
+		box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+	}
+</style>
 <script>
 (function() {
 	var saved = localStorage.getItem('theme');
@@ -52,14 +143,38 @@
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
-    "@type": "WebPage",
+    "@type": "Report",
     "name": "US Chartbook",
-    "description": "US Economic Chartbook with 120+ indicators covering labor markets, inflation, GDP, and financial markets.",
+    "description": "Open source chartbook tracking economic and social developments in the United States since 1989.",
     "url": "https://bd-econ.com/chartbook.html",
     "author": {
         "@type": "Person",
-        "name": "Brian Dew"
-    }
+        "name": "Brian Dew",
+        "url": "https://bd-econ.com"
+    },
+    "about": {
+        "@type": "Thing",
+        "name": "United States Economy"
+    },
+    "temporalCoverage": "1989/..",
+    "spatialCoverage": "United States",
+    "isAccessibleForFree": true,
+    "encoding": {
+        "@type": "MediaObject",
+        "contentUrl": "https://bd-econ.com/chartbook.pdf",
+        "encodingFormat": "application/pdf"
+    },
+    "hasPart": [
+        {"@type": "Report", "name": "Overall Economic Activity", "description": "GDP, national income, economic growth, and business cycles"},
+        {"@type": "Report", "name": "Financial Accounts", "description": "Wealth, liabilities, sectoral balances, and investment"},
+        {"@type": "Report", "name": "Households", "description": "Demographics, income, spending, saving, balance sheets, housing, and poverty"},
+        {"@type": "Report", "name": "Businesses", "description": "Investment, corporate profits, balance sheets, industrial production, and retail sales"},
+        {"@type": "Report", "name": "Government", "description": "Receipts, expenditures, government jobs, and balance sheets"},
+        {"@type": "Report", "name": "External Sector", "description": "Balance of payments, international trade, investment, capital flows, and exchange rates"},
+        {"@type": "Report", "name": "Labor Markets", "description": "Employment, unemployment, participation, wages, productivity, and union membership"},
+        {"@type": "Report", "name": "Financial Markets", "description": "Equity markets, interest rates, monetary policy, and yield curves"},
+        {"@type": "Report", "name": "Prices", "description": "Consumer prices, producer prices, PCE inflation, inflation expectations, and commodities"}
+    ]
 }
 </script>
 
@@ -111,19 +226,11 @@
 	</header>
 	<main id="main">
 	<section>
+		<div class="cb-content">
 		<article>
-		<h2 class="section-heading-sm">About the Chartbook</h2>
-
-		<p class="overview">The US Economic Chartbook is an open-source reference for analyzing the US economy. It bridges the gap between raw data resources like FRED and professional analysis like the IMF Article IV—more curated than databases, fresher than traditional analysis.</p>
-
-		<p class="overview">Contributions and corrections are welcome via <a href="https://github.com/bdecon/US-chartbook">GitHub</a>.</p>
-
-		<p>For interactive versions of key indicators, see the <a href="indicators.html">Economic Indicators</a> page.</p>
-
-		<p><b><a href="https://github.com/bdecon/US-chartbook">Source Code</a></b></p>
-					
+		<p class="overview">The US Economic Chartbook is an open-source reference for analyzing the US economy. It bridges the gap between raw data resources like FRED and professional analysis like the IMF Article IV&mdash;more curated than databases, fresher than traditional analysis.</p>
 		</article>
-		<article class="article_links">		
+		<article class="article_links">
 			<a href="chartbook.pdf" onclick="gtag('event', 'chartbook_download', {link_url: 'chartbook.pdf', link_text: 'Chartbook'});">
 			<div class="card">
 				<div class="card_banner_wrap card_banner_wrap_green">
@@ -137,7 +244,40 @@
 				</div>
 			</div>
 			</a>
+			<p class="cb-free">Free to read, use, and modify. <a href="https://github.com/bdecon/US-chartbook">Source code on GitHub</a>.</p>
 		</article>
+		</div>
+
+		<details class="cb-details">
+			<summary>What's Inside</summary>
+			<p>The chartbook tracks economic and social developments in the United States since 1989, drawing on public data from BEA, BLS, Census, the Federal Reserve, Treasury, and other sources. Each section contains charts, tables, descriptive text, and links to relevant materials.</p>
+			<ol>
+				<li>Overall Economic Activity</li>
+				<li>Financial Accounts</li>
+				<li>Households</li>
+				<li>Businesses</li>
+				<li>Government</li>
+				<li>External Sector</li>
+				<li>Labor Markets</li>
+				<li>Financial Markets</li>
+				<li>Prices</li>
+			</ol>
+		</details>
+
+		<details class="cb-details">
+			<summary>Sample Pages</summary>
+			<div class="cb-previews">
+				<img src="images/cb_preview_toc.png" alt="Chartbook table of contents" onclick="openLightbox(this)">
+				<img src="images/cb_preview_wealth.png" alt="Household Wealth section sample" onclick="openLightbox(this)">
+				<img src="images/cb_preview_prices.png" alt="PCE Price Index section sample" onclick="openLightbox(this)">
+			</div>
+		</details>
+
+		<details class="cb-details">
+			<summary>Related</summary>
+			<p>For interactive versions of key indicators, see the <a href="indicators.html">Economic Indicators</a> page. Contributions and corrections are welcome via <a href="https://github.com/bdecon/US-chartbook">GitHub</a>.</p>
+		</details>
+
 	</section>
 	</main>
 
@@ -186,6 +326,23 @@
 	<script>
 		fetch('date.txt').then(r => r.text()).then(t => {
 			document.querySelectorAll('.cb_update').forEach(el => el.textContent = t.trim());
+		});
+	</script>
+	<div class="cb-lightbox" id="cb-lightbox" onclick="closeLightbox()">
+		<img id="cb-lightbox-img" src="" alt="">
+	</div>
+	<script>
+		function openLightbox(img) {
+			var lb = document.getElementById('cb-lightbox');
+			document.getElementById('cb-lightbox-img').src = img.src;
+			document.getElementById('cb-lightbox-img').alt = img.alt;
+			lb.classList.add('active');
+		}
+		function closeLightbox() {
+			document.getElementById('cb-lightbox').classList.remove('active');
+		}
+		document.addEventListener('keydown', function(e) {
+			if (e.key === 'Escape') closeLightbox();
 		});
 	</script>
 
