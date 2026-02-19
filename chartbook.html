@@ -100,6 +100,7 @@
 	}
 	.cb-previews img {
 		width: 160px;
+		height: auto;
 		border: 1px solid var(--color-grid);
 		border-radius: 4px;
 		cursor: pointer;
@@ -227,9 +228,7 @@
 	<main id="main">
 	<section>
 		<div class="cb-content">
-		<article>
-		<p class="overview">The US Economic Chartbook is an open-source reference for analyzing the US economy. It bridges the gap between raw data resources like FRED and professional analysis like the IMF Article IV&mdash;more curated than databases, fresher than traditional analysis.</p>
-		</article>
+		<p class="overview">The US Chartbook is an open-source reference for analyzing the US economy. It bridges the gap between raw data resources like FRED and professional analysis like the IMF Article IV&mdash;more curated than databases, fresher than traditional analysis.</p>
 		<article class="article_links">
 			<a href="chartbook.pdf" onclick="gtag('event', 'chartbook_download', {link_url: 'chartbook.pdf', link_text: 'Chartbook'});">
 			<div class="card">
@@ -240,7 +239,7 @@
 					<h3>Chartbook <i class="fa fa-download"></i></h3>
 				</div>
 				<div class="card_tail">
-					<p>120+ charts on the US economy: labor markets, inflation, GDP, trade, and more. Includes data sources and code.</p><p><b>PDF</b> · Updated: <span class="cb_update"></span></p>
+					<p>120+ charts on the US economy: labor markets, inflation, GDP, trade, and more. Includes data sources and code.</p><p><b>PDF</b> · Updated: <span class="cb_update"><noscript>regularly</noscript></span></p>
 				</div>
 			</div>
 			</a>
@@ -267,15 +266,15 @@
 		<details class="cb-details">
 			<summary>Sample Pages</summary>
 			<div class="cb-previews">
-				<img src="images/cb_preview_toc.png" alt="Chartbook table of contents" onclick="openLightbox(this)">
-				<img src="images/cb_preview_wealth.png" alt="Household Wealth section sample" onclick="openLightbox(this)">
-				<img src="images/cb_preview_prices.png" alt="PCE Price Index section sample" onclick="openLightbox(this)">
+				<img src="images/cb_preview_toc.png" alt="Chartbook table of contents" width="600" height="776" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
+				<img src="images/cb_preview_wealth.png" alt="Household Wealth section sample" width="600" height="776" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
+				<img src="images/cb_preview_prices.png" alt="PCE Price Index section sample" width="600" height="776" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
 			</div>
 		</details>
 
 		<details class="cb-details">
 			<summary>Related</summary>
-			<p>For interactive versions of key indicators, see the <a href="indicators.html">Economic Indicators</a> page. Contributions and corrections are welcome via <a href="https://github.com/bdecon/US-chartbook">GitHub</a>.</p>
+			<p>For interactive versions of key indicators, see the <a href="indicators.html">Economic Indicators</a> page. For international economic data and forecasts, see the <a href="imfweo.html">IMF World Economic Outlook</a> page. Contributions and corrections are welcome via <a href="https://github.com/bdecon/US-chartbook">GitHub</a>.</p>
 		</details>
 
 	</section>
@@ -292,6 +291,9 @@
 			<a href="https://briandew.wordpress.com/" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
 		</div>
 	</footer>
+	<div class="cb-lightbox" id="cb-lightbox">
+		<img id="cb-lightbox-img" alt="" tabindex="0">
+	</div>
 	<script>
 		function responsiveNav() {
 			const menu = document.getElementById("menu");
@@ -308,7 +310,7 @@
 				document.querySelector(".icon button").setAttribute("aria-expanded", "false");
 			}
 		});
-			function toggleTheme() {
+		function toggleTheme() {
 			const current = document.documentElement.getAttribute('data-theme');
 			const next = current === 'dark' ? 'light' : 'dark';
 			document.documentElement.setAttribute('data-theme', next);
@@ -322,25 +324,28 @@
 			icon.className = isDark ? 'fa fa-sun-o' : 'fa fa-moon-o';
 		}
 		updateThemeIcon();
-	</script>
-	<script>
+
 		fetch('date.txt').then(r => r.text()).then(t => {
 			document.querySelectorAll('.cb_update').forEach(el => el.textContent = t.trim());
 		});
-	</script>
-	<div class="cb-lightbox" id="cb-lightbox" onclick="closeLightbox()">
-		<img id="cb-lightbox-img" src="" alt="">
-	</div>
-	<script>
+
+		var lastFocusedElement;
 		function openLightbox(img) {
-			var lb = document.getElementById('cb-lightbox');
-			document.getElementById('cb-lightbox-img').src = img.src;
-			document.getElementById('cb-lightbox-img').alt = img.alt;
-			lb.classList.add('active');
+			lastFocusedElement = img;
+			var lbImg = document.getElementById('cb-lightbox-img');
+			lbImg.src = img.src;
+			lbImg.alt = img.alt;
+			document.getElementById('cb-lightbox').classList.add('active');
+			lbImg.focus();
 		}
 		function closeLightbox() {
 			document.getElementById('cb-lightbox').classList.remove('active');
+			document.getElementById('cb-lightbox-img').removeAttribute('src');
+			if (lastFocusedElement) lastFocusedElement.focus();
 		}
+		document.getElementById('cb-lightbox').addEventListener('click', function(e) {
+			if (e.target === this) closeLightbox();
+		});
 		document.addEventListener('keydown', function(e) {
 			if (e.key === 'Escape') closeLightbox();
 		});

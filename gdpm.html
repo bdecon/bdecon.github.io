@@ -43,14 +43,33 @@
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Monthly GDP",
-    "description": "Monthly estimates of US GDP, freely available for download. Useful for expressing economic data relative to overall activity.",
+    "@type": "Dataset",
+    "name": "Monthly US GDP Estimates",
+    "description": "Monthly estimates of US nominal and real GDP in billions of USD, seasonally adjusted annual rate. Constructed by interpolating quarterly BEA data with Atlanta Fed GDPNow and Cleveland Fed inflation nowcasts. Updated daily.",
     "url": "https://bd-econ.com/gdpm.html",
-    "author": {
+    "creator": {
         "@type": "Person",
-        "name": "Brian Dew"
-    }
+        "name": "Brian Dew",
+        "url": "https://bd-econ.com"
+    },
+    "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "isAccessibleForFree": true,
+    "temporalCoverage": "1947/..",
+    "spatialCoverage": "United States",
+    "distribution": {
+        "@type": "DataDownload",
+        "encodingFormat": "text/csv",
+        "contentUrl": "https://bd-econ.com/files/gdpm.csv"
+    },
+    "variableMeasured": [
+        {"@type": "PropertyValue", "name": "Nominal GDP", "unitText": "Billions of USD, SAAR"},
+        {"@type": "PropertyValue", "name": "Real GDP", "unitText": "Billions of chained 2017 USD, SAAR"}
+    ],
+    "isBasedOn": [
+        {"@type": "Dataset", "name": "Gross Domestic Product (GDP)", "url": "https://fred.stlouisfed.org/series/GDP"},
+        {"@type": "Dataset", "name": "Real Gross Domestic Product (GDPC1)", "url": "https://fred.stlouisfed.org/series/GDPC1"},
+        {"@type": "Dataset", "name": "Atlanta Fed GDPNow", "url": "https://www.atlantafed.org/cqer/research/gdpnow"}
+    ]
 }
 </script>
 
@@ -371,6 +390,8 @@
 	<main id="main">
 	<section>
 	<article>
+	<noscript><p style="background:#fff3cd;padding:10px;border-radius:4px;font-size:14px;">This page requires JavaScript to display interactive charts. The <a href="files/gdpm.csv">CSV data</a> can still be downloaded directly.</p></noscript>
+
 	<div class="chart-row">
 		<div class="chart-container">
 			<div class="chart-header">
