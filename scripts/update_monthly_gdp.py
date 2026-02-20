@@ -166,8 +166,15 @@ def main():
         gdpnow_value, gdpnow_date = fetch_with_retry(fetch_gdpnow)
         pce_value, pce_date = fetch_with_retry(fetch_pce_nowcast)
 
+        # Determine nowcast quarter: always the quarter after latest FRED data
+        # (PCE or GDPNow dates may lag behind the latest GDP release)
+        nowcast_quarter = gdp.index[-1] + pd.DateOffset(months=3)
+        if pce_date != nowcast_quarter:
+            print(f"  Note: PCE nowcast is for {pce_date.strftime('%Y Q')}{pce_date.quarter}, "
+                  f"applying to {nowcast_quarter.strftime('%Y Q')}{nowcast_quarter.quarter}")
+
         # Calculate monthly estimates
-        gdpm, gdpq_recent = calculate_monthly_gdp(gdp, gdpnow_value, pce_value, pce_date)
+        gdpm, gdpq_recent = calculate_monthly_gdp(gdp, gdpnow_value, pce_value, nowcast_quarter)
 
         # Save monthly CSV (rounded to 3 decimal places)
         filepath = FILES_DIR / 'gdpm.csv'
