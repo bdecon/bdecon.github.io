@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Childcare | BD Economics</title>
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+	<script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+	<meta charset="UTF-8">
+	<meta name="description" content="Comparative analysis of childcare sector structure across selected countries.">
+	<meta name="author" content="Brian Dew">
+	<meta name="robots" content="noindex">
+	<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192" href="favicon/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+	<link rel="manifest" href="favicon/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PGVF5S620Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PGVF5S620Y');
+</script>
+
+<script>
+(function() {
+	var saved = localStorage.getItem('theme');
+	if (saved) {
+		document.documentElement.setAttribute('data-theme', saved);
+	} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+		document.documentElement.setAttribute('data-theme', 'dark');
+	}
+})();
+</script>
+<style>
+	/* Map controls */
+	.cc-controls {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		margin: 1rem auto;
+		max-width: 420px;
+	}
+	.cc-control-row {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+	}
+	.cc-control-row label {
+		font-size: 12px;
+		font-weight: 600;
+		color: var(--color-text-muted);
+		white-space: nowrap;
+		min-width: 62px;
+	}
+	.cc-controls select {
+		flex: 1;
+		min-width: 0;
+		padding: 6px 8px;
+		font-size: 13px;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		border: 1px solid var(--color-border-light);
+		border-radius: 3px;
+		background: var(--color-bg-white);
+		color: var(--color-text-dark);
+	}
+	/* Map toggle (folder tabs) */
+	.map-toggle {
+		display: flex;
+		gap: 0;
+		font-size: 10px;
+		font-family: 'Montserrat', sans-serif;
+		max-width: 420px;
+		margin: 0.75rem auto 0 auto;
+		position: relative;
+		bottom: -1px;
+		z-index: 1;
+	}
+	.map-toggle-btn {
+		padding: 5px 14px;
+		border: 1px solid var(--color-border-light);
+		border-bottom: 1px solid var(--color-border-light);
+		background: var(--color-bg-highlight);
+		cursor: pointer;
+		color: var(--color-text-muted);
+		transition: all 0.15s ease;
+		font-size: 10px;
+		font-family: 'Montserrat', sans-serif;
+		border-radius: 4px 4px 0 0;
+		margin-right: -1px;
+	}
+	.map-toggle-btn:hover {
+		background: var(--color-bg-white);
+	}
+	.map-toggle-btn.active {
+		background: var(--color-card-teal);
+		border-color: var(--color-card-teal);
+		border-bottom-color: var(--color-card-teal);
+		color: white;
+		font-weight: 600;
+	}
+	/* Chart container */
+	.chart-container {
+		position: relative;
+		width: 100%;
+		max-width: 420px;
+		margin: 0 auto;
+		background: var(--color-bg-white);
+		box-shadow: 0 2px 8px var(--color-shadow), 0 4px 16px rgba(0, 0, 0, 0.06);
+	}
+	.chart-header {
+		background-color: var(--color-card-teal);
+		color: white;
+		padding: 6px 10px 5px 10px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.chart-header h4 {
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		font-size: 17px;
+		margin: 0;
+		font-weight: 600;
+		color: inherit;
+	}
+	.chart-header-indicator {
+		font-size: 12px;
+		font-weight: 400;
+		color: rgba(255,255,255,0.8);
+		margin: 1px 0 0 0;
+	}
+	.chart-body {
+		padding: 6px 10px 2px 10px;
+	}
+	.chart-subtitle {
+		font-size: 10px;
+		font-style: italic;
+		color: var(--color-axis-text);
+		margin: 0 0 2px 0;
+	}
+	.chart-footer {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 10px 7px 10px;
+	}
+	.chart-source {
+		font-size: 10px;
+		color: var(--color-text-gray);
+		text-align: right;
+		margin: 0;
+		font-style: italic;
+	}
+	[data-theme="dark"] .chart-source {
+		color: #bbb;
+	}
+	/* Map SVG */
+	.map-svg {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+	.map-svg .region {
+		stroke: var(--color-bg-white);
+		stroke-width: 0.6;
+		stroke-linejoin: round;
+		cursor: pointer;
+	}
+	.map-svg .region:hover {
+		stroke: var(--color-text-dark);
+		stroke-width: 1.5;
+	}
+	.map-svg .region-border {
+		fill: none;
+		stroke: var(--color-bg-white);
+		stroke-width: 0.6;
+		pointer-events: none;
+	}
+	/* DC inset */
+	.dc-inset {
+		cursor: pointer;
+	}
+	.dc-inset rect {
+		stroke: var(--color-text-muted);
+		stroke-width: 0.5;
+	}
+	.dc-inset text {
+		font-size: 14px;
+		font-family: system-ui, sans-serif;
+		fill: var(--color-axis-text);
+		text-anchor: middle;
+	}
+	/* Nordic country labels */
+	.country-label {
+		font-size: 9px;
+		font-family: system-ui, sans-serif;
+		fill: var(--color-text-dark);
+		text-anchor: middle;
+		pointer-events: none;
+		font-weight: 600;
+	}
+	/* Color legend */
+	.map-legend {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		margin: 4px 0 2px 0;
+	}
+	.map-legend-bar {
+		flex: 1;
+		height: 18px;
+	}
+	/* Context land (background countries) */
+	.context-land {
+		fill: #e8e8e8;
+		stroke: #ddd;
+		stroke-width: 0.3;
+		pointer-events: none;
+	}
+	[data-theme="dark"] .context-land {
+		fill: #2a2a2a;
+		stroke: #333;
+	}
+	.map-legend-label {
+		font-size: 9px;
+		color: var(--color-axis-text);
+		white-space: nowrap;
+	}
+	/* Tooltip */
+	.cc-tooltip {
+		position: absolute;
+		pointer-events: none;
+		background: var(--color-tooltip-bg);
+		color: #fff;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		font-size: 11px;
+		padding: 8px 10px;
+		border-radius: 4px;
+		z-index: 100;
+		max-width: 220px;
+		line-height: 1.45;
+		opacity: 0;
+		transition: opacity 0.15s;
+	}
+	.cc-tooltip.visible {
+		opacity: 1;
+	}
+	.cc-tooltip-header {
+		font-weight: 600;
+		margin-bottom: 4px;
+		font-size: 12px;
+		border-bottom: 1px solid rgba(255,255,255,0.2);
+		padding-bottom: 3px;
+	}
+	.cc-tooltip-value {
+		font-weight: 600;
+	}
+	/* No-data notice */
+	.map-nodata {
+		font-size: 10px;
+		color: var(--color-text-subtle);
+		text-align: center;
+		margin: 2px 0;
+		font-style: italic;
+	}
+	/* Collapsible sections */
+	.cc-details {
+		max-width: 420px;
+		margin: 0.75rem auto;
+	}
+	.cc-details summary {
+		font-size: 14px;
+		font-weight: 600;
+		cursor: pointer;
+		padding: 6px 0;
+		color: var(--color-text-dark);
+		border-bottom: 1px solid var(--color-border-light);
+		list-style: none;
+	}
+	.cc-details summary::-webkit-details-marker {
+		display: none;
+	}
+	.cc-details summary::before {
+		content: '';
+		display: inline-block;
+		width: 0;
+		height: 0;
+		border-left: 5px solid var(--color-text-dark);
+		border-top: 4px solid transparent;
+		border-bottom: 4px solid transparent;
+		margin-right: 8px;
+		transition: transform 0.15s;
+	}
+	.cc-details[open] summary::before {
+		transform: rotate(90deg);
+	}
+	.cc-details[open] summary {
+		margin-bottom: 8px;
+	}
+	.cc-details p, .cc-details li {
+		font-size: 13px;
+		color: var(--color-text-muted);
+		line-height: 1.5;
+	}
+	@media (min-width: 500px) {
+		.cc-controls, .chart-container, .cc-details, .map-toggle {
+			max-width: 480px;
+		}
+	}
+</style>
+</head>
+<body>
+	<a href="#main" class="skip-link">Skip to main content</a>
+	<nav>
+		<ul class="ul_nav" id="menu">
+			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
+			<li><a href="about.html">About</a> </li>
+			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
+			<li><a href="python.html">Guides &darr;</a>
+				<ul class="hidden">
+					<li><a href="imfapi1.html">IMF API</a></li>
+					<li><a href="blsapi.html">BLS API</a></li>
+					<li><a href="beaapi.html">BEA API</a></li>
+					<li><a href="censusapi.html">Census API</a></li>
+					<li><a href="treasuryapi.html">Treasury API</a></li>
+					<li><a href="cps.html">CPS Microdata</a></li>
+				</ul>
+			</li>
+		<li>
+			<a href="reports.html">Reports &darr;</a>
+			<ul class="hidden">
+				<li><a href="chartbook.html">US Chartbook</a></li>
+				<li><a href="indicators.html">Economic Indicators</a></li>
+				<li><a href="gdpm.html">Monthly GDP</a></li>
+				<li><a href="imfweo.html">IMF WEO</a></li>
+			</ul>
+			</li>
+			<li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><i class="fa fa-moon-o" id="theme-icon"></i></button></li>
+			<li class="icon">
+				<button type="button" onclick="responsiveNav()" aria-label="Toggle navigation menu" aria-expanded="false">&#9776;</button>
+			</li>
+		</ul>
+	</nav>
+
+	<header>
+	<h1>Childcare</h1>
+	</header>
+	<main id="main">
+	<section>
+	<article>
+
+	<p>Comparative analysis of childcare sector.</p>
+
+	<noscript><p style="background:#fff3cd;padding:10px;border-radius:4px;font-size:14px;">This page requires JavaScript to display interactive maps.</p></noscript>
+
+	<div class="cc-controls">
+		<div class="cc-control-row">
+			<label for="metric-select">Metric:</label>
+			<select id="metric-select"></select>
+		</div>
+	</div>
+
+	<div class="map-toggle">
+		<button class="map-toggle-btn active" data-region="us">United States</button>
+		<button class="map-toggle-btn" data-region="canada">Canada</button>
+		<button class="map-toggle-btn" data-region="nordics">Nordics</button>
+	</div>
+
+	<div class="chart-container" id="map-container">
+		<div class="chart-header">
+			<div>
+				<h4 id="map-title">United States</h4>
+				<p class="chart-header-indicator" id="map-indicator">Loading...</p>
+			</div>
+		</div>
+		<div class="chart-body">
+			<p class="chart-subtitle" id="map-subtitle"></p>
+			<svg id="map-svg" class="map-svg" viewBox="0 0 975 610" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Choropleth map"></svg>
+			<p class="map-nodata" id="map-nodata" style="display:none">No data available for this region and metric.</p>
+			<div class="map-legend" id="map-legend">
+				<span class="map-legend-label" id="legend-min"></span>
+				<svg id="legend-svg" class="map-legend-bar" viewBox="0 0 200 18" preserveAspectRatio="none">
+					<defs><linearGradient id="legend-grad" x1="0" x2="1" y1="0" y2="0"></linearGradient></defs>
+					<rect width="200" height="8" fill="url(#legend-grad)" rx="2"/>
+					<g id="legend-tick"></g>
+				</svg>
+				<span class="map-legend-label" id="legend-max"></span>
+			</div>
+		</div>
+		<div class="chart-footer">
+			<p class="chart-source" id="map-source"></p>
+		</div>
+		<div class="cc-tooltip" id="map-tooltip"></div>
+	</div>
+
+	</article>
+	</section>
+
+	<details class="cc-details">
+		<summary>Section 1</summary>
+		<p>Section 1 text will go here.</p>
+	</details>
+
+	<details class="cc-details">
+		<summary>Section 2</summary>
+		<p>Section 2 text will go here.</p>
+	</details>
+
+	<details class="cc-details">
+		<summary>Section 3</summary>
+		<p>Section 3 text will go here.</p>
+	</details>
+
+	</main>
+
+	<footer>
+		<div class="footer_left">
+			<p><time datetime="2026">2026</time>, by Brian Dew</p>
+		</div>
+		<div class="footer_right">
+			<a href="https://github.com/bdecon/" aria-label="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
+			<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+			<a href="https://twitter.com/bd_econ" aria-label="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+			<a href="https://briandew.wordpress.com/" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
+		</div>
+	</footer>
+	<script>
+		function responsiveNav() {
+			const menu = document.getElementById("menu");
+			const button = document.querySelector(".icon button");
+			menu.classList.toggle("responsive");
+			const expanded = menu.classList.contains("responsive");
+			button.setAttribute("aria-expanded", expanded);
+		}
+		document.addEventListener("click", function(e) {
+			const menu = document.getElementById("menu");
+			if (!menu.classList.contains("responsive")) return;
+			if (!e.target.closest("nav")) {
+				menu.classList.remove("responsive");
+				document.querySelector(".icon button").setAttribute("aria-expanded", "false");
+			}
+		});
+		function toggleTheme() {
+			const current = document.documentElement.getAttribute('data-theme');
+			const next = current === 'dark' ? 'light' : 'dark';
+			document.documentElement.setAttribute('data-theme', next);
+			localStorage.setItem('theme', next);
+			updateThemeIcon();
+		}
+		function updateThemeIcon() {
+			const icon = document.getElementById('theme-icon');
+			if (!icon) return;
+			const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+			icon.className = isDark ? 'fa fa-sun-o' : 'fa fa-moon-o';
+		}
+		updateThemeIcon();
+	</script>
+	<script>
+	(function() {
+		'use strict';
+
+		// --- Configuration ---
+		var MAP_W = 975, MAP_H = 610;
+		var REGION_CONFIG = {
+			us: {
+				title: 'United States',
+				topoUrl: 'https://cdn.jsdelivr.net/npm/us-atlas@3/states-albers-10m.json',
+				topoKey: 'states',
+				preProjected: true,
+				showDcInset: true
+			},
+			canada: {
+				title: 'Canada',
+				topoUrl: 'files/canada_provinces.json',
+				topoKey: 'data',
+				preProjected: false,
+				makeProjection: function() {
+					return d3.geoConicConformal().parallels([49, 77]).rotate([95, 0]);
+				}
+			},
+			nordics: {
+				title: 'Nordics',
+				topoUrl: 'files/nordic_countries.json',
+				topoKey: 'data',
+				preProjected: false,
+				makeProjection: function() {
+					return d3.geoConicConformal().parallels([57, 68]).rotate([-15, 0]);
+				},
+				contextTopoUrl: 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json',
+				contextTopoKey: 'countries'
+			}
+		};
+
+		// --- State ---
+		var DATA = null;
+		var METRICS = [];
+		var currentRegion = 'us';
+		var currentMetric = null;
+		var topoCache = {};
+
+		// --- DOM refs ---
+		var metricSelect = document.getElementById('metric-select');
+		var mapTitle = document.getElementById('map-title');
+		var mapIndicator = document.getElementById('map-indicator');
+		var mapSubtitle = document.getElementById('map-subtitle');
+		var mapSource = document.getElementById('map-source');
+		var legendMin = document.getElementById('legend-min');
+		var legendMax = document.getElementById('legend-max');
+		var legendBar = document.getElementById('legend-bar');
+		var tooltip = document.getElementById('map-tooltip');
+		var container = document.getElementById('map-container');
+		var nodata = document.getElementById('map-nodata');
+		var svg = d3.select('#map-svg');
+
+		// --- Shared color scale (all regions combined) ---
+		function getSharedColorScale(metricId) {
+			var allValues = [];
+			['us', 'canada', 'nordics'].forEach(function(r) {
+				var rd = DATA[r];
+				if (!rd || !rd.regions) return;
+				Object.values(rd.regions).forEach(function(d) {
+					if (d[metricId] != null) allValues.push(d[metricId]);
+				});
+			});
+			if (allValues.length === 0) return null;
+			var lo = d3.min(allValues);
+			var hi = d3.max(allValues);
+			if (lo === hi) { lo -= 0.01; hi += 0.01; }
+			return {
+				scale: d3.scaleSequential(d3.interpolateYlGnBu).domain([lo, hi]),
+				lo: lo,
+				hi: hi
+			};
+		}
+
+		// --- Format value ---
+		function formatValue(val, metric) {
+			if (val == null) return 'N/A';
+			return metric.prefix + val.toFixed(metric.decimals) + metric.suffix;
+		}
+
+		// --- Draw legend gradient + national avg tick ---
+		var legendSvg = d3.select('#legend-svg');
+		var legendGrad = d3.select('#legend-grad');
+		var legendTick = d3.select('#legend-tick');
+
+		function drawLegend(colorInfo, metric) {
+			legendTick.selectAll('*').remove();
+			legendGrad.selectAll('stop').remove();
+			if (!colorInfo) {
+				legendMin.textContent = '';
+				legendMax.textContent = '';
+				return;
+			}
+			// Build gradient stops
+			var nStops = 10;
+			for (var i = 0; i <= nStops; i++) {
+				var t = i / nStops;
+				var val = colorInfo.lo + t * (colorInfo.hi - colorInfo.lo);
+				legendGrad.append('stop')
+					.attr('offset', (t * 100) + '%')
+					.attr('stop-color', colorInfo.scale(val));
+			}
+			legendMin.textContent = formatValue(colorInfo.lo, metric);
+			legendMax.textContent = formatValue(colorInfo.hi, metric);
+
+			// National average tick
+			var natData = DATA[currentRegion] && DATA[currentRegion].national;
+			if (natData && natData[metric.id] != null) {
+				var natVal = natData[metric.id];
+				var tPos = (natVal - colorInfo.lo) / (colorInfo.hi - colorInfo.lo);
+				tPos = Math.max(0, Math.min(1, tPos));
+				var xPos = tPos * 200;
+				legendTick.append('line')
+					.attr('x1', xPos).attr('x2', xPos)
+					.attr('y1', 0).attr('y2', 10)
+					.attr('stroke', 'var(--color-text-dark)')
+					.attr('stroke-width', 1.5);
+				legendTick.append('polygon')
+					.attr('points', (xPos - 3.5) + ',12 ' + (xPos + 3.5) + ',12 ' + xPos + ',8')
+					.attr('fill', 'var(--color-text-dark)');
+			}
+		}
+
+		// --- Tooltip ---
+		function showTooltip(event, html) {
+			tooltip.innerHTML = html;
+			tooltip.classList.add('visible');
+			var rect = container.getBoundingClientRect();
+			var x = event.clientX - rect.left + 12;
+			var y = event.clientY - rect.top - 10;
+			var tw = tooltip.offsetWidth;
+			var th = tooltip.offsetHeight;
+			if (x + tw > rect.width - 10) x = x - tw - 24;
+			if (y + th > rect.height - 10) y = rect.height - th - 10;
+			if (y < 0) y = 10;
+			tooltip.style.left = x + 'px';
+			tooltip.style.top = y + 'px';
+		}
+
+		function hideTooltip() {
+			tooltip.classList.remove('visible');
+		}
+
+		function tooltipHtml(info) {
+			var val = info[currentMetric.id];
+			var lines = '<div class="cc-tooltip-header">' + info.name + '</div>';
+			lines += '<div style="margin-bottom:3px"><span class="cc-tooltip-value">' +
+				formatValue(val, currentMetric) + '</span></div>';
+			// Context: wage details
+			if (currentMetric.id === 'wage_ratio_pct' && info.median_wage_annual != null) {
+				lines += '<div style="font-size:10px;opacity:0.8">Wage: $' +
+					d3.format(',')(info.median_wage_annual) +
+					' / $' + d3.format(',')(info.all_median_wage_annual) + '</div>';
+			}
+			// National comparison
+			var natData = DATA[currentRegion] && DATA[currentRegion].national;
+			if (natData && natData[currentMetric.id] != null && val != null) {
+				var natVal = natData[currentMetric.id];
+				var diff = val - natVal;
+				var sign = diff >= 0 ? '+' : '';
+				var label = currentRegion === 'us' ? 'US avg' :
+					currentRegion === 'canada' ? 'CA avg' : 'Avg';
+				lines += '<div style="font-size:10px;opacity:0.7;margin-top:2px">' + label + ': ' +
+					formatValue(natVal, currentMetric) +
+					' (' + sign + diff.toFixed(currentMetric.decimals) + ')</div>';
+			}
+			return lines;
+		}
+
+		// --- Check if metric has data for a region ---
+		function regionHasData(regionKey, metricId) {
+			var rd = DATA[regionKey];
+			if (!rd || !rd.regions) return false;
+			return Object.values(rd.regions).some(function(d) { return d[metricId] != null; });
+		}
+
+		// --- Render map ---
+		function renderMap() {
+			svg.selectAll('*').remove();
+			var config = REGION_CONFIG[currentRegion];
+			var regionData = DATA[currentRegion].regions;
+			var colorInfo = getSharedColorScale(currentMetric.id);
+			var hasData = regionHasData(currentRegion, currentMetric.id);
+
+			// Update header
+			mapTitle.textContent = config.title;
+			mapIndicator.textContent = currentMetric.name;
+			mapSubtitle.textContent = currentMetric.description || '';
+			mapSource.textContent = 'Source: ' + currentMetric.source;
+			drawLegend(hasData ? colorInfo : null, currentMetric);
+			nodata.style.display = hasData ? 'none' : 'block';
+
+			// Load TopoJSON (cached)
+			var loadTopo = topoCache[currentRegion]
+				? Promise.resolve(topoCache[currentRegion])
+				: d3.json(config.topoUrl).then(function(t) {
+					topoCache[currentRegion] = t;
+					return t;
+				});
+
+			// Load context land if configured (cached separately)
+			var loadContext = config.contextTopoUrl
+				? (topoCache['_ctx_' + currentRegion]
+					? Promise.resolve(topoCache['_ctx_' + currentRegion])
+					: d3.json(config.contextTopoUrl).then(function(t) {
+						topoCache['_ctx_' + currentRegion] = t;
+						return t;
+					}))
+				: Promise.resolve(null);
+
+			Promise.all([loadTopo, loadContext]).then(function(results) {
+				var topo = results[0];
+				var contextTopo = results[1];
+				var features = topojson.feature(topo, topo.objects[config.topoKey]);
+				var mesh = topojson.mesh(topo, topo.objects[config.topoKey],
+					function(a, b) { return a !== b; });
+
+				var path;
+				if (config.preProjected) {
+					path = d3.geoPath();
+				} else {
+					var proj = config.makeProjection();
+					proj.fitSize([MAP_W * 0.92, MAP_H * 0.88], features);
+					// Re-center in viewBox
+					var bounds = d3.geoPath(proj).bounds(features);
+					var bw = bounds[1][0] - bounds[0][0];
+					var bh = bounds[1][1] - bounds[0][1];
+					var tx = (MAP_W - bw) / 2 - bounds[0][0];
+					var ty = (MAP_H - bh) / 2 - bounds[0][1];
+					proj.translate([
+						proj.translate()[0] + tx,
+						proj.translate()[1] + ty
+					]);
+					path = d3.geoPath(proj);
+				}
+
+				// Draw context land (background countries)
+				if (contextTopo && config.contextTopoKey) {
+					var ctxFeatures = topojson.feature(contextTopo,
+						contextTopo.objects[config.contextTopoKey]);
+					svg.selectAll('.context-land')
+						.data(ctxFeatures.features)
+						.enter()
+						.append('path')
+						.attr('class', 'context-land')
+						.attr('d', path);
+				}
+
+				// Draw data regions on top
+				svg.selectAll('.region')
+					.data(features.features)
+					.enter()
+					.append('path')
+					.attr('class', 'region')
+					.attr('d', path)
+					.attr('data-id', function(d) { return d.id; })
+					.attr('fill', '#ddd')
+					.on('mousemove', function(event, d) {
+						var id = String(d.id);
+						var info = regionData[id];
+						if (!info) return;
+						showTooltip(event, tooltipHtml(info));
+					})
+					.on('mouseleave', hideTooltip)
+					.transition().duration(400)
+					.attr('fill', function(d) {
+						var id = String(d.id);
+						var info = regionData[id];
+						var val = info ? info[currentMetric.id] : null;
+						if (!hasData || val == null) return '#ddd';
+						return colorInfo.scale(val);
+					});
+
+				// Borders
+				svg.append('path')
+					.datum(mesh)
+					.attr('class', 'region-border')
+					.attr('d', path);
+
+				// DC inset (US only)
+				if (config.showDcInset && regionData['11']) {
+					var dcInfo = regionData['11'];
+					var dcVal = dcInfo[currentMetric.id];
+					var dcFill = (hasData && dcVal != null && colorInfo)
+						? colorInfo.scale(dcVal) : '#ddd';
+					var dcG = svg.append('g').attr('class', 'dc-inset');
+					var dcX = 888, dcY = 270;
+					dcG.append('rect')
+						.attr('x', dcX).attr('y', dcY)
+						.attr('width', 18).attr('height', 18)
+						.attr('fill', dcFill)
+						.attr('rx', 1);
+					dcG.append('text')
+						.attr('x', dcX + 9).attr('y', dcY + 34)
+						.attr('font-size', '14px')
+						.text('DC');
+					dcG.on('mousemove', function(event) {
+						showTooltip(event, tooltipHtml(dcInfo));
+					}).on('mouseleave', hideTooltip);
+				}
+
+			});
+		}
+
+		// --- Pill toggle ---
+		document.querySelectorAll('.map-toggle-btn').forEach(function(btn) {
+			btn.addEventListener('click', function() {
+				var region = btn.dataset.region;
+				if (region === currentRegion) return;
+				currentRegion = region;
+				document.querySelectorAll('.map-toggle-btn').forEach(function(b) {
+					b.classList.toggle('active', b.dataset.region === region);
+				});
+				renderMap();
+			});
+		});
+
+		// --- Dropdown change ---
+		metricSelect.addEventListener('change', function() {
+			currentMetric = METRICS.find(function(m) {
+				return m.id === metricSelect.value;
+			});
+			renderMap();
+		});
+
+		// --- Load data ---
+		d3.json('files/childcare_us.json').then(function(data) {
+			DATA = data;
+			METRICS = data.metrics;
+			currentMetric = METRICS[0];
+
+			// Populate dropdown
+			METRICS.forEach(function(m) {
+				var opt = document.createElement('option');
+				opt.value = m.id;
+				opt.textContent = m.name;
+				metricSelect.appendChild(opt);
+			});
+
+			renderMap();
+		}).catch(function(err) {
+			console.error('Failed to load data:', err);
+			svg.append('text')
+				.attr('x', MAP_W / 2).attr('y', MAP_H / 2)
+				.attr('text-anchor', 'middle')
+				.attr('font-size', 14)
+				.attr('fill', 'var(--color-text-muted)')
+				.text('Failed to load data');
+		});
+
+	})();
+	</script>
+</body>
+</html>

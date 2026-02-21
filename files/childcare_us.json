@@ -1,0 +1,682 @@
+{
+ "metrics": [
+  {
+   "id": "spending_pct_gdp",
+   "name": "Government childcare spending (% of GDP)",
+   "prefix": "",
+   "suffix": "%",
+   "decimals": 2,
+   "source": "Author calculations; OECD; national statistical agencies.",
+   "description": "Government spending on childcare and early education as a share of GDP."
+  },
+  {
+   "id": "wage_ratio_pct",
+   "name": "Childcare worker wage / median wage (%)",
+   "prefix": "",
+   "suffix": "%",
+   "decimals": 1,
+   "source": "BLS OEWS (US); national statistical agencies.",
+   "description": "Childcare worker wages as a share of the overall median wage."
+  },
+  {
+   "id": "enrollment_pct",
+   "name": "Early childhood enrollment rate (%)",
+   "prefix": "",
+   "suffix": "%",
+   "decimals": 1,
+   "source": "SELCCA (Canada); Eurostat/national agencies (Nordics).",
+   "description": "Share of young children enrolled in formal childcare or early education."
+  },
+  {
+   "id": "gdp_per_child_0_4",
+   "name": "GDP per child aged 0-4 (USD)",
+   "prefix": "$",
+   "suffix": "",
+   "decimals": 0,
+   "source": "BEA (US); Statistics Canada; Eurostat/national agencies; FRED exchange rates.",
+   "description": "Total GDP divided by population aged 0-4, converted to USD."
+  }
+ ],
+ "us": {
+  "national": {
+   "name": "United States (50 states + DC)",
+   "spending_pct_gdp": 0.1485,
+   "wage_ratio_pct": 62.038,
+   "median_wage_annual": 31727.16,
+   "all_median_wage_annual": 51141.5035,
+   "enrollment_pct": null,
+   "gdp_per_child_0_4": 1539438
+  },
+  "regions": {
+   "01": {
+    "name": "Alabama",
+    "spending_pct_gdp": 0.2191,
+    "wage_ratio_pct": 51.1522,
+    "median_wage_annual": 22420.0,
+    "all_median_wage_annual": 43830.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1105146
+   },
+   "02": {
+    "name": "Alaska",
+    "spending_pct_gdp": 0.1712,
+    "wage_ratio_pct": 58.8889,
+    "median_wage_annual": 34980.0,
+    "all_median_wage_annual": 59400.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1499009
+   },
+   "04": {
+    "name": "Arizona",
+    "spending_pct_gdp": 0.1208,
+    "wage_ratio_pct": 71.9934,
+    "median_wage_annual": 35140.0,
+    "all_median_wage_annual": 48810.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1427095
+   },
+   "05": {
+    "name": "Arkansas",
+    "spending_pct_gdp": 0.2994,
+    "wage_ratio_pct": 66.2604,
+    "median_wage_annual": 27180.0,
+    "all_median_wage_annual": 41020.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1032360
+   },
+   "06": {
+    "name": "California",
+    "spending_pct_gdp": 0.1741,
+    "wage_ratio_pct": 67.1233,
+    "median_wage_annual": 38220.0,
+    "all_median_wage_annual": 56940.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1829503
+   },
+   "08": {
+    "name": "Colorado",
+    "spending_pct_gdp": 0.125,
+    "wage_ratio_pct": 65.9852,
+    "median_wage_annual": 38410.0,
+    "all_median_wage_annual": 58210.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1768108
+   },
+   "09": {
+    "name": "Connecticut",
+    "spending_pct_gdp": 0.118,
+    "wage_ratio_pct": 60.4281,
+    "median_wage_annual": 35290.0,
+    "all_median_wage_annual": 58400.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1969277
+   },
+   "10": {
+    "name": "Delaware",
+    "spending_pct_gdp": 0.1034,
+    "wage_ratio_pct": 58.9065,
+    "median_wage_annual": 30060.0,
+    "all_median_wage_annual": 51030.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 2034649
+   },
+   "11": {
+    "name": "District of Columbia",
+    "spending_pct_gdp": 0.2111,
+    "wage_ratio_pct": 51.5909,
+    "median_wage_annual": 45400.0,
+    "all_median_wage_annual": 88000.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 4504624
+   },
+   "12": {
+    "name": "Florida",
+    "spending_pct_gdp": 0.1203,
+    "wage_ratio_pct": 65.8984,
+    "median_wage_annual": 30880.0,
+    "all_median_wage_annual": 46860.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1549893
+   },
+   "13": {
+    "name": "Georgia",
+    "spending_pct_gdp": 0.1559,
+    "wage_ratio_pct": 59.4215,
+    "median_wage_annual": 27940.0,
+    "all_median_wage_annual": 47020.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1379465
+   },
+   "15": {
+    "name": "Hawaii",
+    "spending_pct_gdp": 0.1113,
+    "wage_ratio_pct": 68.4191,
+    "median_wage_annual": 36440.0,
+    "all_median_wage_annual": 53260.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1438357
+   },
+   "16": {
+    "name": "Idaho",
+    "spending_pct_gdp": 0.168,
+    "wage_ratio_pct": 62.6426,
+    "median_wage_annual": 29110.0,
+    "all_median_wage_annual": 46470.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1139676
+   },
+   "17": {
+    "name": "Illinois",
+    "spending_pct_gdp": 0.1415,
+    "wage_ratio_pct": 65.72,
+    "median_wage_annual": 32860.0,
+    "all_median_wage_annual": 50000.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1621266
+   },
+   "18": {
+    "name": "Indiana",
+    "spending_pct_gdp": 0.123,
+    "wage_ratio_pct": 62.5186,
+    "median_wage_annual": 29340.0,
+    "all_median_wage_annual": 46930.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1261967
+   },
+   "19": {
+    "name": "Iowa",
+    "spending_pct_gdp": 0.1376,
+    "wage_ratio_pct": 58.5903,
+    "median_wage_annual": 27930.0,
+    "all_median_wage_annual": 47670.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1409602
+   },
+   "20": {
+    "name": "Kansas",
+    "spending_pct_gdp": 0.1505,
+    "wage_ratio_pct": 61.4728,
+    "median_wage_annual": 28800.0,
+    "all_median_wage_annual": 46850.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1284926
+   },
+   "21": {
+    "name": "Kentucky",
+    "spending_pct_gdp": 0.2312,
+    "wage_ratio_pct": 62.4617,
+    "median_wage_annual": 28570.0,
+    "all_median_wage_annual": 45740.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1105335
+   },
+   "22": {
+    "name": "Louisiana",
+    "spending_pct_gdp": 0.206,
+    "wage_ratio_pct": 50.4912,
+    "median_wage_annual": 22100.0,
+    "all_median_wage_annual": 43770.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1138813
+   },
+   "23": {
+    "name": "Maine",
+    "spending_pct_gdp": 0.1866,
+    "wage_ratio_pct": 70.2265,
+    "median_wage_annual": 34720.0,
+    "all_median_wage_annual": 49440.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1578577
+   },
+   "24": {
+    "name": "Maryland",
+    "spending_pct_gdp": 0.175,
+    "wage_ratio_pct": 60.5512,
+    "median_wage_annual": 35150.0,
+    "all_median_wage_annual": 58050.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1519531
+   },
+   "25": {
+    "name": "Massachusetts",
+    "spending_pct_gdp": 0.1154,
+    "wage_ratio_pct": 63.0962,
+    "median_wage_annual": 39290.0,
+    "all_median_wage_annual": 62270.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 2224016
+   },
+   "26": {
+    "name": "Michigan",
+    "spending_pct_gdp": 0.2361,
+    "wage_ratio_pct": 60.6418,
+    "median_wage_annual": 29290.0,
+    "all_median_wage_annual": 48300.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1279182
+   },
+   "27": {
+    "name": "Minnesota",
+    "spending_pct_gdp": 0.088,
+    "wage_ratio_pct": 62.4605,
+    "median_wage_annual": 33610.0,
+    "all_median_wage_annual": 53810.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1500929
+   },
+   "28": {
+    "name": "Mississippi",
+    "spending_pct_gdp": 0.3249,
+    "wage_ratio_pct": 55.6949,
+    "median_wage_annual": 21760.0,
+    "all_median_wage_annual": 39070.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 893081
+   },
+   "29": {
+    "name": "Missouri",
+    "spending_pct_gdp": 0.1233,
+    "wage_ratio_pct": 64.2595,
+    "median_wage_annual": 29810.0,
+    "all_median_wage_annual": 46390.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1246815
+   },
+   "30": {
+    "name": "Montana",
+    "spending_pct_gdp": 0.1561,
+    "wage_ratio_pct": 66.3851,
+    "median_wage_annual": 31440.0,
+    "all_median_wage_annual": 47360.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1333872
+   },
+   "31": {
+    "name": "Nebraska",
+    "spending_pct_gdp": 0.1709,
+    "wage_ratio_pct": 60.1375,
+    "median_wage_annual": 28860.0,
+    "all_median_wage_annual": 47990.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1490088
+   },
+   "32": {
+    "name": "Nevada",
+    "spending_pct_gdp": 0.063,
+    "wage_ratio_pct": 62.7476,
+    "median_wage_annual": 29140.0,
+    "all_median_wage_annual": 46440.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1520271
+   },
+   "33": {
+    "name": "New Hampshire",
+    "spending_pct_gdp": 0.0568,
+    "wage_ratio_pct": 65.7099,
+    "median_wage_annual": 34570.0,
+    "all_median_wage_annual": 52610.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1891769
+   },
+   "34": {
+    "name": "New Jersey",
+    "spending_pct_gdp": 0.2338,
+    "wage_ratio_pct": 59.9161,
+    "median_wage_annual": 34290.0,
+    "all_median_wage_annual": 57230.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1608029
+   },
+   "35": {
+    "name": "New Mexico",
+    "spending_pct_gdp": 0.3494,
+    "wage_ratio_pct": 74.6457,
+    "median_wage_annual": 34240.0,
+    "all_median_wage_annual": 45870.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1302224
+   },
+   "36": {
+    "name": "New York",
+    "spending_pct_gdp": 0.1151,
+    "wage_ratio_pct": 62.5512,
+    "median_wage_annual": 36630.0,
+    "all_median_wage_annual": 58560.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 2113739
+   },
+   "37": {
+    "name": "North Carolina",
+    "spending_pct_gdp": 0.1315,
+    "wage_ratio_pct": 60.6603,
+    "median_wage_annual": 28480.0,
+    "all_median_wage_annual": 46950.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1411560
+   },
+   "38": {
+    "name": "North Dakota",
+    "spending_pct_gdp": 0.1121,
+    "wage_ratio_pct": 60.3935,
+    "median_wage_annual": 30390.0,
+    "all_median_wage_annual": 50320.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1561352
+   },
+   "39": {
+    "name": "Ohio",
+    "spending_pct_gdp": 0.1169,
+    "wage_ratio_pct": 58.7391,
+    "median_wage_annual": 28230.0,
+    "all_median_wage_annual": 48060.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1366672
+   },
+   "40": {
+    "name": "Oklahoma",
+    "spending_pct_gdp": 0.3369,
+    "wage_ratio_pct": 59.6359,
+    "median_wage_annual": 26210.0,
+    "all_median_wage_annual": 43950.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1064949
+   },
+   "41": {
+    "name": "Oregon",
+    "spending_pct_gdp": 0.1862,
+    "wage_ratio_pct": 67.8966,
+    "median_wage_annual": 36250.0,
+    "all_median_wage_annual": 53390.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1556103
+   },
+   "42": {
+    "name": "Pennsylvania",
+    "spending_pct_gdp": 0.138,
+    "wage_ratio_pct": 58.3522,
+    "median_wage_annual": 28330.0,
+    "all_median_wage_annual": 48550.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1472071
+   },
+   "44": {
+    "name": "Rhode Island",
+    "spending_pct_gdp": 0.1503,
+    "wage_ratio_pct": 64.6188,
+    "median_wage_annual": 34920.0,
+    "all_median_wage_annual": 54040.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1493712
+   },
+   "45": {
+    "name": "South Carolina",
+    "spending_pct_gdp": 0.1476,
+    "wage_ratio_pct": 63.5389,
+    "median_wage_annual": 28440.0,
+    "all_median_wage_annual": 44760.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1240479
+   },
+   "46": {
+    "name": "South Dakota",
+    "spending_pct_gdp": 0.1189,
+    "wage_ratio_pct": 58.8996,
+    "median_wage_annual": 26870.0,
+    "all_median_wage_annual": 45620.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1321400
+   },
+   "47": {
+    "name": "Tennessee",
+    "spending_pct_gdp": 0.1207,
+    "wage_ratio_pct": 62.9445,
+    "median_wage_annual": 29030.0,
+    "all_median_wage_annual": 46120.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1370140
+   },
+   "48": {
+    "name": "Texas",
+    "spending_pct_gdp": 0.121,
+    "wage_ratio_pct": 60.0421,
+    "median_wage_annual": 28520.0,
+    "all_median_wage_annual": 47500.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1436782
+   },
+   "49": {
+    "name": "Utah",
+    "spending_pct_gdp": 0.1035,
+    "wage_ratio_pct": 63.4979,
+    "median_wage_annual": 30860.0,
+    "all_median_wage_annual": 48600.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1257522
+   },
+   "50": {
+    "name": "Vermont",
+    "spending_pct_gdp": 0.3181,
+    "wage_ratio_pct": 72.1809,
+    "median_wage_annual": 37830.0,
+    "all_median_wage_annual": 52410.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1651833
+   },
+   "51": {
+    "name": "Virginia",
+    "spending_pct_gdp": 0.0925,
+    "wage_ratio_pct": 56.8653,
+    "median_wage_annual": 30150.0,
+    "all_median_wage_annual": 53020.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1538623
+   },
+   "53": {
+    "name": "Washington",
+    "spending_pct_gdp": 0.1135,
+    "wage_ratio_pct": 61.3736,
+    "median_wage_annual": 37800.0,
+    "all_median_wage_annual": 61590.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1958277
+   },
+   "54": {
+    "name": "West Virginia",
+    "spending_pct_gdp": 0.3778,
+    "wage_ratio_pct": 55.1016,
+    "median_wage_annual": 23870.0,
+    "all_median_wage_annual": 43320.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1192224
+   },
+   "55": {
+    "name": "Wisconsin",
+    "spending_pct_gdp": 0.1713,
+    "wage_ratio_pct": 60.6376,
+    "median_wage_annual": 29670.0,
+    "all_median_wage_annual": 48930.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1414604
+   },
+   "56": {
+    "name": "Wyoming",
+    "spending_pct_gdp": 0.108,
+    "wage_ratio_pct": 56.0618,
+    "median_wage_annual": 27560.0,
+    "all_median_wage_annual": 49160.0,
+    "enrollment_pct": null,
+    "gdp_per_child_0_4": 1612137
+   }
+  }
+ },
+ "canada": {
+  "national": {
+   "name": "Canada",
+   "spending_pct_gdp": 2.214,
+   "wage_ratio_pct": 75.3022,
+   "median_wage_annual": null,
+   "all_median_wage_annual": null,
+   "enrollment_pct": 57.7,
+   "gdp_per_child_0_4": 1212724
+  },
+  "regions": {
+   "AB": {
+    "name": "Alberta",
+    "spending_pct_gdp": 2.214,
+    "wage_ratio_pct": 75.3022,
+    "median_wage_annual": null,
+    "all_median_wage_annual": null,
+    "enrollment_pct": 55.0,
+    "gdp_per_child_0_4": 1315869
+   },
+   "BC": {
+    "name": "British Columbia",
+    "spending_pct_gdp": 2.214,
+    "wage_ratio_pct": 75.3022,
+    "median_wage_annual": null,
+    "all_median_wage_annual": null,
+    "enrollment_pct": 52.8,
+    "gdp_per_child_0_4": 1444070
+   },
+   "MB": {
+    "name": "Manitoba",
+    "spending_pct_gdp": 2.214,
+    "wage_ratio_pct": 75.3022,
+    "median_wage_annual": null,
+    "all_median_wage_annual": null,
+    "enrollment_pct": 51.9,
+    "gdp_per_child_0_4": 873881
+   },
+   "NB": {
+    "name": "New Brunswick",
+    "spending_pct_gdp": 2.214,
+    "wage_ratio_pct": 75.3022,
+    "median_wage_annual": null,
+    "all_median_wage_annual": null,
+    "enrollment_pct": 61.6,
+    "gdp_per_child_0_4": 1030098
+   },
+   "NL": {
+    "name": "Newfoundland and Labrador",
+    "spending_pct_gdp": 2.214,
+    "wage_ratio_pct": 75.3022,
+    "median_wage_annual": null,
+    "all_median_wage_annual": null,
+    "enrollment_pct": 57.9,
+    "gdp_per_child_0_4": 1678359
+   },
+   "NT": {
+    "name": "Northwest Territories",
+    "spending_pct_gdp": 2.214,
+    "wage_ratio_pct": 75.3022,
+    "median_wage_annual": null,
+    "all_median_wage_annual": null,
+    "enrollment_pct": 49.7,
+    "gdp_per_child_0_4": 1517148
+   },
+   "NS": {
+    "name": "Nova Scotia",
+    "spending_pct_gdp": 2.214,
+    "wage_ratio_pct": 75.3022,
+    "median_wage_annual": null,
+    "all_median_wage_annual": null,
+    "enrollment_pct": 54.4,
+    "gdp_per_child_0_4": 1154571
+   },
+   "NU": {
+    "name": "Nunavut",
+    "spending_pct_gdp": 2.214,
+    "wage_ratio_pct": 75.3022,
+    "median_wage_annual": null,
+    "all_median_wage_annual": null,
+    "enrollment_pct": 24.6,
+    "gdp_per_child_0_4": 1030540
+   },
+   "ON": {
+    "name": "Ontario",
+    "spending_pct_gdp": 2.214,
+    "wage_ratio_pct": 75.3022,
+    "median_wage_annual": null,
+    "all_median_wage_annual": null,
+    "enrollment_pct": 49.8,
+    "gdp_per_child_0_4": 1212652
+   },
+   "PE": {
+    "name": "Prince Edward Island",
+    "spending_pct_gdp": 2.214,
+    "wage_ratio_pct": 75.3022,
+    "median_wage_annual": null,
+    "all_median_wage_annual": null,
+    "enrollment_pct": 66.2,
+    "gdp_per_child_0_4": 1101264
+   },
+   "QC": {
+    "name": "Quebec",
+    "spending_pct_gdp": 2.214,
+    "wage_ratio_pct": 75.3022,
+    "median_wage_annual": null,
+    "all_median_wage_annual": null,
+    "enrollment_pct": 76.7,
+    "gdp_per_child_0_4": 1093015
+   },
+   "SK": {
+    "name": "Saskatchewan",
+    "spending_pct_gdp": 2.214,
+    "wage_ratio_pct": 75.3022,
+    "median_wage_annual": null,
+    "all_median_wage_annual": null,
+    "enrollment_pct": 56.8,
+    "gdp_per_child_0_4": 1199447
+   },
+   "YT": {
+    "name": "Yukon",
+    "spending_pct_gdp": 2.214,
+    "wage_ratio_pct": 75.3022,
+    "median_wage_annual": null,
+    "all_median_wage_annual": null,
+    "enrollment_pct": 58.8,
+    "gdp_per_child_0_4": 1401657
+   }
+  }
+ },
+ "nordics": {
+  "regions": {
+   "208": {
+    "name": "Denmark",
+    "spending_pct_gdp": 3.8098,
+    "wage_ratio_pct": 65.4208,
+    "median_wage_annual": null,
+    "all_median_wage_annual": null,
+    "enrollment_pct": 55.3387,
+    "gdp_per_child_0_4": 1475989
+   },
+   "246": {
+    "name": "Finland",
+    "spending_pct_gdp": 2.9541,
+    "wage_ratio_pct": 70.0869,
+    "median_wage_annual": null,
+    "all_median_wage_annual": null,
+    "enrollment_pct": 39.7623,
+    "gdp_per_child_0_4": 1274952
+   },
+   "578": {
+    "name": "Norway",
+    "spending_pct_gdp": 2.3221,
+    "wage_ratio_pct": 70.118,
+    "median_wage_annual": null,
+    "all_median_wage_annual": null,
+    "enrollment_pct": 61.3891,
+    "gdp_per_child_0_4": 1864915
+   },
+   "752": {
+    "name": "Sweden",
+    "spending_pct_gdp": 2.2625,
+    "wage_ratio_pct": 74.9597,
+    "median_wage_annual": null,
+    "all_median_wage_annual": null,
+    "enrollment_pct": 48.8898,
+    "gdp_per_child_0_4": 1076332
+   }
+  }
+ }
+}
