@@ -878,6 +878,90 @@ table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sor
   opacity: 0.5;
 }
 
+/* Section divider bar — thin branded color accent between sections */
+.section-bar {
+	height: 5px;
+	border: none;
+	margin: 30px 0 10px 0;
+}
+.section-bar-blue { background-color: var(--color-card-blue); }
+.section-bar-green { background-color: var(--color-card-green); }
+.section-bar-teal { background-color: var(--color-card-teal); }
+.section-bar-purple { background-color: var(--color-card-purple); }
+.section-bar-red { background-color: var(--color-card-red); }
+.section-bar-orange { background-color: var(--color-card-orange); }
+.section-bar-ltblue { background-color: var(--color-card-ltblue); }
+.section-bar-brown { background-color: var(--color-card-brown); }
+[data-theme="dark"] .section-bar { opacity: 0.6; }
+
+/* Step labels — lightweight code step markers with colored underline */
+.step-label {
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+	font-size: 14px;
+	font-weight: 700;
+	color: var(--color-heading-gray);
+	margin: 28px 0 8px 0;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	display: inline-block;
+	padding-bottom: 2px;
+}
+.step-label-blue { border-bottom: 2px solid var(--color-card-blue); }
+.step-label-green { border-bottom: 2px solid var(--color-card-green); }
+.step-label-teal { border-bottom: 2px solid var(--color-card-teal); }
+.step-label-purple { border-bottom: 2px solid var(--color-card-purple); }
+.step-label-red { border-bottom: 2px solid var(--color-card-red); }
+.step-label-orange { border-bottom: 2px solid var(--color-card-orange); }
+.step-label-ltblue { border-bottom: 2px solid var(--color-card-ltblue); }
+.step-label-brown { border-bottom: 2px solid var(--color-card-brown); }
+
+/* Page-level strip images — full-width tinted photo strips above headers */
+.page-strip {
+	margin-top: 50px; /* clear fixed nav */
+	height: 150px;
+	overflow: hidden;
+	line-height: 0;
+}
+.page-strip + header {
+	padding-top: 0;
+	margin-top: 0;
+}
+.page-strip + header h1 {
+	margin-top: 0;
+	padding: 14px 0;
+}
+.page-strip-img {
+	width: 100%;
+	height: 150px;
+	object-fit: cover;
+	display: block;
+	opacity: 0.8;
+	mix-blend-mode: multiply;
+}
+@media only screen and (max-width: 900px) {
+	.page-strip { height: 100px; }
+	.page-strip-img { height: 100px; }
+}
+/* Page strip color variants */
+.page-strip-blue { background-color: var(--color-card-blue); }
+.page-strip-green { background-color: var(--color-card-green); }
+.page-strip-teal { background-color: var(--color-card-teal); }
+.page-strip-purple { background-color: var(--color-card-purple); }
+.page-strip-red { background-color: var(--color-card-red); }
+.page-strip-orange { background-color: var(--color-card-orange); }
+.page-strip-ltblue { background-color: var(--color-card-ltblue); }
+.page-strip-brown { background-color: var(--color-card-brown); }
+/* Page strip dark mode */
+[data-theme="dark"] .page-strip-blue { background-color: color-mix(in srgb, var(--color-card-blue) 25%, #161616); }
+[data-theme="dark"] .page-strip-green { background-color: color-mix(in srgb, var(--color-card-green) 25%, #161616); }
+[data-theme="dark"] .page-strip-teal { background-color: color-mix(in srgb, var(--color-card-teal) 25%, #161616); }
+[data-theme="dark"] .page-strip-purple { background-color: color-mix(in srgb, var(--color-card-purple) 25%, #161616); }
+[data-theme="dark"] .page-strip-red { background-color: color-mix(in srgb, var(--color-card-red) 25%, #161616); }
+[data-theme="dark"] .page-strip-orange { background-color: color-mix(in srgb, var(--color-card-orange) 25%, #161616); }
+[data-theme="dark"] .page-strip-ltblue { background-color: color-mix(in srgb, var(--color-card-ltblue) 25%, #161616); }
+[data-theme="dark"] .page-strip-brown { background-color: color-mix(in srgb, var(--color-card-brown) 25%, #161616); }
+[data-theme="dark"] .page-strip-img { mix-blend-mode: screen; opacity: 0.5; }
+
 /* Cards and chart containers need a visible edge in dark mode */
 [data-theme="dark"] .card,
 [data-theme="dark"] .card_dull {

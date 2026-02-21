@@ -111,6 +111,9 @@
 			</li>
 		</ul>
 	</nav>
+	<div class="page-strip page-strip-orange">
+		<img src="images/bea_strip.jpg" alt="" aria-hidden="true" class="page-strip-img">
+	</div>
 	<header>
 	<h1>BEA API</h1>
 	</header>
@@ -122,6 +125,7 @@
 
 	<p>This notebook offers two examples: the first fetches NIPA table data to calculate consumer spending growth by category, and the second shows how to navigate API metadata to find dataset parameters.</p>
 
+	<hr class="section-bar section-bar-orange">
 	<h2 class="section-title">Background</h2>
 	<h4>BEA</h4>
 	<p>The Bureau of Economic Analysis is part of the U.S. Department of Commerce. BEA produces economic statistics including GDP, personal income, and industry accounts. You can read more about BEA <a href="https://www.bea.gov/about">here</a>.</p>
@@ -132,16 +136,17 @@
 	<h4>Python</h4>
 	<p>The examples use Python 3.x with the requests and pandas packages.</p>
 
+	<hr class="section-bar section-bar-orange">
 	<h2 class="section-title">Example 1: Fetch NIPA Table</h2>
 	<p>This example requests NIPA table 2.3.6 (Real Personal Consumption Expenditures by Major Type of Product) for the latest five years.</p>
 
-	<h4>Import Libraries</h4>
+	<p class="step-label step-label-orange">Import Libraries</p>
 	<p>In[1]:</p>
 	<pre><code class="python">import requests
 import pandas as pd
 from config import bea_key as api_key   # File with API key</code></pre>
 
-	<h4>Construct API Request</h4>
+	<p class="step-label step-label-orange">Construct API Request</p>
 	<p>The API URL is built from several components: the base URL with your API key, the dataset name, table ID, frequency, years, and format.</p>
 	<p>In[2]:</p>
 	<pre><code class="python"># Components of request
@@ -153,12 +158,12 @@ yr = ','.join(map(str, range(2021, 2026)))
 fmt = '&ResultFormat=json'
 url = f'{base}{dset}&TableName={tbl}{freq}&Year={yr}{fmt}'</code></pre>
 
-	<h4>Request Data</h4>
+	<p class="step-label step-label-orange">Request Data</p>
 	<p>In[3]:</p>
 	<pre><code class="python"># Request data
 r = requests.get(url)</code></pre>
 
-	<h4>Process the Data</h4>
+	<p class="step-label step-label-orange">Process the Data</p>
 	<p>The API returns JSON data which Python converts to a dictionary. The data includes thousands separators which are removed. The <code>TimePeriod</code> column is converted to datetime. Consumer spending growth (<code>pce</code>) and category contributions (<code>res</code>) are then calculated.</p>
 	<p>In[4]:</p>
 	<pre><code class="python"># Read as pandas dataframe and organize
@@ -175,7 +180,7 @@ res = (data[s.keys()].diff().div(data['DPCERX'].diff(), axis=0)
               .loc['2022':].rename(s, axis=1))
 res.index.name = ''</code></pre>
 
-	<h4>Visualize Results</h4>
+	<p class="step-label step-label-orange">Visualize Results</p>
 	<p>A stacked bar chart shows the contribution of each category to overall consumer spending growth.</p>
 	<p>In[5]:</p>
 	<pre><code class="python"># Create chart
@@ -197,10 +202,11 @@ ax.text(-0.03, -0.2, footer, transform=ax.transAxes, fontsize=10);</code></pre>
 	<p>Out[5]:</p>
 	<img src="images/bea_ex1.png" alt="Consumer Spending Growth Chart" loading="lazy" width="584" height="442"/>
 
+	<hr class="section-bar section-bar-orange">
 	<h2 class="section-title">Example 2: Collect API Parameters</h2>
 	<p>This example shows how to navigate API metadata to find dataset parameters. Using the metadata, we can discover the codes for tables and industries we want to request.</p>
 
-	<h4>Fetch Table List</h4>
+	<p class="step-label step-label-orange">Fetch Table List</p>
 	<p>Request the list of available tables in the GDPbyIndustry dataset. Table 25 (Composition of Gross Output) is what we want for this example.</p>
 	<p>In[6]:</p>
 	<pre><code class="python"># Components of request
@@ -253,7 +259,7 @@ pd.DataFrame(r.json()['BEAAPI']['Results']['ParamValue']).set_index('Key').head(
 	  </tbody>
 	</table>
 
-	<h4>Fetch Industry List</h4>
+	<p class="step-label step-label-orange">Fetch Industry List</p>
 	<p>Request the list of industry codes. Industry code 23 is the Construction industry.</p>
 	<p>In[7]:</p>
 	<pre><code class="python">param = 'Industry'
@@ -322,7 +328,7 @@ pd.DataFrame(r['BEAAPI']['Results']['ParamValue']).set_index('Key').head(10)</co
 	  </tbody>
 	</table>
 
-	<h4>Fetch Industry Data</h4>
+	<p class="step-label step-label-orange">Fetch Industry Data</p>
 	<p>Using the parameters discovered above, fetch table 25 for industry 23 (Construction). The results are organized into a pandas dataframe.</p>
 	<p>In[8]:</p>
 	<pre><code class="python">m = '&method=GetData'
@@ -436,7 +442,7 @@ df.tail()</code></pre>
 	  </tbody>
 	</table>
 
-	<h4>Visualize Results</h4>
+	<p class="step-label step-label-orange">Visualize Results</p>
 	<p>Create a chart showing the labor income share of gross value added in the construction industry.</p>
 	<p>In[9]:</p>
 	<pre><code class="python"># Labor income share of industry value added
