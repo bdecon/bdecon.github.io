@@ -177,6 +177,8 @@ body{
 	text-size-adjust: 100%;
 	}
 
+main { padding: 0 6px; box-sizing: border-box; }
+
 p{font-size: 14px; color: var(--color-text-gray); line-height: 1.6;}
 li{font-size: 14px; color: var(--color-text-gray);}
 
