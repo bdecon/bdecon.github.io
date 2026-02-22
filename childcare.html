@@ -56,28 +56,58 @@
 		padding: 0 12px;
 		box-sizing: border-box;
 	}
-	/* Map controls */
-	.cc-controls {
+	/* Tab bar */
+	.cc-tabs {
 		display: flex;
-		gap: 8px;
-		align-items: center;
-		margin: 0.75rem 0;
+		flex-wrap: wrap;
+		gap: 0;
+		margin-bottom: 0;
+		padding-left: 30px;
 	}
-	.cc-controls label {
-		font-size: 13px;
-		font-weight: 600;
-		color: var(--color-card-teal);
-		white-space: nowrap;
-	}
-	.cc-controls select {
-		padding: 5px 8px;
-		font-size: 13px;
+	.cc-tab {
+		padding: 5px 10px;
+		font-size: 12px;
 		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		font-weight: 600;
 		border: 1px solid var(--color-border-light);
-		border-radius: 3px;
+		border-bottom: none;
+		border-radius: 4px 4px 0 0;
 		background: var(--color-bg-white);
-		color: var(--color-text-dark);
-		max-width: 320px;
+		color: var(--color-card-teal);
+		cursor: pointer;
+		margin-right: -1px;
+		position: relative;
+	}
+	.cc-tab:hover {
+		background: #e6f6fc;
+	}
+	.cc-tab.active {
+		background: var(--color-card-teal);
+		color: #fff;
+		border-color: var(--color-card-teal);
+		z-index: 1;
+		margin-bottom: -1px;
+	}
+	[data-theme="dark"] .cc-tab {
+		background: var(--color-bg-dark, #1a1a2e);
+		border-color: #444;
+		color: var(--color-card-teal);
+	}
+	[data-theme="dark"] .cc-tab:hover {
+		background: #2a2a3e;
+	}
+	[data-theme="dark"] .cc-tab.active {
+		background: var(--color-card-teal);
+		color: #fff;
+		border-color: var(--color-card-teal);
+	}
+	/* Section label in chart header */
+	.chart-header-section-label {
+		font-size: 11px;
+		color: #fff;
+		white-space: nowrap;
+		font-weight: 700;
+		padding-top: 1px;
 	}
 	/* Chart container */
 	.chart-container {
@@ -85,14 +115,15 @@
 		width: 100%;
 		background: var(--color-bg-white);
 		box-shadow: 0 2px 8px var(--color-shadow), 0 4px 16px rgba(0, 0, 0, 0.06);
+		border-bottom: 12px solid var(--color-card-teal) !important;
 	}
 	.chart-header {
 		background-color: var(--color-card-teal);
 		color: white;
-		padding: 6px 12px 5px 12px;
+		padding: 8px 12px 6px 12px;
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
+		align-items: flex-start;
 	}
 	.chart-header h4 {
 		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -101,11 +132,13 @@
 		font-weight: 600;
 		color: inherit;
 	}
-	.chart-header p.chart-header-indicator {
-		font-size: 12px;
-		font-weight: 400;
-		color: white;
-		margin: 1px 0 0 0;
+	.chart-header .map-category {
+		font-size: 10px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: rgba(255, 255, 255, 0.7);
+		margin: 0 0 1px 0;
 	}
 	.chart-body {
 		padding: 6px 8px 2px 8px;
@@ -136,9 +169,11 @@
 		stroke-linejoin: round;
 		cursor: pointer;
 	}
-.map-svg .region:hover {
-		stroke: var(--color-text-dark);
-		stroke-width: 1.2;
+	.map-svg .region:hover {
+		stroke-width: 1;
+	}
+	.map-svg .region.active {
+		stroke-width: 1.5;
 	}
 	.map-svg .region-border {
 		fill: none;
@@ -174,7 +209,7 @@
 	}
 	/* Region group labels */
 	.group-label {
-		font-size: 11px;
+		font-size: 13px;
 		font-family: system-ui, sans-serif;
 		fill: var(--color-text-muted);
 		font-weight: 600;
@@ -185,6 +220,11 @@
 		font-size: 9px;
 		font-family: system-ui, sans-serif;
 		fill: var(--color-axis-text);
+	}
+	.legend-label-end {
+		font-size: 11px;
+		font-weight: 600;
+		fill: var(--color-text-dark);
 	}
 	/* Tooltip */
 	.cc-tooltip {
@@ -508,32 +548,38 @@
 	</table>
 
 	<details class="cc-details" open>
-		<summary>Interactive map</summary>
-		<p>The map below compares childcare sector indicators across US states, Canadian provinces, and four Nordic countries (Denmark, Finland, Norway, Sweden). Use the dropdown to switch between metrics.</p>
+		<summary>Childcare sector indicators</summary>
+		<p>The map below compares childcare sector indicators across US states, Canadian provinces, and four Nordic countries (Denmark, Finland, Norway, Sweden). Use the tabs to switch between metrics.</p>
 		<noscript><p style="background:#fff3cd;padding:10px;border-radius:4px;font-size:14px;">This page requires JavaScript to display interactive maps.</p></noscript>
-		<div class="cc-controls">
-			<label for="metric-select">Explore an indicator &#x25BE;</label>
-			<select id="metric-select"></select>
+		<div class="cc-tabs" id="metric-tabs">
+			<button class="cc-tab" data-metric="gdp_per_child_0_4">Financial Resources</button>
+			<button class="cc-tab active" data-metric="spending_pct_gdp">Public Spending</button>
+			<button class="cc-tab" data-metric="enrollment_pct">Enrollment</button>
+			<button class="cc-tab" data-metric="wage_ratio_pct">Sector Wages</button>
+			<button class="cc-tab" data-metric="workforce_share_pct">Workforce</button>
 		</div>
 		<div class="chart-container" id="map-container">
 			<div class="chart-header">
 				<div>
-					<h4>Childcare Indicators</h4>
-					<p class="chart-header-indicator" id="map-indicator">Loading...</p>
+					<p class="map-category" id="map-tab-title">Public Spending</p>
+					<h4 id="map-indicator">Loading...</h4>
 				</div>
+				<span class="chart-header-section-label">Childcare sector indicators</span>
 			</div>
 			<div class="chart-body">
-				<svg id="map-svg" class="map-svg" viewBox="0 0 680 782" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Composite choropleth map of US states, Canadian provinces, and Nordic countries"></svg>
+				<svg id="map-svg" class="map-svg" viewBox="0 0 680 792" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Composite choropleth map of US states, Canadian provinces, and Nordic countries"></svg>
 			</div>
 			<div class="chart-footer">
 				<p class="chart-source" id="map-caveat"></p>
 				<p class="chart-source" id="map-source"></p>
+				<svg viewBox="0 0 9 5" width="16" height="9" aria-hidden="true" style="fill: var(--color-text-gray); opacity: 0.5; align-self: flex-end; margin-top: -10px; margin-bottom: 5px;"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
 			</div>
 			<div class="cc-tooltip" id="map-tooltip"></div>
 		</div>
 		<p><strong>Government spending</strong> is where the gap is most dramatic. Nordic countries spend 2-4% of GDP on childcare and early education. The US national average is about 0.15%, with most states below 0.3%. Even the highest-spending US states don't come close to the Nordic floor.</p>
 		<p><strong>Wage ratios</strong> tell a different story. In every country, childcare workers earn less than the median worker. But the gap varies. In the US, childcare workers in some states earn barely half the median wage. In the Nordics and Canada, the ratio is closer to 70-75%. Higher wages in Nordic countries reflect unionization, credential requirements, and public-sector employment.</p>
 		<p><strong>GDP per child</strong> varies widely within the US, from about $0.8M per child under 5 in Mississippi to over $3M in some northeastern states. This reflects overall economic capacity, not childcare policy, but it provides context for how much room states have to invest.</p>
+		<hr style="border: none; border-top: 2px solid var(--color-card-teal); margin: 1rem 0 2.5rem;">
 	</details>
 
 	<!-- ============ Wage Peers: Hero dot spectrum ============ -->
@@ -697,15 +743,16 @@
 		//
 		// viewBox: 680 x 520 (mobile-first, ~4:3)
 		// ============================================================
-		var VB_W = 680, VB_H = 782;
+		var VB_W = 680, VB_H = 792;
 
 		// Row 1: US map (centered)
 		var US_LABEL_X = (VB_W - 660) / 2;
-		var US = { x: (VB_W - 660) / 2 + 10, y: 24, w: 660, h: 370 };
+		var US_LABEL_Y = 26; // pinned — title stays in place
+		var US = { x: (VB_W - 660) / 2 + 10, y: 34, w: 660, h: 370 };
 
 		// Separator + Legend row
 		var SEP_Y = US.y + US.h + 10;
-		var LEG = { x: 30, y: SEP_Y + 12, w: 620, h: 8 };
+		var LEG = { x: 55, y: SEP_Y + 22, w: 570, h: 8 };
 		var LEG_BOTTOM = LEG.y + LEG.h + 20;
 
 		// Row 2 labels sit below LEG_BOTTOM divider, with breathing room
@@ -736,13 +783,17 @@
 		var topoCache = {};
 
 		// --- DOM refs ---
-		var metricSelect = document.getElementById('metric-select');
+		var metricTabs = document.getElementById('metric-tabs');
+		var mapTabTitle = document.getElementById('map-tab-title');
 		var mapIndicator = document.getElementById('map-indicator');
 		var mapSource = document.getElementById('map-source');
 		var mapCaveat = document.getElementById('map-caveat');
 		var tooltip = document.getElementById('map-tooltip');
 		var container = document.getElementById('map-container');
 		var svg = d3.select('#map-svg');
+
+		// Click on SVG background clears pinned tooltip
+		svg.on('click', function() { clearPin(); });
 
 		// --- Per-metric adaptive color scale ---
 		// spending: log (70x range between US and Nordics)
@@ -805,6 +856,8 @@
 		}
 
 		// --- Tooltip ---
+		var pinnedRegion = null; // currently pinned element
+
 		function showTooltip(event, html) {
 			tooltip.innerHTML = html;
 			tooltip.classList.add('visible');
@@ -818,7 +871,17 @@
 			tooltip.style.left = x + 'px';
 			tooltip.style.top = y + 'px';
 		}
-		function hideTooltip() { tooltip.classList.remove('visible'); }
+		function hideTooltip() {
+			if (pinnedRegion) return; // don't hide while pinned
+			tooltip.classList.remove('visible');
+		}
+		function clearPin() {
+			if (pinnedRegion) {
+				d3.select(pinnedRegion).classed('active', false);
+				pinnedRegion = null;
+			}
+			tooltip.classList.remove('visible');
+		}
 
 		function tooltipHtml(info, regionKey) {
 			var mid = currentMetric.id;
@@ -883,11 +946,31 @@
 				.attr('d', path)
 				.attr('data-id', function(d) { return d.id; })
 				.attr('fill', '#ddd')
+				.on('mouseenter', function() {
+					// Raise to top so stroke isn't clipped by neighbors
+					this.parentNode.appendChild(this);
+				})
 				.on('mousemove', function(event, d) {
+					if (pinnedRegion) return;
 					var info = lookupRegion(regionData, d.id);
 					if (info) showTooltip(event, tooltipHtml(info, regionKey));
 				})
-				.on('mouseleave', hideTooltip)
+				.on('mouseleave', function() {
+					if (pinnedRegion !== this) hideTooltip();
+				})
+				.on('click', function(event, d) {
+					event.stopPropagation();
+					if (pinnedRegion === this) {
+						clearPin();
+						return;
+					}
+					clearPin();
+					pinnedRegion = this;
+					d3.select(this).classed('active', true);
+					this.parentNode.appendChild(this);
+					var info = lookupRegion(regionData, d.id);
+					if (info) showTooltip(event, tooltipHtml(info, regionKey));
+				})
 				.transition().duration(400)
 				.attr('fill', function(d) {
 					var info = lookupRegion(regionData, d.id);
@@ -926,8 +1009,17 @@
 				});
 			}
 			g.on('mousemove', function(event) {
+				if (pinnedRegion) return;
 				showTooltip(event, tooltipHtml(info, regionKey));
-			}).on('mouseleave', hideTooltip);
+			}).on('mouseleave', function() {
+				if (pinnedRegion !== this) hideTooltip();
+			}).on('click', function(event) {
+				event.stopPropagation();
+				if (pinnedRegion === this) { clearPin(); return; }
+				clearPin();
+				pinnedRegion = this;
+				showTooltip(event, tooltipHtml(info, regionKey));
+			});
 		}
 
 		// --- Map a value to 0-1 position on the legend bar ---
@@ -971,20 +1063,22 @@
 				.attr('fill', 'url(#' + gradId + ')')
 				.attr('rx', 1);
 
-			// Min/max labels
-			lg.append('text').attr('class', 'legend-label')
-				.attr('x', lx).attr('y', ly + lh + 11)
+			// Min/max labels — outside the bar, vertically centered
+			var labelY = ly + lh / 2 + 3.5;
+			lg.append('text').attr('class', 'legend-label legend-label-end')
+				.attr('x', lx - 6).attr('y', labelY)
+				.attr('text-anchor', 'end')
 				.text(fmtVal(colorInfo.lo, metric));
 			var hiLabel = colorInfo.trueHi
 				? fmtVal(colorInfo.hi, metric) + '+'
 				: fmtVal(colorInfo.hi, metric);
-			lg.append('text').attr('class', 'legend-label')
-				.attr('x', lx + lw).attr('y', ly + lh + 11)
-				.attr('text-anchor', 'end')
+			lg.append('text').attr('class', 'legend-label legend-label-end')
+				.attr('x', lx + lw + 6).attr('y', labelY)
+				.attr('text-anchor', 'start')
 				.text(hiLabel);
 
 			// National avg ticks with flags (alternating above/below)
-			var fw = 16, fh = 11;
+			var fw = 18, fh = 13;
 			var legendMarkers = [];
 
 			// US and Canada national averages
@@ -1013,6 +1107,9 @@
 			var edgeAbove = -Infinity, edgeBelow = -Infinity;
 			var minGap = fw + 3; // minimum horizontal space between flags on same level
 
+			// Name map for legend tooltip headers
+			var legendNames = { US: 'United States', CA: 'Canada', DK: 'Denmark', FI: 'Finland', NO: 'Norway', SE: 'Sweden' };
+
 			legendMarkers.forEach(function(m) {
 				var tPos = legendPos(m.val, colorInfo);
 				var xp = lx + tPos * lw;
@@ -1037,14 +1134,33 @@
 					edgeBelow = flagLeft + minGap;
 				}
 
-				lg.append('line')
+				var mg = lg.append('g').attr('class', 'legend-marker').style('cursor', 'pointer');
+
+				mg.append('line')
 					.attr('x1', xp).attr('x2', xp)
 					.attr('y1', above ? ly - fh - 4 : ly)
 					.attr('y2', above ? ly + lh : ly + lh + fh + 4)
 					.attr('stroke', 'var(--color-text-dark)')
 					.attr('stroke-width', 0.8);
 				var fy = above ? ly - fh - 3 : ly + lh + 3;
-				drawFlag(lg, m.code, xp - fw/2, fy, fw, fh);
+				drawFlag(mg, m.code, xp - fw/2, fy, fw, fh);
+				// Invisible hit area over flag + tick
+				mg.append('rect')
+					.attr('x', xp - fw/2 - 2).attr('y', Math.min(ly - fh - 4, fy) - 2)
+					.attr('width', fw + 4)
+					.attr('height', (above ? lh + fh + 7 : lh + fh + 7) + 4)
+					.attr('fill', 'transparent');
+
+				// Tooltip on hover
+				var ttLabel = (legendNames[m.code] || m.code) + ' (national)';
+				var ttVal = fmtVal(m.val, metric);
+				mg.on('mouseenter', function(event) {
+					var html = '<div class="cc-tooltip-header">' + ttLabel + '</div>' +
+						'<div><span class="cc-tooltip-value">' + ttVal + '</span></div>';
+					showTooltip(event, html);
+				}).on('mousemove', function(event) {
+					showTooltip(event, tooltip.innerHTML);
+				}).on('mouseleave', hideTooltip);
 			});
 		}
 
@@ -1109,11 +1225,21 @@
 		}
 
 		// --- Composite render ---
+		var TAB_LABELS = {
+			spending_pct_gdp: 'Public Spending',
+			wage_ratio_pct: 'Sector Wages',
+			enrollment_pct: 'Enrollment',
+			gdp_per_child_0_4: 'Financial Resources',
+			workforce_share_pct: 'Workforce'
+		};
+
 		function render() {
+			clearPin();
 			svg.selectAll('*').remove();
 			if (!DATA || !currentMetric) return;
 
 			var colorInfo = getColorScale(currentMetric.id);
+			mapTabTitle.textContent = TAB_LABELS[currentMetric.id] || currentMetric.name;
 			mapIndicator.textContent = currentMetric.name;
 			mapSource.textContent = 'Source: ' + currentMetric.source;
 			mapCaveat.textContent = currentMetric.caveat || '';
@@ -1163,9 +1289,9 @@
 
 				// US label with flag on new line below
 				svg.append('text').attr('class', 'group-label')
-					.attr('x', US_LABEL_X + 6).attr('y', US.y - 7)
+					.attr('x', US_LABEL_X + 4).attr('y', US_LABEL_Y - 7)
 					.text('United States');
-				drawFlag(svg, 'US', US_LABEL_X + 6, US.y - 3, 16, 11);
+				drawFlag(svg, 'US', US_LABEL_X + 4, US_LABEL_Y - 3, 18, 13);
 
 				// DC and NYC inset positions
 				var dcSize = 14, nycSize = 14;
@@ -1275,9 +1401,20 @@
 						.attr('d', caPath)
 						.attr('fill', fill)
 						.on('mousemove', function(event) {
+							if (pinnedRegion) return;
 							if (natData) showTooltip(event, tooltipHtml(natData, 'canada'));
 						})
-						.on('mouseleave', hideTooltip);
+						.on('mouseleave', function() {
+							if (pinnedRegion !== this) hideTooltip();
+						})
+						.on('click', function(event) {
+							event.stopPropagation();
+							if (pinnedRegion === this) { clearPin(); return; }
+							clearPin();
+							pinnedRegion = this;
+							d3.select(this).classed('active', true);
+							if (natData) showTooltip(event, tooltipHtml(natData, 'canada'));
+						});
 				} else {
 					// Province mode: individual features + internal borders
 					var caMesh = topojson.mesh(caTopo, caTopo.objects.data,
@@ -1290,7 +1427,7 @@
 				svg.append('text').attr('class', 'group-label')
 					.attr('x', CA.x + 2).attr('y', CA.y - 6)
 					.text('Canada');
-				drawFlag(svg, 'CA', CA.x + 2, CA.y - 2, 16, 11);
+				drawFlag(svg, 'CA', CA.x + 2, CA.y - 2, 18, 13);
 
 				// =======================
 				// NORDICS (conformal, own projection)
@@ -1312,7 +1449,7 @@
 				svg.append('text').attr('class', 'group-label')
 					.attr('x', NO.x + 2).attr('y', NO.y - 8)
 					.text('Nordic Countries');
-				var nfx = NO.x + 2, nfy = NO.y - 3, nfw = 15, nfh = 10, nfg = 4;
+				var nfx = NO.x + 2, nfy = NO.y - 3, nfw = 17, nfh = 12, nfg = 4;
 				drawFlag(svg, 'DK', nfx, nfy, nfw, nfh);
 				drawFlag(svg, 'FI', nfx + nfw + nfg, nfy, nfw, nfh);
 				drawFlag(svg, 'NO', nfx + 2*(nfw + nfg), nfy, nfw, nfh);
@@ -1320,9 +1457,14 @@
 			});
 		}
 
-		// --- Dropdown change ---
-		metricSelect.addEventListener('change', function() {
-			currentMetric = METRICS.find(function(m) { return m.id === metricSelect.value; });
+		// --- Tab clicks ---
+		metricTabs.addEventListener('click', function(e) {
+			var btn = e.target.closest('.cc-tab');
+			if (!btn) return;
+			var metricId = btn.getAttribute('data-metric');
+			currentMetric = METRICS.find(function(m) { return m.id === metricId; });
+			metricTabs.querySelectorAll('.cc-tab').forEach(function(t) { t.classList.remove('active'); });
+			btn.classList.add('active');
 			render();
 		});
 
@@ -1331,14 +1473,6 @@
 			DATA = data;
 			METRICS = data.metrics;
 			currentMetric = METRICS[0];
-
-			METRICS.forEach(function(m) {
-				var opt = document.createElement('option');
-				opt.value = m.id;
-				opt.textContent = m.name;
-				metricSelect.appendChild(opt);
-			});
-
 			render();
 		}).catch(function(err) {
 			console.error('Failed to load data:', err);
@@ -1410,7 +1544,7 @@
 			heroSvg.append('text')
 				.attr('x', VW / 2).attr('y', 24)
 				.attr('text-anchor', 'middle')
-				.attr('font-size', 17).attr('font-weight', 700)
+				.attr('font-size', 19).attr('font-weight', 700)
 				.attr('fill', textColor())
 				.text('Who else earns $15.25 an hour?');
 
