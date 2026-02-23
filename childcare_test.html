@@ -59,14 +59,18 @@
 	/* Tab bar */
 	.cc-tabs {
 		display: flex;
-		flex-wrap: wrap;
+		flex-wrap: nowrap;
 		gap: 0;
 		margin-bottom: 0;
 		padding-left: 30px;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
 	}
 	.cc-tab {
 		padding: 5px 10px;
 		font-size: 13px;
+		white-space: nowrap;
+		flex-shrink: 0;
 		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 		font-weight: 600;
 		border: 1px solid var(--color-border-light);
@@ -588,6 +592,10 @@
 	}
 	@media (max-width: 520px) {
 		.wp-columns { flex-direction: column; }
+		.cc-content { padding: 0 6px; }
+		.chart-container { max-width: 100%; }
+		.cc-tabs { padding-left: 6px; }
+		.cc-tab { padding: 4px 8px; font-size: 12px; }
 	}
 	/* Historical blockquotes */
 	.cc-blockquote {
@@ -753,7 +761,7 @@
 	<h2 class="cc-table-title">The Childcare Gap at a Glance</h2>
 	<table class="cc-table">
 		<thead>
-			<tr><th></th><th>Nordic avg<br><span class="cc-flag-row"><svg class="cc-flag" viewBox="0 0 37 28"><rect width="37" height="28" fill="#C8102E"/><rect x="12" width="4" height="28" fill="#fff"/><rect y="12" width="37" height="4" fill="#fff"/></svg> <svg class="cc-flag" viewBox="0 0 36 22"><rect width="36" height="22" fill="#fff"/><rect x="12" width="6" height="22" fill="#003580"/><rect y="8" width="36" height="6" fill="#003580"/></svg> <svg class="cc-flag" viewBox="0 0 22 16"><rect width="22" height="16" fill="#BA0C2F"/><rect x="6" width="4" height="16" fill="#fff"/><rect y="6" width="22" height="4" fill="#fff"/><rect x="7" width="2" height="16" fill="#00205B"/><rect y="7" width="22" height="2" fill="#00205B"/></svg> <svg class="cc-flag" viewBox="0 0 16 10"><rect width="16" height="10" fill="#006AA7"/><rect x="5" width="2" height="10" fill="#FECC00"/><rect y="4" width="16" height="2" fill="#FECC00"/></svg></span></th><th>United States<br><svg class="cc-flag" viewBox="0 0 19 10"><rect width="19" height="10" fill="#fff"/><rect y="0" width="19" height=".77" fill="#B22234"/><rect y="1.54" width="19" height=".77" fill="#B22234"/><rect y="3.08" width="19" height=".77" fill="#B22234"/><rect y="4.62" width="19" height=".77" fill="#B22234"/><rect y="6.15" width="19" height=".77" fill="#B22234"/><rect y="7.69" width="19" height=".77" fill="#B22234"/><rect y="9.23" width="19" height=".77" fill="#B22234"/><rect width="7.6" height="5.38" fill="#3C3B6E"/></svg></th></tr>
+			<tr><th></th><th>Nordic average<br><span class="cc-flag-row"><svg class="cc-flag" viewBox="0 0 37 28"><rect width="37" height="28" fill="#C8102E"/><rect x="12" width="4" height="28" fill="#fff"/><rect y="12" width="37" height="4" fill="#fff"/></svg> <svg class="cc-flag" viewBox="0 0 36 22"><rect width="36" height="22" fill="#fff"/><rect x="12" width="6" height="22" fill="#003580"/><rect y="8" width="36" height="6" fill="#003580"/></svg> <svg class="cc-flag" viewBox="0 0 22 16"><rect width="22" height="16" fill="#BA0C2F"/><rect x="6" width="4" height="16" fill="#fff"/><rect y="6" width="22" height="4" fill="#fff"/><rect x="7" width="2" height="16" fill="#00205B"/><rect y="7" width="22" height="2" fill="#00205B"/></svg> <svg class="cc-flag" viewBox="0 0 16 10"><rect width="16" height="10" fill="#006AA7"/><rect x="5" width="2" height="10" fill="#FECC00"/><rect y="4" width="16" height="2" fill="#FECC00"/></svg></span></th><th>United States<br><svg class="cc-flag" viewBox="0 0 19 10"><rect width="19" height="10" fill="#fff"/><rect y="0" width="19" height=".77" fill="#B22234"/><rect y="1.54" width="19" height=".77" fill="#B22234"/><rect y="3.08" width="19" height=".77" fill="#B22234"/><rect y="4.62" width="19" height=".77" fill="#B22234"/><rect y="6.15" width="19" height=".77" fill="#B22234"/><rect y="7.69" width="19" height=".77" fill="#B22234"/><rect y="9.23" width="19" height=".77" fill="#B22234"/><rect width="7.6" height="5.38" fill="#3C3B6E"/></svg></th></tr>
 		</thead>
 		<tbody>
 			<tr><td>Public ECEC spending</td><td>1.3% of GDP</td><td>0.4% of GDP</td></tr>
@@ -898,10 +906,10 @@
 		<!-- Map with tabs -->
 		<noscript><p style="background:#fff3cd;padding:10px;border-radius:4px;font-size:14px;">This page requires JavaScript to display interactive maps.</p></noscript>
 		<div class="cc-tabs" id="metric-tabs">
-			<button class="cc-tab" data-metric="gdp_per_child_0_5">Financial Resources</button>
-			<button class="cc-tab active" data-metric="spending_pct_gdp">Public Spending</button>
+			<button class="cc-tab" data-metric="gdp_per_child_0_5">Resources</button>
+			<button class="cc-tab active" data-metric="spending_pct_gdp">Spending</button>
 			<button class="cc-tab" data-metric="enrollment_pct">Enrollment</button>
-			<button class="cc-tab" data-metric="wage_ratio_pct">Sector Wages</button>
+			<button class="cc-tab" data-metric="wage_ratio_pct">Wages</button>
 			<button class="cc-tab" data-metric="workforce_share_pct">Workforce</button>
 		</div>
 		<div class="chart-container" id="map-container">
@@ -1305,8 +1313,8 @@
 				var natVal = natData[mid];
 				var diff = val - natVal;
 				var sign = diff >= 0 ? '+' : '';
-				var label = regionKey === 'us' ? 'US avg' :
-					regionKey === 'canada' ? 'CA avg' : 'Avg';
+				var label = regionKey === 'us' ? 'US average' :
+					regionKey === 'canada' ? 'CA average' : 'Average';
 				lines += '<div style="font-size:10px;opacity:0.7;margin-top:2px">' + label + ': ' +
 					fmtVal(natVal, currentMetric) +
 					' (' + sign + diff.toFixed(currentMetric.decimals) + ')</div>';
@@ -1385,7 +1393,7 @@
 		}
 
 		// --- Draw inset box ---
-		function drawInset(parent, info, regionKey, colorInfo, x, y, size, label) {
+		function drawInset(parent, info, regionKey, colorInfo, x, y, size, label, fs) {
 			if (!info) return;
 			var val = info[currentMetric.id];
 			var fill = (val != null && colorInfo) ? colorInfo.scale(val) : '#ddd';
@@ -1396,7 +1404,8 @@
 				.attr('fill', fill).attr('rx', 1);
 			var labelLines = label.split('\n');
 			var txt = g.append('text')
-				.attr('x', x + size / 2).attr('y', y + size + 12);
+				.attr('x', x + size / 2).attr('y', y + size + 12)
+				.attr('font-size', fs ? fs(12) : 12);
 			if (labelLines.length === 1) {
 				txt.text(label);
 			} else {
@@ -1432,7 +1441,7 @@
 		}
 
 		// --- Draw legend inside SVG ---
-		function drawLegend(parent, colorInfo, metric) {
+		function drawLegend(parent, colorInfo, metric, fs) {
 			var lx = LEG.x, ly = LEG.y, lw = LEG.w, lh = LEG.h;
 			var lg = parent.append('g').attr('class', 'legend-group');
 			if (!colorInfo) return;
@@ -1467,6 +1476,7 @@
 			lg.append('text').attr('class', 'legend-label legend-label-end')
 				.attr('x', lx - 6).attr('y', labelY)
 				.attr('text-anchor', 'end')
+				.attr('font-size', fs(12))
 				.text(fmtVal(colorInfo.lo, metric));
 			var hiLabel = colorInfo.trueHi
 				? fmtVal(colorInfo.hi, metric) + '+'
@@ -1474,10 +1484,11 @@
 			lg.append('text').attr('class', 'legend-label legend-label-end')
 				.attr('x', lx + lw + 6).attr('y', labelY)
 				.attr('text-anchor', 'start')
+				.attr('font-size', fs(12))
 				.text(hiLabel);
 
-			// National avg ticks with flags (alternating above/below)
-			var fw = 18, fh = 13;
+			// National average ticks with flags (alternating above/below)
+			var fw = fs(18), fh = fs(13);
 			var legendMarkers = [];
 
 			// US and Canada national averages
@@ -1625,11 +1636,11 @@
 
 		// --- Composite render ---
 		var TAB_LABELS = {
-			spending_pct_gdp_narrow: 'Public Spending',
-			spending_pct_gdp_broad: 'Public Spending',
-			wage_ratio_pct: 'Sector Wages',
+			spending_pct_gdp_narrow: 'Spending',
+			spending_pct_gdp_broad: 'Spending',
+			wage_ratio_pct: 'Wages',
 			enrollment_pct: 'Enrollment',
-			gdp_per_child_0_5: 'Financial Resources',
+			gdp_per_child_0_5: 'Resources',
 			workforce_share_pct: 'Workforce'
 		};
 
@@ -1647,6 +1658,10 @@
 			clearPin();
 			svg.selectAll('*').remove();
 			if (!DATA || !currentMetric) return;
+
+			// Mobile detection: scale up fonts when viewBox (680) is wider than container
+			var mobile = container.clientWidth < 500;
+			var fs = mobile ? function(base) { return Math.round(base * 1.6); } : function(base) { return base; };
 
 			// Show/hide spending toggle
 			spendingToggle.classList.toggle('visible', isSpendingMetric(currentMetric));
@@ -1703,8 +1718,9 @@
 				// US label with flag on new line below
 				svg.append('text').attr('class', 'group-label')
 					.attr('x', US_LABEL_X + 4).attr('y', US_LABEL_Y - 7)
+					.attr('font-size', fs(14))
 					.text('United States');
-				drawFlag(svg, 'US', US_LABEL_X + 4, US_LABEL_Y - 3, 18, 13);
+				drawFlag(svg, 'US', US_LABEL_X + 4, US_LABEL_Y - 3, mobile ? 28 : 18, mobile ? 20 : 13);
 
 				// DC and NYC inset positions
 				var dcSize = 14, nycSize = 14;
@@ -1748,11 +1764,11 @@
 
 				// Draw inset boxes on top of lines
 				drawInset(svg, lookupRegion(DATA.us.regions, 11), 'us', colorInfo,
-					dcX, dcY, dcSize, 'DC');
+					dcX, dcY, mobile ? 20 : dcSize, 'DC', fs);
 				var nycMetroMetrics = {'wage_ratio_pct': 1, 'workforce_share_pct': 1};
 				var nycLabel = nycMetroMetrics[currentMetric.id] ? 'NYC Metro' : 'NYC';
 				drawInset(svg, DATA.us.regions['NYC'], 'us', colorInfo,
-					nycX, nycY, nycSize, nycLabel);
+					nycX, nycY, mobile ? 20 : nycSize, nycLabel, fs);
 
 				// =======================
 				// SEPARATOR LINES + LEGEND (full width, between US and row 2)
@@ -1763,7 +1779,7 @@
 					.attr('width', VB_W - 12).attr('height', 3)
 					.attr('rx', 1.5);
 
-				drawLegend(svg, colorInfo, currentMetric);
+				drawLegend(svg, colorInfo, currentMetric, fs);
 
 				svg.append('rect')
 					.attr('class', 'map-divider')
@@ -1839,8 +1855,9 @@
 				// Canada label with flag on new line below
 				svg.append('text').attr('class', 'group-label')
 					.attr('x', CA.x + 2).attr('y', CA.y - 6)
+					.attr('font-size', fs(14))
 					.text('Canada');
-				drawFlag(svg, 'CA', CA.x + 2, CA.y - 2, 18, 13);
+				drawFlag(svg, 'CA', CA.x + 2, CA.y - 2, mobile ? 28 : 18, mobile ? 20 : 13);
 
 				// =======================
 				// NORDICS (conformal, own projection)
@@ -1861,8 +1878,10 @@
 				// Nordics label with flags on second line, spaced
 				svg.append('text').attr('class', 'group-label')
 					.attr('x', NO.x + 2).attr('y', NO.y - 8)
+					.attr('font-size', fs(14))
 					.text('Nordic Countries');
-				var nfx = NO.x + 2, nfy = NO.y - 3, nfw = 17, nfh = 12, nfg = 4;
+				var nfx = NO.x + 2, nfy = NO.y - 3;
+				var nfw = mobile ? 26 : 17, nfh = mobile ? 18 : 12, nfg = mobile ? 5 : 4;
 				drawFlag(svg, 'DK', nfx, nfy, nfw, nfh);
 				drawFlag(svg, 'FI', nfx + nfw + nfg, nfy, nfw, nfh);
 				drawFlag(svg, 'NO', nfx + 2*(nfw + nfg), nfy, nfw, nfh);
@@ -2083,8 +2102,9 @@
 			var VW = 380, VH = 520;
 			heroSvg.attr('viewBox', '0 0 ' + VW + ' ' + VH);
 
-			var axisX = 120; // vertical axis line x position
+			var axisX = VW / 2; // center the axis
 			var MARGIN = { top: 65, bottom: 40 };
+			var labelOffset = 32; // gap from axis to label text
 
 			// Sort peers by wage for vertical layout
 			var allPeers = US_PEERS.slice().sort(function(a, b) { return b.wage - a.wage; });
@@ -2100,6 +2120,18 @@
 				allItems.push(p);
 			});
 			if (!inserted) allItems.push({ label: US_CHILDCARE.label, wage: US_CHILDCARE.wage, isChildcare: true });
+
+			// Assign alternating sides: even index = right, odd = left
+			// Childcare worker always goes right (prominent side)
+			var sideCounter = 0;
+			allItems.forEach(function(p) {
+				if (p.isChildcare) {
+					p.side = 'right';
+				} else {
+					p.side = (sideCounter % 2 === 0) ? 'right' : 'left';
+					sideCounter++;
+				}
+			});
 
 			var y = d3.scaleLinear()
 				.domain([wageMax, wageMin])
@@ -2146,24 +2178,30 @@
 				var py = y(p.wage);
 				var dotR = p.isChildcare ? 7 : 4;
 				var dotColor = p.isChildcare ? tealColor() : peerDotColor();
+				var isRight = p.side === 'right';
 
 				// Dot on axis
 				heroSvg.append('circle')
 					.attr('cx', axisX).attr('cy', py)
 					.attr('r', dotR).attr('fill', dotColor);
 
-				// Leader line to label
+				// Leader line
+				var lineStart = isRight ? axisX + dotR + 4 : axisX - dotR - 4;
+				var lineEnd = isRight ? axisX + labelOffset - 4 : axisX - labelOffset + 4;
 				heroSvg.append('line')
-					.attr('x1', axisX + dotR + 4).attr('x2', axisX + 28)
+					.attr('x1', lineStart).attr('x2', lineEnd)
 					.attr('y1', py).attr('y2', py)
 					.attr('stroke', p.isChildcare ? tealColor() : mutedColor())
 					.attr('stroke-width', 0.5)
 					.attr('stroke-dasharray', p.isChildcare ? 'none' : '2,2');
 
 				// Label
+				var labelX = isRight ? axisX + labelOffset : axisX - labelOffset;
+				var anchor = isRight ? 'start' : 'end';
+
 				heroSvg.append('text')
-					.attr('x', axisX + 32).attr('y', py - 1)
-					.attr('text-anchor', 'start')
+					.attr('x', labelX).attr('y', py - 1)
+					.attr('text-anchor', anchor)
 					.attr('dominant-baseline', 'auto')
 					.attr('font-size', p.isChildcare ? 14 : 12.5)
 					.attr('font-weight', p.isChildcare ? 700 : 400)
@@ -2172,8 +2210,8 @@
 
 				// Wage value
 				heroSvg.append('text')
-					.attr('x', axisX + 32).attr('y', py + 13)
-					.attr('text-anchor', 'start')
+					.attr('x', labelX).attr('y', py + 13)
+					.attr('text-anchor', anchor)
 					.attr('font-size', 11)
 					.attr('font-weight', p.isChildcare ? 600 : 400)
 					.attr('fill', p.isChildcare ? tealColor() : mutedColor())
@@ -2407,42 +2445,8 @@
 		var NAVY = '#1B2A4A';
 		var GRAY_MED = '#888';
 
-		// Layout — taller to accommodate titles + horizontal labels
-		var W = 680, totalH = 646;
-		var margin = {top: 54, right: 15, bottom: 44, left: 34};
-		var gapBetweenPanels = 111;
-		var panelH = (totalH - margin.top - margin.bottom - gapBetweenPanels) / 2;
-
-		// Update viewBox
-		d3.select('#resources-svg').attr('viewBox', '0 0 ' + W + ' ' + totalH);
-
-		// Compute x positions with gaps between groups
-		var GAP = 0.45;
-		var xSlots = [];
-		var prevGroup = DATA[0].group;
-		var slot = 0;
-		DATA.forEach(function(d) {
-			if (d.group !== prevGroup) { slot += GAP; prevGroup = d.group; }
-			xSlots.push(slot);
-			slot += 1;
-		});
-		var totalSlots = slot;
-
-		var slotWidth = (W - margin.left - margin.right) / totalSlots;
-		function xPos(i) { return margin.left + (xSlots[i] + 0.5) * slotWidth; }
-		var barW = slotWidth * 0.6;
-
-		// Y scales
-		var yGdp = d3.scaleLinear()
-			.domain([0, d3.max(DATA, function(d){return d.gdp;}) * 1.18])
-			.range([margin.top + panelH, margin.top]);
-
-		var botTop = margin.top + panelH + gapBetweenPanels;
-		var yKids = d3.scaleLinear()
-			.domain([0, 8.5])
-			.range([botTop + panelH - 2, botTop - 2]);
-
 		var svg = d3.select('#resources-svg');
+		var containerEl = document.getElementById('resources-container');
 
 		// ── Tooltip ──
 		var tooltip = d3.select('#resources-container').append('div')
@@ -2460,11 +2464,9 @@
 			.style('transition', 'opacity 0.15s');
 
 		function showTooltip(evt, html) {
-			var container = document.getElementById('resources-container');
-			var rect = container.getBoundingClientRect();
+			var rect = containerEl.getBoundingClientRect();
 			var x = evt.clientX - rect.left + 12;
 			var y = evt.clientY - rect.top - 10;
-			// Keep tooltip within container
 			if (x + 180 > rect.width) x = x - 190;
 			tooltip.html(html).style('left', x + 'px').style('top', y + 'px').style('opacity', 1);
 		}
@@ -2476,39 +2478,80 @@
 		function textColor() { return isDark() ? '#e0e0e0' : '#333'; }
 		function mutedColor() { return isDark() ? '#b0b0b0' : '#888'; }
 
+		// Compute x positions with gaps between groups
+		function computeXSlots() {
+			var GAP = 0.45;
+			var slots = [];
+			var prevGroup = DATA[0].group;
+			var s = 0;
+			DATA.forEach(function(d) {
+				if (d.group !== prevGroup) { s += GAP; prevGroup = d.group; }
+				slots.push(s);
+				s += 1;
+			});
+			return {slots: slots, total: s};
+		}
+
 		// Helper: render multi-line horizontal x label centered at (cx, baseY)
-		function drawLabel(parent, d, cx, baseY, mc) {
+		function drawLabel(parent, d, cx, baseY, mc, fontSize) {
+			var fs = fontSize || 12;
 			var lines = Array.isArray(d.short) ? d.short : [d.short];
 			lines.forEach(function(line, j) {
 				parent.append('text')
-					.attr('x', cx).attr('y', baseY + j * 13)
-					.attr('text-anchor', 'middle').attr('font-size', 12).attr('fill', mc)
+					.attr('x', cx).attr('y', baseY + j * (fs + 1))
+					.attr('text-anchor', 'middle').attr('font-size', fs).attr('fill', mc)
 					.text(line);
 			});
 		}
 
 		function render() {
 			svg.selectAll('*').remove();
-			var tc = textColor();
-			var mc = mutedColor();
-			var dark = isDark();
+			var cw = containerEl.clientWidth;
+			var mobile = cw < 500;
+			if (mobile) {
+				renderMobile();
+			} else {
+				renderDesktop();
+			}
+		}
+
+		function renderDesktop() {
+			var W = 680, totalH = 646;
+			svg.attr('viewBox', '0 0 ' + W + ' ' + totalH);
+			var margin = {top: 54, right: 15, bottom: 44, left: 34};
+			var gapBetweenPanels = 111;
+			var panelH = (totalH - margin.top - margin.bottom - gapBetweenPanels) / 2;
+
+			var xInfo = computeXSlots();
+			var slotWidth = (W - margin.left - margin.right) / xInfo.total;
+			function xPos(i) { return margin.left + (xInfo.slots[i] + 0.5) * slotWidth; }
+			var barW = slotWidth * 0.6;
+
+			var yGdp = d3.scaleLinear()
+				.domain([0, d3.max(DATA, function(d){return d.gdp;}) * 1.18])
+				.range([margin.top + panelH, margin.top]);
+
+			var botTop = margin.top + panelH + gapBetweenPanels;
+			var yKids = d3.scaleLinear()
+				.domain([0, 8.5])
+				.range([botTop + panelH - 2, botTop - 2]);
+
+			var tc = textColor(), mc = mutedColor(), dark = isDark();
+			var bl = dark ? '#c8c8c8' : '#555';
 			var GRAY_LIGHT = dark ? '#6A6A9A' : '#B0B0D0';
 
 			// ── Top panel: GDP per child ──
 			var topG = svg.append('g');
 
-			// Data journalism title
 			topG.append('text')
 				.attr('x', 15).attr('y', margin.top - 32)
 				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
 				.text('The US and peers all have resources for quality public childcare');
-			// Subtitle
 			topG.append('text')
 				.attr('x', 15).attr('y', margin.top - 16)
 				.attr('font-size', 13).attr('fill', mc)
 				.text('GDP per 0\u20135 year old, USD millions');
 
-			// Y axis
 			var yGdpAxis = d3.axisLeft(yGdp).tickValues([0, 1, 2])
 				.tickFormat(function(d){return d;});
 			topG.append('g')
@@ -2517,26 +2560,22 @@
 				.call(function(g){ g.select('.domain').remove(); g.selectAll('.tick line').attr('stroke', '#ddd'); })
 				.selectAll('text').attr('fill', mc).attr('font-size', 12);
 
-			// Gridlines
 			topG.selectAll('.grid-gdp').data([0, 1, 2]).enter()
 				.append('line').attr('class', 'grid-gdp')
 				.attr('x1', margin.left).attr('x2', W - margin.right)
 				.attr('y1', function(d){return yGdp(d);}).attr('y2', function(d){return yGdp(d);})
-				.attr('stroke', isDark() ? '#333' : '#eee').attr('stroke-width', 0.5);
+				.attr('stroke', dark ? '#333' : '#eee').attr('stroke-width', 0.5);
 
-			// Bars + invisible hover targets
 			DATA.forEach(function(d, i) {
 				var cx = xPos(i);
 				topG.append('rect')
 					.attr('x', cx - barW/2).attr('y', yGdp(d.gdp))
 					.attr('width', barW).attr('height', yGdp(0) - yGdp(d.gdp))
 					.attr('fill', TEAL).attr('opacity', 0.85);
-				// Value label
 				topG.append('text')
 					.attr('x', cx).attr('y', yGdp(d.gdp) - 3)
 					.attr('text-anchor', 'middle').attr('font-size', 11.5).attr('fill', tc)
 					.text('$' + d.gdp.toFixed(2) + 'M');
-				// Hover target (full column height)
 				topG.append('rect')
 					.attr('x', cx - barW/2 - 2).attr('y', yGdp.range()[1])
 					.attr('width', barW + 4).attr('height', yGdp.range()[0] - yGdp.range()[1])
@@ -2551,8 +2590,7 @@
 					.on('mouseleave', hideTooltip);
 			});
 
-			// World average line (drawn after bars so it's on top)
-			var navyColor = isDark() ? '#D4A748' : NAVY;
+			var navyColor = dark ? '#D4A748' : NAVY;
 			topG.append('line')
 				.attr('x1', margin.left).attr('x2', W - margin.right)
 				.attr('y1', yGdp(WORLD_AVG)).attr('y2', yGdp(WORLD_AVG))
@@ -2560,14 +2598,12 @@
 			topG.append('text')
 				.attr('x', margin.left + 2).attr('y', yGdp(WORLD_AVG) - 5)
 				.attr('text-anchor', 'start').attr('font-size', 12).attr('font-weight', 700).attr('fill', navyColor)
-				.attr('stroke', isDark() ? '#1a1a2e' : '#fff').attr('stroke-width', 2).attr('paint-order', 'stroke')
-				.text('World avg $' + WORLD_AVG.toFixed(2) + 'M');
+				.attr('stroke', dark ? '#1a1a2e' : '#fff').attr('stroke-width', 2).attr('paint-order', 'stroke')
+				.text('World average $' + WORLD_AVG.toFixed(2) + 'M');
 
-			// X labels — horizontal, multi-line
 			var labelY = yGdp(0) + 14;
-			DATA.forEach(function(d, i) { drawLabel(topG, d, xPos(i), labelY, mc); });
+			DATA.forEach(function(d, i) { drawLabel(topG, d, xPos(i), labelY, bl); });
 
-			// Group bracket lines
 			var groups = GROUP_ORDER.map(function(g) {
 				var indices = [];
 				DATA.forEach(function(d, i) { if (d.group === g) indices.push(i); });
@@ -2585,18 +2621,15 @@
 			// ── Bottom panel: Children per 100 people ──
 			var botG = svg.append('g');
 
-			// Data journalism title
 			botG.append('text')
 				.attr('x', 15).attr('y', botTop - 22)
 				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
 				.text('But the US does not offer public childcare for most young children');
-			// Subtitle
 			botG.append('text')
 				.attr('x', 15).attr('y', botTop - 6)
 				.attr('font-size', 13).attr('fill', mc)
 				.text('Children aged 0\u20135 per 100 people, by enrollment status');
 
-			// Y axis
 			var yKidsAxis = d3.axisLeft(yKids).ticks(5);
 			botG.append('g')
 				.attr('transform', 'translate(' + margin.left + ',0)')
@@ -2604,14 +2637,12 @@
 				.call(function(g){ g.select('.domain').remove(); g.selectAll('.tick line').attr('stroke', '#ddd'); })
 				.selectAll('text').attr('fill', mc).attr('font-size', 12);
 
-			// Gridlines
 			botG.selectAll('.grid-kids').data(yKids.ticks(5)).enter()
 				.append('line').attr('class', 'grid-kids')
 				.attr('x1', margin.left).attr('x2', W - margin.right)
 				.attr('y1', function(d){return yKids(d);}).attr('y2', function(d){return yKids(d);})
-				.attr('stroke', isDark() ? '#333' : '#eee').attr('stroke-width', 0.5);
+				.attr('stroke', dark ? '#333' : '#eee').attr('stroke-width', 0.5);
 
-			// Stacked bars + hover targets
 			DATA.forEach(function(d, i) {
 				var cx = xPos(i);
 				botG.append('rect')
@@ -2622,7 +2653,6 @@
 					.attr('x', cx - barW/2).attr('y', yKids(d.enrolled + d.notEnrolled))
 					.attr('width', barW).attr('height', yKids(d.enrolled) - yKids(d.enrolled + d.notEnrolled))
 					.attr('fill', GRAY_LIGHT).attr('opacity', 0.85);
-				// Hover target
 				botG.append('rect')
 					.attr('x', cx - barW/2 - 2).attr('y', yKids.range()[1])
 					.attr('width', barW + 4).attr('height', yKids.range()[0] - yKids.range()[1])
@@ -2638,11 +2668,9 @@
 					.on('mouseleave', hideTooltip);
 			});
 
-			// X labels — horizontal, multi-line
 			var botLabelY = yKids(0) + 14;
-			DATA.forEach(function(d, i) { drawLabel(botG, d, xPos(i), botLabelY, mc); });
+			DATA.forEach(function(d, i) { drawLabel(botG, d, xPos(i), botLabelY, bl); });
 
-			// Group bracket lines
 			groups.forEach(function(g) {
 				var x1 = xPos(g.start) - barW/2 - 2;
 				var x2 = xPos(g.end) + barW/2 + 2;
@@ -2652,18 +2680,16 @@
 					.attr('stroke', '#999').attr('stroke-width', 0.8);
 			});
 
-			// Group labels between panels
 			groups.forEach(function(g) {
 				var midX = (xPos(g.start) + xPos(g.end)) / 2;
-				var labelY = botTop - 58.5;
+				var ly = botTop - 58.5;
 				svg.append('text')
-					.attr('x', midX).attr('y', labelY)
+					.attr('x', midX).attr('y', ly)
 					.attr('text-anchor', 'middle').attr('font-size', 13).attr('font-weight', 700)
 					.attr('fill', mc)
 					.text(GROUP_LABELS[g.group]);
 			});
 
-			// Legend for bottom panel
 			var legX = W - margin.right - 180, legY = botTop + 4;
 			[{label: 'In formal care/education', color: TEAL},
 			 {label: 'Not enrolled', color: GRAY_LIGHT}].forEach(function(item, i) {
@@ -2678,9 +2704,196 @@
 			});
 		}
 
-		render();
+		function renderMobile() {
+			var W = 400, H = 600;
+			svg.attr('viewBox', '0 0 ' + W + ' ' + H);
+			var margin = {top: 56, right: 6, bottom: 40, left: 26};
+			var tc = textColor(), mc = mutedColor(), dark = isDark();
+			var bl = dark ? '#c8c8c8' : '#555';
+			var GRAY_LIGHT = dark ? '#6A6A9A' : '#B0B0D0';
 
-		// Re-render on theme change
+			var xInfo = computeXSlots();
+			var slotWidth = (W - margin.left - margin.right) / xInfo.total;
+			function xPos(i) { return margin.left + (xInfo.slots[i] + 0.5) * slotWidth; }
+			var barW = slotWidth * 0.6;
+
+			var barArea = 198;
+
+			// Mobile short labels (avoid overlap)
+			var MOBILE_LABELS = ['US','NYC','Mass.','NM','VT','Wash.','Can.','Que.','Den.','Fin.','Nor.','Swe.'];
+
+			// Staggered label helper: even indices at baseY, odd at baseY + offset
+			function drawStaggeredLabels(parent, baseY) {
+				DATA.forEach(function(d, i) {
+					var stagger = (i % 2 === 1) ? 12 : 0;
+					parent.append('text')
+						.attr('x', xPos(i)).attr('y', baseY + stagger)
+						.attr('text-anchor', 'middle').attr('font-size', 11).attr('fill', bl)
+						.text(MOBILE_LABELS[i]);
+					// tick mark connecting staggered label to axis
+					if (stagger > 0) {
+						parent.append('line')
+							.attr('x1', xPos(i)).attr('x2', xPos(i))
+							.attr('y1', baseY - 4).attr('y2', baseY + stagger - 10)
+							.attr('stroke', dark ? '#444' : '#ccc').attr('stroke-width', 0.5);
+					}
+				});
+			}
+
+			// ── Top panel: GDP per child ──
+			svg.append('text')
+				.attr('x', 8).attr('y', 18)
+				.attr('font-size', 15).attr('font-weight', 700).attr('fill', tc)
+				.text('These countries all have the resources');
+			svg.append('text')
+				.attr('x', 8).attr('y', 34)
+				.attr('font-size', 15).attr('font-weight', 700).attr('fill', tc)
+				.text('for quality public childcare');
+			svg.append('text')
+				.attr('x', 8).attr('y', 50)
+				.attr('font-size', 12).attr('fill', mc)
+				.text('GDP per child 0\u20135, USD millions');
+
+			var p1Top = margin.top + 6;
+			var yGdp = d3.scaleLinear()
+				.domain([0, d3.max(DATA, function(d){return d.gdp;}) * 1.18])
+				.range([p1Top + barArea, p1Top]);
+
+			[0, 1, 2].forEach(function(v) {
+				svg.append('line')
+					.attr('x1', margin.left).attr('x2', W - margin.right)
+					.attr('y1', yGdp(v)).attr('y2', yGdp(v))
+					.attr('stroke', dark ? '#333' : '#eee').attr('stroke-width', 0.5);
+			});
+
+			var yGdpAxis = d3.axisLeft(yGdp).tickValues([0, 1, 2])
+				.tickFormat(function(d){return d;});
+			svg.append('g')
+				.attr('transform', 'translate(' + margin.left + ',0)')
+				.call(yGdpAxis)
+				.call(function(g){ g.select('.domain').remove(); g.selectAll('.tick line').remove(); })
+				.selectAll('text').attr('fill', mc).attr('font-size', 11);
+
+			DATA.forEach(function(d, i) {
+				var cx = xPos(i);
+				svg.append('rect')
+					.attr('x', cx - barW/2).attr('y', yGdp(d.gdp))
+					.attr('width', barW).attr('height', yGdp(0) - yGdp(d.gdp))
+					.attr('fill', TEAL).attr('opacity', 0.85);
+				svg.append('text')
+					.attr('x', cx).attr('y', yGdp(d.gdp) - 3)
+					.attr('text-anchor', 'middle').attr('font-size', 11).attr('fill', tc)
+					.text('$' + d.gdp.toFixed(1));
+			});
+
+			var navyColor = dark ? '#D4A748' : NAVY;
+			svg.append('line')
+				.attr('x1', margin.left).attr('x2', W - margin.right)
+				.attr('y1', yGdp(WORLD_AVG)).attr('y2', yGdp(WORLD_AVG))
+				.attr('stroke', navyColor).attr('stroke-width', 1.5).attr('stroke-dasharray', '5,3');
+			svg.append('text')
+				.attr('x', margin.left + 2).attr('y', yGdp(WORLD_AVG) - 4)
+				.attr('text-anchor', 'start').attr('font-size', 11).attr('font-weight', 700).attr('fill', navyColor)
+				.attr('stroke', dark ? '#1a1a2e' : '#fff').attr('stroke-width', 2).attr('paint-order', 'stroke')
+				.text('World average');
+
+			drawStaggeredLabels(svg, yGdp(0) + 12);
+
+			// Group bracket lines + labels (belong to top panel)
+			var groups = GROUP_ORDER.map(function(g) {
+				var indices = [];
+				DATA.forEach(function(d, i) { if (d.group === g) indices.push(i); });
+				return {group: g, start: indices[0], end: indices[indices.length - 1]};
+			});
+			groups.forEach(function(g) {
+				var x1 = xPos(g.start) - barW/2 - 2;
+				var x2 = xPos(g.end) + barW/2 + 2;
+				svg.append('line')
+					.attr('x1', x1).attr('x2', x2)
+					.attr('y1', yGdp(0) + 2).attr('y2', yGdp(0) + 2)
+					.attr('stroke', '#999').attr('stroke-width', 0.8);
+			});
+
+			var groupLabelY = yGdp(0) + 38;
+			groups.forEach(function(g) {
+				var midX = (xPos(g.start) + xPos(g.end)) / 2;
+				svg.append('text')
+					.attr('x', midX).attr('y', groupLabelY)
+					.attr('text-anchor', 'middle').attr('font-size', 12).attr('font-weight', 700)
+					.attr('fill', mc)
+					.text(GROUP_LABELS[g.group]);
+			});
+
+			// ── Bottom panel: Children per 100 people ──
+			var botTop = groupLabelY + 56;
+			svg.append('text')
+				.attr('x', 8).attr('y', botTop - 34)
+				.attr('font-size', 15).attr('font-weight', 700).attr('fill', tc)
+				.text('But not for most young children');
+			svg.append('text')
+				.attr('x', 8).attr('y', botTop - 18)
+				.attr('font-size', 12).attr('fill', mc)
+				.text('Children 0\u20135 per 100, by enrollment');
+
+			var yKids = d3.scaleLinear()
+				.domain([0, 8.5])
+				.range([botTop + barArea, botTop]);
+
+			yKids.ticks(5).forEach(function(v) {
+				svg.append('line')
+					.attr('x1', margin.left).attr('x2', W - margin.right)
+					.attr('y1', yKids(v)).attr('y2', yKids(v))
+					.attr('stroke', dark ? '#333' : '#eee').attr('stroke-width', 0.5);
+			});
+
+			var yKidsAxis = d3.axisLeft(yKids).ticks(5);
+			svg.append('g')
+				.attr('transform', 'translate(' + margin.left + ',0)')
+				.call(yKidsAxis)
+				.call(function(g){ g.select('.domain').remove(); g.selectAll('.tick line').remove(); })
+				.selectAll('text').attr('fill', mc).attr('font-size', 11);
+
+			DATA.forEach(function(d, i) {
+				var cx = xPos(i);
+				svg.append('rect')
+					.attr('x', cx - barW/2).attr('y', yKids(d.enrolled))
+					.attr('width', barW).attr('height', yKids(0) - yKids(d.enrolled))
+					.attr('fill', TEAL).attr('opacity', 0.85);
+				svg.append('rect')
+					.attr('x', cx - barW/2).attr('y', yKids(d.enrolled + d.notEnrolled))
+					.attr('width', barW).attr('height', yKids(d.enrolled) - yKids(d.enrolled + d.notEnrolled))
+					.attr('fill', GRAY_LIGHT).attr('opacity', 0.85);
+			});
+
+			drawStaggeredLabels(svg, yKids(0) + 12);
+
+			groups.forEach(function(g) {
+				var x1 = xPos(g.start) - barW/2 - 2;
+				var x2 = xPos(g.end) + barW/2 + 2;
+				svg.append('line')
+					.attr('x1', x1).attr('x2', x2)
+					.attr('y1', yKids(0) + 2).attr('y2', yKids(0) + 2)
+					.attr('stroke', '#999').attr('stroke-width', 0.8);
+			});
+
+			// Legend
+			var legX = W - margin.right - 150, legY = botTop + 4;
+			[{label: 'In formal care', color: TEAL},
+			 {label: 'Not enrolled', color: GRAY_LIGHT}].forEach(function(item, i) {
+				svg.append('rect')
+					.attr('x', legX).attr('y', legY + i * 16)
+					.attr('width', 10).attr('height', 10)
+					.attr('fill', item.color).attr('opacity', 0.85);
+				svg.append('text')
+					.attr('x', legX + 14).attr('y', legY + i * 16 + 9)
+					.attr('font-size', 11).attr('fill', mc)
+					.text(item.label);
+			});
+		}
+
+		render();
+		window.addEventListener('resize', render);
+
 		var observer = new MutationObserver(function(mutations) {
 			mutations.forEach(function(m) {
 				if (m.attributeName === 'data-theme') render();
@@ -2716,19 +2929,8 @@
 
 		var AGES = [0, 1, 2, 3, 4, 5];
 
-		var W = 680, H = 420;
-		var margin = {top: 56, right: 20, bottom: 50, left: 43};
-		var chartW = W - margin.left - margin.right;
-		var chartH = H - margin.top - margin.bottom;
-
-		var svg = d3.select('#enrollment-age-svg').attr('viewBox', '0 0 ' + W + ' ' + H);
-
-		var xScale = d3.scaleLinear().domain([0, 5]).range([margin.left, margin.left + chartW]);
-		var yScale = d3.scaleLinear().domain([0, 100]).range([margin.top + chartH, margin.top]);
-
-		var line = d3.line()
-			.x(function(d, i) { return xScale(i); })
-			.y(function(d) { return yScale(d); });
+		var svg = d3.select('#enrollment-age-svg');
+		var containerEl = document.getElementById('enrollment-age-container');
 
 		// Tooltip
 		var tooltip = d3.select('#enrollment-age-container').append('div')
@@ -2746,8 +2948,7 @@
 			.style('transition', 'opacity 0.15s');
 
 		function showTooltip(evt, html) {
-			var container = document.getElementById('enrollment-age-container');
-			var rect = container.getBoundingClientRect();
+			var rect = containerEl.getBoundingClientRect();
 			var x = evt.clientX - rect.left + 12;
 			var y = evt.clientY - rect.top - 10;
 			if (x + 200 > rect.width) x = x - 220;
@@ -2761,26 +2962,48 @@
 		function textColor() { return isDark() ? '#e0e0e0' : '#333'; }
 		function mutedColor() { return isDark() ? '#b0b0b0' : '#888'; }
 
+		function interp(ages, x) {
+			var i = Math.floor(x), f = x - i;
+			if (i >= ages.length - 1) return ages[ages.length - 1];
+			return ages[i] + f * (ages[i + 1] - ages[i]);
+		}
+
 		function render() {
 			svg.selectAll('*').remove();
-			var tc = textColor();
-			var mc = mutedColor();
-			var dark = isDark();
+			var cw = containerEl.clientWidth;
+			var mobile = cw < 500;
+			if (mobile) {
+				renderMobile();
+			} else {
+				renderDesktop();
+			}
+		}
+
+		function renderDesktop() {
+			var W = 680, H = 420;
+			svg.attr('viewBox', '0 0 ' + W + ' ' + H);
+			var margin = {top: 56, right: 20, bottom: 50, left: 43};
+			var chartW = W - margin.left - margin.right;
+			var chartH = H - margin.top - margin.bottom;
+			var tc = textColor(), mc = mutedColor(), dark = isDark();
 			var colors = getColors();
 			DATA.forEach(function(d) { d.color = colors[d.colorKey]; });
 
-			// Title
+			var xScale = d3.scaleLinear().domain([0, 5]).range([margin.left, margin.left + chartW]);
+			var yScale = d3.scaleLinear().domain([0, 100]).range([margin.top + chartH, margin.top]);
+			var lineFn = d3.line()
+				.x(function(d, i) { return xScale(i); })
+				.y(function(d) { return yScale(d); });
+
 			svg.append('text')
 				.attr('x', 15).attr('y', margin.top - 32)
 				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
 				.text('Nordic children enter public care at age 1. US children wait until age 5.');
-			// Subtitle
 			svg.append('text')
 				.attr('x', 15).attr('y', margin.top - 16)
 				.attr('font-size', 13).attr('fill', mc)
 				.text('Enrollment in public early childhood education, % of age group');
 
-			// Gridlines
 			[0, 25, 50, 75, 100].forEach(function(v) {
 				svg.append('line')
 					.attr('x1', margin.left).attr('x2', margin.left + chartW)
@@ -2789,7 +3012,6 @@
 					.attr('stroke-width', v === 0 ? 1 : 0.5);
 			});
 
-			// Y axis
 			var yAxis = d3.axisLeft(yScale).tickValues([0, 25, 50, 75, 100])
 				.tickFormat(function(d) { return d + '%'; });
 			svg.append('g')
@@ -2798,7 +3020,6 @@
 				.call(function(g) { g.select('.domain').remove(); g.selectAll('.tick line').attr('stroke', '#ddd'); })
 				.selectAll('text').attr('fill', mc).attr('font-size', 12);
 
-			// X axis
 			var xAxis = d3.axisBottom(xScale).tickValues(AGES)
 				.tickFormat(function(d) { return 'Age ' + d; });
 			svg.append('g')
@@ -2807,7 +3028,6 @@
 				.call(function(g) { g.select('.domain').remove(); g.selectAll('.tick line').remove(); })
 				.selectAll('text').attr('fill', mc).attr('font-size', 12);
 
-			// Annotation: parental leave zone
 			svg.append('rect')
 				.attr('x', xScale(0)).attr('y', margin.top)
 				.attr('width', xScale(1) - xScale(0)).attr('height', chartH)
@@ -2818,18 +3038,16 @@
 				.attr('font-style', 'italic')
 				.text('Parental leave');
 
-			// Lines + dots
 			DATA.forEach(function(series) {
 				var lineColor = series.color;
 				var isUS = series.country === 'United States';
 				svg.append('path')
 					.datum(series.ages)
-					.attr('d', line)
+					.attr('d', lineFn)
 					.attr('fill', 'none')
 					.attr('stroke', lineColor)
 					.attr('stroke-width', isUS ? 3 : 2)
 					.attr('opacity', isUS ? 1 : 0.8);
-
 				series.ages.forEach(function(val, i) {
 					svg.append('circle')
 						.attr('cx', xScale(i)).attr('cy', yScale(val))
@@ -2839,14 +3057,7 @@
 				});
 			});
 
-			// Manual labels anchored to line values
 			var bgStroke = dark ? '#1a1a2e' : '#fff';
-			function interp(ages, x) {
-				var i = Math.floor(x), f = x - i;
-				if (i >= ages.length - 1) return ages[ages.length - 1];
-				return ages[i] + f * (ages[i + 1] - ages[i]);
-			}
-			// x = fractional age, di = DATA index, dy = pixel offset (neg = above)
 			var labels = [
 				{text: 'Norway',        x: 2,   di: 0, dy: -7,  anchor: 'middle', bold: false},
 				{text: 'Denmark',       x: 1.34, di: 1, dy: -4,  anchor: 'middle', bold: false},
@@ -2865,7 +3076,6 @@
 					.text(lb.text);
 			});
 
-			// Hover targets per age column
 			AGES.forEach(function(age) {
 				var colW = chartW / 5;
 				var x0 = xScale(age) - colW / 2;
@@ -2885,7 +3095,114 @@
 			});
 		}
 
+		function renderMobile() {
+			var W = 420, H = 400;
+			svg.attr('viewBox', '0 0 ' + W + ' ' + H);
+			var margin = {top: 58, right: 16, bottom: 40, left: 42};
+			var chartW = W - margin.left - margin.right;
+			var chartH = H - margin.top - margin.bottom;
+			var tc = textColor(), mc = mutedColor(), dark = isDark();
+			var colors = getColors();
+			DATA.forEach(function(d) { d.color = colors[d.colorKey]; });
+
+			var xScale = d3.scaleLinear().domain([0, 5]).range([margin.left, margin.left + chartW]);
+			var yScale = d3.scaleLinear().domain([0, 100]).range([margin.top + chartH, margin.top]);
+			var lineFn = d3.line()
+				.x(function(d, i) { return xScale(i); })
+				.y(function(d) { return yScale(d); });
+
+			// Title (two lines)
+			svg.append('text')
+				.attr('x', 10).attr('y', 18)
+				.attr('font-size', 15).attr('font-weight', 700).attr('fill', tc)
+				.text('Nordic children enter care at age 1.');
+			svg.append('text')
+				.attr('x', 10).attr('y', 34)
+				.attr('font-size', 15).attr('font-weight', 700).attr('fill', tc)
+				.text('US children wait until age 5.');
+			svg.append('text')
+				.attr('x', 10).attr('y', 50)
+				.attr('font-size', 12).attr('fill', mc)
+				.text('Public early childhood enrollment, % of age group');
+
+			[0, 25, 50, 75, 100].forEach(function(v) {
+				svg.append('line')
+					.attr('x1', margin.left).attr('x2', margin.left + chartW)
+					.attr('y1', yScale(v)).attr('y2', yScale(v))
+					.attr('stroke', v === 0 ? (dark ? '#555' : '#ccc') : (dark ? '#333' : '#eee'))
+					.attr('stroke-width', v === 0 ? 1 : 0.5);
+			});
+
+			var yAxis = d3.axisLeft(yScale).tickValues([0, 25, 50, 75, 100])
+				.tickFormat(function(d) { return d + '%'; });
+			svg.append('g')
+				.attr('transform', 'translate(' + margin.left + ',0)')
+				.call(yAxis)
+				.call(function(g) { g.select('.domain').remove(); g.selectAll('.tick line').remove(); })
+				.selectAll('text').attr('fill', mc).attr('font-size', 12);
+
+			var xAxis = d3.axisBottom(xScale).tickValues(AGES)
+				.tickFormat(function(d) { return 'Age ' + d; });
+			svg.append('g')
+				.attr('transform', 'translate(0,' + (margin.top + chartH) + ')')
+				.call(xAxis)
+				.call(function(g) { g.select('.domain').remove(); g.selectAll('.tick line').remove(); })
+				.selectAll('text').attr('fill', mc).attr('font-size', 12);
+
+			// Parental leave zone
+			svg.append('rect')
+				.attr('x', xScale(0)).attr('y', margin.top)
+				.attr('width', xScale(1) - xScale(0)).attr('height', chartH)
+				.attr('fill', dark ? '#333' : '#f5f5f5').attr('opacity', 0.5);
+			svg.append('text')
+				.attr('x', xScale(0.5)).attr('y', margin.top + 14)
+				.attr('text-anchor', 'middle').attr('font-size', 12).attr('fill', mc)
+				.attr('font-style', 'italic')
+				.text('Parental leave');
+
+			// Lines + dots
+			DATA.forEach(function(series) {
+				var lineColor = series.color;
+				var isUS = series.country === 'United States';
+				svg.append('path')
+					.datum(series.ages)
+					.attr('d', lineFn)
+					.attr('fill', 'none')
+					.attr('stroke', lineColor)
+					.attr('stroke-width', isUS ? 3.5 : 2.5)
+					.attr('opacity', isUS ? 1 : 0.8);
+				series.ages.forEach(function(val, i) {
+					svg.append('circle')
+						.attr('cx', xScale(i)).attr('cy', yScale(val))
+						.attr('r', isUS ? 4.5 : 3.5)
+						.attr('fill', lineColor)
+						.attr('opacity', isUS ? 1 : 0.8);
+				});
+			});
+
+			// Labels — positioned to right of lines at age 5
+			var bgStroke = dark ? '#1a1a2e' : '#fff';
+			var mLabels = [
+				{text: 'Norway',  di: 0, x: 4.6, dy: -8,  anchor: 'end'},
+				{text: 'Denmark', di: 1, x: 4.6, dy: 4,   anchor: 'end'},
+				{text: 'Sweden',  di: 2, x: 4.6, dy: 15,  anchor: 'end'},
+				{text: 'Finland', di: 3, x: 3.5, dy: 14,  anchor: 'middle'},
+				{text: 'US',      di: 4, x: 2.5, dy: -8,  anchor: 'middle', bold: true}
+			];
+			mLabels.forEach(function(lb) {
+				var val = interp(DATA[lb.di].ages, lb.x);
+				svg.append('text')
+					.attr('x', xScale(lb.x)).attr('y', yScale(val) + lb.dy)
+					.attr('text-anchor', lb.anchor)
+					.attr('font-size', 13).attr('font-weight', lb.bold ? 700 : 600)
+					.attr('fill', DATA[lb.di].color)
+					.attr('stroke', bgStroke).attr('stroke-width', 2.5).attr('paint-order', 'stroke')
+					.text(lb.text);
+			});
+		}
+
 		render();
+		window.addEventListener('resize', render);
 
 		var observer = new MutationObserver(function(mutations) {
 			mutations.forEach(function(m) {
@@ -2911,22 +3228,9 @@
 		];
 
 		var TEAL = '#21918C';
-		var GRAY_MED = '#888';
 
-		var W = 680, H = 385;
-		var margin = {top: 66, right: 15, bottom: 46, left: 43};
-		var panelGap = 46;
-		var panelW = (W - margin.left - margin.right - panelGap) / 2;
-		var chartH = H - margin.top - margin.bottom;
-		var barW = panelW / DATA.length * 0.6;
-
-		var svg = d3.select('#spending-compare-svg').attr('viewBox', '0 0 ' + W + ' ' + H);
-
-		// X positions for bars within each panel
-		function xPos(panelLeft, i) {
-			var slotW = panelW / DATA.length;
-			return panelLeft + (i + 0.5) * slotW;
-		}
+		var svgEl = d3.select('#spending-compare-svg');
+		var containerEl = document.getElementById('spending-compare-container');
 
 		// Tooltip
 		var tooltip = d3.select('#spending-compare-container').append('div')
@@ -2944,8 +3248,7 @@
 			.style('transition', 'opacity 0.15s');
 
 		function showTooltip(evt, html) {
-			var container = document.getElementById('spending-compare-container');
-			var rect = container.getBoundingClientRect();
+			var rect = containerEl.getBoundingClientRect();
 			var x = evt.clientX - rect.left + 12;
 			var y = evt.clientY - rect.top - 10;
 			if (x + 200 > rect.width) x = x - 220;
@@ -2960,38 +3263,56 @@
 		function mutedColor() { return isDark() ? '#b0b0b0' : '#888'; }
 
 		function render() {
-			svg.selectAll('*').remove();
-			var tc = textColor();
-			var mc = mutedColor();
-			var dark = isDark();
+			svgEl.selectAll('*').remove();
+			var cw = containerEl.clientWidth;
+			var mobile = cw < 500;
+
+			if (mobile) {
+				renderMobile();
+			} else {
+				renderDesktop();
+			}
+		}
+
+		function renderDesktop() {
+			var W = 680, H = 385;
+			svgEl.attr('viewBox', '0 0 ' + W + ' ' + H);
+			var margin = {top: 66, right: 15, bottom: 46, left: 43};
+			var panelGap = 46;
+			var panelW = (W - margin.left - margin.right - panelGap) / 2;
+			var chartH = H - margin.top - margin.bottom;
+			var barW = panelW / DATA.length * 0.6;
+
+			var tc = textColor(), mc = mutedColor(), dark = isDark();
+			var bl = dark ? '#c8c8c8' : '#555';
+
+			function xPos(panelLeft, i) {
+				return panelLeft + (i + 0.5) * (panelW / DATA.length);
+			}
 
 			var leftX = margin.left;
 			var rightX = margin.left + panelW + panelGap;
 
-			// Y scales
 			var yEcec = d3.scaleLinear().domain([0, 1.8]).range([margin.top + chartH, margin.top]);
 			var yTotal = d3.scaleLinear().domain([0, 68]).range([margin.top + chartH, margin.top]);
 
 			// Main title
-			svg.append('text')
+			svgEl.append('text')
 				.attr('x', 15).attr('y', 22)
 				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
 				.text('The US spends less on government. On childcare, it\u2019s not even close.');
-			svg.append('text')
+			svgEl.append('text')
 				.attr('x', 15).attr('y', 38)
 				.attr('font-size', 13).attr('fill', mc)
 				.text('Government spending as share of GDP, OECD');
 
-			// ── Left panel: ECEC spending ──
-			var leftG = svg.append('g');
-
-			// Panel title
+			// ── Left panel: ECEC ──
+			var leftG = svgEl.append('g');
 			leftG.append('text')
 				.attr('x', leftX + panelW / 2).attr('y', margin.top)
 				.attr('text-anchor', 'middle').attr('font-size', 14).attr('font-weight', 700).attr('fill', TEAL)
 				.text('Early childhood education & care');
 
-			// Y axis
 			var yEcecAxis = d3.axisLeft(yEcec).tickValues([0, 0.5, 1.0, 1.5])
 				.tickFormat(function(d) { return d.toFixed(1) + '%'; });
 			leftG.append('g')
@@ -3000,7 +3321,6 @@
 				.call(function(g) { g.select('.domain').remove(); g.selectAll('.tick line').attr('stroke', '#ddd'); })
 				.selectAll('text').attr('fill', mc).attr('font-size', 11);
 
-			// Gridlines
 			[0, 0.5, 1.0, 1.5].forEach(function(v) {
 				leftG.append('line')
 					.attr('x1', leftX).attr('x2', leftX + panelW)
@@ -3009,24 +3329,20 @@
 					.attr('stroke-width', v === 0 ? 1 : 0.5);
 			});
 
-			// Bars
 			DATA.forEach(function(d, i) {
 				var cx = xPos(leftX, i);
 				leftG.append('rect')
 					.attr('x', cx - barW / 2).attr('y', yEcec(d.ecec))
 					.attr('width', barW).attr('height', yEcec(0) - yEcec(d.ecec))
 					.attr('fill', TEAL).attr('opacity', 0.85);
-				// Value
 				leftG.append('text')
 					.attr('x', cx).attr('y', yEcec(d.ecec) - 4)
 					.attr('text-anchor', 'middle').attr('font-size', 11).attr('fill', tc)
 					.text(d.ecec.toFixed(2) + '%');
-				// X label
 				leftG.append('text')
 					.attr('x', cx).attr('y', yEcec(0) + 13)
-					.attr('text-anchor', 'middle').attr('font-size', 11.5).attr('fill', mc)
+					.attr('text-anchor', 'middle').attr('font-size', 11.5).attr('fill', bl)
 					.text(d.short);
-				// Hover
 				leftG.append('rect')
 					.attr('x', cx - barW / 2 - 2).attr('y', margin.top)
 					.attr('width', barW + 4).attr('height', chartH)
@@ -3040,16 +3356,13 @@
 					.on('mouseleave', hideTooltip);
 			});
 
-			// ── Right panel: Total govt spending ──
-			var rightG = svg.append('g');
-
-			// Panel title
+			// ── Right panel: Total govt ──
+			var rightG = svgEl.append('g');
 			rightG.append('text')
 				.attr('x', rightX + panelW / 2).attr('y', margin.top)
 				.attr('text-anchor', 'middle').attr('font-size', 14).attr('font-weight', 700).attr('fill', mc)
 				.text('Total government spending');
 
-			// Y axis
 			var yTotalAxis = d3.axisLeft(yTotal).tickValues([0, 20, 40, 60])
 				.tickFormat(function(d) { return d + '%'; });
 			rightG.append('g')
@@ -3058,7 +3371,6 @@
 				.call(function(g) { g.select('.domain').remove(); g.selectAll('.tick line').attr('stroke', '#ddd'); })
 				.selectAll('text').attr('fill', mc).attr('font-size', 11);
 
-			// Gridlines
 			[0, 20, 40, 60].forEach(function(v) {
 				rightG.append('line')
 					.attr('x1', rightX).attr('x2', rightX + panelW)
@@ -3067,25 +3379,21 @@
 					.attr('stroke-width', v === 0 ? 1 : 0.5);
 			});
 
-			// Bars — Viridis indigo family
-			var barColor = dark ? '#7B7BC0' : '#443983';
+			var barColor = isDark() ? '#7B7BC0' : '#443983';
 			DATA.forEach(function(d, i) {
 				var cx = xPos(rightX, i);
 				rightG.append('rect')
 					.attr('x', cx - barW / 2).attr('y', yTotal(d.total))
 					.attr('width', barW).attr('height', yTotal(0) - yTotal(d.total))
 					.attr('fill', barColor).attr('opacity', 0.85);
-				// Value
 				rightG.append('text')
 					.attr('x', cx).attr('y', yTotal(d.total) - 4)
 					.attr('text-anchor', 'middle').attr('font-size', 11).attr('fill', tc)
 					.text(d.total.toFixed(1) + '%');
-				// X label
 				rightG.append('text')
 					.attr('x', cx).attr('y', yTotal(0) + 13)
-					.attr('text-anchor', 'middle').attr('font-size', 11.5).attr('fill', mc)
+					.attr('text-anchor', 'middle').attr('font-size', 11.5).attr('fill', bl)
 					.text(d.short);
-				// Hover
 				rightG.append('rect')
 					.attr('x', cx - barW / 2 - 2).attr('y', margin.top)
 					.attr('width', barW + 4).attr('height', chartH)
@@ -3101,7 +3409,127 @@
 			});
 		}
 
+		function renderMobile() {
+			var W = 420, panelH = 230;
+			var gap = 30;
+			var H = panelH * 2 + gap + 60;
+			svgEl.attr('viewBox', '0 0 ' + W + ' ' + H);
+
+			var margin = {top: 56, right: 12, bottom: 28, left: 46};
+			var chartW = W - margin.left - margin.right;
+			var barChartH = panelH - 50;
+			var barW = chartW / DATA.length * 0.55;
+			var tc = textColor(), mc = mutedColor(), dark = isDark();
+			var bl = dark ? '#c8c8c8' : '#555';
+
+			function xPos(i) {
+				return margin.left + (i + 0.5) * (chartW / DATA.length);
+			}
+
+			// Main title (two lines for mobile)
+			svgEl.append('text')
+				.attr('x', 12).attr('y', 20)
+				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
+				.text('On childcare spending,');
+			svgEl.append('text')
+				.attr('x', 12).attr('y', 37)
+				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
+				.text('it\u2019s not even close.');
+			svgEl.append('text')
+				.attr('x', 12).attr('y', 52)
+				.attr('font-size', 13).attr('fill', mc)
+				.text('Share of GDP, OECD');
+
+			// ── Panel 1: ECEC ──
+			var p1Top = margin.top + 18;
+			var p1G = svgEl.append('g');
+
+			p1G.append('text')
+				.attr('x', margin.left).attr('y', p1Top)
+				.attr('font-size', 14).attr('font-weight', 700).attr('fill', TEAL)
+				.text('Early childhood education & care');
+
+			var yEcec = d3.scaleLinear().domain([0, 1.8]).range([p1Top + barChartH, p1Top + 16]);
+
+			[0, 0.5, 1.0, 1.5].forEach(function(v) {
+				p1G.append('line')
+					.attr('x1', margin.left).attr('x2', W - margin.right)
+					.attr('y1', yEcec(v)).attr('y2', yEcec(v))
+					.attr('stroke', v === 0 ? (dark ? '#555' : '#ccc') : (dark ? '#333' : '#eee'))
+					.attr('stroke-width', v === 0 ? 1 : 0.5);
+			});
+
+			var yEcecAxis = d3.axisLeft(yEcec).tickValues([0, 0.5, 1.0, 1.5])
+				.tickFormat(function(d) { return d.toFixed(1) + '%'; });
+			p1G.append('g')
+				.attr('transform', 'translate(' + margin.left + ',0)')
+				.call(yEcecAxis)
+				.call(function(g) { g.select('.domain').remove(); g.selectAll('.tick line').remove(); })
+				.selectAll('text').attr('fill', mc).attr('font-size', 12);
+
+			DATA.forEach(function(d, i) {
+				var cx = xPos(i);
+				p1G.append('rect')
+					.attr('x', cx - barW / 2).attr('y', yEcec(d.ecec))
+					.attr('width', barW).attr('height', yEcec(0) - yEcec(d.ecec))
+					.attr('fill', TEAL).attr('opacity', 0.85);
+				p1G.append('text')
+					.attr('x', cx).attr('y', yEcec(d.ecec) - 5)
+					.attr('text-anchor', 'middle').attr('font-size', 13).attr('fill', tc)
+					.text(d.ecec.toFixed(2) + '%');
+				p1G.append('text')
+					.attr('x', cx).attr('y', yEcec(0) + 15)
+					.attr('text-anchor', 'middle').attr('font-size', 13).attr('fill', bl)
+					.text(d.short);
+			});
+
+			// ── Panel 2: Total govt ──
+			var p2Top = p1Top + panelH + gap;
+			var p2G = svgEl.append('g');
+
+			p2G.append('text')
+				.attr('x', margin.left).attr('y', p2Top)
+				.attr('font-size', 14).attr('font-weight', 700).attr('fill', mc)
+				.text('Total government spending');
+
+			var yTotal = d3.scaleLinear().domain([0, 68]).range([p2Top + barChartH, p2Top + 16]);
+
+			[0, 20, 40, 60].forEach(function(v) {
+				p2G.append('line')
+					.attr('x1', margin.left).attr('x2', W - margin.right)
+					.attr('y1', yTotal(v)).attr('y2', yTotal(v))
+					.attr('stroke', v === 0 ? (dark ? '#555' : '#ccc') : (dark ? '#333' : '#eee'))
+					.attr('stroke-width', v === 0 ? 1 : 0.5);
+			});
+
+			var yTotalAxis = d3.axisLeft(yTotal).tickValues([0, 20, 40, 60])
+				.tickFormat(function(d) { return d + '%'; });
+			p2G.append('g')
+				.attr('transform', 'translate(' + margin.left + ',0)')
+				.call(yTotalAxis)
+				.call(function(g) { g.select('.domain').remove(); g.selectAll('.tick line').remove(); })
+				.selectAll('text').attr('fill', mc).attr('font-size', 12);
+
+			var barColor = isDark() ? '#7B7BC0' : '#443983';
+			DATA.forEach(function(d, i) {
+				var cx = xPos(i);
+				p2G.append('rect')
+					.attr('x', cx - barW / 2).attr('y', yTotal(d.total))
+					.attr('width', barW).attr('height', yTotal(0) - yTotal(d.total))
+					.attr('fill', barColor).attr('opacity', 0.85);
+				p2G.append('text')
+					.attr('x', cx).attr('y', yTotal(d.total) - 5)
+					.attr('text-anchor', 'middle').attr('font-size', 13).attr('fill', tc)
+					.text(d.total.toFixed(1) + '%');
+				p2G.append('text')
+					.attr('x', cx).attr('y', yTotal(0) + 15)
+					.attr('text-anchor', 'middle').attr('font-size', 13).attr('fill', bl)
+					.text(d.short);
+			});
+		}
+
 		render();
+		window.addEventListener('resize', render);
 
 		var observer = new MutationObserver(function(mutations) {
 			mutations.forEach(function(m) {
@@ -3129,19 +3557,8 @@
 		var TEAL = '#21918C';
 		var GRAY_MED = '#888';
 
-		var W = 680, H = 360;
-		var margin = {top: 60, right: 15, bottom: 30, left: 43};
-		var panelGap = 46;
-		var panelW = (W - margin.left - margin.right - panelGap) / 2;
-		var chartH = H - margin.top - margin.bottom;
-		var barW = panelW / DATA.length * 0.6;
-
 		var svg = d3.select('#outcomes-svg');
-
-		function xPos(panelLeft, i) {
-			var slotW = panelW / DATA.length;
-			return panelLeft + (i + 0.5) * slotW;
-		}
+		var containerEl = document.getElementById('outcomes-container');
 
 		// Tooltip
 		var tooltip = d3.select('#outcomes-container').append('div')
@@ -3159,8 +3576,7 @@
 			.style('transition', 'opacity 0.15s');
 
 		function showTooltip(evt, html) {
-			var container = document.getElementById('outcomes-container');
-			var rect = container.getBoundingClientRect();
+			var rect = containerEl.getBoundingClientRect();
 			var x = evt.clientX - rect.left + 12;
 			var y = evt.clientY - rect.top - 10;
 			if (x + 200 > rect.width) x = x - 220;
@@ -3176,14 +3592,33 @@
 
 		function render() {
 			svg.selectAll('*').remove();
-			var tc = textColor();
-			var mc = mutedColor();
-			var dark = isDark();
+			var cw = containerEl.clientWidth;
+			var mobile = cw < 500;
+			if (mobile) {
+				renderMobile();
+			} else {
+				renderDesktop();
+			}
+		}
+
+		function renderDesktop() {
+			var W = 680, H = 360;
+			svg.attr('viewBox', '0 0 ' + W + ' ' + H);
+			var margin = {top: 60, right: 15, bottom: 30, left: 43};
+			var panelGap = 46;
+			var panelW = (W - margin.left - margin.right - panelGap) / 2;
+			var chartH = H - margin.top - margin.bottom;
+			var barW = panelW / DATA.length * 0.6;
+			var tc = textColor(), mc = mutedColor(), dark = isDark();
+			var bl = dark ? '#c8c8c8' : '#555';
+
+			function xPos(panelLeft, i) {
+				return panelLeft + (i + 0.5) * (panelW / DATA.length);
+			}
 
 			var leftX = margin.left;
 			var rightX = margin.left + panelW + panelGap;
 
-			// Y scales — balanced so tallest bar fills ~83%
 			var yNilf = d3.scaleLinear().domain([0, 4.6]).range([margin.top + chartH, margin.top]);
 			var yPov = d3.scaleLinear().domain([0, 22]).range([margin.top + chartH, margin.top]);
 
@@ -3205,7 +3640,6 @@
 				.attr('text-anchor', 'middle').attr('font-size', 14).attr('font-weight', 700).attr('fill', TEAL)
 				.text('Out of work for childcare');
 
-			// Y axis
 			var yNilfAxis = d3.axisLeft(yNilf).tickValues([0, 1, 2, 3, 4])
 				.tickFormat(function(d) { return d + '%'; });
 			leftG.append('g')
@@ -3214,7 +3648,6 @@
 				.call(function(g) { g.select('.domain').remove(); g.selectAll('.tick line').attr('stroke', '#ddd'); })
 				.selectAll('text').attr('fill', mc).attr('font-size', 11);
 
-			// Gridlines
 			[0, 1, 2, 3, 4].forEach(function(v) {
 				leftG.append('line')
 					.attr('x1', leftX).attr('x2', leftX + panelW)
@@ -3223,24 +3656,20 @@
 					.attr('stroke-width', v === 0 ? 1 : 0.5);
 			});
 
-			// Bars
 			DATA.forEach(function(d, i) {
 				var cx = xPos(leftX, i);
 				leftG.append('rect')
 					.attr('x', cx - barW / 2).attr('y', yNilf(d.nilf))
 					.attr('width', barW).attr('height', yNilf(0) - yNilf(d.nilf))
 					.attr('fill', TEAL).attr('opacity', 0.85);
-				// Value
 				leftG.append('text')
 					.attr('x', cx).attr('y', yNilf(d.nilf) - 4)
 					.attr('text-anchor', 'middle').attr('font-size', 11).attr('fill', tc)
 					.text(d.nilf.toFixed(1) + '%');
-				// X label
 				leftG.append('text')
 					.attr('x', cx).attr('y', yNilf(0) + 13)
-					.attr('text-anchor', 'middle').attr('font-size', 11.5).attr('fill', mc)
+					.attr('text-anchor', 'middle').attr('font-size', 11.5).attr('fill', bl)
 					.text(d.short);
-				// Hover
 				leftG.append('rect')
 					.attr('x', cx - barW / 2 - 2).attr('y', margin.top)
 					.attr('width', barW + 4).attr('height', chartH)
@@ -3262,7 +3691,6 @@
 				.attr('text-anchor', 'middle').attr('font-size', 14).attr('font-weight', 700).attr('fill', mc)
 				.text('Poverty rate');
 
-			// Y axis
 			var yPovAxis = d3.axisLeft(yPov).tickValues([0, 5, 10, 15, 20])
 				.tickFormat(function(d) { return d + '%'; });
 			rightG.append('g')
@@ -3271,7 +3699,6 @@
 				.call(function(g) { g.select('.domain').remove(); g.selectAll('.tick line').attr('stroke', '#ddd'); })
 				.selectAll('text').attr('fill', mc).attr('font-size', 11);
 
-			// Gridlines
 			[0, 5, 10, 15, 20].forEach(function(v) {
 				rightG.append('line')
 					.attr('x1', rightX).attr('x2', rightX + panelW)
@@ -3280,25 +3707,21 @@
 					.attr('stroke-width', v === 0 ? 1 : 0.5);
 			});
 
-			// Bars — Viridis indigo family
-			var barColor = dark ? '#7B7BC0' : '#443983';
+			var barColor = isDark() ? '#7B7BC0' : '#443983';
 			DATA.forEach(function(d, i) {
 				var cx = xPos(rightX, i);
 				rightG.append('rect')
 					.attr('x', cx - barW / 2).attr('y', yPov(d.poverty))
 					.attr('width', barW).attr('height', yPov(0) - yPov(d.poverty))
 					.attr('fill', barColor).attr('opacity', 0.85);
-				// Value
 				rightG.append('text')
 					.attr('x', cx).attr('y', yPov(d.poverty) - 4)
 					.attr('text-anchor', 'middle').attr('font-size', 11).attr('fill', tc)
 					.text(d.poverty.toFixed(1) + '%');
-				// X label
 				rightG.append('text')
 					.attr('x', cx).attr('y', yPov(0) + 13)
-					.attr('text-anchor', 'middle').attr('font-size', 11.5).attr('fill', mc)
+					.attr('text-anchor', 'middle').attr('font-size', 11.5).attr('fill', bl)
 					.text(d.short);
-				// Hover
 				rightG.append('rect')
 					.attr('x', cx - barW / 2 - 2).attr('y', margin.top)
 					.attr('width', barW + 4).attr('height', chartH)
@@ -3313,7 +3736,127 @@
 			});
 		}
 
+		function renderMobile() {
+			var W = 420, panelH = 220;
+			var gap = 28;
+			var H = panelH * 2 + gap + 58;
+			svg.attr('viewBox', '0 0 ' + W + ' ' + H);
+
+			var margin = {top: 54, right: 12, bottom: 24, left: 46};
+			var chartW = W - margin.left - margin.right;
+			var barChartH = panelH - 46;
+			var barW = chartW / DATA.length * 0.55;
+			var tc = textColor(), mc = mutedColor(), dark = isDark();
+			var bl = dark ? '#c8c8c8' : '#555';
+
+			function xPos(i) {
+				return margin.left + (i + 0.5) * (chartW / DATA.length);
+			}
+
+			// Main title (two lines for mobile)
+			svg.append('text')
+				.attr('x', 12).attr('y', 20)
+				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
+				.text('Without public childcare,');
+			svg.append('text')
+				.attr('x', 12).attr('y', 37)
+				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
+				.text('parents leave the workforce');
+			svg.append('text')
+				.attr('x', 12).attr('y', 52)
+				.attr('font-size', 13).attr('fill', mc)
+				.text('Working-age adults / all persons');
+
+			// ── Panel 1: NILF for childcare ──
+			var p1Top = margin.top + 16;
+			var p1G = svg.append('g');
+
+			p1G.append('text')
+				.attr('x', margin.left).attr('y', p1Top)
+				.attr('font-size', 14).attr('font-weight', 700).attr('fill', TEAL)
+				.text('Out of work for childcare');
+
+			var yNilf = d3.scaleLinear().domain([0, 4.6]).range([p1Top + barChartH, p1Top + 16]);
+
+			[0, 1, 2, 3, 4].forEach(function(v) {
+				p1G.append('line')
+					.attr('x1', margin.left).attr('x2', W - margin.right)
+					.attr('y1', yNilf(v)).attr('y2', yNilf(v))
+					.attr('stroke', v === 0 ? (dark ? '#555' : '#ccc') : (dark ? '#333' : '#eee'))
+					.attr('stroke-width', v === 0 ? 1 : 0.5);
+			});
+
+			var yNilfAxis = d3.axisLeft(yNilf).tickValues([0, 1, 2, 3, 4])
+				.tickFormat(function(d) { return d + '%'; });
+			p1G.append('g')
+				.attr('transform', 'translate(' + margin.left + ',0)')
+				.call(yNilfAxis)
+				.call(function(g) { g.select('.domain').remove(); g.selectAll('.tick line').remove(); })
+				.selectAll('text').attr('fill', mc).attr('font-size', 12);
+
+			DATA.forEach(function(d, i) {
+				var cx = xPos(i);
+				p1G.append('rect')
+					.attr('x', cx - barW / 2).attr('y', yNilf(d.nilf))
+					.attr('width', barW).attr('height', yNilf(0) - yNilf(d.nilf))
+					.attr('fill', TEAL).attr('opacity', 0.85);
+				p1G.append('text')
+					.attr('x', cx).attr('y', yNilf(d.nilf) - 5)
+					.attr('text-anchor', 'middle').attr('font-size', 13).attr('fill', tc)
+					.text(d.nilf.toFixed(1) + '%');
+				p1G.append('text')
+					.attr('x', cx).attr('y', yNilf(0) + 15)
+					.attr('text-anchor', 'middle').attr('font-size', 13).attr('fill', bl)
+					.text(d.short);
+			});
+
+			// ── Panel 2: Poverty rate ──
+			var p2Top = p1Top + panelH + gap;
+			var p2G = svg.append('g');
+
+			p2G.append('text')
+				.attr('x', margin.left).attr('y', p2Top)
+				.attr('font-size', 14).attr('font-weight', 700).attr('fill', mc)
+				.text('Poverty rate');
+
+			var yPov = d3.scaleLinear().domain([0, 22]).range([p2Top + barChartH, p2Top + 16]);
+
+			[0, 5, 10, 15, 20].forEach(function(v) {
+				p2G.append('line')
+					.attr('x1', margin.left).attr('x2', W - margin.right)
+					.attr('y1', yPov(v)).attr('y2', yPov(v))
+					.attr('stroke', v === 0 ? (dark ? '#555' : '#ccc') : (dark ? '#333' : '#eee'))
+					.attr('stroke-width', v === 0 ? 1 : 0.5);
+			});
+
+			var yPovAxis = d3.axisLeft(yPov).tickValues([0, 5, 10, 15, 20])
+				.tickFormat(function(d) { return d + '%'; });
+			p2G.append('g')
+				.attr('transform', 'translate(' + margin.left + ',0)')
+				.call(yPovAxis)
+				.call(function(g) { g.select('.domain').remove(); g.selectAll('.tick line').remove(); })
+				.selectAll('text').attr('fill', mc).attr('font-size', 12);
+
+			var barColor = isDark() ? '#7B7BC0' : '#443983';
+			DATA.forEach(function(d, i) {
+				var cx = xPos(i);
+				p2G.append('rect')
+					.attr('x', cx - barW / 2).attr('y', yPov(d.poverty))
+					.attr('width', barW).attr('height', yPov(0) - yPov(d.poverty))
+					.attr('fill', barColor).attr('opacity', 0.85);
+				p2G.append('text')
+					.attr('x', cx).attr('y', yPov(d.poverty) - 5)
+					.attr('text-anchor', 'middle').attr('font-size', 13).attr('fill', tc)
+					.text(d.poverty.toFixed(1) + '%');
+				p2G.append('text')
+					.attr('x', cx).attr('y', yPov(0) + 15)
+					.attr('text-anchor', 'middle').attr('font-size', 13).attr('fill', bl)
+					.text(d.short);
+			});
+		}
+
 		render();
+		window.addEventListener('resize', render);
 
 		var observer = new MutationObserver(function(mutations) {
 			mutations.forEach(function(m) {
@@ -3330,40 +3873,74 @@
 	(function() {
 		'use strict';
 
-		var W = 680, H = 370;
 		var svg = d3.select('#decision-tree-svg');
+		var containerEl = document.getElementById('decision-tree-container');
 
 		// Colors — Viridis family
 		var TEAL = '#21918C';
 		var WARM = '#443983';
 
-		// Layout constants
-		var titleY = 28;
-		var subtitleY = 48;
-		var countryY = 102;
-		var forkTopY = 68;
-		var forkMidY = 80;
-		var cardTop = 150;
-		var cardH = 175;
-		var cardW = 145;
-		var cardR = 8;
-
-		// Symmetric card positions: 7px outer margin, 24px inner gap, 38px center gap
-		var cards = [
-			{ x: 7,   center: 79.5 },    // US option 1
-			{ x: 176, center: 248.5 },    // US option 2
-			{ x: 359, center: 431.5 },    // Finland option 1
-			{ x: 528, center: 600.5 }     // Finland option 2
+		var cardData = [
+			{
+				idx: 0, side: 'us',
+				title: 'Private', title2: 'childcare',
+				amount: '$14,760', unit: 'per year',
+				context: 'More than in-state',
+				context2: 'college tuition',
+				context3: 'in 38 states'
+			},
+			{
+				idx: 1, side: 'us',
+				title: 'Leave the', title2: 'workforce',
+				amount: '$0', unit: 'income',
+				context: '3.8% of US adults',
+				context2: 'are out of work for',
+				context3: 'childcare reasons'
+			},
+			{
+				idx: 2, side: 'fi',
+				title: 'Public', title2: 'childcare',
+				amount: '$0\u20134,080', unit: 'per year',
+				context: 'Income-scaled fees.',
+				context2: 'Legal right from birth.',
+				context3: ''
+			},
+			{
+				idx: 3, side: 'fi',
+				title: 'Home care', title2: 'allowance',
+				amount: '~$4,500', unit: 'per year',
+				context: 'Paid to the parent.',
+				context2: 'A real choice,',
+				context3: 'not a last resort.'
+			}
 		];
 
-		// Country centers (perfectly mirrored around 340)
-		var usX = 164;
-		var fiX = 516;
-		var centerX = W / 2;
-
 		function render() {
+			var cw = containerEl.clientWidth;
+			if (cw < 500) {
+				renderMobile();
+			} else {
+				renderDesktop();
+			}
+		}
+
+		function renderDesktop() {
 			svg.selectAll('*').remove();
+			var W = 680, H = 370;
+			svg.attr('viewBox', '0 0 ' + W + ' ' + H);
 			var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+			var titleY = 28, subtitleY = 48, countryY = 102;
+			var forkTopY = 68, forkMidY = 80;
+			var cardTop = 150, cardH = 175, cardW = 145, cardR = 8;
+
+			var cards = [
+				{ x: 7,   center: 79.5 },
+				{ x: 176, center: 248.5 },
+				{ x: 359, center: 431.5 },
+				{ x: 528, center: 600.5 }
+			];
+			var usX = 164, fiX = 516, centerX = W / 2;
 
 			var bg = dark ? '#1a1a2e' : '#fff';
 			var textMain = dark ? '#e0e0e0' : '#1a1a2e';
@@ -3466,49 +4043,6 @@
 			});
 
 			// ── Option cards ──
-			var cardData = [
-				{
-					idx: 0, side: 'us',
-					title: 'Private',
-					title2: 'childcare',
-					amount: '$14,760',
-					unit: 'per year',
-					context: 'More than in-state',
-					context2: 'college tuition',
-					context3: 'in 38 states'
-				},
-				{
-					idx: 1, side: 'us',
-					title: 'Leave the',
-					title2: 'workforce',
-					amount: '$0',
-					unit: 'income',
-					context: '3.8% of US adults',
-					context2: 'are out of work for',
-					context3: 'childcare reasons'
-				},
-				{
-					idx: 2, side: 'fi',
-					title: 'Public',
-					title2: 'childcare',
-					amount: '$0\u20134,080',
-					unit: 'per year',
-					context: 'Income-scaled fees.',
-					context2: 'Legal right from birth.',
-					context3: ''
-				},
-				{
-					idx: 3, side: 'fi',
-					title: 'Home care',
-					title2: 'allowance',
-					amount: '~$4,500',
-					unit: 'per year',
-					context: 'Paid to the parent.',
-					context2: 'A real choice,',
-					context3: 'not a last resort.'
-				}
-			];
-
 			cardData.forEach(function(d) {
 				var c = cards[d.idx];
 				var isUS = d.side === 'us';
@@ -3621,7 +4155,172 @@
 				.text('Both options are supported by the state.');
 		}
 
+		function renderMobile() {
+			svg.selectAll('*').remove();
+			var VW = 400, VH = 620;
+			svg.attr('viewBox', '0 0 ' + VW + ' ' + VH);
+			var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+			var textMain = dark ? '#e0e0e0' : '#1a1a2e';
+			var textMuted = dark ? '#a0a0a0' : '#777';
+			var lineColor = dark ? '#555' : '#ccc';
+			var usCardBg = dark ? '#1a1a2e' : '#f0f0f8';
+			var fiCardBg = dark ? '#0a2020' : '#f0f8f7';
+			var usCardBorder = dark ? '#5a5a8a' : '#b0b0d8';
+			var fiCardBorder = dark ? '#2a5a55' : '#a0d0cc';
+			var warmAccent = dark ? '#9B9BD4' : WARM;
+			var tealAccent = dark ? '#3BB5A8' : TEAL;
+
+			var centerX = VW / 2;
+			var cardW = 175, cardH = 165, cardR = 8, cardGap = 16;
+			var cardX1 = 6, cardX2 = cardX1 + cardW + cardGap;
+
+			// ── Title ──
+			svg.append('text')
+				.attr('x', centerX).attr('y', 26)
+				.attr('text-anchor', 'middle')
+				.attr('font-size', 19).attr('font-weight', 'bold')
+				.attr('fill', textMain)
+				.attr('font-family', 'Lato, system-ui, sans-serif')
+				.text('You have a child under 5.');
+			svg.append('text')
+				.attr('x', centerX).attr('y', 46)
+				.attr('text-anchor', 'middle')
+				.attr('font-size', 15)
+				.attr('fill', textMuted)
+				.attr('font-family', 'Lato, system-ui, sans-serif')
+				.text('What are your options?');
+
+			// ── Draw a country section ──
+			function drawSection(sectionY, label, accent, side, cardBg, cardBorder, bottomLabel) {
+				// Country label
+				svg.append('text')
+					.attr('x', centerX).attr('y', sectionY)
+					.attr('text-anchor', 'middle')
+					.attr('font-size', 16).attr('font-weight', 'bold')
+					.attr('fill', accent)
+					.attr('font-family', 'Lato, system-ui, sans-serif')
+					.text(label);
+
+				// Fork line
+				var forkY = sectionY + 10;
+				svg.append('line')
+					.attr('x1', centerX).attr('y1', forkY)
+					.attr('x2', centerX).attr('y2', forkY + 12)
+					.attr('stroke', accent).attr('stroke-width', 1.5);
+				var c1 = cardX1 + cardW / 2, c2 = cardX2 + cardW / 2;
+				svg.append('line')
+					.attr('x1', c1).attr('y1', forkY + 12)
+					.attr('x2', c2).attr('y2', forkY + 12)
+					.attr('stroke', accent).attr('stroke-width', 1.5);
+				[c1, c2].forEach(function(cx) {
+					svg.append('line')
+						.attr('x1', cx).attr('y1', forkY + 12)
+						.attr('x2', cx).attr('y2', forkY + 24)
+						.attr('stroke', accent).attr('stroke-width', 1.5);
+				});
+
+				var cTop = forkY + 24;
+				var sideCards = cardData.filter(function(d) { return d.side === side; });
+
+				sideCards.forEach(function(d, i) {
+					var cx = i === 0 ? cardX1 : cardX2;
+					var mid = cx + cardW / 2;
+
+					svg.append('rect')
+						.attr('x', cx).attr('y', cTop)
+						.attr('width', cardW).attr('height', cardH)
+						.attr('rx', cardR).attr('ry', cardR)
+						.attr('fill', cardBg)
+						.attr('stroke', cardBorder)
+						.attr('stroke-width', 1.5);
+
+					// Title
+					svg.append('text')
+						.attr('x', mid).attr('y', cTop + 26)
+						.attr('text-anchor', 'middle')
+						.attr('font-size', 14).attr('font-weight', 'bold')
+						.attr('fill', textMain)
+						.attr('font-family', 'Lato, system-ui, sans-serif')
+						.text(d.title);
+					svg.append('text')
+						.attr('x', mid).attr('y', cTop + 42)
+						.attr('text-anchor', 'middle')
+						.attr('font-size', 14).attr('font-weight', 'bold')
+						.attr('fill', textMain)
+						.attr('font-family', 'Lato, system-ui, sans-serif')
+						.text(d.title2);
+
+					// Hero amount
+					svg.append('text')
+						.attr('x', mid).attr('y', cTop + 76)
+						.attr('text-anchor', 'middle')
+						.attr('font-size', 24).attr('font-weight', 'bold')
+						.attr('fill', accent)
+						.attr('font-family', 'Lato, system-ui, sans-serif')
+						.text(d.amount);
+
+					// Unit
+					svg.append('text')
+						.attr('x', mid).attr('y', cTop + 94)
+						.attr('text-anchor', 'middle')
+						.attr('font-size', 12)
+						.attr('fill', textMuted)
+						.attr('font-family', 'Lato, system-ui, sans-serif')
+						.text(d.unit);
+
+					// Context
+					var ctxY = cTop + 116;
+					[d.context, d.context2, d.context3].forEach(function(line) {
+						if (line) {
+							svg.append('text')
+								.attr('x', mid).attr('y', ctxY)
+								.attr('text-anchor', 'middle')
+								.attr('font-size', 11)
+								.attr('fill', textMuted)
+								.attr('font-family', 'Lato, system-ui, sans-serif')
+								.text(line);
+							ctxY += 14;
+						}
+					});
+				});
+
+				// "or" between cards
+				svg.append('text')
+					.attr('x', cardX1 + cardW + cardGap / 2)
+					.attr('y', cTop + cardH / 2 + 4)
+					.attr('text-anchor', 'middle')
+					.attr('font-size', 13).attr('font-style', 'italic')
+					.attr('fill', textMuted)
+					.attr('font-family', 'Lato, system-ui, sans-serif')
+					.text('or');
+
+				// Bottom label
+				svg.append('text')
+					.attr('x', centerX).attr('y', cTop + cardH + 22)
+					.attr('text-anchor', 'middle')
+					.attr('font-size', 12).attr('font-style', 'italic')
+					.attr('fill', accent)
+					.attr('font-family', 'Lato, system-ui, sans-serif')
+					.text(bottomLabel);
+			}
+
+			// US section
+			drawSection(80, 'United States', warmAccent, 'us', usCardBg, usCardBorder, 'Both options cost the family.');
+
+			// Dashed divider
+			svg.append('line')
+				.attr('x1', 40).attr('y1', 330)
+				.attr('x2', VW - 40).attr('y2', 330)
+				.attr('stroke', lineColor).attr('stroke-width', 0.5)
+				.attr('stroke-dasharray', '4,4');
+
+			// Finland section
+			drawSection(360, 'Finland', tealAccent, 'fi', fiCardBg, fiCardBorder, 'Both options are supported by the state.');
+		}
+
 		render();
+		window.addEventListener('resize', render);
 		var observer = new MutationObserver(function(mutations) {
 			mutations.forEach(function(m) {
 				if (m.attributeName === 'data-theme') render();
@@ -3655,13 +4354,13 @@
 			// Layout params
 			var VW, VH, cycleConfigs;
 			if (mobile) {
-				VW = 400; VH = 480;
-				var r = 80, cx = 200;
+				VW = 400; VH = 570;
+				var r = 75, cx = 200;
 				cycleConfigs = [
-					{ cx: cx, cy: 130, r: r, color: tealColor, marker: 'arrow-fb-teal',
-					  title: 'Nordic countries', nodes: ['Public investment', 'Trained workforce', 'Quality care', 'Public trust'] },
-					{ cx: cx, cy: 370, r: r, color: brokenColor, marker: 'arrow-fb-gray',
-					  title: 'United States', nodes: ['Underfunding', 'Low wages', 'Poor quality', 'Low trust'] }
+					{ cx: cx, cy: 135, r: r, color: tealColor, marker: 'arrow-fb-teal',
+					  title: 'Nordic countries', nodes: ['Public investment', 'Trained\nworkers', 'Quality care', 'Public\ntrust'] },
+					{ cx: cx, cy: 425, r: r, color: brokenColor, marker: 'arrow-fb-gray',
+					  title: 'United States', nodes: ['Underfunding', 'Low\nwages', 'Poor quality', 'Low\ntrust'] }
 				];
 			} else {
 				VW = 680; VH = 290;
@@ -3700,7 +4399,7 @@
 			} else {
 				svg.append('line')
 					.attr('x1', 60).attr('x2', VW - 60)
-					.attr('y1', 248).attr('y2', 248)
+					.attr('y1', 280).attr('y2', 280)
 					.attr('stroke', isDark ? '#333' : '#e0e0e0')
 					.attr('stroke-width', 1)
 					.attr('stroke-dasharray', '4,4');
@@ -3775,15 +4474,26 @@
 				];
 
 				labels.forEach(function(pos, i) {
-					g.append('text')
+					var lines = cycle.nodes[i].split('\n');
+					var adjustY = lines.length > 1 ? -(fontSize * 0.575) : 0;
+					var t = g.append('text')
 						.attr('x', pos.x)
-						.attr('y', pos.y)
+						.attr('y', pos.y + adjustY)
 						.attr('text-anchor', pos.anchor)
 						.attr('dominant-baseline', pos.baseline)
 						.attr('font-size', fontSize)
 						.attr('font-family', 'Lato, sans-serif')
-						.attr('fill', textColor)
-						.text(cycle.nodes[i]);
+						.attr('fill', textColor);
+					if (lines.length === 1) {
+						t.text(lines[0]);
+					} else {
+						lines.forEach(function(line, j) {
+							t.append('tspan')
+								.attr('x', pos.x)
+								.attr('dy', j === 0 ? 0 : '1.15em')
+								.text(line);
+						});
+					}
 				});
 			});
 		}
