@@ -1943,16 +1943,8 @@
 		];
 
 		var heroSvg = d3.select('#wp-hero-svg');
-		var VW = 680, VH = 235;
-		var MARGIN = { left: 22, right: 22 };
-		var axisY = 135;
-
+		var heroContainer = document.getElementById('wp-hero-container');
 		var wageMin = 14.74, wageMax = 15.79;
-		var x = d3.scaleLinear().domain([wageMin, wageMax]).range([MARGIN.left, VW - MARGIN.right]);
-
-		// Tier y-offsets from axisY (spaced for two-line labels: name + wage)
-		var TIER_ABOVE = { 1: -17, 2: -35 };
-		var TIER_BELOW = { 1: 19, 2: 41 };
 
 		var textColor = function() {
 			return document.documentElement.getAttribute('data-theme') === 'dark' ? '#efefef' : '#1e1e1e';
@@ -1970,6 +1962,26 @@
 		function drawHero() {
 			heroSvg.selectAll('*').remove();
 
+			var cw = heroContainer.clientWidth;
+			var mobile = cw < 500;
+
+			if (mobile) {
+				drawHeroMobile();
+			} else {
+				drawHeroDesktop();
+			}
+		}
+
+		function drawHeroDesktop() {
+			var VW = 680, VH = 235;
+			heroSvg.attr('viewBox', '0 0 ' + VW + ' ' + VH);
+
+			var MARGIN = { left: 22, right: 22 };
+			var axisY = 135;
+			var x = d3.scaleLinear().domain([wageMin, wageMax]).range([MARGIN.left, VW - MARGIN.right]);
+			var TIER_ABOVE = { 1: -17, 2: -35 };
+			var TIER_BELOW = { 1: 19, 2: 41 };
+
 			// Title
 			heroSvg.append('text')
 				.attr('x', VW / 2).attr('y', 24)
@@ -1986,7 +1998,7 @@
 				.attr('fill', mutedColor())
 				.text('The 10 occupations paid closest to childcare workers in the US');
 
-			// Direction arrows at top, flanking subtitle
+			// Direction arrows
 			heroSvg.append('text')
 				.attr('x', MARGIN.left + 4).attr('y', 28)
 				.attr('text-anchor', 'start')
@@ -2013,22 +2025,18 @@
 				var labelY = axisY + tierMap[p.tier];
 				var lineStart = p.side === 'above' ? axisY - 4 : axisY + 4;
 				var lineEnd = p.side === 'above' ? labelY + 3 : labelY - 9;
-				// Wage sits on the far side of label from axis
 				var wageY = p.side === 'above' ? labelY - 9 : labelY + 9;
 
-				// Leader line
 				heroSvg.append('line')
 					.attr('x1', px).attr('x2', px)
 					.attr('y1', lineStart).attr('y2', lineEnd)
 					.attr('stroke', mutedColor()).attr('stroke-width', 0.4)
 					.attr('stroke-dasharray', '2,2');
 
-				// Dot
 				heroSvg.append('circle')
 					.attr('cx', px).attr('cy', axisY)
 					.attr('r', 3.5).attr('fill', peerDotColor());
 
-				// Label (occupation name)
 				heroSvg.append('text')
 					.attr('x', px).attr('y', labelY)
 					.attr('text-anchor', 'middle')
@@ -2036,7 +2044,6 @@
 					.attr('opacity', 0.85)
 					.text(p.label);
 
-				// Wage value
 				heroSvg.append('text')
 					.attr('x', px).attr('y', wageY)
 					.attr('text-anchor', 'middle')
@@ -2045,12 +2052,11 @@
 					.text('$' + p.wage.toFixed(2));
 			});
 
-			// Childcare dot (large, teal)
+			// Childcare dot
 			heroSvg.append('circle')
 				.attr('cx', x(US_CHILDCARE.wage)).attr('cy', axisY)
 				.attr('r', 6).attr('fill', tealColor());
 
-			// Childcare label + wage (above)
 			heroSvg.append('text')
 				.attr('x', x(US_CHILDCARE.wage)).attr('y', axisY - 20)
 				.attr('text-anchor', 'middle')
@@ -2073,7 +2079,118 @@
 				.text('Hourly median wages, 2024. Source: BLS OEWS.');
 		}
 
+		function drawHeroMobile() {
+			var VW = 380, VH = 520;
+			heroSvg.attr('viewBox', '0 0 ' + VW + ' ' + VH);
+
+			var axisX = 120; // vertical axis line x position
+			var MARGIN = { top: 65, bottom: 40 };
+
+			// Sort peers by wage for vertical layout
+			var allPeers = US_PEERS.slice().sort(function(a, b) { return b.wage - a.wage; });
+
+			// Insert childcare worker into the sorted list
+			var allItems = [];
+			var inserted = false;
+			allPeers.forEach(function(p) {
+				if (!inserted && US_CHILDCARE.wage >= p.wage) {
+					allItems.push({ label: US_CHILDCARE.label, wage: US_CHILDCARE.wage, isChildcare: true });
+					inserted = true;
+				}
+				allItems.push(p);
+			});
+			if (!inserted) allItems.push({ label: US_CHILDCARE.label, wage: US_CHILDCARE.wage, isChildcare: true });
+
+			var y = d3.scaleLinear()
+				.domain([wageMax, wageMin])
+				.range([MARGIN.top, VH - MARGIN.bottom]);
+
+			// Title
+			heroSvg.append('text')
+				.attr('x', VW / 2).attr('y', 22)
+				.attr('text-anchor', 'middle')
+				.attr('font-size', 18).attr('font-weight', 700)
+				.attr('fill', textColor())
+				.text('Who else earns $15.25/hr?');
+
+			// Subtitle
+			heroSvg.append('text')
+				.attr('x', VW / 2).attr('y', 40)
+				.attr('text-anchor', 'middle')
+				.attr('font-size', 12).attr('font-weight', 400)
+				.attr('fill', mutedColor())
+				.text('10 closest occupations by wage');
+
+			// Direction arrows
+			heroSvg.append('text')
+				.attr('x', axisX).attr('y', MARGIN.top - 10)
+				.attr('text-anchor', 'middle')
+				.attr('font-size', 11).attr('fill', tealColor())
+				.attr('font-weight', 600)
+				.text('\u2191 Higher');
+			heroSvg.append('text')
+				.attr('x', axisX).attr('y', VH - MARGIN.bottom + 18)
+				.attr('text-anchor', 'middle')
+				.attr('font-size', 11).attr('fill', tealColor())
+				.attr('font-weight', 600)
+				.text('Lower \u2193');
+
+			// Vertical axis line
+			heroSvg.append('line')
+				.attr('x1', axisX).attr('x2', axisX)
+				.attr('y1', MARGIN.top).attr('y2', VH - MARGIN.bottom)
+				.attr('stroke', mutedColor()).attr('stroke-width', 0.7);
+
+			// Draw all items
+			allItems.forEach(function(p) {
+				var py = y(p.wage);
+				var dotR = p.isChildcare ? 7 : 4;
+				var dotColor = p.isChildcare ? tealColor() : peerDotColor();
+
+				// Dot on axis
+				heroSvg.append('circle')
+					.attr('cx', axisX).attr('cy', py)
+					.attr('r', dotR).attr('fill', dotColor);
+
+				// Leader line to label
+				heroSvg.append('line')
+					.attr('x1', axisX + dotR + 4).attr('x2', axisX + 28)
+					.attr('y1', py).attr('y2', py)
+					.attr('stroke', p.isChildcare ? tealColor() : mutedColor())
+					.attr('stroke-width', 0.5)
+					.attr('stroke-dasharray', p.isChildcare ? 'none' : '2,2');
+
+				// Label
+				heroSvg.append('text')
+					.attr('x', axisX + 32).attr('y', py - 1)
+					.attr('text-anchor', 'start')
+					.attr('dominant-baseline', 'auto')
+					.attr('font-size', p.isChildcare ? 14 : 12.5)
+					.attr('font-weight', p.isChildcare ? 700 : 400)
+					.attr('fill', p.isChildcare ? tealColor() : textColor())
+					.text(p.label);
+
+				// Wage value
+				heroSvg.append('text')
+					.attr('x', axisX + 32).attr('y', py + 13)
+					.attr('text-anchor', 'start')
+					.attr('font-size', 11)
+					.attr('font-weight', p.isChildcare ? 600 : 400)
+					.attr('fill', p.isChildcare ? tealColor() : mutedColor())
+					.text('$' + p.wage.toFixed(2) + '/hr');
+			});
+
+			// Source
+			heroSvg.append('text')
+				.attr('x', VW / 2).attr('y', VH - 8)
+				.attr('text-anchor', 'middle')
+				.attr('font-size', 11).attr('fill', mutedColor())
+				.attr('font-style', 'italic')
+				.text('BLS OEWS 2024');
+		}
+
 		drawHero();
+		window.addEventListener('resize', drawHero);
 
 		// Redraw hero on theme toggle
 		var observer = new MutationObserver(function(mutations) {
@@ -3521,6 +3638,7 @@
 
 		var svg = d3.select('#feedback-svg');
 		if (!svg.node()) return;
+		var container = document.getElementById('feedback-container');
 
 		function render() {
 			svg.selectAll('*').remove();
@@ -3529,6 +3647,33 @@
 			var textColor = isDark ? '#e0e0e0' : '#23272f';
 			var tealColor = '#21918C';
 			var brokenColor = isDark ? '#A89080' : '#8B7355';
+
+			// Detect mobile
+			var cw = container.clientWidth;
+			var mobile = cw < 500;
+
+			// Layout params
+			var VW, VH, cycleConfigs;
+			if (mobile) {
+				VW = 400; VH = 480;
+				var r = 80, cx = 200;
+				cycleConfigs = [
+					{ cx: cx, cy: 130, r: r, color: tealColor, marker: 'arrow-fb-teal',
+					  title: 'Nordic countries', nodes: ['Public investment', 'Trained workforce', 'Quality care', 'Public trust'] },
+					{ cx: cx, cy: 370, r: r, color: brokenColor, marker: 'arrow-fb-gray',
+					  title: 'United States', nodes: ['Underfunding', 'Low wages', 'Poor quality', 'Low trust'] }
+				];
+			} else {
+				VW = 680; VH = 290;
+				cycleConfigs = [
+					{ cx: 155, cy: 168, r: 72, color: tealColor, marker: 'arrow-fb-teal',
+					  title: 'Nordic countries', nodes: ['Public investment', 'Trained workforce', 'Quality care', 'Public trust'] },
+					{ cx: 525, cy: 168, r: 72, color: brokenColor, marker: 'arrow-fb-gray',
+					  title: 'United States', nodes: ['Underfunding', 'Low wages', 'Poor quality', 'Low trust'] }
+				];
+			}
+
+			svg.attr('viewBox', '0 0 ' + VW + ' ' + VH);
 
 			// Arrow markers
 			var defs = svg.append('defs');
@@ -3544,38 +3689,45 @@
 					.attr('fill', m.color);
 			});
 
-			var cycles = [
-				{
-					cx: 155, cy: 168, r: 72,
-					color: tealColor, marker: 'arrow-fb-teal',
-					title: 'Nordic countries',
-					nodes: ['Public investment', 'Trained workforce', 'Quality care', 'Public trust']
-				},
-				{
-					cx: 525, cy: 168, r: 72,
-					color: brokenColor, marker: 'arrow-fb-gray',
-					title: 'United States',
-					nodes: ['Underfunding', 'Low wages', 'Poor quality', 'Low trust']
-				}
-			];
+			// Divider (desktop: vertical, mobile: horizontal)
+			if (!mobile) {
+				svg.append('line')
+					.attr('x1', 340).attr('x2', 340)
+					.attr('y1', 45).attr('y2', 275)
+					.attr('stroke', isDark ? '#333' : '#e0e0e0')
+					.attr('stroke-width', 1)
+					.attr('stroke-dasharray', '4,4');
+			} else {
+				svg.append('line')
+					.attr('x1', 60).attr('x2', VW - 60)
+					.attr('y1', 248).attr('y2', 248)
+					.attr('stroke', isDark ? '#333' : '#e0e0e0')
+					.attr('stroke-width', 1)
+					.attr('stroke-dasharray', '4,4');
+			}
 
-			// Vertical divider
-			svg.append('line')
-				.attr('x1', 340).attr('x2', 340)
-				.attr('y1', 45).attr('y2', 275)
-				.attr('stroke', isDark ? '#333' : '#e0e0e0')
-				.attr('stroke-width', 1)
-				.attr('stroke-dasharray', '4,4');
+			var fontSize = mobile ? 15 : 13;
+			var titleSize = mobile ? 18 : 16;
+			var labelGap = mobile ? 16 : 14;
+			var dotR = mobile ? 4.5 : 3.5;
+			var strokeW = mobile ? 3 : 2.5;
+			var markerSize = mobile ? 6 : 5;
 
-			cycles.forEach(function(cycle) {
+			// Update marker sizes for mobile
+			if (mobile) {
+				svg.selectAll('marker')
+					.attr('markerWidth', markerSize).attr('markerHeight', markerSize);
+			}
+
+			cycleConfigs.forEach(function(cycle) {
 				var g = svg.append('g');
 
 				// Title
 				g.append('text')
 					.attr('x', cycle.cx)
-					.attr('y', 28)
+					.attr('y', cycle.cy - cycle.r - labelGap - 20)
 					.attr('text-anchor', 'middle')
-					.attr('font-size', 16)
+					.attr('font-size', titleSize)
 					.attr('font-weight', 700)
 					.attr('font-family', 'Lato, sans-serif')
 					.attr('fill', cycle.color)
@@ -3585,7 +3737,7 @@
 				var nodeAngles = [-Math.PI / 2, 0, Math.PI / 2, Math.PI];
 
 				// Draw arc segments with arrows
-				var gapRad = 0.38; // gap around each node in radians (~22°)
+				var gapRad = 0.38;
 				for (var i = 0; i < 4; i++) {
 					var next = (i + 1) % 4;
 					var startAngle = nodeAngles[i] + gapRad;
@@ -3601,21 +3753,20 @@
 						.attr('d', 'M ' + sx + ',' + sy + ' A ' + cycle.r + ',' + cycle.r + ' 0 0,1 ' + ex + ',' + ey)
 						.attr('fill', 'none')
 						.attr('stroke', cycle.color)
-						.attr('stroke-width', 2.5)
+						.attr('stroke-width', strokeW)
 						.attr('marker-end', 'url(#' + cycle.marker + ')');
 				}
 
-				// Small dots at node positions
+				// Dots at node positions
 				nodeAngles.forEach(function(a) {
 					g.append('circle')
 						.attr('cx', cycle.cx + cycle.r * Math.cos(a))
 						.attr('cy', cycle.cy + cycle.r * Math.sin(a))
-						.attr('r', 3.5)
+						.attr('r', dotR)
 						.attr('fill', cycle.color);
 				});
 
 				// Label positions outside the circle
-				var labelGap = 14;
 				var labels = [
 					{ x: cycle.cx, y: cycle.cy - cycle.r - labelGap, anchor: 'middle', baseline: 'auto' },
 					{ x: cycle.cx + cycle.r + labelGap, y: cycle.cy, anchor: 'start', baseline: 'central' },
@@ -3629,7 +3780,7 @@
 						.attr('y', pos.y)
 						.attr('text-anchor', pos.anchor)
 						.attr('dominant-baseline', pos.baseline)
-						.attr('font-size', 13)
+						.attr('font-size', fontSize)
 						.attr('font-family', 'Lato, sans-serif')
 						.attr('fill', textColor)
 						.text(cycle.nodes[i]);
@@ -3638,6 +3789,7 @@
 		}
 
 		render();
+		window.addEventListener('resize', render);
 
 		var observer = new MutationObserver(function() { render(); });
 		observer.observe(document.documentElement, {attributes: true, attributeFilter: ['data-theme']});
