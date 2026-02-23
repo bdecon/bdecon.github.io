@@ -101,6 +101,67 @@
 		color: #fff;
 		border-color: var(--color-card-teal);
 	}
+	/* Infrastructure comparison grid */
+	.cc-infra-grid {
+		display: flex;
+		flex-direction: column;
+		gap: 3px;
+		max-width: 600px;
+		margin: 0.5rem auto 0;
+	}
+	.cc-infra-row {
+		display: flex;
+		gap: 3px;
+	}
+	.cc-infra-label {
+		flex: 1;
+		font-size: 13px;
+		font-weight: 700;
+		color: var(--color-text-dark);
+		padding: 2px 4px;
+	}
+	.cc-infra-label-left { text-align: left; }
+	.cc-infra-label-right { text-align: right; }
+	.cc-infra-cell {
+		flex: 1;
+		position: relative;
+		overflow: hidden;
+		aspect-ratio: 1;
+		border-radius: 3px;
+	}
+	.cc-infra-cell img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+	.cc-infra-tint {
+		position: absolute;
+		inset: 0;
+		background: var(--color-card-teal);
+		mix-blend-mode: multiply;
+		opacity: 0.25;
+		pointer-events: none;
+	}
+	.cc-infra-caption {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		padding: 20px 8px 6px;
+		background: linear-gradient(transparent, rgba(0,0,0,0.6));
+		color: #fff;
+		font-size: 11px;
+		font-weight: 600;
+		letter-spacing: 0.02em;
+	}
+	[data-theme="dark"] .cc-infra-tint {
+		opacity: 0.35;
+	}
+	[data-theme="dark"] .cc-infra-label {
+		color: #e0e0e0;
+	}
+
 	/* Section label in chart header */
 	.chart-header-section-label {
 		font-size: 11px;
@@ -108,6 +169,40 @@
 		white-space: nowrap;
 		font-weight: 700;
 		padding-top: 1px;
+	}
+	/* Spending toggle (narrow/broad) */
+	.spending-toggle {
+		display: none;
+		gap: 0;
+		font-size: 10px;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		margin-top: 3px;
+	}
+	.spending-toggle.visible { display: flex; }
+	.spending-toggle-btn {
+		padding: 3px 10px;
+		border: 1px solid rgba(255,255,255,0.4);
+		background: transparent;
+		cursor: pointer;
+		color: rgba(255,255,255,0.75);
+		transition: all 0.15s ease;
+		font-size: 10px;
+		font-weight: 600;
+	}
+	.spending-toggle-btn:first-child {
+		border-radius: 3px 0 0 3px;
+	}
+	.spending-toggle-btn:last-child {
+		border-radius: 0 3px 3px 0;
+		border-left: none;
+	}
+	.spending-toggle-btn:hover {
+		background: rgba(255,255,255,0.15);
+	}
+	.spending-toggle-btn.active {
+		background: rgba(255,255,255,0.25);
+		color: #fff;
+		border-color: rgba(255,255,255,0.5);
 	}
 	/* Chart container */
 	.chart-container {
@@ -552,7 +647,7 @@
 		<p>The map below compares childcare sector indicators across US states, Canadian provinces, and four Nordic countries (Denmark, Finland, Norway, Sweden). Use the tabs to switch between metrics.</p>
 		<noscript><p style="background:#fff3cd;padding:10px;border-radius:4px;font-size:14px;">This page requires JavaScript to display interactive maps.</p></noscript>
 		<div class="cc-tabs" id="metric-tabs">
-			<button class="cc-tab" data-metric="gdp_per_child_0_4">Financial Resources</button>
+			<button class="cc-tab" data-metric="gdp_per_child_0_5">Financial Resources</button>
 			<button class="cc-tab active" data-metric="spending_pct_gdp">Public Spending</button>
 			<button class="cc-tab" data-metric="enrollment_pct">Enrollment</button>
 			<button class="cc-tab" data-metric="wage_ratio_pct">Sector Wages</button>
@@ -563,6 +658,10 @@
 				<div>
 					<p class="map-category" id="map-tab-title">Public Spending</p>
 					<h4 id="map-indicator">Loading...</h4>
+					<div class="spending-toggle" id="spending-toggle">
+						<button class="spending-toggle-btn active" data-tier="narrow">Childcare</button>
+						<button class="spending-toggle-btn" data-tier="broad">Family + childcare</button>
+					</div>
 				</div>
 				<span class="chart-header-section-label">Childcare sector indicators</span>
 			</div>
@@ -605,6 +704,139 @@
 		</div>
 		<p class="wp-note" id="wp-cross-note" style="display:none;"></p>
 		<p class="chart-source" style="margin-top:6px;">Source: BLS OEWS 2024, Statistics Canada LFS 2025, Nordic national statistics offices. Occupation definitions vary across countries.</p>
+	</details>
+
+	<!-- ============ Resources and Burdens ============ -->
+	<details class="cc-details" open>
+		<summary>Resources and burdens</summary>
+		<p>Every geography shown here is wealthy by global standards, but they differ dramatically in how much of that wealth reaches young children through organized care.</p>
+		<div class="chart-container" id="resources-container">
+			<div class="chart-header">
+				<div>
+					<p class="map-category">Resources and burdens</p>
+					<h4>Financial Resources and Distribution of Childcare Burden</h4>
+				</div>
+				<span class="chart-header-section-label">Childcare resources</span>
+			</div>
+			<div class="chart-body" style="padding: 8px 12px 4px 12px;">
+				<svg id="resources-svg" style="width:100%;height:auto;" viewBox="0 0 680 520" preserveAspectRatio="xMidYMid meet"></svg>
+			</div>
+			<div class="chart-footer">
+				<p class="chart-source">Sources: IMF WEO Oct 2025, UN WPP 2024, BEA, ACS, Eurostat, StatCan, NIEER, OECD, SELCCA. Enrollment definitions vary by country.</p>
+			</div>
+		</div>
+	</details>
+
+	<!-- ============ Infrastructure Comparison ============ -->
+	<details class="cc-details" open>
+		<summary>What we build</summary>
+		<div class="cc-infra-grid">
+			<div class="cc-infra-row">
+				<div class="cc-infra-label cc-infra-label-left">Norway</div>
+				<div class="cc-infra-label cc-infra-label-right">United States</div>
+			</div>
+			<div class="cc-infra-row">
+				<div class="cc-infra-cell">
+					<img src="files/childcare-images/oslo_airport.jpg" alt="Oslo Gardermoen Airport at night">
+					<div class="cc-infra-tint"></div>
+					<span class="cc-infra-caption">Oslo Gardermoen Airport</span>
+				</div>
+				<div class="cc-infra-cell">
+					<img src="files/childcare-images/atlanta_airport.jpg" alt="Atlanta airport terminal interior">
+					<div class="cc-infra-tint"></div>
+					<span class="cc-infra-caption">Hartsfield-Jackson Atlanta Airport</span>
+				</div>
+			</div>
+			<div class="cc-infra-row">
+				<div class="cc-infra-cell">
+					<img src="files/childcare-images/barnehage.jpg" alt="Bamsebo barnehage, Norwegian childcare center">
+					<div class="cc-infra-tint"></div>
+					<span class="cc-infra-caption">Bamsebo barnehage, ages 0–5</span>
+				</div>
+				<div class="cc-infra-cell">
+					<img src="files/childcare-images/empty_lot.jpg" alt="Empty lot in US neighborhood">
+					<div class="cc-infra-tint"></div>
+					<span class="cc-infra-caption">Empty lot</span>
+				</div>
+			</div>
+		</div>
+	</details>
+
+	<!-- ============ Enrollment by Age ============ -->
+	<details class="cc-details" open>
+		<summary>Enrollment by age</summary>
+		<p>Nordic countries enroll children in publicly funded care starting at age 1, when parental leave ends. The United States has no public childcare for children under 3, and limited options until kindergarten at age 5.</p>
+		<div class="chart-container" id="enrollment-age-container">
+			<div class="chart-header">
+				<div>
+					<p class="map-category">Enrollment by age</p>
+					<h4>Public Childcare Enrollment Rate by Age</h4>
+				</div>
+				<span class="chart-header-section-label">5 countries, ages 0–5</span>
+			</div>
+			<div class="chart-body" style="padding: 8px 12px 4px 12px;">
+				<svg id="enrollment-age-svg" style="width:100%;height:auto;" viewBox="0 0 680 420" preserveAspectRatio="xMidYMid meet"></svg>
+			</div>
+			<div class="chart-footer">
+				<p class="chart-source">Sources: Eurostat UOE 2023, NIEER 2024, Head Start 2024, CPS October 2024. US ages 0–2 have no public programs; age 5 is kindergarten.</p>
+			</div>
+		</div>
+	</details>
+
+	<!-- ============ Spending Comparison ============ -->
+	<details class="cc-details" open>
+		<summary>Spending priorities</summary>
+		<p>The United States is not a small-government outlier. It spends a comparable share of GDP through government as other wealthy nations. The gap is in how that money is allocated: the US spends almost nothing on early childhood education and care.</p>
+		<div class="chart-container" id="spending-compare-container">
+			<div class="chart-header">
+				<div>
+					<p class="map-category">Spending priorities</p>
+					<h4>Government Spending on Childcare vs. Total</h4>
+				</div>
+				<span class="chart-header-section-label">5 countries, OECD data</span>
+			</div>
+			<div class="chart-body" style="padding: 8px 12px 4px 12px;">
+				<svg id="spending-compare-svg" style="width:100%;height:auto;" viewBox="0 0 680 360" preserveAspectRatio="xMidYMid meet"></svg>
+			</div>
+			<div class="chart-footer">
+				<p class="chart-source">Sources: OECD Social Expenditure Database (SOCX) 2021–2023, OECD National Accounts 2023, OECD Government at a Glance 2025.</p>
+			</div>
+		</div>
+	</details>
+
+	<!-- ============ Outcomes ============ -->
+	<details class="cc-details" open>
+		<summary>Outcomes</summary>
+		<p>When public childcare doesn't exist, families absorb the cost. In the United States, nearly 4% of working-age adults are out of the labor force for childcare reasons — roughly ten times the Nordic rate. The connection to poverty is not subtle.</p>
+		<div class="chart-container" id="outcomes-container">
+			<div class="chart-header">
+				<div>
+					<p class="map-category">Outcomes</p>
+					<h4>Labor Force Exit and Poverty</h4>
+				</div>
+				<span class="chart-header-section-label">5 countries</span>
+			</div>
+			<div class="chart-body" style="padding: 2px 12px 0 12px;">
+				<svg id="outcomes-svg" style="width:100%;height:auto;" viewBox="0 0 680 360" preserveAspectRatio="xMidYMid meet"></svg>
+			</div>
+			<div class="chart-footer">
+				<p class="chart-source">Sources: CPS 2022 (US), Eurostat LFS 2018 (Nordics), OECD Income Distribution Database 2022.</p>
+			</div>
+		</div>
+	</details>
+
+	<!-- ============ Decision Tree Diagram ============ -->
+	<details class="cc-details" open>
+		<summary>A tale of two systems</summary>
+		<p>Same situation, radically different options.</p>
+		<div class="chart-container" id="decision-tree-container">
+			<div class="chart-body" style="padding: 4px 8px 0 8px;">
+				<svg id="decision-tree-svg" style="width:100%;height:auto;" viewBox="0 0 680 370" preserveAspectRatio="xMidYMid meet"></svg>
+			</div>
+			<div class="chart-footer">
+				<p class="chart-source">Sources: Child Care Aware of America 2024, Kela (Finland), OECD Family Database.</p>
+			</div>
+		</div>
 	</details>
 
 	<details class="cc-details">
@@ -676,10 +908,10 @@
 
 	<details class="cc-details">
 		<summary>Data and methodology</summary>
-		<p><strong>US states:</strong> Government spending combines federal program data (Head Start, CCDF, TANF childcare, IDEA, MIECHV, SSBG, Title I) with state pre-K spending from NIEER, expressed as a share of state GDP from BEA. Wage data comes from the BLS Occupational Employment and Wage Statistics (OEWS) survey for 2024. Enrollment rates are state pre-K plus Head Start enrollment (ages 3-4) as a share of the age 3-4 population (ACS 2023 5-year estimates). The spending figure is a partial stack and does not capture all childcare-related expenditures.</p>
-		<p><strong>Canada:</strong> Enrollment data comes from the Survey on Early Learning and Child Care Arrangements (SELCCA) via Statistics Canada, covering ages 4-5. Spending and wage data are available at the national level from OECD and Statistics Canada (NOC 422 occupation group). Province-level spending and wage breakdowns are not yet available in this report.</p>
-		<p><strong>Nordic countries:</strong> Spending data comes from the OECD Social Expenditure Database (SOCX) and national statistical agencies. Wage data comes from national statistics offices (Statistics Denmark LONS20, Statistics Finland, Statistics Norway, Statistics Sweden). Enrollment data comes from OECD UOE data (ISCED 0, ages 3-5).</p>
-		<p><strong>Enrollment comparability:</strong> Age bands differ slightly across countries: the US covers ages 3-4, Canada covers ages 4-5, and the Nordics cover ages 3-5. The US figure counts only publicly funded program slots (state pre-K and Head Start), while the Nordic and Canadian figures include all formal early childhood education and care. Enrollment rates measure headcounts and do not capture intensity (part-time vs. full-time attendance).</p>
+		<p><strong>US states:</strong> Government spending combines federal program data (Head Start, CCDF, TANF childcare, IDEA, MIECHV, SSBG, Title I) with state pre-K spending from NIEER, expressed as a share of state GDP from BEA. Wage data comes from the BLS Occupational Employment and Wage Statistics (OEWS) survey for 2024. Enrollment rates are state pre-K plus Head Start enrollment (ages 3-4) plus estimated kindergarten enrollment (age 5) as a share of the age 0-5 population (ACS 2023 5-year estimates). Kindergarten enrollment is estimated at 89.4% nationally (CPS October 2024). Ages 0-2 have no public programs in the US. The spending figure is a partial stack and does not capture all childcare-related expenditures.</p>
+		<p><strong>Canada:</strong> Enrollment data comes from the Survey on Early Learning and Child Care Arrangements (SELCCA) via Statistics Canada, covering ages 0-5 (all care arrangements, most now government-subsidized). Spending and wage data are available at the national level from OECD and Statistics Canada (NOC 422 occupation group). Province-level spending and wage breakdowns are not yet available in this report.</p>
+		<p><strong>Nordic countries:</strong> Spending data comes from the OECD Social Expenditure Database (SOCX) and national statistical agencies. Wage data comes from national statistics offices (Statistics Denmark LONS20, Statistics Finland, Statistics Norway, Statistics Sweden). Enrollment data comes from OECD UOE data (ISCED 0, ages 0-5).</p>
+		<p><strong>Enrollment comparability:</strong> All countries now use ages 0-5 as the denominator. The US figure counts publicly funded program slots (state pre-K + Head Start for ages 3-4, plus estimated kindergarten enrollment for age 5); there are no public programs for ages 0-2. Nordic figures include all formal ECEC (OECD ISCED 0). Canadian figures include all care arrangements (SELCCA), most of which are now government-subsidized. Enrollment rates measure headcounts and do not capture intensity (part-time vs. full-time attendance).</p>
 		<p><strong>Other comparability notes:</strong> Occupation definitions differ (US SOC, Nordic ISCO/national codes, Canada NOC). School starting ages vary, affecting what counts as "childcare" vs "education." Spending figures for the US are proxy estimates that likely undercount total public investment. All values are converted to comparable terms (shares of GDP, wage ratios) rather than nominal amounts to reduce currency and price-level distortions.</p>
 		<p>Data assembled by <a href="about.html">Brian Dew</a>. Underlying microdata, methodology documentation, and build scripts are available on request.</p>
 	</details>
@@ -781,6 +1013,7 @@
 		// --- State ---
 		var DATA = null, METRICS = [], currentMetric = null;
 		var topoCache = {};
+		var spendingTier = 'narrow'; // 'narrow' or 'broad'
 
 		// --- DOM refs ---
 		var metricTabs = document.getElementById('metric-tabs');
@@ -791,6 +1024,7 @@
 		var tooltip = document.getElementById('map-tooltip');
 		var container = document.getElementById('map-container');
 		var svg = d3.select('#map-svg');
+		var spendingToggle = document.getElementById('spending-toggle');
 
 		// Click on SVG background clears pinned tooltip
 		svg.on('click', function() { clearPin(); });
@@ -816,13 +1050,13 @@
 			if (lo === hi) { lo -= 0.01; hi += 0.01; }
 			var scale;
 
-			if (metricId === 'spending_pct_gdp' || metricId === 'workforce_share_pct') {
+			if (metricId === 'spending_pct_gdp_narrow' || metricId === 'spending_pct_gdp_broad' || metricId === 'workforce_share_pct') {
 				// Log scale: compresses high end, expands low end
 				var logLo = Math.max(lo, 0.01);  // avoid log(0)
 				scale = d3.scaleSequentialLog(function(t) { return d3.interpolateViridis(1 - t); })
 					.domain([logLo, hi]);
 				return { scale: scale, lo: logLo, hi: hi, type: 'log' };
-			} else if (metricId === 'gdp_per_child_0_4') {
+			} else if (metricId === 'gdp_per_child_0_5') {
 				// Winsorized: cap at 95th percentile
 				var p95 = d3.quantile(vals, 0.95);
 				var capHi = p95 || hi;
@@ -1226,17 +1460,31 @@
 
 		// --- Composite render ---
 		var TAB_LABELS = {
-			spending_pct_gdp: 'Public Spending',
+			spending_pct_gdp_narrow: 'Public Spending',
+			spending_pct_gdp_broad: 'Public Spending',
 			wage_ratio_pct: 'Sector Wages',
 			enrollment_pct: 'Enrollment',
-			gdp_per_child_0_4: 'Financial Resources',
+			gdp_per_child_0_5: 'Financial Resources',
 			workforce_share_pct: 'Workforce'
 		};
+
+		// Resolve current spending metric based on toggle state
+		function resolveSpendingMetric() {
+			var id = spendingTier === 'broad' ? 'spending_pct_gdp_broad' : 'spending_pct_gdp_narrow';
+			return METRICS.find(function(m) { return m.id === id; });
+		}
+
+		function isSpendingMetric(metric) {
+			return metric && (metric.id === 'spending_pct_gdp_narrow' || metric.id === 'spending_pct_gdp_broad');
+		}
 
 		function render() {
 			clearPin();
 			svg.selectAll('*').remove();
 			if (!DATA || !currentMetric) return;
+
+			// Show/hide spending toggle
+			spendingToggle.classList.toggle('visible', isSpendingMetric(currentMetric));
 
 			var colorInfo = getColorScale(currentMetric.id);
 			mapTabTitle.textContent = TAB_LABELS[currentMetric.id] || currentMetric.name;
@@ -1462,9 +1710,25 @@
 			var btn = e.target.closest('.cc-tab');
 			if (!btn) return;
 			var metricId = btn.getAttribute('data-metric');
-			currentMetric = METRICS.find(function(m) { return m.id === metricId; });
+			if (metricId === 'spending_pct_gdp') {
+				// Spending meta-tab: resolve to current tier
+				currentMetric = resolveSpendingMetric();
+			} else {
+				currentMetric = METRICS.find(function(m) { return m.id === metricId; });
+			}
 			metricTabs.querySelectorAll('.cc-tab').forEach(function(t) { t.classList.remove('active'); });
 			btn.classList.add('active');
+			render();
+		});
+
+		// --- Spending toggle clicks ---
+		spendingToggle.addEventListener('click', function(e) {
+			var btn = e.target.closest('.spending-toggle-btn');
+			if (!btn) return;
+			spendingTier = btn.getAttribute('data-tier');
+			spendingToggle.querySelectorAll('.spending-toggle-btn').forEach(function(b) { b.classList.remove('active'); });
+			btn.classList.add('active');
+			currentMetric = resolveSpendingMetric();
 			render();
 		});
 
@@ -1472,7 +1736,8 @@
 		d3.json('files/childcare_us.json').then(function(data) {
 			DATA = data;
 			METRICS = data.metrics;
-			currentMetric = METRICS[0];
+			// Default to spending narrow (the "Public Spending" tab is active by default)
+			currentMetric = resolveSpendingMetric();
 			render();
 		}).catch(function(err) {
 			console.error('Failed to load data:', err);
@@ -1827,6 +2092,1247 @@
 				col1.innerHTML = '<p style="color:var(--color-text-muted);font-size:13px;">Failed to load data.</p>';
 			});
 		});
+
+	})();
+	</script>
+	<!-- ============ Resources & Burdens chart ============ -->
+	<script>
+	(function() {
+		'use strict';
+
+		var DATA = [
+			{id:"USA",label:"United States",short:"US",group:"us",gdp:1.2753,kids:6.72,enrolled:1.69,notEnrolled:5.02,enrollPct:25.2},
+			{id:"NYC",label:"New York City",short:"NYC",group:"us",gdp:2.4135,kids:6.42,enrolled:2.20,notEnrolled:4.22,enrollPct:34.3},
+			{id:"MA",label:"Massachusetts",short:"Mass.",group:"us",gdp:1.8567,kids:5.88,enrolled:1.43,notEnrolled:4.45,enrollPct:24.3},
+			{id:"NM",label:"New Mexico",short:["New","Mexico"],group:"us",gdp:1.0697,kids:6.45,enrolled:1.99,notEnrolled:4.46,enrollPct:30.9},
+			{id:"VT",label:"Vermont",short:"Vermont",group:"us",gdp:1.3569,kids:5.26,enrolled:2.12,notEnrolled:3.14,enrollPct:40.3},
+			{id:"WA",label:"Washington",short:"Wash.",group:"us",gdp:1.6233,kids:6.63,enrolled:1.38,notEnrolled:5.24,enrollPct:20.9},
+			{id:"CAN",label:"Canada",short:"Canada",group:"canada",gdp:0.997,kids:5.51,enrolled:3.05,notEnrolled:2.46,enrollPct:55.4},
+			{id:"QC",label:"Quebec",short:"Quebec",group:"canada",gdp:0.8973,kids:5.65,enrolled:4.27,notEnrolled:1.38,enrollPct:75.6},
+			{id:"DNK",label:"Denmark",short:"Denmark",group:"nordic",gdp:1.2271,kids:6.27,enrolled:4.73,notEnrolled:1.54,enrollPct:75.5},
+			{id:"FIN",label:"Finland",short:"Finland",group:"nordic",gdp:1.0457,kids:5.15,enrolled:3.35,notEnrolled:1.81,enrollPct:64.9},
+			{id:"NOR",label:"Norway",short:"Norway",group:"nordic",gdp:1.5387,kids:6.07,enrolled:4.83,notEnrolled:1.23,enrollPct:79.7},
+			{id:"SWE",label:"Sweden",short:"Sweden",group:"nordic",gdp:0.8889,kids:6.59,enrolled:4.81,notEnrolled:1.79,enrollPct:72.9}
+		];
+
+		// World average: $123.6T GDP (IMF WEO Oct 2025) / 643.56M pop 0-5 (UN WPP 2024)
+		var WORLD_AVG = 123.6e12 / 643.56e6 / 1e6; // ~0.192M
+
+		var GROUP_LABELS = {us: 'United States', canada: 'Canada', nordic: 'Nordics'};
+		var GROUP_ORDER = ['us', 'canada', 'nordic'];
+
+		var TEAL = '#00A1DE';
+		var NAVY = '#1B2A4A';
+		var GRAY_LIGHT = '#D0D0D0';
+		var GRAY_MED = '#888';
+
+		// Layout — taller to accommodate titles + horizontal labels
+		var W = 680, totalH = 646;
+		var margin = {top: 56, right: 15, bottom: 44, left: 43};
+		var gapBetweenPanels = 102;
+		var panelH = (totalH - margin.top - margin.bottom - gapBetweenPanels) / 2;
+
+		// Update viewBox
+		d3.select('#resources-svg').attr('viewBox', '0 0 ' + W + ' ' + totalH);
+
+		// Compute x positions with gaps between groups
+		var GAP = 0.8;
+		var xSlots = [];
+		var prevGroup = DATA[0].group;
+		var slot = 0;
+		DATA.forEach(function(d) {
+			if (d.group !== prevGroup) { slot += GAP; prevGroup = d.group; }
+			xSlots.push(slot);
+			slot += 1;
+		});
+		var totalSlots = slot;
+
+		var slotWidth = (W - margin.left - margin.right) / totalSlots;
+		function xPos(i) { return margin.left + (xSlots[i] + 0.5) * slotWidth; }
+		var barW = slotWidth * 0.6;
+
+		// Y scales
+		var yGdp = d3.scaleLinear()
+			.domain([0, d3.max(DATA, function(d){return d.gdp;}) * 1.18])
+			.range([margin.top + panelH, margin.top]);
+
+		var botTop = margin.top + panelH + gapBetweenPanels;
+		var yKids = d3.scaleLinear()
+			.domain([0, 8.5])
+			.range([botTop + panelH - 2, botTop - 2]);
+
+		var svg = d3.select('#resources-svg');
+
+		// ── Tooltip ──
+		var tooltip = d3.select('#resources-container').append('div')
+			.style('position', 'absolute')
+			.style('pointer-events', 'none')
+			.style('background', 'rgba(0,0,0,0.85)')
+			.style('color', '#fff')
+			.style('padding', '6px 10px')
+			.style('border-radius', '4px')
+			.style('font-size', '12px')
+			.style('line-height', '1.4')
+			.style('max-width', '200px')
+			.style('opacity', 0)
+			.style('z-index', 10)
+			.style('transition', 'opacity 0.15s');
+
+		function showTooltip(evt, html) {
+			var container = document.getElementById('resources-container');
+			var rect = container.getBoundingClientRect();
+			var x = evt.clientX - rect.left + 12;
+			var y = evt.clientY - rect.top - 10;
+			// Keep tooltip within container
+			if (x + 180 > rect.width) x = x - 190;
+			tooltip.html(html).style('left', x + 'px').style('top', y + 'px').style('opacity', 1);
+		}
+		function hideTooltip() { tooltip.style('opacity', 0); }
+
+		function isDark() {
+			return document.documentElement.getAttribute('data-theme') === 'dark';
+		}
+		function textColor() { return isDark() ? '#e0e0e0' : '#333'; }
+		function mutedColor() { return isDark() ? '#b0b0b0' : '#888'; }
+
+		// Helper: render multi-line horizontal x label centered at (cx, baseY)
+		function drawLabel(parent, d, cx, baseY, mc) {
+			var lines = Array.isArray(d.short) ? d.short : [d.short];
+			lines.forEach(function(line, j) {
+				parent.append('text')
+					.attr('x', cx).attr('y', baseY + j * 13)
+					.attr('text-anchor', 'middle').attr('font-size', 10).attr('fill', mc)
+					.text(line);
+			});
+		}
+
+		function render() {
+			svg.selectAll('*').remove();
+			var tc = textColor();
+			var mc = mutedColor();
+
+			// ── Top panel: GDP per child ──
+			var topG = svg.append('g');
+
+			// Data journalism title
+			topG.append('text')
+				.attr('x', 15).attr('y', margin.top - 32)
+				.attr('font-size', 14).attr('font-weight', 700).attr('fill', tc)
+				.text('The US, Canada, and Nordics all have resources for quality public childcare');
+			// Subtitle
+			topG.append('text')
+				.attr('x', 15).attr('y', margin.top - 16)
+				.attr('font-size', 11).attr('fill', mc)
+				.text('GDP per 0\u20135 year old, USD millions');
+
+			// Y axis
+			var yGdpAxis = d3.axisLeft(yGdp).tickValues([0, 1, 2])
+				.tickFormat(function(d){return d;});
+			topG.append('g')
+				.attr('transform', 'translate(' + margin.left + ',0)')
+				.call(yGdpAxis)
+				.call(function(g){ g.select('.domain').remove(); g.selectAll('.tick line').attr('stroke', '#ddd'); })
+				.selectAll('text').attr('fill', mc).attr('font-size', 10);
+
+			// Gridlines
+			topG.selectAll('.grid-gdp').data([0, 1, 2]).enter()
+				.append('line').attr('class', 'grid-gdp')
+				.attr('x1', margin.left).attr('x2', W - margin.right)
+				.attr('y1', function(d){return yGdp(d);}).attr('y2', function(d){return yGdp(d);})
+				.attr('stroke', isDark() ? '#333' : '#eee').attr('stroke-width', 0.5);
+
+			// Bars + invisible hover targets
+			DATA.forEach(function(d, i) {
+				var cx = xPos(i);
+				topG.append('rect')
+					.attr('x', cx - barW/2).attr('y', yGdp(d.gdp))
+					.attr('width', barW).attr('height', yGdp(0) - yGdp(d.gdp))
+					.attr('fill', TEAL).attr('opacity', 0.85);
+				// Value label
+				topG.append('text')
+					.attr('x', cx).attr('y', yGdp(d.gdp) - 3)
+					.attr('text-anchor', 'middle').attr('font-size', 9.5).attr('fill', tc)
+					.text('$' + d.gdp.toFixed(2) + 'M');
+				// Hover target (full column height)
+				topG.append('rect')
+					.attr('x', cx - barW/2 - 2).attr('y', yGdp.range()[1])
+					.attr('width', barW + 4).attr('height', yGdp.range()[0] - yGdp.range()[1])
+					.attr('fill', 'transparent').attr('cursor', 'pointer')
+					.on('mousemove', function(evt) {
+						showTooltip(evt,
+							'<strong>' + d.label + '</strong><br>' +
+							'GDP per child 0\u20135: <strong>$' + d.gdp.toFixed(2) + 'M</strong><br>' +
+							'World average: $' + WORLD_AVG.toFixed(2) + 'M<br>' +
+							(d.gdp / WORLD_AVG).toFixed(1) + '\u00d7 the world average');
+					})
+					.on('mouseleave', hideTooltip);
+			});
+
+			// World average line (drawn after bars so it's on top)
+			var navyColor = isDark() ? '#D4A748' : NAVY;
+			topG.append('line')
+				.attr('x1', margin.left).attr('x2', W - margin.right)
+				.attr('y1', yGdp(WORLD_AVG)).attr('y2', yGdp(WORLD_AVG))
+				.attr('stroke', navyColor).attr('stroke-width', 1.5).attr('stroke-dasharray', '5,3');
+			topG.append('text')
+				.attr('x', margin.left + 2).attr('y', yGdp(WORLD_AVG) - 5)
+				.attr('text-anchor', 'start').attr('font-size', 10).attr('font-weight', 700).attr('fill', navyColor)
+				.attr('stroke', isDark() ? '#1a1a2e' : '#fff').attr('stroke-width', 2).attr('paint-order', 'stroke')
+				.text('World avg $' + WORLD_AVG.toFixed(2) + 'M');
+
+			// X labels — horizontal, multi-line
+			var labelY = yGdp(0) + 14;
+			DATA.forEach(function(d, i) { drawLabel(topG, d, xPos(i), labelY, mc); });
+
+			// Group bracket lines
+			var groups = GROUP_ORDER.map(function(g) {
+				var indices = [];
+				DATA.forEach(function(d, i) { if (d.group === g) indices.push(i); });
+				return {group: g, start: indices[0], end: indices[indices.length - 1]};
+			});
+			groups.forEach(function(g) {
+				var x1 = xPos(g.start) - barW/2 - 2;
+				var x2 = xPos(g.end) + barW/2 + 2;
+				topG.append('line')
+					.attr('x1', x1).attr('x2', x2)
+					.attr('y1', yGdp(0) + 2).attr('y2', yGdp(0) + 2)
+					.attr('stroke', '#999').attr('stroke-width', 0.8);
+			});
+
+			// ── Bottom panel: Children per 100 people ──
+			var botG = svg.append('g');
+
+			// Data journalism title
+			botG.append('text')
+				.attr('x', 15).attr('y', botTop - 22)
+				.attr('font-size', 14).attr('font-weight', 700).attr('fill', tc)
+				.text('But the US does not offer public childcare for most young children');
+			// Subtitle
+			botG.append('text')
+				.attr('x', 15).attr('y', botTop - 6)
+				.attr('font-size', 11).attr('fill', mc)
+				.text('Children per 100 people, by enrollment status');
+
+			// Y axis
+			var yKidsAxis = d3.axisLeft(yKids).ticks(5);
+			botG.append('g')
+				.attr('transform', 'translate(' + margin.left + ',0)')
+				.call(yKidsAxis)
+				.call(function(g){ g.select('.domain').remove(); g.selectAll('.tick line').attr('stroke', '#ddd'); })
+				.selectAll('text').attr('fill', mc).attr('font-size', 10);
+
+			// Gridlines
+			botG.selectAll('.grid-kids').data(yKids.ticks(5)).enter()
+				.append('line').attr('class', 'grid-kids')
+				.attr('x1', margin.left).attr('x2', W - margin.right)
+				.attr('y1', function(d){return yKids(d);}).attr('y2', function(d){return yKids(d);})
+				.attr('stroke', isDark() ? '#333' : '#eee').attr('stroke-width', 0.5);
+
+			// Stacked bars + hover targets
+			DATA.forEach(function(d, i) {
+				var cx = xPos(i);
+				botG.append('rect')
+					.attr('x', cx - barW/2).attr('y', yKids(d.enrolled))
+					.attr('width', barW).attr('height', yKids(0) - yKids(d.enrolled))
+					.attr('fill', TEAL).attr('opacity', 0.85);
+				botG.append('rect')
+					.attr('x', cx - barW/2).attr('y', yKids(d.enrolled + d.notEnrolled))
+					.attr('width', barW).attr('height', yKids(d.enrolled) - yKids(d.enrolled + d.notEnrolled))
+					.attr('fill', GRAY_LIGHT).attr('opacity', 0.85);
+				// Hover target
+				botG.append('rect')
+					.attr('x', cx - barW/2 - 2).attr('y', yKids.range()[1])
+					.attr('width', barW + 4).attr('height', yKids.range()[0] - yKids.range()[1])
+					.attr('fill', 'transparent').attr('cursor', 'pointer')
+					.on('mousemove', function(evt) {
+						showTooltip(evt,
+							'<strong>' + d.label + '</strong><br>' +
+							'Children per 100 people: ' + d.kids.toFixed(1) + '<br>' +
+							'Enrollment rate: <strong>' + d.enrollPct + '%</strong><br>' +
+							'In formal care: ' + d.enrolled.toFixed(1) + '<br>' +
+							'Not enrolled: ' + d.notEnrolled.toFixed(1));
+					})
+					.on('mouseleave', hideTooltip);
+			});
+
+			// X labels — horizontal, multi-line
+			var botLabelY = yKids(0) + 14;
+			DATA.forEach(function(d, i) { drawLabel(botG, d, xPos(i), botLabelY, mc); });
+
+			// Group bracket lines
+			groups.forEach(function(g) {
+				var x1 = xPos(g.start) - barW/2 - 2;
+				var x2 = xPos(g.end) + barW/2 + 2;
+				botG.append('line')
+					.attr('x1', x1).attr('x2', x2)
+					.attr('y1', yKids(0) + 2).attr('y2', yKids(0) + 2)
+					.attr('stroke', '#999').attr('stroke-width', 0.8);
+			});
+
+			// Group labels between panels
+			groups.forEach(function(g) {
+				var midX = (xPos(g.start) + xPos(g.end)) / 2;
+				var labelY = botTop - 54;
+				svg.append('text')
+					.attr('x', midX).attr('y', labelY)
+					.attr('text-anchor', 'middle').attr('font-size', 11).attr('font-weight', 700)
+					.attr('fill', mc)
+					.text(GROUP_LABELS[g.group]);
+			});
+
+			// Legend for bottom panel
+			var legX = W - margin.right - 180, legY = botTop + 4;
+			[{label: 'In formal care/education', color: TEAL},
+			 {label: 'Not enrolled', color: GRAY_LIGHT}].forEach(function(item, i) {
+				botG.append('rect')
+					.attr('x', legX).attr('y', legY + i * 17)
+					.attr('width', 12).attr('height', 12)
+					.attr('fill', item.color).attr('opacity', 0.85);
+				botG.append('text')
+					.attr('x', legX + 16).attr('y', legY + i * 17 + 10)
+					.attr('font-size', 10).attr('fill', mc)
+					.text(item.label);
+			});
+		}
+
+		render();
+
+		// Re-render on theme change
+		var observer = new MutationObserver(function(mutations) {
+			mutations.forEach(function(m) {
+				if (m.attributeName === 'data-theme') render();
+			});
+		});
+		observer.observe(document.documentElement, {attributes: true});
+
+	})();
+	</script>
+
+	<!-- ============ Enrollment by Age chart ============ -->
+	<script>
+	(function() {
+		'use strict';
+
+		var DATA = [
+			{country: 'Norway',    color: '#4CAF50', ages: [3.0, 86.4, 94.7, 96.8, 97.2, 97.4]},
+			{country: 'Denmark',   color: '#FF9800', ages: [3.0, 76.2, 86.6, 94.7, 96.2, 95.4]},
+			{country: 'Sweden',    color: '#9C27B0', ages: [3.0, 50.4, 91.2, 94.4, 95.5, 95.9]},
+			{country: 'Finland',   color: '#F44336', ages: [3.0, 42.6, 73.9, 86.1, 90.0, 91.1]},
+			{country: 'United States', color: '#00A1DE', ages: [0, 0, 0, 14.2, 42.4, 89.4]}
+		];
+
+		var AGES = [0, 1, 2, 3, 4, 5];
+
+		var W = 680, H = 420;
+		var margin = {top: 56, right: 20, bottom: 50, left: 43};
+		var chartW = W - margin.left - margin.right;
+		var chartH = H - margin.top - margin.bottom;
+
+		var svg = d3.select('#enrollment-age-svg').attr('viewBox', '0 0 ' + W + ' ' + H);
+
+		var xScale = d3.scaleLinear().domain([0, 5]).range([margin.left, margin.left + chartW]);
+		var yScale = d3.scaleLinear().domain([0, 100]).range([margin.top + chartH, margin.top]);
+
+		var line = d3.line()
+			.x(function(d, i) { return xScale(i); })
+			.y(function(d) { return yScale(d); });
+
+		// Tooltip
+		var tooltip = d3.select('#enrollment-age-container').append('div')
+			.style('position', 'absolute')
+			.style('pointer-events', 'none')
+			.style('background', 'rgba(0,0,0,0.85)')
+			.style('color', '#fff')
+			.style('padding', '6px 10px')
+			.style('border-radius', '4px')
+			.style('font-size', '12px')
+			.style('line-height', '1.4')
+			.style('max-width', '220px')
+			.style('opacity', 0)
+			.style('z-index', 10)
+			.style('transition', 'opacity 0.15s');
+
+		function showTooltip(evt, html) {
+			var container = document.getElementById('enrollment-age-container');
+			var rect = container.getBoundingClientRect();
+			var x = evt.clientX - rect.left + 12;
+			var y = evt.clientY - rect.top - 10;
+			if (x + 200 > rect.width) x = x - 220;
+			tooltip.html(html).style('left', x + 'px').style('top', y + 'px').style('opacity', 1);
+		}
+		function hideTooltip() { tooltip.style('opacity', 0); }
+
+		function isDark() {
+			return document.documentElement.getAttribute('data-theme') === 'dark';
+		}
+		function textColor() { return isDark() ? '#e0e0e0' : '#333'; }
+		function mutedColor() { return isDark() ? '#b0b0b0' : '#888'; }
+
+		function render() {
+			svg.selectAll('*').remove();
+			var tc = textColor();
+			var mc = mutedColor();
+			var dark = isDark();
+
+			// Title
+			svg.append('text')
+				.attr('x', 15).attr('y', margin.top - 32)
+				.attr('font-size', 14).attr('font-weight', 700).attr('fill', tc)
+				.text('Nordic children enter public care at age 1. US children wait until age 5.');
+			// Subtitle
+			svg.append('text')
+				.attr('x', 15).attr('y', margin.top - 16)
+				.attr('font-size', 11).attr('fill', mc)
+				.text('Enrollment in public early childhood education, % of age group');
+
+			// Gridlines
+			[0, 25, 50, 75, 100].forEach(function(v) {
+				svg.append('line')
+					.attr('x1', margin.left).attr('x2', margin.left + chartW)
+					.attr('y1', yScale(v)).attr('y2', yScale(v))
+					.attr('stroke', v === 0 ? (dark ? '#555' : '#ccc') : (dark ? '#333' : '#eee'))
+					.attr('stroke-width', v === 0 ? 1 : 0.5);
+			});
+
+			// Y axis
+			var yAxis = d3.axisLeft(yScale).tickValues([0, 25, 50, 75, 100])
+				.tickFormat(function(d) { return d + '%'; });
+			svg.append('g')
+				.attr('transform', 'translate(' + margin.left + ',0)')
+				.call(yAxis)
+				.call(function(g) { g.select('.domain').remove(); g.selectAll('.tick line').attr('stroke', '#ddd'); })
+				.selectAll('text').attr('fill', mc).attr('font-size', 10);
+
+			// X axis
+			var xAxis = d3.axisBottom(xScale).tickValues(AGES)
+				.tickFormat(function(d) { return 'Age ' + d; });
+			svg.append('g')
+				.attr('transform', 'translate(0,' + (margin.top + chartH) + ')')
+				.call(xAxis)
+				.call(function(g) { g.select('.domain').remove(); g.selectAll('.tick line').remove(); })
+				.selectAll('text').attr('fill', mc).attr('font-size', 10);
+
+			// Annotation: parental leave zone
+			svg.append('rect')
+				.attr('x', xScale(0)).attr('y', margin.top)
+				.attr('width', xScale(1) - xScale(0)).attr('height', chartH)
+				.attr('fill', dark ? '#333' : '#f5f5f5').attr('opacity', 0.5);
+			svg.append('text')
+				.attr('x', xScale(0.5)).attr('y', margin.top + 14)
+				.attr('text-anchor', 'middle').attr('font-size', 8.5).attr('fill', mc)
+				.attr('font-style', 'italic')
+				.text('Parental leave');
+
+			// Lines + dots
+			DATA.forEach(function(series) {
+				var lineColor = series.color;
+				var isUS = series.country === 'United States';
+				svg.append('path')
+					.datum(series.ages)
+					.attr('d', line)
+					.attr('fill', 'none')
+					.attr('stroke', lineColor)
+					.attr('stroke-width', isUS ? 3 : 2)
+					.attr('opacity', isUS ? 1 : 0.8);
+
+				series.ages.forEach(function(val, i) {
+					svg.append('circle')
+						.attr('cx', xScale(i)).attr('cy', yScale(val))
+						.attr('r', isUS ? 4 : 3)
+						.attr('fill', lineColor)
+						.attr('opacity', isUS ? 1 : 0.8);
+				});
+			});
+
+			// Manual labels anchored to line values
+			var bgStroke = dark ? '#1a1a2e' : '#fff';
+			function interp(ages, x) {
+				var i = Math.floor(x), f = x - i;
+				if (i >= ages.length - 1) return ages[ages.length - 1];
+				return ages[i] + f * (ages[i + 1] - ages[i]);
+			}
+			// x = fractional age, di = DATA index, dy = pixel offset (neg = above)
+			var labels = [
+				{text: 'Norway',        x: 2,   di: 0, dy: -7,  anchor: 'middle', bold: false},
+				{text: 'Denmark',       x: 1.34, di: 1, dy: -4,  anchor: 'middle', bold: false},
+				{text: 'Sweden',        x: 1.15, di: 2, dy: -6,  anchor: 'middle', bold: false},
+				{text: 'Finland',       x: 2,   di: 3, dy: 14,  anchor: 'middle', bold: false},
+				{text: 'United States', x: 1.5, di: 4, dy: -7,  anchor: 'middle', bold: true}
+			];
+			labels.forEach(function(lb) {
+				var val = interp(DATA[lb.di].ages, lb.x);
+				svg.append('text')
+					.attr('x', xScale(lb.x)).attr('y', yScale(val) + lb.dy)
+					.attr('text-anchor', lb.anchor)
+					.attr('font-size', 10).attr('font-weight', lb.bold ? 700 : 600)
+					.attr('fill', DATA[lb.di].color)
+					.attr('stroke', bgStroke).attr('stroke-width', 2).attr('paint-order', 'stroke')
+					.text(lb.text);
+			});
+
+			// Hover targets per age column
+			AGES.forEach(function(age) {
+				var colW = chartW / 5;
+				var x0 = xScale(age) - colW / 2;
+				svg.append('rect')
+					.attr('x', Math.max(margin.left, x0)).attr('y', margin.top)
+					.attr('width', colW).attr('height', chartH)
+					.attr('fill', 'transparent').attr('cursor', 'pointer')
+					.on('mousemove', function(evt) {
+						var html = '<strong>Age ' + age + '</strong><br>';
+						DATA.forEach(function(s) {
+							html += '<span style="color:' + s.color + '">\u25CF</span> ' +
+								s.country + ': <strong>' + s.ages[age] + '%</strong><br>';
+						});
+						showTooltip(evt, html);
+					})
+					.on('mouseleave', hideTooltip);
+			});
+		}
+
+		render();
+
+		var observer = new MutationObserver(function(mutations) {
+			mutations.forEach(function(m) {
+				if (m.attributeName === 'data-theme') render();
+			});
+		});
+		observer.observe(document.documentElement, {attributes: true});
+
+	})();
+	</script>
+
+	<!-- ============ Spending Comparison chart ============ -->
+	<script>
+	(function() {
+		'use strict';
+
+		var DATA = [
+			{id: 'USA', label: 'United States', short: 'US',      ecec: 0.27, total: 39.0},
+			{id: 'DNK', label: 'Denmark',        short: 'Denmark', ecec: 1.19, total: 47.4},
+			{id: 'FIN', label: 'Finland',        short: 'Finland', ecec: 1.28, total: 55.9},
+			{id: 'NOR', label: 'Norway',         short: 'Norway',  ecec: 1.19, total: 46.7},
+			{id: 'SWE', label: 'Sweden',         short: 'Sweden',  ecec: 1.49, total: 50.0}
+		];
+
+		var TEAL = '#00A1DE';
+		var GRAY_MED = '#888';
+
+		var W = 680, H = 385;
+		var margin = {top: 66, right: 15, bottom: 46, left: 43};
+		var panelGap = 46;
+		var panelW = (W - margin.left - margin.right - panelGap) / 2;
+		var chartH = H - margin.top - margin.bottom;
+		var barW = panelW / DATA.length * 0.6;
+
+		var svg = d3.select('#spending-compare-svg').attr('viewBox', '0 0 ' + W + ' ' + H);
+
+		// X positions for bars within each panel
+		function xPos(panelLeft, i) {
+			var slotW = panelW / DATA.length;
+			return panelLeft + (i + 0.5) * slotW;
+		}
+
+		// Tooltip
+		var tooltip = d3.select('#spending-compare-container').append('div')
+			.style('position', 'absolute')
+			.style('pointer-events', 'none')
+			.style('background', 'rgba(0,0,0,0.85)')
+			.style('color', '#fff')
+			.style('padding', '6px 10px')
+			.style('border-radius', '4px')
+			.style('font-size', '12px')
+			.style('line-height', '1.4')
+			.style('max-width', '220px')
+			.style('opacity', 0)
+			.style('z-index', 10)
+			.style('transition', 'opacity 0.15s');
+
+		function showTooltip(evt, html) {
+			var container = document.getElementById('spending-compare-container');
+			var rect = container.getBoundingClientRect();
+			var x = evt.clientX - rect.left + 12;
+			var y = evt.clientY - rect.top - 10;
+			if (x + 200 > rect.width) x = x - 220;
+			tooltip.html(html).style('left', x + 'px').style('top', y + 'px').style('opacity', 1);
+		}
+		function hideTooltip() { tooltip.style('opacity', 0); }
+
+		function isDark() {
+			return document.documentElement.getAttribute('data-theme') === 'dark';
+		}
+		function textColor() { return isDark() ? '#e0e0e0' : '#333'; }
+		function mutedColor() { return isDark() ? '#b0b0b0' : '#888'; }
+
+		function render() {
+			svg.selectAll('*').remove();
+			var tc = textColor();
+			var mc = mutedColor();
+			var dark = isDark();
+
+			var leftX = margin.left;
+			var rightX = margin.left + panelW + panelGap;
+
+			// Y scales
+			var yEcec = d3.scaleLinear().domain([0, 1.8]).range([margin.top + chartH, margin.top]);
+			var yTotal = d3.scaleLinear().domain([0, 68]).range([margin.top + chartH, margin.top]);
+
+			// Main title
+			svg.append('text')
+				.attr('x', 15).attr('y', 22)
+				.attr('font-size', 14).attr('font-weight', 700).attr('fill', tc)
+				.text('The US spends less on government. On childcare, it\u2019s not even close.');
+			svg.append('text')
+				.attr('x', 15).attr('y', 38)
+				.attr('font-size', 11).attr('fill', mc)
+				.text('Government spending as share of GDP, OECD');
+
+			// ── Left panel: ECEC spending ──
+			var leftG = svg.append('g');
+
+			// Panel title
+			leftG.append('text')
+				.attr('x', leftX + panelW / 2).attr('y', margin.top - 6)
+				.attr('text-anchor', 'middle').attr('font-size', 12).attr('font-weight', 700).attr('fill', TEAL)
+				.text('Early childhood education & care');
+
+			// Y axis
+			var yEcecAxis = d3.axisLeft(yEcec).tickValues([0, 0.5, 1.0, 1.5])
+				.tickFormat(function(d) { return d.toFixed(1) + '%'; });
+			leftG.append('g')
+				.attr('transform', 'translate(' + leftX + ',0)')
+				.call(yEcecAxis)
+				.call(function(g) { g.select('.domain').remove(); g.selectAll('.tick line').attr('stroke', '#ddd'); })
+				.selectAll('text').attr('fill', mc).attr('font-size', 9);
+
+			// Gridlines
+			[0, 0.5, 1.0, 1.5].forEach(function(v) {
+				leftG.append('line')
+					.attr('x1', leftX).attr('x2', leftX + panelW)
+					.attr('y1', yEcec(v)).attr('y2', yEcec(v))
+					.attr('stroke', v === 0 ? (dark ? '#555' : '#ccc') : (dark ? '#333' : '#eee'))
+					.attr('stroke-width', v === 0 ? 1 : 0.5);
+			});
+
+			// Bars
+			DATA.forEach(function(d, i) {
+				var cx = xPos(leftX, i);
+				leftG.append('rect')
+					.attr('x', cx - barW / 2).attr('y', yEcec(d.ecec))
+					.attr('width', barW).attr('height', yEcec(0) - yEcec(d.ecec))
+					.attr('fill', TEAL).attr('opacity', 0.85);
+				// Value
+				leftG.append('text')
+					.attr('x', cx).attr('y', yEcec(d.ecec) - 4)
+					.attr('text-anchor', 'middle').attr('font-size', 9).attr('fill', tc)
+					.text(d.ecec.toFixed(2) + '%');
+				// X label
+				leftG.append('text')
+					.attr('x', cx).attr('y', yEcec(0) + 13)
+					.attr('text-anchor', 'middle').attr('font-size', 9.5).attr('fill', mc)
+					.text(d.short);
+				// Hover
+				leftG.append('rect')
+					.attr('x', cx - barW / 2 - 2).attr('y', margin.top)
+					.attr('width', barW + 4).attr('height', chartH)
+					.attr('fill', 'transparent').attr('cursor', 'pointer')
+					.on('mousemove', function(evt) {
+						showTooltip(evt,
+							'<strong>' + d.label + '</strong><br>' +
+							'ECEC spending: <strong>' + d.ecec.toFixed(2) + '% GDP</strong><br>' +
+							'Total govt: ' + d.total.toFixed(1) + '% GDP');
+					})
+					.on('mouseleave', hideTooltip);
+			});
+
+			// ── Right panel: Total govt spending ──
+			var rightG = svg.append('g');
+
+			// Panel title
+			rightG.append('text')
+				.attr('x', rightX + panelW / 2).attr('y', margin.top - 6)
+				.attr('text-anchor', 'middle').attr('font-size', 12).attr('font-weight', 700).attr('fill', mc)
+				.text('Total government spending');
+
+			// Y axis
+			var yTotalAxis = d3.axisLeft(yTotal).tickValues([0, 20, 40, 60])
+				.tickFormat(function(d) { return d + '%'; });
+			rightG.append('g')
+				.attr('transform', 'translate(' + rightX + ',0)')
+				.call(yTotalAxis)
+				.call(function(g) { g.select('.domain').remove(); g.selectAll('.tick line').attr('stroke', '#ddd'); })
+				.selectAll('text').attr('fill', mc).attr('font-size', 9);
+
+			// Gridlines
+			[0, 20, 40, 60].forEach(function(v) {
+				rightG.append('line')
+					.attr('x1', rightX).attr('x2', rightX + panelW)
+					.attr('y1', yTotal(v)).attr('y2', yTotal(v))
+					.attr('stroke', v === 0 ? (dark ? '#555' : '#ccc') : (dark ? '#333' : '#eee'))
+					.attr('stroke-width', v === 0 ? 1 : 0.5);
+			});
+
+			// Bars — use muted color to contrast with left panel
+			var barColor = dark ? '#666' : '#aaa';
+			DATA.forEach(function(d, i) {
+				var cx = xPos(rightX, i);
+				rightG.append('rect')
+					.attr('x', cx - barW / 2).attr('y', yTotal(d.total))
+					.attr('width', barW).attr('height', yTotal(0) - yTotal(d.total))
+					.attr('fill', barColor).attr('opacity', 0.85);
+				// Value
+				rightG.append('text')
+					.attr('x', cx).attr('y', yTotal(d.total) - 4)
+					.attr('text-anchor', 'middle').attr('font-size', 9).attr('fill', tc)
+					.text(d.total.toFixed(1) + '%');
+				// X label
+				rightG.append('text')
+					.attr('x', cx).attr('y', yTotal(0) + 13)
+					.attr('text-anchor', 'middle').attr('font-size', 9.5).attr('fill', mc)
+					.text(d.short);
+				// Hover
+				rightG.append('rect')
+					.attr('x', cx - barW / 2 - 2).attr('y', margin.top)
+					.attr('width', barW + 4).attr('height', chartH)
+					.attr('fill', 'transparent').attr('cursor', 'pointer')
+					.on('mousemove', function(evt) {
+						showTooltip(evt,
+							'<strong>' + d.label + '</strong><br>' +
+							'Total govt: <strong>' + d.total.toFixed(1) + '% GDP</strong><br>' +
+							'ECEC spending: ' + d.ecec.toFixed(2) + '% GDP<br>' +
+							'ECEC share of total: ' + (d.ecec / d.total * 100).toFixed(1) + '%');
+					})
+					.on('mouseleave', hideTooltip);
+			});
+		}
+
+		render();
+
+		var observer = new MutationObserver(function(mutations) {
+			mutations.forEach(function(m) {
+				if (m.attributeName === 'data-theme') render();
+			});
+		});
+		observer.observe(document.documentElement, {attributes: true});
+
+	})();
+	</script>
+
+	<!-- ============ Outcomes chart ============ -->
+	<script>
+	(function() {
+		'use strict';
+
+		var DATA = [
+			{id: 'USA', label: 'United States', short: 'US',      nilf: 3.83, poverty: 18.1},
+			{id: 'DNK', label: 'Denmark',        short: 'Denmark', nilf: 0.6,  poverty: 6.3},
+			{id: 'FIN', label: 'Finland',        short: 'Finland', nilf: 0.3,  poverty: 6.7},
+			{id: 'NOR', label: 'Norway',         short: 'Norway',  nilf: 0.3,  poverty: 8.0},
+			{id: 'SWE', label: 'Sweden',         short: 'Sweden',  nilf: 0.4,  poverty: 8.4}
+		];
+
+		var TEAL = '#00A1DE';
+		var GRAY_MED = '#888';
+
+		var W = 680, H = 360;
+		var margin = {top: 60, right: 15, bottom: 30, left: 43};
+		var panelGap = 46;
+		var panelW = (W - margin.left - margin.right - panelGap) / 2;
+		var chartH = H - margin.top - margin.bottom;
+		var barW = panelW / DATA.length * 0.6;
+
+		var svg = d3.select('#outcomes-svg');
+
+		function xPos(panelLeft, i) {
+			var slotW = panelW / DATA.length;
+			return panelLeft + (i + 0.5) * slotW;
+		}
+
+		// Tooltip
+		var tooltip = d3.select('#outcomes-container').append('div')
+			.style('position', 'absolute')
+			.style('pointer-events', 'none')
+			.style('background', 'rgba(0,0,0,0.85)')
+			.style('color', '#fff')
+			.style('padding', '6px 10px')
+			.style('border-radius', '4px')
+			.style('font-size', '12px')
+			.style('line-height', '1.4')
+			.style('max-width', '220px')
+			.style('opacity', 0)
+			.style('z-index', 10)
+			.style('transition', 'opacity 0.15s');
+
+		function showTooltip(evt, html) {
+			var container = document.getElementById('outcomes-container');
+			var rect = container.getBoundingClientRect();
+			var x = evt.clientX - rect.left + 12;
+			var y = evt.clientY - rect.top - 10;
+			if (x + 200 > rect.width) x = x - 220;
+			tooltip.html(html).style('left', x + 'px').style('top', y + 'px').style('opacity', 1);
+		}
+		function hideTooltip() { tooltip.style('opacity', 0); }
+
+		function isDark() {
+			return document.documentElement.getAttribute('data-theme') === 'dark';
+		}
+		function textColor() { return isDark() ? '#e0e0e0' : '#333'; }
+		function mutedColor() { return isDark() ? '#b0b0b0' : '#888'; }
+
+		function render() {
+			svg.selectAll('*').remove();
+			var tc = textColor();
+			var mc = mutedColor();
+			var dark = isDark();
+
+			var leftX = margin.left;
+			var rightX = margin.left + panelW + panelGap;
+
+			// Y scales — balanced so tallest bar fills ~83%
+			var yNilf = d3.scaleLinear().domain([0, 4.6]).range([margin.top + chartH, margin.top]);
+			var yPov = d3.scaleLinear().domain([0, 22]).range([margin.top + chartH, margin.top]);
+
+			// Main title
+			svg.append('text')
+				.attr('x', 15).attr('y', 22)
+				.attr('font-size', 14).attr('font-weight', 700).attr('fill', tc)
+				.text('Without public childcare, parents leave the workforce');
+			svg.append('text')
+				.attr('x', 15).attr('y', 38)
+				.attr('font-size', 11).attr('fill', mc)
+				.text('Working-age adults (left), all persons (right)');
+
+			// ── Left panel: NILF for childcare ──
+			var leftG = svg.append('g');
+
+			leftG.append('text')
+				.attr('x', leftX + panelW / 2).attr('y', margin.top + 4)
+				.attr('text-anchor', 'middle').attr('font-size', 12).attr('font-weight', 700).attr('fill', TEAL)
+				.text('Out of work for childcare');
+
+			// Y axis
+			var yNilfAxis = d3.axisLeft(yNilf).tickValues([0, 1, 2, 3, 4])
+				.tickFormat(function(d) { return d + '%'; });
+			leftG.append('g')
+				.attr('transform', 'translate(' + leftX + ',0)')
+				.call(yNilfAxis)
+				.call(function(g) { g.select('.domain').remove(); g.selectAll('.tick line').attr('stroke', '#ddd'); })
+				.selectAll('text').attr('fill', mc).attr('font-size', 9);
+
+			// Gridlines
+			[0, 1, 2, 3, 4].forEach(function(v) {
+				leftG.append('line')
+					.attr('x1', leftX).attr('x2', leftX + panelW)
+					.attr('y1', yNilf(v)).attr('y2', yNilf(v))
+					.attr('stroke', v === 0 ? (dark ? '#555' : '#ccc') : (dark ? '#333' : '#eee'))
+					.attr('stroke-width', v === 0 ? 1 : 0.5);
+			});
+
+			// Bars
+			DATA.forEach(function(d, i) {
+				var cx = xPos(leftX, i);
+				leftG.append('rect')
+					.attr('x', cx - barW / 2).attr('y', yNilf(d.nilf))
+					.attr('width', barW).attr('height', yNilf(0) - yNilf(d.nilf))
+					.attr('fill', TEAL).attr('opacity', 0.85);
+				// Value
+				leftG.append('text')
+					.attr('x', cx).attr('y', yNilf(d.nilf) - 4)
+					.attr('text-anchor', 'middle').attr('font-size', 9).attr('fill', tc)
+					.text(d.nilf.toFixed(1) + '%');
+				// X label
+				leftG.append('text')
+					.attr('x', cx).attr('y', yNilf(0) + 13)
+					.attr('text-anchor', 'middle').attr('font-size', 9.5).attr('fill', mc)
+					.text(d.short);
+				// Hover
+				leftG.append('rect')
+					.attr('x', cx - barW / 2 - 2).attr('y', margin.top)
+					.attr('width', barW + 4).attr('height', chartH)
+					.attr('fill', 'transparent').attr('cursor', 'pointer')
+					.on('mousemove', function(evt) {
+						showTooltip(evt,
+							'<strong>' + d.label + '</strong><br>' +
+							'NILF for childcare: <strong>' + d.nilf.toFixed(1) + '%</strong><br>' +
+							'Poverty rate: ' + d.poverty.toFixed(1) + '%');
+					})
+					.on('mouseleave', hideTooltip);
+			});
+
+			// ── Right panel: Poverty rate ──
+			var rightG = svg.append('g');
+
+			rightG.append('text')
+				.attr('x', rightX + panelW / 2).attr('y', margin.top + 4)
+				.attr('text-anchor', 'middle').attr('font-size', 12).attr('font-weight', 700).attr('fill', mc)
+				.text('Poverty rate');
+
+			// Y axis
+			var yPovAxis = d3.axisLeft(yPov).tickValues([0, 5, 10, 15, 20])
+				.tickFormat(function(d) { return d + '%'; });
+			rightG.append('g')
+				.attr('transform', 'translate(' + rightX + ',0)')
+				.call(yPovAxis)
+				.call(function(g) { g.select('.domain').remove(); g.selectAll('.tick line').attr('stroke', '#ddd'); })
+				.selectAll('text').attr('fill', mc).attr('font-size', 9);
+
+			// Gridlines
+			[0, 5, 10, 15, 20].forEach(function(v) {
+				rightG.append('line')
+					.attr('x1', rightX).attr('x2', rightX + panelW)
+					.attr('y1', yPov(v)).attr('y2', yPov(v))
+					.attr('stroke', v === 0 ? (dark ? '#555' : '#ccc') : (dark ? '#333' : '#eee'))
+					.attr('stroke-width', v === 0 ? 1 : 0.5);
+			});
+
+			// Bars
+			var barColor = dark ? '#666' : '#aaa';
+			DATA.forEach(function(d, i) {
+				var cx = xPos(rightX, i);
+				rightG.append('rect')
+					.attr('x', cx - barW / 2).attr('y', yPov(d.poverty))
+					.attr('width', barW).attr('height', yPov(0) - yPov(d.poverty))
+					.attr('fill', barColor).attr('opacity', 0.85);
+				// Value
+				rightG.append('text')
+					.attr('x', cx).attr('y', yPov(d.poverty) - 4)
+					.attr('text-anchor', 'middle').attr('font-size', 9).attr('fill', tc)
+					.text(d.poverty.toFixed(1) + '%');
+				// X label
+				rightG.append('text')
+					.attr('x', cx).attr('y', yPov(0) + 13)
+					.attr('text-anchor', 'middle').attr('font-size', 9.5).attr('fill', mc)
+					.text(d.short);
+				// Hover
+				rightG.append('rect')
+					.attr('x', cx - barW / 2 - 2).attr('y', margin.top)
+					.attr('width', barW + 4).attr('height', chartH)
+					.attr('fill', 'transparent').attr('cursor', 'pointer')
+					.on('mousemove', function(evt) {
+						showTooltip(evt,
+							'<strong>' + d.label + '</strong><br>' +
+							'Poverty rate: <strong>' + d.poverty.toFixed(1) + '%</strong><br>' +
+							'NILF for childcare: ' + d.nilf.toFixed(1) + '%');
+					})
+					.on('mouseleave', hideTooltip);
+			});
+		}
+
+		render();
+
+		var observer = new MutationObserver(function(mutations) {
+			mutations.forEach(function(m) {
+				if (m.attributeName === 'data-theme') render();
+			});
+		});
+		observer.observe(document.documentElement, {attributes: true});
+
+	})();
+	</script>
+
+	<!-- ============ Decision Tree Diagram ============ -->
+	<script>
+	(function() {
+		'use strict';
+
+		var W = 680, H = 370;
+		var svg = d3.select('#decision-tree-svg');
+
+		// Colors
+		var TEAL = '#00A1DE';
+		var WARM = '#C04040';
+
+		// Layout constants
+		var titleY = 28;
+		var subtitleY = 48;
+		var countryY = 95;
+		var forkTopY = 68;
+		var forkMidY = 80;
+		var cardTop = 150;
+		var cardH = 175;
+		var cardW = 145;
+		var cardR = 8;
+
+		// Symmetric card positions: 7px outer margin, 24px inner gap, 38px center gap
+		var cards = [
+			{ x: 7,   center: 79.5 },    // US option 1
+			{ x: 176, center: 248.5 },    // US option 2
+			{ x: 359, center: 431.5 },    // Finland option 1
+			{ x: 528, center: 600.5 }     // Finland option 2
+		];
+
+		// Country centers (perfectly mirrored around 340)
+		var usX = 164;
+		var fiX = 516;
+		var centerX = W / 2;
+
+		function render() {
+			svg.selectAll('*').remove();
+			var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+			var bg = dark ? '#1a1a2e' : '#fff';
+			var textMain = dark ? '#e0e0e0' : '#1a1a2e';
+			var textMuted = dark ? '#a0a0a0' : '#777';
+			var lineColor = dark ? '#555' : '#ccc';
+			var usCardBg = dark ? '#2a1a1a' : '#fdf5f5';
+			var fiCardBg = dark ? '#0a1a2a' : '#f0f9fd';
+			var usCardBorder = dark ? '#6a3030' : '#e0b0b0';
+			var fiCardBorder = dark ? '#1a5070' : '#a0d8ef';
+			var warmAccent = dark ? '#e06060' : WARM;
+			var tealAccent = dark ? '#40c0f0' : TEAL;
+
+			var g = svg.append('g');
+
+			// ── Title ──
+			g.append('text')
+				.attr('x', centerX).attr('y', titleY)
+				.attr('text-anchor', 'middle')
+				.attr('font-size', 18).attr('font-weight', 'bold')
+				.attr('fill', textMain)
+				.attr('font-family', 'Lato, system-ui, sans-serif')
+				.text('You have a child under 5.');
+
+			g.append('text')
+				.attr('x', centerX).attr('y', subtitleY)
+				.attr('text-anchor', 'middle')
+				.attr('font-size', 13)
+				.attr('fill', textMuted)
+				.attr('font-family', 'Lato, system-ui, sans-serif')
+				.text('What are your options?');
+
+			// ── Connector lines ──
+			// Vertical from title down to fork
+			g.append('line')
+				.attr('x1', centerX).attr('y1', forkTopY)
+				.attr('x2', centerX).attr('y2', forkMidY)
+				.attr('stroke', lineColor).attr('stroke-width', 1.5);
+
+			// Horizontal across
+			g.append('line')
+				.attr('x1', usX).attr('y1', forkMidY)
+				.attr('x2', fiX).attr('y2', forkMidY)
+				.attr('stroke', lineColor).attr('stroke-width', 1.5);
+
+			// Down to country labels
+			[[usX, warmAccent], [fiX, tealAccent]].forEach(function(d) {
+				g.append('line')
+					.attr('x1', d[0]).attr('y1', forkMidY)
+					.attr('x2', d[0]).attr('y2', countryY - 16)
+					.attr('stroke', d[1]).attr('stroke-width', 2);
+			});
+
+			// ── Country labels ──
+			function drawCountryLabel(x, label, accent) {
+				g.append('text')
+					.attr('x', x).attr('y', countryY)
+					.attr('text-anchor', 'middle')
+					.attr('font-size', 15).attr('font-weight', 'bold')
+					.attr('fill', accent)
+					.attr('font-family', 'Lato, system-ui, sans-serif')
+					.text(label);
+			}
+			drawCountryLabel(usX, 'United States', warmAccent);
+			drawCountryLabel(fiX, 'Finland', tealAccent);
+
+			// ── Fork lines to cards ──
+			var forkBottomY = countryY + 12;
+			var cardMidY = cardTop + 6;
+
+			// US forks
+			g.append('line')
+				.attr('x1', usX).attr('y1', forkBottomY)
+				.attr('x2', usX).attr('y2', forkBottomY + 14)
+				.attr('stroke', warmAccent).attr('stroke-width', 1.5);
+			[[usX, cards[0].center], [usX, cards[1].center]].forEach(function(d) {
+				g.append('line')
+					.attr('x1', d[0]).attr('y1', forkBottomY + 14)
+					.attr('x2', d[1]).attr('y2', forkBottomY + 14)
+					.attr('stroke', warmAccent).attr('stroke-width', 1.5);
+				g.append('line')
+					.attr('x1', d[1]).attr('y1', forkBottomY + 14)
+					.attr('x2', d[1]).attr('y2', cardTop)
+					.attr('stroke', warmAccent).attr('stroke-width', 1.5);
+			});
+
+			// Finland forks
+			g.append('line')
+				.attr('x1', fiX).attr('y1', forkBottomY)
+				.attr('x2', fiX).attr('y2', forkBottomY + 14)
+				.attr('stroke', tealAccent).attr('stroke-width', 1.5);
+			[[fiX, cards[2].center], [fiX, cards[3].center]].forEach(function(d) {
+				g.append('line')
+					.attr('x1', d[0]).attr('y1', forkBottomY + 14)
+					.attr('x2', d[1]).attr('y2', forkBottomY + 14)
+					.attr('stroke', tealAccent).attr('stroke-width', 1.5);
+				g.append('line')
+					.attr('x1', d[1]).attr('y1', forkBottomY + 14)
+					.attr('x2', d[1]).attr('y2', cardTop)
+					.attr('stroke', tealAccent).attr('stroke-width', 1.5);
+			});
+
+			// ── Option cards ──
+			var cardData = [
+				{
+					idx: 0, side: 'us',
+					title: 'Private',
+					title2: 'childcare',
+					amount: '$14,760',
+					unit: 'per year',
+					context: 'More than in-state',
+					context2: 'college tuition',
+					context3: 'in 38 states'
+				},
+				{
+					idx: 1, side: 'us',
+					title: 'Leave the',
+					title2: 'workforce',
+					amount: '$0',
+					unit: 'income',
+					context: '3.8% of US adults',
+					context2: 'are out of work for',
+					context3: 'childcare reasons'
+				},
+				{
+					idx: 2, side: 'fi',
+					title: 'Public',
+					title2: 'childcare',
+					amount: '$0\u20134,080',
+					unit: 'per year',
+					context: 'Income-scaled fees.',
+					context2: 'Legal right from birth.',
+					context3: ''
+				},
+				{
+					idx: 3, side: 'fi',
+					title: 'Home care',
+					title2: 'allowance',
+					amount: '~$4,500',
+					unit: 'per year',
+					context: 'Paid to the parent.',
+					context2: 'A real choice,',
+					context3: 'not a last resort.'
+				}
+			];
+
+			cardData.forEach(function(d) {
+				var c = cards[d.idx];
+				var isUS = d.side === 'us';
+				var cardBg = isUS ? usCardBg : fiCardBg;
+				var border = isUS ? usCardBorder : fiCardBorder;
+				var accent = isUS ? warmAccent : tealAccent;
+
+				// Card background
+				g.append('rect')
+					.attr('x', c.x).attr('y', cardTop)
+					.attr('width', cardW).attr('height', cardH)
+					.attr('rx', cardR).attr('ry', cardR)
+					.attr('fill', cardBg)
+					.attr('stroke', border)
+					.attr('stroke-width', 1.5);
+
+				// Title
+				g.append('text')
+					.attr('x', c.center).attr('y', cardTop + 28)
+					.attr('text-anchor', 'middle')
+					.attr('font-size', 12).attr('font-weight', 'bold')
+					.attr('fill', textMain)
+					.attr('font-family', 'Lato, system-ui, sans-serif')
+					.text(d.title);
+				g.append('text')
+					.attr('x', c.center).attr('y', cardTop + 43)
+					.attr('text-anchor', 'middle')
+					.attr('font-size', 12).attr('font-weight', 'bold')
+					.attr('fill', textMain)
+					.attr('font-family', 'Lato, system-ui, sans-serif')
+					.text(d.title2);
+
+				// Amount (hero number)
+				g.append('text')
+					.attr('x', c.center).attr('y', cardTop + 82)
+					.attr('text-anchor', 'middle')
+					.attr('font-size', 24).attr('font-weight', 'bold')
+					.attr('fill', accent)
+					.attr('font-family', 'Lato, system-ui, sans-serif')
+					.text(d.amount);
+
+				// Unit
+				g.append('text')
+					.attr('x', c.center).attr('y', cardTop + 100)
+					.attr('text-anchor', 'middle')
+					.attr('font-size', 11)
+					.attr('fill', textMuted)
+					.attr('font-family', 'Lato, system-ui, sans-serif')
+					.text(d.unit);
+
+				// Context lines
+				var ctxY = cardTop + 125;
+				[d.context, d.context2, d.context3].forEach(function(line) {
+					if (line) {
+						g.append('text')
+							.attr('x', c.center).attr('y', ctxY)
+							.attr('text-anchor', 'middle')
+							.attr('font-size', 10)
+							.attr('fill', textMuted)
+							.attr('font-family', 'Lato, system-ui, sans-serif')
+							.text(line);
+						ctxY += 14;
+					}
+				});
+			});
+
+			// ── "or" labels between card pairs ──
+			var orY = cardTop + cardH / 2 + 5;
+			g.append('text')
+				.attr('x', (cards[0].x + cardW + cards[1].x) / 2)
+				.attr('y', orY)
+				.attr('text-anchor', 'middle')
+				.attr('font-size', 12).attr('font-style', 'italic')
+				.attr('fill', textMuted)
+				.attr('font-family', 'Lato, system-ui, sans-serif')
+				.text('or');
+
+			g.append('text')
+				.attr('x', (cards[2].x + cardW + cards[3].x) / 2)
+				.attr('y', orY)
+				.attr('text-anchor', 'middle')
+				.attr('font-size', 12).attr('font-style', 'italic')
+				.attr('fill', textMuted)
+				.attr('font-family', 'Lato, system-ui, sans-serif')
+				.text('or');
+
+			// ── Divider between US and Finland ──
+			g.append('line')
+				.attr('x1', centerX).attr('y1', countryY + 20)
+				.attr('x2', centerX).attr('y2', cardTop + cardH + 5)
+				.attr('stroke', lineColor).attr('stroke-width', 0.5)
+				.attr('stroke-dasharray', '4,4');
+
+			// ── Bottom labels ──
+			var bottomY = cardTop + cardH + 32;
+			g.append('text')
+				.attr('x', usX).attr('y', bottomY)
+				.attr('text-anchor', 'middle')
+				.attr('font-size', 11).attr('font-style', 'italic')
+				.attr('fill', warmAccent)
+				.attr('font-family', 'Lato, system-ui, sans-serif')
+				.text('Both options cost the family.');
+
+			g.append('text')
+				.attr('x', fiX).attr('y', bottomY)
+				.attr('text-anchor', 'middle')
+				.attr('font-size', 11).attr('font-style', 'italic')
+				.attr('fill', tealAccent)
+				.attr('font-family', 'Lato, system-ui, sans-serif')
+				.text('Both options are supported by the state.');
+		}
+
+		render();
+		var observer = new MutationObserver(function(mutations) {
+			mutations.forEach(function(m) {
+				if (m.attributeName === 'data-theme') render();
+			});
+		});
+		observer.observe(document.documentElement, {attributes: true});
 
 	})();
 	</script>
