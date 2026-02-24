@@ -39,4 +39,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add files/gdpm.csv files/gdpq.csv files/gdpm_updated.txt
           git commit -m "Update monthly GDP data"
+          git pull --rebase
           git push
