@@ -116,7 +116,7 @@
       "cc_wage_annual": 32050.0,
       "pt_wage_annual": 37120.0,
       "elem_wage_annual": 62340.0,
-      "enrollment_pct": 25.2,
+      "enrollment_pct": 9.8,
       "gdp_per_child_0_5": 1.2753,
       "workforce_share_pct": 0.63
     },
@@ -135,7 +135,7 @@
         "elem_wage_annual": 59850.0,
         "median_wage_annual": 25417.22,
         "all_median_wage_annual": 43830.0,
-        "enrollment_pct": 24.9,
+        "enrollment_pct": 9.4,
         "gdp_per_child_0_5": 0.9132,
         "workforce_share_pct": 0.55
       },
@@ -153,7 +153,7 @@
         "elem_wage_annual": 76290.0,
         "median_wage_annual": 35853.85,
         "all_median_wage_annual": 59400.0,
-        "enrollment_pct": 21.3,
+        "enrollment_pct": 5.7,
         "gdp_per_child_0_5": 1.2388,
         "workforce_share_pct": 0.57
       },
@@ -171,7 +171,7 @@
         "elem_wage_annual": 50980.0,
         "median_wage_annual": 35200.55,
         "all_median_wage_annual": 48810.0,
-        "enrollment_pct": 19.0,
+        "enrollment_pct": 3.6,
         "gdp_per_child_0_5": 1.1809,
         "workforce_share_pct": 0.49
       },
@@ -189,7 +189,7 @@
         "elem_wage_annual": 50550.0,
         "median_wage_annual": 28018.72,
         "all_median_wage_annual": 41020.0,
-        "enrollment_pct": 26.1,
+        "enrollment_pct": 10.7,
         "gdp_per_child_0_5": 0.8555,
         "workforce_share_pct": 0.68
       },
@@ -207,7 +207,7 @@
         "elem_wage_annual": 98190.0,
         "median_wage_annual": 42132.2,
         "all_median_wage_annual": 56940.0,
-        "enrollment_pct": 26.4,
+        "enrollment_pct": 11.2,
         "gdp_per_child_0_5": 1.5179,
         "workforce_share_pct": 0.53
       },
@@ -225,7 +225,7 @@
         "elem_wage_annual": 61550.0,
         "median_wage_annual": 40276.26,
         "all_median_wage_annual": 58210.0,
-        "enrollment_pct": 31.2,
+        "enrollment_pct": 15.6,
         "gdp_per_child_0_5": 1.4605,
         "workforce_share_pct": 0.61
       },
@@ -243,7 +243,7 @@
         "elem_wage_annual": 78740.0,
         "median_wage_annual": 38369.35,
         "all_median_wage_annual": 58400.0,
-        "enrollment_pct": 22.1,
+        "enrollment_pct": 6.5,
         "gdp_per_child_0_5": 1.626,
         "workforce_share_pct": 0.94
       },
@@ -261,7 +261,7 @@
         "elem_wage_annual": 66390.0,
         "median_wage_annual": 30881.07,
         "all_median_wage_annual": 51030.0,
-        "enrollment_pct": 19.3,
+        "enrollment_pct": 3.5,
         "gdp_per_child_0_5": 1.6748,
         "workforce_share_pct": 0.71
       },
@@ -279,7 +279,7 @@
         "elem_wage_annual": 94730.0,
         "median_wage_annual": 45172.83,
         "all_median_wage_annual": 88000.0,
-        "enrollment_pct": 42.1,
+        "enrollment_pct": 28.5,
         "gdp_per_child_0_5": 3.8146,
         "workforce_share_pct": 0.53
       },
@@ -297,7 +297,7 @@
         "elem_wage_annual": 55550.0,
         "median_wage_annual": 32967.9,
         "all_median_wage_annual": 46860.0,
-        "enrollment_pct": 28.7,
+        "enrollment_pct": 13.5,
         "gdp_per_child_0_5": 1.2869,
         "workforce_share_pct": 0.58
       },
@@ -315,7 +315,7 @@
         "elem_wage_annual": 63490.0,
         "median_wage_annual": 32321.77,
         "all_median_wage_annual": 47020.0,
-        "enrollment_pct": 27.0,
+        "enrollment_pct": 11.3,
         "gdp_per_child_0_5": 1.1386,
         "workforce_share_pct": 0.76
       },
@@ -333,7 +333,7 @@
         "elem_wage_annual": 60420.0,
         "median_wage_annual": 39977.4,
         "all_median_wage_annual": 53260.0,
-        "enrollment_pct": 17.4,
+        "enrollment_pct": 3.1,
         "gdp_per_child_0_5": 1.2078,
         "workforce_share_pct": 0.52
       },
@@ -351,7 +351,7 @@
         "elem_wage_annual": 59620.0,
         "median_wage_annual": 29037.92,
         "all_median_wage_annual": 46470.0,
-        "enrollment_pct": 18.2,
+        "enrollment_pct": 1.7,
         "gdp_per_child_0_5": 0.9301,
         "workforce_share_pct": 0.72
       },
@@ -369,7 +369,7 @@
         "elem_wage_annual": 64160.0,
         "median_wage_annual": 34925.48,
         "all_median_wage_annual": 50000.0,
-        "enrollment_pct": 27.1,
+        "enrollment_pct": 11.4,
         "gdp_per_child_0_5": 1.3369,
         "workforce_share_pct": 0.71
       },
@@ -387,7 +387,7 @@
         "elem_wage_annual": 58370.0,
         "median_wage_annual": 31954.81,
         "all_median_wage_annual": 46930.0,
-        "enrollment_pct": 18.9,
+        "enrollment_pct": 3.4,
         "gdp_per_child_0_5": 1.0437,
         "workforce_share_pct": 0.49
       },
@@ -405,7 +405,7 @@
         "elem_wage_annual": 55540.0,
         "median_wage_annual": 28835.61,
         "all_median_wage_annual": 47670.0,
-        "enrollment_pct": 30.2,
+        "enrollment_pct": 14.4,
         "gdp_per_child_0_5": 1.1601,
         "workforce_share_pct": 0.73
       },
@@ -423,7 +423,7 @@
         "elem_wage_annual": 50820.0,
         "median_wage_annual": 31383.77,
         "all_median_wage_annual": 46850.0,
-        "enrollment_pct": 28.8,
+        "enrollment_pct": 13.0,
         "gdp_per_child_0_5": 1.058,
         "workforce_share_pct": 0.61
       },
@@ -441,7 +441,7 @@
         "elem_wage_annual": 57980.0,
         "median_wage_annual": 29238.99,
         "all_median_wage_annual": 45740.0,
-        "enrollment_pct": 24.7,
+        "enrollment_pct": 9.5,
         "gdp_per_child_0_5": 0.9165,
         "workforce_share_pct": 0.72
       },
@@ -459,7 +459,7 @@
         "elem_wage_annual": 52280.0,
         "median_wage_annual": 25383.81,
         "all_median_wage_annual": 43770.0,
-        "enrollment_pct": 24.7,
+        "enrollment_pct": 9.6,
         "gdp_per_child_0_5": 0.9463,
         "workforce_share_pct": 0.62
       },
@@ -477,7 +477,7 @@
         "elem_wage_annual": 62300.0,
         "median_wage_annual": 35326.59,
         "all_median_wage_annual": 49440.0,
-        "enrollment_pct": 25.7,
+        "enrollment_pct": 10.2,
         "gdp_per_child_0_5": 1.3053,
         "workforce_share_pct": 0.87
       },
@@ -495,7 +495,7 @@
         "elem_wage_annual": 74720.0,
         "median_wage_annual": 36758.99,
         "all_median_wage_annual": 58050.0,
-        "enrollment_pct": 24.0,
+        "enrollment_pct": 8.8,
         "gdp_per_child_0_5": 1.2604,
         "workforce_share_pct": 0.61
       },
@@ -513,7 +513,7 @@
         "elem_wage_annual": 83260.0,
         "median_wage_annual": 42471.3,
         "all_median_wage_annual": 62270.0,
-        "enrollment_pct": 24.3,
+        "enrollment_pct": 9.5,
         "gdp_per_child_0_5": 1.8567,
         "workforce_share_pct": 0.76
       },
@@ -531,7 +531,7 @@
         "elem_wage_annual": 62350.0,
         "median_wage_annual": 32427.76,
         "all_median_wage_annual": 48300.0,
-        "enrollment_pct": 24.5,
+        "enrollment_pct": 8.9,
         "gdp_per_child_0_5": 1.0564,
         "workforce_share_pct": 0.58
       },
@@ -549,7 +549,7 @@
         "elem_wage_annual": 63120.0,
         "median_wage_annual": 36120.73,
         "all_median_wage_annual": 53810.0,
-        "enrollment_pct": 19.3,
+        "enrollment_pct": 3.9,
         "gdp_per_child_0_5": 1.2429,
         "workforce_share_pct": 0.74
       },
@@ -567,7 +567,7 @@
         "elem_wage_annual": 48440.0,
         "median_wage_annual": 23649.66,
         "all_median_wage_annual": 39070.0,
-        "enrollment_pct": 24.8,
+        "enrollment_pct": 10.1,
         "gdp_per_child_0_5": 0.746,
         "workforce_share_pct": 0.69
       },
@@ -585,7 +585,7 @@
         "elem_wage_annual": 48250.0,
         "median_wage_annual": 31725.19,
         "all_median_wage_annual": 46390.0,
-        "enrollment_pct": 19.7,
+        "enrollment_pct": 4.0,
         "gdp_per_child_0_5": 1.027,
         "workforce_share_pct": 0.57
       },
@@ -603,7 +603,7 @@
         "elem_wage_annual": 56200.0,
         "median_wage_annual": 32880.06,
         "all_median_wage_annual": 47360.0,
-        "enrollment_pct": 19.2,
+        "enrollment_pct": 3.4,
         "gdp_per_child_0_5": 1.0985,
         "workforce_share_pct": 0.62
       },
@@ -621,7 +621,7 @@
         "elem_wage_annual": 61700.0,
         "median_wage_annual": 31119.24,
         "all_median_wage_annual": 47990.0,
-        "enrollment_pct": 26.0,
+        "enrollment_pct": 10.3,
         "gdp_per_child_0_5": 1.2293,
         "workforce_share_pct": 1.0
       },
@@ -639,7 +639,7 @@
         "elem_wage_annual": 62420.0,
         "median_wage_annual": 32208.72,
         "all_median_wage_annual": 46440.0,
-        "enrollment_pct": 18.6,
+        "enrollment_pct": 2.7,
         "gdp_per_child_0_5": 1.2488,
         "workforce_share_pct": 0.37
       },
@@ -657,7 +657,7 @@
         "elem_wage_annual": 64430.0,
         "median_wage_annual": 35977.84,
         "all_median_wage_annual": 52610.0,
-        "enrollment_pct": 16.8,
+        "enrollment_pct": 1.2,
         "gdp_per_child_0_5": 1.5619,
         "workforce_share_pct": 0.71
       },
@@ -675,7 +675,7 @@
         "elem_wage_annual": 77150.0,
         "median_wage_annual": 39591.59,
         "all_median_wage_annual": 57230.0,
-        "enrollment_pct": 26.4,
+        "enrollment_pct": 11.1,
         "gdp_per_child_0_5": 1.333,
         "workforce_share_pct": 0.98
       },
@@ -693,7 +693,7 @@
         "elem_wage_annual": 65510.0,
         "median_wage_annual": 35760.88,
         "all_median_wage_annual": 45870.0,
-        "enrollment_pct": 30.9,
+        "enrollment_pct": 14.9,
         "gdp_per_child_0_5": 1.0697,
         "workforce_share_pct": 0.69
       },
@@ -711,7 +711,7 @@
         "elem_wage_annual": 82480.0,
         "median_wage_annual": 39946.08,
         "all_median_wage_annual": 58560.0,
-        "enrollment_pct": 28.9,
+        "enrollment_pct": 14.2,
         "gdp_per_child_0_5": 1.7658,
         "workforce_share_pct": 0.71
       },
@@ -729,7 +729,7 @@
         "elem_wage_annual": 49400.0,
         "median_wage_annual": 29929.0,
         "all_median_wage_annual": 46950.0,
-        "enrollment_pct": 21.0,
+        "enrollment_pct": 5.7,
         "gdp_per_child_0_5": 1.1708,
         "workforce_share_pct": 0.59
       },
@@ -747,7 +747,7 @@
         "elem_wage_annual": 57820.0,
         "median_wage_annual": 32135.95,
         "all_median_wage_annual": 50320.0,
-        "enrollment_pct": 18.7,
+        "enrollment_pct": 3.9,
         "gdp_per_child_0_5": 1.3025,
         "workforce_share_pct": 1.05
       },
@@ -765,7 +765,7 @@
         "elem_wage_annual": 65380.0,
         "median_wage_annual": 30946.27,
         "all_median_wage_annual": 48060.0,
-        "enrollment_pct": 21.5,
+        "enrollment_pct": 6.3,
         "gdp_per_child_0_5": 1.1346,
         "workforce_share_pct": 0.57
       },
@@ -783,7 +783,7 @@
         "elem_wage_annual": 47470.0,
         "median_wage_annual": 30371.35,
         "all_median_wage_annual": 43950.0,
-        "enrollment_pct": 31.0,
+        "enrollment_pct": 15.3,
         "gdp_per_child_0_5": 0.8779,
         "workforce_share_pct": 0.87
       },
@@ -801,7 +801,7 @@
         "elem_wage_annual": 75800.0,
         "median_wage_annual": 38160.79,
         "all_median_wage_annual": 53390.0,
-        "enrollment_pct": 24.2,
+        "enrollment_pct": 8.3,
         "gdp_per_child_0_5": 1.2788,
         "workforce_share_pct": 0.56
       },
@@ -819,7 +819,7 @@
         "elem_wage_annual": 74160.0,
         "median_wage_annual": 31981.19,
         "all_median_wage_annual": 48550.0,
-        "enrollment_pct": 24.8,
+        "enrollment_pct": 9.5,
         "gdp_per_child_0_5": 1.2197,
         "workforce_share_pct": 0.63
       },
@@ -837,7 +837,7 @@
         "elem_wage_annual": 86900.0,
         "median_wage_annual": 35346.53,
         "all_median_wage_annual": 54040.0,
-        "enrollment_pct": 21.6,
+        "enrollment_pct": 6.1,
         "gdp_per_child_0_5": 1.2339,
         "workforce_share_pct": 0.78
       },
@@ -855,7 +855,7 @@
         "elem_wage_annual": 59370.0,
         "median_wage_annual": 29502.09,
         "all_median_wage_annual": 44760.0,
-        "enrollment_pct": 25.1,
+        "enrollment_pct": 9.9,
         "gdp_per_child_0_5": 1.0302,
         "workforce_share_pct": 0.65
       },
@@ -873,7 +873,7 @@
         "elem_wage_annual": 49110.0,
         "median_wage_annual": 29051.71,
         "all_median_wage_annual": 45620.0,
-        "enrollment_pct": 19.7,
+        "enrollment_pct": 4.4,
         "gdp_per_child_0_5": 1.0951,
         "workforce_share_pct": 0.88
       },
@@ -891,7 +891,7 @@
         "elem_wage_annual": 52690.0,
         "median_wage_annual": 30909.73,
         "all_median_wage_annual": 46120.0,
-        "enrollment_pct": 21.3,
+        "enrollment_pct": 6.3,
         "gdp_per_child_0_5": 1.1387,
         "workforce_share_pct": 0.55
       },
@@ -909,7 +909,7 @@
         "elem_wage_annual": 61380.0,
         "median_wage_annual": 30717.43,
         "all_median_wage_annual": 47500.0,
-        "enrollment_pct": 28.2,
+        "enrollment_pct": 12.8,
         "gdp_per_child_0_5": 1.1889,
         "workforce_share_pct": 0.55
       },
@@ -927,7 +927,7 @@
         "elem_wage_annual": 61710.0,
         "median_wage_annual": 32600.85,
         "all_median_wage_annual": 48600.0,
-        "enrollment_pct": 18.2,
+        "enrollment_pct": 2.3,
         "gdp_per_child_0_5": 1.0329,
         "workforce_share_pct": 0.48
       },
@@ -945,7 +945,7 @@
         "elem_wage_annual": 61270.0,
         "median_wage_annual": 41774.77,
         "all_median_wage_annual": 52410.0,
-        "enrollment_pct": 40.3,
+        "enrollment_pct": 24.3,
         "gdp_per_child_0_5": 1.3569,
         "workforce_share_pct": 0.85
       },
@@ -963,7 +963,7 @@
         "elem_wage_annual": 62270.0,
         "median_wage_annual": 33444.69,
         "all_median_wage_annual": 53020.0,
-        "enrollment_pct": 20.7,
+        "enrollment_pct": 5.8,
         "gdp_per_child_0_5": 1.2824,
         "workforce_share_pct": 0.64
       },
@@ -981,7 +981,7 @@
         "elem_wage_annual": 99110.0,
         "median_wage_annual": 41972.11,
         "all_median_wage_annual": 61590.0,
-        "enrollment_pct": 20.9,
+        "enrollment_pct": 5.6,
         "gdp_per_child_0_5": 1.6233,
         "workforce_share_pct": 0.49
       },
@@ -999,7 +999,7 @@
         "elem_wage_annual": 55550.0,
         "median_wage_annual": 27390.93,
         "all_median_wage_annual": 43320.0,
-        "enrollment_pct": 33.5,
+        "enrollment_pct": 18.5,
         "gdp_per_child_0_5": 0.9924,
         "workforce_share_pct": 0.55
       },
@@ -1017,7 +1017,7 @@
         "elem_wage_annual": 60690.0,
         "median_wage_annual": 33635.04,
         "all_median_wage_annual": 48930.0,
-        "enrollment_pct": 28.8,
+        "enrollment_pct": 13.0,
         "gdp_per_child_0_5": 1.1649,
         "workforce_share_pct": 0.54
       },
@@ -1035,7 +1035,7 @@
         "elem_wage_annual": 61560.0,
         "median_wage_annual": 28164.15,
         "all_median_wage_annual": 49160.0,
-        "enrollment_pct": 19.1,
+        "enrollment_pct": 2.9,
         "gdp_per_child_0_5": 1.3202,
         "workforce_share_pct": 0.74
       },
@@ -1053,7 +1053,7 @@
         "cc_wage_annual": 36540.0,
         "pt_wage_annual": 47430.0,
         "elem_wage_annual": 95240.0,
-        "enrollment_pct": 34.3,
+        "enrollment_pct": 19.4,
         "gdp_per_child_0_5": 2.4135,
         "workforce_share_pct": 0.79
       }
@@ -1062,7 +1062,7 @@
   "canada": {
     "national": {
       "name": "Canada",
-      "spending_pct_gdp_narrow": 0.36,
+      "spending_pct_gdp_narrow": 0.44,
       "spending_pct_gdp_broad": 2.214,
       "wage_ratio_pct": 72.4732,
       "wage_ratio_cc_pct": null,
