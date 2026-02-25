@@ -768,14 +768,14 @@
 	<div class="page-strip page-strip-teal">
 		<img src="images/childcare_strip.jpg" alt="" aria-hidden="true" class="page-strip-img">
 	</div>
-	<header>
+	<header style="padding-bottom: 10px;">
 	<h1>Childcare as Infrastructure</h1>
-	<p style="font-size: 15px; color: #fff; margin: -0.5rem 0 0.75rem; font-weight: 400; text-align: center;">Brian Dew</p>
+	<p style="font-size: 15px; color: #fff; margin: -0.5rem 0 0; font-weight: 400; text-align: center;">Brian Dew</p>
 	</header>
-	<main id="main">
+	<main id="main" style="padding-top: 30px;">
 	<div class="cc-content">
 
-	<p class="cc-subtitle">The US chose not to build childcare. Twice.</p>
+	<p class="cc-subtitle">The US came within reach of public childcare. Twice.</p>
 
 	<blockquote class="cc-blockquote">
 		"These children are future citizens, and if they are neglected in these early years it will hurt not only the children themselves, but the community as a whole. Where state help is needed, it should be given; and when states are incapable of giving sufficient help, it should be forthcoming on a national scale."
@@ -2766,7 +2766,7 @@
 			botG.append('text')
 				.attr('x', 15).attr('y', botTop - 6)
 				.attr('font-size', 13).attr('fill', mc)
-				.text('Children aged 0\u20135 per 100 people, by enrollment status');
+				.text('Children aged 0\u20135 per 100 people, by childcare/pre-k enrollment');
 
 			var yKidsAxis = d3.axisLeft(yKids).ticks(5);
 			botG.append('g')
@@ -2800,7 +2800,7 @@
 							'<strong>' + d.label + '</strong><br>' +
 							'Children per 100 people: ' + d.kids.toFixed(1) + '<br>' +
 							'Enrollment rate: <strong>' + d.enrollPct + '%</strong><br>' +
-							'In formal care: ' + d.enrolled.toFixed(1) + '<br>' +
+							'In public care: ' + d.enrolled.toFixed(1) + '<br>' +
 							'Not enrolled: ' + d.notEnrolled.toFixed(1));
 					})
 					.on('mouseleave', hideTooltip);
@@ -2829,7 +2829,7 @@
 			});
 
 			var legX = W - margin.right - 180, legY = botTop + 4;
-			[{label: 'In formal care/education', color: TEAL},
+			[{label: 'In public care', color: TEAL},
 			 {label: 'Not enrolled', color: GRAY_LIGHT}].forEach(function(item, i) {
 				botG.append('rect')
 					.attr('x', legX).attr('y', legY + i * 17)
@@ -2975,7 +2975,7 @@
 			svg.append('text')
 				.attr('x', 8).attr('y', botTop - 14)
 				.attr('font-size', 12).attr('fill', mc)
-				.text('Children 0\u20135 per 100, by enrollment');
+				.text('Children 0\u20135 per 100, by childcare/pre-k enrollment');
 
 			var yKids = d3.scaleLinear()
 				.domain([0, 8.5])
@@ -3020,7 +3020,7 @@
 
 			// Legend
 			var legX = W - margin.right - 150, legY = botTop + 4;
-			[{label: 'In formal care', color: TEAL},
+			[{label: 'In public care', color: TEAL},
 			 {label: 'Not enrolled', color: GRAY_LIGHT}].forEach(function(item, i) {
 				svg.append('rect')
 					.attr('x', legX).attr('y', legY + i * 16)
