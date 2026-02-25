@@ -2843,7 +2843,7 @@
 		}
 
 		function renderMobile() {
-			var W = 400, H = 600;
+			var W = 400, H = 630;
 			svg.attr('viewBox', '0 0 ' + W + ' ' + H);
 			var margin = {top: 56, right: 6, bottom: 40, left: 26};
 			var tc = textColor(), mc = mutedColor(), dark = isDark();
@@ -2963,13 +2963,17 @@
 			});
 
 			// ── Bottom panel: Children per 100 people ──
-			var botTop = groupLabelY + 56;
+			var botTop = groupLabelY + 72;
 			svg.append('text')
-				.attr('x', 8).attr('y', botTop - 34)
+				.attr('x', 8).attr('y', botTop - 46)
 				.attr('font-size', 15).attr('font-weight', 700).attr('fill', tc)
-				.text('But not for most young children');
+				.text('The US does not offer public childcare');
 			svg.append('text')
-				.attr('x', 8).attr('y', botTop - 18)
+				.attr('x', 8).attr('y', botTop - 30)
+				.attr('font-size', 15).attr('font-weight', 700).attr('fill', tc)
+				.text('for most young children');
+			svg.append('text')
+				.attr('x', 8).attr('y', botTop - 14)
 				.attr('font-size', 12).attr('fill', mc)
 				.text('Children 0\u20135 per 100, by enrollment');
 
