@@ -208,6 +208,42 @@
 		color: #fff;
 		border-color: rgba(255,255,255,0.5);
 	}
+	/* Wage occupation toggle (reuses spending toggle visual pattern) */
+	.wage-toggle {
+		display: none;
+		gap: 0;
+		font-size: 11px;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		margin-top: 3px;
+	}
+	.wage-toggle.visible { display: flex; flex-wrap: wrap; }
+	.wage-toggle-btn {
+		padding: 3px 8px;
+		border: 1px solid rgba(255,255,255,0.4);
+		background: transparent;
+		cursor: pointer;
+		color: rgba(255,255,255,0.75);
+		transition: all 0.15s ease;
+		font-size: 11px;
+		font-weight: 600;
+	}
+	.wage-toggle-btn:first-child {
+		border-radius: 3px 0 0 3px;
+	}
+	.wage-toggle-btn:last-child {
+		border-radius: 0 3px 3px 0;
+	}
+	.wage-toggle-btn:not(:first-child) {
+		border-left: none;
+	}
+	.wage-toggle-btn:hover {
+		background: rgba(255,255,255,0.15);
+	}
+	.wage-toggle-btn.active {
+		background: rgba(255,255,255,0.25);
+		color: #fff;
+		border-color: rgba(255,255,255,0.5);
+	}
 	/* Chart container */
 	.chart-container {
 		position: relative;
@@ -773,7 +809,7 @@
 		</tbody>
 	</table>
 
-	<p>The four Nordic countries all follow the same basic model: public, universal childcare funded through taxes. The details vary. The results do not. This page asks why the US looks so different.</p>
+	<p>The four Nordic countries all follow the same basic model: public, universal childcare funded through taxes. The details vary. The overall results do not. This page asks why the US looks so different.</p>
 
 	<p>The United States ranks <a href="https://www.unicef.org/innocenti/reports/where-do-rich-countries-stand-childcare" target="_blank" rel="noopener">40th out of 41 wealthy countries</a> on childcare, according to UNICEF's most recent assessment. This page compares childcare systems across 71 geographies: 50 US states plus DC and New York City, the US national average, 13 Canadian provinces and territories, the Canadian national average, and 4 Nordic countries. Every chart on this page shows the same gap from a different angle.</p>
 
@@ -923,6 +959,11 @@
 						<button class="spending-toggle-btn active" data-tier="narrow">Childcare</button>
 						<button class="spending-toggle-btn" data-tier="broad">Family + childcare</button>
 					</div>
+					<div class="wage-toggle" id="wage-toggle">
+						<button class="wage-toggle-btn active" data-occ="cc_only">Childcare workers</button>
+						<button class="wage-toggle-btn" data-occ="preschool">Preschool teachers</button>
+						<button class="wage-toggle-btn" data-occ="cacomp">Combined (comparable)</button>
+					</div>
 				</div>
 				</div>
 			<div class="chart-body">
@@ -947,7 +988,7 @@
 
 		<h3 style="font-size: 16px; font-weight: 600; color: var(--color-text-dark); margin: 1.5rem 0 0.75rem; letter-spacing: 0.02em;">A tale of two systems</h3>
 
-		<p>You have a child under 5. If you live in the United States, you choose between private childcare at <span class="cc-highlight"><a href="https://www.childcareaware.org/price-landscape24/" target="_blank" rel="noopener" style="color: inherit;">$14,760 per year</a></span> or one parent leaves the workforce. If you live in Finland, you choose between public childcare at $0-4,080 per year or a <a href="https://www.kela.fi/child-home-care-allowance" target="_blank" rel="noopener">home care allowance</a> of ~$4,500 per year paid to the parent. Same situation. Radically different options.</p>
+		<p>You have a child under 5. If you live in the United States, you choose between private childcare at <span class="cc-highlight"><a href="https://www.childcareaware.org/price-landscape24/" target="_blank" rel="noopener" style="color: inherit;">about $15,000 per year</a></span> or one parent leaves the workforce. If you live in Finland, you choose between public childcare at $0-4,080 per year or a <a href="https://www.kela.fi/child-home-care-allowance" target="_blank" rel="noopener">home care allowance</a> of ~$4,500 per year paid to the parent. Same situation. Radically different options.</p>
 
 		<!-- Decision tree -->
 		<div class="chart-container" id="decision-tree-container" style="margin-top: 1.5rem;">
@@ -959,14 +1000,14 @@
 			</div>
 		</div>
 
-		<p>This is not an abstract comparison. Finland grants every child a <a href="https://okm.fi/en/legislation-ecec" target="_blank" rel="noopener">legal right</a> to public early childhood education and care from birth. The home care allowance is an option layered on top of a complete public system. Both options are funded. Both options are real. In the United States, the apparent freedom of the market operates within a vacuum. There is nothing to choose from.</p>
+		<p>This is not an abstract comparison. Finland grants every child a <a href="https://okm.fi/en/legislation-ecec" target="_blank" rel="noopener">legal right</a> to public early childhood education and care from birth. The home care allowance is an option layered on top of a complete public system. Both options are funded. Both options are real. In the United States, the public options that exist — Head Start, scattered state pre-K — cover a fraction of children for a fraction of the day. For most families, the only real choice is the private market.</p>
 
 		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2rem 0 1.5rem;">
 		<h3 style="font-size: 16px; font-weight: 600; color: var(--color-text-dark); margin: 0 0 0.75rem; letter-spacing: 0.02em;">The cost of doing nothing</h3>
 
-		<p><span class="cc-highlight">3.8%</span> of US working-age adults are out of the labor force because of childcare. In the Nordic countries, the figure is under 1%. That means more Americans are sidelined by childcare than by unemployment. Nine in ten of these sidelined workers are women. One in ten working-age women is out of the labor force for family reasons, compared to roughly one in a hundred men.</p>
+		<p><span class="cc-highlight">3.8%</span> of US working-age parents are out of the labor force for childcare. In the Nordic countries, the figure is under 1%. Nine in ten of these sidelined parents are women.</p>
 
-		<p>The economics are straightforward. Full-time childcare costs about $14,760 per child. For a family with two children, that is $30,000 a year&mdash;more than the median individual earnings of a childcare worker and close to the bottom third of all workers. For many families, paying for care costs more than the second earner brings home. When there is no public option, someone stays home, and overwhelmingly that someone is the mother.</p>
+		<p>The economics are straightforward. Full-time childcare costs about $15,000 per child. For a family with two children, that is $30,000 a year&mdash;more than the median individual earnings of a childcare worker and close to the bottom third of all workers. For many families, paying for care costs more than the second earner brings home. When there is no public option, someone stays home, and overwhelmingly that someone is the mother.</p>
 
 		<p>The poverty consequences are severe. Among mothers of young children who left work for caregiving, one in four lives below the poverty line. Among those who stayed employed full-time, the rate is under 6%. For single mothers of young children, the poverty rate reaches 31%. The pattern runs in one direction: no infrastructure forces women out of the workforce, and workforce exit pushes families into poverty.</p>
 
@@ -981,7 +1022,7 @@
 				<svg id="outcomes-svg" style="width:100%;height:auto;" viewBox="0 0 680 360" preserveAspectRatio="xMidYMid meet"></svg>
 			</div>
 			<div class="chart-footer">
-				<p class="chart-source">Sources: CPS 2022 (US), Eurostat LFS 2018 (Nordics), OECD Income Distribution Database 2022.</p>
+				<p class="chart-source">Sources: CPS 2022 (US), Eurostat LFS 2022 (Nordics), OECD Income Distribution Database 2022.</p>
 				<svg viewBox="0 0 9 5" width="16" height="9" aria-hidden="true" style="fill: var(--color-text-gray); opacity: 0.5; align-self: flex-end; margin-top: -10px; margin-bottom: 5px;"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
 			</div>
 		</div>
@@ -1018,7 +1059,7 @@
 				</div>
 			</div>
 
-			<p>The peer list changes by location. In some states, childcare workers are paid less than half the median wage. In every Nordic country, they are paid 65-75%.</p>
+			<p>The peer list changes by location. In some states, childcare workers are paid a poverty wage&mdash;half the median income. In every Nordic country, they are paid 65&ndash;75%.</p>
 
 			<details class="cc-details" id="wp-explore" style="margin: 0.5rem 0 0 0;">
 				<summary>Explore wage peers by state or country</summary>
@@ -1197,6 +1238,7 @@
 		var DATA = null, METRICS = [], currentMetric = null;
 		var topoCache = {};
 		var spendingTier = 'narrow'; // 'narrow' or 'broad'
+		var wageOccupation = 'cc_only'; // 'cc_only', 'preschool', or 'cacomp'
 
 		// --- DOM refs ---
 		var metricTabs = document.getElementById('metric-tabs');
@@ -1208,6 +1250,7 @@
 		var container = document.getElementById('map-container');
 		var svg = d3.select('#map-svg');
 		var spendingToggle = document.getElementById('spending-toggle');
+		var wageToggle = document.getElementById('wage-toggle');
 
 		// Click on SVG background clears pinned tooltip
 		svg.on('click', function() { clearPin(); });
@@ -1312,10 +1355,30 @@
 			var lines = '<div class="cc-tooltip-header">' + displayName + '</div>';
 			lines += '<div style="margin-bottom:3px"><span class="cc-tooltip-value">' +
 				fmtVal(val, currentMetric) + '</span></div>';
-			if (mid === 'wage_ratio_pct' && info.median_wage_annual != null) {
+			if (mid === 'wage_ratio_cc_pct' && info.cc_wage_annual != null) {
 				lines += '<div style="font-size:10px;opacity:0.8">Wage: $' +
-					d3.format(',')(info.median_wage_annual) +
+					d3.format(',')(info.cc_wage_annual) +
 					' / $' + d3.format(',')(info.all_median_wage_annual) + '</div>';
+			} else if (mid === 'wage_ratio_pt_pct' && info.pt_wage_annual != null) {
+				lines += '<div style="font-size:10px;opacity:0.8">Wage: $' +
+					d3.format(',')(info.pt_wage_annual) +
+					' / $' + d3.format(',')(info.all_median_wage_annual) + '</div>';
+			} else if (mid === 'wage_ratio_cacomp_pct' && info.cc_wage_annual != null && info.pt_wage_annual != null) {
+				var blended = Math.round(0.63 * info.pt_wage_annual + 0.37 * info.cc_wage_annual);
+				lines += '<div style="font-size:10px;opacity:0.8">Wage: $' +
+					d3.format(',')(blended) +
+					' / $' + d3.format(',')(info.all_median_wage_annual) + '</div>';
+			} else if (val != null && isWageMetric(currentMetric) && info.wage_local_fmt) {
+				var wLocal = mid === 'wage_ratio_cc_pct' ? info.wage_local_cc :
+					mid === 'wage_ratio_pt_pct' ? info.wage_local_pt : info.wage_local_comp;
+				if (wLocal != null && info.wage_local_all != null) {
+					var fmtW = function(v) {
+						var s = v >= 100 ? d3.format(',')(Math.round(v)) : v.toFixed(2);
+						return info.wage_local_fmt.replace('%s', s);
+					};
+					lines += '<div style="font-size:10px;opacity:0.8">Wage: ' +
+						fmtW(wLocal) + ' / ' + fmtW(info.wage_local_all) + '</div>';
+				}
 			}
 			var natData = DATA[regionKey] && DATA[regionKey].national;
 			// Skip national comparison when showing national-level data
@@ -1648,7 +1711,9 @@
 		var TAB_LABELS = {
 			spending_pct_gdp_narrow: 'Spending',
 			spending_pct_gdp_broad: 'Spending',
-			wage_ratio_pct: 'Wages',
+			wage_ratio_cc_pct: 'Wages',
+			wage_ratio_pt_pct: 'Wages',
+			wage_ratio_cacomp_pct: 'Wages',
 			enrollment_pct: 'Enrollment',
 			gdp_per_child_0_5: 'Resources',
 			workforce_share_pct: 'Workforce'
@@ -1664,6 +1729,17 @@
 			return metric && (metric.id === 'spending_pct_gdp_narrow' || metric.id === 'spending_pct_gdp_broad');
 		}
 
+		// Resolve current wage metric based on occupation toggle state
+		function resolveWageMetric() {
+			var id = wageOccupation === 'cc_only' ? 'wage_ratio_cc_pct' :
+				wageOccupation === 'preschool' ? 'wage_ratio_pt_pct' : 'wage_ratio_cacomp_pct';
+			return METRICS.find(function(m) { return m.id === id; });
+		}
+
+		function isWageMetric(metric) {
+			return metric && (metric.id === 'wage_ratio_cc_pct' || metric.id === 'wage_ratio_pt_pct' || metric.id === 'wage_ratio_cacomp_pct');
+		}
+
 		function render() {
 			clearPin();
 			svg.selectAll('*').remove();
@@ -1675,6 +1751,8 @@
 
 			// Show/hide spending toggle
 			spendingToggle.classList.toggle('visible', isSpendingMetric(currentMetric));
+			// Show/hide wage occupation toggle
+			wageToggle.classList.toggle('visible', isWageMetric(currentMetric));
 
 			var colorInfo = getColorScale(currentMetric.id);
 			mapTabTitle.textContent = TAB_LABELS[currentMetric.id] || currentMetric.name;
@@ -1775,7 +1853,7 @@
 				// Draw inset boxes on top of lines
 				drawInset(svg, lookupRegion(DATA.us.regions, 11), 'us', colorInfo,
 					dcX, dcY, mobile ? 20 : dcSize, 'DC', fs);
-				var nycMetroMetrics = {'wage_ratio_pct': 1, 'workforce_share_pct': 1};
+				var nycMetroMetrics = {'wage_ratio_cc_pct': 1, 'wage_ratio_pt_pct': 1, 'wage_ratio_cacomp_pct': 1, 'workforce_share_pct': 1};
 				var nycLabel = nycMetroMetrics[currentMetric.id] ? 'NYC Metro' : 'NYC';
 				drawInset(svg, DATA.us.regions['NYC'], 'us', colorInfo,
 					nycX, nycY, mobile ? 20 : nycSize, nycLabel, fs);
@@ -1907,6 +1985,9 @@
 			if (metricId === 'spending_pct_gdp') {
 				// Spending meta-tab: resolve to current tier
 				currentMetric = resolveSpendingMetric();
+			} else if (metricId === 'wage_ratio_pct') {
+				// Wage meta-tab: resolve to current occupation toggle
+				currentMetric = resolveWageMetric();
 			} else {
 				currentMetric = METRICS.find(function(m) { return m.id === metricId; });
 			}
@@ -1923,6 +2004,17 @@
 			spendingToggle.querySelectorAll('.spending-toggle-btn').forEach(function(b) { b.classList.remove('active'); });
 			btn.classList.add('active');
 			currentMetric = resolveSpendingMetric();
+			render();
+		});
+
+		// --- Wage occupation toggle clicks ---
+		wageToggle.addEventListener('click', function(e) {
+			var btn = e.target.closest('.wage-toggle-btn');
+			if (!btn) return;
+			wageOccupation = btn.getAttribute('data-occ');
+			wageToggle.querySelectorAll('.wage-toggle-btn').forEach(function(b) { b.classList.remove('active'); });
+			btn.classList.add('active');
+			currentMetric = resolveWageMetric();
 			render();
 		});
 
