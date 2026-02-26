@@ -264,9 +264,9 @@
 	@media (max-width: 500px) {
 		#map-container,
 		#metric-tabs {
-			margin-left: -12px !important;
-			margin-right: -12px !important;
-			width: calc(100% + 24px) !important;
+			margin-left: -14px !important;
+			margin-right: -14px !important;
+			width: calc(100% + 28px) !important;
 			max-width: none !important;
 		}
 		#map-container .chart-body {
@@ -1099,7 +1099,7 @@
 				<div class="cc-infra-cell">
 					<img src="files/childcare-images/barnehage.jpg" alt="Bamsebo barnehage, Norwegian childcare center">
 					<div class="cc-infra-tint"></div>
-					<span class="cc-infra-caption">Bamsebo barnehage, ages 0-5</span>
+					<span class="cc-infra-caption">Bamsebo barnehage, ages 1-5</span>
 				</div>
 				<div class="cc-infra-cell">
 					<img src="files/childcare-images/empty_lot.jpg" alt="Empty lot in US neighborhood">
@@ -1124,7 +1124,7 @@
 
 		<!-- Map with tabs -->
 		<noscript><p style="background:#fff3cd;padding:10px;border-radius:4px;font-size:14px;">This page requires JavaScript to display interactive maps.</p></noscript>
-		<div class="cc-tabs" id="metric-tabs" style="padding-top: 1.5rem;">
+		<div class="cc-tabs" id="metric-tabs" style="margin-top: 2.5rem;">
 			<button class="cc-tab" data-metric="gdp_per_child_0_5">Resources</button>
 			<button class="cc-tab" data-metric="spending_pct_gdp">Spending</button>
 			<button class="cc-tab active" data-metric="enrollment_pct">Enrollment</button>
@@ -2091,10 +2091,10 @@
 
 				// Canada label with flag on new line below
 				svg.append('text').attr('class', 'group-label')
-					.attr('x', CA.x + 2).attr('y', CA.y - 6)
+					.attr('x', CA.x - 8).attr('y', CA.y - 6)
 					.attr('font-size', fs(14))
 					.text('Canada');
-				drawFlag(svg, 'CA', CA.x + 2, CA.y - 2, mobile ? 28 : 18, mobile ? 20 : 13);
+				drawFlag(svg, 'CA', CA.x - 8, CA.y - 2, mobile ? 28 : 18, mobile ? 20 : 13);
 
 				// =======================
 				// NORDICS (conformal, own projection)
@@ -2114,10 +2114,10 @@
 
 				// Nordics label with flags on second line, spaced
 				svg.append('text').attr('class', 'group-label')
-					.attr('x', NO.x + 2).attr('y', NO.y - 8)
+					.attr('x', NO.x - 18).attr('y', NO.y - 8)
 					.attr('font-size', fs(14))
 					.text('Nordic Countries');
-				var nfx = NO.x + 2, nfy = NO.y - 3;
+				var nfx = NO.x - 18, nfy = NO.y - 3;
 				var nfw = mobile ? 26 : 17, nfh = mobile ? 18 : 12, nfg = mobile ? 5 : 4;
 				drawFlag(svg, 'DK', nfx, nfy, nfw, nfh);
 				drawFlag(svg, 'FI', nfx + nfw + nfg, nfy, nfw, nfh);
@@ -3100,7 +3100,7 @@
 			});
 
 			// ── Bottom panel: Children per 100 people ──
-			var botTop = groupLabelY + 72;
+			var botTop = groupLabelY + 92;
 			svg.append('text')
 				.attr('x', 8).attr('y', botTop - 46)
 				.attr('font-size', 15).attr('font-weight', 700).attr('fill', tc)
@@ -3375,9 +3375,9 @@
 		}
 
 		function renderMobile() {
-			var W = 420, H = 400;
+			var W = 420, H = 360;
 			svg.attr('viewBox', '0 0 ' + W + ' ' + H);
-			var margin = {top: 58, right: 16, bottom: 40, left: 42};
+			var margin = {top: 78, right: 16, bottom: 40, left: 42};
 			var chartW = W - margin.left - margin.right;
 			var chartH = H - margin.top - margin.bottom;
 			var tc = textColor(), mc = mutedColor(), dark = isDark();
@@ -3691,7 +3691,7 @@
 		function renderMobile() {
 			var W = 420, panelH = 230;
 			var gap = 30;
-			var H = panelH * 2 + gap + 60;
+			var H = panelH * 2 + gap + 30;
 			svgEl.attr('viewBox', '0 0 ' + W + ' ' + H);
 
 			var margin = {top: 56, right: 12, bottom: 28, left: 46};
@@ -3716,7 +3716,7 @@
 				.text('Total government spending, share of GDP');
 
 			// ── Panel 1: Total govt ──
-			var p1Top = margin.top + 18;
+			var p1Top = margin.top - 12;
 			var p1G = svgEl.append('g');
 
 			var yTotal = d3.scaleLinear().domain([0, 68]).range([p1Top + barChartH, p1Top + 16]);
