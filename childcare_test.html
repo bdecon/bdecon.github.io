@@ -319,8 +319,8 @@
 		flex-direction: column;
 		padding: 6px 12px 3px 12px;
 	}
-	.chart-source {
-		font-size: 11px;
+	.chart-footer .chart-source {
+		font-size: 13px;
 		color: var(--color-text-gray);
 		margin: 0;
 		font-style: italic;
@@ -467,7 +467,7 @@
 		width: auto;
 		border-collapse: collapse;
 		font-size: 14px;
-		margin: 0 auto 1.5rem auto;
+		margin: 0 auto calc(1.5rem + 20px) auto;
 	}
 	.cc-table th, .cc-table td {
 		padding: 6px 12px;
@@ -490,6 +490,7 @@
 	}
 	.cc-table td {
 		color: var(--color-text-dark);
+		font-size: 14px;
 	}
 	/* Inline flag icons */
 	.cc-flag {
@@ -508,7 +509,7 @@
 		margin: 1.75rem 0 1rem;
 	}
 	.cc-details summary {
-		font-size: 15px;
+		font-size: 16px;
 		font-weight: 600;
 		cursor: pointer;
 		padding: 6px 0;
@@ -529,10 +530,20 @@
 	}
 	.cc-details[open] summary::before { transform: rotate(90deg); }
 	.cc-details[open] summary { margin-bottom: 14px; }
+	.cc-content > p:not(.cc-subtitle) {
+		font-size: 15px;
+		line-height: 1.5;
+	}
 	.cc-details p, .cc-details li {
-		font-size: 14px;
+		font-size: 15px;
 		color: var(--color-text-muted);
 		line-height: 1.5;
+		margin-bottom: 18px;
+	}
+	@media (max-width: 500px) {
+		.cc-details p, .cc-details li {
+			margin-bottom: 22px;
+		}
 	}
 	/* ---- Wage Peers: Hero dot spectrum ---- */
 	.wp-hero-svg {
@@ -667,7 +678,7 @@
 	.cc-blockquote cite {
 		display: block;
 		font-style: normal;
-		font-size: 12px;
+		font-size: 13px;
 		color: var(--color-text-muted);
 		margin-top: 6px;
 	}
@@ -806,7 +817,7 @@
 		<img src="files/childcare-images/storytime_cropped.jpg" alt="Teacher reading to children at a federally funded childcare center, 1943" style="display: block; width: 100%; filter: sepia(0.3) saturate(0.8);">
 		<div style="position: absolute; inset: 0; background: var(--color-card-teal); mix-blend-mode: multiply; opacity: 0.15;"></div>
 		<div style="background: var(--color-card-teal); padding: 6px 10px;">
-			<span style="font-size: 11px; color: #fff; line-height: 1.4;">Federally funded childcare center, New Britain, Connecticut, 1943.<br>Photo: Gordon Parks / Library of Congress</span>
+			<span style="font-size: 12px; color: #fff; line-height: 1.4;">Federally funded childcare center.<br>New Britain, CT, 1943. Photo: Gordon Parks</span>
 		</div>
 	</div>
 
@@ -816,7 +827,7 @@
 
 	<hr class="cc-rule">
 
-	<h2 class="cc-table-title">The Childcare Gap at a Glance</h2>
+	<h2 class="cc-table-title">US–Nordic Childcare Gap at a Glance</h2>
 	<table class="cc-table">
 		<thead>
 			<tr><th></th><th>United States<br><img class="cc-flag" src="files/childcare-images/flags/us.png" alt="US flag"></th><th>Nordics<br><span class="cc-flag-row"><img class="cc-flag" src="files/childcare-images/flags/dk.png" alt="Denmark flag"> <img class="cc-flag" src="files/childcare-images/flags/fi.png" alt="Finland flag"> <img class="cc-flag" src="files/childcare-images/flags/no.png" alt="Norway flag"> <img class="cc-flag" src="files/childcare-images/flags/se.png" alt="Sweden flag"></span></th></tr>
@@ -842,9 +853,9 @@
 	<!-- SECTION 1: What some countries built                              -->
 	<!-- ================================================================ -->
 	<details class="cc-details" open>
-		<summary style="font-size: 20px;">What some countries built</summary>
+		<summary style="font-size: 21px;">What some countries built</summary>
 
-		<h3 style="font-size: 16px; font-weight: 600; color: var(--color-text-dark); margin: 1.5rem 0 0.75rem; letter-spacing: 0.02em;">The money is there</h3>
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: 1.5rem 0 0.75rem; letter-spacing: 0.02em;">The money is there</h3>
 
 		<p>Every country on this page is extraordinarily rich by any global standard. One way to see this is GDP per child — the total economic output of a country divided by its number of young children. It is a rough measure of how much a society produces for each child it needs to support. The global average is about $190,000 per child aged 0-5. The US generates $1.28 million. Denmark generates $1.23 million. Finland generates $1.05 million. Massachusetts, at $2.41 million, produces more than double Finland per child.</p>
 
@@ -857,11 +868,11 @@
 					<p class="map-category">Resources and burdens</p>
 				</div>
 				</div>
-			<div class="chart-body" style="padding: 8px 12px 4px 12px;">
+			<div class="chart-body" style="padding: 24px 12px 4px 12px;">
 				<svg id="resources-svg" style="width:100%;height:auto;" viewBox="0 0 680 520" preserveAspectRatio="xMidYMid meet"></svg>
 			</div>
 			<div class="chart-footer">
-				<p class="chart-source">Source: Author</p>
+				<p class="chart-source">Includes public childcare and preschool only. Source: Author</p>
 				<svg viewBox="0 0 9 5" width="16" height="9" aria-hidden="true" style="fill: var(--color-text-gray); opacity: 0.5; align-self: flex-end; margin-top: -10px; margin-bottom: 5px;"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
 			</div>
 		</div>
@@ -872,8 +883,8 @@
 		<div id="cost-compare-container" style="max-width: 520px; margin: 2.25rem auto; border-radius: 6px; overflow: hidden; box-shadow: 0 2px 8px var(--color-shadow), 0 4px 16px rgba(0,0,0,0.06); border-bottom: 12px solid var(--color-card-teal);">
 			<div style="position: relative;">
 				<img src="files/childcare-images/raa_preschool.jpg" alt="Children playing outside Råå Day Care Center in Helsingborg, Sweden" style="display: block; width: 100%; height: auto;">
-				<div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 6px 10px; background: linear-gradient(transparent, rgba(0,0,0,0.6)); color: rgba(255,255,255,0.85); font-size: 11px; line-height: 1.3;">
-					Råå Day Care Center, Helsingborg, Sweden. Architect: Dorte Mandrup. Photo: Adam Mørk
+				<div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 6px 10px; background: linear-gradient(transparent, rgba(0,0,0,0.6)); color: rgba(255,255,255,0.85); font-size: 12px; line-height: 1.3;">
+					Råå Day Care Center, Helsingborg, Sweden. Photo: Adam Mørk
 				</div>
 			</div>
 			<div style="padding: 16px 18px 14px; background: var(--color-bg-white);">
@@ -949,7 +960,7 @@
 				</div>
 				<div id="cost-results" style="display: flex; gap: 12px; justify-content: center;">
 				</div>
-				<p style="font-size: 11px; color: var(--color-text-muted); margin: 12px 0 0; line-height: 1.4;">Some US families receive partial subsidies through Head Start or state programs. Most do not.</p>
+				<p style="font-size: 12px; color: var(--color-text-muted); margin: 12px 0 0; line-height: 1.4;">Some US families receive partial subsidies through Head Start or state programs. Most do not.</p>
 			</div>
 		</div>
 		<script>
@@ -1034,7 +1045,7 @@
 		</script>
 
 		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 1.75rem;">
-		<h3 style="font-size: 16px; font-weight: 600; color: var(--color-text-dark); margin: 1.5rem 0 0.75rem; letter-spacing: 0.02em;">A gap in priorities</h3>
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: 1.5rem 0 0.75rem; letter-spacing: 0.02em;">A gap in priorities</h3>
 
 		<p>The US spends <span class="cc-highlight">less than 0.3% of GDP</span> on early childhood education and care — about 50 cents per American per day. GDP is a measure of a country's total economic output, so this percentage shows how much of its resources a country directs toward childcare. The Nordic countries spend over 1.3%. The US does have a smaller government overall — it collects and spends about 39% of GDP, compared to 47-56% in the Nordics. But the childcare gap is disproportionate even by that standard. It is not just less government. It is a specific absence.</p>
 
@@ -1055,7 +1066,7 @@
 		</div>
 
 		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 1.75rem;">
-		<h3 style="font-size: 16px; font-weight: 600; color: var(--color-text-dark); margin: 1.5rem 0 0.75rem; letter-spacing: 0.02em;">Who gets in</h3>
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: 1.5rem 0 0.75rem; letter-spacing: 0.02em;">Who gets in</h3>
 
 		<p>Spending becomes enrollment. Where countries fund childcare systems, children show up. <a href="https://www.chicagofed.org/publications/chicago-fed-insights/2024/non-us-childcare-policies" target="_blank" rel="noopener">Eight European countries</a> guarantee a childcare slot from age 6-18 months. Sweden caps parent fees at 3% of income. These are commitments written into law. The enrollment numbers reflect it.</p>
 
@@ -1079,7 +1090,7 @@
 		</div>
 
 		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 1.75rem;">
-		<h3 style="font-size: 16px; font-weight: 600; color: var(--color-text-dark); margin: 1.5rem 0 0.75rem; letter-spacing: 0.02em;">The infrastructure gap</h3>
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: 1.5rem 0 0.75rem; letter-spacing: 0.02em;">The infrastructure gap</h3>
 
 		<p>The result is not just a spending gap or an enrollment gap. It is a physical gap. Fewer trained workers, fewer licensed facilities, fewer available slots. The financial resources exist in the abstract. The concrete system — the buildings, the people, the laws — does not. Both countries know how to build world-class infrastructure. Only one builds childcare.</p>
 
@@ -1172,14 +1183,14 @@
 	<!-- SECTION 2: What the gap means                                     -->
 	<!-- ================================================================ -->
 	<details class="cc-details" open>
-		<summary style="font-size: 20px;">What the gap means</summary>
+		<summary style="font-size: 21px;">What the gap means</summary>
 
-		<h3 style="font-size: 16px; font-weight: 600; color: var(--color-text-dark); margin: 1.5rem 0 0.75rem; letter-spacing: 0.02em;">A tale of two systems</h3>
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: 1.5rem 0 0.75rem; letter-spacing: 0.02em;">A tale of two systems</h3>
 
 		<p>You have a child under 5. If you live in the United States, you choose between private childcare at <span class="cc-highlight"><a href="https://www.childcareaware.org/price-landscape24/" target="_blank" rel="noopener" style="color: inherit;">about $15,000 per year</a></span> or one parent leaves the workforce. If you live in Finland, you choose between public childcare at $0-4,080 per year or a <a href="https://www.kela.fi/child-home-care-allowance" target="_blank" rel="noopener">home care allowance</a> of ~$4,500 per year paid to the parent. Same situation. Radically different options.</p>
 
 		<!-- Decision tree -->
-		<div class="chart-container" id="decision-tree-container" style="margin-bottom: 32px;">
+		<div class="chart-container" id="decision-tree-container" style="margin-bottom: 48px;">
 			<div class="chart-body" style="padding: 4px 8px 0 8px;">
 				<svg id="decision-tree-svg" style="width:100%;height:auto;" viewBox="0 0 680 370" preserveAspectRatio="xMidYMid meet"></svg>
 			</div>
@@ -1192,7 +1203,7 @@
 		<p>In the United States, Head Start offers part-day preschool to some low-income children. Scattered state pre-K programs cover some four-year-olds for a few hours during the school year. For most families, the only real choice is the private market.</p>
 
 		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 1.75rem;">
-		<h3 style="font-size: 16px; font-weight: 600; color: var(--color-text-dark); margin: 1.5rem 0 0.75rem; letter-spacing: 0.02em;">The cost of doing nothing</h3>
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: 1.5rem 0 0.75rem; letter-spacing: 0.02em;">The cost of doing nothing</h3>
 
 		<p><span class="cc-highlight">3.8%</span> of US working-age adults are out of the labor force for childcare. In the Nordic countries, the figure is under 1%. Nine in ten of these sidelined adults are women. Outside of recessions, more Americans are out of work for childcare than for unemployment.</p>
 
@@ -1217,7 +1228,7 @@
 		</div>
 
 		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 1.75rem;">
-		<h3 style="font-size: 16px; font-weight: 600; color: var(--color-text-dark); margin: 1.5rem 0 0.75rem; letter-spacing: 0.02em;">The feedback loop</h3>
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: 1.5rem 0 0.75rem; letter-spacing: 0.02em;">The feedback loop</h3>
 
 		<p>These outcomes are not random. They are the product of two feedback loops, one in each direction.</p>
 
@@ -1269,7 +1280,7 @@
 		</div>
 
 		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 1.75rem;">
-		<h3 style="font-size: 16px; font-weight: 600; color: var(--color-text-dark); margin: 1.5rem 0 0.75rem; letter-spacing: 0.02em;">Breaking the cycle</h3>
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: 1.5rem 0 0.75rem; letter-spacing: 0.02em;">Breaking the cycle</h3>
 
 		<p>The federal government has not acted since 1971. So cities and states are building on their own. None have replicated what Finland built. But the attempts reveal what it takes.</p>
 
@@ -1325,7 +1336,7 @@
 	<!-- BACKMATTER                                                        -->
 	<!-- ================================================================ -->
 	<details class="cc-details">
-		<summary style="font-size: 20px;">Notes and to-do list</summary>
+		<summary style="font-size: 21px;">Notes and to-do list</summary>
 		<p style="font-style: italic; color: var(--color-text-gray);">This is a working draft. The data and methodology section will be restored in the final version. Below is a summary of known issues and planned work.</p>
 		<ul style="font-size: 14px; line-height: 1.6; color: var(--color-text-dark);">
 			<li>Adjust methodology, sources, prose, arguments, etc. through review process.</li>
@@ -1344,7 +1355,7 @@
 	</details>
 
 	<details class="cc-details">
-		<summary style="font-size: 20px;">Sources and Methods</summary>
+		<summary style="font-size: 21px;">Sources and Methods</summary>
 		<p>The boundary between early childhood and school varies — by country, by state, by birthday. This report uses ages 0 through 5 and excludes kindergarten to draw a consistent line across countries. The exact figures shift depending on where you draw that line. The gap does not.</p>
 		<p>Forthcoming.</p>
 	</details>
@@ -2800,10 +2811,10 @@
 		}
 
 		function renderDesktop() {
-			var W = 680, totalH = 632;
-			svg.attr('viewBox', '0 0 ' + W + ' ' + totalH);
-			var margin = {top: 54, right: 15, bottom: 30, left: 34};
-			var gapBetweenPanels = 111;
+			var W = 680, totalH = 712;
+			svg.attr('viewBox', '0 -6 ' + W + ' ' + totalH);
+			var margin = {top: 54, right: 15, bottom: 60, left: 34};
+			var gapBetweenPanels = 155;
 			var panelH = (totalH - margin.top - margin.bottom - gapBetweenPanels) / 2;
 
 			var xInfo = computeXSlots();
@@ -2812,7 +2823,7 @@
 			var barW = slotWidth * 0.6;
 
 			var yGdp = d3.scaleLinear()
-				.domain([0, d3.max(DATA, function(d){return d.gdp;}) * 1.18])
+				.domain([0, d3.max(DATA, function(d){return d.gdp;}) * 1.10])
 				.range([margin.top + panelH, margin.top]);
 
 			var botTop = margin.top + panelH + gapBetweenPanels;
@@ -2828,12 +2839,12 @@
 			var topG = svg.append('g');
 
 			topG.append('text')
-				.attr('x', 15).attr('y', margin.top - 32)
+				.attr('x', 15).attr('y', margin.top - 46)
 				.attr('font-size', 17).attr('font-weight', 700).attr('fill', tc)
 				.text('The US and peers all have resources for quality public childcare');
 			topG.append('text')
-				.attr('x', 15).attr('y', margin.top - 16)
-				.attr('font-size', 14).attr('fill', mc)
+				.attr('x', 15).attr('y', margin.top - 20)
+				.attr('font-size', 18).attr('fill', mc)
 				.text('GDP per 0\u20135 year old, USD millions');
 
 			var yGdpAxis = d3.axisLeft(yGdp).tickValues([0, 1, 2])
@@ -2878,12 +2889,19 @@
 			topG.append('line')
 				.attr('x1', margin.left).attr('x2', W - margin.right)
 				.attr('y1', yGdp(WORLD_AVG)).attr('y2', yGdp(WORLD_AVG))
-				.attr('stroke', navyColor).attr('stroke-width', 1.5).attr('stroke-dasharray', '5,3');
-			topG.append('text')
-				.attr('x', margin.left + 2).attr('y', yGdp(WORLD_AVG) - 5)
-				.attr('text-anchor', 'start').attr('font-size', 12).attr('font-weight', 700).attr('fill', navyColor)
-				.attr('stroke', dark ? '#1a1a2e' : '#fff').attr('stroke-width', 2).attr('paint-order', 'stroke')
-				.text('World average $' + WORLD_AVG.toFixed(2) + 'M');
+				.attr('stroke', navyColor).attr('stroke-width', 2).attr('stroke-dasharray', '5,3');
+			var wavLabelText = 'World average $' + WORLD_AVG.toFixed(2) + 'M';
+			var wavG = svg.append('g');
+			var wavLabel = wavG.append('text')
+				.attr('x', margin.left + 5).attr('y', yGdp(WORLD_AVG) - 6)
+				.attr('text-anchor', 'start').attr('font-size', 15).attr('font-weight', 800).attr('fill', navyColor)
+				.text(wavLabelText);
+			var wavBBox = wavLabel.node().getBBox();
+			wavG.insert('rect', 'text')
+				.attr('x', wavBBox.x - 3).attr('y', wavBBox.y - 2)
+				.attr('width', wavBBox.width + 6).attr('height', wavBBox.height + 4)
+				.attr('fill', dark ? '#1a1a2e' : '#fff').attr('opacity', 0.75)
+				.attr('rx', 2);
 
 			var labelY = yGdp(0) + 14;
 			DATA.forEach(function(d, i) { drawLabel(topG, d, xPos(i), labelY, bl); });
@@ -2906,12 +2924,12 @@
 			var botG = svg.append('g');
 
 			botG.append('text')
-				.attr('x', 15).attr('y', botTop - 22)
+				.attr('x', 15).attr('y', botTop - 42)
 				.attr('font-size', 17).attr('font-weight', 700).attr('fill', tc)
 				.text('But the US does not offer public childcare for most young children');
 			botG.append('text')
-				.attr('x', 15).attr('y', botTop - 6)
-				.attr('font-size', 14).attr('fill', mc)
+				.attr('x', 15).attr('y', botTop - 16)
+				.attr('font-size', 18).attr('fill', mc)
 				.text('Children aged 0\u20135 per 100 people, by childcare/pre-k enrollment');
 
 			var yKidsAxis = d3.axisLeft(yKids).ticks(5);
@@ -2964,11 +2982,21 @@
 					.attr('stroke', '#999').attr('stroke-width', 0.8);
 			});
 
+			var botGroupLabelY = yKids(0) + 50;
 			groups.forEach(function(g) {
 				var midX = (xPos(g.start) + xPos(g.end)) / 2;
-				var ly = botTop - 58.5;
+				botG.append('text')
+					.attr('x', midX).attr('y', botGroupLabelY)
+					.attr('text-anchor', 'middle').attr('font-size', 13).attr('font-weight', 700)
+					.attr('fill', mc)
+					.text(GROUP_LABELS[g.group]);
+			});
+
+			var groupLabelY = yGdp(0) + 50;
+			groups.forEach(function(g) {
+				var midX = (xPos(g.start) + xPos(g.end)) / 2;
 				svg.append('text')
-					.attr('x', midX).attr('y', ly)
+					.attr('x', midX).attr('y', groupLabelY)
 					.attr('text-anchor', 'middle').attr('font-size', 13).attr('font-weight', 700)
 					.attr('fill', mc)
 					.text(GROUP_LABELS[g.group]);
@@ -2983,14 +3011,14 @@
 					.attr('fill', item.color).attr('opacity', 0.85);
 				botG.append('text')
 					.attr('x', legX + 16).attr('y', legY + i * 17 + 10)
-					.attr('font-size', 13).attr('fill', mc)
+					.attr('font-size', 15).attr('fill', mc)
 					.text(item.label);
 			});
 		}
 
 		function renderMobile() {
-			var W = 400, H = 630;
-			svg.attr('viewBox', '0 0 ' + W + ' ' + H);
+			var W = 400, H = 686;
+			svg.attr('viewBox', '0 -6 ' + W + ' ' + H);
 			var margin = {top: 56, right: 6, bottom: 40, left: 26};
 			var tc = textColor(), mc = mutedColor(), dark = isDark();
 			var bl = dark ? '#c8c8c8' : '#555';
@@ -3026,16 +3054,16 @@
 
 			// ── Top panel: GDP per child ──
 			svg.append('text')
-				.attr('x', 8).attr('y', 18)
+				.attr('x', 8).attr('y', 8)
 				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
 				.text('These countries all have the resources');
 			svg.append('text')
-				.attr('x', 8).attr('y', 34)
+				.attr('x', 8).attr('y', 28)
 				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
 				.text('for quality public childcare');
 			svg.append('text')
 				.attr('x', 8).attr('y', 50)
-				.attr('font-size', 14).attr('fill', mc)
+				.attr('font-size', 16).attr('fill', mc)
 				.text('GDP per child 0\u20135, USD millions');
 
 			var p1Top = margin.top + 6;
@@ -3074,12 +3102,18 @@
 			svg.append('line')
 				.attr('x1', margin.left).attr('x2', W - margin.right)
 				.attr('y1', yGdp(WORLD_AVG)).attr('y2', yGdp(WORLD_AVG))
-				.attr('stroke', navyColor).attr('stroke-width', 1.5).attr('stroke-dasharray', '5,3');
-			svg.append('text')
-				.attr('x', margin.left + 2).attr('y', yGdp(WORLD_AVG) - 4)
-				.attr('text-anchor', 'start').attr('font-size', 11).attr('font-weight', 700).attr('fill', navyColor)
-				.attr('stroke', dark ? '#1a1a2e' : '#fff').attr('stroke-width', 2).attr('paint-order', 'stroke')
+				.attr('stroke', navyColor).attr('stroke-width', 2).attr('stroke-dasharray', '5,3');
+			var mWavG = svg.append('g');
+			var mWavLabel = mWavG.append('text')
+				.attr('x', margin.left + 5).attr('y', yGdp(WORLD_AVG) - 5)
+				.attr('text-anchor', 'start').attr('font-size', 13).attr('font-weight', 800).attr('fill', navyColor)
 				.text('World average');
+			var mWavBBox = mWavLabel.node().getBBox();
+			mWavG.insert('rect', 'text')
+				.attr('x', mWavBBox.x - 3).attr('y', mWavBBox.y - 2)
+				.attr('width', mWavBBox.width + 6).attr('height', mWavBBox.height + 4)
+				.attr('fill', dark ? '#1a1a2e' : '#fff').attr('opacity', 0.75)
+				.attr('rx', 2);
 
 			drawStaggeredLabels(svg, yGdp(0) + 12);
 
@@ -3109,17 +3143,17 @@
 			});
 
 			// ── Bottom panel: Children per 100 people ──
-			var botTop = groupLabelY + 92;
+			var botTop = groupLabelY + 120;
 			svg.append('text')
-				.attr('x', 8).attr('y', botTop - 46)
+				.attr('x', 8).attr('y', botTop - 66)
 				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
 				.text('The US does not offer public childcare');
 			svg.append('text')
-				.attr('x', 8).attr('y', botTop - 30)
+				.attr('x', 8).attr('y', botTop - 46)
 				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
 				.text('for most young children');
 			svg.append('text')
-				.attr('x', 8).attr('y', botTop - 14)
+				.attr('x', 8).attr('y', botTop - 24)
 				.attr('font-size', 14).attr('fill', mc)
 				.text('Children 0\u20135 per 100, by childcare/pre-k enrollment');
 
@@ -3164,6 +3198,16 @@
 					.attr('stroke', '#999').attr('stroke-width', 0.8);
 			});
 
+			var botGroupLabelY = yKids(0) + 38;
+			groups.forEach(function(g) {
+				var midX = (xPos(g.start) + xPos(g.end)) / 2;
+				svg.append('text')
+					.attr('x', midX).attr('y', botGroupLabelY)
+					.attr('text-anchor', 'middle').attr('font-size', 12).attr('font-weight', 700)
+					.attr('fill', mc)
+					.text(GROUP_LABELS[g.group]);
+			});
+
 			// Legend
 			var legX = W - margin.right - 150, legY = botTop + 4;
 			[{label: 'In public care', color: TEAL},
@@ -3174,7 +3218,7 @@
 					.attr('fill', item.color).attr('opacity', 0.85);
 				svg.append('text')
 					.attr('x', legX + 14).attr('y', legY + i * 16 + 9)
-					.attr('font-size', 11).attr('fill', mc)
+					.attr('font-size', 13).attr('fill', mc)
 					.text(item.label);
 			});
 		}
@@ -4249,21 +4293,21 @@
 
 		function renderDesktop() {
 			svg.selectAll('*').remove();
-			var W = 680, H = 370;
+			var W = 700, H = 370;
 			svg.attr('viewBox', '0 0 ' + W + ' ' + H);
 			var dark = document.documentElement.getAttribute('data-theme') === 'dark';
 
-			var titleY = 28, subtitleY = 48, countryY = 102;
-			var forkTopY = 68, forkMidY = 80;
+			var titleY = 28, subtitleY = 48, countryY = 108;
+			var forkTopY = 58, forkMidY = 70;
 			var cardTop = 150, cardH = 175, cardW = 145, cardR = 8;
 
 			var cards = [
-				{ x: 7,   center: 79.5 },
-				{ x: 176, center: 248.5 },
-				{ x: 359, center: 431.5 },
-				{ x: 528, center: 600.5 }
+				{ x: 17,  center: 89.5 },
+				{ x: 186, center: 258.5 },
+				{ x: 369, center: 441.5 },
+				{ x: 538, center: 610.5 }
 			];
-			var usX = 164, fiX = 516, centerX = W / 2;
+			var usX = 174, fiX = 526, centerX = W / 2;
 
 			var bg = dark ? '#1a1a2e' : '#fff';
 			var textMain = dark ? '#e0e0e0' : '#1a1a2e';
@@ -4282,7 +4326,7 @@
 			g.append('text')
 				.attr('x', centerX).attr('y', titleY)
 				.attr('text-anchor', 'middle')
-				.attr('font-size', 21).attr('font-weight', 'bold')
+				.attr('font-size', 23).attr('font-weight', 'bold')
 				.attr('fill', textMain)
 				.attr('font-family', 'Lato, system-ui, sans-serif')
 				.text('You have a child under 5.');
@@ -4290,7 +4334,7 @@
 			g.append('text')
 				.attr('x', centerX).attr('y', subtitleY)
 				.attr('text-anchor', 'middle')
-				.attr('font-size', 18)
+				.attr('font-size', 20)
 				.attr('fill', textMuted)
 				.attr('font-family', 'Lato, system-ui, sans-serif')
 				.text('What are your options?');
@@ -4312,7 +4356,7 @@
 			[[usX, warmAccent], [fiX, tealAccent]].forEach(function(d) {
 				g.append('line')
 					.attr('x1', d[0]).attr('y1', forkMidY)
-					.attr('x2', d[0]).attr('y2', countryY - 16)
+					.attr('x2', d[0]).attr('y2', forkMidY + 6)
 					.attr('stroke', d[1]).attr('stroke-width', 2);
 			});
 
@@ -4321,7 +4365,7 @@
 				g.append('text')
 					.attr('x', x).attr('y', countryY)
 					.attr('text-anchor', 'middle')
-					.attr('font-size', 17).attr('font-weight', 'bold')
+					.attr('font-size', 20).attr('font-weight', 'bold')
 					.attr('fill', accent)
 					.attr('font-family', 'Lato, system-ui, sans-serif')
 					.text(label);
@@ -4386,14 +4430,14 @@
 				g.append('text')
 					.attr('x', c.center).attr('y', cardTop + 28)
 					.attr('text-anchor', 'middle')
-					.attr('font-size', 15).attr('font-weight', 'bold')
+					.attr('font-size', 17).attr('font-weight', 'bold')
 					.attr('fill', textMain)
 					.attr('font-family', 'Lato, system-ui, sans-serif')
 					.text(d.title);
 				g.append('text')
 					.attr('x', c.center).attr('y', cardTop + 45)
 					.attr('text-anchor', 'middle')
-					.attr('font-size', 15).attr('font-weight', 'bold')
+					.attr('font-size', 17).attr('font-weight', 'bold')
 					.attr('fill', textMain)
 					.attr('font-family', 'Lato, system-ui, sans-serif')
 					.text(d.title2);
@@ -4402,7 +4446,7 @@
 				g.append('text')
 					.attr('x', c.center).attr('y', cardTop + 85)
 					.attr('text-anchor', 'middle')
-					.attr('font-size', 26).attr('font-weight', 'bold')
+					.attr('font-size', 30).attr('font-weight', 'bold')
 					.attr('fill', accent)
 					.attr('font-family', 'Lato, system-ui, sans-serif')
 					.text(d.amount);
@@ -4411,7 +4455,7 @@
 				g.append('text')
 					.attr('x', c.center).attr('y', cardTop + 104)
 					.attr('text-anchor', 'middle')
-					.attr('font-size', 13)
+					.attr('font-size', 15)
 					.attr('fill', textMuted)
 					.attr('font-family', 'Lato, system-ui, sans-serif')
 					.text(d.unit);
@@ -4423,7 +4467,7 @@
 						g.append('text')
 							.attr('x', c.center).attr('y', ctxY)
 							.attr('text-anchor', 'middle')
-							.attr('font-size', 13)
+							.attr('font-size', 15)
 							.attr('fill', textMuted)
 							.attr('font-family', 'Lato, system-ui, sans-serif')
 							.text(line);
@@ -4438,7 +4482,7 @@
 				.attr('x', (cards[0].x + cardW + cards[1].x) / 2)
 				.attr('y', orY)
 				.attr('text-anchor', 'middle')
-				.attr('font-size', 14).attr('font-style', 'italic')
+				.attr('font-size', 15).attr('font-style', 'italic')
 				.attr('fill', textMuted)
 				.attr('font-family', 'Lato, system-ui, sans-serif')
 				.text('or');
@@ -4447,7 +4491,7 @@
 				.attr('x', (cards[2].x + cardW + cards[3].x) / 2)
 				.attr('y', orY)
 				.attr('text-anchor', 'middle')
-				.attr('font-size', 14).attr('font-style', 'italic')
+				.attr('font-size', 15).attr('font-style', 'italic')
 				.attr('fill', textMuted)
 				.attr('font-family', 'Lato, system-ui, sans-serif')
 				.text('or');
@@ -4464,7 +4508,7 @@
 			g.append('text')
 				.attr('x', usX).attr('y', bottomY)
 				.attr('text-anchor', 'middle')
-				.attr('font-size', 14).attr('font-style', 'italic')
+				.attr('font-size', 16).attr('font-style', 'italic')
 				.attr('fill', warmAccent)
 				.attr('font-family', 'Lato, system-ui, sans-serif')
 				.text('Both options cost the family.');
@@ -4472,15 +4516,15 @@
 			g.append('text')
 				.attr('x', fiX).attr('y', bottomY)
 				.attr('text-anchor', 'middle')
-				.attr('font-size', 14).attr('font-style', 'italic')
+				.attr('font-size', 16).attr('font-style', 'italic')
 				.attr('fill', tealAccent)
 				.attr('font-family', 'Lato, system-ui, sans-serif')
-				.text('Both options are supported by the state.');
+				.text('Both options help the family.');
 		}
 
 		function renderMobile() {
 			svg.selectAll('*').remove();
-			var VW = 400, VH = 620;
+			var VW = 400, VH = 602;
 			svg.attr('viewBox', '0 0 ' + VW + ' ' + VH);
 			var dark = document.documentElement.getAttribute('data-theme') === 'dark';
 
@@ -4502,25 +4546,25 @@
 			svg.append('text')
 				.attr('x', centerX).attr('y', 26)
 				.attr('text-anchor', 'middle')
-				.attr('font-size', 19).attr('font-weight', 'bold')
+				.attr('font-size', 21).attr('font-weight', 'bold')
 				.attr('fill', textMain)
 				.attr('font-family', 'Lato, system-ui, sans-serif')
 				.text('You have a child under 5.');
 			svg.append('text')
 				.attr('x', centerX).attr('y', 46)
 				.attr('text-anchor', 'middle')
-				.attr('font-size', 15)
+				.attr('font-size', 16)
 				.attr('fill', textMuted)
 				.attr('font-family', 'Lato, system-ui, sans-serif')
 				.text('What are your options?');
 
 			// ── Draw a country section ──
-			function drawSection(sectionY, label, accent, side, cardBg, cardBorder, bottomLabel) {
+			function drawSection(sectionY, label, accent, side, cardBg, cardBorder, bottomLabel, bottomYOverride) {
 				// Country label
 				svg.append('text')
 					.attr('x', centerX).attr('y', sectionY)
 					.attr('text-anchor', 'middle')
-					.attr('font-size', 16).attr('font-weight', 'bold')
+					.attr('font-size', 20).attr('font-weight', 'bold')
 					.attr('fill', accent)
 					.attr('font-family', 'Lato, system-ui, sans-serif')
 					.text(label);
@@ -4562,14 +4606,14 @@
 					svg.append('text')
 						.attr('x', mid).attr('y', cTop + 26)
 						.attr('text-anchor', 'middle')
-						.attr('font-size', 14).attr('font-weight', 'bold')
+						.attr('font-size', 15).attr('font-weight', 'bold')
 						.attr('fill', textMain)
 						.attr('font-family', 'Lato, system-ui, sans-serif')
 						.text(d.title);
 					svg.append('text')
 						.attr('x', mid).attr('y', cTop + 42)
 						.attr('text-anchor', 'middle')
-						.attr('font-size', 14).attr('font-weight', 'bold')
+						.attr('font-size', 15).attr('font-weight', 'bold')
 						.attr('fill', textMain)
 						.attr('font-family', 'Lato, system-ui, sans-serif')
 						.text(d.title2);
@@ -4578,7 +4622,7 @@
 					svg.append('text')
 						.attr('x', mid).attr('y', cTop + 76)
 						.attr('text-anchor', 'middle')
-						.attr('font-size', 24).attr('font-weight', 'bold')
+						.attr('font-size', 26).attr('font-weight', 'bold')
 						.attr('fill', accent)
 						.attr('font-family', 'Lato, system-ui, sans-serif')
 						.text(d.amount);
@@ -4587,7 +4631,7 @@
 					svg.append('text')
 						.attr('x', mid).attr('y', cTop + 94)
 						.attr('text-anchor', 'middle')
-						.attr('font-size', 12)
+						.attr('font-size', 13)
 						.attr('fill', textMuted)
 						.attr('font-family', 'Lato, system-ui, sans-serif')
 						.text(d.unit);
@@ -4599,7 +4643,7 @@
 							svg.append('text')
 								.attr('x', mid).attr('y', ctxY)
 								.attr('text-anchor', 'middle')
-								.attr('font-size', 11)
+								.attr('font-size', 13)
 								.attr('fill', textMuted)
 								.attr('font-family', 'Lato, system-ui, sans-serif')
 								.text(line);
@@ -4613,23 +4657,24 @@
 					.attr('x', cardX1 + cardW + cardGap / 2)
 					.attr('y', cTop + cardH / 2 + 4)
 					.attr('text-anchor', 'middle')
-					.attr('font-size', 13).attr('font-style', 'italic')
+					.attr('font-size', 14).attr('font-style', 'italic')
 					.attr('fill', textMuted)
 					.attr('font-family', 'Lato, system-ui, sans-serif')
 					.text('or');
 
 				// Bottom label
+				var bottomY = bottomYOverride || (cTop + cardH + 22);
 				svg.append('text')
-					.attr('x', centerX).attr('y', cTop + cardH + 22)
+					.attr('x', centerX).attr('y', bottomY)
 					.attr('text-anchor', 'middle')
-					.attr('font-size', 12).attr('font-style', 'italic')
+					.attr('font-size', 15).attr('font-style', 'italic')
 					.attr('fill', accent)
 					.attr('font-family', 'Lato, system-ui, sans-serif')
 					.text(bottomLabel);
 			}
 
 			// US section
-			drawSection(80, 'United States', warmAccent, 'us', usCardBg, usCardBorder, 'Both options cost the family.');
+			drawSection(80, 'United States', warmAccent, 'us', usCardBg, usCardBorder, 'Both options cost the family.', 310);
 
 			// Dashed divider
 			svg.append('line')
@@ -4639,7 +4684,7 @@
 				.attr('stroke-dasharray', '4,4');
 
 			// Finland section
-			drawSection(360, 'Finland', tealAccent, 'fi', fiCardBg, fiCardBorder, 'Both options are supported by the state.');
+			drawSection(360, 'Finland', tealAccent, 'fi', fiCardBg, fiCardBorder, 'Both options help the family.', 590);
 		}
 
 		render();
