@@ -273,6 +273,15 @@
 			padding-left: 4px;
 			padding-right: 4px;
 		}
+		#map-container .group-label {
+			font-size: 24px;
+		}
+		#map-container .legend-label-end {
+			font-size: 14px;
+		}
+		#map-container .inset-box text {
+			font-size: 16px;
+		}
 	}
 	.cc-wage-box .chart-container {
 		max-width: 100%;
@@ -355,7 +364,6 @@
 		font-size: 12px;
 		font-family: system-ui, sans-serif;
 		fill: var(--color-axis-text);
-		text-anchor: middle;
 	}
 	/* No-data region */
 	.map-svg .region[fill="#ddd"] {
@@ -1678,16 +1686,20 @@
 				.attr('width', size).attr('height', size)
 				.attr('fill', fill).attr('rx', 1);
 			var labelLines = label.split('\n');
+			var lx = x + size + 4;
+			var ly = labelLines.length > 1 ? y + size / 2 - 4 : y + size / 2 + 4;
 			var txt = g.append('text')
-				.attr('x', x + size / 2).attr('y', y + size + 12)
+				.attr('x', lx)
+				.attr('y', ly)
+				.attr('text-anchor', 'start')
 				.attr('font-size', fs ? fs(12) : 12);
 			if (labelLines.length === 1) {
 				txt.text(label);
 			} else {
 				labelLines.forEach(function(line, i) {
 					txt.append('tspan')
-						.attr('x', x + size / 2)
-						.attr('dy', i === 0 ? 0 : '1em')
+						.attr('x', lx)
+						.attr('dy', i === 0 ? 0 : '1.1em')
 						.text(line);
 				});
 			}
@@ -1751,7 +1763,7 @@
 			lg.append('text').attr('class', 'legend-label legend-label-end')
 				.attr('x', lx - 6).attr('y', labelY)
 				.attr('text-anchor', 'end')
-				.attr('font-size', fs(12))
+				.attr('font-size', fs(14))
 				.text(fmtVal(colorInfo.lo, metric));
 			var hiLabel = colorInfo.trueHi
 				? fmtVal(colorInfo.hi, metric) + '+'
@@ -1759,7 +1771,7 @@
 			lg.append('text').attr('class', 'legend-label legend-label-end')
 				.attr('x', lx + lw + 6).attr('y', labelY)
 				.attr('text-anchor', 'start')
-				.attr('font-size', fs(12))
+				.attr('font-size', fs(14))
 				.text(hiLabel);
 
 			// National average ticks with flags (alternating above/below)
@@ -1955,7 +1967,7 @@
 				// US label with flag on new line below
 				svg.append('text').attr('class', 'group-label')
 					.attr('x', US_LABEL_X + 4).attr('y', US_LABEL_Y - 7)
-					.attr('font-size', fs(14))
+					.attr('font-size', fs(16))
 					.text('United States');
 				drawFlag(svg, 'US', US_LABEL_X + 4, US_LABEL_Y - 3, mobile ? 28 : 18, mobile ? 20 : 13);
 
@@ -2003,7 +2015,7 @@
 				drawInset(svg, lookupRegion(DATA.us.regions, 11), 'us', colorInfo,
 					dcX, dcY, mobile ? 20 : dcSize, 'DC', fs);
 				var nycMetroMetrics = {'wage_ratio_cc_pct': 1, 'wage_ratio_pt_pct': 1, 'wage_ratio_cacomp_pct': 1, 'workforce_share_pct': 1};
-				var nycLabel = nycMetroMetrics[currentMetric.id] ? 'NYC Metro' : 'NYC';
+				var nycLabel = nycMetroMetrics[currentMetric.id] ? 'NYC\nMetro' : 'NYC';
 				drawInset(svg, DATA.us.regions['NYC'], 'us', colorInfo,
 					nycX, nycY, mobile ? 20 : nycSize, nycLabel, fs);
 
@@ -2092,7 +2104,7 @@
 				// Canada label with flag on new line below
 				svg.append('text').attr('class', 'group-label')
 					.attr('x', CA.x - 8).attr('y', CA.y - 6)
-					.attr('font-size', fs(14))
+					.attr('font-size', fs(16))
 					.text('Canada');
 				drawFlag(svg, 'CA', CA.x - 8, CA.y - 2, mobile ? 28 : 18, mobile ? 20 : 13);
 
@@ -2115,7 +2127,7 @@
 				// Nordics label with flags on second line, spaced
 				svg.append('text').attr('class', 'group-label')
 					.attr('x', NO.x - 18).attr('y', NO.y - 8)
-					.attr('font-size', fs(14))
+					.attr('font-size', fs(16))
 					.text('Nordic Countries');
 				var nfx = NO.x - 18, nfy = NO.y - 3;
 				var nfw = mobile ? 26 : 17, nfh = mobile ? 18 : 12, nfg = mobile ? 5 : 4;
