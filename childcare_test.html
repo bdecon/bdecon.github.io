@@ -317,7 +317,7 @@
 	.chart-footer {
 		display: flex;
 		flex-direction: column;
-		padding: 0 12px 3px 12px;
+		padding: 6px 12px 3px 12px;
 	}
 	.chart-source {
 		font-size: 11px;
@@ -1142,7 +1142,6 @@
 		<div class="chart-container" id="map-container" style="margin-top: 0;">
 			<div class="chart-header">
 				<div>
-					<p class="map-category" id="map-tab-title">Public Spending</p>
 					<h4 id="map-indicator">Loading...</h4>
 					<div class="spending-toggle" id="spending-toggle">
 						<button class="spending-toggle-btn active" data-tier="narrow">Childcare</button>
@@ -1452,7 +1451,6 @@
 
 		// --- DOM refs ---
 		var metricTabs = document.getElementById('metric-tabs');
-		var mapTabTitle = document.getElementById('map-tab-title');
 		var mapIndicator = document.getElementById('map-indicator');
 		var mapSource = document.getElementById('map-source');
 		var mapCaveat = document.getElementById('map-caveat');
@@ -1916,7 +1914,6 @@
 			wageToggle.classList.toggle('visible', isWageMetric(currentMetric));
 
 			var colorInfo = getColorScale(currentMetric.id);
-			mapTabTitle.textContent = TAB_LABELS[currentMetric.id] || currentMetric.name;
 			mapIndicator.textContent = currentMetric.name;
 			mapSource.textContent = 'Source: ' + currentMetric.source;
 			mapCaveat.textContent = currentMetric.caveat || '';
@@ -2803,9 +2800,9 @@
 		}
 
 		function renderDesktop() {
-			var W = 680, totalH = 646;
+			var W = 680, totalH = 632;
 			svg.attr('viewBox', '0 0 ' + W + ' ' + totalH);
-			var margin = {top: 54, right: 15, bottom: 44, left: 34};
+			var margin = {top: 54, right: 15, bottom: 30, left: 34};
 			var gapBetweenPanels = 111;
 			var panelH = (totalH - margin.top - margin.bottom - gapBetweenPanels) / 2;
 
@@ -2832,11 +2829,11 @@
 
 			topG.append('text')
 				.attr('x', 15).attr('y', margin.top - 32)
-				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
+				.attr('font-size', 17).attr('font-weight', 700).attr('fill', tc)
 				.text('The US and peers all have resources for quality public childcare');
 			topG.append('text')
 				.attr('x', 15).attr('y', margin.top - 16)
-				.attr('font-size', 13).attr('fill', mc)
+				.attr('font-size', 14).attr('fill', mc)
 				.text('GDP per 0\u20135 year old, USD millions');
 
 			var yGdpAxis = d3.axisLeft(yGdp).tickValues([0, 1, 2])
@@ -2910,11 +2907,11 @@
 
 			botG.append('text')
 				.attr('x', 15).attr('y', botTop - 22)
-				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
+				.attr('font-size', 17).attr('font-weight', 700).attr('fill', tc)
 				.text('But the US does not offer public childcare for most young children');
 			botG.append('text')
 				.attr('x', 15).attr('y', botTop - 6)
-				.attr('font-size', 13).attr('fill', mc)
+				.attr('font-size', 14).attr('fill', mc)
 				.text('Children aged 0\u20135 per 100 people, by childcare/pre-k enrollment');
 
 			var yKidsAxis = d3.axisLeft(yKids).ticks(5);
@@ -3030,15 +3027,15 @@
 			// ── Top panel: GDP per child ──
 			svg.append('text')
 				.attr('x', 8).attr('y', 18)
-				.attr('font-size', 15).attr('font-weight', 700).attr('fill', tc)
+				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
 				.text('These countries all have the resources');
 			svg.append('text')
 				.attr('x', 8).attr('y', 34)
-				.attr('font-size', 15).attr('font-weight', 700).attr('fill', tc)
+				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
 				.text('for quality public childcare');
 			svg.append('text')
 				.attr('x', 8).attr('y', 50)
-				.attr('font-size', 12).attr('fill', mc)
+				.attr('font-size', 14).attr('fill', mc)
 				.text('GDP per child 0\u20135, USD millions');
 
 			var p1Top = margin.top + 6;
@@ -3115,15 +3112,15 @@
 			var botTop = groupLabelY + 92;
 			svg.append('text')
 				.attr('x', 8).attr('y', botTop - 46)
-				.attr('font-size', 15).attr('font-weight', 700).attr('fill', tc)
+				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
 				.text('The US does not offer public childcare');
 			svg.append('text')
 				.attr('x', 8).attr('y', botTop - 30)
-				.attr('font-size', 15).attr('font-weight', 700).attr('fill', tc)
+				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
 				.text('for most young children');
 			svg.append('text')
 				.attr('x', 8).attr('y', botTop - 14)
-				.attr('font-size', 12).attr('fill', mc)
+				.attr('font-size', 14).attr('fill', mc)
 				.text('Children 0\u20135 per 100, by childcare/pre-k enrollment');
 
 			var yKids = d3.scaleLinear()
@@ -3271,9 +3268,9 @@
 		}
 
 		function renderDesktop() {
-			var W = 680, H = 420;
+			var W = 680, H = 416;
 			svg.attr('viewBox', '0 0 ' + W + ' ' + H);
-			var margin = {top: 56, right: 20, bottom: 50, left: 43};
+			var margin = {top: 72, right: 20, bottom: 30, left: 43};
 			var chartW = W - margin.left - margin.right;
 			var chartH = H - margin.top - margin.bottom;
 			var tc = textColor(), mc = mutedColor(), dark = isDark();
@@ -3287,12 +3284,16 @@
 				.y(function(d) { return yScale(d); });
 
 			svg.append('text')
-				.attr('x', 15).attr('y', margin.top - 32)
-				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
-				.text('Nordic children enter public care at age 1. US children wait until age 5.');
+				.attr('x', 15).attr('y', 18)
+				.attr('font-size', 17).attr('font-weight', 700).attr('fill', tc)
+				.text('Nordic children enter public care at age 1.');
 			svg.append('text')
-				.attr('x', 15).attr('y', margin.top - 16)
-				.attr('font-size', 13).attr('fill', mc)
+				.attr('x', 15).attr('y', 36)
+				.attr('font-size', 17).attr('font-weight', 700).attr('fill', tc)
+				.text('US children wait until age 5.');
+			svg.append('text')
+				.attr('x', 15).attr('y', 52)
+				.attr('font-size', 14).attr('fill', mc)
 				.text('Enrollment in public early childhood education, % of age group');
 
 			[0, 25, 50, 75, 100].forEach(function(v) {
@@ -3325,7 +3326,7 @@
 				.attr('fill', dark ? '#333' : '#f5f5f5').attr('opacity', 0.5);
 			svg.append('text')
 				.attr('x', xScale(0.5)).attr('y', margin.top + 14)
-				.attr('text-anchor', 'middle').attr('font-size', 10.5).attr('fill', mc)
+				.attr('text-anchor', 'middle').attr('font-size', 12.5).attr('fill', mc)
 				.attr('font-style', 'italic')
 				.text('Parental leave');
 
@@ -3367,6 +3368,20 @@
 					.text(lb.text);
 			});
 
+			// "Public childcare gap" annotation
+			var gapX = xScale(2.3);
+			var gapY = 240;
+			var gapFillD = dark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.5)';
+			['Public', 'childcare', 'gap'].forEach(function(line, i) {
+				svg.append('text')
+					.attr('x', gapX).attr('y', gapY + i * 18)
+					.attr('text-anchor', 'middle')
+					.attr('font-size', 14).attr('font-weight', 600)
+					.attr('fill', gapFillD)
+					.attr('font-style', 'italic')
+					.text(line);
+			});
+
 			AGES.forEach(function(age) {
 				var colW = chartW / 5;
 				var x0 = xScale(age) - colW / 2;
@@ -3405,15 +3420,15 @@
 			// Title (two lines)
 			svg.append('text')
 				.attr('x', 10).attr('y', 18)
-				.attr('font-size', 15).attr('font-weight', 700).attr('fill', tc)
+				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
 				.text('Nordic children enter care at age 1.');
 			svg.append('text')
 				.attr('x', 10).attr('y', 34)
-				.attr('font-size', 15).attr('font-weight', 700).attr('fill', tc)
+				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
 				.text('US children wait until age 5.');
 			svg.append('text')
 				.attr('x', 10).attr('y', 50)
-				.attr('font-size', 12).attr('fill', mc)
+				.attr('font-size', 14).attr('fill', mc)
 				.text('Public early childhood enrollment, % of age group');
 
 			[0, 25, 50, 75, 100].forEach(function(v) {
@@ -3489,6 +3504,20 @@
 					.attr('fill', DATA[lb.di].color)
 					.attr('stroke', bgStroke).attr('stroke-width', 2.5).attr('paint-order', 'stroke')
 					.text(lb.text);
+			});
+
+			// "Public childcare gap" annotation (3 lines for mobile)
+			var gapX = xScale(2.5);
+			var gapY = 190;
+			var gapFill = dark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.5)';
+			['Public', 'childcare', 'gap'].forEach(function(line, i) {
+				svg.append('text')
+					.attr('x', gapX).attr('y', gapY + i * 16)
+					.attr('text-anchor', 'middle')
+					.attr('font-size', 13).attr('font-weight', 600)
+					.attr('fill', gapFill)
+					.attr('font-style', 'italic')
+					.text(line);
 			});
 		}
 
@@ -3566,9 +3595,9 @@
 		}
 
 		function renderDesktop() {
-			var W = 680, H = 385;
+			var W = 680, H = 369;
 			svgEl.attr('viewBox', '0 0 ' + W + ' ' + H);
-			var margin = {top: 66, right: 15, bottom: 46, left: 43};
+			var margin = {top: 66, right: 15, bottom: 30, left: 43};
 			var panelGap = 46;
 			var panelW = (W - margin.left - margin.right - panelGap) / 2;
 			var chartH = H - margin.top - margin.bottom;
@@ -3590,11 +3619,11 @@
 			// Main title
 			svgEl.append('text')
 				.attr('x', 15).attr('y', 22)
-				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
+				.attr('font-size', 17).attr('font-weight', 700).attr('fill', tc)
 				.text('The US spends less on government. On childcare, it\u2019s not even close.');
 			svgEl.append('text')
 				.attr('x', 15).attr('y', 38)
-				.attr('font-size', 13).attr('fill', mc)
+				.attr('font-size', 14).attr('fill', mc)
 				.text('Government spending as share of GDP');
 
 			// ── Left panel: Total govt ──
@@ -3720,11 +3749,11 @@
 			// Panel 1 title
 			svgEl.append('text')
 				.attr('x', 12).attr('y', 20)
-				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
+				.attr('font-size', 17).attr('font-weight', 700).attr('fill', tc)
 				.text('The US spends less on government.');
 			svgEl.append('text')
 				.attr('x', 12).attr('y', 37)
-				.attr('font-size', 13).attr('fill', mc)
+				.attr('font-size', 14).attr('fill', mc)
 				.text('Total government spending, share of GDP');
 
 			// ── Panel 1: Total govt ──
@@ -3772,11 +3801,11 @@
 
 			p2G.append('text')
 				.attr('x', 12).attr('y', p2Top - 14)
-				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
+				.attr('font-size', 17).attr('font-weight', 700).attr('fill', tc)
 				.text('On childcare, it\u2019s not even close.');
 			p2G.append('text')
 				.attr('x', 12).attr('y', p2Top + 1)
-				.attr('font-size', 13).attr('fill', mc)
+				.attr('font-size', 14).attr('fill', mc)
 				.text('Early childhood education & care, share of GDP');
 
 			var yEcec = d3.scaleLinear().domain([0, 1.8]).range([p2Top + barChartH, p2Top + 16]);
@@ -3888,9 +3917,9 @@
 		}
 
 		function renderDesktop() {
-			var W = 680, H = 360;
+			var W = 680, H = 406;
 			svg.attr('viewBox', '0 0 ' + W + ' ' + H);
-			var margin = {top: 60, right: 15, bottom: 30, left: 43};
+			var margin = {top: 108, right: 15, bottom: 24, left: 43};
 			var panelGap = 46;
 			var panelW = (W - margin.left - margin.right - panelGap) / 2;
 			var chartH = H - margin.top - margin.bottom;
@@ -3910,21 +3939,25 @@
 
 			// Main title
 			svg.append('text')
-				.attr('x', 15).attr('y', 22)
-				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
-				.text('Without public childcare, parents leave the workforce');
-			svg.append('text')
-				.attr('x', 15).attr('y', 38)
-				.attr('font-size', 13).attr('fill', mc)
-				.text('Working-age adults (left), all persons (right)');
+				.attr('x', 15).attr('y', 36)
+				.attr('font-size', 17).attr('font-weight', 700).attr('fill', tc)
+				.text('Without public childcare:');
 
 			// ── Left panel: NILF for childcare ──
 			var leftG = svg.append('g');
 
 			leftG.append('text')
-				.attr('x', leftX + panelW / 2).attr('y', margin.top + 10)
-				.attr('text-anchor', 'middle').attr('font-size', 14).attr('font-weight', 700).attr('fill', TEAL)
-				.text('Out of work for childcare');
+				.attr('x', leftX + panelW / 2 - 15).attr('y', margin.top - 40)
+				.attr('text-anchor', 'middle').attr('font-size', 17).attr('font-weight', 700).attr('fill', TEAL)
+				.text('Parents leave the workforce');
+			leftG.append('text')
+				.attr('x', leftX + panelW / 2 - 15).attr('y', margin.top - 17)
+				.attr('text-anchor', 'middle').attr('font-size', 15).attr('fill', mc)
+				.text('Share of adults ages 20-64');
+			leftG.append('text')
+				.attr('x', leftX + panelW / 2 - 15).attr('y', margin.top + 2)
+				.attr('text-anchor', 'middle').attr('font-size', 15).attr('fill', mc)
+				.text('out of work for childcare');
 
 			var yNilfAxis = d3.axisLeft(yNilf).tickValues([0, 1, 2, 3, 4])
 				.tickFormat(function(d) { return d + '%'; });
@@ -3954,7 +3987,7 @@
 					.text(d.nilf.toFixed(1) + '%');
 				leftG.append('text')
 					.attr('x', cx).attr('y', yNilf(0) + 13)
-					.attr('text-anchor', 'middle').attr('font-size', 11.5).attr('fill', bl)
+					.attr('text-anchor', 'middle').attr('font-size', 12).attr('fill', bl)
 					.text(d.short);
 				leftG.append('rect')
 					.attr('x', cx - barW / 2 - 2).attr('y', margin.top)
@@ -3973,9 +4006,13 @@
 			var rightG = svg.append('g');
 
 			rightG.append('text')
-				.attr('x', rightX + panelW / 2).attr('y', margin.top + 10)
-				.attr('text-anchor', 'middle').attr('font-size', 14).attr('font-weight', 700).attr('fill', mc)
-				.text('Poverty rate');
+				.attr('x', rightX + panelW / 2 - 15).attr('y', margin.top - 40)
+				.attr('text-anchor', 'middle').attr('font-size', 17).attr('font-weight', 700).attr('fill', isDark() ? '#9B9BD0' : '#443983')
+				.text('Children fall into poverty');
+			rightG.append('text')
+				.attr('x', rightX + panelW / 2 - 15).attr('y', margin.top - 14)
+				.attr('text-anchor', 'middle').attr('font-size', 15).attr('fill', mc)
+				.text('Child poverty rate');
 
 			var yPovAxis = d3.axisLeft(yPov).tickValues([0, 5, 10, 15, 20])
 				.tickFormat(function(d) { return d + '%'; });
@@ -4006,7 +4043,7 @@
 					.text(d.poverty.toFixed(1) + '%');
 				rightG.append('text')
 					.attr('x', cx).attr('y', yPov(0) + 13)
-					.attr('text-anchor', 'middle').attr('font-size', 11.5).attr('fill', bl)
+					.attr('text-anchor', 'middle').attr('font-size', 12).attr('fill', bl)
 					.text(d.short);
 				rightG.append('rect')
 					.attr('x', cx - barW / 2 - 2).attr('y', margin.top)
@@ -4025,10 +4062,10 @@
 		function renderMobile() {
 			var W = 420, panelH = 220;
 			var gap = 28;
-			var H = panelH * 2 + gap + 58;
+			var H = panelH * 2 + gap + 56;
 			svg.attr('viewBox', '0 0 ' + W + ' ' + H);
 
-			var margin = {top: 54, right: 12, bottom: 24, left: 46};
+			var margin = {top: 88, right: 12, bottom: 24, left: 46};
 			var chartW = W - margin.left - margin.right;
 			var barChartH = panelH - 46;
 			var barW = chartW / DATA.length * 0.55;
@@ -4039,28 +4076,24 @@
 				return margin.left + (i + 0.5) * (chartW / DATA.length);
 			}
 
-			// Main title (two lines for mobile)
+			// Main title
 			svg.append('text')
-				.attr('x', 12).attr('y', 20)
-				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
-				.text('Without public childcare,');
-			svg.append('text')
-				.attr('x', 12).attr('y', 37)
-				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
-				.text('parents leave the workforce');
-			svg.append('text')
-				.attr('x', 12).attr('y', 52)
-				.attr('font-size', 13).attr('fill', mc)
-				.text('Working-age adults / all persons');
+				.attr('x', 12).attr('y', 30)
+				.attr('font-size', 17).attr('font-weight', 700).attr('fill', tc)
+				.text('Without public childcare:');
 
 			// ── Panel 1: NILF for childcare ──
-			var p1Top = margin.top + 16;
+			var p1Top = margin.top - 16;
 			var p1G = svg.append('g');
 
 			p1G.append('text')
-				.attr('x', margin.left).attr('y', p1Top)
-				.attr('font-size', 14).attr('font-weight', 700).attr('fill', TEAL)
-				.text('Out of work for childcare');
+				.attr('x', 12).attr('y', 62)
+				.attr('font-size', 15).attr('font-weight', 700).attr('fill', TEAL)
+				.text('Parents leave the workforce');
+			p1G.append('text')
+				.attr('x', 12).attr('y', 80)
+				.attr('font-size', 14).attr('fill', mc)
+				.text('Adults ages 20-64 out of work for childcare');
 
 			var yNilf = d3.scaleLinear().domain([0, 4.6]).range([p1Top + barChartH, p1Top + 16]);
 
@@ -4101,9 +4134,13 @@
 			var p2G = svg.append('g');
 
 			p2G.append('text')
-				.attr('x', margin.left).attr('y', p2Top)
-				.attr('font-size', 14).attr('font-weight', 700).attr('fill', mc)
-				.text('Poverty rate');
+				.attr('x', 12).attr('y', p2Top - 14)
+				.attr('font-size', 15).attr('font-weight', 700).attr('fill', isDark() ? '#9B9BD0' : '#443983')
+				.text('Children fall into poverty');
+			p2G.append('text')
+				.attr('x', 12).attr('y', p2Top + 4)
+				.attr('font-size', 14).attr('fill', mc)
+				.text('Child poverty rate');
 
 			var yPov = d3.scaleLinear().domain([0, 22]).range([p2Top + barChartH, p2Top + 16]);
 
