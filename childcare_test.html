@@ -868,11 +868,11 @@
 					<p class="map-category">Resources and burdens</p>
 				</div>
 				</div>
-			<div class="chart-body" style="padding: 24px 12px 4px 12px;">
+			<div class="chart-body" style="padding: 16px 12px 4px 12px;">
 				<svg id="resources-svg" style="width:100%;height:auto;" viewBox="0 0 680 520" preserveAspectRatio="xMidYMid meet"></svg>
 			</div>
 			<div class="chart-footer">
-				<p class="chart-source">Includes public childcare and preschool only. Source: Author</p>
+				<p class="chart-source">Includes public childcare and preschool only. See footnotes for sources</p>
 				<svg viewBox="0 0 9 5" width="16" height="9" aria-hidden="true" style="fill: var(--color-text-gray); opacity: 0.5; align-self: flex-end; margin-top: -10px; margin-bottom: 5px;"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
 			</div>
 		</div>
@@ -2829,7 +2829,7 @@
 			var botTop = margin.top + panelH + gapBetweenPanels;
 			var yKids = d3.scaleLinear()
 				.domain([0, 8.5])
-				.range([botTop + panelH - 2, botTop - 2]);
+				.range([botTop + panelH - 2, botTop + 18]);
 
 			var tc = textColor(), mc = mutedColor(), dark = isDark();
 			var bl = dark ? '#c8c8c8' : '#555';
@@ -2843,7 +2843,7 @@
 				.attr('font-size', 17).attr('font-weight', 700).attr('fill', tc)
 				.text('The US and peers all have resources for quality public childcare');
 			topG.append('text')
-				.attr('x', 15).attr('y', margin.top - 20)
+				.attr('x', 15).attr('y', margin.top - 18)
 				.attr('font-size', 18).attr('fill', mc)
 				.text('GDP per 0\u20135 year old, USD millions');
 
@@ -2928,9 +2928,9 @@
 				.attr('font-size', 17).attr('font-weight', 700).attr('fill', tc)
 				.text('But the US does not offer public childcare for most young children');
 			botG.append('text')
-				.attr('x', 15).attr('y', botTop - 16)
+				.attr('x', 15).attr('y', botTop - 14)
 				.attr('font-size', 18).attr('fill', mc)
-				.text('Children aged 0\u20135 per 100 people, by childcare/pre-k enrollment');
+				.text('Children aged 0\u20135, percent of population');
 
 			var yKidsAxis = d3.axisLeft(yKids).ticks(5);
 			botG.append('g')
@@ -2985,8 +2985,9 @@
 			var botGroupLabelY = yKids(0) + 50;
 			groups.forEach(function(g) {
 				var midX = (xPos(g.start) + xPos(g.end)) / 2;
+				var bglY = (g.group === 'canada' || g.group === 'nordic') ? botGroupLabelY - 10 : botGroupLabelY;
 				botG.append('text')
-					.attr('x', midX).attr('y', botGroupLabelY)
+					.attr('x', midX).attr('y', bglY)
 					.attr('text-anchor', 'middle').attr('font-size', 13).attr('font-weight', 700)
 					.attr('fill', mc)
 					.text(GROUP_LABELS[g.group]);
@@ -2995,30 +2996,39 @@
 			var groupLabelY = yGdp(0) + 50;
 			groups.forEach(function(g) {
 				var midX = (xPos(g.start) + xPos(g.end)) / 2;
+				var glY = (g.group === 'canada' || g.group === 'nordic') ? groupLabelY - 10 : groupLabelY;
 				svg.append('text')
-					.attr('x', midX).attr('y', groupLabelY)
+					.attr('x', midX).attr('y', glY)
 					.attr('text-anchor', 'middle').attr('font-size', 13).attr('font-weight', 700)
 					.attr('fill', mc)
 					.text(GROUP_LABELS[g.group]);
 			});
 
-			var legX = W - margin.right - 180, legY = botTop + 4;
-			[{label: 'In public care', color: TEAL},
-			 {label: 'Not enrolled', color: GRAY_LIGHT}].forEach(function(item, i) {
+			var legX = W - margin.right - 264, legY = botTop + 1;
+			botG.append('text')
+				.attr('x', legX + 125).attr('y', legY + 10)
+				.attr('text-anchor', 'middle')
+				.attr('font-size', 15).attr('font-weight', 600).attr('fill', mc)
+				.text('Childcare/pre-k enrollment');
+			var legItemY = legY + 22;
+			var legCol2X = legX + 150;
+			[{label: 'In public care', color: TEAL, col: 0},
+			 {label: 'Not enrolled', color: GRAY_LIGHT, col: 1}].forEach(function(item) {
+				var cx = item.col === 0 ? legX : legCol2X;
 				botG.append('rect')
-					.attr('x', legX).attr('y', legY + i * 17)
+					.attr('x', cx).attr('y', legItemY)
 					.attr('width', 12).attr('height', 12)
 					.attr('fill', item.color).attr('opacity', 0.85);
 				botG.append('text')
-					.attr('x', legX + 16).attr('y', legY + i * 17 + 10)
+					.attr('x', cx + 16).attr('y', legItemY + 10)
 					.attr('font-size', 15).attr('fill', mc)
 					.text(item.label);
 			});
 		}
 
 		function renderMobile() {
-			var W = 400, H = 686;
-			svg.attr('viewBox', '0 -6 ' + W + ' ' + H);
+			var W = 400, H = 682;
+			svg.attr('viewBox', '0 -16 ' + W + ' ' + H);
 			var margin = {top: 56, right: 6, bottom: 40, left: 26};
 			var tc = textColor(), mc = mutedColor(), dark = isDark();
 			var bl = dark ? '#c8c8c8' : '#555';
@@ -3054,17 +3064,17 @@
 
 			// ── Top panel: GDP per child ──
 			svg.append('text')
-				.attr('x', 8).attr('y', 8)
+				.attr('x', 8).attr('y', 2)
 				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
 				.text('These countries all have the resources');
 			svg.append('text')
-				.attr('x', 8).attr('y', 28)
+				.attr('x', 8).attr('y', 24)
 				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
 				.text('for quality public childcare');
 			svg.append('text')
 				.attr('x', 8).attr('y', 50)
 				.attr('font-size', 16).attr('fill', mc)
-				.text('GDP per child 0\u20135, USD millions');
+				.text('GDP per child aged 0\u20135, USD millions');
 
 			var p1Top = margin.top + 6;
 			var yGdp = d3.scaleLinear()
@@ -3115,7 +3125,7 @@
 				.attr('fill', dark ? '#1a1a2e' : '#fff').attr('opacity', 0.75)
 				.attr('rx', 2);
 
-			drawStaggeredLabels(svg, yGdp(0) + 12);
+			drawStaggeredLabels(svg, yGdp(0) + 14);
 
 			// Group bracket lines + labels (belong to top panel)
 			var groups = GROUP_ORDER.map(function(g) {
@@ -3132,7 +3142,7 @@
 					.attr('stroke', '#999').attr('stroke-width', 0.8);
 			});
 
-			var groupLabelY = yGdp(0) + 38;
+			var groupLabelY = yGdp(0) + 44;
 			groups.forEach(function(g) {
 				var midX = (xPos(g.start) + xPos(g.end)) / 2;
 				svg.append('text')
@@ -3145,7 +3155,7 @@
 			// ── Bottom panel: Children per 100 people ──
 			var botTop = groupLabelY + 120;
 			svg.append('text')
-				.attr('x', 8).attr('y', botTop - 66)
+				.attr('x', 8).attr('y', botTop - 70)
 				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
 				.text('The US does not offer public childcare');
 			svg.append('text')
@@ -3153,13 +3163,13 @@
 				.attr('font-size', 16).attr('font-weight', 700).attr('fill', tc)
 				.text('for most young children');
 			svg.append('text')
-				.attr('x', 8).attr('y', botTop - 24)
-				.attr('font-size', 14).attr('fill', mc)
-				.text('Children 0\u20135 per 100, by childcare/pre-k enrollment');
+				.attr('x', 8).attr('y', botTop - 22)
+				.attr('font-size', 16).attr('fill', mc)
+				.text('Children aged 0\u20135, percent of population');
 
 			var yKids = d3.scaleLinear()
 				.domain([0, 8.5])
-				.range([botTop + barArea, botTop]);
+				.range([botTop + barArea, botTop + 18]);
 
 			yKids.ticks(5).forEach(function(v) {
 				svg.append('line')
@@ -3187,7 +3197,7 @@
 					.attr('fill', GRAY_LIGHT).attr('opacity', 0.85);
 			});
 
-			drawStaggeredLabels(svg, yKids(0) + 12);
+			drawStaggeredLabels(svg, yKids(0) + 14);
 
 			groups.forEach(function(g) {
 				var x1 = xPos(g.start) - barW/2 - 2;
@@ -3198,7 +3208,7 @@
 					.attr('stroke', '#999').attr('stroke-width', 0.8);
 			});
 
-			var botGroupLabelY = yKids(0) + 38;
+			var botGroupLabelY = yKids(0) + 44;
 			groups.forEach(function(g) {
 				var midX = (xPos(g.start) + xPos(g.end)) / 2;
 				svg.append('text')
@@ -3209,15 +3219,23 @@
 			});
 
 			// Legend
-			var legX = W - margin.right - 150, legY = botTop + 4;
-			[{label: 'In public care', color: TEAL},
-			 {label: 'Not enrolled', color: GRAY_LIGHT}].forEach(function(item, i) {
+			var legX = W - margin.right - 320, legY = botTop + 1;
+			svg.append('text')
+				.attr('x', legX + 110).attr('y', legY + 9)
+				.attr('text-anchor', 'middle')
+				.attr('font-size', 13).attr('font-weight', 600).attr('fill', mc)
+				.text('Childcare/pre-k enrollment');
+			var legItemY = legY + 20;
+			var legCol2X = legX + 130;
+			[{label: 'In public care', color: TEAL, col: 0},
+			 {label: 'Not enrolled', color: GRAY_LIGHT, col: 1}].forEach(function(item) {
+				var cx = item.col === 0 ? legX : legCol2X;
 				svg.append('rect')
-					.attr('x', legX).attr('y', legY + i * 16)
+					.attr('x', cx).attr('y', legItemY)
 					.attr('width', 10).attr('height', 10)
 					.attr('fill', item.color).attr('opacity', 0.85);
 				svg.append('text')
-					.attr('x', legX + 14).attr('y', legY + i * 16 + 9)
+					.attr('x', cx + 14).attr('y', legItemY + 9)
 					.attr('font-size', 13).attr('fill', mc)
 					.text(item.label);
 			});
