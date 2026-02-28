@@ -282,18 +282,12 @@
 		#map-container .inset-box text {
 			font-size: 16px;
 		}
-		.chart-header h4 {
-			font-size: 16px;
-		}
 		.spending-toggle, .wage-toggle {
 			margin-top: 8px;
 		}
 		.spending-toggle-btn, .wage-toggle-btn {
 			font-size: 13px;
 			padding: 5px 12px;
-		}
-		.legend-semantic {
-			font-size: 20px;
 		}
 	}
 	.cc-wage-box .chart-container {
@@ -304,7 +298,7 @@
 	.chart-header {
 		background-color: var(--color-card-teal);
 		color: white;
-		padding: 10px 12px 8px 12px;
+		padding: 14px 12px 8px 12px;
 		display: flex;
 		justify-content: space-between;
 		align-items: flex-start;
@@ -312,9 +306,17 @@
 	.chart-header h4 {
 		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 		font-size: 19px;
-		margin: 0;
+		margin: 0 0 8px 0;
 		font-weight: 600;
 		color: inherit;
+	}
+	@media (max-width: 500px) {
+		.chart-header {
+			padding: 10px 12px 4px 12px;
+		}
+		.chart-header h4 {
+			font-size: 17px;
+		}
 	}
 	.chart-header .map-category {
 		font-size: 13px;
@@ -333,10 +335,11 @@
 		padding: 6px 12px 3px 12px;
 	}
 	.chart-footer .chart-source {
-		font-size: 13px;
+		font-size: 14px;
 		color: var(--color-text-gray);
 		margin: 0;
 		font-style: italic;
+		text-align: left;
 	}
 	[data-theme="dark"] .chart-source {
 		color: #bbb;
@@ -399,10 +402,15 @@
 		font-style: italic;
 	}
 	.legend-semantic {
-		font-size: 18px;
+		font-size: 17px;
 		font-family: system-ui, sans-serif;
 		font-weight: 600;
 		fill: var(--color-card-teal);
+	}
+	@media (max-width: 500px) {
+		.legend-semantic {
+			font-size: 22px;
+		}
 	}
 	/* Legend (drawn in SVG) */
 	.legend-label {
@@ -1178,7 +1186,7 @@
 		<noscript><p style="background:#fff3cd;padding:10px;border-radius:4px;font-size:14px;">This page requires JavaScript to display interactive maps.</p></noscript>
 		<div class="cc-tabs" id="metric-tabs" style="margin-top: 2.5rem;">
 			<button class="cc-tab" data-metric="gdp_per_child_0_5">Resources</button>
-			<button class="cc-tab" data-metric="spending_pct_gdp">Spending</button>
+			<button class="cc-tab" data-metric="spending_pct_gdp">Funding</button>
 			<button class="cc-tab active" data-metric="enrollment_pct">Enrollment</button>
 			<button class="cc-tab" data-metric="wage_ratio_pct">Wages</button>
 			<button class="cc-tab" data-metric="workforce_share_pct">Workforce</button>
@@ -1785,8 +1793,8 @@
 			'wage_ratio_pt_pct': ['Lower wage', 'Higher wage'],
 			'wage_ratio_cacomp_pct': ['Lower wage', 'Higher wage'],
 			'workforce_share_pct': ['Small workforce', 'Full workforce'],
-			'spending_pct_gdp_narrow': ['Private burden', 'Public funded'],
-			'spending_pct_gdp_broad': ['Private burden', 'Public funded'],
+			'spending_pct_gdp_narrow': ['Family burden', 'Public funded'],
+			'spending_pct_gdp_broad': ['Family burden', 'Public funded'],
 			'gdp_per_child_0_5': ['4x world average', '9x world average+']
 		};
 
@@ -1861,15 +1869,16 @@
 			var semLabels = LEGEND_LABELS[metric.id];
 			if (semLabels) {
 				var semY = SEP_TOP_Y + 22;
+				var semOff = container.clientWidth < 500 ? 8 : 2;
 				lg.append('text').attr('class', 'legend-semantic')
-					.attr('x', lx - 32).attr('y', semY + 8)
+					.attr('x', lx - 32).attr('y', semY + semOff)
 					.attr('text-anchor', 'start')
-					.attr('font-size', fs(12))
+					.attr('font-size', fs(13))
 					.text(semLabels[0]);
 				lg.append('text').attr('class', 'legend-semantic')
-					.attr('x', lx + lw + 32).attr('y', semY + 8)
+					.attr('x', lx + lw + 32).attr('y', semY + semOff)
 					.attr('text-anchor', 'end')
-					.attr('font-size', fs(12))
+					.attr('font-size', fs(13))
 					.text(semLabels[1]);
 			}
 
@@ -2008,6 +2017,33 @@
 			// Mobile detection: scale up fonts when viewBox (680) is wider than container
 			var mobile = container.clientWidth < 500;
 			var fs = mobile ? function(base) { return Math.round(base * 1.6); } : function(base) { return base; };
+
+			// Desktop/mobile layout overrides (outer vars are shared defaults)
+			if (!mobile) {
+				SEP_TOP_Y = US_BOTTOM + 10;
+				LEGEND_Y = US_BOTTOM + 62;
+				SEP_BOT_Y = US_BOTTOM + 96;
+				LEG.y = LEGEND_Y;
+				ROW2_LABELS_Y = US_BOTTOM + 138;
+				ROW2_MAP_Y = US_BOTTOM + 138;
+				ROW2_H = 304; // match mobile projection zoom so northern Canada clips
+				CA.y = ROW2_LABELS_Y; CA.h = ROW2_H;
+				NO.y = ROW2_LABELS_Y; NO.h = ROW2_H;
+			} else {
+				SEP_TOP_Y = US_BOTTOM + 20;
+				LEGEND_Y = US_BOTTOM + 88;
+				SEP_BOT_Y = US_BOTTOM + 130;
+				LEG.y = LEGEND_Y;
+				ROW2_LABELS_Y = US_BOTTOM + 176;
+				ROW2_MAP_Y = US_BOTTOM + 180;
+				ROW2_H = VB_H - ROW2_MAP_Y - 6;
+				CA.y = ROW2_LABELS_Y; CA.h = ROW2_H;
+				NO.y = ROW2_LABELS_Y; NO.h = ROW2_H;
+			}
+
+			// Set viewBox based on desktop/mobile
+			var vbH = mobile ? 900 : 858;
+			svg.attr('viewBox', '0 0 ' + VB_W + ' ' + vbH);
 
 			// Show/hide spending toggle
 			spendingToggle.classList.toggle('visible', isSpendingMetric(currentMetric));
