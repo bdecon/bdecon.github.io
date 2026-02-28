@@ -120,10 +120,10 @@
 	}
 	.cc-infra-label {
 		flex: 1;
-		font-size: 14px;
+		font-size: 16px;
 		font-weight: 700;
 		color: var(--color-text-dark);
-		padding: 2px 4px;
+		padding: 8px 4px 2px;
 	}
 	.cc-infra-label-left { text-align: left; }
 	.cc-infra-label-right { text-align: right; }
@@ -722,19 +722,25 @@
 		border: 2px solid var(--color-card-teal);
 		border-radius: 6px;
 		padding: 16px;
-		margin: 1.5rem 0;
+		margin: calc(1.5rem + 20px) 0 1.5rem;
 		background: var(--color-bg-white);
 	}
 	.cc-wage-box > h3 {
-		font-size: 17px;
+		font-size: 20px;
 		font-weight: 700;
 		color: var(--color-card-teal);
-		margin: 0 0 8px 0;
+		margin: 10px 0 8px 0;
+	}
+	.cc-wage-title-mobile { display: none; }
+	@media (max-width: 500px) {
+		.cc-wage-title-desktop { display: none; }
+		.cc-wage-title-mobile { display: block; }
 	}
 	.cc-wage-box > p {
 		font-size: 14px;
 		color: var(--color-text-muted);
-		line-height: 1.5;
+		line-height: 1.65;
+		padding: 0 6px;
 	}
 	/* Case study comparison table */
 	.cc-case-table {
@@ -861,7 +867,7 @@
 	<details class="cc-details" open>
 		<summary style="font-size: 21px;">What some countries built</summary>
 
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 4px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">The money is there</h3>
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">The money is there</h3>
 
 		<p>Every country on this page is extraordinarily rich by any global standard. One way to see this is GDP per child — the total economic output of a country divided by its number of young children. It is a rough measure of how much a society produces for each child it needs to support. The global average is about $190,000 per child aged 0-5. The US generates $1.28 million. Denmark generates $1.23 million. Finland generates $1.05 million. Massachusetts, at $2.41 million, produces more than double Finland per child.</p>
 
@@ -1050,8 +1056,8 @@
 		})();
 		</script>
 
-		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 1.75rem;">
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 4px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">A gap in priorities</h3>
+		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 calc(1.75rem + 6px);">
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">A gap in priorities</h3>
 
 		<p>The US spends <span class="cc-highlight">less than 0.3% of GDP</span> on early childhood education and care — about 50 cents per American per day. GDP is a measure of a country's total economic output, so this percentage shows how much of its resources a country directs toward childcare. The Nordic countries spend over 1.3%. The US does have a smaller government overall — it collects and spends about 39% of GDP, compared to 47-56% in the Nordics. But the childcare gap is disproportionate even by that standard. It is not just less government. It is a specific absence.</p>
 
@@ -1059,7 +1065,7 @@
 		<div class="chart-container" id="spending-compare-container">
 			<div class="chart-header">
 				<div>
-					<p class="map-category">Spending priorities</p>
+					<p class="map-category">Budget priorities</p>
 				</div>
 				</div>
 			<div class="chart-body" style="padding: 8px 12px 4px 12px;">
@@ -1071,8 +1077,8 @@
 			</div>
 		</div>
 
-		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 1.75rem;">
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 4px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">Who gets in</h3>
+		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 calc(1.75rem + 6px);">
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">Who gets in</h3>
 
 		<p>Spending becomes enrollment. Where countries fund childcare systems, children show up. <a href="https://www.chicagofed.org/publications/chicago-fed-insights/2024/non-us-childcare-policies" target="_blank" rel="noopener">Eight European countries</a> guarantee a childcare slot from age 6-18 months. Sweden caps parent fees at 3% of income. These are commitments written into law. The enrollment numbers reflect it.</p>
 
@@ -1095,10 +1101,12 @@
 			</div>
 		</div>
 
-		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 1.75rem;">
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 4px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">The infrastructure gap</h3>
+		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 calc(1.75rem + 6px);">
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">The infrastructure gap</h3>
 
-		<p>The result is not just a spending gap or an enrollment gap. It is a physical gap. Fewer trained workers, fewer licensed facilities, fewer available slots. The financial resources exist in the abstract. The concrete system — the buildings, the people, the laws — does not. Both countries know how to build world-class infrastructure. Only one builds childcare.</p>
+		<p>The childcare gap between the US and Nordics is not just a matter of public spending or enrollment. It is a physical gap. Even with more funding, the licensed facilities, trained workers, and available slots to serve every family do not exist.</p>
+
+		<p>To illustrate, compare public infrastructure between Norway and the US across two sectors: aviation and childcare. Both countries know how to build world-class infrastructure. Only one has public childcare infrastructure.</p>
 
 		<!-- Infrastructure image grid -->
 		<div class="cc-infra-grid">
@@ -1106,7 +1114,7 @@
 				<div class="cc-infra-label cc-infra-label-left">Norway</div>
 				<div class="cc-infra-label cc-infra-label-right">United States</div>
 			</div>
-			<div style="text-align: center; font-size: 11px; font-weight: 600; color: var(--color-text-muted); letter-spacing: 0.08em; text-transform: uppercase; margin: 4px 0 2px;">Public aviation infrastructure</div>
+			<div style="text-align: center; font-size: 12px; font-weight: 600; color: var(--color-text-muted); letter-spacing: 0.08em; text-transform: uppercase; margin: 4px 0 2px;">Public aviation infrastructure</div>
 			<div class="cc-infra-row">
 				<div class="cc-infra-cell">
 					<img src="files/childcare-images/oslo_airport.jpg" alt="Oslo Gardermoen Airport at night">
@@ -1119,7 +1127,7 @@
 					<span class="cc-infra-caption">Hartsfield-Jackson Atlanta Airport</span>
 				</div>
 			</div>
-			<div style="text-align: center; font-size: 11px; font-weight: 600; color: var(--color-text-muted); letter-spacing: 0.08em; text-transform: uppercase; margin: 6px 0 2px;">Public childcare infrastructure</div>
+			<div style="text-align: center; font-size: 12px; font-weight: 600; color: var(--color-text-muted); letter-spacing: 0.08em; text-transform: uppercase; margin: 6px 0 2px;">Public childcare infrastructure</div>
 			<div class="cc-infra-row">
 				<div class="cc-infra-cell">
 					<img src="files/childcare-images/barnehage.jpg" alt="Bamsebo barnehage, Norwegian childcare center">
@@ -1134,7 +1142,7 @@
 			</div>
 		</div>
 
-		<p>The empty lot is not an accident. Pat Buchanan later reflected on killing the 1971 childcare bill:</p>
+		<p>The empty lot in the illustration above is not an accident. Pat Buchanan later reflected on killing the 1971 childcare bill:</p>
 
 		<blockquote class="cc-blockquote">
 			"If we hadn't stopped it, I think you'd have an entitlement program now of enormous size with these federal day care centers, and they would be growing and growing and growing once you got it on the books."
@@ -1143,7 +1151,7 @@
 
 		<p>Buchanan was afraid the program would work — that families would use it, depend on it, and defend it at the ballot box. That is exactly what happened in every country that built one.</p>
 
-		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 1.75rem;">
+		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 calc(1.75rem + 6px);">
 
 		<p>No US state has built comparable childcare infrastructure either. Nordic countries are small — but so are US states. Massachusetts has a larger economy than Finland. That is precisely why this next section compares at the state level: it removes the excuse that the US is simply too big or too diverse for the comparison to hold. The map below shows spending, enrollment, wages, and workforce outcomes for US and Canadian subnational geographies alongside the Nordic countries.</p>
 
@@ -1191,14 +1199,14 @@
 	<details class="cc-details" open>
 		<summary style="font-size: 21px;">What the gap means</summary>
 
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 4px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">A tale of two systems</h3>
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">A tale of two systems</h3>
 
 		<p>You have a child under 5. If you live in the United States, you choose between private childcare at <span class="cc-highlight"><a href="https://www.childcareaware.org/price-landscape24/" target="_blank" rel="noopener" style="color: inherit;">about $15,000 per year</a></span> or one parent leaves the workforce. If you live in Finland, you choose between public childcare at $0-4,080 per year or a <a href="https://www.kela.fi/child-home-care-allowance" target="_blank" rel="noopener">home care allowance</a> of ~$4,500 per year paid to the parent. Same situation. Radically different options.</p>
 
 		<!-- Decision tree -->
-		<div class="chart-container" id="decision-tree-container" style="margin-bottom: 48px;">
-			<div class="chart-body" style="padding: 4px 8px 0 8px;">
-				<svg id="decision-tree-svg" style="width:100%;height:auto;" viewBox="0 0 680 370" preserveAspectRatio="xMidYMid meet"></svg>
+		<div class="chart-container" id="decision-tree-container" style="margin-bottom: 48px; max-width: 654px;">
+			<div class="chart-body" style="padding: 24px 12px 0 12px;">
+				<svg id="decision-tree-svg" style="width:100%;height:auto;" viewBox="0 0 784 450" preserveAspectRatio="xMidYMid meet"></svg>
 			</div>
 		</div>
 
@@ -1208,8 +1216,8 @@
 
 		<p>In the United States, Head Start offers part-day preschool to some low-income children. Scattered state pre-K programs cover some four-year-olds for a few hours during the school year. For most families, the only real choice is the private market.</p>
 
-		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 1.75rem;">
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 4px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">The cost of doing nothing</h3>
+		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 calc(1.75rem + 6px);">
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">The cost of doing nothing</h3>
 
 		<p><span class="cc-highlight">3.8%</span> of US working-age adults are out of the labor force for childcare. In the Nordic countries, the figure is under 1%. Nine in ten of these sidelined adults are women. Outside of recessions, more Americans are out of work for childcare than for unemployment.</p>
 
@@ -1221,7 +1229,7 @@
 		<div class="chart-container" id="outcomes-container">
 			<div class="chart-header">
 				<div>
-					<p class="map-category">Outcomes</p>
+					<p class="map-category">Cost to society</p>
 				</div>
 				</div>
 			<div class="chart-body" style="padding: 2px 12px 0 12px;">
@@ -1233,8 +1241,8 @@
 			</div>
 		</div>
 
-		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 1.75rem;">
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 4px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">The feedback loop</h3>
+		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 calc(1.75rem + 6px);">
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">The feedback loop</h3>
 
 		<p>These outcomes are not random. They are the product of two feedback loops, one in each direction.</p>
 
@@ -1255,9 +1263,12 @@
 
 		<!-- Wage peers inset box -->
 		<div class="cc-wage-box">
-			<h3>US childcare workers are paid $15.41 per hour</h3>
-			<p>The median childcare worker is paid <a href="https://www.bls.gov/oes/current/oes399011.htm" target="_blank" rel="noopener">$15.41 per hour</a>, or about $32,050 a year. <span class="cc-highlight">99% of all occupations</span> pay more. An elementary school teacher at the school next door is paid <a href="https://www.bls.gov/oes/current/oes252021.htm" target="_blank" rel="noopener">$62,340</a>. That gap is not a market outcome. It is a policy choice about which work counts as professional.</p>
-			<p>The elementary school teacher's salary is not generous. States cut real teacher pay aggressively enough through the late 2010s to provoke the largest wave of teacher strikes in a generation. That depressed benchmark is still nearly double what a childcare worker takes home. Neither wage reflects the value of the work. But there is a practical case for closing the gap: professional pay attracts trained workers, training improves quality, and the returns from quality early care flow disproportionately to the children who need it most.</p>
+			<h3 class="cc-wage-title-desktop">US childcare workers are paid $15.41 per hour</h3>
+			<h3 class="cc-wage-title-mobile">US childcare workers make $15.41/hr</h3>
+			<p>The typical childcare worker makes <a href="https://www.bls.gov/oes/current/oes399011.htm" target="_blank" rel="noopener">$15.41 per hour</a>, or $32,050 a year. <span class="cc-highlight">99% of occupations</span> pay more. An elementary school teacher at the school next door makes <a href="https://www.bls.gov/oes/current/oes252021.htm" target="_blank" rel="noopener">$62,340</a>. That gap is not a market outcome. It is a policy choice about which work counts as professional.</p>
+			<p>An elementary school teacher's salary is not particularly generous, either. Neither wage reflects the value of the work. But there is a practical case for closing the gap: professional pay attracts trained workers, training improves quality, and the returns from quality early care flow disproportionately to the children who need it most.</p>
+
+			<p>Without professional pay, here is the competition for childcare labor: the lowest-paid occupation in the US, a fast-food cook, makes only 6% less per hour. A dogwalker makes more. The diagram below shows the US occupations with wages most similar to childcare workers. These are the lowest-paying jobs in the country. The 742 occupations that pay more are not shown.</p>
 
 			<div class="chart-container" id="wp-hero-container" style="margin: 0.75rem 0; box-shadow: none; border-bottom: none !important;">
 				<div class="chart-body" style="padding: 0;">
@@ -1265,7 +1276,8 @@
 				</div>
 			</div>
 
-			<p>The peer list changes by location. In some states, childcare workers are paid a poverty wage&mdash;half of what a typical worker makes. In every Nordic country, they are paid 65&ndash;75% of a typical wage.</p>
+			<hr class="cc-rule">
+			<p>Peer occupations change by location. In some states, childcare workers are paid a poverty wage&mdash;half of what a typical worker makes. In every Nordic country, they are paid 65&ndash;75% of a typical wage. Use the table below to dig deeper.</p>
 
 			<details class="cc-details" id="wp-explore" style="margin: 0.5rem 0 0 0;">
 				<summary>Explore wage peers by state or country</summary>
@@ -1285,30 +1297,30 @@
 			</details>
 		</div>
 
-		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 1.75rem;">
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 4px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">Breaking the cycle</h3>
+		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 calc(1.75rem + 6px);">
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">Breaking the cycle</h3>
 
 		<p>The federal government has not acted since 1971. So cities and states are building on their own. None have replicated what Finland built. But the attempts reveal what it takes.</p>
 
 		<p><svg viewBox="0 0 56 36" width="32" height="20" style="vertical-align: -4px; margin-right: 4px;"><rect width="56" height="36" fill="#fff"/><rect x="16" width="8" height="36" fill="#003580"/><rect y="14" width="56" height="8" fill="#003580"/><rect width="56" height="36" rx="1" fill="none" stroke="#ccc" stroke-width="0.75"/></svg><strong>Finland</strong> shows what a complete system looks like. Public childcare runs from the end of parental leave until school begins. The alternative is a home care allowance of roughly $4,500 a year, paid directly to the parent. Both options are supported by the state. The system was <a href="https://jacobin.com/2021/10/finland-public-universal-childcare-day-care-early-education" target="_blank" rel="noopener">built over a century</a>: first kindergarten in 1888, the Day Care Act in 1973, university-educated staff required by 1995. Staff ratios are one adult per four children, the lowest in the OECD.</p>
 
-		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 1.5rem 0;">
+		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 1.5rem 0 calc(1.5rem + 6px);">
 
 		<p><svg viewBox="0 0 56 36" width="32" height="20" style="vertical-align: -4px; margin-right: 4px;"><rect width="19" height="36" fill="#003DA5"/><rect x="19" width="18" height="36" fill="#fff"/><rect x="37" width="19" height="36" fill="#F4651A"/><circle cx="28" cy="18" r="5" fill="#003DA5" opacity="0.25"/><circle cx="28" cy="18" r="3.5" fill="#fff" opacity="0.4"/><rect width="56" height="36" rx="1" fill="none" stroke="#ccc" stroke-width="0.75"/></svg><strong>New York City</strong> is building age by age. <a href="https://www.schools.nyc.gov/enrollment/enroll-grade-by-grade/pre-k" target="_blank" rel="noopener">Pre-K for All</a> made public preschool available to every four-year-old starting in 2014. 3-K extended that to three-year-olds. In January 2026, the city launched a <a href="https://www.nyc.gov/mayors-office/news/2025/12/mayor-adams--chancellor-aviles-ramos-announce-open-enrollment-fo" target="_blank" rel="noopener">Birth-to-2 pilot</a> offering free full-day care for infants and toddlers at 15 sites across the city, with no income requirements. A week later, Mayor Mamdani and Governor Hochul <a href="https://www.chalkbeat.org/newyork/2026/01/08/hochul-and-mamdani-announce-state-funding-for-nyc-2-care-universal-child-care/" target="_blank" rel="noopener">announced 2-Care</a>, a plan to make care for all two-year-olds free by the end of the decade, with $500 million committed for the first two years.</p>
 
 		<p>The ambition is real. So is the problem underneath it: home-based childcare providers have collapsed from 28,000 to 12,000 since 2007, and childcare workers are still paid about $36,500 a year in a city where public school teachers make more than double that.</p>
 
-		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 1.5rem 0;">
+		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 1.5rem 0 calc(1.5rem + 6px);">
 
 		<p><svg viewBox="0 0 56 36" width="32" height="20" style="vertical-align: -4px; margin-right: 4px;"><rect width="56" height="36" fill="#FFD700"/><g transform="translate(28,18)" fill="#BF0A30"><circle r="3.5"/><rect x="-4" y="-14" width="2" height="28"/><rect x="-1" y="-14" width="2" height="28"/><rect x="2" y="-14" width="2" height="28"/><rect x="-4" y="-14" width="2" height="28" transform="rotate(90)"/><rect x="-1" y="-14" width="2" height="28" transform="rotate(90)"/><rect x="2" y="-14" width="2" height="28" transform="rotate(90)"/></g><circle cx="28" cy="18" r="1.8" fill="#FFD700"/></svg><strong>New Mexico</strong> changed the funding structure itself. In 2022, voters approved a <a href="https://ballotpedia.org/New_Mexico_Constitutional_Amendment_1,_Land_Grant_Permanent_Fund_Distribution_for_Early_Childhood_Education_Amendment_(2022)" target="_blank" rel="noopener">constitutional amendment</a> directing oil royalties from the Land Grant Permanent Fund into early childhood education. In 2025, New Mexico became the first US state to offer <a href="https://www.nmececd.org/universal/" target="_blank" rel="noopener">universal childcare</a>, open to any family regardless of income. By writing the funding into the constitution, the state insulated it from the annual budget fights that have stalled progress everywhere else. The money is structurally protected. The workforce is not. Whether it produces quality depends on fights that have not happened yet.</p>
 
-		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 1.5rem 0;">
+		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 1.5rem 0 calc(1.5rem + 6px);">
 
 		<p><svg viewBox="0 0 56 36" width="32" height="20" style="vertical-align: -4px; margin-right: 4px;"><rect width="56" height="36" fill="#003478"/><ellipse cx="28" cy="19" rx="12" ry="13" fill="none" stroke="#C5A84A" stroke-width="1.2"/><rect x="16" y="20" width="24" height="8" fill="#5A8F3D"/><polygon points="22,20 28,10 34,20" fill="#2E7D32"/><polygon points="25,20 28,14 31,20" fill="#4CAF50"/><rect x="27.2" y="20" width="1.6" height="3.5" fill="#5D4037"/><ellipse cx="21" cy="17" rx="2" ry="4" fill="#C5A84A" opacity="0.5"/><ellipse cx="35" cy="17" rx="2" ry="4" fill="#C5A84A" opacity="0.5"/><circle cx="28" cy="8" r="1.5" fill="#C5A84A" opacity="0.6"/></svg><strong>Vermont</strong> found a replicable funding model. In 2023, the legislature passed <a href="https://letsgrowkids.org/vermont-child-care-bill-act-76-educators-families-kids" target="_blank" rel="noopener">Act 76</a>, creating a dedicated 0.44% payroll tax that generates roughly $125 million a year for childcare. The governor vetoed it. The legislature overrode the veto. Subsidy eligibility now reaches families earning up to $175,000, and copays are eliminated for families below $55,000.</p>
 
 		<p>Behind the legislation was a decade of sustained advocacy: a philanthropic organization called Let's Grow Kids raised $70 million, built a statewide coalition including business owners and manufacturers, and then <a href="https://vtdigger.org/2025/11/19/after-a-decade-vermonts-child-care-juggernaut-passes-the-torch/" target="_blank" rel="noopener">deliberately shut itself down</a> once the state took ownership. For the first time since 2018, more childcare programs are opening in Vermont than closing.</p>
 
-		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 1.5rem 0;">
+		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 1.5rem 0 calc(1.5rem + 6px);">
 
 		<!-- Age coverage strips -->
 		<div class="chart-container" id="age-coverage-container">
@@ -1320,7 +1332,7 @@
 			</div>
 		</div>
 
-		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 1.75rem;">
+		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 calc(1.75rem + 6px);">
 
 		<p>The United States has the resources — more GDP per young child than any Nordic country. It has the model — thirteen years of free public education, with 90% enrollment. What it does not have is the first five years. The government spends less than 0.3% of GDP on childcare, compared to over 1.3% in the Nordics. More Americans are out of work for childcare than for unemployment. Childcare workers are paid less than 99% of all occupations. The gap is not a matter of wealth. It is a matter of political choice.</p>
 
@@ -2227,21 +2239,23 @@
 		// avoid all overlaps in the tight $14.61–$16.23 range.
 		// Source: BLS OEWS May 2024 national file.
 		var US_PEERS = [
+			{ label: 'Fast Food\nCooks',        wage: 14.50, side: 'below', tier: 1 },
 			{ label: 'Restaurant\nHosts',       wage: 14.61, side: 'above', tier: 1 },
-			{ label: 'Fast Food\nWorkers',      wage: 14.65, side: 'below', tier: 2 },
+			{ label: 'Fast Food\nWorkers',      wage: 14.65, side: 'below', tier: 1 },
+			{ label: 'Sports Book\nWriters',    wage: 14.65, side: 'below', tier: 3 },
 			{ label: 'Recreation\nWorkers',     wage: 14.66, side: 'above', tier: 3 },
 			{ label: 'Ushers &\nAttendants',    wage: 14.98, side: 'below', tier: 2 },
 			{ label: 'Cashiers',                wage: 14.99, side: 'above', tier: 1 },
 			{ label: 'Shampooers',              wage: 15.13, side: 'below', tier: 1 },
 			{ label: 'Dining\nAttendants',      wage: 15.71, side: 'above', tier: 1 },
 			{ label: 'Gambling\nDealers',       wage: 16.00, side: 'below', tier: 1 },
-			{ label: 'Animal\nCaretakers',      wage: 16.09, side: 'above', tier: 2 },
+			{ label: 'Animal\nCaretakers',      wage: 16.09, side: 'above', tier: 1 },
 			{ label: 'Bartenders',              wage: 16.12, side: 'below', tier: 3 }
 		];
 
 		var heroSvg = d3.select('#wp-hero-svg');
 		var heroContainer = document.getElementById('wp-hero-container');
-		var wageMin = 14.45, wageMax = 16.25;
+		var wageMin = 14.50, wageMax = 16.19;
 
 		var textColor = function() {
 			return document.documentElement.getAttribute('data-theme') === 'dark' ? '#efefef' : '#1e1e1e';
@@ -2270,10 +2284,10 @@
 		}
 
 		function drawHeroDesktop() {
-			var VW = 680, VH = 340;
+			var VW = 680, VH = 300;
 			heroSvg.attr('viewBox', '0 0 ' + VW + ' ' + VH);
 
-			var MARGIN = { left: 8, right: 8 };
+			var MARGIN = { left: 32, right: 8 };
 			var axisY = 170;
 			var x = d3.scaleLinear().domain([wageMin, wageMax]).range([MARGIN.left, VW - MARGIN.right]);
 			var TIER_ABOVE = { 1: -22, 2: -56, 3: -90 };
@@ -2281,7 +2295,7 @@
 
 			// Title
 			heroSvg.append('text')
-				.attr('x', VW / 2).attr('y', 24)
+				.attr('x', VW / 2).attr('y', 22)
 				.attr('text-anchor', 'middle')
 				.attr('font-size', 20).attr('font-weight', 700)
 				.attr('fill', textColor())
@@ -2289,31 +2303,30 @@
 
 			// Subtitle
 			heroSvg.append('text')
-				.attr('x', VW / 2).attr('y', 41)
+				.attr('x', VW / 2).attr('y', 47)
 				.attr('text-anchor', 'middle')
-				.attr('font-size', 13).attr('font-weight', 400)
+				.attr('font-size', 15.5).attr('font-weight', 400)
 				.attr('fill', mutedColor())
 				.text('Occupations paid closest to childcare workers in the US');
 
-			// Direction arrows
-			heroSvg.append('text')
-				.attr('x', 8).attr('y', 28)
-				.attr('text-anchor', 'start')
-				.attr('font-size', 13).attr('fill', tealColor())
-				.attr('font-weight', 600)
-				.text('\u2190 Lower wage');
-			heroSvg.append('text')
-				.attr('x', VW - 8).attr('y', 28)
-				.attr('text-anchor', 'end')
-				.attr('font-size', 13).attr('fill', tealColor())
-				.attr('font-weight', 600)
-				.text('Higher wage \u2192');
 
-			// Axis line — full width
+			// Axis arrowhead
+			heroSvg.append('defs').append('marker')
+				.attr('id', 'axis-arrow')
+				.attr('viewBox', '0 0 8 8')
+				.attr('refX', 8).attr('refY', 4)
+				.attr('markerWidth', 18).attr('markerHeight', 18)
+				.attr('orient', 'auto')
+				.append('path')
+				.attr('d', 'M 0 1 L 8 4 L 0 7 z')
+				.attr('fill', mutedColor());
+
+			// Axis line
 			heroSvg.append('line')
-				.attr('x1', 0).attr('x2', VW)
+				.attr('x1', x(14.50)).attr('x2', VW)
 				.attr('y1', axisY).attr('y2', axisY)
-				.attr('stroke', mutedColor()).attr('stroke-width', 0.5);
+				.attr('stroke', mutedColor()).attr('stroke-width', 0.5)
+				.attr('marker-end', 'url(#axis-arrow)');
 
 			// Peer dots, leader lines, labels + wages
 			US_PEERS.forEach(function(p) {
@@ -2323,7 +2336,7 @@
 				var lineStart = p.side === 'above' ? axisY - 4 : axisY + 4;
 				var lines = p.label.split('\n');
 				var isAbove = p.side === 'above';
-				var lineH = 11; // line height for multi-line labels
+				var lineH = 12; // line height for multi-line labels
 
 				// Name first, wage underneath — on both sides
 				var labelBaseY, wageY, lineEnd;
@@ -2354,7 +2367,7 @@
 				var labelText = heroSvg.append('text')
 					.attr('x', px).attr('y', labelBaseY)
 					.attr('text-anchor', 'middle')
-					.attr('font-size', 10.5).attr('fill', textColor())
+					.attr('font-size', 11.5).attr('fill', textColor())
 					.attr('opacity', 0.85);
 				lines.forEach(function(line, i) {
 					labelText.append('tspan')
@@ -2366,8 +2379,8 @@
 				heroSvg.append('text')
 					.attr('x', px).attr('y', wageY)
 					.attr('text-anchor', 'middle')
-					.attr('font-size', 10.5).attr('fill', textColor())
-					.attr('opacity', 0.65)
+					.attr('font-size', 11.5).attr('fill', textColor())
+					.attr('opacity', 0.75)
 					.text('$' + p.wage.toFixed(2));
 			});
 
@@ -2376,34 +2389,71 @@
 				.attr('cx', x(US_CHILDCARE.wage)).attr('cy', axisY)
 				.attr('r', 6).attr('fill', tealColor());
 
-			heroSvg.append('text')
-				.attr('x', x(US_CHILDCARE.wage)).attr('y', axisY - 20)
+			var ccLabel = heroSvg.append('text')
+				.attr('x', x(US_CHILDCARE.wage)).attr('y', axisY - 46)
 				.attr('text-anchor', 'middle')
-				.attr('font-size', 13).attr('font-weight', 700)
-				.attr('fill', tealColor())
-				.text('Childcare Workers');
+				.attr('font-size', 16).attr('font-weight', 700)
+				.attr('fill', tealColor());
+			ccLabel.append('tspan')
+				.attr('x', x(US_CHILDCARE.wage))
+				.text('Childcare');
+			ccLabel.append('tspan')
+				.attr('x', x(US_CHILDCARE.wage))
+				.attr('dy', '1.2em')
+				.text('Workers');
 			heroSvg.append('text')
-				.attr('x', x(US_CHILDCARE.wage)).attr('y', axisY - 9)
+				.attr('x', x(US_CHILDCARE.wage)).attr('y', axisY - 11)
 				.attr('text-anchor', 'middle')
-				.attr('font-size', 10.5).attr('font-weight', 600)
+				.attr('font-size', 14).attr('font-weight', 600)
 				.attr('fill', tealColor())
 				.text('$15.41/hr');
+
+			// Endpoint annotations
+			var leftAnnot = heroSvg.append('text')
+				.attr('x', 32).attr('y', axisY + 58)
+				.attr('text-anchor', 'middle')
+				.attr('font-size', 12).attr('fill', tealColor())
+				.attr('font-weight', 600);
+			leftAnnot.append('tspan')
+				.attr('x', 32)
+				.text('Lowest');
+			leftAnnot.append('tspan')
+				.attr('x', 32)
+				.attr('dy', '1.0em')
+				.text('paid');
+			leftAnnot.append('tspan')
+				.attr('x', 32)
+				.attr('dy', '1.0em')
+				.text('occ.');
+
+			var rightAnnot = heroSvg.append('text')
+				.attr('x', VW - 16).attr('y', axisY - 90)
+				.attr('text-anchor', 'end')
+				.attr('font-size', 16).attr('fill', tealColor())
+				.attr('font-weight', 600);
+			rightAnnot.append('tspan')
+				.attr('x', VW - 16)
+				.text('742 occupations');
+			rightAnnot.append('tspan')
+				.attr('x', VW - 16)
+				.attr('dy', '1.3em')
+				.text('paid more \u2192');
 
 			// Source
 			heroSvg.append('text')
 				.attr('x', VW / 2).attr('y', VH - 14)
 				.attr('text-anchor', 'middle')
-				.attr('font-size', 12).attr('fill', mutedColor())
+				.attr('font-size', 14).attr('fill', mutedColor())
 				.attr('font-style', 'italic')
 				.text('Hourly median wages, 2024. Source: BLS OEWS.');
 		}
 
 		function drawHeroMobile() {
-			var VW = 380, VH = 520;
-			heroSvg.attr('viewBox', '0 0 ' + VW + ' ' + VH);
+			var VW = 380, VH = 620;
+			heroSvg.attr('viewBox', '0 -10 ' + VW + ' ' + (VH + 10));
 
 			var axisX = VW / 2; // center the axis
-			var MARGIN = { top: 65, bottom: 40 };
+			var MARGIN = { top: 80, bottom: 40 };
 			var labelOffset = 32; // gap from axis to label text
 
 			// Sort peers by wage for vertical layout
@@ -2439,7 +2489,7 @@
 
 			// Title
 			heroSvg.append('text')
-				.attr('x', VW / 2).attr('y', 22)
+				.attr('x', VW / 2).attr('y', 12)
 				.attr('text-anchor', 'middle')
 				.attr('font-size', 18).attr('font-weight', 700)
 				.attr('fill', textColor())
@@ -2447,31 +2497,30 @@
 
 			// Subtitle
 			heroSvg.append('text')
-				.attr('x', VW / 2).attr('y', 40)
+				.attr('x', VW / 2).attr('y', 34)
 				.attr('text-anchor', 'middle')
-				.attr('font-size', 12).attr('font-weight', 400)
+				.attr('font-size', 16).attr('font-weight', 400)
 				.attr('fill', mutedColor())
 				.text('Closest occupations by wage');
 
-			// Direction arrows
-			heroSvg.append('text')
-				.attr('x', axisX).attr('y', MARGIN.top - 10)
-				.attr('text-anchor', 'middle')
-				.attr('font-size', 11).attr('fill', tealColor())
-				.attr('font-weight', 600)
-				.text('\u2191 Higher');
-			heroSvg.append('text')
-				.attr('x', axisX).attr('y', VH - MARGIN.bottom + 18)
-				.attr('text-anchor', 'middle')
-				.attr('font-size', 11).attr('fill', tealColor())
-				.attr('font-weight', 600)
-				.text('Lower \u2193');
 
-			// Vertical axis line
+			// Axis arrowhead (points up = higher wage)
+			heroSvg.append('defs').append('marker')
+				.attr('id', 'axis-arrow-mobile')
+				.attr('viewBox', '0 0 8 8')
+				.attr('refX', 4).attr('refY', 0)
+				.attr('markerWidth', 12).attr('markerHeight', 12)
+				.attr('orient', '0')
+				.append('path')
+				.attr('d', 'M 1 8 L 4 0 L 7 8 z')
+				.attr('fill', mutedColor());
+
+			// Vertical axis line — starts at lowest wage, arrow at top
 			heroSvg.append('line')
 				.attr('x1', axisX).attr('x2', axisX)
-				.attr('y1', MARGIN.top).attr('y2', VH - MARGIN.bottom)
-				.attr('stroke', mutedColor()).attr('stroke-width', 0.7);
+				.attr('y1', y(14.50)).attr('y2', MARGIN.top)
+				.attr('stroke', mutedColor()).attr('stroke-width', 0.7)
+				.attr('marker-end', 'url(#axis-arrow-mobile)');
 
 			// Draw all items
 			allItems.forEach(function(p) {
@@ -2498,30 +2547,67 @@
 				// Label
 				var labelX = isRight ? axisX + labelOffset : axisX - labelOffset;
 				var anchor = isRight ? 'start' : 'end';
-				var nudge = p.label.indexOf('Recreation') === 0 ? -14 : p.label.indexOf('Restaurant') === 0 ? 14 : 0;
+				var nudge = p.label.indexOf('Recreation') === 0 ? -14 : p.label.indexOf('Restaurant') === 0 ? 14 : p.label.indexOf('Sports Book') === 0 ? 14 : 0;
 
-				heroSvg.append('text')
-					.attr('x', labelX).attr('y', py - 1 + nudge)
-					.attr('text-anchor', anchor)
-					.attr('dominant-baseline', 'auto')
-					.attr('font-size', p.isChildcare ? 14 : 12.5)
-					.attr('font-weight', p.isChildcare ? 700 : 400)
-					.attr('fill', p.isChildcare ? tealColor() : textColor())
-					.text(p.label);
+				if (p.isChildcare) {
+					var ccText = heroSvg.append('text')
+						.attr('x', labelX).attr('y', py - 10 + nudge)
+						.attr('text-anchor', anchor)
+						.attr('dominant-baseline', 'auto')
+						.attr('font-size', 15)
+						.attr('font-weight', 700)
+						.attr('fill', tealColor());
+					ccText.append('tspan').attr('x', labelX).text('Childcare');
+					ccText.append('tspan').attr('x', labelX).attr('dy', '1.2em').text('Workers');
+				} else {
+					heroSvg.append('text')
+						.attr('x', labelX).attr('y', py - 1 + nudge)
+						.attr('text-anchor', anchor)
+						.attr('dominant-baseline', 'auto')
+						.attr('font-size', 12.5)
+						.attr('font-weight', 400)
+						.attr('fill', textColor())
+						.text(p.label);
+				}
 
 				// Wage value
 				heroSvg.append('text')
-					.attr('x', labelX).attr('y', py + 13 + nudge)
+					.attr('x', labelX).attr('y', py + (p.isChildcare ? 22 : 13) + nudge)
 					.attr('text-anchor', anchor)
-					.attr('font-size', 11)
+					.attr('font-size', p.isChildcare ? 13 : 11)
 					.attr('font-weight', p.isChildcare ? 600 : 400)
 					.attr('fill', p.isChildcare ? tealColor() : mutedColor())
 					.text('$' + p.wage.toFixed(2) + '/hr');
 			});
 
+			// Endpoint annotations
+			// Bottom: "Lowest paid occ." — left side, aligned with Fast Food Cooks
+			var lowestAnnot = heroSvg.append('text')
+				.attr('x', axisX - labelOffset - 106).attr('y', y(14.50) - 6)
+				.attr('text-anchor', 'end')
+				.attr('font-size', 12).attr('fill', tealColor())
+				.attr('font-weight', 600);
+			lowestAnnot.append('tspan').attr('x', axisX - labelOffset - 106).text('Lowest');
+			lowestAnnot.append('tspan').attr('x', axisX - labelOffset - 106).attr('dy', '1.0em').text('paid');
+			lowestAnnot.append('tspan').attr('x', axisX - labelOffset - 106).attr('dy', '1.0em').text('occ.');
+
+			// Top: "742 occupations paid more"
+			var topAnnot = heroSvg.append('text')
+				.attr('x', axisX + labelOffset).attr('y', MARGIN.top - 16)
+				.attr('text-anchor', 'start')
+				.attr('font-size', 13).attr('fill', tealColor())
+				.attr('font-weight', 600);
+			topAnnot.append('tspan')
+				.attr('x', axisX + labelOffset)
+				.text('742 occupations');
+			topAnnot.append('tspan')
+				.attr('x', axisX + labelOffset)
+				.attr('dy', '1.2em')
+				.text('paid more \u2191');
+
 			// Source
 			heroSvg.append('text')
-				.attr('x', VW / 2).attr('y', VH - 8)
+				.attr('x', VW / 2).attr('y', VH - 2)
 				.attr('text-anchor', 'middle')
 				.attr('font-size', 11).attr('fill', mutedColor())
 				.attr('font-style', 'italic')
@@ -3681,9 +3767,9 @@
 		}
 
 		function renderDesktop() {
-			var W = 680, H = 369;
+			var W = 680, H = 395;
 			svgEl.attr('viewBox', '0 0 ' + W + ' ' + H);
-			var margin = {top: 66, right: 15, bottom: 30, left: 43};
+			var margin = {top: 96, right: 15, bottom: 30, left: 43};
 			var panelGap = 46;
 			var panelW = (W - margin.left - margin.right - panelGap) / 2;
 			var chartH = H - margin.top - margin.bottom;
@@ -3704,19 +3790,19 @@
 
 			// Main title
 			svgEl.append('text')
-				.attr('x', 15).attr('y', 22)
-				.attr('font-size', 17).attr('font-weight', 700).attr('fill', tc)
-				.text('The US spends less on government. On childcare, it\u2019s not even close.');
+				.attr('x', 15).attr('y', 28)
+				.attr('font-size', 18).attr('font-weight', 700).attr('fill', tc)
+				.text('The US has less government. On childcare, it\u2019s not even close.');
 			svgEl.append('text')
-				.attr('x', 15).attr('y', 38)
-				.attr('font-size', 14).attr('fill', mc)
+				.attr('x', 15).attr('y', 56)
+				.attr('font-size', 18).attr('fill', mc)
 				.text('Government spending as share of GDP');
 
 			// ── Left panel: Total govt ──
 			var leftG = svgEl.append('g');
 			leftG.append('text')
-				.attr('x', leftX + panelW / 2).attr('y', margin.top)
-				.attr('text-anchor', 'middle').attr('font-size', 14).attr('font-weight', 700).attr('fill', mc)
+				.attr('x', leftX + panelW / 2 - 16).attr('y', margin.top)
+				.attr('text-anchor', 'middle').attr('font-size', 15.5).attr('font-weight', 700).attr('fill', mc)
 				.text('Total government spending');
 
 			var yTotalAxis = d3.axisLeft(yTotal).tickValues([0, 20, 40, 60])
@@ -3747,8 +3833,8 @@
 					.attr('text-anchor', 'middle').attr('font-size', 11).attr('fill', tc)
 					.text(d.total.toFixed(1) + '%');
 				leftG.append('text')
-					.attr('x', cx).attr('y', yTotal(0) + 13)
-					.attr('text-anchor', 'middle').attr('font-size', 11.5).attr('fill', bl)
+					.attr('x', cx).attr('y', yTotal(0) + 15)
+					.attr('text-anchor', 'middle').attr('font-size', 12).attr('fill', bl)
 					.text(d.short);
 				leftG.append('rect')
 					.attr('x', cx - barW / 2 - 2).attr('y', margin.top)
@@ -3767,8 +3853,8 @@
 			// ── Right panel: ECEC ──
 			var rightG = svgEl.append('g');
 			rightG.append('text')
-				.attr('x', rightX + panelW / 2).attr('y', margin.top)
-				.attr('text-anchor', 'middle').attr('font-size', 14).attr('font-weight', 700).attr('fill', TEAL)
+				.attr('x', rightX + panelW / 2 - 16).attr('y', margin.top)
+				.attr('text-anchor', 'middle').attr('font-size', 15.5).attr('font-weight', 700).attr('fill', TEAL)
 				.text('Early childhood education & care');
 
 			var yEcecAxis = d3.axisLeft(yEcec).tickValues([0, 0.5, 1.0, 1.5])
@@ -3798,8 +3884,8 @@
 					.attr('text-anchor', 'middle').attr('font-size', 11).attr('fill', tc)
 					.text(d.ecec.toFixed(2) + '%');
 				rightG.append('text')
-					.attr('x', cx).attr('y', yEcec(0) + 13)
-					.attr('text-anchor', 'middle').attr('font-size', 11.5).attr('fill', bl)
+					.attr('x', cx).attr('y', yEcec(0) + 15)
+					.attr('text-anchor', 'middle').attr('font-size', 12).attr('fill', bl)
 					.text(d.short);
 				rightG.append('rect')
 					.attr('x', cx - barW / 2 - 2).attr('y', margin.top)
@@ -3816,7 +3902,7 @@
 		}
 
 		function renderMobile() {
-			var W = 420, panelH = 230;
+			var W = 420, panelH = 250;
 			var gap = 30;
 			var H = panelH * 2 + gap + 30;
 			svgEl.attr('viewBox', '0 0 ' + W + ' ' + H);
@@ -3834,16 +3920,16 @@
 
 			// Panel 1 title
 			svgEl.append('text')
-				.attr('x', 12).attr('y', 20)
-				.attr('font-size', 17).attr('font-weight', 700).attr('fill', tc)
+				.attr('x', 12).attr('y', 32)
+				.attr('font-size', 18).attr('font-weight', 700).attr('fill', tc)
 				.text('The US spends less on government.');
 			svgEl.append('text')
-				.attr('x', 12).attr('y', 37)
-				.attr('font-size', 14).attr('fill', mc)
+				.attr('x', 12).attr('y', 58)
+				.attr('font-size', 16).attr('fill', mc)
 				.text('Total government spending, share of GDP');
 
 			// ── Panel 1: Total govt ──
-			var p1Top = margin.top - 12;
+			var p1Top = margin.top;
 			var p1G = svgEl.append('g');
 
 			var yTotal = d3.scaleLinear().domain([0, 68]).range([p1Top + barChartH, p1Top + 16]);
@@ -3876,8 +3962,8 @@
 					.attr('text-anchor', 'middle').attr('font-size', 13).attr('fill', tc)
 					.text(d.total.toFixed(1) + '%');
 				p1G.append('text')
-					.attr('x', cx).attr('y', yTotal(0) + 15)
-					.attr('text-anchor', 'middle').attr('font-size', 13).attr('fill', bl)
+					.attr('x', cx).attr('y', yTotal(0) + 17)
+					.attr('text-anchor', 'middle').attr('font-size', 14).attr('fill', bl)
 					.text(d.short);
 			});
 
@@ -3886,15 +3972,15 @@
 			var p2G = svgEl.append('g');
 
 			p2G.append('text')
-				.attr('x', 12).attr('y', p2Top - 14)
-				.attr('font-size', 17).attr('font-weight', 700).attr('fill', tc)
+				.attr('x', 12).attr('y', p2Top - 12)
+				.attr('font-size', 18).attr('font-weight', 700).attr('fill', tc)
 				.text('On childcare, it\u2019s not even close.');
 			p2G.append('text')
-				.attr('x', 12).attr('y', p2Top + 1)
-				.attr('font-size', 14).attr('fill', mc)
+				.attr('x', 12).attr('y', p2Top + 15)
+				.attr('font-size', 16).attr('fill', mc)
 				.text('Early childhood education & care, share of GDP');
 
-			var yEcec = d3.scaleLinear().domain([0, 1.8]).range([p2Top + barChartH, p2Top + 16]);
+			var yEcec = d3.scaleLinear().domain([0, 1.8]).range([p2Top + barChartH + 6, p2Top + 22]);
 
 			[0, 0.5, 1.0, 1.5].forEach(function(v) {
 				p2G.append('line')
@@ -3923,8 +4009,8 @@
 					.attr('text-anchor', 'middle').attr('font-size', 13).attr('fill', tc)
 					.text(d.ecec.toFixed(2) + '%');
 				p2G.append('text')
-					.attr('x', cx).attr('y', yEcec(0) + 15)
-					.attr('text-anchor', 'middle').attr('font-size', 13).attr('fill', bl)
+					.attr('x', cx).attr('y', yEcec(0) + 17)
+					.attr('text-anchor', 'middle').attr('font-size', 14).attr('fill', bl)
 					.text(d.short);
 			});
 		}
@@ -4034,15 +4120,15 @@
 
 			leftG.append('text')
 				.attr('x', leftX + panelW / 2 - 15).attr('y', margin.top - 40)
-				.attr('text-anchor', 'middle').attr('font-size', 17).attr('font-weight', 700).attr('fill', TEAL)
+				.attr('text-anchor', 'middle').attr('font-size', 18).attr('font-weight', 700).attr('fill', TEAL)
 				.text('Parents leave the workforce');
 			leftG.append('text')
-				.attr('x', leftX + panelW / 2 - 15).attr('y', margin.top - 17)
-				.attr('text-anchor', 'middle').attr('font-size', 15).attr('fill', mc)
+				.attr('x', leftX + panelW / 2 - 15).attr('y', margin.top - 13)
+				.attr('text-anchor', 'middle').attr('font-size', 16).attr('fill', mc)
 				.text('Share of adults ages 20-64');
 			leftG.append('text')
-				.attr('x', leftX + panelW / 2 - 15).attr('y', margin.top + 2)
-				.attr('text-anchor', 'middle').attr('font-size', 15).attr('fill', mc)
+				.attr('x', leftX + panelW / 2 - 15).attr('y', margin.top + 8)
+				.attr('text-anchor', 'middle').attr('font-size', 16).attr('fill', mc)
 				.text('out of work for childcare');
 
 			var yNilfAxis = d3.axisLeft(yNilf).tickValues([0, 1, 2, 3, 4])
@@ -4072,7 +4158,7 @@
 					.attr('text-anchor', 'middle').attr('font-size', 11).attr('fill', tc)
 					.text(d.nilf.toFixed(1) + '%');
 				leftG.append('text')
-					.attr('x', cx).attr('y', yNilf(0) + 13)
+					.attr('x', cx).attr('y', yNilf(0) + 15)
 					.attr('text-anchor', 'middle').attr('font-size', 12).attr('fill', bl)
 					.text(d.short);
 				leftG.append('rect')
@@ -4093,11 +4179,11 @@
 
 			rightG.append('text')
 				.attr('x', rightX + panelW / 2 - 15).attr('y', margin.top - 40)
-				.attr('text-anchor', 'middle').attr('font-size', 17).attr('font-weight', 700).attr('fill', isDark() ? '#9B9BD0' : '#443983')
+				.attr('text-anchor', 'middle').attr('font-size', 18).attr('font-weight', 700).attr('fill', isDark() ? '#9B9BD0' : '#443983')
 				.text('Children fall into poverty');
 			rightG.append('text')
-				.attr('x', rightX + panelW / 2 - 15).attr('y', margin.top - 14)
-				.attr('text-anchor', 'middle').attr('font-size', 15).attr('fill', mc)
+				.attr('x', rightX + panelW / 2 - 15).attr('y', margin.top - 10)
+				.attr('text-anchor', 'middle').attr('font-size', 16).attr('fill', mc)
 				.text('Child poverty rate');
 
 			var yPovAxis = d3.axisLeft(yPov).tickValues([0, 5, 10, 15, 20])
@@ -4128,7 +4214,7 @@
 					.attr('text-anchor', 'middle').attr('font-size', 11).attr('fill', tc)
 					.text(d.poverty.toFixed(1) + '%');
 				rightG.append('text')
-					.attr('x', cx).attr('y', yPov(0) + 13)
+					.attr('x', cx).attr('y', yPov(0) + 15)
 					.attr('text-anchor', 'middle').attr('font-size', 12).attr('fill', bl)
 					.text(d.short);
 				rightG.append('rect')
@@ -4335,21 +4421,21 @@
 
 		function renderDesktop() {
 			svg.selectAll('*').remove();
-			var W = 700, H = 370;
+			var W = 784, H = 450;
 			svg.attr('viewBox', '0 0 ' + W + ' ' + H);
 			var dark = document.documentElement.getAttribute('data-theme') === 'dark';
 
-			var titleY = 28, subtitleY = 48, countryY = 108;
+			var titleY = 18, subtitleY = 48, countryY = 108;
 			var forkTopY = 58, forkMidY = 70;
-			var cardTop = 150, cardH = 175, cardW = 145, cardR = 8;
+			var cardTop = 150, cardH = 235, cardW = 169, cardR = 8;
 
 			var cards = [
-				{ x: 17,  center: 89.5 },
-				{ x: 186, center: 258.5 },
-				{ x: 369, center: 441.5 },
-				{ x: 538, center: 610.5 }
+				{ x: 10,  center: 94.5 },
+				{ x: 206, center: 290.5 },
+				{ x: 409, center: 493.5 },
+				{ x: 605, center: 689.5 }
 			];
-			var usX = 174, fiX = 526, centerX = W / 2;
+			var usX = 193, fiX = 592, centerX = W / 2;
 
 			var bg = dark ? '#1a1a2e' : '#fff';
 			var textMain = dark ? '#e0e0e0' : '#1a1a2e';
@@ -4376,7 +4462,7 @@
 			g.append('text')
 				.attr('x', centerX).attr('y', subtitleY)
 				.attr('text-anchor', 'middle')
-				.attr('font-size', 20)
+				.attr('font-size', 22)
 				.attr('fill', textMuted)
 				.attr('font-family', 'Lato, system-ui, sans-serif')
 				.text('What are your options?');
@@ -4407,7 +4493,7 @@
 				g.append('text')
 					.attr('x', x).attr('y', countryY)
 					.attr('text-anchor', 'middle')
-					.attr('font-size', 20).attr('font-weight', 'bold')
+					.attr('font-size', 22).attr('font-weight', 'bold')
 					.attr('fill', accent)
 					.attr('font-family', 'Lato, system-ui, sans-serif')
 					.text(label);
@@ -4470,23 +4556,23 @@
 
 				// Title
 				g.append('text')
-					.attr('x', c.center).attr('y', cardTop + 28)
+					.attr('x', c.center).attr('y', cardTop + 34)
 					.attr('text-anchor', 'middle')
-					.attr('font-size', 17).attr('font-weight', 'bold')
+					.attr('font-size', 19).attr('font-weight', 'bold')
 					.attr('fill', textMain)
 					.attr('font-family', 'Lato, system-ui, sans-serif')
 					.text(d.title);
 				g.append('text')
-					.attr('x', c.center).attr('y', cardTop + 45)
+					.attr('x', c.center).attr('y', cardTop + 60)
 					.attr('text-anchor', 'middle')
-					.attr('font-size', 17).attr('font-weight', 'bold')
+					.attr('font-size', 19).attr('font-weight', 'bold')
 					.attr('fill', textMain)
 					.attr('font-family', 'Lato, system-ui, sans-serif')
 					.text(d.title2);
 
 				// Amount (hero number)
 				g.append('text')
-					.attr('x', c.center).attr('y', cardTop + 85)
+					.attr('x', c.center).attr('y', cardTop + 106)
 					.attr('text-anchor', 'middle')
 					.attr('font-size', 30).attr('font-weight', 'bold')
 					.attr('fill', accent)
@@ -4495,25 +4581,25 @@
 
 				// Unit
 				g.append('text')
-					.attr('x', c.center).attr('y', cardTop + 104)
+					.attr('x', c.center).attr('y', cardTop + 130)
 					.attr('text-anchor', 'middle')
-					.attr('font-size', 15)
+					.attr('font-size', 16)
 					.attr('fill', textMuted)
 					.attr('font-family', 'Lato, system-ui, sans-serif')
 					.text(d.unit);
 
 				// Context lines
-				var ctxY = cardTop + 128;
+				var ctxY = cardTop + 164;
 				[d.context, d.context2, d.context3].forEach(function(line) {
 					if (line) {
 						g.append('text')
 							.attr('x', c.center).attr('y', ctxY)
 							.attr('text-anchor', 'middle')
-							.attr('font-size', 15)
-							.attr('fill', textMuted)
+							.attr('font-size', 16)
+							.attr('fill', dark ? '#b0b0b0' : '#666')
 							.attr('font-family', 'Lato, system-ui, sans-serif')
 							.text(line);
-						ctxY += 14;
+						ctxY += 22;
 					}
 				});
 			});
@@ -4524,7 +4610,7 @@
 				.attr('x', (cards[0].x + cardW + cards[1].x) / 2)
 				.attr('y', orY)
 				.attr('text-anchor', 'middle')
-				.attr('font-size', 15).attr('font-style', 'italic')
+				.attr('font-size', 16).attr('font-style', 'italic')
 				.attr('fill', textMuted)
 				.attr('font-family', 'Lato, system-ui, sans-serif')
 				.text('or');
@@ -4533,7 +4619,7 @@
 				.attr('x', (cards[2].x + cardW + cards[3].x) / 2)
 				.attr('y', orY)
 				.attr('text-anchor', 'middle')
-				.attr('font-size', 15).attr('font-style', 'italic')
+				.attr('font-size', 16).attr('font-style', 'italic')
 				.attr('fill', textMuted)
 				.attr('font-family', 'Lato, system-ui, sans-serif')
 				.text('or');
@@ -4542,15 +4628,15 @@
 			g.append('line')
 				.attr('x1', centerX).attr('y1', countryY + 20)
 				.attr('x2', centerX).attr('y2', cardTop + cardH + 5)
-				.attr('stroke', lineColor).attr('stroke-width', 0.5)
+				.attr('stroke', lineColor).attr('stroke-width', 1)
 				.attr('stroke-dasharray', '4,4');
 
 			// ── Bottom labels ──
-			var bottomY = cardTop + cardH + 32;
+			var bottomY = cardTop + cardH + 40;
 			g.append('text')
 				.attr('x', usX).attr('y', bottomY)
 				.attr('text-anchor', 'middle')
-				.attr('font-size', 16).attr('font-style', 'italic')
+				.attr('font-size', 20).attr('font-style', 'italic')
 				.attr('fill', warmAccent)
 				.attr('font-family', 'Lato, system-ui, sans-serif')
 				.text('Both options cost the family.');
@@ -4558,7 +4644,7 @@
 			g.append('text')
 				.attr('x', fiX).attr('y', bottomY)
 				.attr('text-anchor', 'middle')
-				.attr('font-size', 16).attr('font-style', 'italic')
+				.attr('font-size', 20).attr('font-style', 'italic')
 				.attr('fill', tealAccent)
 				.attr('font-family', 'Lato, system-ui, sans-serif')
 				.text('Both options help the family.');
@@ -4566,7 +4652,7 @@
 
 		function renderMobile() {
 			svg.selectAll('*').remove();
-			var VW = 400, VH = 602;
+			var VW = 400, VH = 665;
 			svg.attr('viewBox', '0 0 ' + VW + ' ' + VH);
 			var dark = document.documentElement.getAttribute('data-theme') === 'dark';
 
@@ -4581,21 +4667,21 @@
 			var tealAccent = dark ? '#3BB5A8' : TEAL;
 
 			var centerX = VW / 2;
-			var cardW = 175, cardH = 165, cardR = 8, cardGap = 16;
+			var cardW = 175, cardH = 189, cardR = 8, cardGap = 20;
 			var cardX1 = (VW - (cardW * 2 + cardGap)) / 2, cardX2 = cardX1 + cardW + cardGap;
 
 			// ── Title ──
 			svg.append('text')
-				.attr('x', centerX).attr('y', 26)
+				.attr('x', centerX).attr('y', 18)
 				.attr('text-anchor', 'middle')
 				.attr('font-size', 21).attr('font-weight', 'bold')
 				.attr('fill', textMain)
 				.attr('font-family', 'Lato, system-ui, sans-serif')
 				.text('You have a child under 5.');
 			svg.append('text')
-				.attr('x', centerX).attr('y', 46)
+				.attr('x', centerX).attr('y', 44)
 				.attr('text-anchor', 'middle')
-				.attr('font-size', 16)
+				.attr('font-size', 18)
 				.attr('fill', textMuted)
 				.attr('font-family', 'Lato, system-ui, sans-serif')
 				.text('What are your options?');
@@ -4646,23 +4732,23 @@
 
 					// Title
 					svg.append('text')
-						.attr('x', mid).attr('y', cTop + 26)
+						.attr('x', mid).attr('y', cTop + 28)
 						.attr('text-anchor', 'middle')
-						.attr('font-size', 15).attr('font-weight', 'bold')
+						.attr('font-size', 18).attr('font-weight', 'bold')
 						.attr('fill', textMain)
 						.attr('font-family', 'Lato, system-ui, sans-serif')
 						.text(d.title);
 					svg.append('text')
-						.attr('x', mid).attr('y', cTop + 42)
+						.attr('x', mid).attr('y', cTop + 48)
 						.attr('text-anchor', 'middle')
-						.attr('font-size', 15).attr('font-weight', 'bold')
+						.attr('font-size', 18).attr('font-weight', 'bold')
 						.attr('fill', textMain)
 						.attr('font-family', 'Lato, system-ui, sans-serif')
 						.text(d.title2);
 
 					// Hero amount
 					svg.append('text')
-						.attr('x', mid).attr('y', cTop + 76)
+						.attr('x', mid).attr('y', cTop + 86)
 						.attr('text-anchor', 'middle')
 						.attr('font-size', 26).attr('font-weight', 'bold')
 						.attr('fill', accent)
@@ -4671,25 +4757,25 @@
 
 					// Unit
 					svg.append('text')
-						.attr('x', mid).attr('y', cTop + 94)
+						.attr('x', mid).attr('y', cTop + 104)
 						.attr('text-anchor', 'middle')
-						.attr('font-size', 13)
+						.attr('font-size', 14)
 						.attr('fill', textMuted)
 						.attr('font-family', 'Lato, system-ui, sans-serif')
 						.text(d.unit);
 
 					// Context
-					var ctxY = cTop + 116;
+					var ctxY = cTop + 130;
 					[d.context, d.context2, d.context3].forEach(function(line) {
 						if (line) {
 							svg.append('text')
 								.attr('x', mid).attr('y', ctxY)
 								.attr('text-anchor', 'middle')
-								.attr('font-size', 13)
+								.attr('font-size', 15)
 								.attr('fill', textMuted)
 								.attr('font-family', 'Lato, system-ui, sans-serif')
 								.text(line);
-							ctxY += 14;
+							ctxY += 20;
 						}
 					});
 				});
@@ -4709,24 +4795,24 @@
 				svg.append('text')
 					.attr('x', centerX).attr('y', bottomY)
 					.attr('text-anchor', 'middle')
-					.attr('font-size', 15).attr('font-style', 'italic')
+					.attr('font-size', 18).attr('font-style', 'italic')
 					.attr('fill', accent)
 					.attr('font-family', 'Lato, system-ui, sans-serif')
 					.text(bottomLabel);
 			}
 
 			// US section
-			drawSection(80, 'United States', warmAccent, 'us', usCardBg, usCardBorder, 'Both options cost the family.', 310);
+			drawSection(80, 'United States', warmAccent, 'us', usCardBg, usCardBorder, 'Both options cost the family.', 334);
 
 			// Dashed divider
 			svg.append('line')
-				.attr('x1', 40).attr('y1', 330)
-				.attr('x2', VW - 40).attr('y2', 330)
+				.attr('x1', 40).attr('y1', 359)
+				.attr('x2', VW - 40).attr('y2', 359)
 				.attr('stroke', lineColor).attr('stroke-width', 0.5)
 				.attr('stroke-dasharray', '4,4');
 
 			// Finland section
-			drawSection(360, 'Finland', tealAccent, 'fi', fiCardBg, fiCardBorder, 'Both options help the family.', 590);
+			drawSection(389, 'Finland', tealAccent, 'fi', fiCardBg, fiCardBorder, 'Both options help the family.', 643);
 		}
 
 		render();
@@ -4768,7 +4854,7 @@
 				var r = 70, cx = 180;
 				cycleConfigs = [
 					{ cx: cx, cy: 135, r: r, color: tealColor, marker: 'arrow-fb-teal',
-					  title: 'Nordic countries', nodes: ['Public investment', 'Universal programs,\ntrained workforce', 'Quality care', 'Public\ntrust'] },
+					  title: 'Nordic countries', nodes: ['Public investment', 'Full coverage,\ntrained staff', 'Quality care', 'Public\ntrust'] },
 					{ cx: cx, cy: 425, r: r, color: brokenColor, marker: 'arrow-fb-gray',
 					  title: 'United States', nodes: ['Underfunding', 'Low pay,\nfew slots', 'Poor\noutcomes', 'Low\ntrust'] }
 				];
@@ -4777,7 +4863,7 @@
 				var VY = 30;
 				cycleConfigs = [
 					{ cx: 155, cy: 168, r: 72, color: tealColor, marker: 'arrow-fb-teal',
-					  title: 'Nordic countries', nodes: ['Public investment', 'Universal programs,\ntrained workforce', 'Quality care', 'Public\ntrust'] },
+					  title: 'Nordic countries', nodes: ['Public investment', 'Full coverage,\ntrained staff', 'Quality care', 'Public\ntrust'] },
 					{ cx: 525, cy: 168, r: 72, color: brokenColor, marker: 'arrow-fb-gray',
 					  title: 'United States', nodes: ['Underfunding', 'Low pay,\nfew slots', 'Poor\noutcomes', 'Low\ntrust'] }
 				];
