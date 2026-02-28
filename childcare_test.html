@@ -68,7 +68,7 @@
 	}
 	.cc-tab {
 		padding: 5px 10px;
-		font-size: 13px;
+		font-size: 14px;
 		white-space: nowrap;
 		flex-shrink: 0;
 		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -181,7 +181,7 @@
 		gap: 0;
 		font-size: 11px;
 		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-		margin-top: 3px;
+		margin-top: 6px;
 	}
 	.spending-toggle.visible { display: flex; }
 	.spending-toggle-btn {
@@ -191,7 +191,7 @@
 		cursor: pointer;
 		color: rgba(255,255,255,0.75);
 		transition: all 0.15s ease;
-		font-size: 11px;
+		font-size: 12px;
 		font-weight: 600;
 	}
 	.spending-toggle-btn:first-child {
@@ -215,7 +215,7 @@
 		gap: 0;
 		font-size: 11px;
 		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-		margin-top: 3px;
+		margin-top: 6px;
 	}
 	.wage-toggle.visible { display: flex; flex-wrap: wrap; }
 	.wage-toggle-btn {
@@ -225,7 +225,7 @@
 		cursor: pointer;
 		color: rgba(255,255,255,0.75);
 		transition: all 0.15s ease;
-		font-size: 11px;
+		font-size: 12px;
 		font-weight: 600;
 	}
 	.wage-toggle-btn:first-child {
@@ -274,13 +274,26 @@
 			padding-right: 4px;
 		}
 		#map-container .group-label {
-			font-size: 24px;
+			font-size: 22px;
 		}
 		#map-container .legend-label-end {
-			font-size: 14px;
+			font-size: 16px;
 		}
 		#map-container .inset-box text {
 			font-size: 16px;
+		}
+		.chart-header h4 {
+			font-size: 16px;
+		}
+		.spending-toggle, .wage-toggle {
+			margin-top: 8px;
+		}
+		.spending-toggle-btn, .wage-toggle-btn {
+			font-size: 13px;
+			padding: 5px 12px;
+		}
+		.legend-semantic {
+			font-size: 20px;
 		}
 	}
 	.cc-wage-box .chart-container {
@@ -298,7 +311,7 @@
 	}
 	.chart-header h4 {
 		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-		font-size: 18px;
+		font-size: 19px;
 		margin: 0;
 		font-weight: 600;
 		color: inherit;
@@ -379,11 +392,17 @@
 	}
 	/* Region group labels */
 	.group-label {
-		font-size: 15px;
+		font-size: 18px;
 		font-family: system-ui, sans-serif;
 		fill: var(--color-text-muted);
 		font-weight: 600;
 		font-style: italic;
+	}
+	.legend-semantic {
+		font-size: 18px;
+		font-family: system-ui, sans-serif;
+		font-weight: 600;
+		fill: var(--color-card-teal);
 	}
 	/* Legend (drawn in SVG) */
 	.legend-label {
@@ -392,7 +411,7 @@
 		fill: var(--color-axis-text);
 	}
 	.legend-label-end {
-		font-size: 12px;
+		font-size: 14px;
 		font-weight: 600;
 		fill: var(--color-text-dark);
 	}
@@ -670,7 +689,7 @@
 		.cc-content { padding: 0 6px; }
 		.chart-container { max-width: 100%; }
 		.cc-tabs { padding-left: 6px; }
-		.cc-tab { padding: 4px 8px; font-size: 12px; }
+		.cc-tab { padding: 4px 8px; font-size: 12.5px; }
 	}
 	/* Historical blockquotes */
 	.cc-blockquote {
@@ -1180,7 +1199,7 @@
 				</div>
 				</div>
 			<div class="chart-body">
-				<svg id="map-svg" class="map-svg" viewBox="0 0 680 792" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Composite choropleth map of US states, Canadian provinces, and Nordic countries"></svg>
+				<svg id="map-svg" class="map-svg" viewBox="0 0 680 900" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Composite choropleth map of US states, Canadian provinces, and Nordic countries"></svg>
 			</div>
 			<div class="chart-footer">
 				<p class="chart-source" id="map-caveat"></p>
@@ -1437,30 +1456,30 @@
 		//
 		// viewBox: 680 x 520 (mobile-first, ~4:3)
 		// ============================================================
-		var VB_W = 680, VB_H = 792;
+		var VB_W = 680, VB_H = 900;
 
 		// Row 1: US map (centered)
 		var US_LABEL_X = (VB_W - 660) / 2;
-		var US_LABEL_Y = 26; // pinned — title stays in place
-		var US = { x: (VB_W - 660) / 2 + 10, y: 34, w: 660, h: 370 };
+		var US_LABEL_Y = 32; // pinned — title stays in place
+		var US = { x: (VB_W - 660) / 2 + 10, y: 40, w: 660, h: 370 };
 
-		// Separator + Legend row
-		var SEP_Y = US.y + US.h + 10;
-		var LEG = { x: 55, y: SEP_Y + 22, w: 570, h: 8 };
-		var LEG_BOTTOM = LEG.y + LEG.h + 20;
+		// --- Middle zone: separators + legend (all independent) ---
+		var US_BOTTOM = US.y + US.h;
+		var SEP_TOP_Y = US_BOTTOM + 20;           // top separator
+		var LEGEND_Y = US_BOTTOM + 88;             // legend bar + flags + labels
+		var SEP_BOT_Y = US_BOTTOM + 130;           // bottom separator
+		var LEG = { x: 55, y: LEGEND_Y, w: 570, h: 12 };
 
-		// Row 2 labels sit below LEG_BOTTOM divider, with breathing room
-		var ROW2_Y = LEG_BOTTOM + 34;
-
-		// Row 2: Canada + Nordics (centered as a unit)
+		// --- Row 2: Canada + Nordics (independent of legend) ---
+		var ROW2_LABELS_Y = US_BOTTOM + 176;       // "Canada" / "Nordic Countries" titles
+		var ROW2_MAP_Y = US_BOTTOM + 180;           // where maps start rendering
 		var ROW2_GAP = 20;
 		var ROW2_CA_W = 399, ROW2_NO_W = 209;
 		var ROW2_TOTAL = ROW2_CA_W + ROW2_GAP + ROW2_NO_W;
 		var ROW2_X = (VB_W - ROW2_TOTAL) / 2;
-		var ROW2_H = (VB_H - ROW2_Y - 6) * 0.95;
-		var ROW2_MAP_OFFSET = 10; // maps start this many px closer to labels
-		var CA = { x: ROW2_X, y: ROW2_Y, w: ROW2_CA_W, h: ROW2_H };
-		var NO = { x: ROW2_X + ROW2_CA_W + ROW2_GAP, y: ROW2_Y, w: ROW2_NO_W, h: ROW2_H };
+		var ROW2_H = VB_H - ROW2_MAP_Y - 6;
+		var CA = { x: ROW2_X, y: ROW2_LABELS_Y, w: ROW2_CA_W, h: ROW2_H };
+		var NO = { x: ROW2_X + ROW2_CA_W + ROW2_GAP + 4, y: ROW2_LABELS_Y, w: ROW2_NO_W, h: ROW2_H };
 		// DC inset — positioned off the mid-Atlantic coast near actual DC
 		// Exact position is set dynamically after computing the US projection transform
 		// HI note: Hawaii is included in pre-projected AlbersUsa (repositioned)
@@ -1474,6 +1493,7 @@
 
 		// --- State ---
 		var DATA = null, METRICS = [], currentMetric = null;
+		var WORLD_AVG_GDP = 123.6e12 / 643.56e6 / 1e6; // ~$0.192M (IMF WEO Oct 2025 / UN WPP 2024)
 		var topoCache = {};
 		var spendingTier = 'narrow'; // 'narrow' or 'broad'
 		var wageOccupation = 'cc_only'; // 'cc_only', 'preschool', or 'cacomp'
@@ -1592,6 +1612,10 @@
 			var lines = '<div class="cc-tooltip-header">' + displayName + '</div>';
 			lines += '<div style="margin-bottom:3px"><span class="cc-tooltip-value">' +
 				fmtVal(val, currentMetric) + '</span></div>';
+			if (mid === 'gdp_per_child_0_5' && val != null) {
+				lines += '<div style="font-size:10px;opacity:0.8">' +
+					(val / WORLD_AVG_GDP).toFixed(1) + 'x world average</div>';
+			}
 			if (mid === 'wage_ratio_cc_pct' && info.cc_wage_annual != null) {
 				lines += '<div style="font-size:10px;opacity:0.8">Wage: $' +
 					d3.format(',')(info.cc_wage_annual) +
@@ -1754,6 +1778,18 @@
 			return Math.max(0, Math.min(1, (v - lo) / (hi - lo)));
 		}
 
+		// --- Legend semantic labels (low/high end descriptors) ---
+		var LEGEND_LABELS = {
+			'enrollment_pct': ['Low enrollment', 'High enrollment'],
+			'wage_ratio_cc_pct': ['Poverty wage', 'Livable wage'],
+			'wage_ratio_pt_pct': ['Lower wage', 'Higher wage'],
+			'wage_ratio_cacomp_pct': ['Lower wage', 'Higher wage'],
+			'workforce_share_pct': ['Small workforce', 'Full workforce'],
+			'spending_pct_gdp_narrow': ['Private burden', 'Public funded'],
+			'spending_pct_gdp_broad': ['Private burden', 'Public funded'],
+			'gdp_per_child_0_5': ['4x world average', '9x world average+']
+		};
+
 		// --- Draw legend inside SVG ---
 		function drawLegend(parent, colorInfo, metric, fs) {
 			var lx = LEG.x, ly = LEG.y, lw = LEG.w, lh = LEG.h;
@@ -1779,27 +1815,63 @@
 					.attr('stop-color', colorInfo.scale(v));
 			}
 
+			var isResources = metric.id === 'gdp_per_child_0_5';
+			var barX = isResources ? lx - 30 : lx;
+			var barW = isResources ? lw + 60 : lw;
+
 			lg.append('rect')
-				.attr('x', lx).attr('y', ly)
-				.attr('width', lw).attr('height', lh)
+				.attr('x', barX).attr('y', ly)
+				.attr('width', barW).attr('height', lh)
 				.attr('fill', 'url(#' + gradId + ')')
 				.attr('rx', 1);
 
-			// Min/max labels — outside the bar, vertically centered
-			var labelY = ly + lh / 2 + 3.5;
-			lg.append('text').attr('class', 'legend-label legend-label-end')
-				.attr('x', lx - 6).attr('y', labelY)
-				.attr('text-anchor', 'end')
-				.attr('font-size', fs(14))
-				.text(fmtVal(colorInfo.lo, metric));
+			// Min/max labels
 			var hiLabel = colorInfo.trueHi
 				? fmtVal(colorInfo.hi, metric) + '+'
 				: fmtVal(colorInfo.hi, metric);
-			lg.append('text').attr('class', 'legend-label legend-label-end')
-				.attr('x', lx + lw + 6).attr('y', labelY)
-				.attr('text-anchor', 'start')
-				.attr('font-size', fs(14))
-				.text(hiLabel);
+			if (isResources) {
+				// Resources: labels above endpoints of the wider bar
+				var aboveY = ly - 6;
+				lg.append('text').attr('class', 'legend-label legend-label-end')
+					.attr('x', barX).attr('y', aboveY)
+					.attr('text-anchor', 'start')
+					.attr('font-size', fs(14))
+					.text(fmtVal(colorInfo.lo, metric));
+				lg.append('text').attr('class', 'legend-label legend-label-end')
+					.attr('x', barX + barW).attr('y', aboveY)
+					.attr('text-anchor', 'end')
+					.attr('font-size', fs(14))
+					.text(hiLabel);
+			} else {
+				// Default: labels outside the bar, vertically centered
+				var labelY = ly + lh / 2 + 7.5;
+				lg.append('text').attr('class', 'legend-label legend-label-end')
+					.attr('x', lx - 6).attr('y', labelY)
+					.attr('text-anchor', 'end')
+					.attr('font-size', fs(14))
+					.text(fmtVal(colorInfo.lo, metric));
+				lg.append('text').attr('class', 'legend-label legend-label-end')
+					.attr('x', lx + lw + 6).attr('y', labelY)
+					.attr('text-anchor', 'start')
+					.attr('font-size', fs(14))
+					.text(hiLabel);
+			}
+
+			// Semantic legend labels (e.g. "Low enrollment" / "High enrollment")
+			var semLabels = LEGEND_LABELS[metric.id];
+			if (semLabels) {
+				var semY = SEP_TOP_Y + 22;
+				lg.append('text').attr('class', 'legend-semantic')
+					.attr('x', lx - 32).attr('y', semY + 8)
+					.attr('text-anchor', 'start')
+					.attr('font-size', fs(12))
+					.text(semLabels[0]);
+				lg.append('text').attr('class', 'legend-semantic')
+					.attr('x', lx + lw + 32).attr('y', semY + 8)
+					.attr('text-anchor', 'end')
+					.attr('font-size', fs(12))
+					.text(semLabels[1]);
+			}
 
 			// National average ticks with flags (alternating above/below)
 			var fw = fs(18), fh = fs(13);
@@ -1836,7 +1908,7 @@
 
 			legendMarkers.forEach(function(m) {
 				var tPos = legendPos(m.val, colorInfo);
-				var xp = lx + tPos * lw;
+				var xp = barX + tPos * barW;
 				var flagLeft = xp - fw / 2;
 
 				// Pick the level with more clearance
@@ -1995,7 +2067,7 @@
 					.attr('x', US_LABEL_X + 4).attr('y', US_LABEL_Y - 7)
 					.attr('font-size', fs(16))
 					.text('United States');
-				drawFlag(svg, 'US', US_LABEL_X + 4, US_LABEL_Y - 3, mobile ? 28 : 18, mobile ? 20 : 13);
+				drawFlag(svg, 'US', US_LABEL_X + 4, US_LABEL_Y + 1, mobile ? 28 : 18, mobile ? 20 : 13);
 
 				// DC and NYC inset positions
 				var dcSize = 14, nycSize = 14;
@@ -2050,7 +2122,7 @@
 				// =======================
 				svg.append('rect')
 					.attr('class', 'map-divider')
-					.attr('x', 6).attr('y', SEP_Y)
+					.attr('x', 6).attr('y', SEP_TOP_Y)
 					.attr('width', VB_W - 12).attr('height', 3)
 					.attr('rx', 1.5);
 
@@ -2058,7 +2130,7 @@
 
 				svg.append('rect')
 					.attr('class', 'map-divider')
-					.attr('x', 6).attr('y', LEG_BOTTOM)
+					.attr('x', 6).attr('y', SEP_BOT_Y)
 					.attr('width', VB_W - 12).attr('height', 3)
 					.attr('rx', 1.5);
 
@@ -2079,14 +2151,14 @@
 				var caProj = d3.geoConicEqualArea()
 					.rotate([96, 0])
 					.parallels([49, 63])
-					.fitExtent([[CA.x, CA.y - ROW2_MAP_OFFSET], [CA.x + CA.w, CA.y + CA.h]], caFitFC);
+					.fitExtent([[CA.x - 6, ROW2_MAP_Y], [CA.x + CA.w - 6, ROW2_MAP_Y + CA.h]], caFitFC);
 				var caPath = d3.geoPath(caProj);
 
 				// Clip Canada to its area
 				svg.append('defs').append('clipPath').attr('id', 'ca-clip')
 					.append('rect')
-					.attr('x', CA.x).attr('y', CA.y - ROW2_MAP_OFFSET)
-					.attr('width', CA.w).attr('height', CA.h + ROW2_MAP_OFFSET);
+					.attr('x', CA.x - 6).attr('y', ROW2_MAP_Y)
+					.attr('width', CA.w + 6).attr('height', CA.h);
 
 				var caG = svg.append('g')
 					.attr('clip-path', 'url(#ca-clip)');
@@ -2132,7 +2204,7 @@
 					.attr('x', CA.x - 8).attr('y', CA.y - 6)
 					.attr('font-size', fs(16))
 					.text('Canada');
-				drawFlag(svg, 'CA', CA.x - 8, CA.y - 2, mobile ? 28 : 18, mobile ? 20 : 13);
+				drawFlag(svg, 'CA', CA.x - 8, CA.y + 2, mobile ? 28 : 18, mobile ? 20 : 13);
 
 				// =======================
 				// NORDICS (conformal, own projection)
@@ -2143,7 +2215,7 @@
 				var noProj = d3.geoConicConformal()
 					.parallels([57, 68])
 					.rotate([-15, 0])
-					.fitExtent([[NO.x, NO.y - ROW2_MAP_OFFSET], [NO.x + NO.w, NO.y + NO.h]], noFC);
+					.fitExtent([[NO.x, ROW2_MAP_Y], [NO.x + NO.w, ROW2_MAP_Y + NO.h]], noFC);
 				var noPath = d3.geoPath(noProj);
 
 				var noG = svg.append('g');
@@ -2155,7 +2227,7 @@
 					.attr('x', NO.x - 18).attr('y', NO.y - 8)
 					.attr('font-size', fs(16))
 					.text('Nordic Countries');
-				var nfx = NO.x - 18, nfy = NO.y - 3;
+				var nfx = NO.x - 18, nfy = NO.y + 1;
 				var nfw = mobile ? 26 : 17, nfh = mobile ? 18 : 12, nfg = mobile ? 5 : 4;
 				drawFlag(svg, 'DK', nfx, nfy, nfw, nfh);
 				drawFlag(svg, 'FI', nfx + nfw + nfg, nfy, nfw, nfh);
