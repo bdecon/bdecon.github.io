@@ -273,15 +273,6 @@
 			padding-left: 4px;
 			padding-right: 4px;
 		}
-		#map-container .group-label {
-			font-size: 22px;
-		}
-		#map-container .legend-label-end {
-			font-size: 16px;
-		}
-		#map-container .inset-box text {
-			font-size: 16px;
-		}
 		.spending-toggle, .wage-toggle {
 			margin-top: 8px;
 		}
@@ -377,7 +368,7 @@
 		stroke-width: 0.5;
 	}
 	.inset-box text {
-		font-size: 12px;
+		font-size: 14px;
 		font-family: system-ui, sans-serif;
 		fill: var(--color-axis-text);
 	}
@@ -422,6 +413,17 @@
 		font-size: 14px;
 		font-weight: 600;
 		fill: var(--color-text-dark);
+	}
+	@media (max-width: 500px) {
+		.group-label {
+			font-size: 22px;
+		}
+		.legend-label-end {
+			font-size: 16px;
+		}
+		.inset-box text {
+			font-size: 16px;
+		}
 	}
 	/* Tooltip */
 	.cc-tooltip {
@@ -1352,7 +1354,7 @@
 		<!-- Age coverage strips -->
 		<div class="chart-container" id="age-coverage-container">
 			<div class="chart-header" style="padding: 10px 12px 8px;">
-				<span class="map-category">Universal public childcare programs, selected cases</span>
+				<span class="map-category">Closing the gap</span>
 			</div>
 			<div class="chart-body" style="padding: 4px 8px 0 8px;">
 				<svg id="age-coverage-svg" style="width:100%;height:auto;" viewBox="0 0 620 210" preserveAspectRatio="xMidYMid meet"></svg>
@@ -3035,11 +3037,13 @@
 			var bl = dark ? '#c8c8c8' : '#555';
 			var GRAY_LIGHT = dark ? '#6A6A9A' : '#B0B0D0';
 
+			var tooltipLabel = {WA: 'Washington State'};
+
 			// ── Top panel: GDP per child ──
 			var topG = svg.append('g');
 
 			topG.append('text')
-				.attr('x', 15).attr('y', margin.top - 46)
+				.attr('x', 15).attr('y', margin.top - 42)
 				.attr('font-size', 17).attr('font-weight', 700).attr('fill', tc)
 				.text('The US and peers have abundant financial resources');
 			topG.append('text')
@@ -3077,7 +3081,7 @@
 					.attr('fill', 'transparent').attr('cursor', 'pointer')
 					.on('mousemove', function(evt) {
 						showTooltip(evt,
-							'<strong>' + d.label + '</strong><br>' +
+							'<strong>' + (tooltipLabel[d.id] || d.label) + '</strong><br>' +
 							'GDP per child 0\u20135: <strong>$' + d.gdp.toFixed(2) + 'M</strong><br>' +
 							'World average: $' + WORLD_AVG.toFixed(2) + 'M<br>' +
 							(d.gdp / WORLD_AVG).toFixed(1) + '\u00d7 the world average');
@@ -3104,7 +3108,8 @@
 				.attr('rx', 2);
 
 			var labelY = yGdp(0) + 14;
-			DATA.forEach(function(d, i) { drawLabel(topG, d, xPos(i), labelY, bl); });
+			var labelNudge = {DNK: -4};
+			DATA.forEach(function(d, i) { drawLabel(topG, d, xPos(i) + (labelNudge[d.id] || 0), labelY, bl); });
 
 			var groups = GROUP_ORDER.map(function(g) {
 				var indices = [];
@@ -3128,7 +3133,7 @@
 				.attr('font-size', 17).attr('font-weight', 700).attr('fill', tc)
 				.text('But the US has no public childcare system');
 			botG.append('text')
-				.attr('x', 15).attr('y', botTop - 14)
+				.attr('x', 15).attr('y', botTop - 20)
 				.attr('font-size', 18).attr('fill', mc)
 				.text('Children aged 0\u20135, percent of population');
 
@@ -3161,7 +3166,7 @@
 					.attr('fill', 'transparent').attr('cursor', 'pointer')
 					.on('mousemove', function(evt) {
 						showTooltip(evt,
-							'<strong>' + d.label + '</strong><br>' +
+							'<strong>' + (tooltipLabel[d.id] || d.label) + '</strong><br>' +
 							'Children per 100 people: ' + d.kids.toFixed(1) + '<br>' +
 							'Enrollment rate: <strong>' + d.enrollPct + '%</strong><br>' +
 							'In public care: ' + d.enrolled.toFixed(1) + '<br>' +
@@ -3171,7 +3176,7 @@
 			});
 
 			var botLabelY = yKids(0) + 14;
-			DATA.forEach(function(d, i) { drawLabel(botG, d, xPos(i), botLabelY, bl); });
+			DATA.forEach(function(d, i) { drawLabel(botG, d, xPos(i) + (labelNudge[d.id] || 0), botLabelY, bl); });
 
 			groups.forEach(function(g) {
 				var x1 = xPos(g.start) - barW/2 - 2;
@@ -3204,14 +3209,14 @@
 					.text(GROUP_LABELS[g.group]);
 			});
 
-			var legX = W - margin.right - 264, legY = botTop + 1;
+			var legX = W - margin.right - 270, legY = botTop + 3;
 			botG.append('text')
 				.attr('x', legX + 125).attr('y', legY + 10)
 				.attr('text-anchor', 'middle')
 				.attr('font-size', 15).attr('font-weight', 600).attr('fill', mc)
 				.text('Childcare/pre-k enrollment');
 			var legItemY = legY + 22;
-			var legCol2X = legX + 130;
+			var legCol2X = legX + 150;
 			[{label: 'In public care', color: TEAL, col: 0},
 			 {label: 'Not enrolled', color: GRAY_LIGHT, col: 1}].forEach(function(item) {
 				var cx = item.col === 0 ? legX : legCol2X;
@@ -3221,7 +3226,7 @@
 					.attr('fill', item.color).attr('opacity', 0.85);
 				botG.append('text')
 					.attr('x', cx + 16).attr('y', legItemY + 10)
-					.attr('font-size', 15).attr('fill', mc)
+					.attr('font-size', 16).attr('fill', tc)
 					.text(item.label);
 			});
 		}
@@ -3417,7 +3422,7 @@
 			// Legend
 			var legX = W - margin.right - 320, legY = botTop + 1;
 			svg.append('text')
-				.attr('x', legX + 110).attr('y', legY + 9)
+				.attr('x', legX + 110).attr('y', legY + 7)
 				.attr('text-anchor', 'middle')
 				.attr('font-size', 13).attr('font-weight', 600).attr('fill', mc)
 				.text('Childcare/pre-k enrollment');
@@ -3432,7 +3437,7 @@
 					.attr('fill', item.color).attr('opacity', 0.85);
 				svg.append('text')
 					.attr('x', cx + 14).attr('y', legItemY + 9)
-					.attr('font-size', 13).attr('fill', mc)
+					.attr('font-size', 14).attr('fill', tc)
 					.text(item.label);
 			});
 		}
@@ -5129,7 +5134,7 @@
 				label: 'Finland',
 				note: '+ universal child benefit at every age',
 				ages: [
-					{access: 'universal', status: 'established', label: 'Parental leave', labelWhite: true},
+					{access: 'universal', status: 'established', label: 'Parental\nleave', labelWhite: true},
 					{access: 'universal', status: 'established'},
 					{access: 'universal', status: 'established'},
 					{access: 'universal', status: 'established'},
@@ -5178,7 +5183,7 @@
 					{access: 'none'},
 					{access: 'none'},
 					{access: 'none'},
-					{access: 'universal', status: 'established'}
+					{access: 'universal', status: 'established', label: 'Kinder-\ngarten', labelWhite: true}
 				]
 			}
 		];
@@ -5203,7 +5208,7 @@
 
 var mobile = containerEl.clientWidth < 500;
 
-			var margin = {top: 36, right: 15, bottom: 40, left: mobile ? 82 : 104};
+			var margin = {top: mobile ? 36 : 66, right: 15, bottom: mobile ? 40 : 50, left: mobile ? 82 : 104};
 			var W = mobile ? 388 : 628;
 			var cellH = mobile ? 34 : 40;
 			var cellGap = 6;
@@ -5214,7 +5219,7 @@ var mobile = containerEl.clientWidth < 500;
 			var nCols = 6;
 
 			var mobileRowLabels = {'New Mexico': 'N. Mexico', 'US federal': 'US fed.'};
-			var mobileCellLabels = {'Parental leave': 'Leave', 'Head Start': 'H. Start'};
+			var mobileCellLabels = {'Parental\nleave': 'Leave', 'Head Start': 'H. Start', 'Kinder-\ngarten': 'K'};
 
 			// Calculate row Y positions
 			var rowYs = [];
@@ -5231,6 +5236,14 @@ var mobile = containerEl.clientWidth < 500;
 
 			var cellW = (W - margin.left - margin.right - (nCols - 1) * cellGap) / nCols;
 
+			// Title
+			svg.append('text')
+				.attr('x', mobile ? margin.left : margin.left - 94).attr('y', mobile ? 20 : 28)
+				.attr('font-size', mobile ? 18 : 20).attr('font-weight', 700)
+				.attr('font-family', 'Lato, sans-serif')
+				.attr('fill', tc)
+				.text('Universal public childcare programs, selected cases');
+
 			// Age labels across top
 			for (var c = 0; c < nCols; c++) {
 				var cx = margin.left + c * (cellW + cellGap) + cellW / 2;
@@ -5238,7 +5251,7 @@ var mobile = containerEl.clientWidth < 500;
 					.attr('x', cx).attr('y', margin.top - 10)
 					.attr('text-anchor', 'middle')
 					.attr('font-family', 'Lato, sans-serif')
-					.attr('font-size', 14)
+					.attr('font-size', mobile ? 14 : 15)
 					.attr('fill', mc)
 					.text('Age ' + c);
 			}
@@ -5264,7 +5277,7 @@ var mobile = containerEl.clientWidth < 500;
 				var flagH = mobile ? 16 : 20;
 				var labelX = margin.left - 8;
 				svg.append('text')
-					.attr('x', labelX).attr('y', ry + cellH / 2 - 10)
+					.attr('x', labelX).attr('y', ry + cellH / 2 - 12)
 					.attr('text-anchor', 'end').attr('dominant-baseline', 'middle')
 					.attr('font-family', 'Lato, sans-serif')
 					.attr('font-size', 14).attr('font-weight', 600)
@@ -5299,12 +5312,23 @@ var mobile = containerEl.clientWidth < 500;
 						var labelColor;
 						if (a.labelWhite) labelColor = dark ? '#fff' : '#fff';
 						else labelColor = dark ? '#ccc' : '#555';
-						svg.append('text')
-							.attr('x', cx + cellW / 2).attr('y', ry + cellH / 2 + 1)
+						var cellLines = (!mobile && cellLabel.indexOf('\n') !== -1) ? cellLabel.split('\n') : null;
+						var cellText = svg.append('text')
+							.attr('x', cx + cellW / 2).attr('y', ry + cellH / 2 + (cellLines ? -6 : 1))
 							.attr('text-anchor', 'middle').attr('dominant-baseline', 'middle')
 							.attr('font-family', 'Lato, sans-serif')
-							.attr('font-size', mobile ? 11 : 11)
-							.attr('fill', labelColor).text(cellLabel);
+							.attr('font-size', mobile ? 11 : (cellLines ? 13 : 14))
+							.attr('fill', labelColor);
+						if (cellLines) {
+							cellLines.forEach(function(ln, li) {
+								cellText.append('tspan')
+									.attr('x', cx + cellW / 2)
+									.attr('dy', li === 0 ? 0 : '1.15em')
+									.text(ln);
+							});
+						} else {
+							cellText.text(cellLabel);
+						}
 					}
 				});
 
@@ -5312,9 +5336,9 @@ var mobile = containerEl.clientWidth < 500;
 				if (row.note) {
 					var noteText = mobile ? '+ child benefit at every age' : row.note;
 					svg.append('text')
-						.attr('x', margin.left + 2).attr('y', ry + cellH + noteExtra / 2 + 3)
+						.attr('x', margin.left + 2).attr('y', ry + cellH + noteExtra / 2 + 7)
 						.attr('font-family', 'Lato, sans-serif')
-						.attr('font-size', 11).attr('font-style', 'italic')
+						.attr('font-size', mobile ? 11 : 13).attr('font-style', 'italic')
 						.attr('fill', mc).text(noteText);
 				}
 
@@ -5332,12 +5356,19 @@ var mobile = containerEl.clientWidth < 500;
 
 			// Legend — single row, 4 items
 			var legendItems = [
-				{label: 'Universal', fill: uEstab, stroke: uEstab, sw: 0, dash: 'none'},
-				{label: 'Expanding', fill: uNew, stroke: TEAL, sw: 1.5, dash: '5,3'},
+				{label: 'Existing', fill: uEstab, stroke: uEstab, sw: 0, dash: 'none'},
+				{label: 'New/Expansion', fill: uNew, stroke: TEAL, sw: 1.5, dash: '5,3'},
 				{label: 'Pilot', fill: uPilot, stroke: TEAL, sw: 1.5, dash: '2,3'}
 			];
-			var legendY = chartH - 16;
-			var lx = margin.left;
+			var legendY = chartH - 22;
+			var lx = margin.left + 32;
+			svg.append('text').attr('x', lx).attr('y', legendY)
+				.attr('dominant-baseline', 'middle')
+				.attr('font-family', 'Lato, sans-serif')
+				.attr('font-size', mobile ? 11 : 14).attr('font-weight', 600)
+				.attr('fill', mc)
+				.text('Status:');
+			lx += mobile ? 46 : 56;
 			legendItems.forEach(function(item) {
 				svg.append('rect').attr('x', lx).attr('y', legendY - 7)
 					.attr('width', 13).attr('height', 13).attr('rx', 2)
@@ -5346,9 +5377,9 @@ var mobile = containerEl.clientWidth < 500;
 				svg.append('text').attr('x', lx + 18).attr('y', legendY)
 					.attr('dominant-baseline', 'middle')
 					.attr('font-family', 'Lato, sans-serif')
-					.attr('font-size', mobile ? 11 : 12).attr('fill', mc)
+					.attr('font-size', mobile ? 11 : 14).attr('fill', mc)
 					.text(item.label);
-				lx += item.label.length * (mobile ? 6.5 : 7.5) + (mobile ? 24 : 28);
+				lx += item.label.length * (mobile ? 6.5 : 8.5) + (mobile ? 24 : 30);
 			});
 		}
 
