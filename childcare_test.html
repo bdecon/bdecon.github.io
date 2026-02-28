@@ -747,7 +747,24 @@
 		white-space: nowrap;
 	}
 	/* Wage peers inset box */
+	.cc-explore-tag {
+		position: absolute;
+		top: -10px;
+		right: 16px;
+		background: var(--color-card-teal);
+		color: #fff;
+		font-family: Lato, sans-serif;
+		font-size: 12px;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		padding: 3px 10px;
+		border-radius: 10px;
+		z-index: 2;
+		line-height: 1.4;
+		box-shadow: 0 0 0 2px var(--color-bg-white);
+	}
 	.cc-wage-box {
+		position: relative;
 		border: 2px solid var(--color-card-teal);
 		border-radius: 6px;
 		padding: 16px;
@@ -864,6 +881,8 @@
 
 	<p>In 1971, Congress passed the Comprehensive Child Development Act, a bipartisan bill to establish universal childcare. President Nixon <a href="https://www.presidency.ucsb.edu/documents/veto-the-economic-opportunity-amendments-1971" target="_blank" rel="noopener">vetoed it</a>. His speechwriter, Pat Buchanan, drafted a message warning against "the vast moral authority of the National Government" being committed "to the side of communal approaches to child rearing over against the family-centered approach."</p>
 
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">Not all countries failed</h3>
+
 	<p>The Nordic countries — Denmark, Finland, Norway, and Sweden — built their systems through political contest, not consensus. In 1934, Swedish social scientists <a href="https://en.wikipedia.org/wiki/Crisis_in_the_Population_Question" target="_blank" rel="noopener">Alva and Gunnar Myrdal</a> argued for sharing the responsibility of child-rearing between families and society. It took forty years of organizing — by labor unions, by women's movements, by social democratic parties — before <a href="https://centreforpublicimpact.org/public-impact-fundamentals/swedens-1975-national-preschool-reform/" target="_blank" rel="noopener">Sweden passed its National Preschool Act</a> in 1975. Finland guaranteed every child a <a href="https://okm.fi/en/legislation-ecec" target="_blank" rel="noopener">legal right to public care</a> from birth. Denmark and Norway followed. Those systems survived because they worked, and because the people who depended on them organized to protect them.</p>
 
 	<hr class="cc-rule">
@@ -884,6 +903,8 @@
 
 	<p>The four Nordic countries all have high-quality, affordable childcare, and all follow the same basic model: public, universal childcare funded through taxes. The details vary. The overall results do not. The Nordics charge families little or nothing, enroll far more children, pay childcare workers a livable wage, and run their systems through the public sector. Meanwhile, the United States ranks <a href="https://www.unicef.org/innocenti/reports/where-do-rich-countries-stand-childcare" target="_blank" rel="noopener">40th out of 41 wealthy countries</a> on childcare, according to UNICEF's most recent assessment. This report asks why the US looks so different.</p>
 
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">A subnational view</h3>
+
 	<p>A common response to comparisons like these is that the Nordic countries are small, and that wealthy US states like Massachusetts already perform at Nordic levels. In the case of childcare, they do not. Even the richest US states fall far short on public childcare, and a vicious cycle of underfunding makes the gap self-reinforcing, though places like New York City and New Mexico are trying to break out of it.</p>
 
 	<p>This report compares childcare systems across US states, New York City, the Canadian provinces, and the Nordic countries — looking at spending, enrollment, wages, and costs to show the gap between North American and Nordic systems.</p>
@@ -891,14 +912,14 @@
 	<hr class="cc-rule">
 
 	<!-- ================================================================ -->
-	<!-- SECTION 1: What some countries built                              -->
+	<!-- SECTION 1: The money is there. The system is not.                  -->
 	<!-- ================================================================ -->
 	<details class="cc-details" open>
-		<summary style="font-size: 21px;">What some countries built</summary>
+		<summary style="font-size: 21px;">The money is there. The system is not.</summary>
 
 		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">The money is there</h3>
 
-		<p>Every country on this page is extraordinarily rich by any global standard. One way to see this is GDP per child — the total economic output of a country divided by its number of young children. It is a rough measure of how much a society produces for each child it needs to support. The global average is about $190,000 per child aged 0-5. The US generates $1.28 million. Denmark generates $1.23 million. Finland generates $1.05 million. Massachusetts, at $2.41 million, produces more than double Finland per child.</p>
+		<p>Every country on this page is extraordinarily rich by any global standard. One way to see this is Gross Domsetic Produce per child — the total economic output of a country divided by its number of young children. It is a rough measure of how much a society produces for each child it needs to support. The global average is about $190,000 per child aged 0-5. The US generates $1.28 million. Denmark generates $1.23 million. Finland generates $1.05 million. Massachusetts, at $2.41 million, has double the per child resources of Finland.</p>
 
 		<p>The difference is not in wealth but in how it is distributed. Paychecks go to working-age adults with jobs. That is true everywhere. The question is what happens next. The Nordics tax that income broadly and redirect it toward people who are not earning — young children, the parents caring for them, the elderly, the disabled. The US, for childcare, does almost none of this. Families bear the full cost at the moment they can least afford it.</p>
 
@@ -918,10 +939,18 @@
 			</div>
 		</div>
 
-		<p>When children reach kindergarten, the US government covers the full cost of their education — for thirteen years. Before kindergarten, families pay for childcare out of pocket, at prices that can consume a large share of a working family's income. Some public programs fill part of the gap for some children, but most families are on their own. The spending gap between early childhood and K-12 is not gradual. It is a cliff.</p>
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">The childcare need is there</h3>
+
+		<p>Every country shown in the chart above has roughly the same share of its population aged 0 to 5. Young children need full-time supervision — someone feeds them, watches them, teaches them, every day, for years. Whether a government builds a childcare system or not, the childcare happens.</p>
+
+		<p>In the US, the government pays for education from kindergarten through high school — thirteen years of free public school. Before kindergarten, families pay for childcare out of pocket, at prices that can consume a large share of a working family's income, or a parent leaves work, or a grandparent fills in. Some public programs cover part of the gap for some children, but most families are on their own. Other wealthy countries solved childcare the same way the US solved K-12: with public funding.</p>
+
+		<p>The difference between the US and Nordic countries shows up in what childcare costs families. The calculator below compares childcare costs for a family in Sweden, where the public sector offers care for young children, and a family in the United States.</p>
 
 		<!-- Cost comparison feature box -->
-		<div id="cost-compare-container" style="max-width: 520px; margin: 2.25rem auto; border-radius: 6px; overflow: hidden; box-shadow: 0 2px 8px var(--color-shadow), 0 4px 16px rgba(0,0,0,0.06); border-bottom: 12px solid var(--color-card-teal);">
+		<div style="position: relative; max-width: 520px; margin: 2.25rem auto;">
+			<span class="cc-explore-tag">▸ Explore</span>
+		<div id="cost-compare-container" style="max-width: 520px; margin: 0 auto; border-radius: 6px; overflow: hidden; box-shadow: 0 2px 8px var(--color-shadow), 0 4px 16px rgba(0,0,0,0.06); border-bottom: 12px solid var(--color-card-teal);">
 			<div style="position: relative;">
 				<img src="files/childcare-images/raa_preschool.jpg" alt="Children playing outside Råå Day Care Center in Helsingborg, Sweden" style="display: block; width: 100%; height: auto;">
 				<div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 6px 10px; background: linear-gradient(transparent, rgba(0,0,0,0.6)); color: rgba(255,255,255,0.85); font-size: 12px; line-height: 1.3;">
@@ -929,6 +958,7 @@
 				</div>
 			</div>
 			<div style="padding: 16px 18px 14px; background: var(--color-bg-white);">
+				<p style="font-size: 17px; font-weight: 700; color: var(--color-text-dark); margin: 0 0 10px; text-align: left;">How Sweden prices childcare</p>
 				<style>
 					.cost-btn {
 						padding: 6px 14px;
@@ -982,16 +1012,19 @@
 						box-shadow: 0 1px 4px rgba(0,0,0,0.3);
 					}
 				</style>
-				<p style="font-size: 14px; line-height: 1.5; color: var(--color-text-dark); margin: 0 0 12px;">In Sweden, parents drop their children off at a public daycare in their neighborhood and pay a fee based on their income — 3% for the first child, 2% for the second, 1% for the third, and nothing after that. The fee is capped, so no family pays more than about $2,100 a year per child regardless of income. An American family pays the same price whether they make $40,000 or $400,000.</p>
+				<p style="font-size: 14px; line-height: 1.65; color: var(--color-text-dark); margin: 0 0 12px; text-align: left;">In Sweden, parents drop their children off at a public daycare in their neighborhood and pay a fee based on their income — 3% for the first child, 2% for the second, 1% for the third, and nothing after that. The fee is capped, so no family pays more than about $2,100 a year per child regardless of income.</p>
+				<p style="font-size: 14px; line-height: 1.65; color: var(--color-text-dark); margin: 0 0 12px; text-align: left;">In the US, a family earning $40,000 pays the same price as a family earning $400,000.</p>
+				<hr style="border: none; border-top: 3px solid var(--color-card-teal); width: 40px; margin: 14px 0;">
+				<p style="font-size: 14px; line-height: 1.65; font-weight: 700; color: var(--color-text-dark); margin: 0 0 12px; text-align: left;">What would your family pay? <span style="font-weight: 400;">Adjust your income and number of children to compare childcare costs in Sweden and the US.</span></p>
 				<div style="margin-bottom: 6px;">
 					<div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
-						<span style="font-size: 13px; font-weight: 600; color: var(--color-text-muted);">Household income</span>
+						<span style="font-size: 17px; font-weight: 600; color: var(--color-text-muted);">Household income</span>
 						<span id="cost-income-label" style="font-size: 18px; font-weight: 700; color: var(--color-text-dark);"></span>
 					</div>
 					<input type="range" id="cost-slider" min="5000" max="200000" step="5000" value="60000">
 				</div>
 				<div style="display: flex; align-items: center; gap: 8px; margin: 14px 0 16px;">
-					<span style="font-size: 13px; font-weight: 600; color: var(--color-text-muted);">Children</span>
+					<span style="font-size: 17px; font-weight: 600; color: var(--color-text-muted);">Children</span>
 					<div id="cost-kids-btns" style="display: flex; gap: 6px;">
 						<button class="cost-btn active" data-kids="1">1</button>
 						<button class="cost-btn" data-kids="2">2</button>
@@ -1003,6 +1036,7 @@
 				</div>
 				<p style="font-size: 12px; color: var(--color-text-muted); margin: 12px 0 0; line-height: 1.4;">Some US families receive partial subsidies through Head Start or state programs. Most do not.</p>
 			</div>
+		</div>
 		</div>
 		<script>
 		(function() {
@@ -1086,9 +1120,11 @@
 		</script>
 
 		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 calc(1.75rem + 6px);">
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">A gap in priorities</h3>
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">US public childcare funding is not there</h3>
 
-		<p>The US spends <span class="cc-highlight">less than 0.3% of GDP</span> on early childhood education and care — about 50 cents per American per day. GDP is a measure of a country's total economic output, so this percentage shows how much of its resources a country directs toward childcare. The Nordic countries spend over 1.3%. The US does have a smaller government overall — it collects and spends about 39% of GDP, compared to 47-56% in the Nordics. But the childcare gap is disproportionate even by that standard. It is not just less government. It is a specific absence.</p>
+		<p>Public education in the US begins at age 5. For children too young to start school, the US spends less than 0.3% of Gross Domestic Product (GDP) on childcare and early education — about 50 cents per American per day. The Nordic countries spend around 1.3% of GDP, and provide high-quality public childcare and early education to young kids. The gap between bottom-ranked US childcare and top-ranked Nordic public childcare is only <span class="cc-highlight">1% of GDP.</span></p>
+
+		<p>GDP measures a country's total economic output, so these percentages show how much of its resources a country directs toward childcare. The US does have a smaller government overall — 39% of GDP, compared to 47-56% in the Nordics. But the childcare gap is disproportionate even by that standard. It is not just less government. It is a specific absence. The chart below shows the gap in childcare funding between the US and the Nordic countries.</p>
 
 		<!-- Spending comparison chart -->
 		<div class="chart-container" id="spending-compare-container">
@@ -1107,9 +1143,9 @@
 		</div>
 
 		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 calc(1.75rem + 6px);">
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">Who gets in</h3>
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">A gap in services and consumer choice</h3>
 
-		<p>Spending becomes enrollment. Where countries fund childcare systems, children show up. <a href="https://www.chicagofed.org/publications/chicago-fed-insights/2024/non-us-childcare-policies" target="_blank" rel="noopener">Eight European countries</a> guarantee a childcare slot from age 6-18 months. Sweden caps parent fees at 3% of income. These are commitments written into law. The enrollment numbers reflect it.</p>
+		<p>The need for childcare is strong, so public funding becomes enrollment. Where countries fund childcare systems, children show up. <a href="https://www.chicagofed.org/publications/chicago-fed-insights/2024/non-us-childcare-policies" target="_blank" rel="noopener">Eight European countries</a> guarantee a childcare slot from age 6-18 months. Sweden caps parent fees at 3% of income. These are commitments written into law. The enrollment numbers reflect it.</p>
 
 
 		<p>Nordic countries enroll children starting at age 1, when parental leave ends. By age 3, enrollment exceeds 80% in every Nordic country. The United States has no public childcare for children under 3. At age 2, the US enrollment rate in public programs is <span class="cc-highlight">0%</span>.</p>
@@ -1131,9 +1167,9 @@
 		</div>
 
 		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 calc(1.75rem + 6px);">
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">The infrastructure gap</h3>
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">A gap in infrastructure</h3>
 
-		<p>The childcare gap between the US and Nordics is not just a matter of public spending or enrollment. It is a physical gap. Even with more funding, the licensed facilities, trained workers, and available slots to serve every family do not exist.</p>
+		<p>The childcare gap between the US and Nordics is not just a matter of public spending or enrollment. It is also a physical gap. Even with more funding, the licensed facilities, trained workers, and available slots to serve every family do not exist.</p>
 
 		<p>To illustrate, compare public infrastructure between Norway and the US across two sectors: aviation and childcare. Both countries know how to build world-class infrastructure. Only one has public childcare infrastructure.</p>
 
@@ -1182,7 +1218,9 @@
 
 		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 calc(1.75rem + 6px);">
 
-		<p>No US state has built comparable childcare infrastructure either. Nordic countries are small — but so are US states. Massachusetts has a larger economy than Finland. That is precisely why this next section compares at the state level: it removes the excuse that the US is simply too big or too diverse for the comparison to hold. The map below shows spending, enrollment, wages, and workforce outcomes for US and Canadian subnational geographies alongside the Nordic countries.</p>
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">The US–Nordic childcare gap persists at the state level</h3>
+
+		<p>No US state has built comparable childcare infrastructure either. Nordic countries are small — but so are US states. That is precisely why this next section compares at the state level: it removes the excuse that the US is simply too big or too diverse for the comparison to hold. The map below shows spending, enrollment, wages, and workforce outcomes for US and Canadian subnational geographies alongside the Nordic countries. The gaps in these measures persist at the the state level.</p>
 
 		<!-- Map with tabs -->
 		<noscript><p style="background:#fff3cd;padding:10px;border-radius:4px;font-size:14px;">This page requires JavaScript to display interactive maps.</p></noscript>
@@ -1194,6 +1232,7 @@
 			<button class="cc-tab" data-metric="workforce_share_pct">Workforce</button>
 		</div>
 		<div class="chart-container" id="map-container" style="margin-top: 0;">
+			<span class="cc-explore-tag">▸ Explore</span>
 			<div class="chart-header">
 				<div>
 					<h4 id="map-indicator">Loading...</h4>
@@ -1223,10 +1262,10 @@
 	</details>
 
 	<!-- ================================================================ -->
-	<!-- SECTION 2: What the gap means                                     -->
+	<!-- SECTION 2: What the US–Nordic childcare gap means                  -->
 	<!-- ================================================================ -->
 	<details class="cc-details" open>
-		<summary style="font-size: 21px;">What the gap means</summary>
+		<summary style="font-size: 21px;">What the US–Nordic childcare gap means</summary>
 
 		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">A tale of two systems</h3>
 
@@ -1246,7 +1285,7 @@
 		<p>In the United States, Head Start offers part-day preschool to some low-income children. Scattered state pre-K programs cover some four-year-olds for a few hours during the school year. For most families, the only real choice is the private market.</p>
 
 		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 calc(1.75rem + 6px);">
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">The cost of doing nothing</h3>
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">The high cost of doing nothing</h3>
 
 		<p><span class="cc-highlight">3.8%</span> of US working-age adults are out of the labor force for childcare. In the Nordic countries, the figure is under 1%. Nine in ten of these sidelined adults are women. Outside of recessions, more Americans are out of work for childcare than for unemployment.</p>
 
@@ -1271,7 +1310,7 @@
 		</div>
 
 		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 calc(1.75rem + 6px);">
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">The feedback loop</h3>
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">The public perception feedback loop</h3>
 
 		<p>These outcomes are not random. They are the product of two feedback loops, one in each direction.</p>
 
@@ -1288,10 +1327,13 @@
 
 		<p>The last time the US tried to break the cycle, the design of the fix revealed the problem. In 2021, the Build Back Better Act proposed raising childcare worker pay to match elementary school teachers — roughly $60,000. But the subsidy was limited to lower-income families, so families just above the cutoff faced a <a href="https://www.peoplespolicyproject.org/2021/10/20/democratic-child-care-plan-will-spike-prices-for-the-middle-class-by-13000" target="_blank" rel="noopener">$13,000 price increase</a>. The US can price the solution. What it will not do is <a href="https://www.peoplespolicyproject.org/projects/free-public-child-care/" target="_blank" rel="noopener">fund it universally</a>, because universal public services build the kind of broad constituency that becomes difficult to dismantle.</p>
 
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">High private costs doesn't mean high wages or quality</h3>
+
 		<p>The current rules cannot produce a different result. Research by <a href="https://docs.iza.org/dp16257.pdf" target="_blank" rel="noopener">Brown and Herbst</a> shows that when minimum wages rise, childcare prices increase 4-8% for every 10% wage increase, because labor is 70% of costs and profit margins are under 1%. At restaurants, the same wage increase raises prices 0.4%. You cannot raise childcare worker wages without making care unaffordable for parents — unless the government structures costs differently, the way the Nordics do.</p>
 
 		<!-- Wage peers inset box -->
 		<div class="cc-wage-box">
+			<span class="cc-explore-tag">▸ Explore</span>
 			<h3 class="cc-wage-title-desktop">US childcare workers are paid $15.41 per hour</h3>
 			<h3 class="cc-wage-title-mobile">US childcare workers make $15.41/hr</h3>
 			<p>The typical childcare worker makes <a href="https://www.bls.gov/oes/current/oes399011.htm" target="_blank" rel="noopener">$15.41 per hour</a>, or $32,050 a year. <span class="cc-highlight">99% of occupations</span> pay more. An elementary school teacher at the school next door makes <a href="https://www.bls.gov/oes/current/oes252021.htm" target="_blank" rel="noopener">$62,340</a>. That gap is not a market outcome. It is a policy choice about which work counts as professional.</p>
@@ -1327,7 +1369,7 @@
 		</div>
 
 		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 calc(1.75rem + 6px);">
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">Breaking the cycle</h3>
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">Breaking the cycle: a full system and a few start-ups</h3>
 
 		<p>The federal government has not acted since 1971. So cities and states are building on their own. None have replicated what Finland built. But the attempts reveal what it takes.</p>
 
@@ -1362,6 +1404,8 @@
 		</div>
 
 		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 calc(1.75rem + 6px);">
+
+		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(1.5rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">We can build it</h3>
 
 		<p>The United States has the resources — more GDP per young child than any Nordic country. It has the model — thirteen years of free public education, with 90% enrollment. What it does not have is the first five years. The government spends less than 0.3% of GDP on childcare, compared to over 1.3% in the Nordics. More Americans are out of work for childcare than for unemployment. Childcare workers are paid less than 99% of all occupations. The gap is not a matter of wealth. It is a matter of political choice.</p>
 
