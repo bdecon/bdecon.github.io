@@ -1306,7 +1306,7 @@
 		<div class="chart-container" id="outcomes-container">
 			<div class="chart-header">
 				<div>
-					<p class="map-category">Cost to society</p>
+					<p class="map-category">Without public childcare:</p>
 				</div>
 				</div>
 			<div class="chart-body" style="padding: 2px 12px 0 12px;">
@@ -4296,9 +4296,9 @@
 		}
 
 		function renderDesktop() {
-			var W = 680, H = 406;
+			var W = 680, H = 376;
 			svg.attr('viewBox', '0 0 ' + W + ' ' + H);
-			var margin = {top: 108, right: 15, bottom: 24, left: 43};
+			var margin = {top: 78, right: 15, bottom: 24, left: 43};
 			var panelGap = 46;
 			var panelW = (W - margin.left - margin.right - panelGap) / 2;
 			var chartH = H - margin.top - margin.bottom;
@@ -4315,12 +4315,6 @@
 
 			var yNilf = d3.scaleLinear().domain([0, 4.6]).range([margin.top + chartH, margin.top]);
 			var yPov = d3.scaleLinear().domain([0, 22]).range([margin.top + chartH, margin.top]);
-
-			// Main title
-			svg.append('text')
-				.attr('x', 15).attr('y', 36)
-				.attr('font-size', 17).attr('font-weight', 700).attr('fill', tc)
-				.text('Without public childcare:');
 
 			// ── Left panel: NILF for childcare ──
 			var leftG = svg.append('g');
@@ -4441,10 +4435,10 @@
 		function renderMobile() {
 			var W = 420, panelH = 220;
 			var gap = 28;
-			var H = panelH * 2 + gap + 56;
+			var H = panelH * 2 + gap + 26;
 			svg.attr('viewBox', '0 0 ' + W + ' ' + H);
 
-			var margin = {top: 88, right: 12, bottom: 24, left: 46};
+			var margin = {top: 58, right: 12, bottom: 24, left: 46};
 			var chartW = W - margin.left - margin.right;
 			var barChartH = panelH - 46;
 			var barW = chartW / DATA.length * 0.55;
@@ -4455,22 +4449,16 @@
 				return margin.left + (i + 0.5) * (chartW / DATA.length);
 			}
 
-			// Main title
-			svg.append('text')
-				.attr('x', 12).attr('y', 30)
-				.attr('font-size', 17).attr('font-weight', 700).attr('fill', tc)
-				.text('Without public childcare:');
-
 			// ── Panel 1: NILF for childcare ──
 			var p1Top = margin.top - 16;
 			var p1G = svg.append('g');
 
 			p1G.append('text')
-				.attr('x', 12).attr('y', 62)
+				.attr('x', 12).attr('y', 32)
 				.attr('font-size', 15).attr('font-weight', 700).attr('fill', TEAL)
 				.text('Parents leave the workforce');
 			p1G.append('text')
-				.attr('x', 12).attr('y', 80)
+				.attr('x', 12).attr('y', 50)
 				.attr('font-size', 14).attr('fill', mc)
 				.text('Adults ages 20-64 out of work for childcare');
 
