@@ -126,7 +126,7 @@
 		width: 100%;
 		max-width: 420px;
 		margin: 0 auto;
-		background: var(--color-surface);
+		background: var(--color-card-tail-bg);
 		box-shadow: 0 2px 8px var(--color-shadow), 0 4px 16px rgba(0, 0, 0, 0.06);
 	}
 	.chart-header {
@@ -284,7 +284,7 @@
 		padding: 8px 12px;
 		background: var(--color-bg-highlight);
 		border-radius: 4px;
-		font-size: 13px;
+		font-size: 14px;
 		color: var(--color-text-muted);
 		display: flex;
 		justify-content: space-between;
@@ -294,17 +294,19 @@
 	.weo-info strong {
 		color: var(--color-text-dark);
 		display: block;
-		font-size: 11px;
+		font-size: 12px;
 		text-transform: uppercase;
 		letter-spacing: 0.3px;
 	}
 	/* Collapsible sections */
 	.weo-details {
-		max-width: 420px;
 		margin: 0.75rem auto;
 	}
+	.weo-details:first-of-type {
+		margin-top: 36px;
+	}
 	.weo-details summary {
-		font-size: 14px;
+		font-size: 15px;
 		font-weight: 600;
 		cursor: pointer;
 		padding: 6px 0;
@@ -333,13 +335,11 @@
 		margin-bottom: 8px;
 	}
 	.weo-details p, .weo-details li {
-		font-size: 13px;
-		color: var(--color-text-muted);
 		line-height: 1.5;
 	}
 	.weo-glossary-table {
 		width: 100%;
-		font-size: 12px;
+		font-size: 13px;
 		border-collapse: collapse;
 	}
 	.weo-glossary-table th, .weo-glossary-table td {
@@ -356,9 +356,9 @@
 		margin: 0.5em 0;
 	}
 	.weo-countries p { margin: 0.4em 0; }
-	.weo-countries strong { font-size: 13px; color: var(--color-text-dark); }
+	.weo-countries strong { font-size: 14px; color: var(--color-text-dark); }
 	@media (min-width: 500px) {
-		.weo-controls, .chart-container, .weo-info, .weo-details {
+		.weo-controls, .chart-container, .weo-info {
 			max-width: 480px;
 		}
 	}
@@ -371,7 +371,7 @@
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
 			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
-			<li><a href="python.html">Guides &darr;</a>
+			<li><a href="python.html">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
 					<li><a href="imfapi1.html">IMF API</a></li>
 					<li><a href="blsapi.html">BLS API</a></li>
@@ -382,7 +382,7 @@
 				</ul>
 			</li>
 		<li>
-			<a href="reports.html" class="active" aria-current="page">Reports &darr;</a>
+			<a href="reports.html" class="active" aria-current="page">Reports <span class="nav-arrow">&darr;</span></a>
 			<ul class="hidden">
 				<li><a href="chartbook.html">US Chartbook</a></li>
 				<li><a href="indicators.html">Economic Indicators</a></li>
@@ -404,7 +404,7 @@
 	</header>
 	<main id="main">
 	<section>
-	<article>
+	<article class="prose">
 
 	<noscript><p style="background:#fff3cd;padding:10px;border-radius:4px;font-size:14px;">This page requires JavaScript to display interactive charts.</p></noscript>
 

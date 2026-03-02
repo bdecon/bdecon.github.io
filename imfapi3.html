@@ -112,7 +112,7 @@
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
 			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
-			<li><a href="python.html" class="active" aria-current="page">Guides &darr;</a>
+			<li><a href="python.html" class="active" aria-current="page">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
 					<li><a href="imfapi1.html">IMF API</a></li>
 					<li><a href="blsapi.html">BLS API</a></li>
@@ -123,7 +123,7 @@
 			</ul>
 			</li>
 		<li>
-			<a href="reports.html">Reports &darr;</a>
+			<a href="reports.html">Reports <span class="nav-arrow">&darr;</span></a>
 			<ul class="hidden">
 				<li><a href="chartbook.html">US Chartbook</a></li>
 				<li><a href="indicators.html">Economic Indicators</a></li>
@@ -183,7 +183,7 @@
 	</div>
 	</a>
 	</article>
-	<article class="article_code">
+	<article class="article_code prose">
 	<p class="subtitle">IMF API with Python: Practical Examples</p>
 	<p>Parts 1 and 2 covered the basics of retrieving data and discovering datasets. Here we apply both&mdash;combining the discovery tools from Part 2 with practical workflows&mdash;to work through three examples: economic forecasts, commodity prices, and data from providers beyond the IMF.</p>
 
@@ -381,12 +381,12 @@ ax.set_xlabel('Source: European Central Bank (IRS)')</code></pre>
 	<pre><code class="python">print(sdmx.list_sources())</code></pre>
 	<p>Some of the most useful for economic data:</p>
 	<ul>
-		<li><p><strong>ECB</strong> &mdash; Exchange rates, monetary aggregates, interest rates</p></li>
-		<li><p><strong>BIS</strong> &mdash; Banking statistics, property prices, credit to the private sector</p></li>
-		<li><p><strong>OECD</strong> &mdash; National accounts, labor markets, trade, education</p></li>
-		<li><p><strong>WB</strong> (World Bank) &mdash; Development indicators, poverty, demographics</p></li>
-		<li><p><strong>ILO</strong> &mdash; Employment, wages, labor force statistics</p></li>
-		<li><p><strong>ESTAT</strong> (Eurostat) &mdash; European economic and social statistics</p></li>
+		<li><strong>ECB</strong> &mdash; Exchange rates, monetary aggregates, interest rates</li>
+		<li><strong>BIS</strong> &mdash; Banking statistics, property prices, credit to the private sector</li>
+		<li><strong>OECD</strong> &mdash; National accounts, labor markets, trade, education</li>
+		<li><strong>WB</strong> (World Bank) &mdash; Development indicators, poverty, demographics</li>
+		<li><strong>ILO</strong> &mdash; Employment, wages, labor force statistics</li>
+		<li><strong>ESTAT</strong> (Eurostat) &mdash; European economic and social statistics</li>
 	</ul>
 	<p>The workflow is always the same: create a <code>Client</code>, use <code>dataflow()</code> to browse datasets, and <code>.data()</code> to fetch observations.</p>
 
@@ -429,20 +429,20 @@ gdp.sort_index().round(1)</code></pre>
 
 	<h2 class="section-title">Key Concepts</h2>
 	<ul>
-		<li><p>The discovery methods from Part 2&mdash;<code>dataflow()</code>, <code>dsd.dimensions</code>, and codelist searches&mdash;are essential for working with new datasets</p></li>
-		<li><p>WEO provides IMF forecasts, valuable for projections and scenario analysis</p></li>
-		<li><p>PCPS provides world benchmark commodity prices; the reference area <code>W00</code> covers all series</p></li>
-		<li><p>The same sdmx1 library and workflow apply to ECB, BIS, OECD, and many other SDMX providers</p></li>
-		<li><p>For bulk downloads or to avoid dependencies, the API also accepts plain <code>requests</code> with <code>Accept: text/csv</code>&mdash;see Part 2 for the URL pattern and gotchas</p></li>
-		<li><p>Always call <code>.sort_index()</code> after converting the time index&mdash;SDMX responses are not guaranteed to be in chronological order</p></li>
+		<li>The discovery methods from Part 2&mdash;<code>dataflow()</code>, <code>dsd.dimensions</code>, and codelist searches&mdash;are essential for working with new datasets</li>
+		<li>WEO provides IMF forecasts, valuable for projections and scenario analysis</li>
+		<li>PCPS provides world benchmark commodity prices; the reference area <code>W00</code> covers all series</li>
+		<li>The same sdmx1 library and workflow apply to ECB, BIS, OECD, and many other SDMX providers</li>
+		<li>For bulk downloads or to avoid dependencies, the API also accepts plain <code>requests</code> with <code>Accept: text/csv</code>&mdash;see Part 2 for the URL pattern and gotchas</li>
+		<li>Always call <code>.sort_index()</code> after converting the time index&mdash;SDMX responses are not guaranteed to be in chronological order</li>
 	</ul>
 
 	<h2 class="section-title">Additional Resources</h2>
 	<ul>
-		<li><p><a href="https://pypi.org/project/sdmx1/">sdmx1 on PyPI</a> &mdash; Installation and basic documentation</p></li>
-		<li><p><a href="https://sdmx1.readthedocs.io/">sdmx1 documentation</a> &mdash; Full library reference, including the list of supported providers</p></li>
-		<li><p><a href="https://data.imf.org/">IMF Data Portal</a> &mdash; Browse available IMF datasets interactively</p></li>
-		<li><p><a href="https://data.ecb.europa.eu/">ECB Data Portal</a> &mdash; European Central Bank statistical data</p></li>
+		<li><a href="https://pypi.org/project/sdmx1/">sdmx1 on PyPI</a> &mdash; Installation and basic documentation</li>
+		<li><a href="https://sdmx1.readthedocs.io/">sdmx1 documentation</a> &mdash; Full library reference, including the list of supported providers</li>
+		<li><a href="https://data.imf.org/">IMF Data Portal</a> &mdash; Browse available IMF datasets interactively</li>
+		<li><a href="https://data.ecb.europa.eu/">ECB Data Portal</a> &mdash; European Central Bank statistical data</li>
 	</ul>
 	</article>
 	<div class="subfooter">

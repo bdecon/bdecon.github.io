@@ -106,7 +106,7 @@
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
 			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
-			<li><a href="python.html" class="active" aria-current="page">Guides &darr;</a>
+			<li><a href="python.html" class="active" aria-current="page">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
 					<li><a href="imfapi1.html">IMF API</a></li>
 					<li><a href="blsapi.html">BLS API</a></li>
@@ -117,7 +117,7 @@
 			</ul>
 			</li>
 		<li>
-			<a href="reports.html">Reports &darr;</a>
+			<a href="reports.html">Reports <span class="nav-arrow">&darr;</span></a>
 			<ul class="hidden">
 				<li><a href="chartbook.html">US Chartbook</a></li>
 				<li><a href="indicators.html">Economic Indicators</a></li>
@@ -177,7 +177,7 @@
 	</div>
 	</a>
 	</article>
-	<article class="article_code">
+	<article class="article_code prose">
 	<p class="subtitle">IMF API with Python: A Basic Example</p>
 	<p>The <a href="https://data.imf.org/">IMF's data portal</a> provides access to macroeconomic data covering more than 180 countries. Using Python's <a href="https://pypi.org/project/sdmx1/">sdmx1 library</a>, it is straightforward to retrieve data through the IMF's SDMX API.</p>
 
@@ -235,10 +235,10 @@ res.plot(title='CPI, one-year percent change',
 	<h2 class="section-title">Key Concepts</h2>
 	<p>This example demonstrates the core workflow for accessing IMF data with sdmx1:</p>
 	<ul>
-		<li><p><code>sdmx.Client('IMF_DATA')</code> creates a connection to the IMF's SDMX endpoint;</p></li>
-		<li><p>The <code>.data()</code> method retrieves data for a specific dataflow using a key string;</p></li>
-		<li><p><code>sdmx.to_pandas()</code> converts the SDMX message to a pandas DataFrame;</p></li>
-		<li><p>Multiple countries (or other dimension values) are specified using <code>+</code> as a separator.</p></li>
+		<li><code>sdmx.Client('IMF_DATA')</code> creates a connection to the IMF's SDMX endpoint;</li>
+		<li>The <code>.data()</code> method retrieves data for a specific dataflow using a key string;</li>
+		<li><code>sdmx.to_pandas()</code> converts the SDMX message to a pandas DataFrame;</li>
+		<li>Multiple countries (or other dimension values) are specified using <code>+</code> as a separator.</li>
 	</ul>
 
 	<p>Part 2 covers how to discover available datasets and find the correct parameter codes for your data of interest.</p>

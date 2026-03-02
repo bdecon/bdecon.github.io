@@ -112,7 +112,7 @@
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
 			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
-			<li><a href="python.html" class="active" aria-current="page">Guides &darr;</a>
+			<li><a href="python.html" class="active" aria-current="page">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
 					<li><a href="imfapi1.html">IMF API</a></li>
 					<li><a href="blsapi.html">BLS API</a></li>
@@ -123,7 +123,7 @@
 			</ul>
 			</li>
 		<li>
-			<a href="reports.html">Reports &darr;</a>
+			<a href="reports.html">Reports <span class="nav-arrow">&darr;</span></a>
 			<ul class="hidden">
 				<li><a href="chartbook.html">US Chartbook</a></li>
 				<li><a href="indicators.html">Economic Indicators</a></li>
@@ -183,7 +183,7 @@
 	</div>
 	</a>
 	</article>
-	<article class="article_code">
+	<article class="article_code prose">
 	<p class="subtitle">IMF API with Python: Finding Datasets and Parameters</p>
 	<p>Part 1 showed a basic example of retrieving data. Here in Part 2, we explore how to discover available datasets and find the correct parameter codes using the sdmx1 library's <code>dataflow()</code> and <code>codelist</code> methods.</p>
 
@@ -275,9 +275,9 @@ ax = ax.set_xlabel(recent)</code></pre>
 	<h2 class="section-title">Tips</h2>
 	<p>A few patterns that make working with the API more efficient:</p>
 	<ul>
-		<li><p><strong>Wildcards</strong>: Leave a key position empty to request all values for that dimension. For example, <code>USA.CPI._T.IX.</code> (trailing dot, no frequency) returns annual, quarterly, and monthly data.</p></li>
-		<li><p><strong>Date precision</strong>: The <code>startPeriod</code> and <code>endPeriod</code> parameters accept month-level strings like <code>'2024-01'</code>, not just years.</p></li>
-		<li><p><strong>Suppress warnings</strong>: Add <code>import logging; logging.getLogger('sdmx').setLevel(logging.ERROR)</code> to silence the <code>xml.Reader</code> diagnostic message.</p></li>
+		<li><strong>Wildcards</strong>: Leave a key position empty to request all values for that dimension. For example, <code>USA.CPI._T.IX.</code> (trailing dot, no frequency) returns annual, quarterly, and monthly data.</li>
+		<li><strong>Date precision</strong>: The <code>startPeriod</code> and <code>endPeriod</code> parameters accept month-level strings like <code>'2024-01'</code>, not just years.</li>
+		<li><strong>Suppress warnings</strong>: Add <code>import logging; logging.getLogger('sdmx').setLevel(logging.ERROR)</code> to silence the <code>xml.Reader</code> diagnostic message.</li>
 	</ul>
 
 	<h2 class="section-title">Direct API Access with Requests</h2>
@@ -324,19 +324,19 @@ inflation.tail(4)</code></pre>
 2025-12-01   4.3  3.4  5.1</pre>
 	<p>A few gotchas to watch for with direct API access:</p>
 	<ul>
-		<li><p><strong>Version wildcard</strong>: Use <code>~</code> for latest version. Using <code>*</code> causes a 500 error.</p></li>
-		<li><p><strong>Time filtering</strong>: Use <code>?c[TIME_PERIOD]=ge:2018-M01</code> for the content constraint. The <code>startPeriod</code> parameter may not be supported on all endpoints.</p></li>
-		<li><p><strong>Country codes</strong>: Must be ISO alpha-3 (e.g., <code>USA</code> not <code>US</code>). Using an invalid code returns 200 with zero data rows&mdash;no error.</p></li>
-		<li><p><strong>Monthly dates</strong>: Time periods are formatted <code>2024-M01</code> rather than <code>2024-01</code>, so a <code>.str.replace('-M', '-')</code> is needed before <code>pd.to_datetime()</code>.</p></li>
+		<li><strong>Version wildcard</strong>: Use <code>~</code> for latest version. Using <code>*</code> causes a 500 error.</li>
+		<li><strong>Time filtering</strong>: Use <code>?c[TIME_PERIOD]=ge:2018-M01</code> for the content constraint. The <code>startPeriod</code> parameter may not be supported on all endpoints.</li>
+		<li><strong>Country codes</strong>: Must be ISO alpha-3 (e.g., <code>USA</code> not <code>US</code>). Using an invalid code returns 200 with zero data rows&mdash;no error.</li>
+		<li><strong>Monthly dates</strong>: Time periods are formatted <code>2024-M01</code> rather than <code>2024-01</code>, so a <code>.str.replace('-M', '-')</code> is needed before <code>pd.to_datetime()</code>.</li>
 	</ul>
 
 	<p>Part 3 covers practical examples with popular datasets including economic forecasts, commodity prices, and accessing data from other providers.</p>
 
 	<h2 class="section-title">Additional Resources</h2>
 	<ul>
-		<li><p><a href="https://pypi.org/project/sdmx1/">sdmx1 on PyPI</a> - Installation and basic documentation</p></li>
-		<li><p><a href="https://sdmx1.readthedocs.io/">sdmx1 documentation</a> - Full library reference</p></li>
-		<li><p><a href="https://data.imf.org/">IMF Data Portal</a> - Browse available datasets interactively</p></li>
+		<li><a href="https://pypi.org/project/sdmx1/">sdmx1 on PyPI</a> - Installation and basic documentation</li>
+		<li><a href="https://sdmx1.readthedocs.io/">sdmx1 documentation</a> - Full library reference</li>
+		<li><a href="https://data.imf.org/">IMF Data Portal</a> - Browse available datasets interactively</li>
 	</ul>
 	</article>
 	<div class="subfooter">

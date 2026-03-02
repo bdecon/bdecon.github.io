@@ -76,7 +76,7 @@
 
 /* Dark theme
    Surface hierarchy (darker = further back):
-   Page bg #121212 → surface #1e1e1e → elevated #2a2a2a → nav #333
+   Canvas #121212 → Panel #1e1e1e → Panel-item #252525 → Highlight #2e2e2e → Chrome #333
    Header #424242 is distinct from nav to avoid blending
    Borders provide structural edges (no shadows in dark mode) */
 [data-theme="dark"] {
@@ -95,7 +95,7 @@
   --color-surface: #1e1e1e;
   --color-bg-header: #424242;
   --color-bg-alt: #1a1a1a;
-  --color-bg-highlight: #2a2a2a;
+  --color-bg-highlight: #2e2e2e;
 
   --color-link: #ff6b8a;
   --color-link-visited: #e0527a;
@@ -117,7 +117,7 @@
   --color-dropdown-text: #e0e0e0;
   --color-dropdown-bg: #2a2a2a;
 
-  --color-card-tail-bg: #1e1e1e;
+  --color-card-tail-bg: #282828;
 
   --color-table-border: #444444;
   --color-table-hover: #222222;
@@ -174,7 +174,8 @@ html{
 	overflow-x: hidden;
 	}
 body{
-	left: 0;
+	margin: 0;
+	padding: 50px 0 0;  /* clear fixed nav universally */
 	font-family: Tahoma, Verdana, Segoe, sans-serif;
 	background-color: var(--color-canvas);
 	color: var(--color-text-dark);
@@ -183,25 +184,42 @@ body{
 	}
 
 main {
-	padding: 20px;
+	margin: 0;
+	padding: 7px 20px 20px;
 	box-sizing: border-box;
 	background: var(--color-surface);
 }
 [data-theme="dark"] main {
 	border: 1px solid var(--color-border);
+	border-bottom: none;
 }
 
-p{font-size: 14px; color: var(--color-text-gray); line-height: 1.6;}
-li{font-size: 14px; color: var(--color-text-gray);}
+p{font-size: 15px; color: var(--color-text-gray); line-height: 1.6; margin-bottom: 1.5em;}
+li{font-size: 15px; color: var(--color-text-gray); line-height: 1.5;}
+
+hr {
+	border: none;
+	border-top: 1px dotted var(--color-text-subtle);
+	margin: 24px auto;
+	width: 90%;
+}
+
+/* Prose content wrapper — standard readable width */
+.prose {
+	max-width: 760px;
+	margin: 0 auto;
+	padding: 0 12px;
+	box-sizing: border-box;
+}
 
 h1, h2, h3, h4{font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.25;}
 h1{margin: 10px 0 10px;}
 hl{margin: 0 0 10px; font-size: 40px;}
-h2{margin: 0 0 10px; font-size: 32px;}
-h3{margin: 10px 0 10px; font-size: 26px; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-weight: 900;}
+h2{margin: 20px 0 10px; font-size: 32px;}
+h3{margin: 24px 0 10px; font-size: 26px; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-weight: 900;}
 .section-title { font-size: 20px; }
 h5{font-size: 16px;}
-h4{margin: 35px 0 10px 0; font-size: 16px; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-weight: 900; color: var(--color-heading-gray);}
+h4{margin: 35px 0 10px 0; font-size: 17px; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-weight: 900; color: var(--color-heading-gray);}
 
 /* Tagline - replaces h5 used for short notes/follow links */
 .tagline {
@@ -248,8 +266,8 @@ h2.section-heading-sm {
 	font-weight: bold;
 	margin: 0 0 10px;
 }
-h6{margin: 0 0 0 10px; font-size: 11px; font-style: italic; font-weight: normal; color: var(--color-text-gray);}
-p.chart_subtitle{font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-weight: 300; margin: 0px 10px 10px 25px; padding:0; font-size: 11px; color: var(--color-text-gray);}
+h6{margin: 0 0 0 10px; font-size: 13px; font-style: italic; font-weight: normal; color: var(--color-text-gray);}
+p.chart_subtitle{font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-weight: 300; margin: 0px 10px 10px 25px; padding:0; font-size: 13px; color: var(--color-text-gray);}
 p.overview b{font-size: 14px; color: var(--color-text-dark);}
 
 .cb_update{font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-weight: bold; color: var(--color-text-gray);}
@@ -409,16 +427,10 @@ ul li a:hover + .hidden, .hidden:hover {
 	.ul_nav.responsive li:nth-child(2) { order: 4; }
 	.ul_nav.responsive li a {display: block; text-align: center; min-width: 0; font-size: 15px; padding: 14px 16px; }
 	.ul_nav.responsive ul.hidden {
-		display: block !important;
-		position: static;
-		padding: 0;
-		margin: 0;
+		display: none !important;
 	}
-	.ul_nav.responsive ul.hidden li a {
-		font-size: 13px;
-		padding: 12px 16px;
-		margin-left: 0;
-		opacity: 0.8;
+	.ul_nav.responsive .nav-arrow {
+		display: none;
 	}
 	nav{padding: 0;}
 	.card_tail {
@@ -434,30 +446,34 @@ ul li a:hover + .hidden, .hidden:hover {
 		min-height: auto;
 	}
 	main {
-		padding: 12px 10px;
+		padding: 6px 10px 12px;
+	}
+	footer {
+		padding: 1em 10px 6px;
 	}
 }
 
 /* Header styling */
 header{
-	padding: 25px 0 0 0;
+	margin: 0;
+	padding: 20px 0 12px;
     clear: left;
     text-align: center;
 	background-color: var(--color-bg-header);
     color: white;
 
 }
-header h1{padding: 20px 0 12px 0; color: white;
+header h1{margin: 0; color: white;
 	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-weight: 900; font-size: 30px;}
-header h2{padding: 20px 0 12px 0;}
-header h3{padding: 20px 0 12px 0; color: white;
+header h2{margin: 0;}
+header h3{margin: 0; color: white;
 	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-weight: 900; font-size: 30px;}
 
 .announcement {
 	background: #e8e8e8;
 	padding: 8px 20px;
-	margin-top: 50px;
-	font-size: 13px;
+	margin: 0;
+	font-size: 14px;
 	border-bottom: 1px solid #d0d0d0;
 	display: flex;
 	align-items: center;
@@ -492,17 +508,17 @@ header h3{padding: 20px 0 12px 0; color: white;
 	color: #555;
 }
 [data-theme="dark"] .announcement {
-	background: var(--color-surface);
+	background: #3d3d3d;
 	border-bottom-color: var(--color-border);
 }
 [data-theme="dark"] .announcement a {
-	color: #bbb;
+	color: #e0e0e0;
 }
 [data-theme="dark"] .announce-arrow {
-	color: #666;
+	color: #aaa;
 }
 [data-theme="dark"] .announce-arrow:hover {
-	color: #bbb;
+	color: #e0e0e0;
 }
 
 /* Footer styling */
@@ -510,8 +526,22 @@ footer{
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
-	margin: 2em 0 0 0;
-	border-top: thin dotted;
+	margin: 0;
+	padding: 1.5em 20px 8px;
+	position: relative;
+	background: var(--color-surface);
+}
+footer::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 5%;
+	width: 90%;
+	border-top: 1px dotted var(--color-text-subtle);
+}
+[data-theme="dark"] footer {
+	border: 1px solid var(--color-border);
+	border-top: none;
 }
 .footer_left{
 	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -520,7 +550,7 @@ footer{
 	color: var(--color-text-gray);
 }
 .footer_left p{
-	font-size: 12px;
+	font-size: 14px;
 }
 .footer_right{
 	text-align: right;
@@ -686,9 +716,9 @@ code {text-align: left;}
         width: 98%;
 		margin: 4px 8px 10px 8px;
     }
-    header h1{padding: 20px 0 12px 0; color: white;
+    header h1{color: white;
 	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-weight: 900; font-size: 22px;}
-    header h3{padding: 20px 0 12px 0; color: white;
+    header h3{color: white;
 	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; font-weight: 900; font-size: 22px;}
 }
 
@@ -700,7 +730,7 @@ table {
 th, td {
     text-align: center;
     padding: 8px;
-		font-size: 13px
+		font-size: 14px
 }
 
 td:first-child { font-weight: bold; text-align: left;}
@@ -718,7 +748,7 @@ table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sor
 	th, td {
     	text-align: center;
     	padding: 5px;
-			font-size: 11px
+			font-size: 12px
 }
 }
 
@@ -868,7 +898,7 @@ table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sor
   color: var(--color-nav-text);
   cursor: pointer;
   padding: 14px 10px;
-  margin-right: 6px;
+  margin-right: 16px;
   font-size: 16px;
   line-height: 1;
   opacity: 0.7;
@@ -934,18 +964,10 @@ table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sor
 
 /* Page-level strip images — full-width tinted photo strips above headers */
 .page-strip {
-	margin-top: 50px; /* clear fixed nav */
+	margin: 0;
 	height: 150px;
 	overflow: hidden;
 	line-height: 0;
-}
-.page-strip + header {
-	padding-top: 0;
-	margin-top: 0;
-}
-.page-strip + header h1 {
-	margin-top: 0;
-	padding: 14px 0;
 }
 .page-strip-img {
 	width: 100%;

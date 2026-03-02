@@ -112,7 +112,7 @@
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
 			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
-			<li><a href="python.html" class="active" aria-current="page">Guides &darr;</a>
+			<li><a href="python.html" class="active" aria-current="page">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
 					<li><a href="imfapi1.html">IMF API</a></li>
 					<li><a href="blsapi.html">BLS API</a></li>
@@ -123,7 +123,7 @@
 			</ul>
 			</li>
 		<li>
-			<a href="reports.html">Reports &darr;</a>
+			<a href="reports.html">Reports <span class="nav-arrow">&darr;</span></a>
 			<ul class="hidden">
 				<li><a href="chartbook.html">US Chartbook</a></li>
 				<li><a href="indicators.html">Economic Indicators</a></li>
@@ -173,7 +173,7 @@
 	</div>
 	</a>
 	</article>
-	<article class="article_code">
+	<article class="article_code prose">
 	<p class="subtitle">Census International Trade API with Python</p>
 	<p>The <a href="https://www.census.gov/data/developers/data-sets/international-trade.html">Census International Trade API</a> provides access to detailed U.S. import and export data by country, commodity, and time period. This tutorial demonstrates how to retrieve export data and identify top U.S. trading partners.</p>
 
@@ -185,9 +185,9 @@
 	<h4>Key Variables</h4>
 	<p>The main variables we'll use are:</p>
 	<ul>
-		<li><p><code>CTY_CODE</code> - Country code identifying the trading partner. Codes 1000-8000 represent individual countries (excluding regional aggregates).</p></li>
-		<li><p><code>CTY_NAME</code> - Country name for display purposes.</p></li>
-		<li><p><code>ALL_VAL_MO</code> - Total value of exports for the month in U.S. dollars.</p></li>
+		<li><code>CTY_CODE</code> - Country code identifying the trading partner. Codes 1000-8000 represent individual countries (excluding regional aggregates).</li>
+		<li><code>CTY_NAME</code> - Country name for display purposes.</li>
+		<li><code>ALL_VAL_MO</code> - Total value of exports for the month in U.S. dollars.</li>
 	</ul>
 	<p>The full list of variables is available in the <a href="https://api.census.gov/data/timeseries/intltrade/exports/hs/variables.html">API documentation</a>.</p>
 
@@ -280,10 +280,10 @@ plt.show()</code></pre>
 	<hr class="section-bar section-bar-green">
 	<h2 class="section-title">Additional Resources</h2>
 	<ul>
-		<li><p><a href="https://www.census.gov/data/developers/data-sets/international-trade.html">Census International Trade API</a> - Main documentation</p></li>
-		<li><p><a href="https://api.census.gov/data/timeseries/intltrade/exports/hs/variables.html">API Variables</a> - Full list of available fields</p></li>
-		<li><p><a href="https://www.census.gov/foreign-trade/schedules/b/index.html">Schedule B Codes</a> - Product classification codes for detailed commodity analysis</p></li>
-		<li><p><a href="censusapi.html">Part 1: Manufacturing Data</a> - Basic Census API example with M3 survey data</p></li>
+		<li><a href="https://www.census.gov/data/developers/data-sets/international-trade.html">Census International Trade API</a> - Main documentation</li>
+		<li><a href="https://api.census.gov/data/timeseries/intltrade/exports/hs/variables.html">API Variables</a> - Full list of available fields</li>
+		<li><a href="https://www.census.gov/foreign-trade/schedules/b/index.html">Schedule B Codes</a> - Product classification codes for detailed commodity analysis</li>
+		<li><a href="censusapi.html">Part 1: Manufacturing Data</a> - Basic Census API example with M3 survey data</li>
 	</ul>
 	</article>
 	<div class="subfooter">

@@ -97,15 +97,15 @@
 	.chart-container {
 		position: relative;
 		width: 100%;
-		max-width: 400px;
+		max-width: 460px;
 		margin: 1rem auto;
-		background: var(--color-surface);
+		background: var(--color-card-tail-bg);
 		box-shadow: 0 2px 8px var(--color-shadow), 0 4px 16px rgba(0, 0, 0, 0.06);
 	}
 	.chart-header {
 		background-color: var(--color-card-red);
 		color: white;
-		padding: 6px 10px 5px 10px;
+		padding: 6px 12px 5px 12px;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -113,7 +113,7 @@
 	.chart-header a {
 		color: inherit;
 		opacity: 0.7;
-		font-size: 13px;
+		font-size: 14px;
 		text-decoration: none;
 	}
 	.chart-header a:hover {
@@ -121,19 +121,19 @@
 	}
 	.chart-header h4 {
 		font-family: 'Montserrat', sans-serif;
-		font-size: 15px;
+		font-size: 17px;
 		margin: 0;
 		font-weight: 600;
 		color: inherit;
 	}
 	.chart-subtitle {
-		font-size: 10px;
+		font-size: 13px;
 		font-style: italic;
 		color: var(--color-axis-text);
 		margin: 0;
 	}
 	.chart-body {
-		padding: 6px 10px 6px 10px;
+		padding: 6px 12px 6px 12px;
 	}
 	.chart-body-header {
 		display: flex;
@@ -145,17 +145,17 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding: 0 10px 7px 10px;
+		padding: 0 12px 7px 12px;
 	}
 	.chart-source {
-		font-size: 9px;
+		font-size: 10px;
 		color: var(--color-text-gray);
 		text-align: right;
 		margin: 0;
 		font-style: italic;
 	}
 	.chart-filter {
-		font-size: 9px;
+		font-size: 10px;
 		color: var(--color-axis-text);
 		margin: 0;
 	}
@@ -218,16 +218,16 @@
 		display: table;
 		margin: 0 0 0.5rem 0;
 		padding-bottom: 5px;
-		font-size: 14px;
+		font-size: 15px;
 		border-bottom: 2px solid var(--color-accent-red);
 	}
 	.info-section p {
 		margin: 0 0 0.75rem 0;
-		font-size: 13px;
+		font-size: 14px;
 		color: var(--color-text-muted);
 	}
 	.info-section p.estimate-value {
-		font-size: 16px;
+		font-size: 17px;
 		font-weight: 600;
 		color: var(--color-text-dark);
 		font-family: 'SF Mono', 'Fira Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
@@ -235,12 +235,12 @@
 		letter-spacing: -0.5px;
 	}
 	.info-section p.estimate-updated {
-		font-size: 12px;
+		font-size: 13px;
 		color: var(--color-text-subtle);
 		margin: 0;
 	}
 	.info-section p.download-desc {
-		font-size: 13px;
+		font-size: 14px;
 		color: var(--color-text-muted);
 		margin: 0 0 0.75rem 0;
 	}
@@ -257,7 +257,7 @@
 		padding: 8px 16px;
 		border-radius: 4px;
 		text-decoration: none;
-		font-size: 13px;
+		font-size: 14px;
 		font-weight: 600;
 		font-family: 'Montserrat', sans-serif;
 	}
@@ -268,30 +268,31 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1.5rem;
+		margin-top: 12px;
 	}
 	@media (min-width: 800px) {
 		.chart-row {
 			flex-direction: row;
 			align-items: flex-start;
+			justify-content: center;
 			gap: 2rem;
 		}
 		.chart-container {
 			margin: 0;
 		}
 		.info-boxes {
-			flex: 1;
-			max-width: none;
+			flex: 0 1 280px;
 		}
 	}
 	.method-section {
-		margin-top: 2rem;
+		margin-top: calc(2rem + 6px);
 	}
 	.method-section h2 {
-		font-size: 18px;
+		font-size: 20px;
 		margin-bottom: 1rem;
 	}
 	.method-section h3 {
-		font-size: 15px;
+		font-size: 17px;
 		margin: 1.5rem 0 0.5rem 0;
 	}
 	.data-sources {
@@ -301,8 +302,8 @@
 		margin-bottom: 0.5rem;
 	}
 	.comparison-chart-container {
-		max-width: 500px;
-		margin: 1.5rem 0;
+		max-width: 600px;
+		margin: 1.5rem auto;
 		padding: 1rem;
 		background: var(--color-bg-highlight);
 		border: 1px solid var(--color-border);
@@ -332,19 +333,19 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-size: 13px;
+		font-size: 14px;
 		font-weight: 600;
 		font-family: 'Montserrat', sans-serif;
 	}
 	.step-content h4 {
 		margin: 0 0 0.25rem 0;
-		font-size: 14px;
+		font-size: 15px;
 		font-weight: 600;
 		color: var(--color-text-dark);
 	}
 	.step-content p {
 		margin: 0;
-		font-size: 13px;
+		font-size: 14px;
 		color: var(--color-text-gray);
 		line-height: 1.4;
 	}
@@ -358,7 +359,7 @@
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
 			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
-			<li><a href="python.html">Guides &darr;</a>
+			<li><a href="python.html">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
 					<li><a href="imfapi1.html">IMF API</a></li>
 					<li><a href="blsapi.html">BLS API</a></li>
@@ -369,7 +370,7 @@
 			</ul>
 			</li>
 		<li>
-			<a href="reports.html" class="active" aria-current="page">Reports &darr;</a>
+			<a href="reports.html" class="active" aria-current="page">Reports <span class="nav-arrow">&darr;</span></a>
 			<ul class="hidden">
 				<li><a href="chartbook.html">US Chartbook</a></li>
 				<li><a href="indicators.html">Economic Indicators</a></li>
@@ -430,7 +431,7 @@
 	</div>
 	</article>
 
-	<article class="method-section">
+	<article class="method-section prose">
 	<h2>Methodology</h2>
 
 	<h3>Overview</h3>
@@ -623,7 +624,7 @@
 				const valueStr = '$' + (dataset.data[lastIndex] / 1000).toFixed(1) + 'T';
 
 				ctx.save();
-				ctx.font = '9px Tahoma, Verdana, sans-serif';
+				ctx.font = '10px Tahoma, Verdana, sans-serif';
 				ctx.fillStyle = getThemeColors().axisText;
 				ctx.textAlign = 'left';
 				ctx.textBaseline = 'middle';
@@ -751,7 +752,7 @@
 						maintainAspectRatio: true,
 						layout: {
 							padding: {
-								right: 40,
+								right: 48,
 								top: 15
 							}
 						},
@@ -763,8 +764,8 @@
 							tooltip: {
 								enabled: true,
 								backgroundColor: tc.tooltipBg,
-								titleFont: { size: 11, family: "'Montserrat', sans-serif" },
-								bodyFont: { size: 10, family: "Tahoma, Verdana, sans-serif" },
+								titleFont: { size: 12, family: "'Montserrat', sans-serif" },
+								bodyFont: { size: 11, family: "Tahoma, Verdana, sans-serif" },
 								padding: 8,
 								cornerRadius: 2,
 								displayColors: false,
@@ -787,7 +788,7 @@
 								bounds: 'data',
 								grid: { display: false },
 								ticks: {
-									font: { size: 9, family: "Tahoma, Verdana, sans-serif" },
+									font: { size: 10, family: "Tahoma, Verdana, sans-serif" },
 									color: tc.axisText,
 									callback: formatTickLabel,
 									maxRotation: 0,
@@ -800,7 +801,7 @@
 								border: { display: false },
 								grid: { color: tc.grid },
 								ticks: {
-									font: { size: 9, family: "Tahoma, Verdana, sans-serif" },
+									font: { size: 10, family: "Tahoma, Verdana, sans-serif" },
 									color: tc.axisText,
 									callback: function(value) {
 										return '$' + (value / 1000).toFixed(0) + 'T';
@@ -960,7 +961,7 @@
 							title: {
 								display: true,
 								text: 'Monthly GDP vs. Quarterly GDP',
-								font: { size: 13, family: "'Montserrat', sans-serif", weight: '600' },
+								font: { size: 14, family: "'Montserrat', sans-serif", weight: '600' },
 								color: getComputedStyle(document.documentElement).getPropertyValue('--color-text-dark').trim(),
 								padding: { bottom: 10 }
 							},
@@ -971,15 +972,15 @@
 									usePointStyle: true,
 									pointStyle: 'line',
 									padding: 15,
-									font: { size: 11, family: "Tahoma, Verdana, sans-serif" },
+									font: { size: 12, family: "Tahoma, Verdana, sans-serif" },
 									color: tc2.axisText
 								}
 							},
 							tooltip: {
 								enabled: true,
 								backgroundColor: tc2.tooltipBg,
-								titleFont: { size: 11, family: "'Montserrat', sans-serif" },
-								bodyFont: { size: 10, family: "Tahoma, Verdana, sans-serif" },
+								titleFont: { size: 12, family: "'Montserrat', sans-serif" },
+								bodyFont: { size: 11, family: "Tahoma, Verdana, sans-serif" },
 								padding: 8,
 								cornerRadius: 2,
 								usePointStyle: true,
@@ -1001,7 +1002,7 @@
 								type: 'category',
 								grid: { display: false },
 								ticks: {
-									font: { size: 9, family: "Tahoma, Verdana, sans-serif" },
+									font: { size: 10, family: "Tahoma, Verdana, sans-serif" },
 									color: tc2.axisText,
 									autoSkip: false,
 									maxRotation: 0,
@@ -1024,7 +1025,7 @@
 								border: { display: false },
 								grid: { color: tc2.grid },
 								ticks: {
-									font: { size: 9, family: "Tahoma, Verdana, sans-serif" },
+									font: { size: 10, family: "Tahoma, Verdana, sans-serif" },
 									color: tc2.axisText,
 									callback: function(value) {
 										return '$' + (value / 1000).toFixed(1) + 'T';

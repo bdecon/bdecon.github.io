@@ -150,7 +150,7 @@
 	}
 	[data-theme="dark"] .chart-flip-wrapper .chart-container {
 		border: none;
-		background: var(--color-surface);
+		background: var(--color-card-tail-bg);
 		box-shadow: none;
 	}
 	[data-theme="dark"] .chart-flip-front .chart-container {
@@ -281,7 +281,7 @@
 	.chart-container {
 		position: relative;
 		width: 100%;
-		background: var(--color-surface);
+		background: var(--color-card-tail-bg);
 		box-shadow: 0 2px 8px var(--color-shadow), 0 4px 16px rgba(0, 0, 0, 0.06);
 	}
 	.chart-header {
@@ -644,7 +644,7 @@
 	.chart-loading {
 		position: absolute;
 		inset: 0;
-		background: var(--color-surface);
+		background: var(--color-card-tail-bg);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -706,7 +706,7 @@
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
 			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
-			<li><a href="python.html">Guides &darr;</a>
+			<li><a href="python.html">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
 					<li><a href="imfapi1.html">IMF API</a></li>
 					<li><a href="blsapi.html">BLS API</a></li>
@@ -717,7 +717,7 @@
 			</ul>
 			</li>
 		<li>
-			<a href="reports.html" class="active" aria-current="page">Reports &darr;</a>
+			<a href="reports.html" class="active" aria-current="page">Reports <span class="nav-arrow">&darr;</span></a>
 			<ul class="hidden">
 				<li><a href="chartbook.html">US Chartbook</a></li>
 				<li><a href="indicators.html">Economic Indicators</a></li>
@@ -745,7 +745,7 @@
 		</defs>
 	</svg>
 	<section>
-	<article>
+	<article class="prose">
 	<noscript><p style="background:#fff3cd;padding:10px;border-radius:4px;font-size:14px;">This page requires JavaScript to display interactive charts.</p></noscript>
 	<p>Browse 20 interactive charts covering the US economy across seven categories: output, labor, prices, trade, monetary policy, government, and business. Tap the info button on each chart for descriptions, historical data, and a downloadable CSV. Use the dropdown or arrow keys to navigate.</p>
 	<p>For a broader view, see the <a href="chartbook.html">US Chartbook</a> with 120+ charts.</p>
