@@ -220,6 +220,10 @@
 	}
 	[data-theme="dark"] #cost-compare-container {
 		border: 1px solid #444;
+		background: #1e1e1e;
+	}
+	[data-theme="dark"] #cost-compare-container .cc-cost-body {
+		background: #1e1e1e !important;
 	}
 	[data-theme="dark"] .cc-content {
 		--color-border-light: #666;
@@ -776,6 +780,11 @@
 		color: var(--color-text-dark);
 		line-height: 1.55;
 	}
+	[data-theme="dark"] .cc-blockquote {
+		background: #1e1e1e;
+		padding: 12px 16px 12px 16px;
+		border-radius: 0 4px 4px 0;
+	}
 	.cc-blockquote cite {
 		display: block;
 		font-style: normal;
@@ -835,6 +844,13 @@
 		padding: 16px;
 		margin: calc(1.5rem + 20px) 0 1.5rem;
 		background: var(--color-bg-white);
+	}
+	[data-theme="dark"] .cc-wage-box {
+		background: #1e1e1e;
+	}
+	[data-theme="dark"] .cc-wage-box .chart-container {
+		background: transparent;
+		border: none;
 	}
 	.cc-wage-box > h3 {
 		font-size: 20px;
@@ -1026,7 +1042,7 @@
 					Råå Day Care Center, Helsingborg, Sweden. Photo: Adam Mørk
 				</div>
 			</div>
-			<div style="padding: 16px 18px 14px; background: var(--color-bg-white);">
+			<div class="cc-cost-body" style="padding: 16px 18px 14px; background: var(--color-bg-white);">
 				<p style="font-size: 17px; font-weight: 700; color: var(--color-text-dark); margin: 0 0 10px; text-align: left;">How Sweden prices childcare</p>
 				<style>
 					.cost-btn {
@@ -3697,7 +3713,7 @@
 				norway:  '#5DC863',
 				denmark: dk ? '#aaa' : '#777',
 				sweden:  dk ? '#7E7EC8' : '#443983',
-				finland: '#31688E',
+				finland: dk ? '#5a9fbf' : '#31688E',
 				us:      dk ? '#3aadad' : '#2A8A8A'
 			};
 		}

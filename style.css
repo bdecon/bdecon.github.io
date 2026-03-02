@@ -89,8 +89,8 @@
 
   --color-bg-white: #161616;
   --color-bg-header: #424242;
-  --color-bg-alt: #1e1e1e;
-  --color-bg-highlight: #2c2c2c;
+  --color-bg-alt: #222222;
+  --color-bg-highlight: #2e2e2e;
 
   --color-link: #ff6b8a;
   --color-link-visited: #e0527a;
@@ -971,4 +971,5 @@ table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sor
 }
 [data-theme="dark"] .chart-container {
   border: 1px solid var(--color-border);
+  background: #1e1e1e;
 }
