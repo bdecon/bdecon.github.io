@@ -170,6 +170,60 @@
 	[data-theme="dark"] .cc-infra-label {
 		color: #e0e0e0;
 	}
+	.cc-infra-item {
+		flex: 1;
+	}
+	.cc-infra-cell-label {
+		display: none;
+	}
+	.cc-infra-cat {
+		text-align: center;
+		font-size: 12px;
+		font-weight: 600;
+		color: var(--color-text-muted);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		margin: 4px 0 2px;
+	}
+	@media (max-width: 500px) {
+		.cc-infra-grid {
+			max-width: 100%;
+			gap: 16px;
+		}
+		.cc-infra-row {
+			flex-direction: column;
+			gap: 0;
+		}
+		.cc-infra-header,
+		.cc-infra-cat {
+			display: none;
+		}
+		.cc-infra-cell {
+			aspect-ratio: 3/2;
+		}
+		.cc-infra-cell-label {
+			display: block;
+			font-size: 15px;
+			font-weight: 700;
+			color: var(--color-text-dark);
+			padding: 14px 0 3px;
+		}
+		.cc-infra-cell-label .cc-infra-cell-cat {
+			display: block;
+			font-size: 11px;
+			font-weight: 600;
+			color: var(--color-text-muted);
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			margin-top: 1px;
+		}
+	}
+	[data-theme="dark"] #cost-compare-container {
+		border: 1px solid #444;
+	}
+	[data-theme="dark"] .cc-content {
+		--color-border-light: #666;
+	}
 
 	/* Section label in chart header */
 	.chart-header-section-label {
@@ -706,6 +760,7 @@
 		.chart-container { max-width: 100%; }
 		.cc-tabs { padding-left: 6px; }
 		.cc-tab { padding: 4px 8px; font-size: 12.5px; }
+		#map-container .cc-explore-tag { display: none; }
 	}
 	/* Historical blockquotes */
 	.cc-blockquote {
@@ -883,7 +938,7 @@
 		<img src="files/childcare-images/storytime_cropped.jpg" alt="Teacher reading to children at a federally funded childcare center, 1943" style="display: block; width: 100%; filter: sepia(0.3) saturate(0.8);">
 		<div style="position: absolute; inset: 0; background: var(--color-card-teal); mix-blend-mode: multiply; opacity: 0.15;"></div>
 		<div style="background: var(--color-card-teal); padding: 6px 10px;">
-			<span style="font-size: 12px; color: #fff; line-height: 1.4;">Federally funded childcare center.<br>New Britain, CT, 1943. Photo: Gordon Parks</span>
+			<span style="font-size: 12.5px; color: #fff; font-weight: 500; line-height: 1.4; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">Federally funded childcare center.<br>New Britain, CT, 1943. Photo: Gordon Parks</span>
 		</div>
 	</div>
 
@@ -1181,34 +1236,46 @@
 
 		<!-- Infrastructure image grid -->
 		<div class="cc-infra-grid">
-			<div class="cc-infra-row">
+			<div class="cc-infra-row cc-infra-header">
 				<div class="cc-infra-label cc-infra-label-left">Norway</div>
 				<div class="cc-infra-label cc-infra-label-right">United States</div>
 			</div>
-			<div style="text-align: center; font-size: 12px; font-weight: 600; color: var(--color-text-muted); letter-spacing: 0.08em; text-transform: uppercase; margin: 4px 0 2px;">Public aviation infrastructure</div>
+			<div class="cc-infra-cat">Public aviation infrastructure</div>
 			<div class="cc-infra-row">
-				<div class="cc-infra-cell">
-					<img src="files/childcare-images/oslo_airport.jpg" alt="Oslo Gardermoen Airport at night">
-					<div class="cc-infra-tint"></div>
-					<span class="cc-infra-caption">Oslo Gardermoen Airport</span>
+				<div class="cc-infra-item">
+					<div class="cc-infra-cell-label">Norway<span class="cc-infra-cell-cat">Public aviation infrastructure</span></div>
+					<div class="cc-infra-cell">
+						<img src="files/childcare-images/oslo_airport.jpg" alt="Oslo Gardermoen Airport at night">
+						<div class="cc-infra-tint"></div>
+						<span class="cc-infra-caption">Oslo Gardermoen Airport</span>
+					</div>
 				</div>
-				<div class="cc-infra-cell">
-					<img src="files/childcare-images/atlanta_airport.jpg" alt="Atlanta airport terminal interior">
-					<div class="cc-infra-tint"></div>
-					<span class="cc-infra-caption">Hartsfield-Jackson Atlanta Airport</span>
+				<div class="cc-infra-item">
+					<div class="cc-infra-cell-label">United States<span class="cc-infra-cell-cat">Public aviation infrastructure</span></div>
+					<div class="cc-infra-cell">
+						<img src="files/childcare-images/atlanta_airport.jpg" alt="Atlanta airport terminal interior">
+						<div class="cc-infra-tint"></div>
+						<span class="cc-infra-caption">Hartsfield-Jackson Atlanta Airport</span>
+					</div>
 				</div>
 			</div>
-			<div style="text-align: center; font-size: 12px; font-weight: 600; color: var(--color-text-muted); letter-spacing: 0.08em; text-transform: uppercase; margin: 6px 0 2px;">Public childcare infrastructure</div>
+			<div class="cc-infra-cat">Public childcare infrastructure</div>
 			<div class="cc-infra-row">
-				<div class="cc-infra-cell">
-					<img src="files/childcare-images/barnehage.jpg" alt="Bamsebo barnehage, Norwegian childcare center">
-					<div class="cc-infra-tint"></div>
-					<span class="cc-infra-caption">Bamsebo barnehage, ages 1-5</span>
+				<div class="cc-infra-item">
+					<div class="cc-infra-cell-label">Norway<span class="cc-infra-cell-cat">Public childcare infrastructure</span></div>
+					<div class="cc-infra-cell">
+						<img src="files/childcare-images/barnehage.jpg" alt="Bamsebo barnehage, Norwegian childcare center">
+						<div class="cc-infra-tint"></div>
+						<span class="cc-infra-caption">Bamsebo barnehage, ages 1-5</span>
+					</div>
 				</div>
-				<div class="cc-infra-cell">
-					<img src="files/childcare-images/empty_lot.jpg" alt="Empty lot in US neighborhood">
-					<div class="cc-infra-tint"></div>
-					<span class="cc-infra-caption">Empty lot</span>
+				<div class="cc-infra-item">
+					<div class="cc-infra-cell-label">United States<span class="cc-infra-cell-cat">Public childcare infrastructure</span></div>
+					<div class="cc-infra-cell">
+						<img src="files/childcare-images/empty_lot.jpg" alt="Empty lot in US neighborhood">
+						<div class="cc-infra-tint"></div>
+						<span class="cc-infra-caption">Empty lot</span>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -1388,7 +1455,7 @@
 		<p>The childcare enrollment and poverty numbers above are not random, and the market cannot fix them. They are the product of two feedback loops — a virtuous cycle in the Nordics and a vicious cycle in the US — shown in the diagram below.</p>
 
 		<!-- Feedback loop diagram -->
-		<div class="chart-container" id="feedback-container" style="margin: 0.5rem 0; box-shadow: none; border-bottom: none !important;">
+		<div class="chart-container" id="feedback-container" style="margin: 0.5rem 0; box-shadow: none; border: none !important; background: transparent;">
 			<div class="chart-body" style="padding: 0;">
 				<svg id="feedback-svg" style="width:100%;height:auto;" viewBox="0 30 680 260" preserveAspectRatio="xMidYMid meet"></svg>
 			</div>
@@ -2576,8 +2643,7 @@
 				var labelText = heroSvg.append('text')
 					.attr('x', px).attr('y', labelBaseY)
 					.attr('text-anchor', 'middle')
-					.attr('font-size', 11.5).attr('fill', textColor())
-					.attr('opacity', 0.85);
+					.attr('font-size', 11.5).attr('fill', textColor());
 				lines.forEach(function(line, i) {
 					labelText.append('tspan')
 						.attr('x', px)
@@ -3037,7 +3103,7 @@
 		var GROUP_LABELS = {us: 'United States', canada: 'Canada', nordic: 'Nordics'};
 		var GROUP_ORDER = ['us', 'canada', 'nordic'];
 
-		var TEAL = '#21918C';
+		var TEAL = '#2A8A8A';
 		var NAVY = '#1B2A4A';
 		var GRAY_MED = '#888';
 
@@ -3133,6 +3199,7 @@
 				.range([botTop + panelH - 2, botTop + 18]);
 
 			var tc = textColor(), mc = mutedColor(), dark = isDark();
+			TEAL = dark ? '#3aadad' : '#2A8A8A';
 			var bl = dark ? '#c8c8c8' : '#555';
 			var GRAY_LIGHT = dark ? '#6A6A9A' : '#B0B0D0';
 
@@ -3335,6 +3402,7 @@
 			svg.attr('viewBox', '0 -16 ' + W + ' ' + H);
 			var margin = {top: 56, right: 6, bottom: 40, left: 26};
 			var tc = textColor(), mc = mutedColor(), dark = isDark();
+			TEAL = dark ? '#3aadad' : '#2A8A8A';
 			var bl = dark ? '#c8c8c8' : '#555';
 			var GRAY_LIGHT = dark ? '#6A6A9A' : '#B0B0D0';
 
@@ -3566,7 +3634,7 @@
 				denmark: dk ? '#aaa' : '#777',
 				sweden:  dk ? '#7E7EC8' : '#443983',
 				finland: '#31688E',
-				us:      '#21918C'
+				us:      dk ? '#3aadad' : '#2A8A8A'
 			};
 		}
 		var DATA = [
@@ -3931,7 +3999,7 @@
 			{id: 'SWE', label: 'Sweden',         short: 'Sweden',  ecec: 1.49, total: 50.0}
 		];
 
-		var TEAL = '#21918C';
+		var TEAL = '#2A8A8A';
 
 		var svgEl = d3.select('#spending-compare-svg');
 		var containerEl = document.getElementById('spending-compare-container');
@@ -3988,6 +4056,7 @@
 			var barW = panelW / DATA.length * 0.6;
 
 			var tc = textColor(), mc = mutedColor(), dark = isDark();
+			TEAL = dark ? '#3aadad' : '#2A8A8A';
 			var bl = dark ? '#c8c8c8' : '#555';
 
 			function xPos(panelLeft, i) {
@@ -4124,6 +4193,7 @@
 			var barChartH = panelH - 50;
 			var barW = chartW / DATA.length * 0.55;
 			var tc = textColor(), mc = mutedColor(), dark = isDark();
+			TEAL = dark ? '#3aadad' : '#2A8A8A';
 			var bl = dark ? '#c8c8c8' : '#555';
 
 			function xPos(i) {
@@ -4253,7 +4323,7 @@
 			{id: 'SWE', label: 'Sweden',         short: 'Sweden',  nilf: 0.4,  poverty: 8.4}
 		];
 
-		var TEAL = '#21918C';
+		var TEAL = '#2A8A8A';
 		var GRAY_MED = '#888';
 
 		var svg = d3.select('#outcomes-svg');
@@ -4309,6 +4379,7 @@
 			var chartH = H - margin.top - margin.bottom;
 			var barW = panelW / DATA.length * 0.6;
 			var tc = textColor(), mc = mutedColor(), dark = isDark();
+			TEAL = dark ? '#3aadad' : '#2A8A8A';
 			var bl = dark ? '#c8c8c8' : '#555';
 
 			function xPos(panelLeft, i) {
@@ -4448,6 +4519,7 @@
 			var barChartH = panelH - 46;
 			var barW = chartW / DATA.length * 0.55;
 			var tc = textColor(), mc = mutedColor(), dark = isDark();
+			TEAL = dark ? '#3aadad' : '#2A8A8A';
 			var bl = dark ? '#c8c8c8' : '#555';
 
 			function xPos(i) {
@@ -4571,8 +4643,8 @@
 		var svg = d3.select('#decision-tree-svg');
 		var containerEl = document.getElementById('decision-tree-container');
 
-		// Colors — Viridis family
-		var TEAL = '#21918C';
+		// Colors
+		var TEAL = '#2A8A8A';
 		var WARM = '#443983';
 
 		var cardData = [
@@ -4641,12 +4713,12 @@
 			var textMain = dark ? '#e0e0e0' : '#1a1a2e';
 			var textMuted = dark ? '#a0a0a0' : '#777';
 			var lineColor = dark ? '#555' : '#ccc';
-			var usCardBg = dark ? '#1a1a2e' : '#f0f0f8';
-			var fiCardBg = dark ? '#0a2020' : '#f0f8f7';
+			var usCardBg = dark ? '#252540' : '#f0f0f8';
+			var fiCardBg = dark ? '#152e2e' : '#f0f8f7';
 			var usCardBorder = dark ? '#5a5a8a' : '#b0b0d8';
 			var fiCardBorder = dark ? '#2a5a55' : '#a0d0cc';
 			var warmAccent = dark ? '#9B9BD4' : WARM;
-			var tealAccent = dark ? '#3BB5A8' : TEAL;
+			var tealAccent = dark ? '#3aadad' : TEAL;
 
 			var g = svg.append('g');
 
@@ -4859,12 +4931,12 @@
 			var textMain = dark ? '#e0e0e0' : '#1a1a2e';
 			var textMuted = dark ? '#a0a0a0' : '#777';
 			var lineColor = dark ? '#555' : '#ccc';
-			var usCardBg = dark ? '#1a1a2e' : '#f0f0f8';
-			var fiCardBg = dark ? '#0a2020' : '#f0f8f7';
+			var usCardBg = dark ? '#252540' : '#f0f0f8';
+			var fiCardBg = dark ? '#152e2e' : '#f0f8f7';
 			var usCardBorder = dark ? '#5a5a8a' : '#b0b0d8';
 			var fiCardBorder = dark ? '#2a5a55' : '#a0d0cc';
 			var warmAccent = dark ? '#9B9BD4' : WARM;
-			var tealAccent = dark ? '#3BB5A8' : TEAL;
+			var tealAccent = dark ? '#3aadad' : TEAL;
 
 			var centerX = VW / 2;
 			var cardW = 175, cardH = 189, cardR = 8, cardGap = 20;
@@ -5040,7 +5112,7 @@
 
 			var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
 			var textColor = isDark ? '#e0e0e0' : '#23272f';
-			var tealColor = '#21918C';
+			var tealColor = isDark ? '#3aadad' : '#2A8A8A';
 			var brokenColor = isDark ? '#A89080' : '#8B7355';
 
 			// Detect mobile
@@ -5090,14 +5162,14 @@
 				svg.append('line')
 					.attr('x1', 340).attr('x2', 340)
 					.attr('y1', 45).attr('y2', 275)
-					.attr('stroke', isDark ? '#333' : '#e0e0e0')
+					.attr('stroke', isDark ? '#555' : '#ccc')
 					.attr('stroke-width', 1)
 					.attr('stroke-dasharray', '4,4');
 			} else {
 				svg.append('line')
 					.attr('x1', 60).attr('x2', VW - 60)
 					.attr('y1', 280).attr('y2', 280)
-					.attr('stroke', isDark ? '#333' : '#e0e0e0')
+					.attr('stroke', isDark ? '#555' : '#ccc')
 					.attr('stroke-width', 1)
 					.attr('stroke-dasharray', '4,4');
 			}
@@ -5211,7 +5283,7 @@
 		var svg = d3.select('#age-coverage-svg');
 		var containerEl = document.getElementById('age-coverage-container');
 
-		var TEAL = '#21918C';
+		var TEAL = '#2A8A8A';
 		var INDIGO = '#443983';
 
 		// access: 'universal', 'means-tested', 'leave', 'none'
@@ -5281,10 +5353,11 @@
 			svg.selectAll('*').remove();
 
 			var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+			TEAL = dark ? '#3aadad' : '#2A8A8A';
 			var tc = dark ? '#e0e0e0' : '#333';
 			var mc = dark ? '#b0b0b0' : '#777';
 			var noneBg = dark ? '#2a2a3e' : '#f0f0f0';
-			var noneBorder = dark ? '#444' : '#ddd';
+			var noneBorder = dark ? '#666' : '#ddd';
 			var sepColor = dark ? '#555' : '#ccc';
 
 			// Universal (teal) palette by status
