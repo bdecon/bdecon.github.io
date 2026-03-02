@@ -18,7 +18,9 @@
   --color-text-subtle: #888;
 
   /* Backgrounds */
+  --color-canvas: #f5f5f5;
   --color-bg-white: #fff;
+  --color-surface: #fff;
   --color-bg-header: #939393;
   --color-bg-alt: #f2f2f2;
   --color-bg-highlight: #F5F5F5;
@@ -57,7 +59,7 @@
   --color-table-hover: #f5f5f5;
 
   /* Footer social icons */
-  --color-social-bg: #fff;
+  --color-social-bg: transparent;
 
   /* Card Header Colors */
   --color-card-blue: #3450B2;
@@ -74,8 +76,9 @@
 
 /* Dark theme
    Surface hierarchy (darker = further back):
-   Page bg #161616 → cards #242424 → highlights #2c2c2c → nav #333
-   Header #424242 is distinct from nav to avoid blending */
+   Page bg #121212 → surface #1e1e1e → elevated #2a2a2a → nav #333
+   Header #424242 is distinct from nav to avoid blending
+   Borders provide structural edges (no shadows in dark mode) */
 [data-theme="dark"] {
   --color-nav-bg: #333;
   --color-nav-text: #e0e0e0;
@@ -87,20 +90,22 @@
   --color-text-muted: #bbb;
   --color-text-subtle: #999;
 
-  --color-bg-white: #161616;
+  --color-canvas: #121212;
+  --color-bg-white: #121212;
+  --color-surface: #1e1e1e;
   --color-bg-header: #424242;
-  --color-bg-alt: #222222;
-  --color-bg-highlight: #2e2e2e;
+  --color-bg-alt: #1a1a1a;
+  --color-bg-highlight: #2a2a2a;
 
   --color-link: #ff6b8a;
   --color-link-visited: #e0527a;
   --color-link-hover: #ffb347;
 
-  --color-border: #3a3a3a;
-  --color-border-light: #4a4a4a;
+  --color-border: #444444;
+  --color-border-light: #555555;
 
   --color-code-bg: #2a2a2a;
-  --color-code-highlight: #363636;
+  --color-code-highlight: #333333;
 
   --color-shadow: rgba(0, 0, 0, 0.3);
   --color-shadow-strong: rgba(0, 0, 0, 0.4);
@@ -110,12 +115,12 @@
   --color-tooltip-bg: rgba(40, 40, 40, 0.95);
 
   --color-dropdown-text: #e0e0e0;
-  --color-dropdown-bg: #2c2c2c;
+  --color-dropdown-bg: #2a2a2a;
 
-  --color-card-tail-bg: #242424;
+  --color-card-tail-bg: #1e1e1e;
 
-  --color-table-border: #3a3a3a;
-  --color-table-hover: #2a2a2a;
+  --color-table-border: #444444;
+  --color-table-hover: #222222;
 
   --color-social-bg: transparent;
 
@@ -171,13 +176,20 @@ html{
 body{
 	left: 0;
 	font-family: Tahoma, Verdana, Segoe, sans-serif;
-	background-color: var(--color-bg-white);
+	background-color: var(--color-canvas);
 	color: var(--color-text-dark);
 	-webkit-text-size-adjust: 100%;
 	text-size-adjust: 100%;
 	}
 
-main { padding: 0 6px; box-sizing: border-box; }
+main {
+	padding: 20px;
+	box-sizing: border-box;
+	background: var(--color-surface);
+}
+[data-theme="dark"] main {
+	border: 1px solid var(--color-border);
+}
 
 p{font-size: 14px; color: var(--color-text-gray); line-height: 1.6;}
 li{font-size: 14px; color: var(--color-text-gray);}
@@ -421,6 +433,9 @@ ul li a:hover + .hidden, .hidden:hover {
 	.card {
 		min-height: auto;
 	}
+	main {
+		padding: 12px 10px;
+	}
 }
 
 /* Header styling */
@@ -477,8 +492,8 @@ header h3{padding: 20px 0 12px 0; color: white;
 	color: #555;
 }
 [data-theme="dark"] .announcement {
-	background: #252525;
-	border-bottom-color: #333;
+	background: var(--color-surface);
+	border-bottom-color: var(--color-border);
 }
 [data-theme="dark"] .announcement a {
 	color: #bbb;
@@ -864,15 +879,15 @@ table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sor
 }
 
 /* Card banner wraps in dark mode */
-[data-theme="dark"] .card_banner_wrap_blue { background-color: color-mix(in srgb, var(--color-card-blue) 25%, #161616); }
-[data-theme="dark"] .card_banner_wrap_yellow { background-color: color-mix(in srgb, var(--color-card-yellow) 25%, #161616); }
-[data-theme="dark"] .card_banner_wrap_green { background-color: color-mix(in srgb, var(--color-card-green) 25%, #161616); }
-[data-theme="dark"] .card_banner_wrap_orange { background-color: color-mix(in srgb, var(--color-card-orange) 25%, #161616); }
-[data-theme="dark"] .card_banner_wrap_purple { background-color: color-mix(in srgb, var(--color-card-purple) 25%, #161616); }
-[data-theme="dark"] .card_banner_wrap_red { background-color: color-mix(in srgb, var(--color-card-red) 25%, #161616); }
-[data-theme="dark"] .card_banner_wrap_teal { background-color: color-mix(in srgb, var(--color-card-teal) 25%, #161616); }
-[data-theme="dark"] .card_banner_wrap_brown { background-color: color-mix(in srgb, var(--color-card-brown) 25%, #161616); }
-[data-theme="dark"] .card_banner_wrap_ltblue { background-color: color-mix(in srgb, var(--color-card-ltblue) 25%, #161616); }
+[data-theme="dark"] .card_banner_wrap_blue { background-color: color-mix(in srgb, var(--color-card-blue) 25%, var(--color-bg-white)); }
+[data-theme="dark"] .card_banner_wrap_yellow { background-color: color-mix(in srgb, var(--color-card-yellow) 25%, var(--color-bg-white)); }
+[data-theme="dark"] .card_banner_wrap_green { background-color: color-mix(in srgb, var(--color-card-green) 25%, var(--color-bg-white)); }
+[data-theme="dark"] .card_banner_wrap_orange { background-color: color-mix(in srgb, var(--color-card-orange) 25%, var(--color-bg-white)); }
+[data-theme="dark"] .card_banner_wrap_purple { background-color: color-mix(in srgb, var(--color-card-purple) 25%, var(--color-bg-white)); }
+[data-theme="dark"] .card_banner_wrap_red { background-color: color-mix(in srgb, var(--color-card-red) 25%, var(--color-bg-white)); }
+[data-theme="dark"] .card_banner_wrap_teal { background-color: color-mix(in srgb, var(--color-card-teal) 25%, var(--color-bg-white)); }
+[data-theme="dark"] .card_banner_wrap_brown { background-color: color-mix(in srgb, var(--color-card-brown) 25%, var(--color-bg-white)); }
+[data-theme="dark"] .card_banner_wrap_ltblue { background-color: color-mix(in srgb, var(--color-card-ltblue) 25%, var(--color-bg-white)); }
 
 /* Card banner images in dark mode — multiply makes images invisible on dark backgrounds */
 [data-theme="dark"] .card_banner {
@@ -954,22 +969,27 @@ table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sor
 .page-strip-ltblue { background-color: var(--color-card-ltblue); }
 .page-strip-brown { background-color: var(--color-card-brown); }
 /* Page strip dark mode */
-[data-theme="dark"] .page-strip-blue { background-color: color-mix(in srgb, var(--color-card-blue) 25%, #161616); }
-[data-theme="dark"] .page-strip-green { background-color: color-mix(in srgb, var(--color-card-green) 25%, #161616); }
-[data-theme="dark"] .page-strip-teal { background-color: color-mix(in srgb, var(--color-card-teal) 25%, #161616); }
-[data-theme="dark"] .page-strip-purple { background-color: color-mix(in srgb, var(--color-card-purple) 25%, #161616); }
-[data-theme="dark"] .page-strip-red { background-color: color-mix(in srgb, var(--color-card-red) 25%, #161616); }
-[data-theme="dark"] .page-strip-orange { background-color: color-mix(in srgb, var(--color-card-orange) 25%, #161616); }
-[data-theme="dark"] .page-strip-ltblue { background-color: color-mix(in srgb, var(--color-card-ltblue) 25%, #161616); }
-[data-theme="dark"] .page-strip-brown { background-color: color-mix(in srgb, var(--color-card-brown) 25%, #161616); }
+[data-theme="dark"] .page-strip-blue { background-color: color-mix(in srgb, var(--color-card-blue) 25%, var(--color-bg-white)); }
+[data-theme="dark"] .page-strip-green { background-color: color-mix(in srgb, var(--color-card-green) 25%, var(--color-bg-white)); }
+[data-theme="dark"] .page-strip-teal { background-color: color-mix(in srgb, var(--color-card-teal) 25%, var(--color-bg-white)); }
+[data-theme="dark"] .page-strip-purple { background-color: color-mix(in srgb, var(--color-card-purple) 25%, var(--color-bg-white)); }
+[data-theme="dark"] .page-strip-red { background-color: color-mix(in srgb, var(--color-card-red) 25%, var(--color-bg-white)); }
+[data-theme="dark"] .page-strip-orange { background-color: color-mix(in srgb, var(--color-card-orange) 25%, var(--color-bg-white)); }
+[data-theme="dark"] .page-strip-ltblue { background-color: color-mix(in srgb, var(--color-card-ltblue) 25%, var(--color-bg-white)); }
+[data-theme="dark"] .page-strip-brown { background-color: color-mix(in srgb, var(--color-card-brown) 25%, var(--color-bg-white)); }
 [data-theme="dark"] .page-strip-img { mix-blend-mode: screen; opacity: 0.5; }
 
-/* Cards and chart containers need a visible edge in dark mode */
+/* Dark mode: borders instead of shadows for structural depth */
 [data-theme="dark"] .card,
 [data-theme="dark"] .card_dull {
+  box-shadow: none;
   border: 1px solid var(--color-border);
 }
+[data-theme="dark"] .card:hover {
+  box-shadow: none;
+  border-color: var(--color-border-light);
+}
 [data-theme="dark"] .chart-container {
+  box-shadow: none;
   border: 1px solid var(--color-border);
-  background: #1e1e1e;
 }
