@@ -1566,7 +1566,69 @@
 	<details class="cc-details">
 		<summary style="font-size: 21px;">Sources and Methods</summary>
 		<p>The boundary between early childhood and school varies — by country, by state, by birthday. This report uses ages 0 through 5 and excludes kindergarten to draw a consistent line across countries. The exact figures shift depending on where you draw that line. The gap does not.</p>
-		<p>Forthcoming.</p>
+
+		<h3 style="font-size: 17px; margin: 1.5rem 0 0.75rem;">Data sources</h3>
+
+		<table class="cc-table" style="font-size: 13px;">
+			<thead>
+				<tr>
+					<th style="width: 25%;">Metric</th>
+					<th style="width: 50%;">Source</th>
+					<th style="width: 25%;">Vintage</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>GDP per child</td>
+					<td>BEA GDP by state (US); Eurostat and national accounts (Nordic); IMF World Economic Outlook and UN World Population Prospects (world average)</td>
+					<td>2023–2025</td>
+				</tr>
+				<tr>
+					<td>Public childcare funding</td>
+					<td>OECD Social Expenditure Database (international); IRS Statistics of Income, Head Start, CCDF, NIEER, CACFP, IDEA, MIECHV, SSBG, TANF (US federal and state programs); BEA GDP by state (denominators)</td>
+					<td>2021–2024</td>
+				</tr>
+				<tr>
+					<td>Enrollment by age</td>
+					<td>Eurostat UOE joint data collection (Nordic); NIEER State of Preschool, Head Start PIR, CPS October supplement (US)</td>
+					<td>2023–2024</td>
+				</tr>
+				<tr>
+					<td>Wages and wage ratios</td>
+					<td>BLS Occupational Employment and Wage Statistics (US); Eurostat Structure of Earnings Survey and Nordic statistical offices (Nordic); Statistics Canada Labour Force Survey and ESDC Job Bank (Canada)</td>
+					<td>2024–2025</td>
+				</tr>
+				<tr>
+					<td>Workforce share</td>
+					<td>BLS OEWS employment counts (US); Eurostat SES and Nordic statistical offices (Nordic)</td>
+					<td>2024</td>
+				</tr>
+				<tr>
+					<td>Out of work for childcare</td>
+					<td>CPS Basic Monthly microdata (US); Eurostat Labour Force Survey ad hoc module, lfsa_igar (Nordic)</td>
+					<td>2022–2025</td>
+				</tr>
+				<tr>
+					<td>Child poverty</td>
+					<td>OECD (international comparison); CPS ASEC microdata (US detail)</td>
+					<td>2022–2025</td>
+				</tr>
+				<tr>
+					<td>Childcare costs</td>
+					<td>Child Care Aware of America, Price Landscape (US); Swedish National Agency for Education, maxtaxa fee schedule (Sweden); Kela (Finland)</td>
+					<td>2024–2025</td>
+				</tr>
+				<tr>
+					<td>Peer occupations</td>
+					<td>BLS OEWS national file, all 800+ occupations (US); ESDC Job Bank (Canada); Nordic statistical offices (Nordic)</td>
+					<td>2024–2025</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h3 style="font-size: 17px; margin: 1.5rem 0 0.75rem;">Methods</h3>
+
+		<p>All cross-country comparisons use purchasing power parity (PPP) exchange rates from the OECD. Wage ratios compare childcare worker wages to the median wage for all occupations in the same jurisdiction. Canadian wage figures are employment-weighted composites (63% preschool teachers, 37% childcare workers) to match Canadian national reporting categories. US spending figures exclude kindergarten and K–12 education. State-level spending as a share of GDP is calculated using BEA state GDP as the denominator. The map, charts, and tables are author calculations from the sources listed above.</p>
 	</details>
 
 	</div>
@@ -5368,7 +5430,7 @@
 
 var mobile = containerEl.clientWidth < 500;
 
-			var margin = {top: mobile ? 36 : 66, right: 15, bottom: mobile ? 40 : 50, left: mobile ? 82 : 104};
+			var margin = {top: mobile ? 80 : 66, right: 15, bottom: mobile ? 40 : 50, left: mobile ? 82 : 104};
 			var W = mobile ? 388 : 628;
 			var cellH = mobile ? 34 : 40;
 			var cellGap = 6;
@@ -5397,12 +5459,22 @@ var mobile = containerEl.clientWidth < 500;
 			var cellW = (W - margin.left - margin.right - (nCols - 1) * cellGap) / nCols;
 
 			// Title
-			svg.append('text')
-				.attr('x', mobile ? margin.left : margin.left - 94).attr('y', mobile ? 20 : 28)
-				.attr('font-size', mobile ? 18 : 20).attr('font-weight', 700)
-				.attr('font-family', 'Lato, sans-serif')
-				.attr('fill', tc)
-				.text('Universal public childcare programs, selected cases');
+			if (mobile) {
+				var titleEl = svg.append('text')
+					.attr('x', 6).attr('y', 22)
+					.attr('font-size', 18).attr('font-weight', 700)
+					.attr('font-family', 'Lato, sans-serif')
+					.attr('fill', tc);
+				titleEl.append('tspan').text('Universal public childcare programs,');
+				titleEl.append('tspan').attr('x', 6).attr('dy', '1.2em').text('selected cases');
+			} else {
+				svg.append('text')
+					.attr('x', margin.left - 94).attr('y', 28)
+					.attr('font-size', 20).attr('font-weight', 700)
+					.attr('font-family', 'Lato, sans-serif')
+					.attr('fill', tc)
+					.text('Universal public childcare programs, selected cases');
+			}
 
 			// Age labels across top
 			for (var c = 0; c < nCols; c++) {
@@ -5502,7 +5574,7 @@ var mobile = containerEl.clientWidth < 500;
 					svg.append('text')
 						.attr('x', margin.left + 2).attr('y', ry + cellH + noteExtra / 2 + 7)
 						.attr('font-family', 'Lato, sans-serif')
-						.attr('font-size', mobile ? 11 : 13).attr('font-style', 'italic')
+						.attr('font-size', mobile ? 12 : 13).attr('font-style', 'italic')
 						.attr('fill', mc).text(noteText);
 				}
 
@@ -5524,12 +5596,12 @@ var mobile = containerEl.clientWidth < 500;
 				{label: 'New/Expansion', fill: uNew, stroke: TEAL, sw: 1.5, dash: '5,3'},
 				{label: 'Pilot', fill: uPilot, stroke: TEAL, sw: 1.5, dash: '2,3'}
 			];
-			var legendY = chartH - 22;
-			var lx = margin.left + 32;
+			var legendY = chartH - (mobile ? 18 : 22);
+			var lx = mobile ? 12 : margin.left + 32;
 			svg.append('text').attr('x', lx).attr('y', legendY)
 				.attr('dominant-baseline', 'middle')
 				.attr('font-family', 'Lato, sans-serif')
-				.attr('font-size', mobile ? 11 : 14).attr('font-weight', 600)
+				.attr('font-size', mobile ? 13 : 14).attr('font-weight', 600)
 				.attr('fill', mc)
 				.text('Status:');
 			lx += mobile ? 46 : 56;
@@ -5541,9 +5613,9 @@ var mobile = containerEl.clientWidth < 500;
 				svg.append('text').attr('x', lx + 18).attr('y', legendY)
 					.attr('dominant-baseline', 'middle')
 					.attr('font-family', 'Lato, sans-serif')
-					.attr('font-size', mobile ? 11 : 14).attr('fill', mc)
+					.attr('font-size', mobile ? 13 : 14).attr('fill', mc)
 					.text(item.label);
-				lx += item.label.length * (mobile ? 6.5 : 8.5) + (mobile ? 24 : 30);
+				lx += item.label.length * (mobile ? 6.5 : 8.5) + (mobile ? 30 : 30);
 			});
 		}
 
