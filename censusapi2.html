@@ -137,7 +137,7 @@
 			</li>
 		</ul>
 	</nav>
-	<div class="page-strip page-strip-green">
+	<div class="page-strip accent-green">
 		<img src="images/census2_strip.jpg" alt="" aria-hidden="true" class="page-strip-img">
 	</div>
 	<header>
@@ -148,10 +148,10 @@
 	<article class="article_links">
 	<a href="censusapi.html">
 	<div class="card_dull">
-	  <div class="card_banner_wrap card_banner_wrap_green">
+	  <div class="card-banner-wrap accent-green">
 	    <img src="images/census_banner.png" alt="Census API tutorial Part 1" class="card_banner" width="207" height="68">
 	  </div>
-	  <div class="card_head_green">
+	  <div class="card-head accent-green">
 		<h3>Part 1</h3>
 	  </div>
 	  <div class="card_tail">
@@ -161,10 +161,10 @@
 	</a>
 	<a href="censusapi2.html">
 	<div class="card">
-	  <div class="card_banner_wrap card_banner_wrap_green">
+	  <div class="card-banner-wrap accent-green">
 	    <img src="images/census_banner2.png" alt="Census API tutorial Part 2" class="card_banner" width="387" height="68">
 	  </div>
-	  <div class="card_head_green">
+	  <div class="card-head accent-green">
 		<h3>Part 2</h3>
 	  </div>
 	  <div class="card_tail">
@@ -177,7 +177,7 @@
 	<p class="subtitle">Census International Trade API with Python</p>
 	<p>The <a href="https://www.census.gov/data/developers/data-sets/international-trade.html">Census International Trade API</a> provides access to detailed U.S. import and export data by country, commodity, and time period. This tutorial demonstrates how to retrieve export data and identify top U.S. trading partners.</p>
 
-	<hr class="section-bar section-bar-green">
+	<hr class="section-bar accent-green">
 	<h2 class="section-title">Background</h2>
 	<h3>International Trade Statistics</h3>
 	<p>The Census Bureau collects data on U.S. merchandise trade through customs declarations. The international trade dataset includes monthly statistics on exports and imports by partner country and product category.</p>
@@ -191,9 +191,9 @@
 	</ul>
 	<p>The full list of variables is available in the <a href="https://api.census.gov/data/timeseries/intltrade/exports/hs/variables.html">API documentation</a>.</p>
 
-	<hr class="section-bar section-bar-green">
+	<hr class="section-bar accent-green">
 	<h2 class="section-title">Example: Top U.S. Export Partners</h2>
-	<p class="step-label step-label-green">Setup</p>
+	<p class="step-label accent-green">Setup</p>
 	<p>Import the required packages and load your Census API key from a local config file. You can register for a free API key at the <a href="https://api.census.gov/data/key_signup.html">Census Bureau website</a>.</p>
 
 	<p>In[1]:</p>
@@ -204,7 +204,7 @@ import config
 
 key = config.census_key</code></pre>
 
-	<p class="step-label step-label-green">Build the API Request</p>
+	<p class="step-label accent-green">Build the API Request</p>
 	<p>Construct the API URL to retrieve export values by country for a specific month. The endpoint <code>intltrade/exports/hs</code> provides Harmonized System trade data.</p>
 
 	<p>In[2]:</p>
@@ -214,7 +214,7 @@ time = '2025-10'
 
 url = f'{base}?get={param}&key={key}&time={time}'</code></pre>
 
-	<p class="step-label step-label-green">Request Data from the API</p>
+	<p class="step-label accent-green">Request Data from the API</p>
 	<p>Make the request and check that it was successful before parsing the JSON response.</p>
 
 	<p>In[3]:</p>
@@ -234,7 +234,7 @@ else:
  ['0001', 'OPEC', '5765070418', '2025-10'],
  ['0003', 'PACIFIC RIM', '35817684498', '2025-10']]</pre>
 
-	<p class="step-label step-label-green">Process the Data</p>
+	<p class="step-label accent-green">Process the Data</p>
 	<p>Convert to a DataFrame, filter to individual countries (codes 1000-8000), and convert values to numeric billions.</p>
 
 	<p>In[5]:</p>
@@ -248,7 +248,7 @@ df = df[(df['CTY_CODE'] >= 1000) & (df['CTY_CODE'] < 8000)]
 # Convert to billions
 df['ALL_VAL_MO'] = df['ALL_VAL_MO'].astype(float) / 1e9</code></pre>
 
-	<p class="step-label step-label-green">Select Top Partners</p>
+	<p class="step-label accent-green">Select Top Partners</p>
 	<p>Sort by export value and select the top 20 trading partners.</p>
 
 	<p>In[6]:</p>
@@ -256,7 +256,7 @@ df['ALL_VAL_MO'] = df['ALL_VAL_MO'].astype(float) / 1e9</code></pre>
            .tail(20)
            .set_index('CTY_NAME')['ALL_VAL_MO'])</code></pre>
 
-	<p class="step-label step-label-green">Create the Visualization</p>
+	<p class="step-label accent-green">Create the Visualization</p>
 	<p>Plot a horizontal bar chart showing the top export destinations.</p>
 
 	<p>In[7]:</p>
@@ -277,7 +277,7 @@ plt.show()</code></pre>
 	<p>Out[7]:</p>
 	<img src="images/census_example2.png" alt="Top 20 U.S. Export Partners" loading="lazy" width="528" height="595"/>
 
-	<hr class="section-bar section-bar-green">
+	<hr class="section-bar accent-green">
 	<h2 class="section-title">Additional Resources</h2>
 	<ul>
 		<li><a href="https://www.census.gov/data/developers/data-sets/international-trade.html">Census International Trade API</a> - Main documentation</li>

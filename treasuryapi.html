@@ -111,7 +111,7 @@
 			</li>
 		</ul>
 	</nav>
-	<div class="page-strip page-strip-red">
+	<div class="page-strip accent-red">
 		<img src="images/treasury_strip.jpg" alt="" aria-hidden="true" class="page-strip-img">
 	</div>
 	<header>
@@ -125,7 +125,7 @@
 
 	<p>This example uses the Python <code>requests</code> and <code>pandas</code> packages to retrieve treasury data from the Monthly Treasury Statement and analyze federal revenue composition.</p>
 
-	<hr class="section-bar section-bar-red">
+	<hr class="section-bar accent-red">
 	<h2 class="section-title">Background</h2>
 	<h3>Treasury Fiscal Data</h3>
 	<p>The Bureau of the Fiscal Service provides public access to federal financial data through <a href="https://fiscaldata.treasury.gov/">fiscaldata.treasury.gov</a>. The API allows access to datasets including the Monthly Treasury Statement, Daily Treasury Statement, debt data, and more.</p>
@@ -133,14 +133,14 @@
 	<h3>API</h3>
 	<p>The Fiscal Data API is a RESTful API that returns JSON data. You can filter results, specify date ranges, and paginate through large datasets. No registration or API key is required.</p>
 
-	<hr class="section-bar section-bar-red">
+	<hr class="section-bar accent-red">
 	<h2 class="section-title">Example: Federal Revenue by Type</h2>
-	<p class="step-label step-label-red">Import Packages</p>
+	<p class="step-label accent-red">Import Packages</p>
 	<p>In[1]:</p>
 	<pre><code class="python">import requests
 import pandas as pd</code></pre>
 
-	<p class="step-label step-label-red">Request Data from the API</p>
+	<p class="step-label accent-red">Request Data from the API</p>
 	<p>Let's look at government revenue by type, from table 9 of the Monthly Treasury Statement (MTS). We want to see the share of federal revenue coming from corporate income taxes and customs duties since 2023.</p>
 	<p>We use the <code>filter</code> parameter to request only the categories of interest. The line description from the original MTS table has two lines for "Total"&mdash;one for receipts and one for outlays&mdash;so we'll need to remove the outlays data in the next step.</p>
 	<p>In[2]:</p>
@@ -150,7 +150,7 @@ param = '?filter=classification_desc:in:(Corporation Income Taxes,Customs Duties
 
 r = requests.get(f'{url}{endpt}{param}')</code></pre>
 
-	<p class="step-label step-label-red">Clean and Transform the Data</p>
+	<p class="step-label accent-red">Clean and Transform the Data</p>
 	<p>Next, clean up the results and rename the variables. Remove data related to line 33, which is total outlays. Convert the dates to datetime format and calculate the 12-month rolling sum.</p>
 	<p>In[3]:</p>
 	<pre><code class="python">rn = {'current_month_rcpt_outly_amt': 'Value', 'src_line_nbr': 'Line',
@@ -161,7 +161,7 @@ df = df.sort_values('Date')
 df = df.set_index(['Category', 'Date'])
 data = (df['Value'].unstack().T.astype('float') / 1_000_000).rolling(12).sum().dropna()</code></pre>
 
-	<p class="step-label step-label-red">Plot the Results</p>
+	<p class="step-label accent-red">Plot the Results</p>
 	<p>Create a plot showing the recent data, from 2023 onward. We calculate each category as a share of total federal revenue.</p>
 	<p>In[4]:</p>
 	<pre><code class="python"># Calculate the share of total
