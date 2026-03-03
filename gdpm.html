@@ -105,7 +105,7 @@
 	.chart-header {
 		background-color: var(--color-card-red);
 		color: white;
-		padding: 6px 12px 5px 12px;
+		padding: 8px 14px 7px 14px;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -133,7 +133,7 @@
 		margin: 0;
 	}
 	.chart-body {
-		padding: 6px 12px 6px 12px;
+		padding: 8px 14px 8px 14px;
 	}
 	.chart-body-header {
 		display: flex;
@@ -145,7 +145,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding: 0 12px 7px 12px;
+		padding: 2px 14px 9px 14px;
 	}
 	.chart-source {
 		font-size: 10px;
@@ -284,16 +284,31 @@
 			flex: 0 1 280px;
 		}
 	}
+	@media (max-width: 799px) {
+		.chart-subtitle {
+			font-size: 12px;
+			flex: 1;
+			min-width: 0;
+			margin-right: 8px;
+		}
+		.chart-toggle {
+			font-size: 12px;
+			flex-shrink: 0;
+		}
+	}
 	.method-section {
-		margin-top: calc(2rem + 6px);
+		margin-top: calc(2rem + 24px);
 	}
 	.method-section h2 {
 		font-size: 20px;
 		margin-bottom: 1rem;
 	}
 	.method-section h3 {
+		display: table;
 		font-size: 17px;
-		margin: 1.5rem 0 0.5rem 0;
+		margin: 2rem 0 0.5rem 0;
+		padding-bottom: 5px;
+		border-bottom: 2px solid var(--color-accent-red);
 	}
 	.data-sources {
 		margin-top: 1rem;
@@ -302,8 +317,8 @@
 		margin-bottom: 0.5rem;
 	}
 	.comparison-chart-container {
-		max-width: 600px;
-		margin: 1.5rem auto;
+		max-width: 500px;
+		margin: 2rem auto;
 		padding: 1rem;
 		background: var(--color-bg-highlight);
 		border: 1px solid var(--color-border);
@@ -313,7 +328,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.75rem;
-		margin: 1rem 0;
+		margin: 1rem 0 1.5rem 0;
 	}
 	.step-card {
 		display: flex;
@@ -866,6 +881,48 @@
 				document.getElementById('estimate-asof').textContent = 'recently';
 			});
 
+		// Nowcast region plugin for comparison chart
+		const nowcastPlugin = {
+			id: 'nowcastRegion',
+			beforeDraw(chart) {
+				const ctx = chart.ctx;
+				const { top, bottom, right } = chart.chartArea;
+				const meta = chart.getDatasetMeta(1);
+				const len = meta.data.length;
+				if (len < 3) return;
+				const startX = meta.data[len - 3].x;
+				const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+				ctx.save();
+				ctx.fillStyle = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)';
+				ctx.fillRect(startX, top, right - startX, bottom - top);
+
+				ctx.strokeStyle = isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.12)';
+				ctx.setLineDash([4, 3]);
+				ctx.beginPath();
+				ctx.moveTo(startX, top);
+				ctx.lineTo(startX, bottom);
+				ctx.stroke();
+				ctx.restore();
+			},
+			afterDraw(chart) {
+				const ctx = chart.ctx;
+				const { bottom, right } = chart.chartArea;
+				const meta = chart.getDatasetMeta(1);
+				const len = meta.data.length;
+				if (len < 3) return;
+				const startX = meta.data[len - 3].x;
+				const centerX = (startX + right) / 2;
+
+				ctx.save();
+				ctx.font = '10px Tahoma, Verdana, sans-serif';
+				ctx.fillStyle = getThemeColors().axisText;
+				ctx.textAlign = 'center';
+				ctx.fillText('Nowcast', centerX, bottom - 8);
+				ctx.restore();
+			}
+		};
+
 		// Comparison chart: quarterly vs monthly GDP
 		async function initComparisonChart() {
 			try {
@@ -923,6 +980,7 @@
 
 				comparisonChart = new Chart(ctx, {
 					type: 'line',
+					plugins: [nowcastPlugin],
 					data: {
 						labels: monthlyFiltered.map(d => d.date),
 						datasets: [
@@ -953,6 +1011,7 @@
 					options: {
 						responsive: true,
 						maintainAspectRatio: true,
+						aspectRatio: 1.4,
 						interaction: {
 							intersect: false,
 							mode: 'index'
@@ -961,7 +1020,7 @@
 							title: {
 								display: true,
 								text: 'Monthly GDP vs. Quarterly GDP',
-								font: { size: 14, family: "'Montserrat', sans-serif", weight: '600' },
+								font: { size: 16, family: "'Montserrat', sans-serif", weight: '600' },
 								color: getComputedStyle(document.documentElement).getPropertyValue('--color-text-dark').trim(),
 								padding: { bottom: 10 }
 							},

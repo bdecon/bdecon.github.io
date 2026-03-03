@@ -391,8 +391,8 @@ ul li a:hover + .hidden, .hidden:hover {
 	.ul_nav li:has(.theme-toggle) {
 		display: inline-block !important;
 		position: absolute;
-		right: 50px;
-		top: 11px;
+		right: 42px;
+		top: 13px;
 	}
 	.ul_nav li:has(.theme-toggle) .theme-toggle {
 		padding: 6px 20px;
@@ -414,7 +414,7 @@ ul li a:hover + .hidden, .hidden:hover {
 		overflow: visible;
 	}
 	.ul_nav.responsive li.icon {position: absolute; right: 0; top: 7px;}
-	.ul_nav.responsive li:has(.theme-toggle) {position: absolute; right: 50px; top: 11px;}
+	.ul_nav.responsive li:has(.theme-toggle) {position: absolute; right: 42px; top: 13px;}
 	.ul_nav.responsive li {display: block;}
 	.ul_nav.responsive li:has(.theme-toggle) {display: none !important;}
 	.ul_nav.responsive li:first-child {
