@@ -126,15 +126,15 @@
 	<p>This notebook offers two examples of using python to request economic data from the BLS API. The first example requests the labor force participation rate from the BLS v1 API. The second example requests unemployment rates by race/origin, and shows a method for requesting multiple series over a longer period of time using the v2 API.</p>
 	<hr class="section-bar section-bar-purple">
 	<h2 class="section-title">Background</h2>
-	<h4>BLS</h4>
+	<h3>BLS</h3>
 	<p>The U.S. Bureau of Labor Statistics is part of the Department of Labor. You can read more about BLS <a href="https://www.bls.gov/bls/infohome.htm">here</a>.</p>
 
-	<blockquote>The Bureau of Labor Statistics of the U.S. Department of Labor is the principal Federal agency responsible for measuring labor market activity, working conditions, and price changes in the economy.</blockquote>
+	<blockquote class="blockquote-accent blockquote-accent-purple">The Bureau of Labor Statistics of the U.S. Department of Labor is the principal Federal agency responsible for measuring labor market activity, working conditions, and price changes in the economy.</blockquote>
 
-	<h4>API</h4>
+	<h3>API</h3>
 	<p>BLS-data-related tasks that are exploratory, repetitive, or need to be well documented, can make use of Application Programming Interface (API) to save time. The API allows users to request data with specific parameters, such as the BLS series ID, dates, or preferred format. Data returned can be fed into pandas or other programs for further calculations and analysis.</p>
 
-	<h4>Python</h4>
+	<h3>Python</h3>
 
 	<p>The examples use Python 3.x and the requests, json, and pandas packages. </p>
 
@@ -158,7 +158,7 @@ series = {'id': 'LNS11300000',
 	<p>In[3]:</p>
 	<pre><code class="python">data_url = f'{base_url}{series["id"]}'
 print(data_url)</code></pre>
-	<a href="https://api.bls.gov/publicAPI/v1/timeseries/data/LNS11300000"><pre>https://api.bls.gov/publicAPI/v1/timeseries/data/LNS11300000</pre></a>
+	<p><a href="https://api.bls.gov/publicAPI/v1/timeseries/data/LNS11300000"><code>https://api.bls.gov/publicAPI/v1/timeseries/data/LNS11300000</code></a></p>
 	<p class="step-label step-label-purple">Request Data</p>
 	<p>Use the requests package to get data from the <code>data_url</code>. By specifying that the data are in json format, we convert the output to nested python dictionaries and lists. The status of the request is printed and the top-level dictionary is stored as variable <code>r</code>. </p>
 	<p>In[4]:</p>
@@ -232,7 +232,7 @@ df.tail(3)</code></pre>
 df[['value', 'mean']].plot(title=series['name']);</code></pre>
 <p>Out[9]:</p>
 <img src="images/ex1_update.png" alt="Pandas Plot Output" loading="lazy" width="401" height="327"/>
-<h4>Summary</h4>
+<h3>Summary</h3>
 <p>The first example creates a url containing the requested data by combining a base url of the API with the BLS series ID of interest. The result is a dataframe with monthly data, starting in January 2015, on the labor force participation rate. The plot above lets us quickly see when and by how much the series deviated from its full-period average. The example uses the v1 API, so the number of requests is limited as is the functionality. For more complex requests, a technique such as the one shown in example 2 is preferable.</p>
 <hr class="section-bar section-bar-purple">
 <h2 class="section-title">Example 2: Requesting multiple series and specific dates</h2>
@@ -342,7 +342,7 @@ df.tail()</code></pre>
 df.plot(title='Unemployment Rates by Race or Origin')</code></pre>
 <p>Out[13]:</p>
 <img src="images/ex2.png" alt="Pandas Plot Output" loading="lazy" width="432" height="288"/>
-<h4>Conclusion</h4>
+<h3>Conclusion</h3>
 <p>The v2 API allows for more complex requests to be filled. In this case, we can use the API to very quickly plot the latest data on unemployment rates.</p>
 	</article>
 	<div class="subfooter">

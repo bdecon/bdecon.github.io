@@ -171,7 +171,7 @@
 		display: inline-block;
 		margin: 0;
 		font-size: 9px;
-		font-family: 'Montserrat', sans-serif;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 		color: var(--color-link);
 		text-decoration: none;
 	}
@@ -197,13 +197,13 @@
 		line-height: 1.5;
 		color: var(--color-text-gray);
 		margin: 0 0 12px 0;
-		font-family: 'Lato', sans-serif;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 	}
 	.card-stats-table {
 		width: 100%;
 		border-collapse: collapse;
 		font-size: 10px;
-		font-family: 'Lato', sans-serif;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 		color: var(--color-text-dark);
 	}
 	.card-stats-table th {
@@ -239,7 +239,7 @@
 		font-style: italic;
 		color: var(--color-axis-text);
 		margin: 0 0 8px 0;
-		font-family: 'Lato', sans-serif;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 	}
 	.card-category-badge {
 		font-size: 10px;
@@ -247,14 +247,14 @@
 		border-radius: 8px;
 		vertical-align: middle;
 		background: rgba(255,255,255,0.25);
-		font-family: 'Montserrat', sans-serif;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 		margin-left: 8px;
 		font-weight: 500;
 		white-space: nowrap;
 	}
 	.card-number {
 		font-size: 9px;
-		font-family: 'Montserrat', sans-serif;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 		color: var(--color-text-subtle);
 		font-weight: 600;
 		letter-spacing: 0.5px;
@@ -262,7 +262,7 @@
 	.featured-badge {
 		display: none;
 		font-size: 8px;
-		font-family: 'Montserrat', sans-serif;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 		font-weight: 700;
 		letter-spacing: 1px;
 		text-transform: uppercase;
@@ -278,42 +278,12 @@
 		fill: var(--color-text-subtle);
 		opacity: 0.5;
 	}
-	.chart-container {
-		position: relative;
-		width: 100%;
-		background: var(--color-card-tail-bg);
-		box-shadow: 0 2px 8px var(--color-shadow), 0 4px 16px rgba(0, 0, 0, 0.06);
-	}
-	.chart-header {
-		background-color: var(--color-card-blue);
-		color: white;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
 	.chart-flip-front .chart-header {
 		padding: 10px 10px 8px 10px;
 	}
-	.chart-flip-back .chart-header {
-		padding: 6px 10px 5px 10px;
-	}
 	.chart-header button {
-		background: none;
-		border: none;
-		color: inherit;
-		opacity: 0.7;
 		font-size: 15px;
-		cursor: pointer;
 		padding: 2px 4px;
-	}
-	.chart-header button:hover {
-		opacity: 1;
-	}
-	.chart-header h4 {
-		font-family: 'Montserrat', sans-serif;
-		margin: 0;
-		font-weight: 600;
-		color: inherit;
 	}
 	.chart-flip-front .chart-header h4 {
 		font-size: 18px;
@@ -325,26 +295,10 @@
 		font-size: 14px;
 	}
 	.chart-subtitle {
-		font-size: 11px;
-		font-style: italic;
-		color: var(--color-axis-text);
-		margin: 0 0 4px 0;
+		margin-bottom: 4px;
 	}
 	.chart-body {
 		padding: 4px 10px 6px 10px;
-	}
-	.chart-footer {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 0 10px 7px 10px;
-	}
-	.chart-source {
-		font-size: 10px;
-		color: var(--color-text-gray);
-		text-align: right;
-		margin: 0;
-		font-style: italic;
 	}
 	.chart-flip-front .chart-container {
 		border-bottom: 6px solid var(--chart-color, var(--color-card-blue));
@@ -427,7 +381,7 @@
 	.chart-selector {
 		max-width: 400px;
 		margin: 0 auto 1rem auto;
-		font-family: 'Montserrat', sans-serif;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 		font-size: 14px;
 		display: flex;
 		align-items: center;
@@ -439,7 +393,7 @@
 		color: var(--color-text-dark);
 	}
 	.chart-selector select {
-		font-family: 'Montserrat', sans-serif;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 		font-size: 13px;
 		padding: 6px 12px;
 		border: 1px solid var(--color-border-light);
@@ -482,7 +436,7 @@
 		gap: 16px;
 		margin-bottom: 6px;
 		font-size: 10px;
-		font-family: 'Montserrat', sans-serif;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 	}
 	.chart-legend-item {
 		display: flex;
@@ -514,7 +468,7 @@
 		justify-content: center;
 		gap: 14px;
 		font-size: 9px;
-		font-family: 'Lato', sans-serif;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 		color: var(--color-text-muted);
 		margin-bottom: 2px;
 	}
@@ -557,12 +511,12 @@
 		display: flex;
 		align-items: center;
 		font-size: 10px;
-		font-family: 'Lato', sans-serif;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 		height: 14px;
 	}
 	.hbar-row-label {
 		font-size: 11px;
-		font-family: 'Lato', sans-serif;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 		color: var(--color-text-dark);
 		white-space: nowrap;
 		overflow: hidden;
@@ -579,7 +533,7 @@
 		padding: 5px 8px;
 		border-radius: 4px;
 		font-size: 10px;
-		font-family: 'Lato', sans-serif;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 		white-space: nowrap;
 		pointer-events: none;
 		top: -32px;
@@ -669,9 +623,6 @@
 		to { transform: rotate(360deg); }
 	}
 	/* Fade transition for chart swaps */
-	.chart-flip-front .chart-subtitle {
-		font-size: 12px;
-	}
 	.chart-flip-front .chart-source,
 	.chart-flip-front .chart-filter {
 		font-size: 11px;
@@ -685,7 +636,7 @@
 	.chart-latest-mobile {
 		display: none;
 		font-size: 11px;
-		font-family: 'Lato', sans-serif;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 		color: var(--color-axis-text);
 		margin: 4px 0 0 0;
 		text-align: center;
@@ -760,9 +711,9 @@
 		<div class="chart-flip-wrapper" role="region" aria-label="Economic indicator chart">
 			<div class="chart-flip-inner">
 				<div class="chart-flip-front" aria-hidden="false">
-					<div class="chart-container">
+					<div class="chart-container chart-compact">
 						<div class="chart-loading" id="chart-loading"><div class="chart-loading-spinner"></div></div>
-						<div class="chart-header">
+						<div class="chart-header chart-header-blue">
 							<h4><span id="chart-title">M2 Money Supply / GDP</span> <span class="card-category-badge" id="card-category-front"></span></h4>
 							<button id="chart-info" title="About this indicator" aria-label="About this indicator"><i class="fa fa-info-circle"></i></button>
 						</div>
@@ -779,8 +730,8 @@
 					</div>
 				</div>
 				<div class="chart-flip-back" aria-hidden="true">
-					<div class="chart-container">
-						<div class="chart-header">
+					<div class="chart-container chart-compact">
+						<div class="chart-header chart-header-blue">
 							<h4><span id="chart-title-back"></span> <span class="card-category-badge" id="card-category"></span></h4>
 							<button id="chart-back-btn" title="Back to chart" aria-label="Back to chart"><i class="fa fa-arrow-left"></i></button>
 						</div>
@@ -2029,7 +1980,7 @@
 							tooltip: {
 								enabled: true,
 								backgroundColor: tc.tooltipBg,
-								titleFont: { size: 11, family: "'Montserrat', sans-serif" },
+								titleFont: { size: 11, family: "system-ui, sans-serif" },
 								bodyFont: { size: 10, family: "Tahoma, Verdana, sans-serif" },
 								padding: 8,
 								cornerRadius: 2,

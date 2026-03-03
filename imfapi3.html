@@ -187,6 +187,7 @@
 	<p class="subtitle">IMF API with Python: Practical Examples</p>
 	<p>Parts 1 and 2 covered the basics of retrieving data and discovering datasets. Here we apply both&mdash;combining the discovery tools from Part 2 with practical workflows&mdash;to work through three examples: economic forecasts, commodity prices, and data from providers beyond the IMF.</p>
 
+	<hr class="section-bar section-bar-blue">
 	<h2 class="section-title">Economic Forecasts (WEO)</h2>
 	<p>The World Economic Outlook (WEO) dataset contains IMF projections for over 40 indicators&mdash;GDP, inflation, unemployment, government debt, current account, and more&mdash;covering nearly every country. Data includes historical values and forecasts several years forward.</p>
 	<p>In[1]:</p>
@@ -295,6 +296,7 @@ print(f"USA NGDP_RPCH: actuals through "
 	<p>With this boundary, you can split any WEO series into historical data and forecasts programmatically&mdash;no hard-coding of dates needed. About 19 countries (including India, Egypt, and Ethiopia) use fiscal years in the format <code>FY2023/24</code>; the first year is the conventional cutoff.</p>
 	<p>To explore how WEO forecasts have evolved across editions, see the <a href="imfweo.html">WEO Forecast Tracker</a>.</p>
 
+	<hr class="section-bar section-bar-blue">
 	<h2 class="section-title">Commodity Prices (PCPS)</h2>
 	<p>The Primary Commodity Price System (PCPS) dataset tracks world benchmark prices for over 100 commodities. Let's explore its structure and search for metals:</p>
 	<p>In[5]:</p>
@@ -349,6 +351,7 @@ ax1.legend(lines, [l.get_label() for l in lines],
 	<img src="images/imf_commodities.png" alt="Aluminum and Copper Commodity Prices" loading="lazy" width="558" height="443"/>
 	<p>Both metals track global industrial activity, but copper's sharper swings reflect its role as a leading economic indicator. Other key commodity codes include <code>PGOLD</code> (gold), <code>POILAPSP</code> (crude oil), <code>PNGAS</code> (natural gas), and <code>PWHEAMT</code> (wheat). Use the codelist methods from Part 2 to browse the full list.</p>
 
+	<hr class="section-bar section-bar-blue">
 	<h2 class="section-title">Beyond the IMF</h2>
 	<p>The sdmx1 library supports over 30 SDMX data providers through the same interface. Here we use the European Central Bank's Interest Rate Statistics (IRS) dataset to fetch 10-year government bond yields for four large euro area economies:</p>
 	<p>In[8]:</p>
@@ -390,6 +393,7 @@ ax.set_xlabel('Source: European Central Bank (IRS)')</code></pre>
 	</ul>
 	<p>The workflow is always the same: create a <code>Client</code>, use <code>dataflow()</code> to browse datasets, and <code>.data()</code> to fetch observations.</p>
 
+	<hr class="section-bar section-bar-blue">
 	<h2 class="section-title">Bulk Download with Requests</h2>
 	<p>For larger downloads&mdash;or if you prefer to skip the sdmx1 dependency&mdash;the same API accepts plain HTTP requests. Ask for CSV format and you get a pandas-ready response. As covered in Part 2, the URL follows the pattern <code>https://api.imf.org/external/sdmx/3.0/data/dataflow/{agency}/{dataflow}/{version}/{key}</code>.</p>
 	<p>Here we download the entire WEO dataset from 2020 onward. The wildcard <code>*</code> in the key position requests all countries and indicators:</p>
@@ -427,6 +431,7 @@ gdp.sort_index().round(1)</code></pre>
 ...</pre>
 	<p>This approach downloads about 8 MB and takes a few seconds. It is useful when you want many indicators or countries at once, or when you want to avoid installing sdmx1. The same pattern works for other dataflows&mdash;swap in <code>IMF.STA/CPI</code> for CPI data or <code>IMF.STA/BOP</code> for balance of payments.</p>
 
+	<hr class="section-bar section-bar-blue">
 	<h2 class="section-title">Key Concepts</h2>
 	<ul>
 		<li>The discovery methods from Part 2&mdash;<code>dataflow()</code>, <code>dsd.dimensions</code>, and codelist searches&mdash;are essential for working with new datasets</li>
@@ -437,6 +442,7 @@ gdp.sort_index().round(1)</code></pre>
 		<li>Always call <code>.sort_index()</code> after converting the time index&mdash;SDMX responses are not guaranteed to be in chronological order</li>
 	</ul>
 
+	<hr class="section-bar section-bar-blue">
 	<h2 class="section-title">Additional Resources</h2>
 	<ul>
 		<li><a href="https://pypi.org/project/sdmx1/">sdmx1 on PyPI</a> &mdash; Installation and basic documentation</li>

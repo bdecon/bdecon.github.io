@@ -122,46 +122,14 @@
 		color: var(--color-text-dark);
 	}
 	.chart-container {
-		position: relative;
-		width: 100%;
 		max-width: 420px;
 		margin: 0 auto;
-		background: var(--color-card-tail-bg);
-		box-shadow: 0 2px 8px var(--color-shadow), 0 4px 16px rgba(0, 0, 0, 0.06);
-	}
-	.chart-header {
-		background-color: var(--color-card-blue);
-		color: white;
-		padding: 6px 10px 5px 10px;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-	.chart-header h4 {
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-		font-size: 17px;
-		margin: 0;
-		font-weight: 600;
-		color: inherit;
-	}
-	.chart-header-indicator {
-		font-size: 12px;
-		font-weight: 400;
-		color: rgba(255,255,255,0.8);
-		margin: 1px 0 0 0;
-	}
-	.chart-header-indicator strong {
-		font-weight: 600;
-		color: #fff;
 	}
 	.chart-body {
-		padding: 6px 10px 2px 10px;
+		padding-bottom: 2px;
 	}
 	.chart-subtitle {
-		font-size: 10px;
-		font-style: italic;
-		color: var(--color-axis-text);
-		margin: 0 0 2px 0;
+		margin-bottom: 2px;
 	}
 	.chart-legend {
 		display: grid;
@@ -215,22 +183,6 @@
 		flex-shrink: 0;
 		margin-right: 3px;
 		vertical-align: middle;
-	}
-	.chart-footer {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 0 10px 7px 10px;
-	}
-	.chart-source {
-		font-size: 10px;
-		color: var(--color-text-gray);
-		text-align: right;
-		margin: 0;
-		font-style: italic;
-	}
-	[data-theme="dark"] .chart-source {
-		color: #bbb;
 	}
 	/* Tooltip */
 	.weo-tooltip {
@@ -299,43 +251,8 @@
 		letter-spacing: 0.3px;
 	}
 	/* Collapsible sections */
-	.weo-details {
-		margin: 0.75rem auto;
-	}
-	.weo-details:first-of-type {
+	.details-section:first-of-type {
 		margin-top: 36px;
-	}
-	.weo-details summary {
-		font-size: 15px;
-		font-weight: 600;
-		cursor: pointer;
-		padding: 6px 0;
-		color: var(--color-text-dark);
-		border-bottom: 1px solid var(--color-border-light);
-		list-style: none;
-	}
-	.weo-details summary::-webkit-details-marker {
-		display: none;
-	}
-	.weo-details summary::before {
-		content: '';
-		display: inline-block;
-		width: 0;
-		height: 0;
-		border-left: 5px solid var(--color-text-dark);
-		border-top: 4px solid transparent;
-		border-bottom: 4px solid transparent;
-		margin-right: 8px;
-		transition: transform 0.15s;
-	}
-	.weo-details[open] summary::before {
-		transform: rotate(90deg);
-	}
-	.weo-details[open] summary {
-		margin-bottom: 8px;
-	}
-	.weo-details p, .weo-details li {
-		line-height: 1.5;
 	}
 	.weo-glossary-table {
 		width: 100%;
@@ -351,7 +268,7 @@
 		font-weight: 600;
 		color: var(--color-text-dark);
 	}
-	.weo-details ul {
+	.details-section ul {
 		padding-left: 1.2em;
 		margin: 0.5em 0;
 	}
@@ -429,8 +346,8 @@
 		</div>
 	</div>
 
-	<div class="chart-container">
-		<div class="chart-header">
+	<div class="chart-container chart-compact">
+		<div class="chart-header chart-header-blue">
 			<div>
 				<h4 id="chart-title">Loading...</h4>
 				<p class="chart-header-indicator" id="chart-indicator"></p>
@@ -456,12 +373,12 @@
 		</div>
 		<div class="chart-footer">
 			<p class="chart-source">Source: IMF World Economic Outlook</p>
-			<svg viewBox="0 0 9 5" width="16" height="9" aria-hidden="true" style="fill: var(--color-text-gray); opacity: 0.5;"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+			<svg class="chart-logo" viewBox="0 0 9 5" width="16" height="9" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
 		</div>
 		<div class="weo-tooltip" id="weo-tooltip"></div>
 	</div>
 
-	<details class="weo-details">
+	<details class="details-section">
 		<summary>Notable Examples</summary>
 		<ul>
 			<li><strong>Greece &mdash; Government Debt</strong>: The IMF's own Independent Evaluation Office criticized the austerity-era debt forecasts. The dot cloud shows how projections kept underestimating Greek debt as the crisis deepened.</li>
@@ -471,14 +388,14 @@
 		</ul>
 	</details>
 
-	<details class="weo-details">
+	<details class="details-section">
 		<summary>About the WEO</summary>
 		<p>The World Economic Outlook is the IMF's flagship forecast publication, covering GDP growth, inflation, fiscal balances, current account balances, and more for nearly every country. It has been published twice yearly (April and October) since 1980.</p>
 		<p>Each edition contains forecasts extending 5&ndash;6 years forward. As the forecast horizon shrinks, estimates generally converge toward the actual outcome&mdash;but not always. The IMF's <a href="https://ieo.imf.org/en/evaluations/completed/03-18-2014-imf-forecasts-process-quality-and-country-perspectives">Independent Evaluation Office found</a> systematic optimism bias during recessions. Research by <a href="https://www.imf.org/en/Publications/WP/Issues/2018/03/05/How-Well-Do-Economists-Forecast-Recessions-45672">Loungani et al. (2018)</a> showed the &ldquo;record of failure to predict recessions is virtually unblemished.&rdquo; A <a href="https://www.imf.org/-/media/files/publications/wp/2025/english/wpiea2025031-print-pdf.pdf">2025 IMF working paper</a> found forecasts overreact to good news while responding more cautiously to bad news.</p>
 		<p>By overlaying all 39 editions, you can see these patterns directly&mdash;the cloud of dots reveals where forecasts converged or diverged, and how the latest estimates compare to historical predictions.</p>
 	</details>
 
-	<details class="weo-details">
+	<details class="details-section">
 		<summary>Indicator Glossary</summary>
 		<table class="weo-glossary-table">
 			<thead>
@@ -497,7 +414,7 @@
 		</table>
 	</details>
 
-	<details class="weo-details weo-countries">
+	<details class="details-section weo-countries">
 		<summary>Countries Included (196)</summary>
 		<p><strong>Advanced Economies (41)</strong><br>
 		Andorra, Australia, Austria, Belgium, Canada, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hong Kong SAR, Iceland, Ireland, Israel, Italy, Japan, Korea, Latvia, Lithuania, Luxembourg, Macao SAR, Malta, Netherlands, New Zealand, Norway, Portugal, Puerto Rico, San Marino, Singapore, Slovak Republic, Slovenia, Spain, Sweden, Switzerland, Taiwan Province of China, United Kingdom, United States</p>
@@ -513,7 +430,7 @@
 		Angola, Benin, Botswana, Burkina Faso, Burundi, Cameroon, Cape Verde, Central African Republic, Chad, Comoros, Democratic Republic of the Congo, Republic of Congo, C&ocirc;te d'Ivoire, Equatorial Guinea, Eritrea, Eswatini, Ethiopia, Gabon, The Gambia, Ghana, Guinea, Guinea-Bissau, Kenya, Lesotho, Liberia, Madagascar, Malawi, Mali, Mauritius, Mozambique, Namibia, Niger, Nigeria, Rwanda, S&atilde;o Tom&eacute; and Pr&iacute;ncipe, Senegal, Seychelles, Sierra Leone, South Africa, South Sudan, Tanzania, Togo, Uganda, Zambia, Zimbabwe</p>
 	</details>
 
-	<details class="weo-details">
+	<details class="details-section">
 		<summary>Further Reading</summary>
 		<ul>
 			<li><a href="https://ieo.imf.org/en/evaluations/completed/2014-0318-imf-forecasts-process-quality-and-country-perspectives">IEO: IMF Forecasts &mdash; Process, Quality, and Country Perspectives (2014)</a></li>

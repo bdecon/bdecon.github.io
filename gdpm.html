@@ -95,64 +95,13 @@
 </script>
 <style>
 	.chart-container {
-		position: relative;
-		width: 100%;
 		max-width: 460px;
-		margin: 1rem auto;
-		background: var(--color-card-tail-bg);
-		box-shadow: 0 2px 8px var(--color-shadow), 0 4px 16px rgba(0, 0, 0, 0.06);
-	}
-	.chart-header {
-		background-color: var(--color-card-red);
-		color: white;
-		padding: 8px 14px 7px 14px;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-	.chart-header a {
-		color: inherit;
-		opacity: 0.7;
-		font-size: 14px;
-		text-decoration: none;
-	}
-	.chart-header a:hover {
-		opacity: 1;
-	}
-	.chart-header h4 {
-		font-family: 'Montserrat', sans-serif;
-		font-size: 17px;
-		margin: 0;
-		font-weight: 600;
-		color: inherit;
-	}
-	.chart-subtitle {
-		font-size: 13px;
-		font-style: italic;
-		color: var(--color-axis-text);
-		margin: 0;
-	}
-	.chart-body {
-		padding: 8px 14px 8px 14px;
 	}
 	.chart-body-header {
 		display: flex;
 		justify-content: space-between;
 		align-items: flex-start;
 		margin-bottom: 4px;
-	}
-	.chart-footer {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 2px 14px 9px 14px;
-	}
-	.chart-source {
-		font-size: 10px;
-		color: var(--color-text-gray);
-		text-align: right;
-		margin: 0;
-		font-style: italic;
 	}
 	.chart-filter {
 		font-size: 10px;
@@ -174,45 +123,20 @@
 		color: #7b8aff;
 	}
 	.chart-toggle {
-		display: flex;
-		gap: 0;
 		font-size: 10px;
-		font-family: 'Montserrat', sans-serif;
 		margin-top: 4px;
 	}
 	.chart-toggle-btn {
 		padding: 4px 12px;
-		border: 1px solid var(--color-border-light);
-		background: var(--color-bg-white);
-		cursor: pointer;
-		color: var(--color-text-muted);
-		transition: all 0.15s ease;
-	}
-	.chart-toggle-btn:first-child {
-		border-radius: 3px 0 0 3px;
-	}
-	.chart-toggle-btn:last-child {
-		border-radius: 0 3px 3px 0;
-		border-left: none;
-	}
-	.chart-toggle-btn:hover {
-		background: var(--color-bg-highlight);
 	}
 	.chart-toggle-btn.active {
 		background: var(--color-card-red);
 		border-color: var(--color-card-red);
-		color: white;
 	}
 	.info-boxes {
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
-	}
-	.info-section {
-		background: var(--color-bg-highlight);
-		border: 1px solid var(--color-border);
-		border-radius: 4px;
-		padding: 1rem;
 	}
 	.info-section h3 {
 		display: table;
@@ -259,7 +183,7 @@
 		text-decoration: none;
 		font-size: 14px;
 		font-weight: 600;
-		font-family: 'Montserrat', sans-serif;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 	}
 	.download-btn:hover {
 		background: var(--color-nav-hover);
@@ -286,7 +210,6 @@
 	}
 	@media (max-width: 799px) {
 		.chart-subtitle {
-			font-size: 12px;
 			flex: 1;
 			min-width: 0;
 			margin-right: 8px;
@@ -310,19 +233,9 @@
 		padding-bottom: 5px;
 		border-bottom: 2px solid var(--color-accent-red);
 	}
-	.data-sources {
-		margin-top: 1rem;
-	}
-	.data-sources li {
-		margin-bottom: 0.5rem;
-	}
 	.comparison-chart-container {
 		max-width: 500px;
 		margin: 2rem auto;
-		padding: 1rem;
-		background: var(--color-bg-highlight);
-		border: 1px solid var(--color-border);
-		border-radius: 4px;
 	}
 	.step-cards {
 		display: flex;
@@ -334,9 +247,6 @@
 		display: flex;
 		gap: 0.75rem;
 		padding: 0.75rem;
-		background: var(--color-bg-highlight);
-		border: 1px solid var(--color-border);
-		border-radius: 4px;
 	}
 	.step-number {
 		flex-shrink: 0;
@@ -350,11 +260,11 @@
 		justify-content: center;
 		font-size: 14px;
 		font-weight: 600;
-		font-family: 'Montserrat', sans-serif;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 	}
 	.step-content h4 {
 		margin: 0 0 0.25rem 0;
-		font-size: 15px;
+		font-size: 17px;
 		font-weight: 600;
 		color: var(--color-text-dark);
 	}
@@ -410,16 +320,16 @@
 
 	<div class="chart-row">
 		<div class="chart-container">
-			<div class="chart-header">
+			<div class="chart-header chart-header-red">
 				<h4>Monthly US GDP</h4>
 				<a href="files/gdpm.csv" title="Download as .csv" download><i class="fa fa-download"></i></a>
 			</div>
 			<div class="chart-body">
 				<div class="chart-body-header">
 					<p class="chart-subtitle">USD, seasonally adjusted annual rate</p>
-					<div class="chart-toggle">
-						<button class="chart-toggle-btn active" data-series="nominal">Nominal</button>
-						<button class="chart-toggle-btn" data-series="real">Real</button>
+					<div class="toggle-group chart-toggle">
+						<button class="toggle-btn chart-toggle-btn active" data-series="nominal">Nominal</button>
+						<button class="toggle-btn chart-toggle-btn" data-series="real">Real</button>
 					</div>
 				</div>
 				<canvas id="lineChart" role="img" aria-label="Line chart showing monthly US GDP estimates"></canvas>
@@ -431,13 +341,13 @@
 		</div>
 
 		<div class="info-boxes">
-			<div class="info-section">
+			<div class="info-box info-section">
 				<h3>Latest Estimate</h3>
 				<p class="estimate-value" id="estimate-value">—</p>
 				<p class="estimate-updated">Data as of <span id="estimate-asof">—</span></p>
 			</div>
 
-			<div class="info-section">
+			<div class="info-box info-section">
 				<h3>Download Data</h3>
 				<p class="download-desc">Monthly nominal and real GDP in billions of USD, seasonally adjusted annual rate</p>
 				<a href="files/gdpm.csv" class="download-btn" download><i class="fa fa-download"></i> gdpm.csv<span class="file-meta" id="file-meta"></span></a>
@@ -459,28 +369,28 @@
 	<h3>Approach</h3>
 	<p>The monthly GDP series is constructed by interpolating quarterly data to monthly frequency:</p>
 	<div class="step-cards">
-		<div class="step-card">
+		<div class="info-box step-card">
 			<div class="step-number">1</div>
 			<div class="step-content">
 				<h4>Quarterly GDP</h4>
 				<p>Start with official nominal and real GDP from BEA (via FRED).</p>
 			</div>
 		</div>
-		<div class="step-card">
+		<div class="info-box step-card">
 			<div class="step-number">2</div>
 			<div class="step-content">
 				<h4>Current Quarter</h4>
 				<p>Estimate the latest quarter using Atlanta Fed GDPNow (real growth) and Cleveland Fed inflation nowcast to derive nominal growth.</p>
 			</div>
 		</div>
-		<div class="step-card">
+		<div class="info-box step-card">
 			<div class="step-number">3</div>
 			<div class="step-content">
 				<h4>Interpolate</h4>
 				<p>Assign quarterly values to mid-quarter months, then linearly interpolate. This preserves the quarterly average.</p>
 			</div>
 		</div>
-		<div class="step-card">
+		<div class="info-box step-card">
 			<div class="step-number">4</div>
 			<div class="step-content">
 				<h4>Rebase (Real series)</h4>
@@ -491,7 +401,7 @@
 
 	<p>The chart below illustrates the interpolation process. The stepped gray line shows published quarterly GDP values. The smooth red line shows the monthly interpolated series. The most recent quarter includes the nowcast estimate.</p>
 
-	<div class="comparison-chart-container">
+	<div class="info-box comparison-chart-container">
 		<canvas id="comparisonChart" role="img" aria-label="Line chart comparing GDP estimates across sources"></canvas>
 	</div>
 
@@ -779,7 +689,7 @@
 							tooltip: {
 								enabled: true,
 								backgroundColor: tc.tooltipBg,
-								titleFont: { size: 12, family: "'Montserrat', sans-serif" },
+								titleFont: { size: 12, family: "system-ui, sans-serif" },
 								bodyFont: { size: 11, family: "Tahoma, Verdana, sans-serif" },
 								padding: 8,
 								cornerRadius: 2,
@@ -989,7 +899,7 @@
 								data: quarterlyAligned,
 								borderColor: getComputedStyle(document.documentElement).getPropertyValue('--color-text-gray').trim() || '#555',
 								backgroundColor: 'transparent',
-								borderWidth: 2,
+								borderWidth: 2.5,
 								pointRadius: 0,
 								pointStyle: 'line',
 								stepped: 'before',
@@ -1000,7 +910,7 @@
 								data: monthlyFiltered.map(d => d.nominal),
 								borderColor: chartColor.border,
 								backgroundColor: 'transparent',
-								borderWidth: 2,
+								borderWidth: 2.5,
 								pointRadius: 0,
 								pointStyle: 'line',
 								tension: 0.1,
@@ -1020,7 +930,7 @@
 							title: {
 								display: true,
 								text: 'Monthly GDP vs. Quarterly GDP',
-								font: { size: 16, family: "'Montserrat', sans-serif", weight: '600' },
+								font: { size: 16, family: "system-ui, sans-serif", weight: '600' },
 								color: getComputedStyle(document.documentElement).getPropertyValue('--color-text-dark').trim(),
 								padding: { bottom: 10 }
 							},
@@ -1038,7 +948,7 @@
 							tooltip: {
 								enabled: true,
 								backgroundColor: tc2.tooltipBg,
-								titleFont: { size: 12, family: "'Montserrat', sans-serif" },
+								titleFont: { size: 12, family: "system-ui, sans-serif" },
 								bodyFont: { size: 11, family: "Tahoma, Verdana, sans-serif" },
 								padding: 8,
 								cornerRadius: 2,

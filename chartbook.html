@@ -40,46 +40,10 @@
 	<meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
 <style>
-	.cb-details {
+	.details-section {
 		max-width: 760px;
-		margin: 0.75rem auto;
 		padding: 0 12px;
 		box-sizing: border-box;
-	}
-	.cb-details summary {
-		font-size: 15px;
-		font-weight: 600;
-		cursor: pointer;
-		padding: 8px 0;
-		border-bottom: 1px solid var(--color-border-light);
-		list-style: none;
-	}
-	.cb-details summary::-webkit-details-marker {
-		display: none;
-	}
-	.cb-details summary::before {
-		content: '';
-		display: inline-block;
-		width: 0;
-		height: 0;
-		border-top: 5px solid transparent;
-		border-bottom: 5px solid transparent;
-		border-left: 6px solid var(--color-text-muted);
-		margin-right: 8px;
-		transition: transform 0.15s;
-	}
-	.cb-details[open] summary::before {
-		transform: rotate(90deg);
-	}
-	.cb-details[open] summary {
-		margin-bottom: 8px;
-	}
-	.cb-details p, .cb-details li {
-		line-height: 1.5;
-	}
-	.cb-details ol {
-		padding-left: 1.4em;
-		margin: 0.5em 0;
 	}
 	.cb-free {
 		text-align: center;
@@ -246,7 +210,7 @@
 		</article>
 		</div>
 
-		<details class="cb-details">
+		<details class="details-section">
 			<summary>What's Inside</summary>
 			<p>The chartbook tracks economic and social developments in the United States since 1989, drawing on public data from BEA, BLS, Census, the Federal Reserve, Treasury, and other sources. Each section contains charts, tables, descriptive text, and links to relevant materials.</p>
 			<ol>
@@ -262,7 +226,7 @@
 			</ol>
 		</details>
 
-		<details class="cb-details">
+		<details class="details-section">
 			<summary>Sample Pages</summary>
 			<div class="cb-previews">
 				<img src="images/cb_preview_toc.png" alt="Chartbook table of contents" width="600" height="776" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}">
@@ -271,7 +235,7 @@
 			</div>
 		</details>
 
-		<details class="cb-details">
+		<details class="details-section">
 			<summary>Related</summary>
 			<p>For interactive versions of key indicators, see the <a href="indicators.html">Economic Indicators</a> page. For international economic data and forecasts, see the <a href="imfweo.html">IMF World Economic Outlook</a> page. Contributions and corrections are welcome via <a href="https://github.com/bdecon/US-chartbook">GitHub</a>.</p>
 		</details>

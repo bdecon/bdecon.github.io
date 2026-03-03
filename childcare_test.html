@@ -49,13 +49,7 @@
 })();
 </script>
 <style>
-	/* Layout */
-	.cc-content {
-		max-width: 760px;
-		margin: 0 auto;
-		padding: 0 12px;
-		box-sizing: border-box;
-	}
+	/* Page-specific overrides */
 	/* Tab bar */
 	.cc-tabs {
 		display: flex;
@@ -120,7 +114,7 @@
 	}
 	.cc-infra-label {
 		flex: 1;
-		font-size: 16px;
+		font-size: 17px;
 		font-weight: 700;
 		color: var(--color-text-dark);
 		padding: 8px 4px 2px;
@@ -225,7 +219,7 @@
 	[data-theme="dark"] #cost-compare-container .cc-cost-body {
 		background: #1e1e1e !important;
 	}
-	[data-theme="dark"] .cc-content {
+	[data-theme="dark"] .cc-page {
 		--color-border-light: #666;
 	}
 
@@ -237,31 +231,18 @@
 		font-weight: 700;
 		padding-top: 1px;
 	}
-	/* Spending toggle (narrow/broad) */
+	/* Spending toggle (narrow/broad) — dark-header variant of toggle-group */
 	.spending-toggle {
 		display: none;
-		gap: 0;
 		font-size: 11px;
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 		margin-top: 6px;
 	}
 	.spending-toggle.visible { display: flex; }
 	.spending-toggle-btn {
-		padding: 3px 10px;
-		border: 1px solid rgba(255,255,255,0.4);
+		border-color: rgba(255,255,255,0.4);
 		background: transparent;
-		cursor: pointer;
 		color: rgba(255,255,255,0.75);
-		transition: all 0.15s ease;
 		font-size: 12px;
-		font-weight: 600;
-	}
-	.spending-toggle-btn:first-child {
-		border-radius: 3px 0 0 3px;
-	}
-	.spending-toggle-btn:last-child {
-		border-radius: 0 3px 3px 0;
-		border-left: none;
 	}
 	.spending-toggle-btn:hover {
 		background: rgba(255,255,255,0.15);
@@ -271,33 +252,19 @@
 		color: #fff;
 		border-color: rgba(255,255,255,0.5);
 	}
-	/* Wage occupation toggle (reuses spending toggle visual pattern) */
+	/* Wage occupation toggle — dark-header variant of toggle-group */
 	.wage-toggle {
 		display: none;
-		gap: 0;
 		font-size: 11px;
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 		margin-top: 6px;
 	}
 	.wage-toggle.visible { display: flex; flex-wrap: wrap; }
 	.wage-toggle-btn {
 		padding: 3px 8px;
-		border: 1px solid rgba(255,255,255,0.4);
+		border-color: rgba(255,255,255,0.4);
 		background: transparent;
-		cursor: pointer;
 		color: rgba(255,255,255,0.75);
-		transition: all 0.15s ease;
 		font-size: 12px;
-		font-weight: 600;
-	}
-	.wage-toggle-btn:first-child {
-		border-radius: 3px 0 0 3px;
-	}
-	.wage-toggle-btn:last-child {
-		border-radius: 0 3px 3px 0;
-	}
-	.wage-toggle-btn:not(:first-child) {
-		border-left: none;
 	}
 	.wage-toggle-btn:hover {
 		background: rgba(255,255,255,0.15);
@@ -349,11 +316,7 @@
 		margin-right: 0;
 	}
 	.chart-header {
-		background-color: var(--color-card-teal);
-		color: white;
 		padding: 14px 12px 8px 12px;
-		display: flex;
-		justify-content: space-between;
 		align-items: flex-start;
 	}
 	.chart-header h4 {
@@ -383,8 +346,6 @@
 		padding: 6px 8px 2px 8px;
 	}
 	.chart-footer {
-		display: flex;
-		flex-direction: column;
 		padding: 6px 12px 3px 12px;
 	}
 	.chart-footer .chart-source {
@@ -393,9 +354,6 @@
 		margin: 0;
 		font-style: italic;
 		text-align: left;
-	}
-	[data-theme="dark"] .chart-source {
-		color: #bbb;
 	}
 	/* Map SVG */
 	.map-svg {
@@ -527,26 +485,9 @@
 		font-size: 11px;
 		fill: var(--color-text-muted);
 	}
-	/* Subtitle */
+	/* Page title */
 	#cc-page-title { font-size: 34px; }
 	@media (max-width: 500px) { #cc-page-title { font-size: 32px; } }
-	.cc-subtitle {
-		font-size: 18px;
-		font-weight: 500;
-		color: var(--color-text-dark);
-		margin: 0 0 1.25rem 0;
-		padding: 6px 0 6px 14px;
-		border-left: 3px solid var(--color-card-teal);
-	}
-	/* Short decorative rule */
-	.cc-rule {
-		width: 120px;
-		height: 3px;
-		border: none;
-		background-color: var(--color-card-teal);
-		margin: 2.25rem auto;
-	}
-	[data-theme="dark"] .cc-rule { opacity: 0.6; }
 	/* Table title */
 	.cc-table-title {
 		font-size: 17px;
@@ -603,33 +544,12 @@
 	.cc-table th .cc-flag {
 		margin-top: 4px;
 	}
-	/* Collapsible sections */
-	.cc-details {
-		margin: 2.5rem 0 1rem;
-	}
-	.cc-details summary {
-		font-size: 16px;
-		font-weight: 600;
-		cursor: pointer;
-		padding: 10px 0;
-		color: var(--color-text-dark);
-		border-bottom: 1px solid var(--color-border-light);
-		list-style: none;
-	}
-	.cc-details summary::-webkit-details-marker { display: none; }
-	.cc-details summary::before {
-		content: '';
-		display: inline-block;
-		width: 0; height: 0;
-		border-left: 5px solid var(--color-text-dark);
-		border-top: 4px solid transparent;
-		border-bottom: 4px solid transparent;
-		margin-right: 8px;
-		transition: transform 0.15s;
-	}
-	.cc-details[open] summary::before { transform: rotate(90deg); }
+	/* Page overrides for details-section */
+	.cc-details { margin: 2.5rem 0 1rem; }
+	.cc-details summary { font-size: 16px; padding: 10px 0; }
+	.cc-details summary::before { border-left-color: var(--color-text-dark); }
 	.cc-details[open] summary { margin-bottom: 24px; }
-	.cc-content > p:not(.cc-subtitle) {
+	.cc-page > p:not(.article-subtitle) {
 		font-size: 15px;
 		line-height: 1.65;
 		text-align: justify;
@@ -643,11 +563,6 @@
 		text-align: justify;
 		hyphens: auto;
 		margin-bottom: 28px;
-	}
-	@media (max-width: 500px) {
-		.cc-details p, .cc-details li {
-			margin-bottom: 28px;
-		}
 	}
 	/* ---- Wage Peers: Hero dot spectrum ---- */
 	.wp-hero-svg {
@@ -710,7 +625,7 @@
 		color: #fff;
 	}
 	.wp-col-header .wp-geo-name {
-		font-size: 16px;
+		font-size: 17px;
 		font-weight: 700;
 		margin: 0;
 	}
@@ -764,61 +679,11 @@
 	}
 	@media (max-width: 520px) {
 		.wp-columns { flex-direction: column; }
-		.cc-content { padding: 0 6px; }
+		.cc-page { padding: 0 6px; }
 		.chart-container { max-width: 100%; }
 		.cc-tabs { padding-left: 6px; }
-		.cc-tab { padding: 4px 8px; font-size: 12.5px; }
+		.cc-tab { padding: 4px 8px; font-size: 13px; }
 		#map-container .cc-explore-tag { display: none; }
-	}
-	/* Historical blockquotes */
-	.cc-blockquote {
-		border-left: 3px solid var(--color-card-teal);
-		margin: 1.75rem 0;
-		padding: 8px 0 8px 16px;
-		font-size: 15px;
-		font-style: italic;
-		color: var(--color-text-dark);
-		line-height: 1.55;
-	}
-	[data-theme="dark"] .cc-blockquote {
-		background: #1e1e1e;
-		padding: 12px 16px 12px 16px;
-		border-radius: 0 4px 4px 0;
-	}
-	.cc-blockquote cite {
-		display: block;
-		font-style: normal;
-		font-size: 13px;
-		color: var(--color-text-muted);
-		margin-top: 6px;
-	}
-	/* Pull quote / hero stat */
-	.cc-hero-stat {
-		text-align: center;
-		margin: 1.25rem 0;
-		padding: 10px 0;
-	}
-	.cc-hero-stat .stat-number {
-		font-size: 32px;
-		font-weight: 700;
-		color: var(--color-card-teal);
-		display: block;
-		line-height: 1.1;
-	}
-	.cc-hero-stat .stat-label {
-		font-size: 14px;
-		color: var(--color-text-muted);
-		margin-top: 4px;
-		display: block;
-	}
-	/* Inline highlighted stat */
-	.cc-highlight {
-		background: var(--color-card-teal);
-		color: #fff;
-		padding: 1px 6px;
-		border-radius: 3px;
-		font-weight: 600;
-		white-space: nowrap;
 	}
 	/* Wage peers inset box */
 	.cc-explore-tag {
@@ -827,7 +692,7 @@
 		right: 16px;
 		background: var(--color-card-teal);
 		color: #fff;
-		font-family: Lato, sans-serif;
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 		font-size: 12px;
 		font-weight: 600;
 		letter-spacing: 0.04em;
@@ -943,11 +808,11 @@
 	<p style="font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin: 4px 0 0; line-height: 1;">Brian Dew &middot; March 2026</p>
 	</header>
 	<main id="main" style="padding-top: 30px;">
-	<div class="cc-content">
+	<div class="prose cc-page">
 
-	<p class="cc-subtitle">The US came within reach of public childcare. Twice.</p>
+	<p class="article-subtitle article-subtitle-teal">The US came within reach of public childcare. Twice.</p>
 
-	<blockquote class="cc-blockquote">
+	<blockquote class="blockquote-accent blockquote-accent-teal">
 		"These children are future citizens, and if they are neglected in these early years it will hurt not only the children themselves, but the community as a whole. Where state help is needed, it should be given; and when states are incapable of giving sufficient help, it should be forthcoming on a national scale."
 		<cite><a href="https://www2.gwu.edu/~erpapers/myday/displaydoc.cfm?_y=1945&_f=md000125" target="_blank" rel="noopener">Eleanor Roosevelt</a>, September 8, 1945, as WWII childcare centers were closing across the country</cite>
 	</blockquote>
@@ -958,19 +823,19 @@
 		<img src="files/childcare-images/storytime_cropped.jpg" alt="Teacher reading to children at a federally funded childcare center, 1943" style="display: block; width: 100%; filter: sepia(0.3) saturate(0.8);">
 		<div style="position: absolute; inset: 0; background: var(--color-card-teal); mix-blend-mode: multiply; opacity: 0.15;"></div>
 		<div style="background: var(--color-card-teal); padding: 6px 10px;">
-			<span style="font-size: 12.5px; color: #fff; font-weight: 500; line-height: 1.4; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">Federally funded childcare center.<br>New Britain, CT, 1943. Photo: Gordon Parks</span>
+			<span style="font-size: 13px; color: #fff; font-weight: 500; line-height: 1.4; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">Federally funded childcare center.<br>New Britain, CT, 1943. Photo: Gordon Parks</span>
 		</div>
 	</div>
 
 	<p>In 1971, Congress passed the Comprehensive Child Development Act, a bipartisan bill to establish universal childcare. President Nixon <a href="https://www.presidency.ucsb.edu/documents/veto-the-economic-opportunity-amendments-1971" target="_blank" rel="noopener">vetoed it</a>. His speechwriter, Pat Buchanan, drafted a message warning against "the vast moral authority of the National Government" being committed "to the side of communal approaches to child rearing over against the family-centered approach." <img src="files/childcare-images/flags/us.png" width="20" height="13" alt="US flag" style="vertical-align: -2px; margin-left: 2px; border: 0.5px solid rgba(0,0,0,0.15); border-radius: 1px;"></p>
 
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(2rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">Not all countries failed</h3>
+		<h3 class="article-heading">Not all countries failed</h3>
 
 	<p>The Nordic countries — <img src="files/childcare-images/flags/dk.png" width="20" height="13" alt="Denmark flag" style="vertical-align: -2px; margin-right: 2px; border: 0.5px solid rgba(0,0,0,0.15); border-radius: 1px;">Denmark, <img src="files/childcare-images/flags/fi.png" width="20" height="13" alt="Finland flag" style="vertical-align: -2px; margin-right: 2px; border: 0.5px solid rgba(0,0,0,0.15); border-radius: 1px;">Finland, <img src="files/childcare-images/flags/no.png" width="20" height="13" alt="Norway flag" style="vertical-align: -2px; margin-right: 2px; border: 0.5px solid rgba(0,0,0,0.15); border-radius: 1px;">Norway, and <img src="files/childcare-images/flags/se.png" width="20" height="13" alt="Sweden flag" style="vertical-align: -2px; margin-right: 2px; border: 0.5px solid rgba(0,0,0,0.15); border-radius: 1px;">Sweden — built their systems through political contest, not consensus. In 1934, Swedish social scientists <a href="https://en.wikipedia.org/wiki/Crisis_in_the_Population_Question" target="_blank" rel="noopener">Alva and Gunnar Myrdal</a> argued for sharing the responsibility of child-rearing between families and society. It took forty years of organizing — by labor unions, by women's movements, by social democratic parties — before <a href="https://centreforpublicimpact.org/public-impact-fundamentals/swedens-1975-national-preschool-reform/" target="_blank" rel="noopener">Sweden passed its National Preschool Act</a> in 1975. Finland guaranteed every child a <a href="https://okm.fi/en/legislation-ecec" target="_blank" rel="noopener">legal right to public care</a> from birth. Denmark and Norway followed. Those systems survived because they worked, and because the people who depended on them organized to protect them.</p>
 
-	<hr class="cc-rule">
+	<hr class="hr-accent hr-accent-teal">
 
-	<p>The United States never built a public childcare system. The Nordic countries did. Half a century later, the <span class="cc-highlight">childcare gap</span> between them is enormous.</p>
+	<p>The United States never built a public childcare system. The Nordic countries did. Half a century later, the <span class="highlight-accent highlight-accent-teal">childcare gap</span> between them is enormous.</p>
 
 	<h2 class="cc-table-title">US–Nordic Childcare Gap at a Glance</h2>
 	<table class="cc-table">
@@ -990,17 +855,17 @@
 
 	<p>The comparison extends beyond national averages. Where the data allows, the analysis includes US states, New York City, and the Canadian provinces. The childcare gap persists in every US state, including the wealthiest — and a vicious cycle of underfunding makes it self-reinforcing.</p>
 
-	<hr class="cc-rule">
+	<hr class="hr-accent hr-accent-teal">
 
 	<!-- ================================================================ -->
 	<!-- SECTION 1: The money is there. The system is not.                  -->
 	<!-- ================================================================ -->
-	<details class="cc-details" open>
+	<details class="details-section cc-details" open>
 		<summary style="font-size: 21px;">The money is there. The system is not.</summary>
 		
 		<p>The most common defense of the US childcare gap is that the country can't afford to do what the Nordics do. This section eliminates that explanation. The US has comparable resources per child. It has a comparable share of young children in its population. The gap between the US and Nordic childcare systems is not a gap in resources. It is a gap in what those resources are spent on.</p>
 
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(2rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">The money is there</h3>
+		<h3 class="article-heading">The money is there</h3>
 
 		<p>The US is not too poor to fund childcare. It is richer per child than every Nordic country except Norway. Every place discussed in this report is rich by global standards. One way to see this is Gross Domestic Product per young child — the annual economic activity of an area divided by its number of young children. GDP per young child serves as a rough measure of the financial resources available in a society for each child it needs to support. The global average is about $190,000 per child aged 0-5. The US generates $1.28 million. Denmark generates $1.23 million. Finland generates $1.05 million. Massachusetts, at $1.86 million, has more than double the per child resources of Sweden.</p>
 
@@ -1008,21 +873,21 @@
 
 		<!-- Resources chart -->
 		<div class="chart-container" id="resources-container" style="margin-bottom: 50px;">
-			<div class="chart-header">
+			<div class="chart-header chart-header-teal">
 				<div>
 					<p class="map-category">Same resources, different infrastructure</p>
 				</div>
 				</div>
 			<div class="chart-body" style="padding: 16px 12px 4px 12px;">
-				<svg id="resources-svg" style="width:100%;height:auto;" viewBox="0 0 680 520" preserveAspectRatio="xMidYMid meet"></svg>
+				<svg id="resources-svg" class="chart-svg" viewBox="0 0 680 520" preserveAspectRatio="xMidYMid meet"></svg>
 			</div>
-			<div class="chart-footer">
+			<div class="chart-footer chart-footer-col">
 				<p class="chart-source">Includes public childcare and preschool only. See footnotes for sources</p>
-				<svg viewBox="0 0 9 5" width="16" height="9" aria-hidden="true" style="fill: var(--color-text-gray); opacity: 0.5; align-self: flex-end; margin-top: -10px; margin-bottom: 5px;"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+				<svg viewBox="0 0 9 5" width="16" height="9" aria-hidden="true" class="chart-logo" style="align-self: flex-end; margin-top: -10px; margin-bottom: 5px;"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
 			</div>
 		</div>
 
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(2rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">And the need for public childcare is there</h3>
+		<h3 class="article-heading">And the need for public childcare is there</h3>
 
 		<p>The need is the same everywhere. The US has roughly the same share of young children as the Nordics — between 5% and 7% of the total population. The difference is what happens to them before age 5.</p>
 		
@@ -1204,49 +1069,49 @@
 		})();
 		</script>
 
-		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 calc(1.75rem + 6px);">
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(2rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">But US public childcare funding is not there</h3>
+		<hr class="article-divider">
+		<h3 class="article-heading">But US public childcare funding is not there</h3>
 
-		<p>If resources are abundant and the need is the same, the gap must come from funding decisions. It does. The US spends 0.3% of GDP on public childcare and early education for children under 5 — about 50 cents per American per day. The Nordic countries spend around 1.3% of GDP. The entire gap between last-place US childcare and top-ranked Nordic systems boils down to <span class="cc-highlight">one percent of GDP.</span></p>
+		<p>If resources are abundant and the need is the same, the gap must come from funding decisions. It does. The US spends 0.3% of GDP on public childcare and early education for children under 5 — about 50 cents per American per day. The Nordic countries spend around 1.3% of GDP. The entire gap between last-place US childcare and top-ranked Nordic systems boils down to <span class="highlight-accent highlight-accent-teal">one percent of GDP.</span></p>
 
 		<p>When compared to Nordic countries, the US does have a weaker public sector overall. But the childcare funding gap is disproportionate even by that standard. US public funding for childcare is simply not there.</p>
 
 		<!-- Spending comparison chart -->
 		<div class="chart-container" id="spending-compare-container">
-			<div class="chart-header">
+			<div class="chart-header chart-header-teal">
 				<div>
 					<p class="map-category">Budget priorities</p>
 				</div>
 				</div>
 			<div class="chart-body" style="padding: 8px 12px 4px 12px;">
-				<svg id="spending-compare-svg" style="width:100%;height:auto;" viewBox="0 0 680 360" preserveAspectRatio="xMidYMid meet"></svg>
+				<svg id="spending-compare-svg" class="chart-svg" viewBox="0 0 680 360" preserveAspectRatio="xMidYMid meet"></svg>
 			</div>
-			<div class="chart-footer">
+			<div class="chart-footer chart-footer-col">
 				<p class="chart-source">Source: OECD</p>
-				<svg viewBox="0 0 9 5" width="16" height="9" aria-hidden="true" style="fill: var(--color-text-gray); opacity: 0.5; align-self: flex-end; margin-top: -10px; margin-bottom: 5px;"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+				<svg viewBox="0 0 9 5" width="16" height="9" aria-hidden="true" class="chart-logo" style="align-self: flex-end; margin-top: -10px; margin-bottom: 5px;"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
 			</div>
 		</div>
 
-		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 calc(1.75rem + 6px);">
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(2rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">So the services and infrastructure do not exist</h3>
+		<hr class="article-divider">
+		<h3 class="article-heading">So the services and infrastructure do not exist</h3>
 
 		<p>Public funding creates public slots. Public slots create enrollment. This is not complicated. Countries that fund childcare have near-universal enrollment. The US, which funds almost nothing, enrolls almost no one.</p>
 
-		<p>Nordic countries enroll children starting at age 1, when parental leave ends. By age 3, enrollment exceeds 80% in every Nordic country. In the United States, public care for children begins in earnest at age 5 with kindergarten. Before that, some states offer preschool for age 4, though coverage and hours vary widely. A few areas in the US are trying to push further to cover younger children. Otherwise, US families are mostly on their own. In effect, the US has no public childcare system for children under 3. At age 2, the US enrollment rate in public programs is effectively <span class="cc-highlight">0%</span>.</p>
+		<p>Nordic countries enroll children starting at age 1, when parental leave ends. By age 3, enrollment exceeds 80% in every Nordic country. In the United States, public care for children begins in earnest at age 5 with kindergarten. Before that, some states offer preschool for age 4, though coverage and hours vary widely. A few areas in the US are trying to push further to cover younger children. Otherwise, US families are mostly on their own. In effect, the US has no public childcare system for children under 3. At age 2, the US enrollment rate in public programs is effectively <span class="highlight-accent highlight-accent-teal">0%</span>.</p>
 
 		<!-- Enrollment by age chart -->
 		<div class="chart-container" id="enrollment-age-container" style="max-width: 520px;">
-			<div class="chart-header">
+			<div class="chart-header chart-header-teal">
 				<div>
 					<p class="map-category">The childcare gap</p>
 				</div>
 				</div>
 			<div class="chart-body" style="padding: 8px 12px 4px 12px;">
-				<svg id="enrollment-age-svg" style="width:100%;height:auto;" viewBox="0 0 680 420" preserveAspectRatio="xMidYMid meet"></svg>
+				<svg id="enrollment-age-svg" class="chart-svg" viewBox="0 0 680 420" preserveAspectRatio="xMidYMid meet"></svg>
 			</div>
-			<div class="chart-footer">
+			<div class="chart-footer chart-footer-col">
 				<p class="chart-source">US age 5 includes kindergarten. See footnotes for sources.</p>
-				<svg viewBox="0 0 9 5" width="16" height="9" aria-hidden="true" style="fill: var(--color-text-gray); opacity: 0.5; align-self: flex-end; margin-top: -10px; margin-bottom: 5px;"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+				<svg viewBox="0 0 9 5" width="16" height="9" aria-hidden="true" class="chart-logo" style="align-self: flex-end; margin-top: -10px; margin-bottom: 5px;"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
 			</div>
 		</div>
 
@@ -1300,16 +1165,16 @@
 
 		<p>The empty lot in the illustration above is not an accident. Pat Buchanan later reflected on killing the 1971 childcare bill:</p>
 
-		<blockquote class="cc-blockquote">
+		<blockquote class="blockquote-accent blockquote-accent-teal">
 			"If we hadn't stopped it, I think you'd have an entitlement program now of enormous size with these federal day care centers, and they would be growing and growing and growing once you got it on the books."
 			<cite>Patrick Buchanan, <a href="https://www.npr.org/transcripts/497850292" target="_blank" rel="noopener">NPR interview</a></cite>
 		</blockquote>
 
 		<p>Buchanan was afraid the program would work — that families would use it, depend on it, and defend it at the ballot box. That is exactly what happened in every country that built one.</p>
 
-		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 calc(1.75rem + 6px);">
+		<hr class="article-divider">
 
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(2rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">The US–Nordic childcare gap persists at the state level</h3>
+		<h3 class="article-heading">The US–Nordic childcare gap persists at the state level</h3>
 
 		<p>If the gap were explained by the US being too big or too diverse, it should disappear when you look at individual states. It does not. No US state — not Massachusetts, not Minnesota, not California — has built childcare infrastructure comparable to any Nordic country. The map below compares funding, enrollment, wages, and workforce outcomes at the state level. The gap persists everywhere.</p>
 
@@ -1324,27 +1189,27 @@
 		</div>
 		<div class="chart-container" id="map-container" style="margin-top: 0;">
 			<span class="cc-explore-tag">▸ Explore</span>
-			<div class="chart-header">
+			<div class="chart-header chart-header-teal">
 				<div>
 					<h4 id="map-indicator">Loading...</h4>
-					<div class="spending-toggle" id="spending-toggle">
-						<button class="spending-toggle-btn active" data-tier="narrow">Childcare</button>
-						<button class="spending-toggle-btn" data-tier="broad">Family + childcare</button>
+					<div class="toggle-group spending-toggle" id="spending-toggle">
+						<button class="toggle-btn spending-toggle-btn active" data-tier="narrow">Childcare</button>
+						<button class="toggle-btn spending-toggle-btn" data-tier="broad">Family + childcare</button>
 					</div>
-					<div class="wage-toggle" id="wage-toggle">
-						<button class="wage-toggle-btn active" data-occ="cc_only">Childcare workers</button>
-						<button class="wage-toggle-btn" data-occ="preschool">Preschool teachers</button>
-						<button class="wage-toggle-btn" data-occ="cacomp">Combined</button>
+					<div class="toggle-group wage-toggle" id="wage-toggle">
+						<button class="toggle-btn wage-toggle-btn active" data-occ="cc_only">Childcare workers</button>
+						<button class="toggle-btn wage-toggle-btn" data-occ="preschool">Preschool teachers</button>
+						<button class="toggle-btn wage-toggle-btn" data-occ="cacomp">Combined</button>
 					</div>
 				</div>
 				</div>
 			<div class="chart-body">
 				<svg id="map-svg" class="map-svg" viewBox="0 0 680 900" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Composite choropleth map of US states, Canadian provinces, and Nordic countries"></svg>
 			</div>
-			<div class="chart-footer">
+			<div class="chart-footer chart-footer-col">
 				<p class="chart-source" id="map-caveat"></p>
 				<p class="chart-source" id="map-source"></p>
-				<svg viewBox="0 0 9 5" width="16" height="9" aria-hidden="true" style="fill: var(--color-text-gray); opacity: 0.5; align-self: flex-end; margin-top: -10px; margin-bottom: 5px;"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+				<svg viewBox="0 0 9 5" width="16" height="9" aria-hidden="true" class="chart-logo" style="align-self: flex-end; margin-top: -10px; margin-bottom: 5px;"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
 			</div>
 			<div class="cc-tooltip" id="map-tooltip"></div>
 		</div>
@@ -1357,21 +1222,21 @@
 	<!-- ================================================================ -->
 	<!-- SECTION 2: A system designed to fail                                -->
 	<!-- ================================================================ -->
-	<details class="cc-details" open>
+	<details class="details-section cc-details" open>
 		<summary style="font-size: 21px;">A system designed to fail</summary>
 
 		<p>The previous section established that the US childcare gap is not caused by lack of resources, demographics, or state-level variation. It is a funding decision, and that decision has consequences. This section traces what happens downstream: which choices families actually face, who leaves the workforce, who falls into poverty, and why the system resists repair.</p>
 
 		<p>To see which system offers more freedom, compare the experiences of a parent of a young child in the US and in Finland.</p>
 
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(2rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">A tale of two systems</h3>
+		<h3 class="article-heading">A tale of two systems</h3>
 
-		<p>You have a child under 5. If you live in the United States, you choose between private childcare at <span class="cc-highlight"><a href="https://www.childcareaware.org/price-landscape24/" target="_blank" rel="noopener" style="color: inherit;">about $15,000 per year</a></span> or one parent leaves the workforce. If you live in Finland, you choose between public childcare at $0-4,080 per year or a <a href="https://www.kela.fi/child-home-care-allowance" target="_blank" rel="noopener">home care allowance</a> of ~$4,500 per year paid to the parent. Same situation. Radically different options.</p>
+		<p>You have a child under 5. If you live in the United States, you choose between private childcare at <span class="highlight-accent highlight-accent-teal"><a href="https://www.childcareaware.org/price-landscape24/" target="_blank" rel="noopener" style="color: inherit;">about $15,000 per year</a></span> or one parent leaves the workforce. If you live in Finland, you choose between public childcare at $0-4,080 per year or a <a href="https://www.kela.fi/child-home-care-allowance" target="_blank" rel="noopener">home care allowance</a> of ~$4,500 per year paid to the parent. Same situation. Radically different options.</p>
 
 		<!-- Decision tree -->
 		<div class="chart-container" id="decision-tree-container" style="margin-bottom: 48px; max-width: 654px;">
 			<div class="chart-body" style="padding: 24px 12px 0 12px;">
-				<svg id="decision-tree-svg" style="width:100%;height:auto;" viewBox="0 0 784 450" preserveAspectRatio="xMidYMid meet"></svg>
+				<svg id="decision-tree-svg" class="chart-svg" viewBox="0 0 784 450" preserveAspectRatio="xMidYMid meet"></svg>
 			</div>
 		</div>
 
@@ -1383,10 +1248,10 @@
 
 		<p>The apparent freedom of the private market is a constraint in disguise. Families pay rates that can total $150,000 for two children before kindergarten, if they even can, piece together informal arrangements, or someone — usually the mother — leaves paid work. That is not choice. It is the daily emergency resulting from the national removal of viable choices. This is a huge cost for families.</p>
 
-		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 calc(1.75rem + 6px);">
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(2rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">The cost to families</h3>
+		<hr class="article-divider">
+		<h3 class="article-heading">The cost to families</h3>
 
-		<p><span class="cc-highlight">3.8%</span> of US working-age adults are out of the labor force for childcare. In the Nordic countries, the figure is under 1%. Nine in ten of these sidelined adults are women. Outside of recessions, more Americans are out of work for childcare than for unemployment.</p>
+		<p><span class="highlight-accent highlight-accent-teal">3.8%</span> of US working-age adults are out of the labor force for childcare. In the Nordic countries, the figure is under 1%. Nine in ten of these sidelined adults are women. Outside of recessions, more Americans are out of work for childcare than for unemployment.</p>
 
 		<p>The economics are straightforward. Full-time childcare costs about $15,000 per child. At a household income of $200,000, that is steep but manageable. At $40,000, it is more than a third of everything the family makes before taxes. For a family with two children, that is $30,000 a year&mdash;close to the full take-home pay of a worker earning $20 an hour. For many families, paying for care costs more than the second earner brings home. Without a public option, someone stays home, and overwhelmingly that someone is the mother.</p>
 
@@ -1394,24 +1259,24 @@
 
 		<!-- Outcomes chart -->
 		<div class="chart-container" id="outcomes-container">
-			<div class="chart-header">
+			<div class="chart-header chart-header-teal">
 				<div>
 					<p class="map-category">Without public childcare:</p>
 				</div>
 				</div>
 			<div class="chart-body" style="padding: 2px 12px 0 12px;">
-				<svg id="outcomes-svg" style="width:100%;height:auto;" viewBox="0 0 680 360" preserveAspectRatio="xMidYMid meet"></svg>
+				<svg id="outcomes-svg" class="chart-svg" viewBox="0 0 680 360" preserveAspectRatio="xMidYMid meet"></svg>
 			</div>
-			<div class="chart-footer">
+			<div class="chart-footer chart-footer-col">
 				<p class="chart-source">Sources: Author, OECD</p>
-				<svg viewBox="0 0 9 5" width="16" height="9" aria-hidden="true" style="fill: var(--color-text-gray); opacity: 0.5; align-self: flex-end; margin-top: -10px; margin-bottom: 5px;"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+				<svg viewBox="0 0 9 5" width="16" height="9" aria-hidden="true" class="chart-logo" style="align-self: flex-end; margin-top: -10px; margin-bottom: 5px;"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
 			</div>
 		</div>
 
 		<p>These outcomes are not separate problems. They are the same system producing predictable results — and the damage extends beyond the families caught in it.</p>
 
-		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 calc(1.75rem + 6px);">
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(2rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">The cost to employers</h3>
+		<hr class="article-divider">
+		<h3 class="article-heading">The cost to employers</h3>
 
 		<p>The childcare gap does not only push families into poverty. It drains the businesses trying to hire them.</p>
 
@@ -1419,8 +1284,8 @@
 
 		<p>Nordic employers do not offer childcare stipends or run backup care programs. They pay taxes and get a full labor force in return. The public system solves the problem at its source. This is not charity. It is infrastructure — the same way a public road network is more efficient than asking every business to pave its own path to the highway.</p>
 
-		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 calc(1.75rem + 6px);">
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(2rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">The cost to workers</h3>
+		<hr class="article-divider">
+		<h3 class="article-heading">The cost to workers</h3>
 		
 		<p>The US childcare system fails families who need care and employers who need workers. It also fails the people who provide the care.</p>
 		
@@ -1435,7 +1300,7 @@
 			<span class="cc-explore-tag">▸ Explore</span>
 			<h3 class="cc-wage-title-desktop">US childcare workers are paid $15.41 per hour</h3>
 			<h3 class="cc-wage-title-mobile">US childcare workers make $15.41/hr</h3>
-			<p>The typical childcare worker makes <a href="https://www.bls.gov/oes/current/oes399011.htm" target="_blank" rel="noopener">$15.41 per hour</a>, or $32,050 a year. <span class="cc-highlight">99% of occupations</span> pay more. An elementary school teacher at the school next door makes <a href="https://www.bls.gov/oes/current/oes252021.htm" target="_blank" rel="noopener">$62,340</a>. That gap is not a market outcome. It is a policy choice about which work counts as professional.</p>
+			<p>The typical childcare worker makes <a href="https://www.bls.gov/oes/current/oes399011.htm" target="_blank" rel="noopener">$15.41 per hour</a>, or $32,050 a year. <span class="highlight-accent highlight-accent-teal">99% of occupations</span> pay more. An elementary school teacher at the school next door makes <a href="https://www.bls.gov/oes/current/oes252021.htm" target="_blank" rel="noopener">$62,340</a>. That gap is not a market outcome. It is a policy choice about which work counts as professional.</p>
 			<p>An elementary school teacher's salary is not particularly generous, either. Neither wage reflects the value of the work. But there is a practical case for closing the gap: professional pay attracts trained workers, training improves quality, and quality matters most for the children with the fewest resources at home.</p>
 
 			<p>Without professional pay, here is the competition for childcare labor: the lowest-paid occupation in the US, a fast-food cook, makes only 6% less per hour. A dogwalker makes more. The diagram below shows the US occupations with wages most similar to childcare workers. These are the lowest-paying jobs in the country. The 742 occupations that pay more are not shown.</p>
@@ -1446,10 +1311,10 @@
 				</div>
 			</div>
 
-			<hr class="cc-rule">
+			<hr class="hr-accent hr-accent-teal">
 			<p>Peer occupations change by location. In some states, childcare workers are paid a poverty wage&mdash;half of what a typical worker makes. In every Nordic country, they are paid 65&ndash;75% of a typical wage. Use the table below to dig deeper.</p>
 
-			<details class="cc-details" id="wp-explore" style="margin: 0.5rem 0 0 0;">
+			<details class="details-section cc-details" id="wp-explore" style="margin: 0.5rem 0 0 0;">
 				<summary>Explore wage peers by state or country</summary>
 				<p>Select a geography to see which occupations pay closest to childcare workers there.</p>
 				<div class="wp-controls">
@@ -1467,21 +1332,21 @@
 			</details>
 		</div>
 
-		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 calc(1.75rem + 6px);">
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(2rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">Why the market can't fix it</h3>
+		<hr class="article-divider">
+		<h3 class="article-heading">Why the market can't fix it</h3>
 
 		<p>The childcare enrollment and poverty numbers above are not random, and the market cannot fix them. They are the product of two feedback loops — a virtuous cycle in the Nordics and a vicious cycle in the US — shown in the diagram below.</p>
 
 		<!-- Feedback loop diagram -->
 		<div class="chart-container" id="feedback-container" style="margin: 0.5rem 0; box-shadow: none; border: none !important; background: transparent;">
 			<div class="chart-body" style="padding: 0;">
-				<svg id="feedback-svg" style="width:100%;height:auto;" viewBox="0 30 680 260" preserveAspectRatio="xMidYMid meet"></svg>
+				<svg id="feedback-svg" class="chart-svg" viewBox="0 30 680 260" preserveAspectRatio="xMidYMid meet"></svg>
 			</div>
 		</div>
 
 		<p>In Nordic countries, public investment creates a professional workforce, which produces quality care, which builds public trust, which sustains the investment. Even Finland's current right-wing government has not touched childcare. Conservative, liberal, and socialist parents send their kids to the same daycares. Finland's childcare system is politically untouchable because it works and people depend on it.</p>
 
-		<p>In the United States, the feedback runs the other direction. Parents pay a lot. Workers are paid little. Both sides of the market are broken at the same time. Underfunding produces low wages, which cause turnover, which erodes quality, which erodes trust, which becomes the argument against investment. The <a href="https://bipartisanpolicy.org/blog/economic-impact-of-americas-child-care-gap/" target="_blank" rel="noopener">Bipartisan Policy Center</a> estimates the US loses <span class="cc-highlight">$22-33 billion annually</span> from inadequate childcare: lost earnings, lost productivity, lost tax revenue. Inaction is not neutral. It actively destroys value.</p>
+		<p>In the United States, the feedback runs the other direction. Parents pay a lot. Workers are paid little. Both sides of the market are broken at the same time. Underfunding produces low wages, which cause turnover, which erodes quality, which erodes trust, which becomes the argument against investment. The <a href="https://bipartisanpolicy.org/blog/economic-impact-of-americas-child-care-gap/" target="_blank" rel="noopener">Bipartisan Policy Center</a> estimates the US loses <span class="highlight-accent highlight-accent-teal">$22-33 billion annually</span> from inadequate childcare: lost earnings, lost productivity, lost tax revenue. Inaction is not neutral. It actively destroys value.</p>
 		
 		<p>Every dollar of a childcare wage increase passes almost directly to the parent. Research by <a href="https://docs.iza.org/dp16257.pdf" target="_blank" rel="noopener">Brown and Herbst</a> shows that a 10% minimum wage increase raises childcare prices 4-8%, compared to 0.4% at grocery stores — because labor is roughly 70% of childcare costs, and there is almost no margin to absorb it. You cannot raise childcare worker wages without making care unaffordable for parents — unless the government structures costs differently, the way the Nordics do.</p>
 
@@ -1495,35 +1360,35 @@
 	<!-- ================================================================ -->
 	<!-- SECTION 3: Closing the gap                                        -->
 	<!-- ================================================================ -->
-	<details class="cc-details" open>
+	<details class="details-section cc-details" open>
 		<summary style="font-size: 21px;">Closing the gap</summary>
 
 		<p>The US childcare gap is not inevitable. It is the product of political choices, and political choices can be reversed. No US jurisdiction has yet built a system comparable to what the Nordic countries have. But a few are trying — and what they have built so far reveals what it takes.</p>
 
-		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 calc(1.75rem + 6px);">
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(2rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">Breaking the cycle: a full system and a few early attempts</h3>
+		<hr class="article-divider">
+		<h3 class="article-heading">Breaking the cycle: a full system and a few early attempts</h3>
 
 		<p>Building a childcare system requires solving several problems at once: funding, physical infrastructure, workforce, and political durability. Finland solved all of them over a century. The US examples below have each solved one piece of the puzzle. None has yet assembled the full system.</p>
 
 		<p><img src="files/childcare-images/flags/fi.png" width="32" height="20" alt="Flag of Finland" style="vertical-align: -4px; margin-right: 4px; border: 0.75px solid #ccc; border-radius: 1px;"><strong>Finland</strong> shows what a complete system looks like. Public childcare runs from the end of parental leave until school begins. The alternative is a home care allowance of roughly $4,500 a year, paid directly to the parent. Both options are supported by the state. The system was <a href="https://jacobin.com/2021/10/finland-public-universal-childcare-day-care-early-education" target="_blank" rel="noopener">built over a century</a>: first kindergarten in 1888, the Day Care Act in 1973, university-educated staff required by 1995. Staff ratios are one adult per four children, among the lowest in the OECD.</p>
 
-		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 1.5rem 0 calc(1.5rem + 6px);">
+		<hr class="article-divider article-divider-compact">
 
 		<p><img src="files/childcare-images/flags/nyc.png" width="32" height="20" alt="Flag of New York City" style="vertical-align: -4px; margin-right: 4px; border: 0.75px solid #ccc; border-radius: 1px;"><strong>New York City</strong> is solving the infrastructure problem — building the physical system age by age. <a href="https://www.schools.nyc.gov/enrollment/enroll-grade-by-grade/pre-k" target="_blank" rel="noopener">Pre-K for All</a> made public preschool available to every four-year-old starting in 2014. 3-K extended that to three-year-olds. In January 2026, the city launched a <a href="https://www.nyc.gov/mayors-office/news/2025/12/mayor-adams--chancellor-aviles-ramos-announce-open-enrollment-fo" target="_blank" rel="noopener">Birth-to-2 pilot</a> offering free full-day care for infants and toddlers at 15 sites across the city, with no income requirements. A week later, Mayor Mamdani and Governor Hochul <a href="https://www.chalkbeat.org/newyork/2026/01/08/hochul-and-mamdani-announce-state-funding-for-nyc-2-care-universal-child-care/" target="_blank" rel="noopener">announced 2-Care</a>, a plan to make care for all two-year-olds free by the end of the decade, with $500 million committed for the first two years.</p>
 
 		<p>The ambition is real. So is the problem underneath it: home-based childcare providers have declined sharply, and childcare workers are still paid about $36,500 a year — a lower share of the typical wage than the national average — in a city where public school teachers make more than two and a half times that.</p>
 
-		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 1.5rem 0 calc(1.5rem + 6px);">
+		<hr class="article-divider article-divider-compact">
 
 		<p><img src="files/childcare-images/flags/nm.png" width="32" height="20" alt="Flag of New Mexico" style="vertical-align: -4px; margin-right: 4px; border: 0.75px solid #ccc; border-radius: 1px;"><strong>New Mexico</strong> solved the funding problem — writing permanent revenue into the constitution. In 2022, voters approved a <a href="https://ballotpedia.org/New_Mexico_Constitutional_Amendment_1,_Land_Grant_Permanent_Fund_Distribution_for_Early_Childhood_Education_Amendment_(2022)" target="_blank" rel="noopener">constitutional amendment</a> directing oil royalties from the Land Grant Permanent Fund into early childhood education. In 2025, New Mexico became the first US state to offer <a href="https://www.nmececd.org/universal/" target="_blank" rel="noopener">universal childcare</a>, open to any family regardless of income. By writing the funding into the constitution, the state insulated it from the annual budget fights that have stalled progress everywhere else. The money is structurally protected. The harder question is whether current wage floors and reimbursement rates can recruit the thousands of additional workers the system needs.</p>
 
-		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 1.5rem 0 calc(1.5rem + 6px);">
+		<hr class="article-divider article-divider-compact">
 
 		<p><img src="files/childcare-images/flags/vt.png" width="32" height="20" alt="Flag of Vermont" style="vertical-align: -4px; margin-right: 4px; border: 0.75px solid #ccc; border-radius: 1px;"><strong>Vermont</strong> solved the political problem — building a coalition broad enough to override a veto. In 2023, the legislature passed <a href="https://letsgrowkids.org/vermont-child-care-bill-act-76-educators-families-kids" target="_blank" rel="noopener">Act 76</a>, creating a dedicated 0.44% payroll tax, part of roughly $125 million a year in new childcare funding. The governor vetoed it. The legislature overrode the veto. Subsidy eligibility now reaches families earning up to $175,000, and copays are eliminated for families below $48,000.</p>
 
 		<p>Behind the legislation was a decade of sustained advocacy: a philanthropic organization called Let's Grow Kids raised $70 million, built a statewide coalition including business owners and manufacturers, and then <a href="https://vtdigger.org/2025/11/19/after-a-decade-vermonts-child-care-juggernaut-passes-the-torch/" target="_blank" rel="noopener">deliberately shut itself down</a> once the state took ownership. For the first time since 2018, more childcare programs are opening in Vermont than closing. On the metrics tracked in this report, Vermont is now the closest US state to Nordic levels — funding childcare at 0.55% of GDP with 24.3% enrollment, both the highest of any state.</p>
 		
-		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 1.5rem 0 calc(1.5rem + 6px);">
+		<hr class="article-divider article-divider-compact">
 
 		<p>Across the country, the pattern has been gradual: public preschool for four-year-olds first, then three-year-olds in some places. The federal government funds Head Start and childcare subsidies, but both are limited to lower-income families and reach only a fraction of eligible children. A few places are now pushing further — New Mexico opened universal childcare to all families in 2025, and New York City is piloting free care for infants and toddlers. The chart below shows how far each case has gotten — and how far there is to go.</p>
 
@@ -1533,13 +1398,13 @@
 				<span class="map-category">Closing the gap</span>
 			</div>
 			<div class="chart-body" style="padding: 4px 8px 0 8px;">
-				<svg id="age-coverage-svg" style="width:100%;height:auto;" viewBox="0 0 620 210" preserveAspectRatio="xMidYMid meet"></svg>
+				<svg id="age-coverage-svg" class="chart-svg" viewBox="0 0 620 210" preserveAspectRatio="xMidYMid meet"></svg>
 			</div>
 		</div>
 
-		<hr style="border: none; border-top: 1px solid var(--color-border-light); margin: 2.5rem 0 calc(1.75rem + 6px);">
+		<hr class="article-divider">
 
-		<h3 style="font-size: 17px; font-weight: 600; color: var(--color-text-dark); margin: calc(2rem + 10px) 0 calc(0.75rem + 4px); letter-spacing: 0.02em;">We can build it</h3>
+		<h3 class="article-heading">We can build it</h3>
 
 		<p>The United States has roughly the same GDP per young child as Nordic countries — abundant resources for childcare. The US also has the existing model for public care — thirteen years of free public education, with 90% enrollment. What the US does not have is infrastructure or public funding for kids during their first five years. Young kids are a small slice of each population, so the high-coverage childcare systems in the Nordic countries cost only 1% of GDP above what the US funds now.</p>
 
@@ -1547,7 +1412,7 @@
 
 		<p>The case studies above show that the choice can go differently. Finland built a complete system over a century. New York City is building one age by age. New Mexico wrote the funding into its constitution. Vermont passed a payroll tax over a governor's veto. None of these happened easily. All of them happened because people organized and fought for them.</p>
 
-		<blockquote class="cc-blockquote">
+		<blockquote class="blockquote-accent blockquote-accent-teal">
 			"It's not a matter of my children and your children, but our children — all children."
 			<cite><a href="https://olofpalme.arbark.se/amne/barn/" target="_blank" rel="noopener">Olof Palme</a>, Prime Minister of Sweden</cite>
 		</blockquote>
@@ -1562,7 +1427,7 @@
 	<!-- ================================================================ -->
 	<!-- BACKMATTER                                                        -->
 	<!-- ================================================================ -->
-	<details class="cc-details">
+	<details class="details-section cc-details">
 		<summary style="font-size: 21px;">Notes and to-do list</summary>
 		<p style="font-style: italic; color: var(--color-text-gray);">This is a working draft. The data and methodology section will be restored in the final version. Below is a summary of known issues and planned work.</p>
 		<ul style="font-size: 14px; line-height: 1.6; color: var(--color-text-dark);">
@@ -1581,7 +1446,7 @@
 		</ul>
 	</details>
 
-	<details class="cc-details">
+	<details class="details-section cc-details">
 		<summary style="font-size: 21px;">Sources and Methods</summary>
 		<p>The boundary between early childhood and school varies — by country, by state, by birthday. This report uses ages 0 through 5 and excludes kindergarten to draw a consistent line across countries. The exact figures shift depending on where you draw that line. The gap does not.</p>
 
@@ -4808,7 +4673,7 @@
 				.attr('text-anchor', 'middle')
 				.attr('font-size', 23).attr('font-weight', 'bold')
 				.attr('fill', textMain)
-				.attr('font-family', 'Lato, system-ui, sans-serif')
+				.attr('font-family', 'system-ui, sans-serif')
 				.text('You have a child under 5.');
 
 			g.append('text')
@@ -4816,7 +4681,7 @@
 				.attr('text-anchor', 'middle')
 				.attr('font-size', 22)
 				.attr('fill', textMuted)
-				.attr('font-family', 'Lato, system-ui, sans-serif')
+				.attr('font-family', 'system-ui, sans-serif')
 				.text('What are your options?');
 
 			// ── Connector lines ──
@@ -4847,7 +4712,7 @@
 					.attr('text-anchor', 'middle')
 					.attr('font-size', 22).attr('font-weight', 'bold')
 					.attr('fill', accent)
-					.attr('font-family', 'Lato, system-ui, sans-serif')
+					.attr('font-family', 'system-ui, sans-serif')
 					.text(label);
 			}
 			drawCountryLabel(usX, 'United States', warmAccent);
@@ -4912,14 +4777,14 @@
 					.attr('text-anchor', 'middle')
 					.attr('font-size', 19).attr('font-weight', 'bold')
 					.attr('fill', textMain)
-					.attr('font-family', 'Lato, system-ui, sans-serif')
+					.attr('font-family', 'system-ui, sans-serif')
 					.text(d.title);
 				g.append('text')
 					.attr('x', c.center).attr('y', cardTop + 60)
 					.attr('text-anchor', 'middle')
 					.attr('font-size', 19).attr('font-weight', 'bold')
 					.attr('fill', textMain)
-					.attr('font-family', 'Lato, system-ui, sans-serif')
+					.attr('font-family', 'system-ui, sans-serif')
 					.text(d.title2);
 
 				// Amount (hero number)
@@ -4928,7 +4793,7 @@
 					.attr('text-anchor', 'middle')
 					.attr('font-size', 30).attr('font-weight', 'bold')
 					.attr('fill', accent)
-					.attr('font-family', 'Lato, system-ui, sans-serif')
+					.attr('font-family', 'system-ui, sans-serif')
 					.text(d.amount);
 
 				// Unit
@@ -4937,7 +4802,7 @@
 					.attr('text-anchor', 'middle')
 					.attr('font-size', 16)
 					.attr('fill', textMuted)
-					.attr('font-family', 'Lato, system-ui, sans-serif')
+					.attr('font-family', 'system-ui, sans-serif')
 					.text(d.unit);
 
 				// Context lines
@@ -4949,7 +4814,7 @@
 							.attr('text-anchor', 'middle')
 							.attr('font-size', 16)
 							.attr('fill', dark ? '#b0b0b0' : '#666')
-							.attr('font-family', 'Lato, system-ui, sans-serif')
+							.attr('font-family', 'system-ui, sans-serif')
 							.text(line);
 						ctxY += 22;
 					}
@@ -4964,7 +4829,7 @@
 				.attr('text-anchor', 'middle')
 				.attr('font-size', 16).attr('font-style', 'italic')
 				.attr('fill', textMuted)
-				.attr('font-family', 'Lato, system-ui, sans-serif')
+				.attr('font-family', 'system-ui, sans-serif')
 				.text('or');
 
 			g.append('text')
@@ -4973,7 +4838,7 @@
 				.attr('text-anchor', 'middle')
 				.attr('font-size', 16).attr('font-style', 'italic')
 				.attr('fill', textMuted)
-				.attr('font-family', 'Lato, system-ui, sans-serif')
+				.attr('font-family', 'system-ui, sans-serif')
 				.text('or');
 
 			// ── Divider between US and Finland ──
@@ -4990,7 +4855,7 @@
 				.attr('text-anchor', 'middle')
 				.attr('font-size', 20).attr('font-style', 'italic')
 				.attr('fill', warmAccent)
-				.attr('font-family', 'Lato, system-ui, sans-serif')
+				.attr('font-family', 'system-ui, sans-serif')
 				.text('Both options cost the family.');
 
 			g.append('text')
@@ -4998,7 +4863,7 @@
 				.attr('text-anchor', 'middle')
 				.attr('font-size', 20).attr('font-style', 'italic')
 				.attr('fill', tealAccent)
-				.attr('font-family', 'Lato, system-ui, sans-serif')
+				.attr('font-family', 'system-ui, sans-serif')
 				.text('Both options help the family.');
 		}
 
@@ -5028,14 +4893,14 @@
 				.attr('text-anchor', 'middle')
 				.attr('font-size', 21).attr('font-weight', 'bold')
 				.attr('fill', textMain)
-				.attr('font-family', 'Lato, system-ui, sans-serif')
+				.attr('font-family', 'system-ui, sans-serif')
 				.text('You have a child under 5.');
 			svg.append('text')
 				.attr('x', centerX).attr('y', 44)
 				.attr('text-anchor', 'middle')
 				.attr('font-size', 18)
 				.attr('fill', textMuted)
-				.attr('font-family', 'Lato, system-ui, sans-serif')
+				.attr('font-family', 'system-ui, sans-serif')
 				.text('What are your options?');
 
 			// ── Draw a country section ──
@@ -5046,7 +4911,7 @@
 					.attr('text-anchor', 'middle')
 					.attr('font-size', 20).attr('font-weight', 'bold')
 					.attr('fill', accent)
-					.attr('font-family', 'Lato, system-ui, sans-serif')
+					.attr('font-family', 'system-ui, sans-serif')
 					.text(label);
 
 				// Fork line
@@ -5088,14 +4953,14 @@
 						.attr('text-anchor', 'middle')
 						.attr('font-size', 18).attr('font-weight', 'bold')
 						.attr('fill', textMain)
-						.attr('font-family', 'Lato, system-ui, sans-serif')
+						.attr('font-family', 'system-ui, sans-serif')
 						.text(d.title);
 					svg.append('text')
 						.attr('x', mid).attr('y', cTop + 48)
 						.attr('text-anchor', 'middle')
 						.attr('font-size', 18).attr('font-weight', 'bold')
 						.attr('fill', textMain)
-						.attr('font-family', 'Lato, system-ui, sans-serif')
+						.attr('font-family', 'system-ui, sans-serif')
 						.text(d.title2);
 
 					// Hero amount
@@ -5104,7 +4969,7 @@
 						.attr('text-anchor', 'middle')
 						.attr('font-size', 26).attr('font-weight', 'bold')
 						.attr('fill', accent)
-						.attr('font-family', 'Lato, system-ui, sans-serif')
+						.attr('font-family', 'system-ui, sans-serif')
 						.text(d.amount);
 
 					// Unit
@@ -5113,7 +4978,7 @@
 						.attr('text-anchor', 'middle')
 						.attr('font-size', 14)
 						.attr('fill', textMuted)
-						.attr('font-family', 'Lato, system-ui, sans-serif')
+						.attr('font-family', 'system-ui, sans-serif')
 						.text(d.unit);
 
 					// Context
@@ -5125,7 +4990,7 @@
 								.attr('text-anchor', 'middle')
 								.attr('font-size', 15)
 								.attr('fill', textMuted)
-								.attr('font-family', 'Lato, system-ui, sans-serif')
+								.attr('font-family', 'system-ui, sans-serif')
 								.text(line);
 							ctxY += 20;
 						}
@@ -5139,7 +5004,7 @@
 					.attr('text-anchor', 'middle')
 					.attr('font-size', 14).attr('font-style', 'italic')
 					.attr('fill', textMuted)
-					.attr('font-family', 'Lato, system-ui, sans-serif')
+					.attr('font-family', 'system-ui, sans-serif')
 					.text('or');
 
 				// Bottom label
@@ -5149,7 +5014,7 @@
 					.attr('text-anchor', 'middle')
 					.attr('font-size', 18).attr('font-style', 'italic')
 					.attr('fill', accent)
-					.attr('font-family', 'Lato, system-ui, sans-serif')
+					.attr('font-family', 'system-ui, sans-serif')
 					.text(bottomLabel);
 			}
 
@@ -5277,7 +5142,7 @@
 					.attr('text-anchor', 'middle')
 					.attr('font-size', titleSize)
 					.attr('font-weight', 700)
-					.attr('font-family', 'Lato, sans-serif')
+					.attr('font-family', 'system-ui, sans-serif')
 					.attr('fill', cycle.color)
 					.text(cycle.title);
 
@@ -5331,7 +5196,7 @@
 						.attr('text-anchor', pos.anchor)
 						.attr('dominant-baseline', pos.baseline)
 						.attr('font-size', fontSize)
-						.attr('font-family', 'Lato, sans-serif')
+						.attr('font-family', 'system-ui, sans-serif')
 						.attr('fill', textColor);
 					if (lines.length === 1) {
 						t.text(lines[0]);
@@ -5481,7 +5346,7 @@ var mobile = containerEl.clientWidth < 500;
 				var titleEl = svg.append('text')
 					.attr('x', 6).attr('y', 22)
 					.attr('font-size', 18).attr('font-weight', 700)
-					.attr('font-family', 'Lato, sans-serif')
+					.attr('font-family', 'system-ui, sans-serif')
 					.attr('fill', tc);
 				titleEl.append('tspan').text('Universal public childcare programs,');
 				titleEl.append('tspan').attr('x', 6).attr('dy', '1.2em').text('selected cases');
@@ -5489,7 +5354,7 @@ var mobile = containerEl.clientWidth < 500;
 				svg.append('text')
 					.attr('x', margin.left - 94).attr('y', 28)
 					.attr('font-size', 20).attr('font-weight', 700)
-					.attr('font-family', 'Lato, sans-serif')
+					.attr('font-family', 'system-ui, sans-serif')
 					.attr('fill', tc)
 					.text('Universal public childcare programs, selected cases');
 			}
@@ -5500,7 +5365,7 @@ var mobile = containerEl.clientWidth < 500;
 				svg.append('text')
 					.attr('x', cx).attr('y', margin.top - 10)
 					.attr('text-anchor', 'middle')
-					.attr('font-family', 'Lato, sans-serif')
+					.attr('font-family', 'system-ui, sans-serif')
 					.attr('font-size', mobile ? 14 : 15)
 					.attr('fill', mc)
 					.text('Age ' + c);
@@ -5533,7 +5398,7 @@ var mobile = containerEl.clientWidth < 500;
 				svg.append('text')
 					.attr('x', labelX).attr('y', ry + cellH / 2 - 12)
 					.attr('text-anchor', 'end').attr('dominant-baseline', 'middle')
-					.attr('font-family', 'Lato, sans-serif')
+					.attr('font-family', 'system-ui, sans-serif')
 					.attr('font-size', 14).attr('font-weight', 600)
 					.attr('fill', tc).text(rowLabel);
 				drawFlag(svg, row.label, labelX - flagW, ry + cellH / 2 - 4, flagW, flagH, dark);
@@ -5570,7 +5435,7 @@ var mobile = containerEl.clientWidth < 500;
 						var cellText = svg.append('text')
 							.attr('x', cx + cellW / 2).attr('y', ry + cellH / 2 + (cellLines ? -6 : 1))
 							.attr('text-anchor', 'middle').attr('dominant-baseline', 'middle')
-							.attr('font-family', 'Lato, sans-serif')
+							.attr('font-family', 'system-ui, sans-serif')
 							.attr('font-size', mobile ? 11 : (cellLines ? 13 : 14))
 							.attr('fill', labelColor);
 						if (cellLines) {
@@ -5591,7 +5456,7 @@ var mobile = containerEl.clientWidth < 500;
 					var noteText = mobile ? '+ child benefit at every age' : row.note;
 					svg.append('text')
 						.attr('x', margin.left + 2).attr('y', ry + cellH + noteExtra / 2 + 7)
-						.attr('font-family', 'Lato, sans-serif')
+						.attr('font-family', 'system-ui, sans-serif')
 						.attr('font-size', mobile ? 12 : 13).attr('font-style', 'italic')
 						.attr('fill', mc).text(noteText);
 				}
@@ -5618,7 +5483,7 @@ var mobile = containerEl.clientWidth < 500;
 			var lx = mobile ? 12 : margin.left + 32;
 			svg.append('text').attr('x', lx).attr('y', legendY)
 				.attr('dominant-baseline', 'middle')
-				.attr('font-family', 'Lato, sans-serif')
+				.attr('font-family', 'system-ui, sans-serif')
 				.attr('font-size', mobile ? 13 : 14).attr('font-weight', 600)
 				.attr('fill', mc)
 				.text('Status:');
@@ -5630,7 +5495,7 @@ var mobile = containerEl.clientWidth < 500;
 					.attr('stroke-width', item.sw).attr('stroke-dasharray', item.dash);
 				svg.append('text').attr('x', lx + 18).attr('y', legendY)
 					.attr('dominant-baseline', 'middle')
-					.attr('font-family', 'Lato, sans-serif')
+					.attr('font-family', 'system-ui, sans-serif')
 					.attr('font-size', mobile ? 13 : 14).attr('fill', mc)
 					.text(item.label);
 				lx += item.label.length * (mobile ? 6.5 : 8.5) + (mobile ? 30 : 30);
