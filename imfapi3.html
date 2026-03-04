@@ -111,7 +111,7 @@
 		<ul class="ul_nav" id="menu">
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
-			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
+			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <i class="fa fa-external-link" aria-hidden="true" style="font-size: 0.7em"></i></a> </li>
 			<li><a href="python.html" class="active" aria-current="page">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
 					<li><a href="imfapi1.html">IMF API</a></li>
@@ -142,53 +142,56 @@
 	</header>
 	<main id="main">
 	<section>
-	<article class="article_links">
+	<article class="card-grid">
 	<a href="imfapi1.html">
-	<div class="card_dull">
-	  <div class="card-banner-wrap accent-blue">
-	    <img src="images/imf_banner1.png" alt="IMF API tutorial Part 1" class="card_banner" width="425" height="68">
+	<div class="nav-card-muted accent-blue">
+
+		<div class="nav-card-banner">
+	    <img src="images/imf_banner1.png" alt="IMF API tutorial Part 1" width="425" height="68">
 	  </div>
-	  <div class="card-head accent-blue">
+	  <div class="nav-card-head">
 		<h3>Part 1</h3>
 	  </div>
-	  <div class="card_tail">
+	  <div class="nav-card-body">
 		<p>A <strong>basic example</strong> of retrieving CPI inflation data using the sdmx1 library, converting to pandas, and plotting results.</p>
 	  </div>
 	</div>
 	</a>
 	<a href="imfapi2.html">
-	<div class="card_dull">
-	  <div class="card-banner-wrap accent-blue">
-	    <img src="images/imf_banner.png" alt="IMF API tutorial Part 2" class="card_banner" width="293" height="68">
+	<div class="nav-card-muted accent-blue">
+
+		<div class="nav-card-banner">
+	    <img src="images/imf_banner.png" alt="IMF API tutorial Part 2" width="293" height="68">
 	  </div>
-	  <div class="card-head accent-blue">
+	  <div class="nav-card-head">
 		<h3>Part 2</h3>
 	  </div>
-	  <div class="card_tail">
+	  <div class="nav-card-body">
 		<p>How to <strong>find datasets and parameters</strong> using dataflow and codelist methods, plus <strong>direct API access</strong> with requests.</p>
 	  </div>
 	</div>
 	</a>
 	<a href="imfapi3.html">
-	<div class="card">
-	  <div class="card-banner-wrap accent-blue">
-	    <img src="images/imf_banner2.png" alt="IMF API tutorial Part 3" class="card_banner" width="350" height="68">
+	<div class="nav-card accent-blue">
+
+		<div class="nav-card-banner">
+	    <img src="images/imf_banner2.png" alt="IMF API tutorial Part 3" width="350" height="68">
 	  </div>
-	  <div class="card-head accent-blue">
+	  <div class="nav-card-head">
 		<h3>Part 3</h3>
 	  </div>
-	  <div class="card_tail">
+	  <div class="nav-card-body">
 		<p>Practical examples: <strong>WEO forecasts, commodity prices</strong>, ECB bond yields, and <strong>bulk downloads</strong> with requests.</p>
 	  </div>
 	</div>
 	</a>
 	</article>
 	<article class="article_code prose">
-	<p class="subtitle">IMF API with Python: Practical Examples</p>
+	<h2>IMF API with Python: Practical Examples</h2>
 	<p>Parts 1 and 2 covered the basics of retrieving data and discovering datasets. Here we apply both&mdash;combining the discovery tools from Part 2 with practical workflows&mdash;to work through three examples: economic forecasts, commodity prices, and data from providers beyond the IMF.</p>
 
 	<hr class="section-bar accent-blue">
-	<h2 class="section-title">Economic Forecasts (WEO)</h2>
+	<h3>Economic Forecasts (WEO)</h3>
 	<p>The World Economic Outlook (WEO) dataset contains IMF projections for over 40 indicators&mdash;GDP, inflation, unemployment, government debt, current account, and more&mdash;covering nearly every country. Data includes historical values and forecasts several years forward.</p>
 	<p>In[1]:</p>
 	<pre><code class="python">import sdmx
@@ -250,7 +253,7 @@ ax.set_xlabel('Source: IMF World Economic Outlook')</code></pre>
 	<p>Vietnam has sustained higher growth rates over most of this period, with both countries hit hard by COVID-19 in 2020&ndash;2021. Other popular WEO indicators include <code>PCPIPCH</code> (CPI inflation), <code>LUR</code> (unemployment rate), and <code>GGXWDG_NGDP</code> (government debt as % of GDP).</p>
 	<p>Note that the SDMX API only serves the <strong>latest WEO edition</strong>. The IMF publishes the WEO twice a year (April and October), but older editions are not available through the API&mdash;the dataflow is overwritten each cycle. To access archived WEO vintages (back to 2007), download them from the <a href="https://www.imf.org/en/Publications/SPROLLs/world-economic-outlook-databases">WEO Database page</a> or use a package like <a href="https://pypi.org/project/weo/">weo</a>.</p>
 
-	<h3>Distinguishing Forecasts from Actuals</h3>
+	<h4>Distinguishing Forecasts from Actuals</h4>
 	<p>WEO data mixes historical values and projections, but the API does not flag which is which in the main data response. To find the boundary, request the <code>LATEST_ACTUAL_ANNUAL_DATA</code> attribute. This returns the last year of actual data for each country&ndash;indicator pair; any year after that is a forecast.</p>
 	<p>In[5a]:</p>
 	<pre><code class="python">import requests
@@ -297,7 +300,7 @@ print(f"USA NGDP_RPCH: actuals through "
 	<p>To explore how WEO forecasts have evolved across editions, see the <a href="imfweo.html">WEO Forecast Tracker</a>.</p>
 
 	<hr class="section-bar accent-blue">
-	<h2 class="section-title">Commodity Prices (PCPS)</h2>
+	<h3>Commodity Prices (PCPS)</h3>
 	<p>The Primary Commodity Price System (PCPS) dataset tracks world benchmark prices for over 100 commodities. Let's explore its structure and search for metals:</p>
 	<p>In[5]:</p>
 	<pre><code class="python"># Explore PCPS structure
@@ -352,7 +355,7 @@ ax1.legend(lines, [l.get_label() for l in lines],
 	<p>Both metals track global industrial activity, but copper's sharper swings reflect its role as a leading economic indicator. Other key commodity codes include <code>PGOLD</code> (gold), <code>POILAPSP</code> (crude oil), <code>PNGAS</code> (natural gas), and <code>PWHEAMT</code> (wheat). Use the codelist methods from Part 2 to browse the full list.</p>
 
 	<hr class="section-bar accent-blue">
-	<h2 class="section-title">Beyond the IMF</h2>
+	<h3>Beyond the IMF</h3>
 	<p>The sdmx1 library supports over 30 SDMX data providers through the same interface. Here we use the European Central Bank's Interest Rate Statistics (IRS) dataset to fetch 10-year government bond yields for four large euro area economies:</p>
 	<p>In[8]:</p>
 	<pre><code class="python">ECB = sdmx.Client('ECB')
@@ -394,7 +397,7 @@ ax.set_xlabel('Source: European Central Bank (IRS)')</code></pre>
 	<p>The workflow is always the same: create a <code>Client</code>, use <code>dataflow()</code> to browse datasets, and <code>.data()</code> to fetch observations.</p>
 
 	<hr class="section-bar accent-blue">
-	<h2 class="section-title">Bulk Download with Requests</h2>
+	<h3>Bulk Download with Requests</h3>
 	<p>For larger downloads&mdash;or if you prefer to skip the sdmx1 dependency&mdash;the same API accepts plain HTTP requests. Ask for CSV format and you get a pandas-ready response. As covered in Part 2, the URL follows the pattern <code>https://api.imf.org/external/sdmx/3.0/data/dataflow/{agency}/{dataflow}/{version}/{key}</code>.</p>
 	<p>Here we download the entire WEO dataset from 2020 onward. The wildcard <code>*</code> in the key position requests all countries and indicators:</p>
 	<p>In[11]:</p>
@@ -432,7 +435,7 @@ gdp.sort_index().round(1)</code></pre>
 	<p>This approach downloads about 8 MB and takes a few seconds. It is useful when you want many indicators or countries at once, or when you want to avoid installing sdmx1. The same pattern works for other dataflows&mdash;swap in <code>IMF.STA/CPI</code> for CPI data or <code>IMF.STA/BOP</code> for balance of payments.</p>
 
 	<hr class="section-bar accent-blue">
-	<h2 class="section-title">Key Concepts</h2>
+	<h3>Key Concepts</h3>
 	<ul>
 		<li>The discovery methods from Part 2&mdash;<code>dataflow()</code>, <code>dsd.dimensions</code>, and codelist searches&mdash;are essential for working with new datasets</li>
 		<li>WEO provides IMF forecasts, valuable for projections and scenario analysis</li>
@@ -443,7 +446,7 @@ gdp.sort_index().round(1)</code></pre>
 	</ul>
 
 	<hr class="section-bar accent-blue">
-	<h2 class="section-title">Additional Resources</h2>
+	<h3>Additional Resources</h3>
 	<ul>
 		<li><a href="https://pypi.org/project/sdmx1/">sdmx1 on PyPI</a> &mdash; Installation and basic documentation</li>
 		<li><a href="https://sdmx1.readthedocs.io/">sdmx1 documentation</a> &mdash; Full library reference, including the list of supported providers</li>
@@ -465,7 +468,7 @@ gdp.sort_index().round(1)</code></pre>
 			<a href="https://github.com/bdecon/" aria-label="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
 			<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
 			<a href="https://twitter.com/bd_econ" aria-label="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-			<a href="https://briandew.wordpress.com/" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
+			<a href="https://briandew.wordpress.com/" target="_blank" rel="noopener" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
 		</div>
 	</footer>
 	<script>

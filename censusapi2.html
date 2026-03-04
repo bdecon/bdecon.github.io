@@ -111,7 +111,7 @@
 		<ul class="ul_nav" id="menu">
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
-			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
+			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <i class="fa fa-external-link" aria-hidden="true" style="font-size: 0.7em"></i></a> </li>
 			<li><a href="python.html" class="active" aria-current="page">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
 					<li><a href="imfapi1.html">IMF API</a></li>
@@ -145,44 +145,46 @@
 	</header>
 	<main id="main">
 	<section>
-	<article class="article_links">
+	<article class="card-grid">
 	<a href="censusapi.html">
-	<div class="card_dull">
-	  <div class="card-banner-wrap accent-green">
-	    <img src="images/census_banner.png" alt="Census API tutorial Part 1" class="card_banner" width="207" height="68">
+	<div class="nav-card-muted accent-green">
+
+		<div class="nav-card-banner">
+	    <img src="images/census_banner.png" alt="Census API tutorial Part 1" width="207" height="68">
 	  </div>
-	  <div class="card-head accent-green">
+	  <div class="nav-card-head">
 		<h3>Part 1</h3>
 	  </div>
-	  <div class="card_tail">
+	  <div class="nav-card-body">
 		<p>A <strong>basic example</strong> of retrieving manufacturing data from the M3 survey, processing with pandas, and plotting results.</p>
 	  </div>
 	</div>
 	</a>
 	<a href="censusapi2.html">
-	<div class="card">
-	  <div class="card-banner-wrap accent-green">
-	    <img src="images/census_banner2.png" alt="Census API tutorial Part 2" class="card_banner" width="387" height="68">
+	<div class="nav-card accent-green">
+
+		<div class="nav-card-banner">
+	    <img src="images/census_banner2.png" alt="Census API tutorial Part 2" width="387" height="68">
 	  </div>
-	  <div class="card-head accent-green">
+	  <div class="nav-card-head">
 		<h3>Part 2</h3>
 	  </div>
-	  <div class="card_tail">
+	  <div class="nav-card-body">
 		<p>Retrieve <strong>international trade data</strong> from the Census API to analyze U.S. exports by trading partner.</p>
 	  </div>
 	</div>
 	</a>
 	</article>
 	<article class="article_code prose">
-	<p class="subtitle">Census International Trade API with Python</p>
+	<h2>Census International Trade API with Python</h2>
 	<p>The <a href="https://www.census.gov/data/developers/data-sets/international-trade.html">Census International Trade API</a> provides access to detailed U.S. import and export data by country, commodity, and time period. This tutorial demonstrates how to retrieve export data and identify top U.S. trading partners.</p>
 
 	<hr class="section-bar accent-green">
-	<h2 class="section-title">Background</h2>
-	<h3>International Trade Statistics</h3>
+	<h3>Background</h3>
+	<h4>International Trade Statistics</h4>
 	<p>The Census Bureau collects data on U.S. merchandise trade through customs declarations. The international trade dataset includes monthly statistics on exports and imports by partner country and product category.</p>
 
-	<h3>Key Variables</h3>
+	<h4>Key Variables</h4>
 	<p>The main variables we'll use are:</p>
 	<ul>
 		<li><code>CTY_CODE</code> - Country code identifying the trading partner. Codes 1000-8000 represent individual countries (excluding regional aggregates).</li>
@@ -192,8 +194,8 @@
 	<p>The full list of variables is available in the <a href="https://api.census.gov/data/timeseries/intltrade/exports/hs/variables.html">API documentation</a>.</p>
 
 	<hr class="section-bar accent-green">
-	<h2 class="section-title">Example: Top U.S. Export Partners</h2>
-	<p class="step-label accent-green">Setup</p>
+	<h3>Example: Top U.S. Export Partners</h3>
+	<span class="step-label accent-green">Setup</span>
 	<p>Import the required packages and load your Census API key from a local config file. You can register for a free API key at the <a href="https://api.census.gov/data/key_signup.html">Census Bureau website</a>.</p>
 
 	<p>In[1]:</p>
@@ -204,7 +206,7 @@ import config
 
 key = config.census_key</code></pre>
 
-	<p class="step-label accent-green">Build the API Request</p>
+	<span class="step-label accent-green">Build the API Request</span>
 	<p>Construct the API URL to retrieve export values by country for a specific month. The endpoint <code>intltrade/exports/hs</code> provides Harmonized System trade data.</p>
 
 	<p>In[2]:</p>
@@ -214,7 +216,7 @@ time = '2025-10'
 
 url = f'{base}?get={param}&key={key}&time={time}'</code></pre>
 
-	<p class="step-label accent-green">Request Data from the API</p>
+	<span class="step-label accent-green">Request Data from the API</span>
 	<p>Make the request and check that it was successful before parsing the JSON response.</p>
 
 	<p>In[3]:</p>
@@ -234,7 +236,7 @@ else:
  ['0001', 'OPEC', '5765070418', '2025-10'],
  ['0003', 'PACIFIC RIM', '35817684498', '2025-10']]</pre>
 
-	<p class="step-label accent-green">Process the Data</p>
+	<span class="step-label accent-green">Process the Data</span>
 	<p>Convert to a DataFrame, filter to individual countries (codes 1000-8000), and convert values to numeric billions.</p>
 
 	<p>In[5]:</p>
@@ -248,7 +250,7 @@ df = df[(df['CTY_CODE'] >= 1000) & (df['CTY_CODE'] < 8000)]
 # Convert to billions
 df['ALL_VAL_MO'] = df['ALL_VAL_MO'].astype(float) / 1e9</code></pre>
 
-	<p class="step-label accent-green">Select Top Partners</p>
+	<span class="step-label accent-green">Select Top Partners</span>
 	<p>Sort by export value and select the top 20 trading partners.</p>
 
 	<p>In[6]:</p>
@@ -256,7 +258,7 @@ df['ALL_VAL_MO'] = df['ALL_VAL_MO'].astype(float) / 1e9</code></pre>
            .tail(20)
            .set_index('CTY_NAME')['ALL_VAL_MO'])</code></pre>
 
-	<p class="step-label accent-green">Create the Visualization</p>
+	<span class="step-label accent-green">Create the Visualization</span>
 	<p>Plot a horizontal bar chart showing the top export destinations.</p>
 
 	<p>In[7]:</p>
@@ -278,7 +280,7 @@ plt.show()</code></pre>
 	<img src="images/census_example2.png" alt="Top 20 U.S. Export Partners" loading="lazy" width="528" height="595"/>
 
 	<hr class="section-bar accent-green">
-	<h2 class="section-title">Additional Resources</h2>
+	<h3>Additional Resources</h3>
 	<ul>
 		<li><a href="https://www.census.gov/data/developers/data-sets/international-trade.html">Census International Trade API</a> - Main documentation</li>
 		<li><a href="https://api.census.gov/data/timeseries/intltrade/exports/hs/variables.html">API Variables</a> - Full list of available fields</li>
@@ -300,7 +302,7 @@ plt.show()</code></pre>
 			<a href="https://github.com/bdecon/" aria-label="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
 			<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
 			<a href="https://twitter.com/bd_econ" aria-label="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-			<a href="https://briandew.wordpress.com/" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
+			<a href="https://briandew.wordpress.com/" target="_blank" rel="noopener" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
 		</div>
 	</footer>
 	<script>

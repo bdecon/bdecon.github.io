@@ -139,6 +139,9 @@
 		height: 100%;
 		transform: rotateY(180deg);
 	}
+	.chart-flip-wrapper .chart-container {
+		margin: 0;
+	}
 	.chart-flip-back .chart-container {
 		display: flex;
 		flex-direction: column;
@@ -278,27 +281,12 @@
 		fill: var(--color-text-subtle);
 		opacity: 0.5;
 	}
-	.chart-flip-front .chart-header {
-		padding: 10px 10px 8px 10px;
-	}
 	.chart-header button {
 		font-size: 15px;
 		padding: 2px 4px;
 	}
-	.chart-flip-front .chart-header h4 {
-		font-size: 18px;
-	}
 	.chart-flip-front .chart-header button {
 		font-size: 16px;
-	}
-	.chart-flip-back .chart-header h4 {
-		font-size: 14px;
-	}
-	.chart-subtitle {
-		margin-bottom: 4px;
-	}
-	.chart-body {
-		padding: 4px 10px 6px 10px;
 	}
 	.chart-flip-front .chart-container {
 		border-bottom: 6px solid var(--chart-color, var(--color-card-blue));
@@ -353,7 +341,7 @@
 			z-index: 1;
 		}
 		/* Lift header content above the refractor overlay */
-		.chart-header.refractor h4,
+		.chart-header.refractor .chart-title,
 		.chart-header.refractor button {
 			position: relative;
 			z-index: 2;
@@ -372,7 +360,7 @@
 		.flipped .chart-header.refractor {
 			overflow: visible;
 		}
-		.flipped .chart-header.refractor h4,
+		.flipped .chart-header.refractor .chart-title,
 		.flipped .chart-header.refractor button {
 			position: static;
 			z-index: auto;
@@ -417,17 +405,21 @@
 		border-color: var(--color-card-blue);
 	}
 	.chart-filter {
-		font-size: 10px;
+		display: block;
+		font-size: 12px;
 		color: var(--color-axis-text);
 		margin: 0;
 		visibility: hidden;
 	}
-	.chart-filter a {
+	.chart-filter button {
+		background: none;
+		border: none;
+		padding: 0;
+		font: inherit;
 		color: var(--color-link);
-		text-decoration: none;
 		cursor: pointer;
 	}
-	.chart-filter a:hover {
+	.chart-filter button:hover {
 		text-decoration: underline;
 	}
 	.chart-legend {
@@ -623,10 +615,6 @@
 		to { transform: rotate(360deg); }
 	}
 	/* Fade transition for chart swaps */
-	.chart-flip-front .chart-source,
-	.chart-flip-front .chart-filter {
-		font-size: 11px;
-	}
 	.chart-flip-front .chart-body {
 		transition: opacity 0.15s ease;
 	}
@@ -656,7 +644,7 @@
 		<ul class="ul_nav" id="menu">
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
-			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
+			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <i class="fa fa-external-link" aria-hidden="true" style="font-size: 0.7em"></i></a> </li>
 			<li><a href="python.html">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
 					<li><a href="imfapi1.html">IMF API</a></li>
@@ -697,7 +685,7 @@
 	</svg>
 	<section>
 	<article class="prose">
-	<noscript><p style="background:#fff3cd;padding:10px;border-radius:4px;font-size:14px;">This page requires JavaScript to display interactive charts.</p></noscript>
+	<noscript><p class="noscript-warning">This page requires JavaScript to display interactive charts.</p></noscript>
 	<p>Browse 20 interactive charts covering the US economy across seven categories: output, labor, prices, trade, monetary policy, government, and business. Tap the info button on each chart for descriptions, historical data, and a downloadable CSV. Use the dropdown or arrow keys to navigate.</p>
 	<p>For a broader view, see the <a href="chartbook.html">US Chartbook</a> with 120+ charts.</p>
 	</article>
@@ -714,25 +702,25 @@
 					<div class="chart-container chart-compact">
 						<div class="chart-loading" id="chart-loading"><div class="chart-loading-spinner"></div></div>
 						<div class="chart-header accent-blue">
-							<h4><span id="chart-title">M2 Money Supply / GDP</span> <span class="card-category-badge" id="card-category-front"></span></h4>
+							<span class="chart-title"><span id="chart-title">M2 Money Supply / GDP</span> <span class="card-category-badge" id="card-category-front"></span></span>
 							<button id="chart-info" title="About this indicator" aria-label="About this indicator"><i class="fa fa-info-circle"></i></button>
 						</div>
 						<div class="chart-body">
-							<p class="chart-subtitle" id="chart-subtitle">index, 1988=1</p>
+							<span class="chart-subtitle" id="chart-subtitle">index, 1988=1</span>
 							<div class="chart-legend" id="chart-legend"></div>
 							<canvas id="lineChart" role="img" aria-label="Line chart showing selected US economic indicator over time"></canvas>
 							<p class="chart-latest-mobile" id="chart-latest-mobile"></p>
 						</div>
 						<div class="chart-footer">
-							<p class="chart-filter" id="chart-filter"><a onclick="toggleTimeRange()">Recent 3 years</a></p>
-<p class="chart-source" id="chart-source">Source: Federal Reserve, BEA</p>
+							<span class="chart-filter" id="chart-filter"><button type="button" onclick="toggleTimeRange()">Recent 3 years</button></span>
+<span class="chart-source" id="chart-source">Source: Federal Reserve, BEA</span>
 						</div>
 					</div>
 				</div>
 				<div class="chart-flip-back" aria-hidden="true">
 					<div class="chart-container chart-compact">
 						<div class="chart-header accent-blue">
-							<h4><span id="chart-title-back"></span> <span class="card-category-badge" id="card-category"></span></h4>
+							<span class="chart-title"><span id="chart-title-back"></span> <span class="card-category-badge" id="card-category"></span></span>
 							<button id="chart-back-btn" title="Back to chart" aria-label="Back to chart"><i class="fa fa-arrow-left"></i></button>
 						</div>
 						<div class="chart-body chart-back-body">
@@ -747,7 +735,7 @@
 								<span class="featured-badge" id="featured-badge">Featured</span>
 							</span>
 							<a id="chart-download" href="files/m2gdp.csv" class="chart-download-link" download><i class="fa fa-download"></i> Download (.csv)</a>
-							<p class="chart-source" id="chart-source-back"></p>
+							<span class="chart-source" id="chart-source-back"></span>
 						</div>
 					</div>
 				</div>
@@ -766,7 +754,7 @@
 			<a href="https://github.com/bdecon/" aria-label="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
 			<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
 			<a href="https://twitter.com/bd_econ" aria-label="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-			<a href="https://briandew.wordpress.com/" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
+			<a href="https://briandew.wordpress.com/" target="_blank" rel="noopener" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
 		</div>
 	</footer>
 	<script>
@@ -1371,7 +1359,7 @@
 		function toggleTimeRange() {
 			if (!chart || !fullData) return;
 
-			const filterLink = document.getElementById('chart-filter').querySelector('a');
+			const filterLink = document.getElementById('chart-filter').querySelector('button');
 			const dateFormat = currentConfig?.dateFormat || 'quarterly';
 			const isMultiSeries = currentConfig?.series && currentConfig.series.length > 1;
 
@@ -1834,7 +1822,7 @@
 				const filterEl = document.getElementById('chart-filter');
 				if (config.timeSeries !== false) {
 					filterEl.style.visibility = 'visible';
-					filterEl.querySelector('a').textContent = 'Recent 3 years';
+					filterEl.querySelector('button').textContent = 'Recent 3 years';
 				} else {
 					filterEl.style.visibility = 'hidden';
 				}

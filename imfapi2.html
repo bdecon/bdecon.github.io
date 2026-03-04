@@ -111,7 +111,7 @@
 		<ul class="ul_nav" id="menu">
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
-			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
+			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <i class="fa fa-external-link" aria-hidden="true" style="font-size: 0.7em"></i></a> </li>
 			<li><a href="python.html" class="active" aria-current="page">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
 					<li><a href="imfapi1.html">IMF API</a></li>
@@ -142,53 +142,56 @@
 	</header>
 	<main id="main">
 	<section>
-	<article class="article_links">
+	<article class="card-grid">
 	<a href="imfapi1.html">
-	<div class="card_dull">
-	  <div class="card-banner-wrap accent-blue">
-	    <img src="images/imf_banner1.png" alt="IMF API tutorial Part 1" class="card_banner" width="425" height="68">
+	<div class="nav-card-muted accent-blue">
+
+		<div class="nav-card-banner">
+	    <img src="images/imf_banner1.png" alt="IMF API tutorial Part 1" width="425" height="68">
 	  </div>
-	  <div class="card-head accent-blue">
+	  <div class="nav-card-head">
 		<h3>Part 1</h3>
 	  </div>
-	  <div class="card_tail">
+	  <div class="nav-card-body">
 		<p>A <strong>basic example</strong> of retrieving CPI inflation data using the sdmx1 library, converting to pandas, and plotting results.</p>
 	  </div>
 	</div>
 	</a>
 	<a href="imfapi2.html">
-	<div class="card">
-	  <div class="card-banner-wrap accent-blue">
-	    <img src="images/imf_banner.png" alt="IMF API tutorial Part 2" class="card_banner" width="293" height="68">
+	<div class="nav-card accent-blue">
+
+		<div class="nav-card-banner">
+	    <img src="images/imf_banner.png" alt="IMF API tutorial Part 2" width="293" height="68">
 	  </div>
-	  <div class="card-head accent-blue">
+	  <div class="nav-card-head">
 		<h3>Part 2</h3>
 	  </div>
-	  <div class="card_tail">
+	  <div class="nav-card-body">
 		<p>How to <strong>find datasets and parameters</strong> using dataflow and codelist methods, plus <strong>direct API access</strong> with requests.</p>
 	  </div>
 	</div>
 	</a>
 	<a href="imfapi3.html">
-	<div class="card_dull">
-	  <div class="card-banner-wrap accent-blue">
-	    <img src="images/imf_banner2.png" alt="IMF API tutorial Part 3" class="card_banner" width="350" height="68">
+	<div class="nav-card-muted accent-blue">
+
+		<div class="nav-card-banner">
+	    <img src="images/imf_banner2.png" alt="IMF API tutorial Part 3" width="350" height="68">
 	  </div>
-	  <div class="card-head accent-blue">
+	  <div class="nav-card-head">
 		<h3>Part 3</h3>
 	  </div>
-	  <div class="card_tail">
+	  <div class="nav-card-body">
 		<p>Practical examples: <strong>WEO forecasts, commodity prices</strong>, ECB bond yields, and <strong>bulk downloads</strong> with requests.</p>
 	  </div>
 	</div>
 	</a>
 	</article>
 	<article class="article_code prose">
-	<p class="subtitle">IMF API with Python: Finding Datasets and Parameters</p>
+	<h2>IMF API with Python: Finding Datasets and Parameters</h2>
 	<p>Part 1 showed a basic example of retrieving data. Here in Part 2, we explore how to discover available datasets and find the correct parameter codes using the sdmx1 library's <code>dataflow()</code> and <code>codelist</code> methods.</p>
 
 	<hr class="section-bar accent-blue">
-	<h2 class="section-title">Searching for Datasets</h2>
+	<h3>Searching for Datasets</h3>
 	<p>The <code>dataflow()</code> method returns information about all available datasets. We can search through these to find datasets of interest:</p>
 	<p>In[1]:</p>
 	<pre><code class="python">import sdmx
@@ -211,7 +214,7 @@ f = IMF_DATA.dataflow()
 	<p>The dictionary comprehension filters datasets whose English name contains "Trade". Each result shows the dataset ID (e.g., <code>IMTS</code>) and a description.</p>
 
 	<hr class="section-bar accent-blue">
-	<h2 class="section-title">Getting Dataset Structure</h2>
+	<h3>Getting Dataset Structure</h3>
 	<p>Once you identify a dataset, retrieve its structure to find the available dimensions. The dimensions determine how you construct the key for your data request:</p>
 	<p>In[2]:</p>
 	<pre><code class="python"># Get metadata for 'IMTS'
@@ -227,7 +230,7 @@ dsd.dimensions.components</code></pre>
 	<p>This tells us the IMTS dataset has four dimensions plus time: country, indicator, counterpart country (trading partner), and frequency. The key string must specify values for each dimension in this order.</p>
 
 	<hr class="section-bar accent-blue">
-	<h2 class="section-title">Finding Dimension Codes</h2>
+	<h3>Finding Dimension Codes</h3>
 	<p>Use the <code>codelist</code> attribute to find valid codes for each dimension. Here we look up available indicators:</p>
 	<p>In[3]:</p>
 	<pre><code class="python"># Indicator codes
@@ -252,7 +255,7 @@ G001    World
 Name: International Trade in Goods (by partner country) (IMTS) Country, dtype: object</pre>
 
 	<hr class="section-bar accent-blue">
-	<h2 class="section-title">Advanced Example: UK Imports from the EU</h2>
+	<h3>Advanced Example: UK Imports from the EU</h3>
 	<p>Using what we've learned, let's calculate the European Union's share of UK goods imports over time. The key <code>GBR.MG_CIF_USD.G001+G998.M</code> requests UK imports from both World (<code>G001</code>) and EU (<code>G998</code>) at monthly frequency:</p>
 	<p>In[5]:</p>
 	<pre><code class="python"># Retrieve data: UK imports from World (G001) and EU (G998)
@@ -277,7 +280,7 @@ ax = ax.set_xlabel(recent)</code></pre>
 	<img src="images/uk_imports_eu_share.png" alt="UK Imports EU Share" loading="lazy" width="569" height="454"/>
 
 	<hr class="section-bar accent-blue">
-	<h2 class="section-title">Tips</h2>
+	<h3>Tips</h3>
 	<p>A few patterns that make working with the API more efficient:</p>
 	<ul>
 		<li><strong>Wildcards</strong>: Leave a key position empty to request all values for that dimension. For example, <code>USA.CPI._T.IX.</code> (trailing dot, no frequency) returns annual, quarterly, and monthly data.</li>
@@ -286,7 +289,7 @@ ax = ax.set_xlabel(recent)</code></pre>
 	</ul>
 
 	<hr class="section-bar accent-blue">
-	<h2 class="section-title">Direct API Access with Requests</h2>
+	<h3>Direct API Access with Requests</h3>
 	<p>The sdmx1 library is a convenience wrapper around standard HTTP calls. If you prefer to avoid the dependency&mdash;or want to understand what's happening underneath&mdash;you can query the same API directly with <code>requests</code>. Ask for CSV format and you get a pandas-ready response:</p>
 	<p>In[7]:</p>
 	<pre><code class="python">import requests
@@ -339,7 +342,7 @@ inflation.tail(4)</code></pre>
 	<p>Part 3 covers practical examples with popular datasets including economic forecasts, commodity prices, and accessing data from other providers.</p>
 
 	<hr class="section-bar accent-blue">
-	<h2 class="section-title">Additional Resources</h2>
+	<h3>Additional Resources</h3>
 	<ul>
 		<li><a href="https://pypi.org/project/sdmx1/">sdmx1 on PyPI</a> - Installation and basic documentation</li>
 		<li><a href="https://sdmx1.readthedocs.io/">sdmx1 documentation</a> - Full library reference</li>
@@ -361,7 +364,7 @@ inflation.tail(4)</code></pre>
 			<a href="https://github.com/bdecon/" aria-label="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
 			<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
 			<a href="https://twitter.com/bd_econ" aria-label="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-			<a href="https://briandew.wordpress.com/" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
+			<a href="https://briandew.wordpress.com/" target="_blank" rel="noopener" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
 		</div>
 	</footer>
 	<script>

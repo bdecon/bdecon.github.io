@@ -105,7 +105,7 @@
 		<ul class="ul_nav" id="menu">
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
-			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
+			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <i class="fa fa-external-link" aria-hidden="true" style="font-size: 0.7em"></i></a> </li>
 			<li><a href="python.html" class="active" aria-current="page">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
 					<li><a href="imfapi1.html">IMF API</a></li>
@@ -136,67 +136,70 @@
 	</header>
 	<main id="main">
 	<section>
-	<article class="article_links">
+	<article class="card-grid">
 	<a href="imfapi1.html">
-	<div class="card">
-	  <div class="card-banner-wrap accent-blue">
-	    <img src="images/imf_banner1.png" alt="IMF API tutorial Part 1" class="card_banner" width="425" height="68">
+	<div class="nav-card accent-blue">
+
+		<div class="nav-card-banner">
+	    <img src="images/imf_banner1.png" alt="IMF API tutorial Part 1" width="425" height="68">
 	  </div>
-	  <div class="card-head accent-blue">
+	  <div class="nav-card-head">
 		<h3>Part 1</h3>
 	  </div>
-	  <div class="card_tail">
+	  <div class="nav-card-body">
 		<p>A <strong>basic example</strong> of retrieving CPI inflation data using the sdmx1 library, converting to pandas, and plotting results.</p>
 	  </div>
 	</div>
 	</a>
 	<a href="imfapi2.html">
-	<div class="card_dull">
-	  <div class="card-banner-wrap accent-blue">
-	    <img src="images/imf_banner.png" alt="IMF API tutorial Part 2" class="card_banner" width="293" height="68">
+	<div class="nav-card-muted accent-blue">
+
+		<div class="nav-card-banner">
+	    <img src="images/imf_banner.png" alt="IMF API tutorial Part 2" width="293" height="68">
 	  </div>
-	  <div class="card-head accent-blue">
+	  <div class="nav-card-head">
 		<h3>Part 2</h3>
 	  </div>
-	  <div class="card_tail">
+	  <div class="nav-card-body">
 		<p>How to <strong>find datasets and parameters</strong> using dataflow and codelist methods, plus <strong>direct API access</strong> with requests.</p>
 	  </div>
 	</div>
 	</a>
 	<a href="imfapi3.html">
-	<div class="card_dull">
-	  <div class="card-banner-wrap accent-blue">
-	    <img src="images/imf_banner2.png" alt="IMF API tutorial Part 3" class="card_banner" width="350" height="68">
+	<div class="nav-card-muted accent-blue">
+
+		<div class="nav-card-banner">
+	    <img src="images/imf_banner2.png" alt="IMF API tutorial Part 3" width="350" height="68">
 	  </div>
-	  <div class="card-head accent-blue">
+	  <div class="nav-card-head">
 		<h3>Part 3</h3>
 	  </div>
-	  <div class="card_tail">
+	  <div class="nav-card-body">
 		<p>Practical examples: <strong>WEO forecasts, commodity prices</strong>, ECB bond yields, and <strong>bulk downloads</strong> with requests.</p>
 	  </div>
 	</div>
 	</a>
 	</article>
 	<article class="article_code prose">
-	<p class="subtitle">IMF API with Python: A Basic Example</p>
+	<h2>IMF API with Python: A Basic Example</h2>
 	<p>The <a href="https://data.imf.org/">IMF's data portal</a> provides access to macroeconomic data covering more than 180 countries. Using Python's <a href="https://pypi.org/project/sdmx1/">sdmx1 library</a>, it is straightforward to retrieve data through the IMF's SDMX API.</p>
 
 	<p>The example below retrieves monthly Consumer Price Index (CPI) data for Brazil, Chile, and Colombia, calculates year-over-year inflation rates, and plots the results. This demonstrates the core workflow: connecting to the API, building a request key, fetching data, and converting it to a pandas DataFrame for analysis.</p>
 
 	<hr class="section-bar accent-blue">
-	<h2 class="section-title">Setup</h2>
+	<h3>Setup</h3>
 	<p>First, install the sdmx1 library if you haven't already:</p>
 	<pre><code class="bash">pip install sdmx1</code></pre>
 
 	<hr class="section-bar accent-blue">
-	<h2 class="section-title">Import Libraries</h2>
+	<h3>Import Libraries</h3>
 	<p>We need pandas for data manipulation and sdmx for accessing the IMF API:</p>
 	<p>In[1]:</p>
 	<pre><code class="python">import pandas as pd
 import sdmx</code></pre>
 
 	<hr class="section-bar accent-blue">
-	<h2 class="section-title">Set Parameters</h2>
+	<h3>Set Parameters</h3>
 	<p>Define the countries, dataset, and series codes. The key string combines these parameters using dots as separators, with multiple countries joined by <code>+</code> signs:</p>
 	<p>In[2]:</p>
 	<pre><code class="python"># parameters
@@ -207,7 +210,7 @@ key = f"{'+'.join(countries)}.{classification}.{series}"</code></pre>
 	<p>The key <code>BRA+CHL+COL.CPI._T.IX.M</code> requests all-items (<code>_T</code>) price index (<code>IX</code>) data at monthly (<code>M</code>) frequency for the three countries.</p>
 
 	<hr class="section-bar accent-blue">
-	<h2 class="section-title">Retrieve Data</h2>
+	<h3>Retrieve Data</h3>
 	<p>Create an SDMX client for the IMF and fetch the data. The <code>sdmx.Client</code> connects to the IMF's data endpoint, and the <code>.data()</code> method retrieves observations for the specified dataset and key:</p>
 	<p>In[3]:</p>
 	<pre><code class="python"># retrieve data
@@ -221,7 +224,7 @@ df = df.set_index(['TIME_PERIOD', 'COUNTRY'])['value'].unstack()</code></pre>
 	<p>The <code>sdmx.to_pandas()</code> function converts the SDMX message into a pandas structure. After reshaping, we have a DataFrame with dates as rows and countries as columns.</p>
 
 	<hr class="section-bar accent-blue">
-	<h2 class="section-title">Calculate Inflation and Plot</h2>
+	<h3>Calculate Inflation and Plot</h3>
 	<p>Convert the index to datetime, calculate year-over-year percent changes, and create a line plot:</p>
 	<p>In[4]:</p>
 	<pre><code class="python"># Convert index to datetime and sort
@@ -238,7 +241,7 @@ res.plot(title='CPI, one-year percent change',
 	<img src="images/imf_cpi_inflation.png" alt="CPI Inflation Chart" loading="lazy" width="569" height="454"/>
 
 	<hr class="section-bar accent-blue">
-	<h2 class="section-title">Key Concepts</h2>
+	<h3>Key Concepts</h3>
 	<p>This example demonstrates the core workflow for accessing IMF data with sdmx1:</p>
 	<ul>
 		<li><code>sdmx.Client('IMF_DATA')</code> creates a connection to the IMF's SDMX endpoint;</li>
@@ -263,7 +266,7 @@ res.plot(title='CPI, one-year percent change',
 			<a href="https://github.com/bdecon/" aria-label="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
 			<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
 			<a href="https://twitter.com/bd_econ" aria-label="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-			<a href="https://briandew.wordpress.com/" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
+			<a href="https://briandew.wordpress.com/" target="_blank" rel="noopener" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
 		</div>
 	</footer>
 	<script>

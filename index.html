@@ -73,6 +73,44 @@
   gtag('config', 'G-PGVF5S620Y');
 </script>
 
+<style>
+.announcement {
+	background: #e4e4e4;
+	padding: 14px 20px 14px;
+	margin: 0;
+	font-size: 15px;
+	border: 1px solid var(--color-border-light);
+	border-top: 1px solid transparent;
+	line-height: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+}
+[data-theme="dark"] .announcement { background: #262626; }
+.announce-text {
+	transition: opacity 0.4s ease;
+	opacity: 1;
+}
+.announce-text.fade-out { opacity: 0; }
+.announcement a {
+	color: var(--color-text);
+	text-decoration: none;
+}
+.announcement a:hover { text-decoration: underline; }
+.announce-label { font-weight: 700; }
+.announce-arrow {
+	background: none;
+	border: none;
+	color: var(--color-text-subtle);
+	cursor: pointer;
+	font-size: 15px;
+	padding: 2px 4px;
+	line-height: 1;
+	flex-shrink: 0;
+}
+.announce-arrow:hover { color: var(--color-text-gray); }
+</style>
 </head>
 <body>
 	<a href="#main" class="skip-link">Skip to main content</a>
@@ -80,7 +118,7 @@
 		<ul class="ul_nav" id="menu">
 			<li class="nav_main"> <a href="index.html" class="active" aria-current="page"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
-			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
+			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <i class="fa fa-external-link" aria-hidden="true" style="font-size: 0.7em"></i></a> </li>
 			<li><a href="python.html">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
 					<li><a href="imfapi1.html">IMF API</a></li>
@@ -108,15 +146,15 @@
 	</nav>
 	<div class="announcement">
 		<button class="announce-arrow" aria-label="Previous announcement">&#8249;</button>
-		<span class="announce-text"><a href="imfweo.html" id="announce-link">New: IMF WEO Forecast Tracker &mdash; 196 countries, 39 editions &rarr;</a></span>
+		<span class="announce-text"><a href="imfweo.html" id="announce-link"><span class="announce-label">New:</span> IMF WEO Forecast Tracker &mdash; 196 countries, 39 editions &rarr;</a></span>
 		<button class="announce-arrow" aria-label="Next announcement">&#8250;</button>
 	</div>
 	<script>
 	(function() {
 		var msgs = [
-			{text: "New: IMF WEO Forecast Tracker \u2014 196 countries, 39 editions \u2192", href: "imfweo.html"},
+			{text: "<span class='announce-label'>New:</span> IMF WEO Forecast Tracker \u2014 196 countries, 39 editions \u2192", href: "imfweo.html"},
 			{text: "Explore 20+ interactive charts on the US economy \u2192", href: "indicators.html"},
-			{text: "Guide: Access US Treasury fiscal data with Python \u2192", href: "treasuryapi.html"}
+			{text: "<span class='announce-label'>Guide:</span> Access US Treasury fiscal data with Python \u2192", href: "treasuryapi.html"}
 		];
 		var idx = Math.floor(Math.random() * msgs.length);
 		var span = document.querySelector(".announce-text");
@@ -125,7 +163,7 @@
 		var timer;
 
 		function show(i) {
-			link.textContent = msgs[i].text;
+			link.innerHTML = msgs[i].text;
 			link.href = msgs[i].href;
 		}
 		function fadeTo(i) {
@@ -152,49 +190,52 @@
 	<main id="main">
 	<section>
 		<article class="prose">
-			<p class="tagline" style="margin-top: 25px;">Macroeconomic data tools, tutorials, and visualizations</p>
+			<p class="callout accent-red">Macroeconomic data tools, tutorials, and visualizations</p>
 
-			<p class="overview">Open-source tools for economists and researchers. The <b><a href="https://bd-econ.com/python.html">Python tutorials</a></b> show how to access economic data from the IMF, BLS, and Census APIs. The <b><a href="https://bd-econ.com/chartbook.html">US Chartbook</a></b> provides 120+ indicators on labor markets, inflation, GDP, and trade.</p>
+			<p>Open-source tools for economists and researchers. The <strong><a href="https://bd-econ.com/python.html">Python tutorials</a></strong> show how to access economic data from the IMF, BLS, and Census APIs. The <strong><a href="https://bd-econ.com/chartbook.html">US Chartbook</a></strong> provides 120+ indicators on labor markets, inflation, GDP, and trade.</p>
 
 		</article>
-		<article class="article_links">
+		<article class="card-grid">
 		<h2>Tutorials and Reports</h2>
 			<a href="imfapi1.html">
-			<div class="card">
-				<div class="card-banner-wrap accent-blue">
-					<img src="images/imf_banner.png" alt="IMF API tutorials" class="card_banner" width="293" height="68">
+			<div class="nav-card accent-blue">
+
+				<div class="nav-card-banner">
+					<img src="images/imf_banner.png" alt="IMF API tutorials" width="293" height="68">
 				</div>
-				<div class="card-head accent-blue">
+				<div class="nav-card-head">
 					<h3>IMF API</h3>
 				</div>
-				<div class="card_tail">
+				<div class="nav-card-body">
 					<p>Access international economic data from the International Monetary Fund (IMF) using Python. Covers GDP, trade, prices, and more for 190+ countries.</p>
 				</div>
 			</div>
 			</a>
 			<a href="cps.html">
-			<div class="card">
-				<div class="card-banner-wrap accent-teal">
-					<img src="images/cps_banner.png" alt="CPS microdata tutorials" class="card_banner" width="542" height="130">
+			<div class="nav-card accent-teal">
+
+				<div class="nav-card-banner">
+					<img src="images/cps_banner.png" alt="CPS microdata tutorials" width="542" height="130">
 				</div>
-				<div class="card-head accent-teal">
+				<div class="nav-card-head">
 					<h3>CPS data</h3>
 				</div>
-				<div class="card_tail">
+				<div class="nav-card-body">
 					<p>Read and analyze Current Population Survey microdata with Python. Build custom labor market statistics from household-level data.</p>
 				</div>
 			</div>
 			</a>
 			<a href="chartbook.pdf" onclick="gtag('event', 'chartbook_download', {link_url: 'chartbook.pdf', link_text: 'Chartbook'});">
-			<div class="card">
-				<div class="card-banner-wrap accent-green">
-					<img src="images/chartbook_banner.png" alt="US Economic Chartbook" class="card_banner" width="293" height="68">
+			<div class="nav-card accent-green">
+
+				<div class="nav-card-banner">
+					<img src="images/chartbook_banner.png" alt="US Economic Chartbook" width="293" height="68">
 				</div>
-				<div class="card-head accent-green">
+				<div class="nav-card-head">
 					<h3>Chartbook <i class="fa fa-download"></i></h3>
 				</div>
-				<div class="card_tail">
-					<p>120+ charts on the US economy: labor markets, inflation, GDP, trade, and more. Includes data sources and code.</p><p><b>PDF</b> · Updated: <span class="cb_update"><noscript>regularly</noscript></span></p>
+				<div class="nav-card-body">
+					<p>120+ charts on the US economy: labor markets, inflation, GDP, trade, and more. Includes data sources and code.</p><p><strong>PDF</strong> · Updated: <span class="cb_update"><noscript>regularly</noscript></span></p>
 				</div>
 			</div>
 			</a>
@@ -210,7 +251,7 @@
 			<a href="https://github.com/bdecon/" aria-label="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
 			<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
 			<a href="https://twitter.com/bd_econ" aria-label="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-			<a href="https://briandew.wordpress.com/" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
+			<a href="https://briandew.wordpress.com/" target="_blank" rel="noopener" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
 		</div>
 	</footer>
 	<script>

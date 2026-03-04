@@ -85,7 +85,7 @@
 		<ul class="ul_nav" id="menu">
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
-			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
+			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <i class="fa fa-external-link" aria-hidden="true" style="font-size: 0.7em"></i></a> </li>
 			<li><a href="python.html" class="active" aria-current="page">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
 					<li><a href="imfapi1.html">IMF API</a></li>
@@ -120,46 +120,46 @@
 	<main id="main">
 	<section>
 	<article class="article_code prose">
-	<p class="subtitle">Bureau of Labor Statistics (BLS) API with Python</p>
+	<h2>Bureau of Labor Statistics (BLS) API with Python</h2>
 	<p>The <a href="https://www.bls.gov/developers/">BLS Public Data API</a> allows machine access to an enormous and incredibly useful set of U.S. economic data. With python, it is easy to integrate BLS data into projects, research, and graphics without the need to manually find, download, and combine files.</p>
 
 	<p>This notebook offers two examples of using python to request economic data from the BLS API. The first example requests the labor force participation rate from the BLS v1 API. The second example requests unemployment rates by race/origin, and shows a method for requesting multiple series over a longer period of time using the v2 API.</p>
 	<hr class="section-bar accent-purple">
-	<h2 class="section-title">Background</h2>
-	<h3>BLS</h3>
+	<h3>Background</h3>
+	<h4>BLS</h4>
 	<p>The U.S. Bureau of Labor Statistics is part of the Department of Labor. You can read more about BLS <a href="https://www.bls.gov/bls/infohome.htm">here</a>.</p>
 
 	<blockquote class="blockquote-accent accent-purple">The Bureau of Labor Statistics of the U.S. Department of Labor is the principal Federal agency responsible for measuring labor market activity, working conditions, and price changes in the economy.</blockquote>
 
-	<h3>API</h3>
+	<h4>API</h4>
 	<p>BLS-data-related tasks that are exploratory, repetitive, or need to be well documented, can make use of Application Programming Interface (API) to save time. The API allows users to request data with specific parameters, such as the BLS series ID, dates, or preferred format. Data returned can be fed into pandas or other programs for further calculations and analysis.</p>
 
-	<h3>Python</h3>
+	<h4>Python</h4>
 
 	<p>The examples use Python 3.x and the requests, json, and pandas packages. </p>
 
 	<hr class="section-bar accent-purple">
-	<h2 class="section-title">Example 1: Single series from API v1</h2>
-	<p class="step-label accent-purple">API Location</p>
+	<h3>Example 1: Single series from API v1</h3>
+	<span class="step-label accent-purple">API Location</span>
 	<p>The version 1 API, which does not require registration, is located at the URL <code>base_url</code> below.</p>
 
 	<p>In[1]:</p>
 	<pre><code class="python"># BLS API v1 url
 base_url = 'https://api.bls.gov/publicAPI/v1/timeseries/data/'</code></pre>
 
-	<p class="step-label accent-purple">BLS Series ID</p>
+	<span class="step-label accent-purple">BLS Series ID</span>
 	<p>The <a href="https://www.bls.gov/data/">BLS data site</a> offers different search tools to find the series ID for the data of interest. In this case, I'm going to type out a python dictionary with two keys and two values. The first key is the word id and its value is the BLS series ID. The second key is name and its value is a short descriptive name that corresponds to the series. </p>
 	<p>In[2]:</p>
 	<pre><code class="python"># BLS series id for the civilian labor force participation rate
 series = {'id': 'LNS11300000',
           'name': 'Labor Force Participation Rate'}</code></pre>
-	<p class="step-label accent-purple">Combine Base URL and Series ID</p>
+	<span class="step-label accent-purple">Combine Base URL and Series ID</span>
 	<p>Combine the base url and series id into a single string which is the API url with data. Print a link to the data. </p>
 	<p>In[3]:</p>
 	<pre><code class="python">data_url = f'{base_url}{series["id"]}'
 print(data_url)</code></pre>
 	<p><a href="https://api.bls.gov/publicAPI/v1/timeseries/data/LNS11300000"><code>https://api.bls.gov/publicAPI/v1/timeseries/data/LNS11300000</code></a></p>
-	<p class="step-label accent-purple">Request Data</p>
+	<span class="step-label accent-purple">Request Data</span>
 	<p>Use the requests package to get data from the <code>data_url</code>. By specifying that the data are in json format, we convert the output to nested python dictionaries and lists. The status of the request is printed and the top-level dictionary is stored as variable <code>r</code>. </p>
 	<p>In[4]:</p>
 	<pre><code class="python">import requests
@@ -167,7 +167,7 @@ print(data_url)</code></pre>
 r = requests.get(data_url).json()
 print('Status: ' + r['status'])</code></pre>
 	<pre>Status: REQUEST_SUCCEEDED</pre>
-	<p class="step-label accent-purple">Check Latest Data Value</p>
+	<span class="step-label accent-purple">Check Latest Data Value</span>
 	<p>The dictionary <code>r</code> contains several keys:</p>
 	<p>In[5]:</p>
 	<pre><code class="python">print(r.keys())</code></pre>
@@ -177,7 +177,7 @@ print('Status: ' + r['status'])</code></pre>
 	<pre><code class="python">r = r['Results']['series'][0]['data']
 print(r[0])</code></pre>
 	<pre>{'year': '2025', 'period': 'M12', 'periodName': 'December', 'latest': 'true', 'value': '62.4', 'footnotes': [{}]}</pre>
-	<p class="step-label accent-purple">Read into Pandas</p>
+	<span class="step-label accent-purple">Read into Pandas</span>
 	<p>To make further calculations, such as to find the average value over the series, and to graph the results, we can use the pandas package. We create a dataframe directly from the list of dictionaries returned by the API.</p>
 	<p>In[7]:</p>
 	<pre><code class="python">import pandas as pd
@@ -225,19 +225,19 @@ df.tail(3)</code></pre>
 	    </tr>
 	  </tbody>
 	</table>
-<p class="step-label accent-purple">Plot the Results</p>
+<span class="step-label accent-purple">Plot the Results</span>
 <p>Calculate the average value for the period and plot both the monthly values and average value to look for trends.</p>
 <p>In[9]:</p>
 <pre><code class="python">df['mean'] = df['value'].mean()
 df[['value', 'mean']].plot(title=series['name']);</code></pre>
 <p>Out[9]:</p>
 <img src="images/ex1_update.png" alt="Pandas Plot Output" loading="lazy" width="401" height="327"/>
-<h3>Summary</h3>
+<h4>Summary</h4>
 <p>The first example creates a url containing the requested data by combining a base url of the API with the BLS series ID of interest. The result is a dataframe with monthly data, starting in January 2015, on the labor force participation rate. The plot above lets us quickly see when and by how much the series deviated from its full-period average. The example uses the v1 API, so the number of requests is limited as is the functionality. For more complex requests, a technique such as the one shown in example 2 is preferable.</p>
 <hr class="section-bar accent-purple">
-<h2 class="section-title">Example 2: Requesting multiple series and specific dates</h2>
+<h3>Example 2: Requesting multiple series and specific dates</h3>
 <p>The second example uses the BLS API v2 (which requires free <a href = "https://data.bls.gov/registrationEngine/">registration</a>) to request more than one series at the same time. The version 2 API has a higher daily query limit, allows more years and series to be returned in each query, and allows some additional options such as requesting data in percent change rather than level. See <a href="https://www.bls.gov/developers/api_faqs.htm#register1">difference between v1 and v2</a>.</p>
-<p class="step-label accent-purple">Parameters</p>
+<span class="step-label accent-purple">Parameters</span>
 <p>The new url, registration key, and data parameters are shown below.</p>
 <p>In[10]:</p>
 <pre><code class="python">import config # .py file with bls_key = 'API key here'
@@ -253,7 +253,7 @@ series_dict = {
 
 # Start year and end year
 dates = ('2008', '2017')</code></pre>
-<p class="step-label accent-purple">Post Request</p>
+<span class="step-label accent-purple">Post Request</span>
 <p>This examples is more complex as the request includes some additional information. Previously we used a get request, but if we want to submit data to be processed by the API we need to use a post request. See: <a href="https://stackoverflow.com/questions/3477333/what-is-the-difference-between-post-and-get">What is the difference between POST and GET?</a> for more information.</p>
 <p>The json package will help to put our series and year parameters in the format readable by the BLS API. The headers and data sent with our request contain these parameters. </p>
 <p>In[11]:</p>
@@ -274,7 +274,7 @@ p = requests.post(
     url,
     headers=headers,
     data=data).json()['Results']['series']</code></pre>
-<p class="step-label accent-purple">Process the Data</p>
+<span class="step-label accent-purple">Process the Data</span>
 <p>Since the API returns data in a uniform way, a <code>for</code> loop can be used to apply formatting or other changes to all series in the returned json data. In the example below, all three series are converted to pandas series with a datetime index and the values converted to floats.</p>
 <p>In[12]:</p>
 <pre><code class="python"># Date index from first series
@@ -335,14 +335,14 @@ df.tail()</code></pre>
     </tr>
   </tbody>
 </table>
-<p class="step-label accent-purple">Plot the Results</p>
+<span class="step-label accent-purple">Plot the Results</span>
 <p>The series are plotted below to show how they compare.</p>
 <p>In[13]:</p>
 <pre><code class="python"># Simple line plot of the data
 df.plot(title='Unemployment Rates by Race or Origin')</code></pre>
 <p>Out[13]:</p>
 <img src="images/ex2.png" alt="Pandas Plot Output" loading="lazy" width="432" height="288"/>
-<h3>Conclusion</h3>
+<h4>Conclusion</h4>
 <p>The v2 API allows for more complex requests to be filled. In this case, we can use the API to very quickly plot the latest data on unemployment rates.</p>
 	</article>
 	<div class="subfooter">
@@ -359,7 +359,7 @@ df.plot(title='Unemployment Rates by Race or Origin')</code></pre>
 			<a href="https://github.com/bdecon/" aria-label="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
 			<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
 			<a href="https://twitter.com/bd_econ" aria-label="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-			<a href="https://briandew.wordpress.com/" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
+			<a href="https://briandew.wordpress.com/" target="_blank" rel="noopener" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
 		</div>
 	</footer>
 	<script>

@@ -85,7 +85,7 @@
 		<ul class="ul_nav" id="menu">
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
-			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
+			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <i class="fa fa-external-link" aria-hidden="true" style="font-size: 0.7em"></i></a> </li>
 			<li><a href="python.html" class="active" aria-current="page">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
 					<li><a href="imfapi1.html">IMF API</a></li>
@@ -120,27 +120,27 @@
 	<main id="main">
 	<section>
 	<article class="article_code prose">
-	<p class="subtitle">US Treasury Fiscal Data API with Python</p>
+	<h2>US Treasury Fiscal Data API with Python</h2>
 	<p>The <a href="https://fiscaldata.treasury.gov/api-documentation/">US Treasury Fiscal Data API</a> offers data on federal finances, including revenue, spending, debt, and more. With Python, you can retrieve and analyze this data programmatically.</p>
 
 	<p>This example uses the Python <code>requests</code> and <code>pandas</code> packages to retrieve treasury data from the Monthly Treasury Statement and analyze federal revenue composition.</p>
 
 	<hr class="section-bar accent-red">
-	<h2 class="section-title">Background</h2>
-	<h3>Treasury Fiscal Data</h3>
+	<h3>Background</h3>
+	<h4>Treasury Fiscal Data</h4>
 	<p>The Bureau of the Fiscal Service provides public access to federal financial data through <a href="https://fiscaldata.treasury.gov/">fiscaldata.treasury.gov</a>. The API allows access to datasets including the Monthly Treasury Statement, Daily Treasury Statement, debt data, and more.</p>
 
-	<h3>API</h3>
+	<h4>API</h4>
 	<p>The Fiscal Data API is a RESTful API that returns JSON data. You can filter results, specify date ranges, and paginate through large datasets. No registration or API key is required.</p>
 
 	<hr class="section-bar accent-red">
-	<h2 class="section-title">Example: Federal Revenue by Type</h2>
-	<p class="step-label accent-red">Import Packages</p>
+	<h3>Example: Federal Revenue by Type</h3>
+	<span class="step-label accent-red">Import Packages</span>
 	<p>In[1]:</p>
 	<pre><code class="python">import requests
 import pandas as pd</code></pre>
 
-	<p class="step-label accent-red">Request Data from the API</p>
+	<span class="step-label accent-red">Request Data from the API</span>
 	<p>Let's look at government revenue by type, from table 9 of the Monthly Treasury Statement (MTS). We want to see the share of federal revenue coming from corporate income taxes and customs duties since 2023.</p>
 	<p>We use the <code>filter</code> parameter to request only the categories of interest. The line description from the original MTS table has two lines for "Total"&mdash;one for receipts and one for outlays&mdash;so we'll need to remove the outlays data in the next step.</p>
 	<p>In[2]:</p>
@@ -150,7 +150,7 @@ param = '?filter=classification_desc:in:(Corporation Income Taxes,Customs Duties
 
 r = requests.get(f'{url}{endpt}{param}')</code></pre>
 
-	<p class="step-label accent-red">Clean and Transform the Data</p>
+	<span class="step-label accent-red">Clean and Transform the Data</span>
 	<p>Next, clean up the results and rename the variables. Remove data related to line 33, which is total outlays. Convert the dates to datetime format and calculate the 12-month rolling sum.</p>
 	<p>In[3]:</p>
 	<pre><code class="python">rn = {'current_month_rcpt_outly_amt': 'Value', 'src_line_nbr': 'Line',
@@ -161,7 +161,7 @@ df = df.sort_values('Date')
 df = df.set_index(['Category', 'Date'])
 data = (df['Value'].unstack().T.astype('float') / 1_000_000).rolling(12).sum().dropna()</code></pre>
 
-	<p class="step-label accent-red">Plot the Results</p>
+	<span class="step-label accent-red">Plot the Results</span>
 	<p>Create a plot showing the recent data, from 2023 onward. We calculate each category as a share of total federal revenue.</p>
 	<p>In[4]:</p>
 	<pre><code class="python"># Calculate the share of total
@@ -177,7 +177,7 @@ res.loc['2023-01-01':].plot(title=title, figsize=(4.5,5))</code></pre>
 	<p>Out[4]:</p>
 	<img src="images/treasury_tax.png" alt="Federal Revenue by Type" loading="lazy" width="415" height="501"/>
 
-	<h3>Summary</h3>
+	<h4>Summary</h4>
 	<p>The Treasury Fiscal Data API provides straightforward access to federal finance data. In this example, we retrieved monthly revenue data, calculated trailing 12-month totals, and visualized how corporate income taxes and customs duties have changed as a share of total federal revenue. The API offers many other datasets covering debt, spending, interest rates, and more.</p>
 	</article>
 	<div class="subfooter">
@@ -194,7 +194,7 @@ res.loc['2023-01-01':].plot(title=title, figsize=(4.5,5))</code></pre>
 			<a href="https://github.com/bdecon/" aria-label="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
 			<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
 			<a href="https://twitter.com/bd_econ" aria-label="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-			<a href="https://briandew.wordpress.com/" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
+			<a href="https://briandew.wordpress.com/" target="_blank" rel="noopener" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
 		</div>
 	</footer>
 	<script>

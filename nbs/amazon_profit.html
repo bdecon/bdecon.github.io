@@ -3,8 +3,8 @@
 <head>
 <meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
 <title> BD Economics | Notebooks | Is Amazon killing Walmart? </title>
-<link rel="stylesheet" href="add-ins/github.css">
-<script src="add-ins/highlight.pack.js"></script>
+<link rel="stylesheet" href="../add-ins/github.css">
+<script src="../add-ins/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -52,7 +52,7 @@
 	<ul class="ul_nav" id="menu">
 		<li class="nav_main"> <a href="../index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 		<li><a href="../about.html">About</a> </li>
-		<li><a href="https://briandew.wordpress.com">Blog</a> </li>
+		<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <i class="fa fa-external-link" aria-hidden="true" style="font-size: 0.7em"></i></a> </li>
 		<li><a href="../python.html" class="active">Guides <span class="nav-arrow">&darr;</span></a>
 			<ul class="hidden">
 				<li><a href="../imfapi1.html">IMF API</a></li>
@@ -121,15 +121,15 @@
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight python"><pre><span></span><span class="c1"># Import python libraries</span>
-<span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">io</span> <span class="k">import</span> <span class="n">StringIO</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<pre><code class="python"># Import python libraries
+import requests
+import pandas as pd
+from io import StringIO
+import matplotlib.pyplot as plt
 
-<span class="c1"># File containing API key</span>
-<span class="kn">from</span> <span class="nn">config</span> <span class="k">import</span> <span class="n">usfun_key</span> <span class="k">as</span> <span class="n">key</span>
-</pre></div>
+# File containing API key
+from config import usfun_key as key
+</code></pre>
 
 </div>
 </div>
@@ -150,21 +150,21 @@
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight python"><pre><span></span><span class="c1"># For selected companies, get company ID</span>
-<span class="n">sel_comp</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Amazon&#39;</span><span class="p">,</span> <span class="s1">&#39;Walmart&#39;</span><span class="p">]</span>
+<pre><code class="python"># For selected companies, get company ID
+sel_comp = [&#39;Amazon&#39;, &#39;Walmart&#39;]
 
-<span class="n">base</span> <span class="o">=</span> <span class="s1">&#39;https://api.usfundamentals.com/v1/&#39;</span> <span class="c1"># API url</span>
-<span class="n">param</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;companies/xbrl?&amp;format=json&amp;token=</span><span class="si">{key}</span><span class="s1">&#39;</span>
+base = &#39;https://api.usfundamentals.com/v1/&#39; # API url
+param = f&#39;companies/xbrl?&amp;format=json&amp;token={key}&#39;
 
-<span class="c1"># Request data from US fundamentals API</span>
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{base}{param}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+# Request data from US fundamentals API
+r = requests.get(f&#39;{base}{param}&#39;).json()
 
-<span class="c1"># ID numbers for selected companies</span>
-<span class="n">c</span> <span class="o">=</span> <span class="p">{</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s1">&#39;company_id&#39;</span><span class="p">]):</span> <span class="n">i</span><span class="p">[</span><span class="s1">&#39;name_latest&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">r</span> 
-     <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">sc</span> <span class="ow">in</span> <span class="n">i</span><span class="p">[</span><span class="s1">&#39;name_latest&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">sc</span> <span class="ow">in</span> <span class="n">sel_comp</span><span class="p">)}</span>
+# ID numbers for selected companies
+c = {int(i[&#39;company_id&#39;]): i[&#39;name_latest&#39;] for i in r 
+     if any(sc in i[&#39;name_latest&#39;] for sc in sel_comp)}
 
-<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-</pre></div>
+print(c)
+</code></pre>
 
 </div>
 </div>
@@ -203,18 +203,18 @@
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight python"><pre><span></span><span class="c1"># New parameters to retrieve data</span>
-<span class="n">freq</span> <span class="o">=</span> <span class="s1">&#39;frequency=q&#39;</span>
-<span class="n">cik</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;companies={&quot;,&quot;.join([str(k) for k in c.keys()])}&#39;</span>
-<span class="n">ind</span> <span class="o">=</span> <span class="s1">&#39;indicators=NetIncomeLoss&#39;</span>
-<span class="n">param</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;/indicators/xbrl?</span><span class="si">{cik}</span><span class="s1">&amp;</span><span class="si">{ind}</span><span class="s1">&amp;</span><span class="si">{freq}</span><span class="s1">&amp;token=</span><span class="si">{key}</span><span class="s1">&#39;</span>
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;</span><span class="si">{base}{param}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+<pre><code class="python"># New parameters to retrieve data
+freq = &#39;frequency=q&#39;
+cik = f&#39;companies={&quot;,&quot;.join([str(k) for k in c.keys()])}&#39;
+ind = &#39;indicators=NetIncomeLoss&#39;
+param = f&#39;/indicators/xbrl?{cik}&amp;{ind}&amp;{freq}&amp;token={key}&#39;
+r = requests.get(f&#39;{base}{param}&#39;).text
 
-<span class="c1"># Convert API result to pandas dataframe</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">StringIO</span><span class="p">(</span><span class="n">r</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
-<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
-</pre></div>
+# Convert API result to pandas dataframe
+df = pd.read_csv(StringIO(r)).T
+df.columns = list(df.iloc[0].map(c))
+df = df.iloc[2:]
+</code></pre>
 
 </div>
 </div>
@@ -235,8 +235,8 @@
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight python"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;2018Q2&#39;</span><span class="p">,</span> <span class="s1">&#39;Walmart Inc.&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">861000000</span>
-</pre></div>
+<pre><code class="python">df.loc[&#39;2018Q2&#39;, &#39;Walmart Inc.&#39;] = -861000000
+</code></pre>
 
 </div>
 </div>
@@ -257,40 +257,40 @@
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight python"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span> <span class="o">/</span> <span class="mi">1</span><span class="n">_000_000_000</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<pre><code class="python">data = (df / 1_000_000_000).iloc[:, ::-1]
 
-<span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.78</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;lightgray&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">],</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+data.plot(kind=&#39;bar&#39;, width=0.78, color=[&#39;lightgray&#39;, &#39;red&#39;], figsize=(10,5), zorder=2)
     
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">ymax</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
-<span class="c1"># add title and footer</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">7.25</span><span class="p">,</span> <span class="s1">&#39;Quarterly net income (+) or loss (-), in billions of USD&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;dimgray&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">7.0</span><span class="p">,</span> <span class="mf">6.4</span><span class="p">,</span> <span class="s1">&#39;vs.&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;dimgray&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mf">6.25</span><span class="p">,</span> <span class="s1">&#39;Walmart&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">6.25</span><span class="p">,</span> <span class="s1">&#39;Amazon&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+plt.ylim(ymax=8)
+# add title and footer
+plt.text(-1, 7.25, &#39;Quarterly net income (+) or loss (-), in billions of USD&#39;, fontsize=14, color=&#39;dimgray&#39;)
+plt.text(7.0, 6.4, &#39;vs.&#39;, fontsize=14, color=&#39;dimgray&#39;)
+plt.text(9, 6.25, &#39;Walmart&#39;, fontsize=24, color=&#39;lightgray&#39;, fontweight=&#39;bold&#39;)
+plt.text(0, 6.25, &#39;Amazon&#39;, fontsize=24, color=&#39;red&#39;, fontweight=&#39;bold&#39;)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.2</span><span class="p">,</span> 
-         <span class="s1">&#39;Sources: US Stock Fundamentals; company quarterly reports. </span><span class="se">\n</span><span class="s1">&#39;</span>
-         <span class="s1">&#39;Not adjusted for inflation.</span><span class="se">\n</span><span class="s1">&#39;</span>
-         <span class="s1">&#39;Python code for reproducing this plot: bd-econ.com/nbs/amazon_profit.html&#39;</span><span class="p">,</span> 
-         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;dimgray&#39;</span><span class="p">)</span>
+plt.text(-0.2, -4.2, 
+         &#39;Sources: US Stock Fundamentals; company quarterly reports. \n&#39;
+         &#39;Not adjusted for inflation.\n&#39;
+         &#39;Python code for reproducing this plot: bd-econ.com/nbs/amazon_profit.html&#39;, 
+         color=&#39;dimgray&#39;)
 
-<span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]:</span>  <span class="c1"># custom horizontal gridlines</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;dimgray&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+for y in [0, 2, 4]:  # custom horizontal gridlines
+    plt.axhline(y, color=&#39;lightgray&#39;, linewidth=0.5, zorder=1)
+    plt.text(-0.7, y, str(y), fontsize=8, color=&#39;dimgray&#39;, va=&#39;center&#39;, ha=&#39;right&#39;)
 
-<span class="n">xticks</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">2018</span><span class="p">):</span>
-    <span class="n">xticks</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;Q1&#39;</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;Q2</span><span class="se">\n\n</span><span class="s1">  </span><span class="si">{year}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;Q3&#39;</span><span class="p">,</span> <span class="s1">&#39;Q4&#39;</span><span class="p">])</span>
-<span class="n">xticks</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;Q1</span><span class="se">\n\n</span><span class="s1">  2018&#39;</span><span class="p">,</span> <span class="s1">&#39;Q2&#39;</span><span class="p">])</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">tick</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">xticks</span><span class="p">):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">tick</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;dimgray&#39;</span><span class="p">)</span>
+xticks = []
+for year in range(2011, 2018):
+    xticks.extend([&#39;Q1&#39;, f&#39;Q2\n\n  {year}&#39;, &#39;Q3&#39;, &#39;Q4&#39;])
+xticks.extend([&#39;Q1\n\n  2018&#39;, &#39;Q2&#39;])
+for i, tick in enumerate(xticks):
+    plt.text(i-0.3, -1.1, tick, va=&#39;top&#39;, fontsize=8, color=&#39;dimgray&#39;)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+plt.legend().remove()
 
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;AmazonWalmartNetIncomeLoss.png&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+plt.axis(&#39;off&#39;)
+plt.savefig(&#39;AmazonWalmartNetIncomeLoss.png&#39;, bbox_inches=&#39;tight&#39;)
+plt.show()
+</code></pre>
 
 </div>
 </div>
@@ -331,7 +331,7 @@
         <a href="https://github.com/bdecon/" aria-label="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
         <a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
         <a href="https://twitter.com/bd_econ" aria-label="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-        <a href="https://briandew.wordpress.com/" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
+        <a href="https://briandew.wordpress.com/" target="_blank" rel="noopener" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
     </div>
 </footer>
 <script>

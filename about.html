@@ -72,6 +72,25 @@
   gtag('config', 'G-PGVF5S620Y');
 </script>
 
+<style>
+.bio-row { display: flex; align-items: flex-start; gap: 28px; margin-bottom: 1.5em; }
+.bio-prose { flex: 1; min-width: 0; }
+.bio { display: flex; flex-direction: column; align-items: center; gap: 10px; flex-shrink: 0; }
+.bio-photo {
+	width: 180px; height: 180px; border-radius: 4px; object-fit: cover; object-position: center 15%;
+	background: var(--color-bg-highlight); border: 1px solid var(--color-border);
+}
+.bio-text { text-align: center; }
+.bio-text h2 { margin: 0; font-size: 19px; font-weight: 700; }
+.bio-links { display: flex; flex-direction: column; align-items: center; gap: 4px; margin-top: 2px; }
+.bio-links span { font-size: 15px; color: var(--color-text-muted); display: block; text-align: center; }
+.bio-links a { font-size: 15px; color: var(--color-text-muted); }
+.bio-social { display: flex; align-items: center; justify-content: center; gap: 16px; }
+.bio-social a { font-size: 18px; }
+.brand-lockup { display: flex; align-items: center; gap: 12px; margin: 0 0 10px; }
+.brand-lockup svg { fill: var(--color-text-dark); flex-shrink: 0; }
+.brand-lockup span { font-size: 26px; font-weight: 400; color: var(--color-text-dark); }
+</style>
 </head>
 <body>
 	<a href="#main" class="skip-link">Skip to main content</a>
@@ -79,7 +98,7 @@
 		<ul class="ul_nav" id="menu">
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html" class="active" aria-current="page">About</a> </li>
-			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
+			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <i class="fa fa-external-link" aria-hidden="true" style="font-size: 0.7em"></i></a> </li>
 			<li><a href="python.html">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
 					<li><a href="imfapi1.html">IMF API</a></li>
@@ -111,21 +130,26 @@
 	<main id="main">
 	<section>
 		<article class="prose">
-		<div class="bio">
-			<div class="bio-photo">
-				<img src="images/briandew.png" alt="Brian Dew">
-				<p>Brian Dew</p>
-			</div>
+		<div class="bio-row">
+		<div class="info-box bio">
+			<img class="bio-photo" src="images/briandew.png" alt="Brian Dew">
 			<div class="bio-text">
-				<h2>Brian Dew</h2>
+				<h2>Brian W. Dew</h2>
 				<div class="bio-links">
 					<span>Data Analyst</span>
-					<a href="https://github.com/bdecon/" aria-label="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
-					<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-					<a href="mailto:brian@bd-econ.com" aria-label="Email"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
+					<div class="bio-social">
+						<a href="https://github.com/bdecon/" aria-label="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
+						<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+						<a href="mailto:brian@bd-econ.com" aria-label="Email"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
+					</div>
 				</div>
-				<p>I build data tools and visualizations for macroeconomic research. I've worked across think tanks, international organizations, and the private sector &mdash; including the <a href="https://cepr.net">Center for Economic and Policy Research</a>, the <a href="https://www.imf.org">IMF</a> Statistics Department, and the <a href="https://www.iif.com">Institute of International Finance</a>. Past projects include internal IMF tools for tracking statistical coverage across member countries, an emerging markets finance dashboard, economic chartbooks, and contributions to open-source Census microdata projects. I hold a master's in economics from American University.</p>
 			</div>
+		</div>
+		<div class="bio-prose">
+			<p>I build data tools and visualizations for macroeconomic research. I've worked for the Center for Economic and Policy Research and the International Monetary Fund.</p>
+			<p>Past projects include internal IMF tools for tracking statistical coverage across member countries, an emerging markets finance dashboard, economic chartbooks, and contributions to open-source Census microdata projects.</p>
+			<p>I hold a master's in economics from American University, and a bachelor's degree from George Washington University.</p>
+		</div>
 		</div>
 
 		<hr>
@@ -138,7 +162,7 @@
 
 		<hr>
 
-		<h2 class="article-heading">Selected work</h2>
+		<h2>Selected work</h2>
 		<ul>
 			<li><a href="https://www.imf.org/en/Publications/WP/Issues/2017/02/13/Assessing-the-Fragility-of-Global-Trade-The-Impact-of-Localized-Supply-Shocks-Using-Network-44656">Assessing the Fragility of Global Trade</a> &mdash; IMF Working Paper, 2017 (with Korniyenko &amp; Pinat)</li>
 			<li><a href="https://cepr.net/publications/the-collapse-of-obamacare-big-problem-in-republican-states/">The Collapse of Obamacare: Big Problem in Republican States</a> &mdash; CEPR, 2017</li>
@@ -146,12 +170,12 @@
 			<li><a href="https://cepr.net/publications/union-membership-byte-2018/">Union Membership Byte</a> &mdash; CEPR, 2018</li>
 			<li><a href="https://www.peoplespolicyproject.org/2018/12/19/us-companies-are-flush-with-left-over-cash/">US Companies Are Flush with Left Over Cash</a> &mdash; People's Policy Project, 2018</li>
 			<li><a href="https://www.peoplespolicyproject.org/2020/07/28/the-long-reach-of-unemployment-benefits/">The Long Reach of Unemployment Benefits</a> &mdash; People's Policy Project, 2020</li>
-			<li><a href="https://briandew.wordpress.com/2023/12/18/trends-in-hours-worked-in-the-us/">Trends in Hours Worked in the US</a> &mdash; BD Economics blog, 2023</li>
+			<li><a href="https://briandew.wordpress.com/2023/12/18/trends-in-hours-worked-in-the-us/" target="_blank" rel="noopener">Trends in Hours Worked in the US</a> &mdash; BD Economics blog, 2023</li>
 		</ul>
 
 		<hr>
 
-		<h2 class="article-heading">Contact</h2>
+		<h2>Contact</h2>
 		<p>Reach me at <a href="mailto:brian@bd-econ.com">brian@bd-econ.com</a></p>
 		</article>
 	</section>
@@ -165,7 +189,7 @@
 			<a href="https://github.com/bdecon/" aria-label="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
 			<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
 			<a href="https://twitter.com/bd_econ" aria-label="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-			<a href="https://briandew.wordpress.com/" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
+			<a href="https://briandew.wordpress.com/" target="_blank" rel="noopener" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
 		</div>
 	</footer>
 	<script>

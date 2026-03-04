@@ -128,16 +128,13 @@
 	.chart-body {
 		padding-bottom: 2px;
 	}
-	.chart-subtitle {
-		margin-bottom: 2px;
-	}
 	.chart-legend {
 		display: grid;
 		grid-template-columns: auto auto auto;
 		grid-template-rows: auto auto auto auto;
 		gap: 0 14px;
 		column-gap: 14px;
-		font-size: 10.5px;
+		font-size: 11px;
 		color: var(--color-text-muted);
 		margin-bottom: 6px;
 		line-height: 1.5;
@@ -234,8 +231,6 @@
 		max-width: 420px;
 		margin: 0.75rem auto;
 		padding: 8px 12px;
-		background: var(--color-bg-highlight);
-		border-radius: 4px;
 		font-size: 14px;
 		color: var(--color-text-muted);
 		display: flex;
@@ -268,10 +263,6 @@
 		font-weight: 600;
 		color: var(--color-text-dark);
 	}
-	.details-section ul {
-		padding-left: 1.2em;
-		margin: 0.5em 0;
-	}
 	.weo-countries p { margin: 0.4em 0; }
 	.weo-countries strong { font-size: 14px; color: var(--color-text-dark); }
 	@media (min-width: 500px) {
@@ -287,7 +278,7 @@
 		<ul class="ul_nav" id="menu">
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
-			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
+			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <i class="fa fa-external-link" aria-hidden="true" style="font-size: 0.7em"></i></a> </li>
 			<li><a href="python.html">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
 					<li><a href="imfapi1.html">IMF API</a></li>
@@ -313,8 +304,8 @@
 			</li>
 		</ul>
 	</nav>
-	<div class="page-strip" style="height:80px">
-		<img src="images/imfweo_strip.jpg" alt="" aria-hidden="true" class="page-strip-img" style="height:80px">
+	<div class="page-strip page-strip-compact">
+		<img src="images/imfweo_strip.jpg" alt="" aria-hidden="true" class="page-strip-img">
 	</div>
 	<header>
 	<h1>IMF WEO Forecast Tracker</h1>
@@ -323,13 +314,13 @@
 	<section>
 	<article class="prose">
 
-	<noscript><p style="background:#fff3cd;padding:10px;border-radius:4px;font-size:14px;">This page requires JavaScript to display interactive charts.</p></noscript>
+	<noscript><p class="noscript-warning">This page requires JavaScript to display interactive charts.</p></noscript>
 
 	<p>The IMF publishes the <a href="https://www.imf.org/en/Publications/WEO">World Economic Outlook</a> twice a year (April and October), with macroeconomic forecasts for nearly 200 countries. This tool tracks how those forecasts have evolved across editions from April 2008 to October 2025.</p>
 
 	<p style="margin-bottom: calc(1.5em + 12px);">Each dot below is a forecast from a previous WEO edition. Larger, fainter dots are longer-range forecasts; smaller, brighter dots are nearer-term. The solid line shows the latest actual data; the dashed line shows the latest forecasts. Where dots cluster tightly, forecasters agreed; where they spread, there was uncertainty or revision.</p>
 
-	<div class="weo-info" id="weo-info">
+	<div class="info-box weo-info" id="weo-info">
 		<span><strong>Latest edition</strong><span id="weo-info-edition">...</span></span>
 		<span><strong>Next update</strong><span id="weo-info-next">...</span></span>
 		<span><a href="https://www.imf.org/en/Publications/WEO">IMF WEO page &rarr;</a></span>
@@ -349,12 +340,12 @@
 	<div class="chart-container chart-compact">
 		<div class="chart-header accent-blue">
 			<div>
-				<h4 id="chart-title">Loading...</h4>
-				<p class="chart-header-indicator" id="chart-indicator"></p>
+				<span class="chart-title" id="chart-title">Loading...</span>
+				<span class="chart-header-indicator" id="chart-indicator"></span>
 			</div>
 		</div>
 		<div class="chart-body">
-			<p class="chart-subtitle" id="chart-units"></p>
+			<span class="chart-subtitle" id="chart-units"></span>
 			<div class="chart-legend" id="chart-legend">
 				<div class="legend-col-header legend-hdr-latest" id="legend-latest-header">Oct 2025 WEO</div>
 				<div class="legend-col-header legend-hdr-prev">Previous WEOs</div>
@@ -372,7 +363,7 @@
 			<canvas id="weoChart" role="img" aria-label="Scatter chart showing how IMF World Economic Outlook forecasts evolved across editions"></canvas>
 		</div>
 		<div class="chart-footer">
-			<p class="chart-source">Source: IMF World Economic Outlook</p>
+			<span class="chart-source">Source: IMF World Economic Outlook</span>
 			<svg class="chart-logo" viewBox="0 0 9 5" width="16" height="9" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
 		</div>
 		<div class="weo-tooltip" id="weo-tooltip"></div>
@@ -455,7 +446,7 @@
 			<a href="https://github.com/bdecon/" aria-label="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
 			<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
 			<a href="https://twitter.com/bd_econ" aria-label="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-			<a href="https://briandew.wordpress.com/" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
+			<a href="https://briandew.wordpress.com/" target="_blank" rel="noopener" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
 		</div>
 	</footer>
 	<script>

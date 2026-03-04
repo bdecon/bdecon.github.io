@@ -104,7 +104,8 @@
 		margin-bottom: 4px;
 	}
 	.chart-filter {
-		font-size: 10px;
+		display: block;
+		font-size: 12px;
 		color: var(--color-axis-text);
 		margin: 0;
 	}
@@ -209,11 +210,6 @@
 		}
 	}
 	@media (max-width: 799px) {
-		.chart-subtitle {
-			flex: 1;
-			min-width: 0;
-			margin-right: 8px;
-		}
 		.chart-toggle {
 			font-size: 12px;
 			flex-shrink: 0;
@@ -223,12 +219,10 @@
 		margin-top: calc(2rem + 24px);
 	}
 	.method-section h2 {
-		font-size: 20px;
 		margin-bottom: 1rem;
 	}
 	.method-section h3 {
 		display: table;
-		font-size: 17px;
 		margin: 2rem 0 0.5rem 0;
 		padding-bottom: 5px;
 		border-bottom: 2px solid var(--color-accent-red);
@@ -283,7 +277,7 @@
 		<ul class="ul_nav" id="menu">
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
-			<li><a href="https://briandew.wordpress.com">Blog</a> </li>
+			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <i class="fa fa-external-link" aria-hidden="true" style="font-size: 0.7em"></i></a> </li>
 			<li><a href="python.html">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
 					<li><a href="imfapi1.html">IMF API</a></li>
@@ -316,17 +310,17 @@
 	<main id="main">
 	<section>
 	<article>
-	<noscript><p style="background:#fff3cd;padding:10px;border-radius:4px;font-size:14px;">This page requires JavaScript to display interactive charts. The <a href="files/gdpm.csv">CSV data</a> can still be downloaded directly.</p></noscript>
+	<noscript><p class="noscript-warning">This page requires JavaScript to display interactive charts. The <a href="files/gdpm.csv">CSV data</a> can still be downloaded directly.</p></noscript>
 
 	<div class="chart-row">
 		<div class="chart-container">
 			<div class="chart-header accent-red">
-				<h4>Monthly US GDP</h4>
+				<span class="chart-title">Monthly US GDP</span>
 				<a href="files/gdpm.csv" title="Download as .csv" download><i class="fa fa-download"></i></a>
 			</div>
 			<div class="chart-body">
 				<div class="chart-body-header">
-					<p class="chart-subtitle">USD, seasonally adjusted annual rate</p>
+					<span class="chart-subtitle">USD, seasonally adjusted annual rate</span>
 					<div class="toggle-group chart-toggle">
 						<button class="toggle-btn chart-toggle-btn active" data-series="nominal">Nominal</button>
 						<button class="toggle-btn chart-toggle-btn" data-series="real">Real</button>
@@ -335,8 +329,8 @@
 				<canvas id="lineChart" role="img" aria-label="Line chart showing monthly US GDP estimates"></canvas>
 			</div>
 			<div class="chart-footer">
-				<p class="chart-filter"><button type="button" onclick="toggleTimeRange()">Recent 3 years</button></p>
-				<p class="chart-source">Source: BEA, Atlanta Fed, Cleveland Fed</p>
+				<span class="chart-filter"><button type="button" onclick="toggleTimeRange()">Recent 3 years</button></span>
+				<span class="chart-source">Source: BEA, Atlanta Fed, Cleveland Fed</span>
 			</div>
 		</div>
 
@@ -357,8 +351,6 @@
 	</article>
 
 	<article class="method-section prose">
-	<h2>Methodology</h2>
-
 	<h3>Overview</h3>
 	<p>Monthly GDP provides a way to put other economic data into context. GDP is the broadest measure of economic activity, but it's only published quarterly, with a lag of several months. This creates a gap when comparing recent data to overall economic scale.</p>
 
@@ -406,11 +398,11 @@
 	</div>
 
 	<h3>Data Sources</h3>
-	<ul class="data-sources">
-		<li><strong>Quarterly Nominal GDP:</strong> <a href="https://fred.stlouisfed.org/series/GDP">FRED (GDP)</a></li>
-		<li><strong>Quarterly Real GDP:</strong> <a href="https://fred.stlouisfed.org/series/GDPC1">FRED (GDPC1)</a></li>
-		<li><strong>Real GDP Nowcast:</strong> <a href="https://www.atlantafed.org/cqer/research/gdpnow">Atlanta Fed GDPNow</a></li>
-		<li><strong>Inflation Nowcast:</strong> <a href="https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting">Cleveland Fed Inflation Nowcasting</a></li>
+	<ul>
+		<li>Quarterly Nominal GDP: <a href="https://fred.stlouisfed.org/series/GDP">FRED (GDP)</a></li>
+		<li>Quarterly Real GDP: <a href="https://fred.stlouisfed.org/series/GDPC1">FRED (GDPC1)</a></li>
+		<li>Real GDP Nowcast: <a href="https://www.atlantafed.org/cqer/research/gdpnow">Atlanta Fed GDPNow</a></li>
+		<li>Inflation Nowcast: <a href="https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting">Cleveland Fed Inflation Nowcasting</a></li>
 	</ul>
 
 	<h3>Updates</h3>
@@ -428,7 +420,7 @@
 			<a href="https://github.com/bdecon/" aria-label="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
 			<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
 			<a href="https://twitter.com/bd_econ" aria-label="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-			<a href="https://briandew.wordpress.com/" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
+			<a href="https://briandew.wordpress.com/" target="_blank" rel="noopener" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
 		</div>
 	</footer>
 	<script>

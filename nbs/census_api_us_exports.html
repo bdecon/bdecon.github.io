@@ -3,8 +3,8 @@
 <head>
 <meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
 <title> BD Economics | Notebooks | US Exports by Partner </title>
-<link rel="stylesheet" href="add-ins/github.css">
-<script src="add-ins/highlight.pack.js"></script>
+<link rel="stylesheet" href="../add-ins/github.css">
+<script src="../add-ins/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -52,7 +52,7 @@
 	<ul class="ul_nav" id="menu">
 		<li class="nav_main"> <a href="../index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 		<li><a href="../about.html">About</a> </li>
-		<li><a href="https://briandew.wordpress.com">Blog</a> </li>
+		<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <i class="fa fa-external-link" aria-hidden="true" style="font-size: 0.7em"></i></a> </li>
 		<li><a href="../python.html" class="active">Guides <span class="nav-arrow">&darr;</span></a>
 			<ul class="hidden">
 				<li><a href="../imfapi1.html">IMF API</a></li>
@@ -107,15 +107,15 @@
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight python"><pre><span></span><span class="c1"># import packages</span>
-<span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<pre><code class="python"># import packages
+import requests
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 
-<span class="c1"># Local file with API key</span>
-<span class="kn">from</span> <span class="nn">config</span> <span class="k">import</span> <span class="n">census_key</span> <span class="k">as</span> <span class="n">key</span>
-</pre></div>
+# Local file with API key
+from config import census_key as key
+</code></pre>
 
 </div>
 </div>
@@ -136,17 +136,17 @@
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight python"><pre><span></span><span class="c1"># time series API: https://api.census.gov/data/timeseries.html</span>
-<span class="n">base</span> <span class="o">=</span> <span class="s1">&#39;https://api.census.gov/data/timeseries/&#39;</span>
-<span class="n">flow</span> <span class="o">=</span> <span class="s1">&#39;intltrade/exports/hs&#39;</span>
-<span class="n">param</span> <span class="o">=</span> <span class="s1">&#39;CTY_CODE,CTY_NAME,ALL_VAL_MO&#39;</span>
+<pre><code class="python"># time series API: https://api.census.gov/data/timeseries.html
+base = &#39;https://api.census.gov/data/timeseries/&#39;
+flow = &#39;intltrade/exports/hs&#39;
+param = &#39;CTY_CODE,CTY_NAME,ALL_VAL_MO&#39;
 
-<span class="c1"># date needs manual update from release schedule:</span>
-<span class="c1"># https://www.census.gov/foreign-trade/reference/release_schedule.html</span>
-<span class="n">time</span> <span class="o">=</span> <span class="s1">&#39;2018-06&#39;</span> 
+# date needs manual update from release schedule:
+# https://www.census.gov/foreign-trade/reference/release_schedule.html
+time = &#39;2018-06&#39; 
 
-<span class="n">url</span> <span class="o">=</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{base}{flow}</span><span class="s1">?get=</span><span class="si">{param}</span><span class="s1">&amp;key=</span><span class="si">{key}</span><span class="s1">&amp;time=</span><span class="si">{time}</span><span class="s1">&#39;</span>
-</pre></div>
+url = f&#39;{base}{flow}?get={param}&amp;key={key}&amp;time={time}&#39;
+</code></pre>
 
 </div>
 </div>
@@ -166,12 +166,12 @@
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight python"><pre><span></span><span class="c1"># send request to census api and read response as json data</span>
-<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<pre><code class="python"># send request to census api and read response as json data
+r = requests.get(url).json()
 
-<span class="c1"># print first five observations</span>
-<span class="n">r</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
-</pre></div>
+# print first five observations
+r[:5]
+</code></pre>
 
 </div>
 </div>
@@ -216,11 +216,11 @@
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight python"><pre><span></span><span class="c1"># store row with total exports (converted to billions)</span>
-<span class="n">tot</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="mi">1</span><span class="n">_000_000_000</span>
+<pre><code class="python"># store row with total exports (converted to billions)
+tot = int(r[1][2]) / 1_000_000_000
 
-<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;June 2018 total goods exports: </span><span class="si">{tot:.1f}</span><span class="s1">B&#39;</span><span class="p">)</span>
-</pre></div>
+print(f&#39;June 2018 total goods exports: {tot:.1f}B&#39;)
+</code></pre>
 
 </div>
 </div>
@@ -259,15 +259,15 @@
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight python"><pre><span></span><span class="c1"># keep country name (pos 1) and export value in billions</span>
-<span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="n">i</span><span class="p">[</span><span class="s1">&#39;CTY_NAME&#39;</span><span class="p">]:</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s1">&#39;ALL_VAL_MO&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">1</span><span class="n">_000_000_000</span><span class="p">)</span> 
-                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">))</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]</span> 
-                <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="s1">&#39;CTY_CODE&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> 
-                <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s1">&#39;CTY_CODE&#39;</span><span class="p">])</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">8000</span><span class="p">)})</span>
-     <span class="o">.</span><span class="n">sort_values</span><span class="p">())</span>
+<pre><code class="python"># keep country name (pos 1) and export value in billions
+s = (pd.Series({i[&#39;CTY_NAME&#39;]: (int(i[&#39;ALL_VAL_MO&#39;]) / 1_000_000_000) 
+                for i in [dict(zip(r[0], v)) for v in r[1:]] 
+                if i[&#39;CTY_CODE&#39;].isdigit() 
+                and int(i[&#39;CTY_CODE&#39;]) in range(1000, 8000)})
+     .sort_values())
 
-<span class="n">s</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-</pre></div>
+s.tail(5)
+</code></pre>
 
 </div>
 </div>
@@ -313,23 +313,23 @@ dtype: float64</pre>
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight python"><pre><span></span><span class="c1"># plot top 20 partners</span>
-<span class="n">s20</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">s20</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;barh&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<pre><code class="python"># plot top 20 partners
+s20 = s.tail(20)
+s20.plot(kind=&#39;barh&#39;, figsize=(6,10), color=&#39;blue&#39;)
 
-<span class="c1"># add value labels to ends of bars and country names to start of bars</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">s20</span><span class="p">):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">val</span><span class="o">+</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">i</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{val:.1f}</span><span class="s1">  ({val / tot * 100:.1f}%)&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">i</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">s20</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+# add value labels to ends of bars and country names to start of bars
+for i, val in enumerate(s20):
+    plt.text(val+0.2, i-0.1, f&#39;{val:.1f}  ({val / tot * 100:.1f}%)&#39;)
+    plt.text(-0.5, i-0.1, s20.index[i], ha=&#39;right&#39;)
     
-<span class="c1"># add title and footer</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;Top export destinations of US goods in June 2018, billions of USD&#39;</span><span class="p">,</span> 
-          <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="s1">&#39;Source: Census Bureau; share of total in parentheses&#39;</span><span class="p">)</span>
+# add title and footer
+plt.text(-10, 20, &#39;Top export destinations of US goods in June 2018, billions of USD&#39;, 
+          fontsize=13, weight=&#39;bold&#39;)
+plt.text(-10, -1.5, &#39;Source: Census Bureau; share of total in parentheses&#39;)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
+plt.axis(&#39;off&#39;)
+plt.show()
+</code></pre>
 
 </div>
 </div>
@@ -383,7 +383,7 @@ dtype: float64</pre>
         <a href="https://github.com/bdecon/" aria-label="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
         <a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
         <a href="https://twitter.com/bd_econ" aria-label="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-        <a href="https://briandew.wordpress.com/" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
+        <a href="https://briandew.wordpress.com/" target="_blank" rel="noopener" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
     </div>
 </footer>
 <script>
