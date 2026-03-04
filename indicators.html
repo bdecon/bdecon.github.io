@@ -174,7 +174,7 @@
 		display: inline-block;
 		margin: 0;
 		font-size: 9px;
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		font-family: var(--font-ui);
 		color: var(--color-link);
 		text-decoration: none;
 	}
@@ -200,13 +200,13 @@
 		line-height: 1.5;
 		color: var(--color-text-gray);
 		margin: 0 0 12px 0;
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		font-family: var(--font-ui);
 	}
 	.card-stats-table {
 		width: 100%;
 		border-collapse: collapse;
 		font-size: 10px;
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		font-family: var(--font-ui);
 		color: var(--color-text-dark);
 	}
 	.card-stats-table th {
@@ -242,7 +242,7 @@
 		font-style: italic;
 		color: var(--color-axis-text);
 		margin: 0 0 8px 0;
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		font-family: var(--font-ui);
 	}
 	.card-category-badge {
 		font-size: 10px;
@@ -250,14 +250,14 @@
 		border-radius: 8px;
 		vertical-align: middle;
 		background: rgba(255,255,255,0.25);
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		font-family: var(--font-ui);
 		margin-left: 8px;
 		font-weight: 500;
 		white-space: nowrap;
 	}
 	.card-number {
 		font-size: 9px;
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		font-family: var(--font-ui);
 		color: var(--color-text-subtle);
 		font-weight: 600;
 		letter-spacing: 0.5px;
@@ -265,12 +265,12 @@
 	.featured-badge {
 		display: none;
 		font-size: 8px;
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		font-family: var(--font-ui);
 		font-weight: 700;
 		letter-spacing: 1px;
 		text-transform: uppercase;
 		padding: 1px 6px;
-		border-radius: 3px;
+		border-radius: var(--radius);
 		background: var(--chart-color, var(--color-card-blue));
 		color: white;
 	}
@@ -369,7 +369,7 @@
 	.chart-selector {
 		max-width: 400px;
 		margin: 0 auto 1rem auto;
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		font-family: var(--font-ui);
 		font-size: 14px;
 		display: flex;
 		align-items: center;
@@ -381,11 +381,11 @@
 		color: var(--color-text-dark);
 	}
 	.chart-selector select {
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		font-family: var(--font-ui);
 		font-size: 13px;
 		padding: 6px 12px;
 		border: 1px solid var(--color-border-light);
-		border-radius: 4px;
+		border-radius: var(--radius);
 		background: var(--color-bg-white);
 		color: var(--color-text-dark);
 		cursor: pointer;
@@ -428,7 +428,7 @@
 		gap: 16px;
 		margin-bottom: 6px;
 		font-size: 10px;
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		font-family: var(--font-ui);
 	}
 	.chart-legend-item {
 		display: flex;
@@ -460,7 +460,7 @@
 		justify-content: center;
 		gap: 14px;
 		font-size: 9px;
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		font-family: var(--font-ui);
 		color: var(--color-text-muted);
 		margin-bottom: 2px;
 	}
@@ -503,12 +503,12 @@
 		display: flex;
 		align-items: center;
 		font-size: 10px;
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		font-family: var(--font-ui);
 		height: 14px;
 	}
 	.hbar-row-label {
 		font-size: 11px;
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		font-family: var(--font-ui);
 		color: var(--color-text-dark);
 		white-space: nowrap;
 		overflow: hidden;
@@ -523,9 +523,9 @@
 		background: var(--color-tooltip-bg, #333);
 		color: #fff;
 		padding: 5px 8px;
-		border-radius: 4px;
+		border-radius: var(--radius);
 		font-size: 10px;
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		font-family: var(--font-ui);
 		white-space: nowrap;
 		pointer-events: none;
 		top: -32px;
@@ -574,7 +574,7 @@
 	.chart-nav-btn {
 		background: none;
 		border: 1px solid var(--color-border-light);
-		border-radius: 4px;
+		border-radius: var(--radius);
 		color: var(--color-text-muted);
 		cursor: pointer;
 		padding: 6px 10px;
@@ -624,7 +624,7 @@
 	.chart-latest-mobile {
 		display: none;
 		font-size: 11px;
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		font-family: var(--font-ui);
 		color: var(--color-axis-text);
 		margin: 4px 0 0 0;
 		text-align: center;

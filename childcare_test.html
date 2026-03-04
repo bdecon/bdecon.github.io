@@ -65,7 +65,7 @@
 		font-size: 14px;
 		white-space: nowrap;
 		flex-shrink: 0;
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		font-family: var(--font-ui);
 		font-weight: 600;
 		border: 1px solid var(--color-border-light);
 		border-bottom: none;
@@ -130,7 +130,7 @@
 		position: relative;
 		overflow: hidden;
 		aspect-ratio: 1;
-		border-radius: 3px;
+		border-radius: var(--radius);
 	}
 	.cc-infra-cell img {
 		width: 100%;
@@ -350,7 +350,7 @@
 	}
 	.inset-box text {
 		font-size: 14px;
-		font-family: system-ui, sans-serif;
+		font-family: var(--font-ui);
 		fill: var(--color-axis-text);
 	}
 	/* No-data region */
@@ -368,14 +368,14 @@
 	/* Region group labels */
 	.group-label {
 		font-size: 18px;
-		font-family: system-ui, sans-serif;
+		font-family: var(--font-ui);
 		fill: var(--color-text-muted);
 		font-weight: 600;
 		font-style: italic;
 	}
 	.legend-semantic {
 		font-size: 17px;
-		font-family: system-ui, sans-serif;
+		font-family: var(--font-ui);
 		font-weight: 600;
 		fill: var(--color-card-teal);
 	}
@@ -387,7 +387,7 @@
 	/* Legend (drawn in SVG) */
 	.legend-label {
 		font-size: 10px;
-		font-family: system-ui, sans-serif;
+		font-family: var(--font-ui);
 		fill: var(--color-axis-text);
 	}
 	.legend-label-end {
@@ -412,10 +412,10 @@
 		pointer-events: none;
 		background: var(--color-tooltip-bg);
 		color: #fff;
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		font-family: var(--font-ui);
 		font-size: 12px;
 		padding: 8px 10px;
-		border-radius: 4px;
+		border-radius: var(--radius);
 		z-index: 100;
 		max-width: 220px;
 		line-height: 1.45;
@@ -434,7 +434,7 @@
 	/* Stats panel */
 	.stats-panel {
 		font-size: 11px;
-		font-family: system-ui, sans-serif;
+		font-family: var(--font-ui);
 		fill: var(--color-text-muted);
 	}
 	.stats-panel .stats-name {
@@ -535,7 +535,7 @@
 		height: auto;
 	}
 	.wp-hero-svg text {
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		font-family: var(--font-ui);
 	}
 	/* ---- Wage Peers: Explore panel ---- */
 	.wp-controls {
@@ -548,9 +548,9 @@
 	.wp-controls select {
 		padding: 5px 8px;
 		font-size: 14px;
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		font-family: var(--font-ui);
 		border: 1px solid var(--color-border-light);
-		border-radius: 3px;
+		border-radius: var(--radius);
 		background: var(--color-bg-white);
 		color: var(--color-text-dark);
 		max-width: 260px;
@@ -558,10 +558,10 @@
 	.wp-controls button {
 		padding: 4px 10px;
 		font-size: 13px;
-		font-family: system-ui, sans-serif;
+		font-family: var(--font-ui);
 		font-weight: 600;
 		border: 1px solid var(--color-card-teal);
-		border-radius: 3px;
+		border-radius: var(--radius);
 		background: transparent;
 		color: var(--color-card-teal);
 		cursor: pointer;
@@ -629,7 +629,7 @@
 		background: var(--color-card-teal);
 		color: #fff;
 		font-weight: 600;
-		border-radius: 3px;
+		border-radius: var(--radius);
 	}
 	.wp-peer-row.wp-childcare .wp-peer-wage { color: #fff; }
 	[data-theme="dark"] .wp-peer-row.wp-childcare {
@@ -656,7 +656,7 @@
 		right: 16px;
 		background: var(--color-card-teal);
 		color: #fff;
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+		font-family: var(--font-ui);
 		font-size: 12px;
 		font-weight: 600;
 		letter-spacing: 0.04em;
@@ -783,7 +783,7 @@
 
 	<p>During World War II, the federal government built public childcare centers so that mothers could work in shipyards and factories. It was, as the economist <a href="https://news.harvard.edu/gazette/story/2024/08/when-universal-childcare-for-working-mothers-was-federally-funded-claudia-goldin/" target="_blank" rel="noopener">Claudia Goldin noted</a>, "a national, practically universal, federally funded preschool program. It is, to this day, the only one." When the war ended, the centers closed.</p>
 
-	<div style="position: relative; margin: 40px auto; max-width: 480px; border-radius: 4px; overflow: hidden;">
+	<div style="position: relative; margin: 40px auto; max-width: 480px; border-radius: var(--radius); overflow: hidden;">
 		<img src="files/childcare-images/storytime_cropped.jpg" alt="Teacher reading to children at a federally funded childcare center, 1943" style="display: block; width: 100%; filter: sepia(0.3) saturate(0.8);">
 		<div style="position: absolute; inset: 0; background: var(--color-card-teal); mix-blend-mode: multiply; opacity: 0.15;"></div>
 		<div style="background: var(--color-card-teal); padding: 6px 10px;">
@@ -879,7 +879,7 @@
 						font-size: 13px;
 						font-weight: 600;
 						border: 1px solid var(--color-card-teal);
-						border-radius: 3px;
+						border-radius: var(--radius);
 						background: transparent;
 						color: var(--color-card-teal);
 						cursor: pointer;
@@ -901,7 +901,7 @@
 						appearance: none;
 						width: 100%;
 						height: 6px;
-						border-radius: 3px;
+						border-radius: var(--radius);
 						background: var(--color-border-light);
 						outline: none;
 					}
@@ -1127,7 +1127,7 @@
 			</div>
 		</div>
 
-		<p>The empty lot in the illustration above is not an accident. Pat Buchanan later reflected on killing the 1971 childcare bill:</p>
+		<p>The empty lot in the illustration above tells the whole story. Pat Buchanan later reflected on killing the 1971 childcare bill:</p>
 
 		<blockquote class="blockquote-accent accent-teal">
 			"If we hadn't stopped it, I think you'd have an entitlement program now of enormous size with these federal day care centers, and they would be growing and growing and growing once you got it on the books."
@@ -1178,7 +1178,7 @@
 			<div class="cc-tooltip" id="map-tooltip"></div>
 		</div>
 
-    <p>The gap persists in every state because no state has built the infrastructure to close it. A few are trying. Section 3 describes their efforts.</p>
+    <p>The gap persists in every state because no state has built the infrastructure to close it. The next section traces what that costs — for families, for workers, and for the businesses trying to hire them.</p>
 
 		<hr class="section-bar accent-teal">
 	</details>
@@ -1204,20 +1204,22 @@
 			</div>
 		</div>
 
-		<p>The diagram above is not an abstract comparison. Finland grants every child a <a href="https://okm.fi/en/legislation-ecec" target="_blank" rel="noopener">legal right</a> to public early childhood education and care from birth. The home care allowance is an option layered on top of a complete public childcare system. Both options are funded. Both options are real.</p>
+		<p>Finland grants every child a <a href="https://okm.fi/en/legislation-ecec" target="_blank" rel="noopener">legal right</a> to public early childhood education and care from birth. The home care allowance is an option layered on top of a complete public childcare system. Both options are funded. Both options are real.</p>
 
 		<p>In any society, some parents will prefer to care for their children at home. Finland gives them freedom to pursue that option — and lets them move between home care and public daycare as needs change. Staying home to care for a young child means lost income, so the allowance replaces part of the lost income, preventing poverty.</p>
 
 		<p>In the United States, Head Start offers part-day preschool to some low-income children. Scattered state pre-K programs cover some four-year-olds for a few hours during the school year. For most families, the only option for outside care is the private market.</p>
 
-		<p>The apparent freedom of the private market is a constraint in disguise. Families pay rates that can total $150,000 for two children before kindergarten, if they even can, piece together informal arrangements, or someone — usually the mother — leaves paid work. That is not choice. It is the daily emergency resulting from the national removal of viable choices. This is a huge cost for families.</p>
+		<p>The apparent freedom of the private market is a constraint in disguise. Families pay rates that can total $150,000 for two children before kindergarten — if they can afford it at all. Those who can't piece together informal arrangements, or someone — usually the mother — leaves paid work. That is not choice. It is the daily emergency resulting from the national removal of viable choices. This is a huge cost for families.</p>
 
 		<hr>
 		<h3>The cost to families</h3>
 
-		<p><span class="highlight-accent accent-teal">3.8%</span> of US working-age adults are out of the labor force for childcare. In the Nordic countries, the figure is under 1%. Nine in ten of these sidelined adults are women. Outside of recessions, more Americans are out of work for childcare than for unemployment.</p>
+		<p>The economics are straightforward. Full-time childcare costs about $15,000 per child. At a household income of $200,000, that is steep but manageable. At $40,000, it is more than a third of everything the family makes before taxes. For a family with two children, that is $30,000 a year&mdash;close to the full take-home pay of a worker earning $20 an hour.</p>
 
-		<p>The economics are straightforward. Full-time childcare costs about $15,000 per child. At a household income of $200,000, that is steep but manageable. At $40,000, it is more than a third of everything the family makes before taxes. For a family with two children, that is $30,000 a year&mdash;close to the full take-home pay of a worker earning $20 an hour. For many families, paying for care costs more than the second earner brings home. Without a public option, someone stays home, and overwhelmingly that someone is the mother.</p>
+		<p>Families respond in three ways: they pay and absorb the cost for years — often at the expense of savings, retirement, or housing. They rely on grandparents and informal arrangements, shifting the burden to an older generation. Or a parent leaves work — overwhelmingly the mother.</p>
+
+		<p><span class="highlight-accent accent-teal">3.8%</span> of US working-age adults are out of the labor force for childcare. In the Nordic countries, the figure is under 1%. Nine in ten of these sidelined adults are women. Outside of recessions, more Americans are out of work for childcare than for unemployment.</p>
 
 		<p>The childcare gap pushes US families into poverty. Among mothers of young children who left work for caregiving, one in four lives below the poverty line. Among those who stayed employed full-time, the rate is under 6%. For single mothers of young children, the poverty rate reaches 31%. The pattern runs in one direction: no infrastructure forces women out of the workforce, and workforce exit pushes families into poverty.</p>
 
@@ -1237,12 +1239,12 @@
 			</div>
 		</div>
 
-		<p>These outcomes are not separate problems. They are the same system producing predictable results — and the damage extends beyond the families caught in it.</p>
+		<p>These outcomes share a single cause: the same system producing predictable results — and the damage extends beyond the families caught in it.</p>
 
 		<hr>
 		<h3>The cost to employers</h3>
 
-		<p>The childcare gap does not only push families into poverty. It drains the businesses trying to hire them.</p>
+		<p>The childcare gap pushes families into poverty. It also drains the businesses trying to hire them.</p>
 
 		<p>When a parent leaves the workforce because care is unavailable, their employer loses a trained worker. Of the 7.3 million Americans out of work for childcare, 2.2 million have a bachelor's degree or higher. When a parent cuts hours or calls in because a care arrangement fell through, their employer pays for it in turnover and lost output. No company's budget has a line for "childcare." It shows up as unfilled positions and retention problems — especially in healthcare, manufacturing, and food service, where schedules are inflexible and the workforce skews female.</p>
 
@@ -1265,7 +1267,7 @@
 			<h3 class="cc-wage-title-desktop">US childcare workers are paid $15.41 per hour</h3>
 			<h3 class="cc-wage-title-mobile">US childcare workers make $15.41/hr</h3>
 			<p>The typical childcare worker makes <a href="https://www.bls.gov/oes/current/oes399011.htm" target="_blank" rel="noopener">$15.41 per hour</a>, or $32,050 a year. <span class="highlight-accent accent-teal">99% of occupations</span> pay more. An elementary school teacher at the school next door makes <a href="https://www.bls.gov/oes/current/oes252021.htm" target="_blank" rel="noopener">$62,340</a>. That gap is not a market outcome. It is a policy choice about which work counts as professional.</p>
-			<p>An elementary school teacher's salary is not particularly generous, either. Neither wage reflects the value of the work. But there is a practical case for closing the gap: professional pay attracts trained workers, training improves quality, and quality matters most for the children with the fewest resources at home.</p>
+			<p>An elementary school teacher's salary is modest, too. Neither wage reflects the value of the work. But there is a practical case for closing the gap: professional pay attracts trained workers, training improves quality, and quality matters most for the children with the fewest resources at home.</p>
 
 			<p>Without professional pay, here is the competition for childcare labor: the lowest-paid occupation in the US, a fast-food cook, makes only 6% less per hour. A dogwalker makes more. The diagram below shows the US occupations with wages most similar to childcare workers. These are the lowest-paying jobs in the country. The 742 occupations that pay more are not shown.</p>
 
@@ -1297,7 +1299,7 @@
 		<hr>
 		<h3>Why the market can't fix it</h3>
 
-		<p>The childcare enrollment and poverty numbers above are not random, and the market cannot fix them. They are the product of two feedback loops — a virtuous cycle in the Nordics and a vicious cycle in the US — shown in the diagram below.</p>
+		<p>The enrollment and poverty numbers above follow directly from the structure of the system, and the market cannot fix them. They are the product of two feedback loops — a virtuous cycle in the Nordics and a vicious cycle in the US — shown in the diagram below.</p>
 
 		<!-- Feedback loop diagram -->
 		<div id="feedback-container" style="margin: 0.5rem 0;">
@@ -1308,7 +1310,7 @@
 
 		<p>In the United States, the feedback runs the other direction. Parents pay a lot. Workers are paid little. Both sides of the market are broken at the same time. Underfunding produces low wages, which cause turnover, which erodes quality, which erodes trust, which becomes the argument against investment. The <a href="https://bipartisanpolicy.org/blog/economic-impact-of-americas-child-care-gap/" target="_blank" rel="noopener">Bipartisan Policy Center</a> estimates the US loses <span class="highlight-accent accent-teal">$22-33 billion annually</span> from inadequate childcare: lost earnings, lost productivity, lost tax revenue. Inaction is not neutral. It actively destroys value.</p>
 		
-		<p>Every dollar of a childcare wage increase passes almost directly to the parent. Research by <a href="https://docs.iza.org/dp16257.pdf" target="_blank" rel="noopener">Brown and Herbst</a> shows that a 10% minimum wage increase raises childcare prices 4-8%, compared to 0.4% at grocery stores — because labor is roughly 70% of childcare costs, and there is almost no margin to absorb it. You cannot raise childcare worker wages without making care unaffordable for parents — unless the government structures costs differently, the way the Nordics do.</p>
+		<p><a href="https://docs.iza.org/dp16257.pdf" target="_blank" rel="noopener">Brown and Herbst</a> documented the mechanism: a 10% minimum wage increase raises childcare prices 4-8%, compared to 0.4% at grocery stores — because labor is roughly 70% of childcare costs, and there is almost no margin to absorb it. You cannot raise childcare worker wages without making care unaffordable for parents — unless the government structures costs differently, the way the Nordics do.</p>
 
 		<p>This is the structural trap. In most industries, you can raise wages by raising prices. In childcare, you cannot — because the consumers are families who are already stretched to their limit, and there is no public payer to absorb the difference. Every other country that solved this problem solved it the same way: the government became the primary funder, set professional wages, and charged families a fraction of the cost. There is no private-market path from $15 an hour to a professional wage without making childcare unaffordable. The only question is whether the public sector steps in.</p>
 
@@ -1368,7 +1370,7 @@
 
 		<p>The United States has roughly the same GDP per young child as Nordic countries — abundant resources for childcare. The US also has the existing model for public care — thirteen years of free public education, with 90% enrollment. What the US does not have is infrastructure or public funding for kids during their first five years. Young kids are a small slice of each population, so the high-coverage childcare systems in the Nordic countries cost only 1% of GDP above what the US funds now.</p>
 
-    <p> The cost of acting is not particularly high, but the cost of inaction has been very high. More Americans are out of work for childcare than for unemployment. Childcare workers are paid less than 99% of all occupations, including dogwalkers. Nearly <a href="https://data.oecd.org/inequality/poverty-rate.htm" target="_blank" rel="noopener">one in five</a> US children lives in poverty. These are the outcomes of political choices. The current system cannot produce a different outcome.</p>
+    <p> Closing the gap costs 1% of GDP. The outcomes of leaving it open are severe. More Americans are out of work for childcare than for unemployment. Childcare workers are paid less than 99% of all occupations, including dogwalkers. Nearly <a href="https://data.oecd.org/inequality/poverty-rate.htm" target="_blank" rel="noopener">one in five</a> US children lives in poverty. These are the outcomes of political choices. The current system cannot produce a different outcome.</p>
 
 		<p>The case studies above show that the choice can go differently. Finland built a complete system over a century. New York City is building one age by age. New Mexico wrote the funding into its constitution. Vermont passed a payroll tax over a governor's veto. None of these happened easily. All of them happened because people organized and fought for them.</p>
 
