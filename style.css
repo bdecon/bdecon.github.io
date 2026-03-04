@@ -380,6 +380,7 @@ ul li a:hover + .hidden, .hidden:hover {
 		z-index: 1001;
 		margin-right: 0;
 		order: 0;
+		& a { border-bottom: none; }
 	}
 	.ul_nav.responsive li.icon {
 		position: fixed;
