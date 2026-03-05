@@ -4,6 +4,7 @@
 	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>IMF API Guide, Part 2 | BD Economics</title>
 	<link rel="stylesheet" href="add-ins/github.css">
+	<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<meta charset="UTF-8">
@@ -147,7 +148,7 @@
 	<div class="nav-card-muted accent-blue">
 
 		<div class="nav-card-banner">
-	    <img src="images/imf_banner1.png" alt="IMF API tutorial Part 1" width="425" height="68">
+	    <img loading="lazy" decoding="async" src="images/imf_banner1.png" alt="IMF API tutorial Part 1" width="425" height="68">
 	  </div>
 	  <div class="nav-card-head">
 		<h3>Part 1</h3>
@@ -161,7 +162,7 @@
 	<div class="nav-card accent-blue">
 
 		<div class="nav-card-banner">
-	    <img src="images/imf_banner.png" alt="IMF API tutorial Part 2" width="293" height="68">
+	    <img loading="lazy" decoding="async" src="images/imf_banner.png" alt="IMF API tutorial Part 2" width="293" height="68">
 	  </div>
 	  <div class="nav-card-head">
 		<h3>Part 2</h3>
@@ -175,7 +176,7 @@
 	<div class="nav-card-muted accent-blue">
 
 		<div class="nav-card-banner">
-	    <img src="images/imf_banner2.png" alt="IMF API tutorial Part 3" width="350" height="68">
+	    <img loading="lazy" decoding="async" src="images/imf_banner2.png" alt="IMF API tutorial Part 3" width="350" height="68">
 	  </div>
 	  <div class="nav-card-head">
 		<h3>Part 3</h3>
@@ -277,7 +278,7 @@ recent = f"{eu_share.index[-1].strftime('%B %Y')}: {eu_share.iloc[-1]:.1f}%"
 ax = eu_share.plot(title=title)
 ax = ax.set_xlabel(recent)</code></pre>
 	<p>Out[6]:</p>
-	<img src="images/uk_imports_eu_share.png" alt="UK Imports EU Share" loading="lazy" width="569" height="454"/>
+	<img decoding="async" src="images/uk_imports_eu_share.png" alt="UK Imports EU Share" loading="lazy" width="569" height="454"/>
 
 	<hr class="section-bar accent-blue">
 	<h3>Tips</h3>
@@ -367,37 +368,7 @@ inflation.tail(4)</code></pre>
 			<a href="https://briandew.wordpress.com/" target="_blank" rel="noopener" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
 		</div>
 	</footer>
-	<script>
-		function responsiveNav() {
-			const menu = document.getElementById("menu");
-			const button = document.querySelector(".icon button");
-			menu.classList.toggle("responsive");
-			const expanded = menu.classList.contains("responsive");
-			button.setAttribute("aria-expanded", expanded);
-		}
-		document.addEventListener("click", function(e) {
-			const menu = document.getElementById("menu");
-			if (!menu.classList.contains("responsive")) return;
-			if (!e.target.closest("nav")) {
-				menu.classList.remove("responsive");
-				document.querySelector(".icon button").setAttribute("aria-expanded", "false");
-			}
-		});
-			function toggleTheme() {
-			const current = document.documentElement.getAttribute('data-theme');
-			const next = current === 'dark' ? 'light' : 'dark';
-			document.documentElement.setAttribute('data-theme', next);
-			localStorage.setItem('theme', next);
-			updateThemeIcon();
-		}
-		function updateThemeIcon() {
-			const icon = document.getElementById('theme-icon');
-			if (!icon) return;
-			const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-			icon.className = isDark ? 'fa fa-sun-o' : 'fa fa-moon-o';
-		}
-		updateThemeIcon();
-	</script>
+	<script src="scripts/nav.js"></script>
 	<script src="add-ins/highlight.pack.js"></script>
 	<script>hljs.initHighlighting();</script>
 </body>

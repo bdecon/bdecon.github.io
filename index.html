@@ -3,6 +3,7 @@
 <head>
 	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>BD Economics</title>
+	<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<meta charset="UTF-8">
@@ -201,7 +202,7 @@
 			<div class="nav-card accent-blue">
 
 				<div class="nav-card-banner">
-					<img src="images/imf_banner.png" alt="IMF API tutorials" width="293" height="68">
+					<img loading="lazy" decoding="async" src="images/imf_banner.png" alt="IMF API tutorials" width="293" height="68">
 				</div>
 				<div class="nav-card-head">
 					<h3>IMF API</h3>
@@ -215,7 +216,7 @@
 			<div class="nav-card accent-teal">
 
 				<div class="nav-card-banner">
-					<img src="images/cps_banner.png" alt="CPS microdata tutorials" width="542" height="130">
+					<img loading="lazy" decoding="async" src="images/cps_banner.png" alt="CPS microdata tutorials" width="542" height="130">
 				</div>
 				<div class="nav-card-head">
 					<h3>CPS data</h3>
@@ -229,7 +230,7 @@
 			<div class="nav-card accent-green">
 
 				<div class="nav-card-banner">
-					<img src="images/chartbook_banner.png" alt="US Economic Chartbook" width="293" height="68">
+					<img loading="lazy" decoding="async" src="images/chartbook_banner.png" alt="US Economic Chartbook" width="293" height="68">
 				</div>
 				<div class="nav-card-head">
 					<h3>Chartbook <i class="fa fa-download"></i></h3>
@@ -254,37 +255,7 @@
 			<a href="https://briandew.wordpress.com/" target="_blank" rel="noopener" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
 		</div>
 	</footer>
-	<script>
-		function responsiveNav() {
-			const menu = document.getElementById("menu");
-			const button = document.querySelector(".icon button");
-			menu.classList.toggle("responsive");
-			const expanded = menu.classList.contains("responsive");
-			button.setAttribute("aria-expanded", expanded);
-		}
-		document.addEventListener("click", function(e) {
-			const menu = document.getElementById("menu");
-			if (!menu.classList.contains("responsive")) return;
-			if (!e.target.closest("nav")) {
-				menu.classList.remove("responsive");
-				document.querySelector(".icon button").setAttribute("aria-expanded", "false");
-			}
-		});
-		function toggleTheme() {
-			const current = document.documentElement.getAttribute('data-theme');
-			const next = current === 'dark' ? 'light' : 'dark';
-			document.documentElement.setAttribute('data-theme', next);
-			localStorage.setItem('theme', next);
-			updateThemeIcon();
-		}
-		function updateThemeIcon() {
-			const icon = document.getElementById('theme-icon');
-			if (!icon) return;
-			const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-			icon.className = isDark ? 'fa fa-sun-o' : 'fa fa-moon-o';
-		}
-		updateThemeIcon();
-	</script>
+	<script src="scripts/nav.js"></script>
 	<script>
 		fetch('date.txt').then(r => r.text()).then(t => {
 			document.querySelectorAll('.cb_update').forEach(el => el.textContent = t.trim());

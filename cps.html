@@ -4,6 +4,7 @@
 	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>CPS Microdata Guide | BD Economics</title>
 	<link rel="stylesheet" href="add-ins/github.css">
+	<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<meta charset="UTF-8">
@@ -113,7 +114,7 @@
 	</nav>
 
 	<div class="page-strip accent-teal">
-		<img src="images/cps_strip.jpg" alt="" aria-hidden="true" class="page-strip-img">
+		<img decoding="async" src="images/cps_strip.jpg" alt="" aria-hidden="true" class="page-strip-img">
 	</div>
 	<header>
 	<h1>CPS Microdata</h1>
@@ -335,37 +336,7 @@ print(f'April 2017: {epop*100:.1f}%')</code></pre>
 			<a href="https://briandew.wordpress.com/" target="_blank" rel="noopener" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
 		</div>
 	</footer>
-	<script>
-		function responsiveNav() {
-			const menu = document.getElementById("menu");
-			const button = document.querySelector(".icon button");
-			menu.classList.toggle("responsive");
-			const expanded = menu.classList.contains("responsive");
-			button.setAttribute("aria-expanded", expanded);
-		}
-		document.addEventListener("click", function(e) {
-			const menu = document.getElementById("menu");
-			if (!menu.classList.contains("responsive")) return;
-			if (!e.target.closest("nav")) {
-				menu.classList.remove("responsive");
-				document.querySelector(".icon button").setAttribute("aria-expanded", "false");
-			}
-		});
-			function toggleTheme() {
-			const current = document.documentElement.getAttribute('data-theme');
-			const next = current === 'dark' ? 'light' : 'dark';
-			document.documentElement.setAttribute('data-theme', next);
-			localStorage.setItem('theme', next);
-			updateThemeIcon();
-		}
-		function updateThemeIcon() {
-			const icon = document.getElementById('theme-icon');
-			if (!icon) return;
-			const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-			icon.className = isDark ? 'fa fa-sun-o' : 'fa fa-moon-o';
-		}
-		updateThemeIcon();
-	</script>
+	<script src="scripts/nav.js"></script>
 	<script src="add-ins/highlight.pack.js"></script>
 	<script>hljs.initHighlighting();</script>
 </body>

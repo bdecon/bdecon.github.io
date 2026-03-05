@@ -2,6 +2,8 @@
 
 /* ===== Variables ===== */
 :root {
+  color-scheme: light dark;
+
   /* Fonts */
   --font-body: Tahoma, Verdana, Segoe, sans-serif;
   --font-ui: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -41,20 +43,19 @@
 
   /* Code */
   --color-code-bg: #efefef;
-  --color-code-highlight: #e0e1e3;
 
   /* Shadows */
-  --color-shadow: rgba(0, 0, 0, 0.1);
-  --color-shadow-strong: rgba(0, 0, 0, 0.15);
+  --color-shadow: color-mix(in srgb, black 10%, transparent);
+  --color-shadow-strong: color-mix(in srgb, black 15%, transparent);
 
   /* Elevation — shadow in light, border in dark */
-  --elevation-shadow: 0 2px 8px var(--color-shadow), 0 4px 16px rgba(0, 0, 0, 0.06);
+  --elevation-shadow: 0 2px 8px var(--color-shadow), 0 4px 16px color-mix(in srgb, black 6%, transparent);
   --elevation-border: none;
 
   /* Chart colors */
-  --color-grid: rgba(0, 0, 0, 0.06);
+  --color-grid: color-mix(in srgb, black 6%, transparent);
   --color-axis-text: #6a6a6a;
-  --color-tooltip-bg: rgba(75, 75, 75, 0.95);
+  --color-tooltip-bg: color-mix(in srgb, #4b4b4b 95%, transparent);
 
   /* Card tail */
   --color-card-tail-bg: #fff;
@@ -103,17 +104,16 @@
   --color-border-light: #555555;
 
   --color-code-bg: #2a2a2a;
-  --color-code-highlight: #333333;
 
-  --color-shadow: rgba(0, 0, 0, 0.3);
-  --color-shadow-strong: rgba(0, 0, 0, 0.4);
+  --color-shadow: color-mix(in srgb, black 30%, transparent);
+  --color-shadow-strong: color-mix(in srgb, black 40%, transparent);
 
   --elevation-shadow: none;
   --elevation-border: 1px solid var(--color-border);
 
-  --color-grid: rgba(255, 255, 255, 0.08);
+  --color-grid: color-mix(in srgb, white 8%, transparent);
   --color-axis-text: #cfcfcf;
-  --color-tooltip-bg: rgba(40, 40, 40, 0.95);
+  --color-tooltip-bg: color-mix(in srgb, #282828 95%, transparent);
 
   --color-card-tail-bg: #282828;
 
@@ -138,15 +138,11 @@
 /* ===== Base & Typography ===== */
 
 /* Focus styles for keyboard navigation */
-a:focus-visible,
-button:focus-visible,
-select:focus-visible,
-input:focus-visible {
+:is(a, button, select, input):focus-visible {
   outline: 2px solid var(--color-link);
   outline-offset: 2px;
 }
-.ul_nav a:focus-visible,
-.ul_nav button:focus-visible {
+.ul_nav :is(a, button):focus-visible {
   outline: 2px solid #fff;
   outline-offset: -2px;
 }
@@ -174,6 +170,7 @@ html{
 	max-width: 1080px;
 	min-width: 300px;
 	overflow-x: hidden;
+	scrollbar-gutter: stable;
 	}
 body{
 	margin: 0;
@@ -210,7 +207,7 @@ hr {
 	padding: 0 12px;
 	box-sizing: border-box;
 }
-.prose h2 { font-size: 24px; }
+.prose h2 { font-size: 24px; margin: 2.5rem 0 10px; }
 .prose h3 { font-size: 20px; }
 .prose h4 { font-size: 17px; color: var(--color-text-dark); margin: 35px 0 10px 0; }
 .article_code h4 { color: var(--color-heading-gray); }
@@ -225,8 +222,9 @@ hr {
 }
 
 /* Noscript fallback warning */
-.noscript-warning { background: #fff3cd; padding: 10px; border-radius: var(--radius); font-size: 14px; }
-h1, h2, h3, h4{font-family: var(--font-ui); line-height: 1.25;}
+.noscript-warning { background: #fff3cd; color: #856404; padding: 10px; border-radius: var(--radius); font-size: 14px; }
+[data-theme="dark"] .noscript-warning { background: var(--color-bg-highlight); color: var(--color-text-gray); border: 1px solid var(--color-border); }
+h1, h2, h3, h4{font-family: var(--font-ui); line-height: 1.25; text-wrap: balance;}
 h1{margin: 10px 0 10px;}
 h2{margin: 20px 0 10px; font-size: 32px;}
 h3{margin: 2.5rem 0 10px; font-size: 26px;}
@@ -328,7 +326,7 @@ nav{
 	color: var(--color-nav-text);
 	text-align: left;
 	font-size: 16px;
-	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	border-bottom: 1px solid color-mix(in srgb, white 10%, transparent);
 }
 .ul_nav ul li:last-child a { border-bottom: none; }
 .ul_nav ul li a:hover { background: var(--color-nav-hover); }
@@ -408,7 +406,7 @@ ul li a:hover + .hidden, .hidden:hover {
 		padding: 16px 20px;
 		min-height: 52px;
 		box-sizing: border-box;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+		border-bottom: 1px solid color-mix(in srgb, white 10%, transparent);
 	}
 	.ul_nav.responsive li a:hover {
 		background-color: var(--color-nav-hover);
@@ -438,7 +436,7 @@ ul li a:hover + .hidden, .hidden:hover {
 		margin-bottom: 8px;
 		font-size: 13px;
 	}
-	.nav-card, .nav-card-muted {
+	:is(.nav-card, .nav-card-muted) {
 		min-height: auto;
 	}
 	main {
@@ -459,8 +457,7 @@ header {
 	text-align: center;
 	background-color: var(--color-bg-header);
 	color: white;
-	& h1, & h3 { margin: 0; font-weight: 900; font-size: 30px; }
-	@media (max-width: 900px) { & h1, & h3 { font-size: 22px; } }
+	& h1, & h3 { margin: 0; font-weight: 900; font-size: clamp(22px, 2vw + 16px, 30px); }
 }
 
 /* Footer styling */
@@ -487,7 +484,7 @@ footer {
 .footer_right { text-align: right; }
 /* Section formatting */
 section{margin: 5px; padding: 20px 0 0 0;}
-article > :first-child { margin-top: 0; }
+article:not(.prose) > :first-child { margin-top: 0; }
 .article_code {
 	padding-top: 10px;
 	& p code { font-weight: bold; }
@@ -519,7 +516,7 @@ article > :first-child { margin-top: 0; }
 /* ===== Nav Cards ===== */
 
 /* Nav cards */
-.nav-card, .nav-card-muted {
+:is(.nav-card, .nav-card-muted) {
 	box-shadow: var(--elevation-shadow);
 	border: var(--elevation-border);
 	text-align: center;
@@ -630,7 +627,7 @@ tr:nth-child(even){background-color: var(--color-bg-alt)}
 	display: block;
 	font-size: 12px;
 	font-weight: 400;
-	color: rgba(255,255,255,0.8);
+	color: color-mix(in srgb, white 80%, transparent);
 	margin: 1px 0 0 0;
 	& strong { font-weight: 600; color: #fff; }
 }
@@ -826,12 +823,19 @@ tr:nth-child(even){background-color: var(--color-bg-alt)}
 
 /* Page-level strip images */
 .page-strip {
-	margin: 0; height: 150px; overflow: hidden; line-height: 0;
+	margin: 0; height: clamp(100px, 12vw + 20px, 150px); overflow: hidden; line-height: 0;
 	background-color: var(--accent);
-	@media (max-width: 900px) { height: 100px; }
 }
 .page-strip-img { height: 100%; }
 .page-strip-compact { height: 80px; }
+
+/* ===== Reduced Motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
 
 /* ===== Dark Mode Overrides ===== */
 [data-theme="dark"] {

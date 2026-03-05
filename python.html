@@ -3,6 +3,7 @@
 <head>
 	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Python for Macroeconomic Data Analysis | BD Economics</title>
+	<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<meta charset="UTF-8">
@@ -131,7 +132,7 @@
 	<div class="nav-card accent-blue">
 
 		<div class="nav-card-banner">
-		<img src="images/imf_banner.png" alt="IMF API tutorial" width="293" height="68">
+		<img loading="lazy" decoding="async" src="images/imf_banner.png" alt="IMF API tutorial" width="293" height="68">
 	  </div>
 	  <div class="nav-card-head">
 		<h3>IMF API</h3>
@@ -145,7 +146,7 @@
 	<div class="nav-card accent-orange">
 
 		<div class="nav-card-banner">
-			<img src="images/bea_banner.png" alt="BEA API tutorial" width="542" height="130">
+			<img loading="lazy" decoding="async" src="images/bea_banner.png" alt="BEA API tutorial" width="542" height="130">
 		</div>
 		<div class="nav-card-head">
 			<h3>BEA API</h3>
@@ -159,7 +160,7 @@
 	<div class="nav-card accent-purple">
 
 		<div class="nav-card-banner">
-			<img src="images/bls_banner.png" alt="BLS API tutorial" width="257" height="68">
+			<img loading="lazy" decoding="async" src="images/bls_banner.png" alt="BLS API tutorial" width="257" height="68">
 		</div>
 		<div class="nav-card-head">
 			<h3>BLS API</h3>
@@ -173,7 +174,7 @@
 	<div class="nav-card accent-teal">
 
 		<div class="nav-card-banner">
-			<img src="images/cps_banner.png" alt="CPS microdata tutorial" width="542" height="130">
+			<img loading="lazy" decoding="async" src="images/cps_banner.png" alt="CPS microdata tutorial" width="542" height="130">
 		</div>
 		<div class="nav-card-head">
 			<h3>CPS data</h3>
@@ -187,7 +188,7 @@
 	<div class="nav-card accent-green">
 
 		<div class="nav-card-banner">
-			<img src="images/census_banner.png" alt="Census API tutorial" width="207" height="68">
+			<img loading="lazy" decoding="async" src="images/census_banner.png" alt="Census API tutorial" width="207" height="68">
 		</div>
 		<div class="nav-card-head">
 			<h3>Census API</h3>
@@ -201,7 +202,7 @@
 	<div class="nav-card accent-red">
 
 		<div class="nav-card-banner">
-			<img src="images/treasury_banner.png" alt="Treasury API tutorial" width="391" height="68">
+			<img loading="lazy" decoding="async" src="images/treasury_banner.png" alt="Treasury API tutorial" width="391" height="68">
 		</div>
 		<div class="nav-card-head">
 			<h3>Treasury API</h3>
@@ -227,36 +228,6 @@
 			<a href="https://briandew.wordpress.com/" target="_blank" rel="noopener" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
 		</div>
 	</footer>
-	<script>
-		function responsiveNav() {
-			const menu = document.getElementById("menu");
-			const button = document.querySelector(".icon button");
-			menu.classList.toggle("responsive");
-			const expanded = menu.classList.contains("responsive");
-			button.setAttribute("aria-expanded", expanded);
-		}
-		document.addEventListener("click", function(e) {
-			const menu = document.getElementById("menu");
-			if (!menu.classList.contains("responsive")) return;
-			if (!e.target.closest("nav")) {
-				menu.classList.remove("responsive");
-				document.querySelector(".icon button").setAttribute("aria-expanded", "false");
-			}
-		});
-		function toggleTheme() {
-			const current = document.documentElement.getAttribute('data-theme');
-			const next = current === 'dark' ? 'light' : 'dark';
-			document.documentElement.setAttribute('data-theme', next);
-			localStorage.setItem('theme', next);
-			updateThemeIcon();
-		}
-		function updateThemeIcon() {
-			const icon = document.getElementById('theme-icon');
-			if (!icon) return;
-			const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-			icon.className = isDark ? 'fa fa-sun-o' : 'fa fa-moon-o';
-		}
-		updateThemeIcon();
-	</script>
+	<script src="scripts/nav.js"></script>
 </body>
 </html>
