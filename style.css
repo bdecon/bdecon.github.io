@@ -200,7 +200,7 @@ li{font-size: 15px; color: var(--color-text-gray); line-height: 1.6;}
 hr {
 	border: none;
 	border-top: 1px dotted var(--color-text-subtle);
-	margin: 24px auto;
+	margin: 24px auto 32px;
 	width: 90%;
 }
 /* Prose content wrapper — standard readable width */
@@ -229,7 +229,7 @@ hr {
 h1, h2, h3, h4{font-family: var(--font-ui); line-height: 1.25;}
 h1{margin: 10px 0 10px;}
 h2{margin: 20px 0 10px; font-size: 32px;}
-h3{margin: 24px 0 10px; font-size: 26px;}
+h3{margin: 2.5rem 0 10px; font-size: 26px;}
 h4{margin: 35px 0 10px 0; font-size: 17px; color: var(--color-heading-gray);}
 
 
