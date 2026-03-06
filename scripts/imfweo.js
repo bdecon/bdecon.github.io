@@ -632,7 +632,7 @@
 			options: {
 				responsive: true,
 				maintainAspectRatio: true,
-				aspectRatio: 1.15,
+				aspectRatio: window.innerWidth <= 760 ? 0.95 : 1.15,
 				animation: { duration: 0 },
 				interaction: {
 					mode: 'nearest',

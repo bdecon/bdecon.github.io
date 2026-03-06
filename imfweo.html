@@ -284,26 +284,35 @@
 	.weo-countries strong { font-size: 14px; color: var(--color-text-dark); }
 	@media (max-width: 759px) {
 		.prose {
-			padding: 0 4px;
+			padding: 0;
 		}
 		.chart-compact .chart-body {
-			padding: 6px 6px 2px;
+			padding: 8px 8px 2px;
 		}
 		.chart-compact .chart-footer {
-			padding: 2px 6px 8px;
+			padding: 2px 8px 10px;
 		}
 		.chart-compact .chart-header {
-			padding: 8px 6px 7px;
+			padding: 8px 8px 7px;
 		}
 		.chart-legend {
 			font-size: 11px;
-			column-gap: 6px;
+			column-gap: 8px;
 		}
 		.legend-col-header {
 			font-size: 10px;
 		}
 		.legend-hdr-nc {
 			font-size: 8px;
+			margin-left: 0;
+		}
+		.legend-col3 {
+			margin-left: 0;
+		}
+		#legend-region {
+			max-width: 130px;
+			overflow: hidden;
+			text-overflow: ellipsis;
 		}
 	}
 	@media (min-width: 760px) {
