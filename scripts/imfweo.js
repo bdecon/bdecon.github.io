@@ -174,6 +174,12 @@
 	};
 	const hiddenSeries = new Set(['world', 'region']);
 
+	const GROUP_MAP = {
+		latest: ['actual', 'forecast', 'world', 'region'],
+		prev: ['cloud_far', 'cloud_mid', 'cloud_near'],
+		nc: ['nc_apr', 'nc_oct']
+	};
+
 	function initLegendToggle() {
 		document.querySelectorAll('.chart-legend-item[data-toggle]').forEach(item => {
 			item.addEventListener('click', () => {
@@ -185,8 +191,38 @@
 					hiddenSeries.add(key);
 					item.classList.add('legend-off');
 				}
+				syncGroupHeaders();
 				applyLegendToggle();
 			});
+		});
+
+		document.querySelectorAll('[data-toggle-group]').forEach(header => {
+			header.addEventListener('click', () => {
+				const group = header.dataset.toggleGroup;
+				const keys = GROUP_MAP[group];
+				const allHidden = keys.every(k => hiddenSeries.has(k));
+				keys.forEach(k => {
+					if (allHidden) {
+						hiddenSeries.delete(k);
+					} else {
+						hiddenSeries.add(k);
+					}
+				});
+				// Update individual item classes
+				document.querySelectorAll('.chart-legend-item[data-toggle]').forEach(item => {
+					item.classList.toggle('legend-off', hiddenSeries.has(item.dataset.toggle));
+				});
+				syncGroupHeaders();
+				applyLegendToggle();
+			});
+		});
+	}
+
+	function syncGroupHeaders() {
+		document.querySelectorAll('[data-toggle-group]').forEach(header => {
+			const keys = GROUP_MAP[header.dataset.toggleGroup];
+			const allHidden = keys.every(k => hiddenSeries.has(k));
+			header.classList.toggle('legend-off', allHidden);
 		});
 	}
 
@@ -596,14 +632,14 @@
 			options: {
 				responsive: true,
 				maintainAspectRatio: true,
-				aspectRatio: 0.95,
+				aspectRatio: 1.15,
 				animation: { duration: 0 },
 				interaction: {
 					mode: 'nearest',
 					intersect: false,
 					axis: 'x'
 				},
-				layout: { padding: { top: 13, right: 5, bottom: 0, left: 2 } },
+				layout: { padding: { top: 10, right: 5, bottom: 0, left: 2 } },
 				scales: {
 					x: {
 						type: 'linear',
@@ -626,7 +662,7 @@
 						},
 						ticks: {
 							color: tc.axisText,
-							font: { size: 11 },
+							font: { size: 13 },
 							callback: (v) => v.toString()
 						},
 						grid: {
@@ -679,7 +715,7 @@
 			const ctx = chart.ctx;
 			const tc = getThemeColors();
 			ctx.save();
-			ctx.font = '10px system-ui, -apple-system, sans-serif';
+			ctx.font = '12px system-ui, -apple-system, sans-serif';
 			ctx.fillStyle = tc.axisText;
 			ctx.textAlign = 'left';
 			ctx.textBaseline = 'bottom';
@@ -688,7 +724,7 @@
 				const v = tick.value;
 				const py = yScale.getPixelForValue(v);
 				// Skip if label would render above the canvas
-				if (py < chart.chartArea.top - 3) continue;
+				if (py < chart.chartArea.top + 2) continue;
 				let label;
 				if (Math.abs(v) >= 1000) label = (v / 1000) + 'k';
 				else label = String(parseFloat(v.toPrecision(10)));
@@ -705,6 +741,12 @@
 			const ctx = chart.ctx;
 			const xScale = chart.scales.x;
 			const yScale = chart.scales.y;
+
+			// Skip entirely if all cloud datasets are hidden
+			const anyCloudVisible = chart.data.datasets.some(ds =>
+				ds.label && ds.label.startsWith('_cloud_h') && !ds.hidden
+			);
+			if (!anyCloudVisible) return;
 
 			// Collect all cloud + nowcast points grouped by vid
 			const byVid = {};
@@ -775,7 +817,7 @@
 			const area = chart.chartArea;
 			const tc = getThemeColors();
 			ctx.save();
-			ctx.font = '9px system-ui, -apple-system, sans-serif';
+			ctx.font = '10px system-ui, -apple-system, sans-serif';
 			ctx.fillStyle = tc.axisText;
 			ctx.textAlign = 'right';
 			if (info.nAbove) {

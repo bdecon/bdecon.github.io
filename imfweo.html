@@ -98,7 +98,7 @@
 		flex-direction: column;
 		gap: 6px;
 		margin: 1rem auto;
-		max-width: 420px;
+		max-width: 480px;
 	}
 	.weo-control-row {
 		display: flex;
@@ -106,7 +106,7 @@
 		gap: 6px;
 	}
 	.weo-control-row label {
-		font-size: 12px;
+		font-size: 13px;
 		font-weight: 600;
 		color: var(--color-text-muted);
 		white-space: nowrap;
@@ -116,19 +116,31 @@
 		flex: 1;
 		min-width: 0;
 		padding: 6px 8px;
-		font-size: 13px;
+		font-size: 14px;
 		font-family: var(--font-ui);
 		border: 1px solid var(--color-border-light);
 		border-radius: var(--radius);
 		background: var(--color-bg-white);
 		color: var(--color-text-dark);
 	}
+	.chart-header .chart-title {
+		font-size: 20px;
+	}
+	.chart-header-indicator {
+		font-size: 14px;
+	}
+	.chart-subtitle {
+		font-size: 14px;
+	}
 	.chart-container {
-		max-width: 420px;
+		max-width: 480px;
 		margin: 0 auto;
 	}
-	.chart-body {
-		padding-bottom: 2px;
+	.chart-compact .chart-body {
+		padding: 12px 18px 2px;
+	}
+	.chart-compact .chart-footer {
+		padding: 2px 18px 15px;
 	}
 	.chart-legend {
 		display: grid;
@@ -136,7 +148,7 @@
 		grid-template-rows: auto auto auto auto;
 		gap: 0 14px;
 		column-gap: 14px;
-		font-size: 11px;
+		font-size: 13px;
 		color: var(--color-text-muted);
 		margin-bottom: 6px;
 		line-height: 1.5;
@@ -145,17 +157,22 @@
 	}
 	.legend-col-header {
 		font-weight: 700;
-		font-size: 10px;
+		font-size: 12px;
 		text-transform: uppercase;
 		letter-spacing: 0.3px;
 		color: var(--color-text-dark);
 		padding-bottom: 2px;
 		margin-bottom: 5px;
 		border-bottom: 3.5px solid var(--color-card-blue);
+		cursor: pointer;
+		user-select: none;
+	}
+	.legend-col-header.legend-off {
+		opacity: 0.35;
 	}
 	.legend-hdr-latest { grid-column: 1; grid-row: 1; }
 	.legend-hdr-prev { grid-column: 2 / 4; grid-row: 1; }
-	.legend-hdr-nc { grid-column: 3; grid-row: 2; margin-left: -4px; font-size: 8px; border-bottom-width: 1.5px; margin-bottom: 3px; }
+	.legend-hdr-nc { grid-column: 3; grid-row: 2; margin-left: -4px; font-size: 10px; border-bottom-width: 1.5px; margin-bottom: 3px; }
 	.legend-col1 { grid-column: 1; }
 	.legend-col2 { grid-column: 2; }
 	.legend-col3 { grid-column: 3; margin-left: -4px; }
@@ -190,11 +207,11 @@
 		background: var(--color-tooltip-bg);
 		color: #fff;
 		font-family: var(--font-ui);
-		font-size: 11px;
+		font-size: 12px;
 		padding: 8px 10px;
 		border-radius: var(--radius);
 		z-index: 100;
-		max-width: 220px;
+		max-width: 240px;
 		line-height: 1.45;
 		opacity: 0;
 		transition: opacity 0.15s;
@@ -207,7 +224,7 @@
 		margin-bottom: 4px;
 	}
 	.weo-tooltip-header {
-		font-size: 12px;
+		font-size: 13px;
 		border-bottom: 1px solid color-mix(in srgb, white 20%, transparent);
 		padding-bottom: 3px;
 	}
@@ -228,7 +245,7 @@
 	}
 	/* Info box */
 	.weo-info {
-		max-width: 420px;
+		max-width: 480px;
 		margin: 0.75rem auto;
 		padding: 8px 12px;
 		font-size: 14px;
@@ -265,9 +282,9 @@
 	}
 	.weo-countries p { margin: 0.4em 0; }
 	.weo-countries strong { font-size: 14px; color: var(--color-text-dark); }
-	@media (min-width: 500px) {
+	@media (min-width: 760px) {
 		.weo-controls, .chart-container, .weo-info {
-			max-width: 480px;
+			max-width: 600px;
 		}
 	}
 </style>
@@ -348,9 +365,9 @@
 		<div class="chart-body">
 			<span class="chart-subtitle" id="chart-units"></span>
 			<div class="chart-legend" id="chart-legend">
-				<div class="legend-col-header legend-hdr-latest" id="legend-latest-header">Oct 2025 WEO</div>
-				<div class="legend-col-header legend-hdr-prev">Previous WEOs</div>
-				<div class="legend-col-header legend-hdr-nc">Same-year nowcast</div>
+				<div class="legend-col-header legend-hdr-latest" id="legend-latest-header" data-toggle-group="latest">Oct 2025 WEO</div>
+				<div class="legend-col-header legend-hdr-prev" data-toggle-group="prev">Previous WEOs</div>
+				<div class="legend-col-header legend-hdr-nc" data-toggle-group="nc">Same-year nowcast</div>
 				<div class="chart-legend-item legend-col1" style="grid-row:2" data-toggle="actual"><span class="legend-swatch legend-line"></span> Actual</div>
 				<div class="chart-legend-item legend-col1" style="grid-row:3" data-toggle="forecast"><span class="legend-swatch legend-line-dashed"></span> Forecast/est.</div>
 				<div class="chart-legend-item legend-col1 legend-off" style="grid-row:4" data-toggle="world"><span class="legend-swatch legend-line-gray"></span> World average</div>
