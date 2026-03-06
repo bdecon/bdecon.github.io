@@ -94,46 +94,46 @@ function updateColorMap() {
 	const mix = isDark ? 0.25 : 0;
 	colorMap = {
 		blue: {
-			border: style.getPropertyValue('--color-card-blue').trim() || '#3441de',
-			line: lighten(style.getPropertyValue('--color-card-blue').trim() || '#3441de', mix),
-			background: `rgba(52, 65, 222, ${a})`,
-			backgroundStrong: `rgba(52, 65, 222, ${aStrong})`
+			border: style.getPropertyValue('--color-card-blue').trim() || '#3450B2',
+			line: lighten(style.getPropertyValue('--color-card-blue').trim() || '#3450B2', mix),
+			background: `rgba(52, 80, 178, ${a})`,
+			backgroundStrong: `rgba(52, 80, 178, ${aStrong})`
 		},
 		green: {
-			border: style.getPropertyValue('--color-card-green').trim() || '#27AE60',
-			line: lighten(style.getPropertyValue('--color-card-green').trim() || '#27AE60', mix),
-			background: `rgba(39, 174, 96, ${a})`,
-			backgroundStrong: `rgba(39, 174, 96, ${aStrong})`
+			border: style.getPropertyValue('--color-card-green').trim() || '#229a54',
+			line: lighten(style.getPropertyValue('--color-card-green').trim() || '#229a54', mix),
+			background: `rgba(34, 154, 84, ${a})`,
+			backgroundStrong: `rgba(34, 154, 84, ${aStrong})`
 		},
 		red: {
-			border: style.getPropertyValue('--color-card-red').trim() || '#FF2F2F',
-			line: lighten(style.getPropertyValue('--color-card-red').trim() || '#FF2F2F', mix),
-			background: `rgba(255, 47, 47, ${a})`,
-			backgroundStrong: `rgba(255, 47, 47, ${aStrong})`
+			border: style.getPropertyValue('--color-card-red').trim() || '#E04040',
+			line: lighten(style.getPropertyValue('--color-card-red').trim() || '#E04040', mix),
+			background: `rgba(224, 64, 64, ${a})`,
+			backgroundStrong: `rgba(224, 64, 64, ${aStrong})`
 		},
 		orange: {
-			border: style.getPropertyValue('--color-card-orange').trim() || '#FF8700',
-			line: lighten(style.getPropertyValue('--color-card-orange').trim() || '#FF8700', mix),
-			background: `rgba(255, 135, 0, ${a})`,
-			backgroundStrong: `rgba(255, 135, 0, ${aStrong})`
+			border: style.getPropertyValue('--color-card-orange').trim() || '#ca5c00',
+			line: lighten(style.getPropertyValue('--color-card-orange').trim() || '#ca5c00', mix),
+			background: `rgba(202, 92, 0, ${a})`,
+			backgroundStrong: `rgba(202, 92, 0, ${aStrong})`
 		},
 		purple: {
-			border: style.getPropertyValue('--color-card-purple').trim() || '#721ce7',
-			line: lighten(style.getPropertyValue('--color-card-purple').trim() || '#721ce7', mix),
-			background: `rgba(114, 28, 231, ${a})`,
-			backgroundStrong: `rgba(114, 28, 231, ${aStrong})`
+			border: style.getPropertyValue('--color-card-purple').trim() || '#553581',
+			line: lighten(style.getPropertyValue('--color-card-purple').trim() || '#553581', mix),
+			background: `rgba(85, 53, 129, ${a})`,
+			backgroundStrong: `rgba(85, 53, 129, ${aStrong})`
 		},
-		yellow: {
-			border: style.getPropertyValue('--color-card-yellow').trim() || '#FFC300',
-			line: lighten(style.getPropertyValue('--color-card-yellow').trim() || '#FFC300', mix),
-			background: `rgba(255, 195, 0, ${a})`,
-			backgroundStrong: `rgba(255, 195, 0, ${aStrong})`
+		teal: {
+			border: style.getPropertyValue('--color-card-teal').trim() || '#2A8A8A',
+			line: lighten(style.getPropertyValue('--color-card-teal').trim() || '#2A8A8A', mix),
+			background: `rgba(42, 138, 138, ${a})`,
+			backgroundStrong: `rgba(42, 138, 138, ${aStrong})`
 		},
 		ltblue: {
-			border: style.getPropertyValue('--color-card-ltblue').trim() || '#1E90FF',
-			line: lighten(style.getPropertyValue('--color-card-ltblue').trim() || '#1E90FF', mix),
-			background: `rgba(30, 144, 255, ${a})`,
-			backgroundStrong: `rgba(30, 144, 255, ${aStrong})`
+			border: style.getPropertyValue('--color-card-ltblue').trim() || '#4A90C4',
+			line: lighten(style.getPropertyValue('--color-card-ltblue').trim() || '#4A90C4', mix),
+			background: `rgba(74, 144, 196, ${a})`,
+			backgroundStrong: `rgba(74, 144, 196, ${aStrong})`
 		}
 	};
 }
@@ -180,7 +180,9 @@ function getChartTypeConfig(type, colors, config) {
 				dataset: {
 					backgroundColor: colors.line,
 					borderColor: colors.line,
-					borderWidth: 0
+					borderWidth: 0,
+					categoryPercentage: 0.7,
+					barPercentage: 0.85
 				}
 			};
 		case 'scatter':
@@ -323,7 +325,7 @@ const lastValuePlugin = {
 			const allSameEnd = labelData.every(d => d.lastIdx === labelData[0].lastIdx);
 
 			ctx.save();
-			ctx.font = '9px Tahoma, Verdana, sans-serif';
+			ctx.font = '10px Tahoma, Verdana, sans-serif';
 			ctx.textAlign = 'left';
 
 			if (allSameEnd && labelData.length > 1) {
@@ -417,7 +419,7 @@ const lastValuePlugin = {
 				: ['Q' + Math.ceil((lastDate.getUTCMonth() + 1) / 3), lastDate.getUTCFullYear()];
 
 			ctx.save();
-			ctx.font = '9px Tahoma, Verdana, sans-serif';
+			ctx.font = '10px Tahoma, Verdana, sans-serif';
 			ctx.fillStyle = getThemeColors().axisText;
 			ctx.textAlign = 'left';
 			ctx.textBaseline = 'middle';
@@ -425,6 +427,7 @@ const lastValuePlugin = {
 			dateLabels.forEach((label, i) => {
 				ctx.fillText(label, x, y - 12 + (i * 12));
 			});
+			ctx.fillStyle = getThemeColors().textDark;
 			ctx.fillText(valueStr, x, y + (dateLabels.length - 1) * 12);
 
 			ctx.restore();
@@ -444,7 +447,7 @@ const dataLabelsPlugin = {
 		const decimals = config.decimals ?? 0;
 
 		ctx.save();
-		ctx.font = '9px Tahoma, Verdana, sans-serif';
+		ctx.font = '12px Tahoma, Verdana, sans-serif';
 		ctx.fillStyle = getThemeColors().textDark;
 		ctx.textAlign = 'center';
 		ctx.textBaseline = 'bottom';
@@ -505,7 +508,7 @@ function renderDualBarChart(config, data, latestLabel, prevLabel) {
 
 	const legend = `<div class="hbar-legend">
 		<div class="hbar-legend-item"><div class="hbar-legend-swatch" style="background: var(--color-card-red);"></div>${latestLabel || 'Latest'}</div>
-		<div class="hbar-legend-item"><div class="hbar-legend-swatch" style="background: var(--color-axis-text); opacity: 0.45;"></div>${prevLabel || 'Previous'}</div>
+		<div class="hbar-legend-item"><div class="hbar-legend-swatch" style="background: #d8dce0; border: 1px solid #b0b8c0; box-sizing: border-box;"></div>${prevLabel || 'Previous'}</div>
 	</div>`;
 
 	const zeroLinePos = labelPct + negShare * barPct;
@@ -706,7 +709,7 @@ function updateBackFace(config, data, latestDate, prevDate) {
 	// Subtitle (units / scale info)
 	const subtitleBackEl = document.getElementById('chart-subtitle-back');
 	if (config.subtitle) {
-		subtitleBackEl.textContent = config.subtitle;
+		subtitleBackEl.innerHTML = config.subtitle;
 		subtitleBackEl.style.display = '';
 	} else {
 		subtitleBackEl.style.display = 'none';
@@ -899,43 +902,66 @@ function generateStatsTable(config, data, latestDate, prevDate) {
 	return html;
 }
 
-// Populate dropdown with optional grouping
+// Populate hidden dropdown (for prev/next navigation) and visible grid menu
 function populateDropdown() {
 	const select = document.getElementById('dataset-select');
 	select.innerHTML = '';
 
 	const charts = manifest.charts;
-	const hasCategories = charts.some(d => d.category);
 
-	if (hasCategories) {
-		// Group by category, preserving order from manifest
-		const groups = new Map();
-		charts.forEach(ds => {
-			const cat = ds.category || 'Other';
-			if (!groups.has(cat)) groups.set(cat, []);
-			groups.get(cat).push(ds);
-		});
+	// Populate hidden select for prev/next
+	charts.forEach(ds => {
+		const option = document.createElement('option');
+		option.value = ds.id;
+		option.textContent = ds.title;
+		select.appendChild(option);
+	});
 
-		groups.forEach((items, category) => {
-			const optgroup = document.createElement('optgroup');
-			optgroup.label = category;
-			items.forEach(ds => {
-				const option = document.createElement('option');
-				option.value = ds.id;
-				option.textContent = ds.title;
-				optgroup.appendChild(option);
+	// Populate grid menu
+	const grid = document.getElementById('chart-grid-menu');
+	if (!grid) return;
+	grid.innerHTML = '';
+
+	const groups = new Map();
+	charts.forEach(ds => {
+		const cat = ds.category || 'Other';
+		if (!groups.has(cat)) groups.set(cat, []);
+		groups.get(cat).push(ds);
+	});
+
+	groups.forEach((items, category) => {
+		const header = document.createElement('div');
+		header.className = 'chart-grid-category';
+		header.textContent = category;
+		grid.appendChild(header);
+
+		items.forEach(ds => {
+			const link = document.createElement('a');
+			link.className = 'chart-grid-item';
+			link.textContent = ds.title;
+			link.dataset.id = ds.id;
+			link.href = '#' + ds.id;
+			link.addEventListener('click', function(e) {
+				e.preventDefault();
+				select.value = ds.id;
+				loadChart(ds.id);
+				document.getElementById('chart-grid-details').removeAttribute('open');
 			});
-			select.appendChild(optgroup);
+			grid.appendChild(link);
 		});
-	} else {
-		// Flat list
-		charts.forEach(ds => {
-			const option = document.createElement('option');
-			option.value = ds.id;
-			option.textContent = ds.title;
-			select.appendChild(option);
-		});
-	}
+	});
+}
+
+// Update the selector title and grid active state
+function updateSelectorTitle(datasetId) {
+	const config = manifest.charts.find(d => d.id === datasetId);
+	if (!config) return;
+	document.getElementById('chart-selector-title').textContent = config.title;
+
+	// Update grid active state
+	document.querySelectorAll('.chart-grid-item').forEach(el => {
+		el.classList.toggle('active', el.dataset.id === datasetId);
+	});
 }
 
 // Load and display chart for given dataset
@@ -959,8 +985,9 @@ async function loadChart(datasetId) {
 	loadingEl.classList.add('active');
 
 	// Update DOM elements
+	updateSelectorTitle(datasetId);
 	document.getElementById('chart-title').textContent = config.title;
-	document.getElementById('chart-subtitle').textContent = config.subtitle || '';
+	document.getElementById('chart-subtitle').innerHTML = config.subtitle || '';
 	document.getElementById('chart-source').textContent = 'Source: ' + config.source;
 	document.getElementById('chart-download').href = config.file;
 
@@ -1093,8 +1120,23 @@ async function loadChart(datasetId) {
 			}
 			customContainer.style.display = 'block';
 			const dateFmt2 = getDateFormatConfig(config.latestDateFormat || 'monthly');
-			const latestLabel = latestDate ? dateFmt2.lastValueFormat(new Date(latestDate)).join(' ') : 'Latest';
-			const prevLabel = prevDate ? dateFmt2.lastValueFormat(new Date(prevDate)).join(' ') : 'Previous';
+			const fullMonths = ['January', 'February', 'March', 'April', 'May', 'June',
+				'July', 'August', 'September', 'October', 'November', 'December'];
+			const useFullMonth = window.innerWidth > 760;
+			let latestLabel = 'Latest';
+			let prevLabel = 'Previous';
+			if (latestDate) {
+				const d = new Date(latestDate);
+				latestLabel = useFullMonth
+					? fullMonths[d.getUTCMonth()] + ' ' + d.getUTCFullYear()
+					: dateFmt2.lastValueFormat(d).join(' ');
+			}
+			if (prevDate) {
+				const d = new Date(prevDate);
+				prevLabel = useFullMonth
+					? fullMonths[d.getUTCMonth()] + ' ' + d.getUTCFullYear()
+					: dateFmt2.lastValueFormat(d).join(' ');
+			}
 			customContainer.innerHTML = renderDualBarChart(config, dualData, latestLabel, prevLabel);
 			document.getElementById('chart-latest-mobile').classList.remove('active');
 			updateBackFace(config, dualData, latestDate, prevDate);
@@ -1163,8 +1205,9 @@ async function loadChart(datasetId) {
 				maintainAspectRatio: true,
 				layout: {
 					padding: {
-						right: config.timeSeries !== false ? (window.innerWidth <= 760 ? 5 : 40) : 0,
-						top: config.timeSeries !== false ? (window.innerWidth <= 760 ? 5 : 15) : 0
+						right: config.timeSeries !== false ? (window.innerWidth <= 760 ? 5 : 50) : (window.innerWidth <= 760 ? 0 : 4),
+						left: window.innerWidth <= 760 ? 0 : 4,
+						top: config.timeSeries !== false ? (window.innerWidth <= 760 ? 5 : (config.series ? 8 : 15)) : (window.innerWidth <= 760 ? 4 : 20)
 					}
 				},
 				interaction: {
@@ -1175,8 +1218,8 @@ async function loadChart(datasetId) {
 					tooltip: {
 						enabled: true,
 						backgroundColor: tc.tooltipBg,
-						titleFont: { size: 11, family: "system-ui, sans-serif" },
-						bodyFont: { size: 10, family: "Tahoma, Verdana, sans-serif" },
+						titleFont: { size: 12, family: "system-ui, sans-serif" },
+						bodyFont: { size: 11, family: "Tahoma, Verdana, sans-serif" },
 						padding: 8,
 						cornerRadius: 2,
 						displayColors: isMultiSeries,
@@ -1219,8 +1262,8 @@ async function loadChart(datasetId) {
 						bounds: 'data',
 						grid: { display: false },
 						ticks: {
-							font: { size: 10, family: "Tahoma, Verdana, sans-serif" },
-							color: tc.axisText,
+							font: { size: config.timeSeries === false ? (window.innerWidth <= 760 ? 11 : 14) : 11, family: "Tahoma, Verdana, sans-serif" },
+							color: config.timeSeries === false ? tc.textDark : tc.axisText,
 							callback: config.timeSeries !== false
 								? currentDateFormat.tickCallback
 								: function(value, index) { return this.getLabelForValue(index); },
@@ -1232,11 +1275,13 @@ async function loadChart(datasetId) {
 					y: {
 						grace: '5%',
 						border: { display: false },
-						grid: { color: tc.grid },
-						ticks: {
-							font: { size: 10, family: "Tahoma, Verdana, sans-serif" },
-							color: tc.axisText
-						},
+						grid: config.type === 'bar'
+							? { color: function(context) { return context.tick.value === 0 ? tc.axisText : 'transparent'; } }
+							: { color: tc.grid },
+						ticks: config.type === 'bar'
+							? { font: { size: 11, family: "Tahoma, Verdana, sans-serif" }, color: tc.axisText,
+								callback: function(value) { return value === 0 ? '0' : ''; } }
+							: { font: { size: 11, family: "Tahoma, Verdana, sans-serif" }, color: tc.axisText },
 						title: { display: false },
 						beginAtZero: config.type === 'bar' || config.beginAtZero || false,
 						min: config.yAxisMin ?? undefined,

@@ -111,13 +111,13 @@
 	}
 	@media (min-width: 760px) {
 		.chart-flip-wrapper {
-			max-width: 550px;
+			max-width: 580px;
 		}
 		.chart-flip-wrapper.card-vertical {
-			max-width: 320px;
+			max-width: 400px;
 		}
 		.chart-flip-wrapper.card-vertical .chart-body {
-			min-height: 320px;
+			min-height: 360px;
 		}
 	}
 	.chart-flip-inner {
@@ -169,6 +169,14 @@
 			transition: none;
 		}
 	}
+	.chart-header .chart-title {
+		font-size: 18px;
+		font-weight: 700;
+	}
+	.chart-subtitle {
+		font-size: 14px;
+		color: var(--color-text-gray);
+	}
 	.chart-download-link {
 		display: inline-block;
 		margin: 0;
@@ -186,12 +194,12 @@
 	.chart-download-link .fa {
 		margin-right: 3px;
 	}
-	.chart-back-body {
+	.chart-compact .chart-back-body {
 		flex: 1;
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-start;
-		padding: 16px 10px;
+		padding: 16px 12px;
 		overflow-y: auto;
 	}
 	.chart-back-body p {
@@ -244,7 +252,7 @@
 		font-family: var(--font-ui);
 	}
 	.card-category-badge {
-		font-size: 10px;
+		font-size: 12px;
 		padding: 2px 8px;
 		border-radius: 8px;
 		vertical-align: middle;
@@ -379,29 +387,71 @@
 		margin-right: 8px;
 		color: var(--color-text-dark);
 	}
-	.chart-selector select {
+	.chart-selector-title {
 		font-family: var(--font-ui);
-		font-size: 13px;
-		padding: 6px 12px;
-		border: 1px solid var(--color-border-light);
-		border-radius: var(--radius);
-		background: var(--color-bg-white);
+		font-size: 15px;
+		font-weight: 600;
 		color: var(--color-text-dark);
+		text-align: center;
+		flex: 1;
+	}
+	.chart-grid-details {
+		max-width: 580px;
+		margin: 0 auto 1rem auto;
+		font-family: var(--font-ui);
+	}
+	.chart-grid-details summary {
+		font-size: 13px;
+		color: var(--color-link);
 		cursor: pointer;
+		text-align: center;
+		list-style: none;
 	}
-	.chart-selector select option {
-		font-size: 12px;
-		padding: 1px 4px;
+	.chart-grid-details summary::-webkit-details-marker {
+		display: none;
 	}
-	.chart-selector select optgroup {
-		font-size: 12px;
-		padding-top: 2px;
+	.chart-grid-details summary::before {
+		content: '▸ ';
 	}
-	[data-theme="dark"] .chart-selector select {
-		color-scheme: dark;
+	.chart-grid-details[open] summary::before {
+		content: '▾ ';
 	}
-	.chart-selector select:hover {
-		border-color: var(--color-card-blue);
+	.chart-grid-details summary:hover {
+		text-decoration: underline;
+	}
+	.chart-grid-menu {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+		gap: 2px 12px;
+		padding: 10px 0;
+	}
+	.chart-grid-category {
+		font-size: 11px;
+		font-weight: 700;
+		color: var(--color-text-muted);
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+		padding: 8px 0 2px 0;
+		grid-column: 1 / -1;
+		border-bottom: 1px solid var(--color-border-light);
+	}
+	.chart-grid-category:first-child {
+		padding-top: 0;
+	}
+	.chart-grid-item {
+		font-size: 13px;
+		color: var(--color-text-dark);
+		padding: 3px 0;
+		cursor: pointer;
+		text-decoration: none;
+		display: block;
+	}
+	.chart-grid-item:hover {
+		color: var(--color-link);
+	}
+	.chart-grid-item.active {
+		font-weight: 700;
+		color: var(--color-link);
 	}
 	.chart-filter {
 		display: block;
@@ -425,8 +475,8 @@
 		display: flex;
 		justify-content: center;
 		gap: 16px;
-		margin-bottom: 6px;
-		font-size: 10px;
+		margin: 4px 0 0 0;
+		font-size: 12px;
 		font-family: var(--font-ui);
 	}
 	.chart-legend-item {
@@ -453,14 +503,15 @@
 		display: flex;
 		flex-direction: column;
 		gap: 4px;
+		padding: 10px 0 2px;
 	}
 	.hbar-legend {
 		display: flex;
 		justify-content: center;
 		gap: 14px;
-		font-size: 9px;
+		font-size: 14px;
 		font-family: var(--font-ui);
-		color: var(--color-text-muted);
+		color: var(--color-text-dark);
 		margin-bottom: 2px;
 	}
 	.hbar-legend-item {
@@ -469,9 +520,9 @@
 		gap: 4px;
 	}
 	.hbar-legend-swatch {
-		width: 12px;
-		height: 8px;
-		border-radius: 1px;
+		width: 16px;
+		height: 10px;
+		border-radius: 2px;
 	}
 	.hbar-rows-container {
 		position: relative;
@@ -506,12 +557,11 @@
 		height: 14px;
 	}
 	.hbar-row-label {
-		font-size: 11px;
+		font-size: 14px;
 		font-family: var(--font-ui);
 		color: var(--color-text-dark);
 		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
+		overflow: visible;
 		flex-shrink: 0;
 		box-sizing: border-box;
 	}
@@ -552,8 +602,9 @@
 	}
 	.hbar-fill-prev {
 		height: 100%;
-		background: var(--color-axis-text);
-		opacity: 0.45;
+		background: #d8dce0;
+		border: 1px solid #b0b8c0;
+		box-sizing: border-box;
 	}
 	.hbar-label {
 		color: var(--color-text-dark);
@@ -563,7 +614,7 @@
 		padding: 0 4px;
 	}
 	.hbar-bar-label {
-		font-size: 7px;
+		font-size: 10px;
 		color: var(--color-text-muted);
 		white-space: nowrap;
 		padding: 0 2px;
@@ -634,6 +685,35 @@
 			font-size: 13px;
 		}
 	}
+	@media (min-width: 760px) {
+		.chart-compact .chart-back-body {
+			padding: 16px 22px;
+		}
+		.chart-flip-back .chart-compact .chart-footer {
+			padding-left: 22px;
+			padding-right: 22px;
+			margin-bottom: 6px;
+		}
+		.chart-back-body p {
+			font-size: 14px;
+		}
+		.chart-back-subtitle {
+			font-size: 14px;
+			color: var(--color-text-gray);
+		}
+		.card-stats-table th {
+			font-size: 9px;
+		}
+		.card-stats-table td {
+			font-size: 12px;
+		}
+		.card-number {
+			font-size: 12px;
+		}
+		.chart-download-link {
+			font-size: 12px;
+		}
+	}
 </style>
 
 </head>
@@ -669,7 +749,9 @@
 			</li>
 		</ul>
 	</nav>
-
+	<div class="page-strip page-strip-compact accent-ltblue">
+		<img decoding="async" src="images/indicators_banner.png" alt="" aria-hidden="true" class="page-strip-img">
+	</div>
 	<header>
 	<h1>Economic Indicators</h1>
 	</header>
@@ -685,16 +767,22 @@
 	<section>
 	<article class="prose">
 	<noscript><p class="noscript-warning">This page requires JavaScript to display interactive charts.</p></noscript>
-	<p>Browse 20 interactive charts covering the US economy across seven categories: output, labor, prices, trade, monetary policy, government, and business. Tap the info button on each chart for descriptions, historical data, and a downloadable CSV. Use the dropdown or arrow keys to navigate.</p>
+	<p class="callout accent-ltblue">Twenty key indicators tracking the US economy.</p>
+	<p>Browse interactive charts across seven categories: output, labor, prices, trade, monetary policy, government, and business. Tap the <i class="fa fa-info-circle" aria-hidden="true"></i> button on each chart for descriptions, data, and a downloadable CSV.</p>
 	<p>For a broader view, see the <a href="chartbook.html">US Chartbook</a> with 120+ charts.</p>
 	</article>
 
 	<article>
+		<select id="dataset-select" aria-label="Select chart" style="display:none"></select>
 		<div class="chart-selector">
 			<button class="chart-nav-btn" id="chart-prev" title="Previous chart" aria-label="Previous chart"><i class="fa fa-chevron-left"></i></button>
-			<select id="dataset-select" aria-label="Select chart"></select>
+			<span class="chart-selector-title" id="chart-selector-title"></span>
 			<button class="chart-nav-btn" id="chart-next" title="Next chart" aria-label="Next chart"><i class="fa fa-chevron-right"></i></button>
 		</div>
+		<details class="chart-grid-details" id="chart-grid-details">
+			<summary>Browse all charts</summary>
+			<div class="chart-grid-menu" id="chart-grid-menu"></div>
+		</details>
 		<div class="chart-flip-wrapper" role="region" aria-label="Economic indicator chart">
 			<div class="chart-flip-inner">
 				<div class="chart-flip-front" aria-hidden="false">
@@ -742,6 +830,7 @@
 		</div>
 	</article>
 
+	<div class="subfooter" data-hub="reports" data-current="indicators.html" style="--accent-color: var(--color-card-ltblue)"></div>
 	</section>
 	</main>
 

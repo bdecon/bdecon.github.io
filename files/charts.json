@@ -16,11 +16,23 @@
       "dateFormat": "monthly",
       "fill": true,
       "category": "Monetary",
-      "order": 3,
+      "order": 14,
       "description": "M2 measures the money supply including cash, checking deposits, savings deposits, and money market funds. This chart shows M2 as a share of nominal GDP.",
       "components": [
-        {"col": "m2_level", "label": "M2", "prefix": "$", "suffix": "T", "decimals": 1},
-        {"col": "gdp", "label": "GDP", "prefix": "$", "suffix": "T", "decimals": 1}
+        {
+          "col": "m2_level",
+          "label": "M2",
+          "prefix": "$",
+          "suffix": "T",
+          "decimals": 1
+        },
+        {
+          "col": "gdp",
+          "label": "GDP",
+          "prefix": "$",
+          "suffix": "T",
+          "decimals": 1
+        }
       ]
     },
     {
@@ -33,15 +45,26 @@
       "tooltipLabel": "GDP/capita",
       "decimals": 2,
       "valuePrefix": "$",
-      "color": "green",
+      "color": "ltblue",
       "dateFormat": "quarterly",
       "fill": true,
       "category": "Output",
       "order": 1,
       "description": "Real GDP per capita divides inflation-adjusted gross domestic product by population. It is a broad measure of average economic output per person.",
       "components": [
-        {"col": "rgdp", "label": "GDP", "prefix": "$", "suffix": "T", "decimals": 1},
-        {"col": "pop", "label": "Pop", "suffix": "M", "decimals": 1}
+        {
+          "col": "rgdp",
+          "label": "GDP",
+          "prefix": "$",
+          "suffix": "T",
+          "decimals": 1
+        },
+        {
+          "col": "pop",
+          "label": "Pop",
+          "suffix": "M",
+          "decimals": 1
+        }
       ]
     },
     {
@@ -60,7 +83,7 @@
       "beginAtZero": true,
       "filteredYRef": 0,
       "category": "Monetary",
-      "order": 4,
+      "order": 15,
       "description": "The federal funds rate is the interest rate at which banks lend reserves to each other overnight. It is the Federal Reserve's primary tool for conducting monetary policy."
     },
     {
@@ -71,9 +94,9 @@
       "subtitle": "GDP per hour of work, 2023",
       "source": "OECD",
       "tooltipLabel": "GDP/hour",
-      "decimals": 2,
+      "decimals": 1,
       "valuePrefix": "$",
-      "color": "green",
+      "color": "ltblue",
       "timeSeries": false,
       "showDataLabels": true,
       "category": "Output",
@@ -95,7 +118,7 @@
       "dateFormat": "monthly",
       "filteredYRef": 0,
       "category": "Prices",
-      "order": 5,
+      "order": 9,
       "description": "The Consumer Price Index measures the average change in prices paid by urban consumers for a basket of goods and services. This chart shows the year-over-year percent change."
     },
     {
@@ -113,11 +136,23 @@
       "dateFormat": "monthly",
       "filteredYRef": 0,
       "category": "Trade",
-      "order": 6,
+      "order": 12,
       "description": "The trade balance is exports minus imports of goods and services, shown here as a share of GDP. A negative value indicates a trade deficit.",
       "components": [
-        {"col": "balance", "label": "Bal", "prefix": "$", "suffix": "B", "decimals": 0},
-        {"col": "gdp", "label": "GDP", "prefix": "$", "suffix": "T", "decimals": 1}
+        {
+          "col": "balance",
+          "label": "Bal",
+          "prefix": "$",
+          "suffix": "B",
+          "decimals": 0
+        },
+        {
+          "col": "gdp",
+          "label": "GDP",
+          "prefix": "$",
+          "suffix": "T",
+          "decimals": 1
+        }
       ]
     },
     {
@@ -135,11 +170,23 @@
       "dateFormat": "monthly",
       "filteredYRef": 0,
       "category": "Trade",
-      "order": 7,
+      "order": 13,
       "description": "The effective tariff rate is calculated as customs duties collected divided by the value of goods imports. It reflects the average tax rate on imported goods.",
       "components": [
-        {"col": "duties", "label": "Duties", "prefix": "$", "suffix": "B", "decimals": 1},
-        {"col": "imports", "label": "Imports", "prefix": "$", "suffix": "B", "decimals": 0}
+        {
+          "col": "duties",
+          "label": "Duties",
+          "prefix": "$",
+          "suffix": "B",
+          "decimals": 1
+        },
+        {
+          "col": "imports",
+          "label": "Imports",
+          "prefix": "$",
+          "suffix": "B",
+          "decimals": 0
+        }
       ]
     },
     {
@@ -156,11 +203,21 @@
       "timeSeries": true,
       "dateFormat": "monthly",
       "category": "Labor",
-      "order": 8,
+      "order": 5,
       "description": "The employment-population ratio shows the share of prime-age adults (25\u201354) who are employed. The prime-age range excludes younger adults who may be in school and older adults who may be retired. Unlike the unemployment rate, it does not fall when discouraged workers stop looking for jobs.",
       "components": [
-        {"col": "emp_pa", "label": "Emp", "suffix": "M", "decimals": 1},
-        {"col": "pop_pa", "label": "Pop", "suffix": "M", "decimals": 1}
+        {
+          "col": "emp_pa",
+          "label": "Emp",
+          "suffix": "M",
+          "decimals": 1
+        },
+        {
+          "col": "pop_pa",
+          "label": "Pop",
+          "suffix": "M",
+          "decimals": 1
+        }
       ]
     },
     {
@@ -172,11 +229,11 @@
       "source": "Federal Reserve",
       "tooltipLabel": "Index",
       "decimals": 1,
-      "color": "green",
+      "color": "ltblue",
       "timeSeries": true,
       "dateFormat": "monthly",
       "category": "Output",
-      "order": 9,
+      "order": 3,
       "description": "The industrial production index measures the real output of the manufacturing sector. It is published by the Federal Reserve and indexed to 2012. A value above 100 indicates higher output than in 2012.",
       "changeType": "percent"
     },
@@ -195,11 +252,21 @@
       "dateFormat": "monthly",
       "filteredYRef": 0,
       "category": "Labor",
-      "order": 10,
+      "order": 6,
       "description": "The unemployment rate is the share of the labor force that is actively seeking work but unable to find a job. It is one of the most widely followed indicators of labor market conditions.",
       "components": [
-        {"col": "unemp", "label": "Unemp", "suffix": "M", "decimals": 1},
-        {"col": "lf", "label": "LF", "suffix": "M", "decimals": 1}
+        {
+          "col": "unemp",
+          "label": "Unemp",
+          "suffix": "M",
+          "decimals": 1
+        },
+        {
+          "col": "lf",
+          "label": "LF",
+          "suffix": "M",
+          "decimals": 1
+        }
       ]
     },
     {
@@ -215,11 +282,21 @@
       "timeSeries": true,
       "dateFormat": "monthly",
       "category": "Labor",
-      "order": 11,
+      "order": 7,
       "description": "This ratio divides the number of job openings (from the JOLTS survey) by the number of unemployed persons. A value above 1.0 means there are more job openings than unemployed persons. A higher ratio indicates a tighter labor market with more opportunities per job seeker.",
       "components": [
-        {"col": "openings", "label": "Openings", "suffix": "M", "decimals": 1},
-        {"col": "unemp", "label": "Unemp", "suffix": "M", "decimals": 1}
+        {
+          "col": "openings",
+          "label": "Openings",
+          "suffix": "M",
+          "decimals": 1
+        },
+        {
+          "col": "unemp",
+          "label": "Unemp",
+          "suffix": "M",
+          "decimals": 1
+        }
       ]
     },
     {
@@ -236,7 +313,7 @@
       "timeSeries": true,
       "dateFormat": "monthly",
       "category": "Labor",
-      "order": 12,
+      "order": 8,
       "description": "Real weekly earnings at the 10th percentile of full-time workers, adjusted for inflation. The 10th percentile means 90% of full-time workers earn more than this amount. This tracks wage growth for lower-paid workers using Current Population Survey microdata.",
       "changeType": "percent"
     },
@@ -250,15 +327,27 @@
       "tooltipLabel": "Receipts/GDP",
       "decimals": 1,
       "valueSuffix": "%",
-      "color": "yellow",
+      "color": "green",
       "timeSeries": true,
       "dateFormat": "monthly",
       "category": "Government",
-      "order": 13,
+      "order": 16,
       "description": "Total federal government receipts (taxes, fees, and other revenue) over a trailing 12-month period, expressed as a share of GDP. This smooths seasonal variation in tax collections.",
       "components": [
-        {"col": "receipts", "label": "Rcpts", "prefix": "$", "suffix": "T", "decimals": 2},
-        {"col": "gdp", "label": "GDP", "prefix": "$", "suffix": "T", "decimals": 1}
+        {
+          "col": "receipts",
+          "label": "Rcpts",
+          "prefix": "$",
+          "suffix": "T",
+          "decimals": 2
+        },
+        {
+          "col": "gdp",
+          "label": "GDP",
+          "prefix": "$",
+          "suffix": "T",
+          "decimals": 1
+        }
       ]
     },
     {
@@ -271,11 +360,11 @@
       "tooltipLabel": "Rate",
       "decimals": 1,
       "valueSuffix": "%",
-      "color": "yellow",
+      "color": "green",
       "timeSeries": false,
       "showDataLabels": true,
       "category": "Government",
-      "order": 14,
+      "order": 18,
       "description": "The relative poverty rate measures the share of population living below 50% of the national median disposable income. It allows cross-country comparison of income adequacy."
     },
     {
@@ -291,7 +380,7 @@
       "timeSeries": true,
       "dateFormat": "quarterly",
       "category": "Prices",
-      "order": 15,
+      "order": 10,
       "description": "The FHFA House Price Index tracks changes in single-family home prices based on repeat sales data from mortgages purchased or guaranteed by Fannie Mae and Freddie Mac.",
       "changeType": "percent"
     },
@@ -300,7 +389,7 @@
       "file": "files/cpi_comp.csv",
       "type": "dualBar",
       "title": "Inflation Contributions",
-      "subtitle": "Contribution to year-over-year CPI, percentage points",
+      "subtitle": "Contribution to year-over-year CPI,<br>percentage points",
       "source": "BLS",
       "decimals": 2,
       "color": "red",
@@ -308,7 +397,7 @@
       "latestDateSource": "files/cpi.csv",
       "latestDateFormat": "monthly",
       "category": "Prices",
-      "order": 16,
+      "order": 11,
       "description": "This chart decomposes the Consumer Price Index into contributions by category, showing which goods and services are driving inflation up or down the most. Each category's contribution reflects both its price change and its weight in consumer spending."
     },
     {
@@ -321,7 +410,7 @@
       "tooltipLabel": "Share",
       "decimals": 1,
       "valueSuffix": "%",
-      "color": "yellow",
+      "color": "green",
       "timeSeries": false,
       "showDataLabels": true,
       "category": "Government",
@@ -350,8 +439,9 @@
       "timeSeries": true,
       "dateFormat": "monthly",
       "category": "Output",
-      "order": 18,
-      "description": "This chart compares inflation-adjusted GDP per worker with median earnings (annualized from usual weekly earnings), both in thousands of dollars. The gap between the two lines reflects how broadly economic gains are shared."
+      "order": 4,
+      "description": "This chart compares inflation-adjusted GDP per worker with median earnings (annualized from usual weekly earnings), both in thousands of dollars. The gap between the two lines reflects how broadly economic gains are shared.",
+      "color": "ltblue"
     },
     {
       "id": "cprof",
@@ -363,15 +453,27 @@
       "tooltipLabel": "Share",
       "decimals": 1,
       "valueSuffix": "%",
-      "color": "ltblue",
+      "color": "teal",
       "timeSeries": true,
       "dateFormat": "quarterly",
       "category": "Businesses",
       "order": 20,
       "description": "Corporate profits before tax as a share of net national income. Profits are adjusted to exclude inventory price gains and use consistent depreciation. Net national income excludes depreciation, which isn't received as income.",
       "components": [
-        {"col": "profits", "label": "Profits", "prefix": "$", "suffix": "T", "decimals": 1},
-        {"col": "nni", "label": "NNI", "prefix": "$", "suffix": "T", "decimals": 1}
+        {
+          "col": "profits",
+          "label": "Profits",
+          "prefix": "$",
+          "suffix": "T",
+          "decimals": 1
+        },
+        {
+          "col": "nni",
+          "label": "NNI",
+          "prefix": "$",
+          "suffix": "T",
+          "decimals": 1
+        }
       ]
     },
     {
@@ -384,7 +486,7 @@
       "tooltipLabel": "Share",
       "decimals": 1,
       "valueSuffix": "%",
-      "color": "ltblue",
+      "color": "teal",
       "timeSeries": true,
       "dateFormat": "quarterly",
       "filteredYRef": 0,
@@ -392,8 +494,20 @@
       "order": 19,
       "description": "Private nonresidential fixed investment minus depreciation, as a share of GDP. This measures net additions to the economy's productive capital stock, including equipment, structures, and intellectual property.",
       "components": [
-        {"col": "net_invest", "label": "Invest", "prefix": "$", "suffix": "T", "decimals": 2},
-        {"col": "gdp", "label": "GDP", "prefix": "$", "suffix": "T", "decimals": 1}
+        {
+          "col": "net_invest",
+          "label": "Invest",
+          "prefix": "$",
+          "suffix": "T",
+          "decimals": 2
+        },
+        {
+          "col": "gdp",
+          "label": "GDP",
+          "prefix": "$",
+          "suffix": "T",
+          "decimals": 1
+        }
       ]
     }
   ]

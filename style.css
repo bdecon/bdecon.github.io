@@ -69,7 +69,7 @@
   --color-card-red: #E04040;
   --color-card-orange: #ca5c00;
   --color-card-purple: #553581;
-  --color-card-ltblue: #1E90FF;
+  --color-card-ltblue: #4A90C4;
   --color-card-teal: #2A8A8A;
 }
 
@@ -124,7 +124,7 @@
   --color-card-red: #e85a5a;
   --color-card-orange: #e87a20;
   --color-card-purple: #7a50b0;
-  --color-card-ltblue: #4aa5ff;
+  --color-card-ltblue: #6AAAD4;
   --color-card-teal: #3aadad;
 }
 /* ===== Accent Colors ===== */
@@ -549,8 +549,28 @@ article:not(.prose) > :first-child { margin-top: 0; }
 .nav-card-banner img { height: 30px; }
 
 .subfooter {
-	width: 100%; display: flex; justify-content: center; gap: 3em; font-size: 16px; padding-top: 10px;
-	& a { text-decoration: none; &:hover { text-decoration: underline; } }
+	max-width: 760px; margin: 36px auto 0 auto; padding: 20px 12px 0 12px;
+	box-sizing: border-box; border-top: 1px solid var(--color-border-light);
+	font-family: var(--font-ui);
+}
+.subfooter-hub {
+	font-size: 13px; color: var(--color-text-muted); margin: 0 0 10px 0;
+	& a { text-decoration: none; color: var(--color-text-muted); &:hover { text-decoration: underline; } }
+}
+.subfooter-siblings {
+	display: flex; flex-wrap: wrap; gap: 6px;
+	& a {
+		display: inline-block; padding: 5px 12px;
+		border: 1px solid var(--color-border-light); border-radius: var(--radius);
+		font-size: 13px; text-decoration: none; color: var(--color-text-dark);
+		transition: border-color 0.15s, color 0.15s;
+		&:hover { border-color: var(--color-link); color: var(--color-link); }
+		&.current {
+			background: var(--accent-color, var(--color-card-blue));
+			border-color: var(--accent-color, var(--color-card-blue));
+			color: white; font-weight: 600; pointer-events: none;
+		}
+	}
 }
 .footer_right a {
 	display: inline-flex; align-items: center; justify-content: center;
@@ -659,9 +679,9 @@ tr:nth-child(even){background-color: var(--color-bg-alt)}
 }
 
 .chart-compact {
-	& .chart-header { padding: 6px 10px 5px; }
-	& .chart-body { padding: 6px 10px; }
-	& .chart-footer { padding: 0 10px 7px; }
+	& .chart-header { padding: 8px 12px 7px; }
+	& .chart-body { padding: 8px 12px; }
+	& .chart-footer { padding: 2px 12px 9px; }
 }
 .chart-svg { display: block; width: 100%; height: auto; }
 .chart-logo {
@@ -729,8 +749,10 @@ tr:nth-child(even){background-color: var(--color-bg-alt)}
 	font-size: 18px;
 	font-weight: 500;
 	color: var(--color-text-dark);
-	margin: 0 0 1.25rem 0;
-	padding: 6px 0 6px 14px;
+	max-width: 760px;
+	margin: 0 auto 1.25rem auto;
+	padding: 6px 12px 6px 14px;
+	box-sizing: border-box;
 	border-left: 3px solid var(--accent);
 }
 
