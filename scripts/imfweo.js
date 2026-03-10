@@ -456,21 +456,132 @@
 		}
 	}
 
-	function initDropdowns() {
-		const cs = document.getElementById('country-select');
+	// --- Country combo box ---
+	let countryEntries = []; // [{iso, name}, ...] sorted by name
+	let comboIdx = -1;       // keyboard highlight index in filtered list
 
-		// Countries sorted by name
-		const entries = Object.entries(DATA.c).sort((a, b) => a[1].n.localeCompare(b[1].n));
-		for (const [iso, c] of entries) {
-			const opt = document.createElement('option');
-			opt.value = iso;
-			opt.textContent = c.n;
-			cs.appendChild(opt);
+	function setCountryInput(iso) {
+		const ci = document.getElementById('country-input');
+		const c = DATA.c[iso];
+		if (c) ci.value = c.n;
+	}
+
+	function buildComboItems(filter) {
+		const list = document.getElementById('country-list');
+		list.innerHTML = '';
+		comboIdx = -1;
+		const q = (filter || '').toLowerCase();
+		let matches = countryEntries;
+		if (q) matches = countryEntries.filter(e =>
+			e.name.toLowerCase().includes(q) || e.iso.toLowerCase().startsWith(q));
+		for (const e of matches) {
+			const div = document.createElement('div');
+			div.className = 'combo-item';
+			div.dataset.iso = e.iso;
+			if (q) {
+				const i = e.name.toLowerCase().indexOf(q);
+				if (i >= 0) {
+					div.innerHTML = esc(e.name.slice(0, i)) + '<mark>' +
+						esc(e.name.slice(i, i + q.length)) + '</mark>' +
+						esc(e.name.slice(i + q.length));
+				} else {
+					div.textContent = e.name;
+				}
+			} else {
+				div.textContent = e.name;
+			}
+			div.addEventListener('mousedown', (ev) => {
+				ev.preventDefault(); // keep focus from leaving input
+				selectCountry(e.iso);
+			});
+			list.appendChild(div);
 		}
+	}
+
+	function esc(s) {
+		const d = document.createElement('span');
+		d.textContent = s;
+		return d.innerHTML;
+	}
+
+	function openCombo() {
+		const list = document.getElementById('country-list');
+		buildComboItems(document.getElementById('country-input').value);
+		list.classList.add('open');
+	}
+
+	function closeCombo() {
+		document.getElementById('country-list').classList.remove('open');
+		comboIdx = -1;
+	}
+
+	function selectCountry(iso) {
+		currentISO = iso;
+		setCountryInput(iso);
+		closeCombo();
+		updateIndicatorDropdown();
+		onSelectionChange();
+	}
+
+	function initDropdowns() {
+		// Build sorted country list
+		countryEntries = Object.entries(DATA.c)
+			.map(([iso, c]) => ({iso, name: c.n}))
+			.sort((a, b) => a.name.localeCompare(b.name));
+
+		const ci = document.getElementById('country-input');
+		const list = document.getElementById('country-list');
+
+		ci.addEventListener('focus', () => {
+			ci.select();
+			openCombo();
+		});
+
+		ci.addEventListener('input', () => {
+			buildComboItems(ci.value);
+			list.classList.add('open');
+		});
+
+		ci.addEventListener('blur', () => {
+			// Small delay so mousedown on combo-item fires first
+			setTimeout(() => {
+				closeCombo();
+				setCountryInput(currentISO); // reset to current selection
+			}, 150);
+		});
+
+		ci.addEventListener('keydown', (e) => {
+			const items = list.querySelectorAll('.combo-item');
+			if (e.key === 'ArrowDown') {
+				e.preventDefault();
+				comboIdx = Math.min(comboIdx + 1, items.length - 1);
+			} else if (e.key === 'ArrowUp') {
+				e.preventDefault();
+				comboIdx = Math.max(comboIdx - 1, 0);
+			} else if (e.key === 'Enter') {
+				e.preventDefault();
+				if (comboIdx >= 0 && items[comboIdx]) {
+					selectCountry(items[comboIdx].dataset.iso);
+				} else if (items.length === 1) {
+					selectCountry(items[0].dataset.iso);
+				}
+				ci.blur();
+				return;
+			} else if (e.key === 'Escape') {
+				closeCombo();
+				setCountryInput(currentISO);
+				ci.blur();
+				return;
+			} else {
+				return;
+			}
+			// Update highlight
+			items.forEach((el, i) => el.classList.toggle('active', i === comboIdx));
+			if (items[comboIdx]) items[comboIdx].scrollIntoView({block: 'nearest'});
+		});
 
 		updateIndicatorDropdown();
 
-		cs.addEventListener('change', () => { currentISO = cs.value; updateIndicatorDropdown(); onSelectionChange(); });
 		document.getElementById('indicator-select').addEventListener('change', () => { currentIndicator = document.getElementById('indicator-select').value; onSelectionChange(); });
 	}
 
@@ -499,7 +610,7 @@
 			if (savedISO && DATA.c[savedISO]) currentISO = savedISO;
 			if (savedInd && DATA.i[savedInd]) currentIndicator = savedInd;
 		}
-		document.getElementById('country-select').value = currentISO;
+		setCountryInput(currentISO);
 		updateIndicatorDropdown();
 		document.getElementById('indicator-select').value = currentIndicator;
 	}
@@ -510,7 +621,7 @@
 			const [iso, ind] = hash.split('/');
 			if (DATA.c[iso]) currentISO = iso;
 			if (DATA.i[ind]) currentIndicator = ind;
-			document.getElementById('country-select').value = currentISO;
+			setCountryInput(currentISO);
 			updateIndicatorDropdown();
 			document.getElementById('indicator-select').value = currentIndicator;
 			renderChart();

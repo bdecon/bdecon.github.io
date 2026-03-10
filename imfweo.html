@@ -112,7 +112,7 @@
 		white-space: nowrap;
 		min-width: 62px;
 	}
-	.weo-controls select {
+	.weo-controls select, .combo-box input {
 		flex: 1;
 		min-width: 0;
 		padding: 6px 8px;
@@ -122,6 +122,45 @@
 		border-radius: var(--radius);
 		background: var(--color-bg-white);
 		color: var(--color-text-dark);
+	}
+	.combo-box {
+		flex: 1;
+		min-width: 0;
+		position: relative;
+	}
+	.combo-box input {
+		width: 100%;
+		box-sizing: border-box;
+	}
+	.combo-list {
+		display: none;
+		position: absolute;
+		left: 0; right: 0;
+		top: 100%;
+		max-height: 220px;
+		overflow-y: auto;
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-light);
+		border-top: none;
+		border-radius: 0 0 var(--radius) var(--radius);
+		z-index: 50;
+		box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+	}
+	.combo-list.open { display: block; }
+	.combo-item {
+		padding: 6px 10px;
+		font-size: 14px;
+		cursor: pointer;
+		color: var(--color-text-dark);
+	}
+	.combo-item:hover, .combo-item.active {
+		background: var(--color-card-blue);
+		color: #fff;
+	}
+	.combo-item mark {
+		background: none;
+		font-weight: 700;
+		color: inherit;
 	}
 	.chart-header .chart-title {
 		font-size: 20px;
@@ -283,24 +322,72 @@
 	.weo-countries p { margin: 0.4em 0; }
 	.weo-countries strong { font-size: 14px; color: var(--color-text-dark); }
 	@media (max-width: 759px) {
-		.prose {
+		/* Zero out outer padding — chart goes edge-to-edge */
+		main {
 			padding: 0;
 		}
-		.chart-compact .chart-body {
-			padding: 8px 8px 2px;
+		header {
+			padding: 4px 0 3px;
 		}
-		.chart-compact .chart-footer {
-			padding: 2px 8px 10px;
+		section {
+			margin: 0;
+			padding: 0;
+		}
+		.page-strip { display: none; }
+		.prose {
+			padding: 0 10px;
+			display: flex;
+			flex-direction: column;
+		}
+		/* Reorder: controls + chart first, text after */
+		.weo-controls  { order: 1; }
+		.chart-container { order: 2; }
+		.weo-info      { order: 3; }
+		.weo-intro     { order: 4; margin-top: 1.5rem; }
+		.details-section { order: 5; }
+		.noscript-warning { order: 0; }
+		/* Full-width breakout */
+		.weo-controls, .weo-info, .chart-container {
+			max-width: none;
+			width: calc(100% + 14px);
+			margin-left: -7px;
+			box-sizing: border-box;
+		}
+		/* Tight controls */
+		.weo-controls {
+			margin-top: 4px;
+			margin-bottom: 4px;
+			gap: 3px;
+		}
+		.weo-control-row label {
+			min-width: 52px;
+			font-size: 12px;
+		}
+		/* Tight chart */
+		.chart-container {
+			margin-top: 2px;
+			margin-bottom: 0;
 		}
 		.chart-compact .chart-header {
-			padding: 8px 8px 7px;
+			padding: 5px 8px 4px;
 		}
+		.chart-compact .chart-body {
+			padding: 4px 4px 2px;
+		}
+		.chart-compact .chart-footer {
+			padding: 2px 8px 6px;
+		}
+		/* Legend */
 		.chart-legend {
 			font-size: 11px;
 			column-gap: 8px;
+			padding: 2px 3px;
+			margin-bottom: 3px;
 		}
 		.legend-col-header {
 			font-size: 10px;
+			margin-bottom: 2px;
+			padding-bottom: 1px;
 		}
 		.legend-hdr-nc {
 			font-size: 8px;
@@ -313,6 +400,12 @@
 			max-width: 130px;
 			overflow: hidden;
 			text-overflow: ellipsis;
+		}
+		/* Info box at the bottom — compact */
+		.weo-info {
+			margin: 1rem 0 0;
+			padding: 6px 10px;
+			font-size: 12px;
 		}
 	}
 	@media (min-width: 760px) {
@@ -366,10 +459,12 @@
 
 	<noscript><p class="noscript-warning">This page requires JavaScript to display interactive charts.</p></noscript>
 
+	<div class="weo-intro">
 	<p class="callout accent-blue">The world economy as seen by the IMF — forecasts and data for 196 countries.</p>
 	<p>The IMF publishes the <a href="https://www.imf.org/en/Publications/WEO">World Economic Outlook</a> twice a year (April and October), with macroeconomic forecasts for nearly 200 countries. This tool tracks how those forecasts have evolved across editions from April 2008 to October 2025.</p>
 
-	<p style="margin-bottom: calc(1.5em + 12px);">Each dot below is a forecast from a previous WEO edition. Larger, fainter dots are longer-range forecasts; smaller, brighter dots are nearer-term. The solid line shows the latest actual data; the dashed line shows the latest forecasts. Where dots cluster tightly, forecasters agreed; where they spread, there was uncertainty or revision.</p>
+	<p>Each dot below is a forecast from a previous WEO edition. Larger, fainter dots are longer-range forecasts; smaller, brighter dots are nearer-term. The solid line shows the latest actual data; the dashed line shows the latest forecasts. Where dots cluster tightly, forecasters agreed; where they spread, there was uncertainty or revision.</p>
+	</div>
 
 	<div class="info-box weo-info" id="weo-info">
 		<span><strong>Latest edition</strong><span id="weo-info-edition">...</span></span>
@@ -379,8 +474,11 @@
 
 	<div class="weo-controls">
 		<div class="weo-control-row">
-			<label for="country-select">Country:</label>
-			<select id="country-select"></select>
+			<label for="country-input">Country:</label>
+			<div class="combo-box" id="country-combo">
+				<input type="text" id="country-input" autocomplete="off" spellcheck="false" placeholder="Type to search...">
+				<div class="combo-list" id="country-list"></div>
+			</div>
 		</div>
 		<div class="weo-control-row">
 			<label for="indicator-select">Indicator:</label>
