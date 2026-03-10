@@ -738,6 +738,147 @@
 		font-weight: 500;
 		font-size: 12px;
 	}
+
+	/* Feedback loop diagrams */
+	.fb-desktop { display: block; width: 100%; }
+	.fb-mobile { display: none; }
+	.fb-teal-fill { fill: #2A8A8A; }
+	.fb-teal-stroke { stroke: #2A8A8A; }
+	.fb-teal-text { fill: #2A8A8A; }
+	.fb-brown-fill { fill: #8B7355; }
+	.fb-brown-stroke { stroke: #8B7355; }
+	.fb-brown-text { fill: #8B7355; }
+	.fb-arc { fill: none; stroke-width: 3; }
+	.fb-divider { stroke: #ccc; stroke-width: 1; }
+	.fb-title { font-size: 16px; font-weight: 700; font-family: var(--font-ui); }
+	.fb-label { font-size: 13px; font-family: var(--font-ui); fill: var(--color-text-dark); }
+	.fb-label-m { font-size: 15px; font-family: var(--font-ui); fill: var(--color-text-dark); }
+	[data-theme="dark"] .fb-teal-fill { fill: #3aadad; }
+	[data-theme="dark"] .fb-teal-stroke { stroke: #3aadad; }
+	[data-theme="dark"] .fb-teal-text { fill: #3aadad; }
+	[data-theme="dark"] .fb-brown-fill { fill: #A89080; }
+	[data-theme="dark"] .fb-brown-stroke { stroke: #A89080; }
+	[data-theme="dark"] .fb-brown-text { fill: #A89080; }
+	[data-theme="dark"] .fb-divider { stroke: #555; }
+	@media (max-width: 500px) {
+		.fb-desktop { display: none; }
+		.fb-mobile { display: block; width: 100%; }
+	}
+
+	/* Age coverage grid */
+	.ac-subtitle {
+		font-family: var(--font-ui);
+		font-size: 18px;
+		font-weight: 700;
+		color: var(--color-text-dark);
+		margin-bottom: 12px;
+	}
+	.ac-grid {
+		display: grid;
+		grid-template-columns: auto repeat(6, 1fr);
+		gap: 6px;
+		align-items: center;
+	}
+	.ac-corner { }
+	.ac-age {
+		text-align: center;
+		font-family: var(--font-ui);
+		font-size: 14px;
+		color: var(--color-text-muted);
+	}
+	.ac-label {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		gap: 2px;
+		justify-content: center;
+		font-family: var(--font-ui);
+		font-size: 14px;
+		font-weight: 600;
+		color: var(--color-text-dark);
+		padding-right: 4px;
+		white-space: nowrap;
+	}
+	.ac-label-short { display: none; }
+	.ac-flag {
+		width: 28px;
+		height: 18px;
+		object-fit: cover;
+		border: 0.5px solid rgba(0,0,0,0.15);
+		border-radius: 1px;
+		order: 1;
+	}
+	.ac-cell {
+		height: 38px;
+		border-radius: 3px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.ac-cell-label {
+		font-family: var(--font-ui);
+		font-size: 14px;
+		color: var(--color-text-muted);
+		text-align: center;
+		line-height: 1.15;
+	}
+	.ac-cell-label.ac-white { color: #fff; font-weight: 600; font-size: 12px; }
+	.ac-estab { background: #2A8A8A; }
+	.ac-new { background: rgba(33,145,140,0.40); border: 1.5px dashed #2A8A8A; }
+	.ac-pilot { background: rgba(33,145,140,0.20); border: 1.5px dashed #2A8A8A; }
+	.ac-proposed { background: rgba(33,145,140,0.12); border: 1.5px dashed #2A8A8A; }
+	.ac-none { background: #f0f0f0; border: 1px solid #ddd; }
+	.ac-note {
+		font-family: var(--font-ui);
+		font-size: 13px;
+		color: var(--color-text-muted);
+		padding-left: 0;
+		text-align: left;
+	}
+	.ac-sep {
+		grid-column: 1 / -1;
+		border-top: 0.75px dashed var(--color-text-subtle);
+		margin: 2px 0;
+	}
+	.ac-legend {
+		display: flex;
+		align-items: center;
+		gap: 14px;
+		margin-top: 10px;
+		font-family: var(--font-ui);
+		font-size: 14px;
+		color: var(--color-text-muted);
+	}
+	.ac-swatch {
+		display: inline-block;
+		width: 13px;
+		height: 13px;
+		border-radius: 2px;
+		vertical-align: -2px;
+		margin-right: 4px;
+	}
+	.ac-swatch.ac-estab { background: #2A8A8A; }
+	.ac-swatch.ac-new { background: rgba(33,145,140,0.40); border: 1.5px dashed #2A8A8A; }
+	.ac-swatch.ac-pilot { background: rgba(33,145,140,0.20); border: 1.5px dashed #2A8A8A; }
+	[data-theme="dark"] .ac-estab { background: #3aadad; }
+	[data-theme="dark"] .ac-new { background: rgba(33,145,140,0.50); border-color: #3aadad; }
+	[data-theme="dark"] .ac-pilot { background: rgba(33,145,140,0.28); border-color: #3aadad; }
+	[data-theme="dark"] .ac-proposed { background: rgba(33,145,140,0.15); border-color: #3aadad; }
+	[data-theme="dark"] .ac-none { background: #2a2a3e; border-color: #666; }
+	[data-theme="dark"] .ac-swatch.ac-estab { background: #3aadad; }
+	[data-theme="dark"] .ac-swatch.ac-new { background: rgba(33,145,140,0.50); border-color: #3aadad; }
+	[data-theme="dark"] .ac-swatch.ac-pilot { background: rgba(33,145,140,0.28); border-color: #3aadad; }
+	@media (max-width: 500px) {
+		.ac-subtitle { font-size: 16px; }
+		.ac-age { font-size: 12px; }
+		.ac-label { font-size: 12px; }
+		.ac-flag { width: 22px; height: 14px; }
+		.ac-label-full { display: none; }
+		.ac-label-short { display: inline; }
+		.ac-cell { height: 32px; }
+		.ac-cell-label { font-size: 11px; }
+		.ac-legend { font-size: 12px; gap: 10px; }
+	}
 </style>
 </head>
 <body>
@@ -1326,7 +1467,80 @@
 
 		<!-- Feedback loop diagram -->
 		<div id="feedback-container" style="margin: 0.5rem 0;">
-			<svg id="feedback-svg" class="chart-svg" viewBox="0 30 680 260" preserveAspectRatio="xMidYMid meet"></svg>
+			<!-- Desktop -->
+			<svg class="fb-desktop" viewBox="0 30 680 260" preserveAspectRatio="xMidYMid meet">
+				<defs>
+					<marker id="fb-arr-t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 1 L 10 5 L 0 9 z" class="fb-teal-fill"/></marker>
+					<marker id="fb-arr-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 1 L 10 5 L 0 9 z" class="fb-brown-fill"/></marker>
+				</defs>
+				<!-- Divider -->
+				<line x1="340" x2="340" y1="45" y2="275" class="fb-divider" stroke-dasharray="4,4"/>
+				<!-- Teal cycle -->
+				<text x="155" y="62" text-anchor="middle" class="fb-title fb-teal-text">Nordic countries</text>
+				<path d="M 181.7,101.1 A 72,72 0 0,1 221.9,141.3" class="fb-arc fb-teal-stroke" marker-end="url(#fb-arr-t)"/>
+				<path d="M 221.9,194.7 A 72,72 0 0,1 181.7,234.9" class="fb-arc fb-teal-stroke" marker-end="url(#fb-arr-t)"/>
+				<path d="M 128.3,234.9 A 72,72 0 0,1 88.1,194.7" class="fb-arc fb-teal-stroke" marker-end="url(#fb-arr-t)"/>
+				<path d="M 88.1,141.3 A 72,72 0 0,1 128.3,101.1" class="fb-arc fb-teal-stroke" marker-end="url(#fb-arr-t)"/>
+				<circle cx="155" cy="96" r="3.5" class="fb-teal-fill"/>
+				<circle cx="227" cy="168" r="3.5" class="fb-teal-fill"/>
+				<circle cx="155" cy="240" r="3.5" class="fb-teal-fill"/>
+				<circle cx="83" cy="168" r="3.5" class="fb-teal-fill"/>
+				<text x="155" y="82" text-anchor="middle" class="fb-label">Public investment</text>
+				<text x="241" y="168" text-anchor="start" dominant-baseline="central" class="fb-label"><tspan x="241" dy="0">Full coverage,</tspan><tspan x="241" dy="1.15em">trained staff</tspan></text>
+				<text x="155" y="258" text-anchor="middle" dominant-baseline="hanging" class="fb-label">Quality care</text>
+				<text x="69" y="168" text-anchor="end" dominant-baseline="central" class="fb-label"><tspan x="69" dy="0">Public</tspan><tspan x="69" dy="1.15em">trust</tspan></text>
+				<!-- Brown cycle -->
+				<text x="525" y="62" text-anchor="middle" class="fb-title fb-brown-text">United States</text>
+				<path d="M 551.7,101.1 A 72,72 0 0,1 591.9,141.3" class="fb-arc fb-brown-stroke" marker-end="url(#fb-arr-b)"/>
+				<path d="M 591.9,194.7 A 72,72 0 0,1 551.7,234.9" class="fb-arc fb-brown-stroke" marker-end="url(#fb-arr-b)"/>
+				<path d="M 498.3,234.9 A 72,72 0 0,1 458.1,194.7" class="fb-arc fb-brown-stroke" marker-end="url(#fb-arr-b)"/>
+				<path d="M 458.1,141.3 A 72,72 0 0,1 498.3,101.1" class="fb-arc fb-brown-stroke" marker-end="url(#fb-arr-b)"/>
+				<circle cx="525" cy="96" r="3.5" class="fb-brown-fill"/>
+				<circle cx="597" cy="168" r="3.5" class="fb-brown-fill"/>
+				<circle cx="525" cy="240" r="3.5" class="fb-brown-fill"/>
+				<circle cx="453" cy="168" r="3.5" class="fb-brown-fill"/>
+				<text x="525" y="82" text-anchor="middle" class="fb-label">Underfunding</text>
+				<text x="611" y="168" text-anchor="start" dominant-baseline="central" class="fb-label"><tspan x="611" dy="0">Few slots,</tspan><tspan x="611" dy="1.15em">low pay</tspan></text>
+				<text x="525" y="262" text-anchor="middle" dominant-baseline="hanging" class="fb-label"><tspan x="525" dy="0">Poor</tspan><tspan x="525" dy="1.15em">outcomes</tspan></text>
+				<text x="439" y="168" text-anchor="end" dominant-baseline="central" class="fb-label"><tspan x="439" dy="0">Low</tspan><tspan x="439" dy="1.15em">trust</tspan></text>
+			</svg>
+			<!-- Mobile -->
+			<svg class="fb-mobile" viewBox="0 0 400 570" preserveAspectRatio="xMidYMid meet">
+				<defs>
+					<marker id="fb-arr-tm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 1 L 10 5 L 0 9 z" class="fb-teal-fill"/></marker>
+					<marker id="fb-arr-bm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 1 L 10 5 L 0 9 z" class="fb-brown-fill"/></marker>
+				</defs>
+				<!-- Divider -->
+				<line x1="60" x2="340" y1="280" y2="280" class="fb-divider" stroke-dasharray="4,4"/>
+				<!-- Teal cycle -->
+				<text x="180" y="29" text-anchor="middle" class="fb-title fb-teal-text">Nordic countries</text>
+				<path d="M 206.0,70.0 A 70,70 0 0,1 245.0,109.0" class="fb-arc fb-teal-stroke" marker-end="url(#fb-arr-tm)"/>
+				<path d="M 245.0,161.0 A 70,70 0 0,1 206.0,200.0" class="fb-arc fb-teal-stroke" marker-end="url(#fb-arr-tm)"/>
+				<path d="M 154.0,200.0 A 70,70 0 0,1 115.0,161.0" class="fb-arc fb-teal-stroke" marker-end="url(#fb-arr-tm)"/>
+				<path d="M 115.0,109.0 A 70,70 0 0,1 154.0,70.0" class="fb-arc fb-teal-stroke" marker-end="url(#fb-arr-tm)"/>
+				<circle cx="180" cy="65" r="4.5" class="fb-teal-fill"/>
+				<circle cx="250" cy="135" r="4.5" class="fb-teal-fill"/>
+				<circle cx="180" cy="205" r="4.5" class="fb-teal-fill"/>
+				<circle cx="110" cy="135" r="4.5" class="fb-teal-fill"/>
+				<text x="180" y="49" text-anchor="middle" class="fb-label-m">Public investment</text>
+				<text x="266" y="135" text-anchor="start" dominant-baseline="central" class="fb-label-m"><tspan x="266" dy="0">Full coverage,</tspan><tspan x="266" dy="1.15em">trained staff</tspan></text>
+				<text x="180" y="225" text-anchor="middle" dominant-baseline="hanging" class="fb-label-m">Quality care</text>
+				<text x="94" y="135" text-anchor="end" dominant-baseline="central" class="fb-label-m"><tspan x="94" dy="0">Public</tspan><tspan x="94" dy="1.15em">trust</tspan></text>
+				<!-- Brown cycle -->
+				<text x="180" y="319" text-anchor="middle" class="fb-title fb-brown-text">United States</text>
+				<path d="M 206.0,360.0 A 70,70 0 0,1 245.0,399.0" class="fb-arc fb-brown-stroke" marker-end="url(#fb-arr-bm)"/>
+				<path d="M 245.0,451.0 A 70,70 0 0,1 206.0,490.0" class="fb-arc fb-brown-stroke" marker-end="url(#fb-arr-bm)"/>
+				<path d="M 154.0,490.0 A 70,70 0 0,1 115.0,451.0" class="fb-arc fb-brown-stroke" marker-end="url(#fb-arr-bm)"/>
+				<path d="M 115.0,399.0 A 70,70 0 0,1 154.0,360.0" class="fb-arc fb-brown-stroke" marker-end="url(#fb-arr-bm)"/>
+				<circle cx="180" cy="355" r="4.5" class="fb-brown-fill"/>
+				<circle cx="250" cy="425" r="4.5" class="fb-brown-fill"/>
+				<circle cx="180" cy="495" r="4.5" class="fb-brown-fill"/>
+				<circle cx="110" cy="425" r="4.5" class="fb-brown-fill"/>
+				<text x="180" y="339" text-anchor="middle" class="fb-label-m">Underfunding</text>
+				<text x="266" y="425" text-anchor="start" dominant-baseline="central" class="fb-label-m"><tspan x="266" dy="0">Few slots,</tspan><tspan x="266" dy="1.15em">low pay</tspan></text>
+				<text x="180" y="515" text-anchor="middle" dominant-baseline="hanging" class="fb-label-m"><tspan x="180" dy="0">Poor</tspan><tspan x="180" dy="1.15em">outcomes</tspan></text>
+				<text x="94" y="425" text-anchor="end" dominant-baseline="central" class="fb-label-m"><tspan x="94" dy="0">Low</tspan><tspan x="94" dy="1.15em">trust</tspan></text>
+			</svg>
 		</div>
 
 		<p>In Nordic countries, public investment creates a professional workforce, which produces quality care, which builds public trust, which sustains the investment. Even Finland's current right-wing government has kept childcare intact. Conservative, liberal, and socialist parents send their kids to the same daycares. Finland's childcare system is politically untouchable because it works and people depend on it.</p>
@@ -1379,13 +1593,74 @@
 
 		<p>The case studies above show different approaches to the same problem — and different stages of progress. The chart below shows how far each has gotten, and how far there is to go. The cases that have moved furthest — Finland's complete system, New Mexico's universal entitlement — are the ones built on universal principles.</p>
 
-		<!-- Age coverage strips -->
+		<!-- Age coverage grid -->
 		<div class="chart-container" id="age-coverage-container">
 			<div class="chart-header accent-teal" style="padding: 10px 12px 8px;">
 				<span class="chart-title map-category">Closing the gap</span>
 			</div>
-			<div class="chart-body" style="padding: 4px 8px 0 8px;">
-				<svg id="age-coverage-svg" class="chart-svg" viewBox="0 0 620 210" preserveAspectRatio="xMidYMid meet"></svg>
+			<div class="chart-body" style="padding: 8px 12px 10px;">
+				<div class="ac-subtitle">Universal public childcare programs, selected cases</div>
+				<div class="ac-grid">
+					<div class="ac-corner"></div>
+					<div class="ac-age">Age 0</div>
+					<div class="ac-age">Age 1</div>
+					<div class="ac-age">Age 2</div>
+					<div class="ac-age">Age 3</div>
+					<div class="ac-age">Age 4</div>
+					<div class="ac-age">Age 5</div>
+
+					<div class="ac-label"><img src="files/childcare-images/flags/fi.png" alt="" class="ac-flag">Finland</div>
+					<div class="ac-cell ac-estab"><span class="ac-cell-label ac-white"><span class="ac-label-full">Parental<br>leave</span><span class="ac-label-short">Leave</span></span></div>
+					<div class="ac-cell ac-estab"></div>
+					<div class="ac-cell ac-estab"></div>
+					<div class="ac-cell ac-estab"></div>
+					<div class="ac-cell ac-estab"></div>
+					<div class="ac-cell ac-estab"></div>
+
+					<div class="ac-note" style="grid-column: 1 / -1;"><em>+ universal child benefit at every age</em></div>
+
+					<div class="ac-sep"></div>
+
+					<div class="ac-label"><img src="files/childcare-images/flags/nyc.png" alt="" class="ac-flag"><span class="ac-label-full">NYC</span><span class="ac-label-short">NYC</span></div>
+					<div class="ac-cell ac-pilot"><span class="ac-cell-label">Pilot</span></div>
+					<div class="ac-cell ac-pilot"><span class="ac-cell-label">Pilot</span></div>
+					<div class="ac-cell ac-proposed"><span class="ac-cell-label">2-K</span></div>
+					<div class="ac-cell ac-new"><span class="ac-cell-label">3-K</span></div>
+					<div class="ac-cell ac-estab"></div>
+					<div class="ac-cell ac-estab"></div>
+
+					<div class="ac-label"><img src="files/childcare-images/flags/nm.png" alt="" class="ac-flag"><span class="ac-label-full">New Mexico</span><span class="ac-label-short">N. Mexico</span></div>
+					<div class="ac-cell ac-new"><span class="ac-cell-label">New</span></div>
+					<div class="ac-cell ac-new"><span class="ac-cell-label">New</span></div>
+					<div class="ac-cell ac-new"><span class="ac-cell-label">New</span></div>
+					<div class="ac-cell ac-estab"></div>
+					<div class="ac-cell ac-estab"></div>
+					<div class="ac-cell ac-estab"></div>
+
+					<div class="ac-label"><img src="files/childcare-images/flags/vt.png" alt="" class="ac-flag">Vermont</div>
+					<div class="ac-cell ac-none"></div>
+					<div class="ac-cell ac-none"></div>
+					<div class="ac-cell ac-none"></div>
+					<div class="ac-cell ac-estab"></div>
+					<div class="ac-cell ac-estab"></div>
+					<div class="ac-cell ac-estab"></div>
+
+					<div class="ac-sep"></div>
+
+					<div class="ac-label"><img src="files/childcare-images/flags/us.png" alt="" class="ac-flag"><span class="ac-label-full">US federal</span><span class="ac-label-short">US fed.</span></div>
+					<div class="ac-cell ac-none"></div>
+					<div class="ac-cell ac-none"></div>
+					<div class="ac-cell ac-none"></div>
+					<div class="ac-cell ac-none"></div>
+					<div class="ac-cell ac-none"></div>
+					<div class="ac-cell ac-estab"><span class="ac-cell-label ac-white"><span class="ac-label-full">Kinder-<br>garten</span><span class="ac-label-short">K</span></span></div>
+				</div>
+				<div class="ac-legend">
+					<strong>Status:</strong>
+					<span><span class="ac-swatch ac-estab"></span> Existing</span>
+					<span><span class="ac-swatch ac-new"></span> New/Expansion</span>
+					<span><span class="ac-swatch ac-pilot"></span> Pilot</span>
+				</div>
 			</div>
 		</div>
 

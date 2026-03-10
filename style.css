@@ -182,7 +182,7 @@ body{
 
 main {
 	margin: 0;
-	padding: 7px 20px 20px;
+	padding: 8px 20px 20px;
 	box-sizing: border-box;
 	background: var(--color-surface);
 	border: var(--elevation-border);
@@ -195,7 +195,7 @@ li{font-size: 15px; color: var(--color-text-gray); line-height: 1.6;}
 hr {
 	border: none;
 	border-top: 1px dotted var(--color-text-subtle);
-	margin: 24px auto 32px;
+	margin: 24px auto;
 	width: 90%;
 }
 /* Prose content wrapper — standard readable width */
@@ -207,7 +207,7 @@ hr {
 }
 .prose h2 { font-size: 24px; margin: 2.5rem 0 10px; }
 .prose h3 { font-size: 20px; }
-.prose h4 { font-size: 17px; color: var(--color-text-dark); margin: 35px 0 10px 0; }
+.prose h4 { font-size: 17px; color: var(--color-text-dark); margin: 32px 0 10px 0; }
 .article_code h4 { color: var(--color-heading-gray); }
 
 /* List styling — consistent indentation and spacing */
@@ -226,7 +226,7 @@ h1, h2, h3, h4{font-family: var(--font-ui); line-height: 1.25; text-wrap: balanc
 h1{margin: 10px 0 10px;}
 h2{margin: 20px 0 10px; font-size: 32px;}
 h3{margin: 2.5rem 0 10px; font-size: 24px;}
-h4{margin: 35px 0 10px 0; font-size: 17px; color: var(--color-heading-gray);}
+h4{margin: 32px 0 10px 0; font-size: 17px; color: var(--color-heading-gray);}
 
 
 
@@ -481,7 +481,7 @@ footer {
 }
 .footer_right { text-align: right; }
 /* Section formatting */
-section{margin: 5px; padding: 20px 0 0 0;}
+section{margin: 0; padding: 20px 0 0 0;}
 article:not(.prose) > :first-child { margin-top: 0; }
 .article_code {
 	padding-top: 10px;
@@ -762,7 +762,7 @@ tr:nth-child(even){background-color: var(--color-bg-alt)}
 	width: 120px;
 	height: 5px;
 	border: none;
-	margin: 2.25rem auto;
+	margin: 2rem auto;
 	background-color: var(--accent);
 }
 [data-theme="dark"] .hr-accent,
@@ -774,7 +774,7 @@ tr:nth-child(even){background-color: var(--color-bg-alt)}
 	font-weight: 500;
 	color: var(--color-text-dark);
 	max-width: 760px;
-	margin: 0 auto 1.25rem auto;
+	margin: 0 auto 1.5rem auto;
 	padding: 6px 12px 6px 14px;
 	box-sizing: border-box;
 	border-left: 3px solid var(--accent);
@@ -782,7 +782,7 @@ tr:nth-child(even){background-color: var(--color-bg-alt)}
 
 /* Accent blockquote */
 .blockquote-accent {
-	margin: 1.75rem 0;
+	margin: 1.5rem 0;
 	padding: 8px 0 8px 16px;
 	font-size: 15px;
 	font-style: italic;
@@ -859,7 +859,7 @@ tr:nth-child(even){background-color: var(--color-bg-alt)}
 	font-size: 14px;
 	font-weight: 700;
 	color: var(--color-heading-gray);
-	margin: 28px 0 8px 0;
+	margin: 24px 0 8px 0;
 	text-transform: uppercase;
 	letter-spacing: 0.5px;
 	display: inline-block;
