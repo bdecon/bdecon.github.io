@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<meta charset="UTF-8">
 	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>IMF API Guide, Part 3 | BD Economics</title>
-	<link rel="stylesheet" href="add-ins/github.css">
 	<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+	<link rel="stylesheet" href="add-ins/github.css">
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<meta charset="UTF-8">
-	<meta name="description" content="Python tutorial: WEO forecasts, commodity prices, ECB bond yields, and bulk downloads with requests.">
-	<meta name="keywords" content="IMF API, sdmx1, SDMX Python, requests, WEO forecasts, commodity prices, ECB, BIS, OECD, bulk download, Economics Dashboard, Macroeconomics Dashboard, International Monetary Fund, Python pandas, economic data API">
+	<meta name="description" content="Python tutorial: WEO forecasts, commodity prices, and bulk downloads with requests.">
+	<meta name="keywords" content="IMF API, sdmx1, SDMX Python, requests, WEO forecasts, commodity prices, bulk download, Economics Dashboard, Macroeconomics Dashboard, International Monetary Fund, Python pandas, economic data API">
 	<meta name="author" content="Brian Dew">
 	<link rel="canonical" href="https://bd-econ.com/imfapi3.html">
 	<!-- Open Graph -->
 	<meta property="og:title" content="IMF API Guide, Part 3 | BD Economics">
-	<meta property="og:description" content="Python tutorial: WEO forecasts, commodity prices, ECB bond yields, and bulk downloads with requests.">
+	<meta property="og:description" content="Python tutorial: WEO forecasts, commodity prices, and bulk downloads with requests.">
 	<meta property="og:url" content="https://bd-econ.com/imfapi3.html">
 	<meta property="og:type" content="article">
 	<meta property="og:image" content="https://bd-econ.com/images/01_bdlogo.png">
 	<!-- Twitter Card -->
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="IMF API Guide, Part 3 | BD Economics">
-	<meta name="twitter:description" content="Python tutorial: WEO forecasts, commodity prices, ECB bond yields, and bulk downloads with requests.">
+	<meta name="twitter:description" content="Python tutorial: WEO forecasts, commodity prices, and bulk downloads with requests.">
 	<meta name="twitter:image" content="https://bd-econ.com/images/01_bdlogo.png">
 	<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
 	<link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
@@ -55,7 +55,7 @@
     "@context": "https://schema.org",
     "@type": "TechArticle",
     "headline": "IMF API Python Tutorial, Part 3",
-    "description": "Python tutorial: WEO forecasts, commodity prices, ECB bond yields, and bulk downloads with requests.",
+    "description": "Python tutorial: WEO forecasts, commodity prices, and bulk downloads with requests.",
     "author": {
         "@type": "Person",
         "name": "Brian Dew"
@@ -94,7 +94,6 @@
     ]
 }
 </script>
-
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PGVF5S620Y"></script>
 <script>
@@ -104,7 +103,6 @@
 
   gtag('config', 'G-PGVF5S620Y');
 </script>
-
 </head>
 <body>
 	<a href="#main" class="skip-link">Skip to main content</a>
@@ -182,14 +180,14 @@
 		<h3>Part 3</h3>
 	  </div>
 	  <div class="nav-card-body">
-		<p>Practical examples: <strong>WEO forecasts, commodity prices</strong>, ECB bond yields, and <strong>bulk downloads</strong> with requests.</p>
+		<p>Practical examples: <strong>WEO forecasts, commodity prices</strong>, and <strong>bulk downloads</strong> with requests.</p>
 	  </div>
 	</div>
 	</a>
 	</article>
 	<article class="article_code prose">
 	<h2>IMF API with Python: Practical Examples</h2>
-	<p>Parts 1 and 2 covered the basics of retrieving data and discovering datasets. Here we apply both&mdash;combining the discovery tools from Part 2 with practical workflows&mdash;to work through three examples: economic forecasts, commodity prices, and data from providers beyond the IMF.</p>
+	<p>Parts 1 and 2 covered the basics of retrieving data and discovering datasets. Here we apply both&mdash;combining the discovery tools from Part 2 with practical workflows&mdash;to work through three examples: economic forecasts, commodity prices, and bulk downloads.</p>
 
 	<hr class="section-bar accent-blue">
 	<h3>Economic Forecasts (WEO)</h3>
@@ -356,48 +354,6 @@ ax1.legend(lines, [l.get_label() for l in lines],
 	<p>Both metals track global industrial activity, but copper's sharper swings reflect its role as a leading economic indicator. Other key commodity codes include <code>PGOLD</code> (gold), <code>POILAPSP</code> (crude oil), <code>PNGAS</code> (natural gas), and <code>PWHEAMT</code> (wheat). Use the codelist methods from Part 2 to browse the full list.</p>
 
 	<hr class="section-bar accent-blue">
-	<h3>Beyond the IMF</h3>
-	<p>The sdmx1 library supports over 30 SDMX data providers through the same interface. Here we use the European Central Bank's Interest Rate Statistics (IRS) dataset to fetch 10-year government bond yields for four large euro area economies:</p>
-	<p>In[8]:</p>
-	<pre><code class="python">ECB = sdmx.Client('ECB')
-
-# 10-year government bond yields (monthly)
-# Key: FREQ.REF_AREA.IR_TYPE.TR_TYPE.MATURITY_CAT
-#      .BS_COUNT_SECTOR.CURRENCY_TRANS.IR_BUS_COV.IR_FV_TYPE
-key = 'M.DE+FR+IT+ES.L.L40.CI.0000.EUR.N.Z'
-data_msg = ECB.data('IRS', key=key,
-                     params={'startPeriod': '2014'})
-
-df = sdmx.to_pandas(data_msg).reset_index()
-df = df.set_index(['TIME_PERIOD', 'REF_AREA'])['value'].unstack()
-df.index = pd.to_datetime(df.index)
-df = df.sort_index()
-df = df.rename(columns={'DE': 'Germany', 'ES': 'Spain',
-                         'FR': 'France', 'IT': 'Italy'})</code></pre>
-	<p>The nine-dimension key looks complex, but it follows from the same discovery workflow covered in Part 2: get the dataflow, examine <code>dsd.dimensions.components</code>, and search the codelists. With yield levels in hand, the one-year change highlights the 2022 rate shock:</p>
-	<p>In[9]:</p>
-	<pre><code class="python"># One-year change in yields (percentage points)
-change = df.diff(12).dropna()
-ax = change.plot(title='10-Year Bond Yields: One-Year Change (pp)')
-ax.axhline(0, color='gray', linewidth=0.5)
-ax.set_xlabel('Source: European Central Bank (IRS)')</code></pre>
-	<p>Out[9]:</p>
-	<img decoding="async" src="images/imf_ecb_yields.png" alt="Euro Area 10-Year Bond Yield Changes" loading="lazy" width="559" height="443"/>
-	<p>Italy and Spain show larger swings than Germany, reflecting the credit spread component of their yields. The 2022 spike corresponds to the ECB's fastest rate-hiking cycle on record. To see all available providers:</p>
-	<p>In[10]:</p>
-	<pre><code class="python">print(sdmx.list_sources())</code></pre>
-	<p>Some of the most useful for economic data:</p>
-	<ul>
-		<li><strong>ECB</strong> &mdash; Exchange rates, monetary aggregates, interest rates</li>
-		<li><strong>BIS</strong> &mdash; Banking statistics, property prices, credit to the private sector</li>
-		<li><strong>OECD</strong> &mdash; National accounts, labor markets, trade, education</li>
-		<li><strong>WB</strong> (World Bank) &mdash; Development indicators, poverty, demographics</li>
-		<li><strong>ILO</strong> &mdash; Employment, wages, labor force statistics</li>
-		<li><strong>ESTAT</strong> (Eurostat) &mdash; European economic and social statistics</li>
-	</ul>
-	<p>The workflow is always the same: create a <code>Client</code>, use <code>dataflow()</code> to browse datasets, and <code>.data()</code> to fetch observations.</p>
-
-	<hr class="section-bar accent-blue">
 	<h3>Bulk Download with Requests</h3>
 	<p>For larger downloads&mdash;or if you prefer to skip the sdmx1 dependency&mdash;the same API accepts plain HTTP requests. Ask for CSV format and you get a pandas-ready response. As covered in Part 2, the URL follows the pattern <code>https://api.imf.org/external/sdmx/3.0/data/dataflow/{agency}/{dataflow}/{version}/{key}</code>.</p>
 	<p>Here we download the entire WEO dataset from 2020 onward. The wildcard <code>*</code> in the key position requests all countries and indicators:</p>
@@ -441,7 +397,7 @@ gdp.sort_index().round(1)</code></pre>
 		<li>The discovery methods from Part 2&mdash;<code>dataflow()</code>, <code>dsd.dimensions</code>, and codelist searches&mdash;are essential for working with new datasets</li>
 		<li>WEO provides IMF forecasts, valuable for projections and scenario analysis</li>
 		<li>PCPS provides world benchmark commodity prices; the reference area <code>W00</code> covers all series</li>
-		<li>The same sdmx1 library and workflow apply to ECB, BIS, OECD, and many other SDMX providers</li>
+		<li>The sdmx1 library also supports ECB, BIS, OECD, and many other SDMX providers&mdash;run <code>sdmx.list_sources()</code> to see all of them</li>
 		<li>For bulk downloads or to avoid dependencies, the API also accepts plain <code>requests</code> with <code>Accept: text/csv</code>&mdash;see Part 2 for the URL pattern and gotchas</li>
 		<li>Always call <code>.sort_index()</code> after converting the time index&mdash;SDMX responses are not guaranteed to be in chronological order</li>
 	</ul>
@@ -452,7 +408,6 @@ gdp.sort_index().round(1)</code></pre>
 		<li><a href="https://pypi.org/project/sdmx1/">sdmx1 on PyPI</a> &mdash; Installation and basic documentation</li>
 		<li><a href="https://sdmx1.readthedocs.io/">sdmx1 documentation</a> &mdash; Full library reference, including the list of supported providers</li>
 		<li><a href="https://data.imf.org/">IMF Data Portal</a> &mdash; Browse available IMF datasets interactively</li>
-		<li><a href="https://data.ecb.europa.eu/">ECB Data Portal</a> &mdash; European Central Bank statistical data</li>
 	</ul>
 	</article>
 	<div class="subfooter" data-hub="guides" data-current="imfapi1.html" style="--accent-color: var(--color-card-blue)"></div>

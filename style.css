@@ -54,7 +54,6 @@
 
   /* Chart colors */
   --color-grid: color-mix(in srgb, black 6%, transparent);
-  --color-axis-text: #6a6a6a;
   --color-tooltip-bg: color-mix(in srgb, #4b4b4b 95%, transparent);
 
   /* Card tail */
@@ -112,7 +111,6 @@
   --elevation-border: 1px solid var(--color-border);
 
   --color-grid: color-mix(in srgb, white 8%, transparent);
-  --color-axis-text: #cfcfcf;
   --color-tooltip-bg: color-mix(in srgb, #282828 95%, transparent);
 
   --color-card-tail-bg: #282828;
@@ -227,7 +225,7 @@ hr {
 h1, h2, h3, h4{font-family: var(--font-ui); line-height: 1.25; text-wrap: balance;}
 h1{margin: 10px 0 10px;}
 h2{margin: 20px 0 10px; font-size: 32px;}
-h3{margin: 2.5rem 0 10px; font-size: 26px;}
+h3{margin: 2.5rem 0 10px; font-size: 24px;}
 h4{margin: 35px 0 10px 0; font-size: 17px; color: var(--color-heading-gray);}
 
 
@@ -434,7 +432,7 @@ ul li a:hover + .hidden, .hidden:hover {
 	}
 	.nav-card-body p {
 		margin-bottom: 8px;
-		font-size: 13px;
+		font-size: 14px;
 	}
 	:is(.nav-card, .nav-card-muted) {
 		min-height: auto;
@@ -509,7 +507,7 @@ article:not(.prose) > :first-child { margin-top: 0; }
 		margin: 10px auto 5px auto; padding-bottom: 8px;
 		border-bottom: 3px solid var(--color-accent-red);
 	}
-	& > h2 { font-size: 26px; font-weight: 900; }
+	& > h2 { font-size: 24px; font-weight: 900; }
 	@media (max-width: 680px) { grid-template-columns: 1fr; max-width: 300px; margin: 0 auto; }
 }
 
@@ -554,7 +552,7 @@ article:not(.prose) > :first-child { margin-top: 0; }
 	font-family: var(--font-ui);
 }
 .subfooter-hub {
-	font-size: 13px; color: var(--color-text-muted); margin: 0 0 10px 0;
+	font-size: 14px; color: var(--color-text-muted); margin: 0 0 10px 0;
 	& a { text-decoration: none; color: var(--color-text-muted); &:hover { text-decoration: underline; } }
 }
 .subfooter-siblings {
@@ -562,7 +560,7 @@ article:not(.prose) > :first-child { margin-top: 0; }
 	& a {
 		display: inline-block; padding: 5px 12px;
 		border: 1px solid var(--color-border-light); border-radius: var(--radius);
-		font-size: 13px; text-decoration: none; color: var(--color-text-dark);
+		font-size: 14px; text-decoration: none; color: var(--color-text-dark);
 		transition: border-color 0.15s, color 0.15s;
 		&:hover { border-color: var(--color-link); color: var(--color-link); }
 		&.current {
@@ -637,7 +635,7 @@ tr:nth-child(even){background-color: var(--color-bg-alt)}
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	& .chart-title { margin: 0; font-size: 17px; font-weight: 600; font-family: var(--font-ui); color: inherit; }
+	& .chart-title { margin: 0; font-size: 18px; font-weight: 600; font-family: var(--font-ui); color: inherit; }
 	& a, & button { color: inherit; opacity: 0.7; font-size: 14px; }
 	& a { text-decoration: none; }
 	& button { background: none; border: none; cursor: pointer; padding: 0; }
@@ -656,9 +654,9 @@ tr:nth-child(even){background-color: var(--color-bg-alt)}
 }
 .chart-subtitle {
 	display: block;
-	font-size: 12px;
+	font-size: 14px;
 	font-style: italic;
-	color: var(--color-axis-text);
+	color: var(--color-text-gray);
 	margin: 0 8px 4px 0;
 	flex: 1;
 	min-width: 0;
@@ -668,6 +666,32 @@ tr:nth-child(even){background-color: var(--color-bg-alt)}
 	justify-content: space-between;
 	align-items: center;
 	padding: 2px 14px 9px 14px;
+}
+.chart-filter {
+	display: block;
+	font-size: 12px;
+	color: var(--color-text-muted);
+	margin: 0;
+	& button {
+		background: none;
+		border: none;
+		padding: 0;
+		font: inherit;
+		color: var(--color-link);
+		cursor: pointer;
+	}
+	& button:hover { text-decoration: underline; }
+}
+.chart-legend-item {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	cursor: pointer;
+	white-space: nowrap;
+	user-select: none;
+	color: var(--color-text-dark);
+	&:hover { opacity: 0.8; }
+	&.legend-off { opacity: 0.35; }
 }
 .chart-source {
 	display: block;
@@ -765,7 +789,7 @@ tr:nth-child(even){background-color: var(--color-bg-alt)}
 	color: var(--color-text-dark);
 	line-height: 1.55;
 	border-left: 3px solid var(--accent);
-	& cite { display: block; font-style: normal; font-size: 13px; color: var(--color-text-muted); margin-top: 6px; }
+	& cite { display: block; font-style: normal; font-size: 14px; color: var(--color-text-muted); margin-top: 6px; }
 }
 [data-theme="dark"] .blockquote-accent {
 	background: var(--color-surface);

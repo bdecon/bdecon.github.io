@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<meta charset="UTF-8">
 	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Monthly GDP | BD Economics</title>
 	<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
@@ -9,7 +10,6 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0"></script>
-	<meta charset="UTF-8">
 	<meta name="description" content="Monthly estimates of US GDP, freely available for download. Useful for expressing economic data relative to overall activity.">
 	<meta name="keywords" content="monthly GDP, US GDP, nominal GDP, real GDP, GDPNow, economic indicators, GDP estimate">
 	<meta name="author" content="Brian Dew">
@@ -42,6 +42,16 @@
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
+<script>
+(function() {
+	var saved = localStorage.getItem('theme');
+	if (saved) {
+		document.documentElement.setAttribute('data-theme', saved);
+	} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+		document.documentElement.setAttribute('data-theme', 'dark');
+	}
+})();
+</script>
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -74,7 +84,6 @@
     ]
 }
 </script>
-
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PGVF5S620Y"></script>
 <script>
@@ -84,46 +93,15 @@
 
   gtag('config', 'G-PGVF5S620Y');
 </script>
-
-<script>
-(function() {
-	var saved = localStorage.getItem('theme');
-	if (saved) {
-		document.documentElement.setAttribute('data-theme', saved);
-	} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-		document.documentElement.setAttribute('data-theme', 'dark');
-	}
-})();
-</script>
 <style>
 	.chart-container {
-		max-width: 460px;
+		max-width: 480px;
 	}
 	.chart-body-header {
 		display: flex;
 		justify-content: space-between;
 		align-items: flex-start;
 		margin-bottom: 4px;
-	}
-	.chart-filter {
-		display: block;
-		font-size: 12px;
-		color: var(--color-axis-text);
-		margin: 0;
-	}
-	.chart-filter button {
-		background: none;
-		border: none;
-		padding: 0;
-		font: inherit;
-		color: var(--color-card-blue);
-		cursor: pointer;
-	}
-	.chart-filter button:hover {
-		text-decoration: underline;
-	}
-	[data-theme="dark"] .chart-filter button {
-		color: #7b8aff;
 	}
 	.chart-toggle {
 		font-size: 10px;
@@ -162,7 +140,7 @@
 		letter-spacing: -0.5px;
 	}
 	.info-section p.estimate-updated {
-		font-size: 13px;
+		font-size: 14px;
 		color: var(--color-text-subtle);
 		margin: 0;
 	}
@@ -208,7 +186,7 @@
 			margin: 0;
 		}
 		.info-boxes {
-			flex: 0 1 280px;
+			flex: 0 1 260px;
 		}
 	}
 	@media (max-width: 799px) {
@@ -271,7 +249,6 @@
 		line-height: 1.4;
 	}
 </style>
-
 </head>
 <body>
 	<a href="#main" class="skip-link">Skip to main content</a>
@@ -305,7 +282,9 @@
 			</li>
 		</ul>
 	</nav>
-
+	<div class="page-strip page-strip-compact accent-red">
+		<img decoding="async" src="images/gdpm_banner.png" alt="" aria-hidden="true" class="page-strip-img">
+	</div>
 	<header>
 	<h1>Monthly GDP</h1>
 	</header>
@@ -361,6 +340,7 @@
 
 	<p>The same applies to credit card debt, the trade deficit, wage income, the size of the stock market, or any other dollar-denominated measure. This tool provides simple monthly estimates of US nominal and real GDP, updated daily and freely available for download, making it easy to express data relative to overall economic activity.</p>
 
+	<hr class="section-bar accent-red">
 	<h3>Approach</h3>
 	<p>The monthly GDP series is constructed by interpolating quarterly data to monthly frequency:</p>
 	<div class="step-cards">
@@ -400,6 +380,7 @@
 		<canvas id="comparisonChart" role="img" aria-label="Line chart comparing GDP estimates across sources"></canvas>
 	</div>
 
+	<hr class="section-bar accent-red">
 	<h3>Data Sources</h3>
 	<ul>
 		<li>Quarterly Nominal GDP: <a href="https://fred.stlouisfed.org/series/GDP">FRED (GDP)</a></li>
@@ -408,6 +389,7 @@
 		<li>Inflation Nowcast: <a href="https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting">Cleveland Fed Inflation Nowcasting</a></li>
 	</ul>
 
+	<hr class="section-bar accent-red">
 	<h3>Updates</h3>
 	<p>The data file is updated daily. Source code is available on <a href="https://github.com/bdecon/bdecon.github.io">GitHub</a>.</p>
 

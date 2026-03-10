@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<meta charset="UTF-8">
 	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>IMF WEO Forecast Tracker | BD Economics</title>
 	<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
@@ -8,7 +9,6 @@
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7"></script>
-	<meta charset="UTF-8">
 	<meta name="description" content="Interactive visualization of IMF World Economic Outlook forecast revisions across 39 vintages (2006-2025). Track how economic forecasts evolved over time for 196 countries.">
 	<meta name="keywords" content="IMF, World Economic Outlook, WEO, forecast revisions, GDP growth, current account, economic forecasts">
 	<meta name="author" content="Brian Dew">
@@ -39,6 +39,16 @@
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
+<script>
+(function() {
+	var saved = localStorage.getItem('theme');
+	if (saved) {
+		document.documentElement.setAttribute('data-theme', saved);
+	} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+		document.documentElement.setAttribute('data-theme', 'dark');
+	}
+})();
+</script>
 <script type="application/ld+json">
 {
 	"@context": "https://schema.org",
@@ -72,7 +82,6 @@
 	"license": "https://www.imf.org/external/terms.htm"
 }
 </script>
-
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PGVF5S620Y"></script>
 <script>
@@ -80,17 +89,6 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-PGVF5S620Y');
-</script>
-
-<script>
-(function() {
-	var saved = localStorage.getItem('theme');
-	if (saved) {
-		document.documentElement.setAttribute('data-theme', saved);
-	} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-		document.documentElement.setAttribute('data-theme', 'dark');
-	}
-})();
 </script>
 <style>
 	.weo-controls {
@@ -106,7 +104,7 @@
 		gap: 6px;
 	}
 	.weo-control-row label {
-		font-size: 13px;
+		font-size: 14px;
 		font-weight: 600;
 		color: var(--color-text-muted);
 		white-space: nowrap;
@@ -162,15 +160,6 @@
 		font-weight: 700;
 		color: inherit;
 	}
-	.chart-header .chart-title {
-		font-size: 20px;
-	}
-	.chart-header-indicator {
-		font-size: 14px;
-	}
-	.chart-subtitle {
-		font-size: 14px;
-	}
 	.chart-container {
 		max-width: 480px;
 		margin: 0 auto;
@@ -187,7 +176,7 @@
 		grid-template-rows: auto auto auto auto;
 		gap: 0 14px;
 		column-gap: 14px;
-		font-size: 13px;
+		font-size: 14px;
 		color: var(--color-text-muted);
 		margin-bottom: 6px;
 		line-height: 1.5;
@@ -198,7 +187,7 @@
 		font-weight: 700;
 		font-size: 12px;
 		text-transform: uppercase;
-		letter-spacing: 0.3px;
+		letter-spacing: 0.5px;
 		color: var(--color-text-dark);
 		padding-bottom: 2px;
 		margin-bottom: 5px;
@@ -215,17 +204,6 @@
 	.legend-col1 { grid-column: 1; }
 	.legend-col2 { grid-column: 2; }
 	.legend-col3 { grid-column: 3; margin-left: -4px; }
-	.chart-legend-item {
-		display: flex;
-		align-items: center;
-		gap: 5px;
-		white-space: nowrap;
-		cursor: pointer;
-		user-select: none;
-	}
-	.chart-legend-item.legend-off {
-		opacity: 0.35;
-	}
 	.legend-swatch {
 		display: inline-block;
 		flex-shrink: 0;
@@ -263,7 +241,7 @@
 		margin-bottom: 4px;
 	}
 	.weo-tooltip-header {
-		font-size: 13px;
+		font-size: 14px;
 		border-bottom: 1px solid color-mix(in srgb, white 20%, transparent);
 		padding-bottom: 3px;
 	}
@@ -299,7 +277,7 @@
 		display: block;
 		font-size: 12px;
 		text-transform: uppercase;
-		letter-spacing: 0.3px;
+		letter-spacing: 0.5px;
 	}
 	/* Collapsible sections */
 	.details-section:first-of-type {
@@ -307,7 +285,7 @@
 	}
 	.weo-glossary-table {
 		width: 100%;
-		font-size: 13px;
+		font-size: 14px;
 		border-collapse: collapse;
 	}
 	.weo-glossary-table th, .weo-glossary-table td {
@@ -379,7 +357,7 @@
 		}
 		/* Legend */
 		.chart-legend {
-			font-size: 11px;
+			font-size: 12px;
 			column-gap: 8px;
 			padding: 2px 3px;
 			margin-bottom: 3px;
@@ -447,7 +425,7 @@
 			</li>
 		</ul>
 	</nav>
-	<div class="page-strip page-strip-compact">
+	<div class="page-strip page-strip-compact accent-blue">
 		<img decoding="async" src="images/imfweo_strip.jpg" alt="" aria-hidden="true" class="page-strip-img">
 	</div>
 	<header>
@@ -511,7 +489,7 @@
 			</div>
 			<canvas id="weoChart" role="img" aria-label="Scatter chart showing how IMF World Economic Outlook forecasts evolved across editions"></canvas>
 		</div>
-		<div id="ext-history-bar" style="text-align:center; padding:2px 0; font-size:11px; color:var(--color-text-muted);">
+		<div id="ext-history-bar" style="text-align:center; padding:2px 0; font-size:12px; color:var(--color-text-muted);">
 			<span id="view-ext"></span>
 			<span id="view-sep-1"></span>
 			<span id="view-default"></span>
@@ -528,10 +506,10 @@
 	<details class="details-section">
 		<summary>Notable Examples</summary>
 		<ul>
-			<li><strong>Greece &mdash; Government Debt</strong>: The IMF's own Independent Evaluation Office criticized the austerity-era debt forecasts. The dot cloud shows how projections kept underestimating Greek debt as the crisis deepened.</li>
-			<li><strong>Japan &mdash; CPI Inflation</strong>: For years, forecasts predicted inflation would return to 2%&mdash;and it never did. The cloud fans out above the flatline, until post-COVID inflation finally arrived and caught forecasters going the other way.</li>
-			<li><strong>Ethiopia &mdash; Real GDP Growth</strong>: Ethiopia pursued an ambitious state-led development strategy that produced consistently strong GDP growth, frequently exceeding IMF forecasts. The dot cloud shows a pattern of upward revisions as actual growth outpaced earlier projections.</li>
-			<li><strong>Germany &mdash; Real GDP Growth</strong>: Recent forecasts show persistent optimism about a rebound that hasn't materialized. The &ldquo;sick man of Europe&rdquo; narrative is visible in the gap between forecast dots and the actual line.</li>
+			<li><strong><a href="#GRC/GGXWDG_NGDP">Greece &mdash; Government Debt</a></strong>: The IMF's own Independent Evaluation Office criticized the austerity-era debt forecasts. The dot cloud shows how projections kept underestimating Greek debt as the crisis deepened.</li>
+			<li><strong><a href="#JPN/PCPIPCH">Japan &mdash; CPI Inflation</a></strong>: For years, forecasts predicted inflation would return to 2%&mdash;and it never did. The cloud fans out above the flatline, until post-COVID inflation finally arrived and caught forecasters going the other way.</li>
+			<li><strong><a href="#ETH/NGDP_RPCH">Ethiopia &mdash; Real GDP Growth</a></strong>: Ethiopia pursued an ambitious state-led development strategy that produced consistently strong GDP growth, frequently exceeding IMF forecasts. The dot cloud shows a pattern of upward revisions as actual growth outpaced earlier projections.</li>
+			<li><strong><a href="#DEU/NGDP_RPCH">Germany &mdash; Real GDP Growth</a></strong>: Recent forecasts show persistent optimism about a rebound that hasn't materialized. The &ldquo;sick man of Europe&rdquo; narrative is visible in the gap between forecast dots and the actual line.</li>
 		</ul>
 	</details>
 

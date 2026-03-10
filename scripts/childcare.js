@@ -1452,7 +1452,7 @@
 			renderColumn(1);
 		}).catch(function(err) {
 			console.error('Failed to load wage peers data:', err);
-			col1.innerHTML = '<p style="color:var(--color-text-muted);font-size:13px;">Failed to load data.</p>';
+			col1.innerHTML = '<p style="color:var(--color-text-muted);font-size:14px;">Failed to load data.</p>';
 		});
 	});
 

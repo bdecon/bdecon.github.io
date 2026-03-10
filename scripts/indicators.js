@@ -4,7 +4,7 @@ function getThemeColors() {
 	const get = (name) => style.getPropertyValue(name).trim();
 	return {
 		grid: get('--color-grid') || 'rgba(0, 0, 0, 0.06)',
-		axisText: get('--color-axis-text') || '#6a6a6a',
+		axisText: get('--color-text-muted') || '#666',
 		tooltipBg: get('--color-tooltip-bg') || 'rgba(75, 75, 75, 0.95)',
 		textDark: get('--color-text-dark') || '#333'
 	};
@@ -138,9 +138,6 @@ function updateColorMap() {
 	};
 }
 updateColorMap();
-
-// Featured chart gets a refractor holographic effect
-const FEATURED_CHART = 'cpi';
 
 // Chart type configurations
 function getChartTypeConfig(type, colors, config) {
@@ -638,7 +635,7 @@ function renderLegend(config) {
 			const index = parseInt(item.dataset.index);
 			const isVisible = chart.isDatasetVisible(index);
 			chart.setDatasetVisibility(index, !isVisible);
-			item.classList.toggle('hidden', isVisible);
+			item.classList.toggle('legend-off', isVisible);
 			chart.update();
 		});
 	});
@@ -695,7 +692,6 @@ function updateBackFace(config, data, latestDate, prevDate) {
 	document.getElementById('card-number').textContent = `#${cardIndex} / ${cardTotal}`;
 
 	// Featured badge
-	document.getElementById('featured-badge').classList.toggle('active', config.id === FEATURED_CHART);
 
 	// Description
 	const descEl = document.getElementById('chart-description');
@@ -1005,11 +1001,6 @@ async function loadChart(datasetId) {
 	const isDarkText = colorKey === 'yellow';
 	header.style.color = isDarkText ? '#222' : 'white';
 	header.classList.toggle('dark-text', isDarkText);
-
-	// Toggle refractor effect for featured chart
-	const isFeatured = datasetId === FEATURED_CHART;
-	header.classList.toggle('refractor', isFeatured);
-	document.querySelector('.chart-flip-front .chart-container').classList.toggle('refractor-card', isFeatured);
 
 	try {
 		// Use cached CSV if available
@@ -1440,26 +1431,6 @@ document.addEventListener('keydown', (e) => {
 		if (Math.abs(dx) < 50) return;
 		navigateChart(dx > 0 ? -1 : 1);
 	}, { passive: true });
-})();
-
-// Refractor holographic mouse tracking
-(function() {
-	const wrapper = document.querySelector('.chart-flip-wrapper');
-	wrapper.addEventListener('mousemove', (e) => {
-		if (!document.querySelector('.chart-header.refractor')) return;
-		const rect = wrapper.getBoundingClientRect();
-		const x = ((e.clientX - rect.left) / rect.width) * 100;
-		const y = ((e.clientY - rect.top) / rect.height) * 100;
-		const angle = Math.atan2(y - 50, x - 50) * (180 / Math.PI);
-		wrapper.style.setProperty('--refractor-x', `${x}%`);
-		wrapper.style.setProperty('--refractor-y', `${y}%`);
-		wrapper.style.setProperty('--refractor-angle', `${angle}deg`);
-	});
-	wrapper.addEventListener('mouseleave', () => {
-		wrapper.style.removeProperty('--refractor-x');
-		wrapper.style.removeProperty('--refractor-y');
-		wrapper.style.removeProperty('--refractor-angle');
-	});
 })();
 
 // Initialize on page load

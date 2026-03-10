@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<meta charset="UTF-8">
 	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>US Chartbook | BD Economics</title>
 	<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<meta charset="UTF-8">
 	<meta name="description" content="Open source chartbook tracking the US economy since 1989. 185 pages covering GDP, labor markets, inflation, wages, trade, financial markets, household wealth, government finances, and more. Updated regularly with public data from BEA, BLS, Census, the Federal Reserve, and Treasury.">
 	<meta name="keywords" content="US economy, US economic chartbook, US economy charts, GDP charts, labor market data, inflation charts, US trade data, financial markets, household wealth, government finances, macroeconomics, economic indicators, FRED, BLS data, BEA data, open source economics">
 	<meta name="author" content="Brian Dew">
@@ -40,53 +40,6 @@
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
-<style>
-	.details-section {
-		max-width: 760px;
-		padding: 0 12px;
-		box-sizing: border-box;
-	}
-	.cb-free {
-		text-align: center;
-		font-size: 14px;
-		color: var(--color-text-muted);
-		margin: 8px 0 4px 0;
-	}
-	.cb-previews {
-		display: flex;
-		gap: 12px;
-		flex-wrap: wrap;
-		justify-content: center;
-		margin: 8px 0;
-	}
-	.cb-previews img {
-		width: 160px;
-		height: auto;
-		border: 1px solid var(--color-grid);
-		border-radius: var(--radius);
-		cursor: pointer;
-	}
-	.cb-previews img:hover {
-		opacity: 0.85;
-	}
-	.cb-lightbox {
-		border: none;
-		background: transparent;
-		padding: 0;
-		max-width: 90vw;
-		max-height: 90vh;
-	}
-	.cb-lightbox::backdrop {
-		background: color-mix(in srgb, black 80%, transparent);
-		cursor: pointer;
-	}
-	.cb-lightbox img {
-		max-width: 90vw;
-		max-height: 90vh;
-		border-radius: var(--radius);
-		box-shadow: 0 4px 24px color-mix(in srgb, black 40%, transparent);
-	}
-</style>
 <script>
 (function() {
 	var saved = localStorage.getItem('theme');
@@ -134,7 +87,6 @@
     ]
 }
 </script>
-
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PGVF5S620Y"></script>
 <script>
@@ -144,7 +96,53 @@
 
   gtag('config', 'G-PGVF5S620Y');
 </script>
-
+<style>
+	.details-section {
+		max-width: 760px;
+		padding: 0 12px;
+		box-sizing: border-box;
+	}
+	.cb-free {
+		text-align: center;
+		font-size: 14px;
+		color: var(--color-text-muted);
+		margin: 8px 0 4px 0;
+	}
+	.cb-previews {
+		display: flex;
+		gap: 12px;
+		flex-wrap: wrap;
+		justify-content: center;
+		margin: 8px 0;
+	}
+	.cb-previews img {
+		width: 160px;
+		height: auto;
+		border: 1px solid var(--color-grid);
+		border-radius: var(--radius);
+		cursor: pointer;
+	}
+	.cb-previews img:hover {
+		opacity: 0.85;
+	}
+	.cb-lightbox {
+		border: none;
+		background: transparent;
+		padding: 0;
+		max-width: 90vw;
+		max-height: 90vh;
+	}
+	.cb-lightbox::backdrop {
+		background: color-mix(in srgb, black 80%, transparent);
+		cursor: pointer;
+	}
+	.cb-lightbox img {
+		max-width: 90vw;
+		max-height: 90vh;
+		border-radius: var(--radius);
+		box-shadow: 0 4px 24px color-mix(in srgb, black 40%, transparent);
+	}
+</style>
 </head>
 <body>
 	<a href="#main" class="skip-link">Skip to main content</a>
@@ -178,7 +176,7 @@
 			</li>
 		</ul>
 	</nav>
-	<div class="page-strip page-strip-compact">
+	<div class="page-strip page-strip-compact accent-green">
 		<img decoding="async" src="images/chartbook_strip.jpg" alt="" aria-hidden="true" class="page-strip-img">
 	</div>
 	<header>
