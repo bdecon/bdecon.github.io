@@ -9,6 +9,16 @@
 	let yearMin = 2010;
 	let yearMax = 2030;
 
+	// Extended history (1990–2002 vintages, 3 indicators only)
+	const EXTENDED_INDICATORS = new Set(['NGDP_RPCH', 'PCPIPCH', 'BCA_NGDPD']);
+	let extData = null;       // raw extended JSON (cached after first fetch)
+	let extMerged = false;    // whether extended data has been merged into DATA
+	let extActive = false;    // whether extended view is currently shown
+	const YEAR_MIN_DEFAULT = 2010;
+	const YEAR_MIN_EXTENDED = 1990;
+	const YEAR_MIN_RECENT = 2022;
+	let recentActive = false;
+
 	// --- Horizon styles (matching vintage_dots.py) ---
 	function isDark() {
 		return document.documentElement.getAttribute('data-theme') === 'dark';
@@ -266,7 +276,149 @@
 		initLegendToggle();
 		restoreState();
 		renderChart();
+		updateExtLink();
+		// View links are wired in updateViewLinks() via viewLink()
 	}
+
+	// --- Extended history ---
+	async function loadExtended() {
+		if (extData) return extData;
+		const resp = await fetch('files/imfweo/data-extended.json');
+		extData = await resp.json();
+		return extData;
+	}
+
+	function mergeExtended() {
+		if (extMerged || !extData) return;
+		const offset = extData.v.length;
+
+		// Offset all existing vid_idx in main DATA
+		for (const iso in DATA.c) {
+			const c = DATA.c[iso];
+			for (const ind of EXTENDED_INDICATORS) {
+				if (!c[ind]) continue;
+				for (const dot of c[ind].f) dot[3] += offset;
+				for (const dot of c[ind].nc) dot[3] += offset;
+			}
+		}
+
+		// Prepend extended vintages
+		DATA.v = extData.v.concat(DATA.v);
+
+		// Prepend extended dots
+		for (const iso in extData.c) {
+			if (!DATA.c[iso]) continue;
+			const ext = extData.c[iso];
+			for (const ind of EXTENDED_INDICATORS) {
+				if (!ext[ind]) continue;
+				if (!DATA.c[iso][ind]) continue;
+				DATA.c[iso][ind].f = ext[ind].f.concat(DATA.c[iso][ind].f);
+				if (ext[ind].nc) {
+					DATA.c[iso][ind].nc = ext[ind].nc.concat(DATA.c[iso][ind].nc);
+				}
+			}
+		}
+
+		extMerged = true;
+	}
+
+	function setView(view) {
+		// view: 'default', 'extended', 'recent'
+		extActive = view === 'extended';
+		recentActive = view === 'recent';
+		if (extActive) yearMin = YEAR_MIN_EXTENDED;
+		else if (recentActive) yearMin = YEAR_MIN_RECENT;
+		else yearMin = YEAR_MIN_DEFAULT;
+		updateViewLinks();
+		renderChart();
+	}
+
+	async function toggleExtended() {
+		if (!extActive) {
+			const link = document.getElementById('ext-history-link');
+			link.textContent = 'Loading…';
+			await loadExtended();
+			mergeExtended();
+			setView('extended');
+		} else {
+			setView('default');
+		}
+	}
+
+	function toggleRecent() {
+		setView(recentActive ? 'default' : 'recent');
+	}
+
+	function viewLink(label, view) {
+		const a = document.createElement('a');
+		a.href = '#';
+		a.textContent = label;
+		a.style.fontSize = '11px';
+		a.addEventListener('click', async (e) => {
+			e.preventDefault();
+			if (view === 'extended' && !extMerged) {
+				a.textContent = 'Loading…';
+				await loadExtended();
+				mergeExtended();
+			}
+			setView(view);
+		});
+		return a;
+	}
+
+	function updateViewLinks() {
+		const hasExt = EXTENDED_INDICATORS.has(currentIndicator);
+
+		// Reset if switching to non-extended indicator while in extended mode
+		if (!hasExt && extActive) {
+			extActive = false;
+			yearMin = YEAR_MIN_DEFAULT;
+		}
+
+		const currentView = extActive ? 'extended' : recentActive ? 'recent' : 'default';
+
+		const elExt = document.getElementById('view-ext');
+		const elSep1 = document.getElementById('view-sep-1');
+		const elDefault = document.getElementById('view-default');
+		const elSep2 = document.getElementById('view-sep-2');
+		const elRecent = document.getElementById('view-recent');
+		if (!elExt) return;
+
+		// Clear
+		elExt.innerHTML = '';
+		elDefault.innerHTML = '';
+		elRecent.innerHTML = '';
+
+		// Extended (only for 3 indicators)
+		if (hasExt) {
+			if (currentView === 'extended') {
+				elExt.textContent = '1990–';
+			} else {
+				elExt.appendChild(viewLink('1990–', 'extended'));
+			}
+			elSep1.textContent = ' | ';
+			elSep1.style.display = '';
+		} else {
+			elSep1.style.display = 'none';
+		}
+
+		// Default
+		if (currentView === 'default') {
+			elDefault.textContent = '2008–';
+		} else {
+			elDefault.appendChild(viewLink('2008–', 'default'));
+		}
+
+		// Recent
+		if (currentView === 'recent') {
+			elRecent.textContent = '2022–';
+		} else {
+			elRecent.appendChild(viewLink('2022–', 'recent'));
+		}
+	}
+
+	// Keep old name as alias
+	const updateExtLink = updateViewLinks;
 
 	function populateInfoBox() {
 		const lastV = DATA.v[DATA.v.length - 1];
@@ -324,6 +476,7 @@
 
 	function onSelectionChange() {
 		saveState();
+		updateExtLink();
 		renderChart();
 	}
 
