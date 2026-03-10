@@ -404,9 +404,9 @@
 
 		// Default
 		if (currentView === 'default') {
-			elDefault.textContent = '2008–';
+			elDefault.textContent = '2010–';
 		} else {
-			elDefault.appendChild(viewLink('2008–', 'default'));
+			elDefault.appendChild(viewLink('2010–', 'default'));
 		}
 
 		// Recent
