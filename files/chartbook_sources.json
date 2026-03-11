@@ -3,13 +3,13 @@
   "releases": [
     {
       "name": "Employment Situation",
-      "period": "Feb 2026",
+      "period": "Jan 2026",
       "freq": "monthly",
-      "last_changed": "2026-03-08"
+      "last_changed": "2026-03-11"
     },
     {
       "name": "Consumer Price Index",
-      "period": "Mar 2026",
+      "period": "Feb 2026",
       "freq": "monthly",
       "last_changed": "2026-03-11"
     },
@@ -201,9 +201,9 @@
     },
     {
       "name": "Employment Costs",
-      "period": "Q4 2025",
+      "period": "Q4 2005",
       "freq": "quarterly",
-      "last_changed": "2026-02-17"
+      "last_changed": "2026-03-11"
     },
     {
       "name": "Financial Accounts",
@@ -286,8 +286,14 @@
   ],
   "recent": [
     {
+      "name": "Employment Situation",
+      "period": "Jan 2026",
+      "freq": "monthly",
+      "last_changed": "2026-03-11"
+    },
+    {
       "name": "Consumer Price Index",
-      "period": "Mar 2026",
+      "period": "Feb 2026",
       "freq": "monthly",
       "last_changed": "2026-03-11"
     },
@@ -298,16 +304,16 @@
       "last_changed": "2026-03-11"
     },
     {
+      "name": "Employment Costs",
+      "period": "Q4 2005",
+      "freq": "quarterly",
+      "last_changed": "2026-03-11"
+    },
+    {
       "name": "Consumer Expectations",
       "period": "Feb 2026",
       "freq": "monthly",
       "last_changed": "2026-03-10"
-    },
-    {
-      "name": "Employment Situation",
-      "period": "Feb 2026",
-      "freq": "monthly",
-      "last_changed": "2026-03-08"
     },
     {
       "name": "Producer Price Index",
@@ -336,12 +342,6 @@
     {
       "name": "Mortgage Rates",
       "period": "Mar 5, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-03-08"
-    },
-    {
-      "name": "Initial Jobless Claims",
-      "period": "Feb 28, 2026",
       "freq": "weekly",
       "last_changed": "2026-03-08"
     }
