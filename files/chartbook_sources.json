@@ -1,191 +1,185 @@
 {
-  "generated": "2026-03-10",
+  "generated": "2026-03-11",
   "releases": [
     {
       "name": "Employment Situation",
-      "period": "February 2026",
+      "period": "Feb 2026",
       "freq": "monthly",
       "last_changed": "2026-03-08"
     },
     {
       "name": "Consumer Price Index",
-      "period": "February 2026",
+      "period": "Feb 2026",
       "freq": "monthly",
       "last_changed": "2026-02-17"
     },
     {
       "name": "Personal Income & Outlays",
-      "period": "December 2025",
+      "period": "Dec 2025",
       "freq": "monthly",
       "last_changed": "2026-02-20"
     },
     {
       "name": "Producer Price Index",
-      "period": "January 2026",
+      "period": "Jan 2026",
       "freq": "monthly",
       "last_changed": "2026-03-08"
     },
     {
       "name": "Import/Export Prices",
-      "period": "January 2026",
+      "period": "Jan 2026",
       "freq": "monthly",
       "last_changed": "2026-03-08"
     },
     {
       "name": "JOLTS",
-      "period": "December 2025",
+      "period": "Dec 2025",
       "freq": "monthly",
       "last_changed": "2026-02-17"
     },
     {
       "name": "International Trade",
-      "period": "December 2025",
+      "period": "Dec 2025",
       "freq": "monthly",
       "last_changed": "2026-02-19"
     },
     {
       "name": "Retail Sales",
-      "period": "October 2025",
+      "period": "Oct 2025",
       "freq": "monthly",
       "last_changed": "2026-02-02"
     },
     {
       "name": "Industrial Production",
-      "period": "January 2026",
+      "period": "Jan 2026",
       "freq": "monthly",
       "last_changed": "2026-02-18"
     },
     {
       "name": "Construction Spending",
-      "period": "December 2025",
+      "period": "Dec 2025",
       "freq": "monthly",
       "last_changed": "2026-03-08"
     },
     {
-      "name": "Housing Starts & Permits",
-      "period": "October 2025",
+      "name": "Housing Starts",
+      "period": "Oct 2025",
       "freq": "monthly",
       "last_changed": "2026-02-20"
     },
     {
       "name": "New Home Sales",
-      "period": "December 2025",
+      "period": "Dec 2025",
       "freq": "monthly",
       "last_changed": "2026-02-20"
     },
     {
-      "name": "FHFA House Price Index",
-      "period": "December 2025",
+      "name": "House Prices",
+      "period": "Dec 2025",
       "freq": "monthly",
       "last_changed": "2026-02-26"
     },
     {
       "name": "Consumer Sentiment",
-      "period": "February 2026",
+      "period": "Feb 2026",
       "freq": "monthly",
       "last_changed": "2026-02-20"
     },
     {
-      "name": "New Orders, Capital Goods",
-      "period": "October 2025",
+      "name": "Capital Goods Orders",
+      "period": "Oct 2025",
       "freq": "monthly",
       "last_changed": "2026-02-20"
     },
     {
-      "name": "Average Hourly Earnings",
-      "period": "February 2026",
-      "freq": "monthly",
-      "last_changed": "2026-03-08"
-    },
-    {
-      "name": "Atlanta Fed Wage Tracker",
-      "period": "January 2026",
+      "name": "Wage Tracker",
+      "period": "Jan 2026",
       "freq": "monthly",
       "last_changed": "2026-02-26"
     },
     {
-      "name": "Consumer Expectations (NY Fed)",
-      "period": "February 2026",
+      "name": "Consumer Expectations",
+      "period": "Feb 2026",
       "freq": "monthly",
       "last_changed": "2026-03-10"
     },
     {
       "name": "CPS Microdata",
-      "period": "January 2026",
+      "period": "Jan 2026",
       "freq": "monthly",
       "last_changed": "2026-02-17"
     },
     {
       "name": "State Unemployment",
-      "period": "December 2025",
+      "period": "Dec 2025",
       "freq": "monthly",
       "last_changed": "2026-02-02"
     },
     {
-      "name": "Metro Area Unemployment",
-      "period": "December 2025",
+      "name": "Metro Unemployment",
+      "period": "Dec 2025",
       "freq": "monthly",
       "last_changed": "2026-02-17"
     },
     {
       "name": "TIC Capital Flows",
-      "period": "December 2025",
+      "period": "Dec 2025",
       "freq": "monthly",
       "last_changed": "2026-02-18"
     },
     {
       "name": "Treasury Statement",
-      "period": "January 2026",
+      "period": "Jan 2026",
       "freq": "monthly",
       "last_changed": "2026-02-17"
     },
     {
       "name": "Money Stock (M2)",
-      "period": "December 2025",
+      "period": "Dec 2025",
       "freq": "monthly",
       "last_changed": "2026-02-02"
     },
     {
       "name": "Exchange Rate (REER)",
-      "period": "January 2026",
+      "period": "Jan 2026",
       "freq": "monthly",
       "last_changed": "2026-02-19"
     },
     {
-      "name": "Electricity Production",
-      "period": "December 2025",
+      "name": "Electricity",
+      "period": "Dec 2025",
       "freq": "monthly",
       "last_changed": "2026-02-26"
     },
     {
       "name": "Oil Production",
-      "period": "December 2025",
+      "period": "Dec 2025",
       "freq": "monthly",
       "last_changed": "2026-03-08"
     },
     {
       "name": "Mortgage Rates",
-      "period": "March 5, 2026",
+      "period": "Mar 5, 2026",
       "freq": "weekly",
       "last_changed": "2026-03-08"
     },
     {
       "name": "Initial Jobless Claims",
-      "period": "February 28, 2026",
+      "period": "Feb 28, 2026",
       "freq": "weekly",
       "last_changed": "2026-03-08"
     },
     {
       "name": "Fed Balance Sheet",
-      "period": "March 4, 2026",
+      "period": "Mar 4, 2026",
       "freq": "weekly",
       "last_changed": "2026-03-08"
     },
     {
-      "name": "GDP",
-      "period": "Q4 2025 (Advance)",
+      "name": "GDP (Advance)",
+      "period": "Q4 2025",
       "freq": "quarterly",
-      "last_changed": "2026-03-10"
+      "last_changed": "2026-03-11"
     },
     {
       "name": "GDP by Industry",
@@ -206,13 +200,13 @@
       "last_changed": "2026-01-18"
     },
     {
-      "name": "Employment Cost Index",
+      "name": "Employment Costs",
       "period": "Q4 2025",
       "freq": "quarterly",
       "last_changed": "2026-02-17"
     },
     {
-      "name": "Financial Accounts (Z.1)",
+      "name": "Financial Accounts",
       "period": "Q3 2025",
       "freq": "quarterly",
       "last_changed": "2026-01-18"
@@ -224,7 +218,7 @@
       "last_changed": "2026-01-18"
     },
     {
-      "name": "Int'l Investment Position",
+      "name": "International Investment",
       "period": "Q3 2025",
       "freq": "quarterly",
       "last_changed": "2026-01-18"
@@ -242,7 +236,7 @@
       "last_changed": "2025-09-25"
     },
     {
-      "name": "Housing Vacancy Survey",
+      "name": "Homeownership",
       "period": "Q4 2025",
       "freq": "quarterly",
       "last_changed": "2026-02-17"
@@ -266,7 +260,7 @@
       "last_changed": "2025-05-19"
     },
     {
-      "name": "Consumer Expenditure Survey",
+      "name": "Consumer Expenditures",
       "period": "2024",
       "freq": "annual",
       "last_changed": "2026-01-18"
@@ -278,7 +272,7 @@
       "last_changed": "2025-05-19"
     },
     {
-      "name": "Total Factor Productivity",
+      "name": "Productivity (TFP)",
       "period": "2024",
       "freq": "annual",
       "last_changed": "2025-05-19"
@@ -292,62 +286,62 @@
   ],
   "recent": [
     {
-      "name": "Consumer Expectations (NY Fed)",
-      "period": "February 2026",
+      "name": "GDP (Advance)",
+      "period": "Q4 2025",
+      "freq": "quarterly",
+      "last_changed": "2026-03-11"
+    },
+    {
+      "name": "Consumer Expectations",
+      "period": "Feb 2026",
       "freq": "monthly",
       "last_changed": "2026-03-10"
     },
     {
-      "name": "GDP",
-      "period": "Q4 2025 (Advance)",
-      "freq": "quarterly",
-      "last_changed": "2026-03-10"
-    },
-    {
       "name": "Employment Situation",
-      "period": "February 2026",
+      "period": "Feb 2026",
       "freq": "monthly",
       "last_changed": "2026-03-08"
     },
     {
       "name": "Producer Price Index",
-      "period": "January 2026",
+      "period": "Jan 2026",
       "freq": "monthly",
       "last_changed": "2026-03-08"
     },
     {
       "name": "Import/Export Prices",
-      "period": "January 2026",
+      "period": "Jan 2026",
       "freq": "monthly",
       "last_changed": "2026-03-08"
     },
     {
       "name": "Construction Spending",
-      "period": "December 2025",
-      "freq": "monthly",
-      "last_changed": "2026-03-08"
-    },
-    {
-      "name": "Average Hourly Earnings",
-      "period": "February 2026",
+      "period": "Dec 2025",
       "freq": "monthly",
       "last_changed": "2026-03-08"
     },
     {
       "name": "Oil Production",
-      "period": "December 2025",
+      "period": "Dec 2025",
       "freq": "monthly",
       "last_changed": "2026-03-08"
     },
     {
       "name": "Mortgage Rates",
-      "period": "March 5, 2026",
+      "period": "Mar 5, 2026",
       "freq": "weekly",
       "last_changed": "2026-03-08"
     },
     {
       "name": "Initial Jobless Claims",
-      "period": "February 28, 2026",
+      "period": "Feb 28, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-03-08"
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "period": "Mar 4, 2026",
       "freq": "weekly",
       "last_changed": "2026-03-08"
     }

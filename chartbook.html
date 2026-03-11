@@ -139,7 +139,7 @@
 		box-sizing: border-box;
 	}
 	.cb-download {
-		flex: 0 0 300px;
+		flex: 0 0 320px;
 		display: flex;
 		flex-direction: column;
 		gap: 12px;
@@ -147,27 +147,55 @@
 		border-radius: var(--radius);
 		padding: 14px 18px;
 		box-shadow: 0 2px 8px color-mix(in srgb, var(--color-text-gray) 12%, transparent);
+		min-height: 420px;
 	}
 	.cb-download h4 {
 		margin: 0;
 	}
 	.cb-download a {
 		text-decoration: none;
+		flex: 1;
+		display: flex;
+		margin-top: 10px;
 	}
 	.cb-download .nav-card {
-		margin: 0;
+		margin: 0 16px;
+		flex: 1;
+	}
+	.cb-download .nav-card-body p {
+		font-size: 15px;
+	}
+	.cb-download .nav-card-body .cb-updated-label {
+		font-size: 12px;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+		color: var(--color-text-subtle);
+		margin: 16px 0 0 0;
+		padding-bottom: 4px;
+		border-bottom: 2px solid var(--color-card-green);
+		display: inline-block;
+	}
+	.cb-download .nav-card-body .cb-updated-date {
+		font-size: 19px;
+		font-weight: 600;
+		font-family: 'SF Mono', 'Fira Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+		letter-spacing: -0.5px;
+		margin: 8px 0 0 0;
 	}
 	.cb-download .cb-free {
-		margin: 0;
+		margin: 8px 0 0 0;
 	}
 	.cb-sources {
-		flex: 0 1 340px;
+		flex: 0 1 320px;
 		min-width: 0;
 		margin-left: auto;
 		border: 1px solid var(--color-border-light);
 		border-radius: var(--radius);
 		padding: 14px 18px;
 		box-shadow: 0 2px 8px color-mix(in srgb, var(--color-text-gray) 12%, transparent);
+		display: flex;
+		flex-direction: column;
+		gap: 0;
 	}
 	.cb-sources h4 {
 		margin: 0;
@@ -183,10 +211,13 @@
 		border-collapse: collapse;
 	}
 	.cb-sources td {
-		padding: 3px 0;
+		padding: 5px 6px;
 		border-bottom: 1px solid var(--color-border-light);
-		font-size: 12px;
+		font-size: 14px;
 		font-weight: normal;
+	}
+	.cb-sources table {
+		flex: 1;
 	}
 	.cb-sources td:last-child {
 		text-align: right;
@@ -275,7 +306,7 @@
 		</div>
 		<div class="cb-row">
 		<article class="cb-download">
-			<h4>Read the latest edition</h4>
+			<h4>Read the latest edition <i class="fa fa-arrow-down" style="font-size: 14px"></i></h4>
 			<hr class="hr-accent accent-green">
 			<a href="chartbook.pdf" target="_blank" rel="noopener" onclick="gtag('event', 'chartbook_download', {link_url: 'chartbook.pdf', link_text: 'Chartbook'});">
 			<div class="nav-card accent-green">
@@ -286,11 +317,13 @@
 					<h3>Chartbook <i class="fa fa-download"></i></h3>
 				</div>
 				<div class="nav-card-body">
-					<p>250+ charts on the US economy: labor markets, inflation, GDP, trade, and more. Includes data sources and code.</p><p><strong>PDF</strong> · Updated: <span class="cb_update"><noscript>regularly</noscript></span></p>
+					<p>250+ charts on the US economy: labor markets, inflation, GDP, trade, and more. Includes data sources and code.</p>
+					<p class="cb-updated-label"><i class="fa fa-file-pdf-o" style="font-size: 14px; margin-right: 4px"></i> Updated:</p>
+					<p class="cb-updated-date cb_update"><noscript>regularly</noscript></p>
 				</div>
 			</div>
 			</a>
-			<p class="cb-free">Free to read, use, and modify. <a href="https://github.com/bdecon/US-chartbook">Source code on GitHub</a>.</p>
+			<p class="cb-free"><a href="https://github.com/bdecon/US-chartbook">Source code on GitHub</a></p>
 		</article>
 		<div class="cb-sources" id="cb-sources">
 			<h4>Data Sources</h4>
@@ -301,6 +334,7 @@
 			<noscript><p style="font-size: 14px; color: var(--color-text-muted)">Enable JavaScript to see the latest data sources.</p></noscript>
 		</div>
 		</div>
+		<hr class="section-bar accent-green" style="max-width: 760px">
 
 		<details class="details-section">
 			<summary>What's Inside</summary>
