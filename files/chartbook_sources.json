@@ -9,9 +9,9 @@
     },
     {
       "name": "Consumer Price Index",
-      "period": "Feb 2026",
+      "period": "Mar 2026",
       "freq": "monthly",
-      "last_changed": "2026-02-17"
+      "last_changed": "2026-03-11"
     },
     {
       "name": "Personal Income & Outlays",
@@ -286,6 +286,12 @@
   ],
   "recent": [
     {
+      "name": "Consumer Price Index",
+      "period": "Mar 2026",
+      "freq": "monthly",
+      "last_changed": "2026-03-11"
+    },
+    {
       "name": "GDP (Advance)",
       "period": "Q4 2025",
       "freq": "quarterly",
@@ -336,12 +342,6 @@
     {
       "name": "Initial Jobless Claims",
       "period": "Feb 28, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-03-08"
-    },
-    {
-      "name": "Fed Balance Sheet",
-      "period": "Mar 4, 2026",
       "freq": "weekly",
       "last_changed": "2026-03-08"
     }
