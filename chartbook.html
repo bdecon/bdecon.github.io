@@ -7,20 +7,20 @@
 	<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<meta name="description" content="Open source chartbook tracking the US economy since 1989. 185 pages covering GDP, labor markets, inflation, wages, trade, financial markets, household wealth, government finances, and more. Updated regularly with public data from BEA, BLS, Census, the Federal Reserve, and Treasury.">
+	<meta name="description" content="Open source chartbook with 250+ charts tracking the US economy since 1989. Covers GDP, labor markets, inflation, wages, trade, financial markets, household wealth, and government finances. Updated regularly with public data from BEA, BLS, Census, the Federal Reserve, and Treasury.">
 	<meta name="keywords" content="US economy, US economic chartbook, US economy charts, GDP charts, labor market data, inflation charts, US trade data, financial markets, household wealth, government finances, macroeconomics, economic indicators, FRED, BLS data, BEA data, open source economics">
 	<meta name="author" content="Brian Dew">
 	<link rel="canonical" href="https://bd-econ.com/chartbook.html">
 	<!-- Open Graph -->
 	<meta property="og:title" content="US Chartbook | BD Economics">
-	<meta property="og:description" content="Open source chartbook tracking the US economy since 1989. 185 pages covering GDP, labor markets, inflation, trade, financial markets, and more.">
+	<meta property="og:description" content="Open source chartbook with 250+ charts tracking the US economy since 1989. GDP, labor markets, inflation, trade, financial markets, and more.">
 	<meta property="og:url" content="https://bd-econ.com/chartbook.html">
 	<meta property="og:type" content="website">
 	<meta property="og:image" content="https://bd-econ.com/images/01_bdlogo.png">
 	<!-- Twitter Card -->
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="US Chartbook | BD Economics">
-	<meta name="twitter:description" content="Open source chartbook tracking the US economy since 1989. 185 pages covering GDP, labor markets, inflation, trade, financial markets, and more.">
+	<meta name="twitter:description" content="Open source chartbook with 250+ charts tracking the US economy since 1989. GDP, labor markets, inflation, trade, financial markets, and more.">
 	<meta name="twitter:image" content="https://bd-econ.com/images/01_bdlogo.png">
 	<meta name="google-site-verification" content="DP-2kVWWQ6i8lPgl5gqVAy3cjr-beYZzfhNL5-nVbzs" />
 	<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
@@ -113,17 +113,102 @@
 		gap: 12px;
 		flex-wrap: wrap;
 		justify-content: center;
-		margin: 8px 0;
+		margin: 16px 0 8px 0;
 	}
 	.cb-previews img {
-		width: 160px;
+		width: 220px;
 		height: auto;
 		border: 1px solid var(--color-grid);
 		border-radius: var(--radius);
 		cursor: pointer;
+		transition: opacity 0.15s;
 	}
 	.cb-previews img:hover {
 		opacity: 0.85;
+	}
+	@media (max-width: 760px) {
+		.cb-previews img { width: 160px; }
+	}
+	.cb-row {
+		display: flex;
+		gap: 30px;
+		align-items: stretch;
+		margin: 0 auto;
+		max-width: 760px;
+		padding: 0 12px;
+		box-sizing: border-box;
+	}
+	.cb-download {
+		flex: 0 0 300px;
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		border: 1px solid var(--color-border-light);
+		border-radius: var(--radius);
+		padding: 14px 18px;
+		box-shadow: 0 2px 8px color-mix(in srgb, var(--color-text-gray) 12%, transparent);
+	}
+	.cb-download h4 {
+		margin: 0;
+	}
+	.cb-download a {
+		text-decoration: none;
+	}
+	.cb-download .nav-card {
+		margin: 0;
+	}
+	.cb-download .cb-free {
+		margin: 0;
+	}
+	.cb-sources {
+		flex: 0 1 340px;
+		min-width: 0;
+		margin-left: auto;
+		border: 1px solid var(--color-border-light);
+		border-radius: var(--radius);
+		padding: 14px 18px;
+		box-shadow: 0 2px 8px color-mix(in srgb, var(--color-text-gray) 12%, transparent);
+	}
+	.cb-sources h4 {
+		margin: 0;
+	}
+	.cb-download .hr-accent {
+		margin: -4px 0 4px 0;
+	}
+	.cb-sources .hr-accent {
+		margin: 6px 0 10px 0;
+	}
+	.cb-sources table {
+		width: 100%;
+		border-collapse: collapse;
+	}
+	.cb-sources td {
+		padding: 3px 0;
+		border-bottom: 1px solid var(--color-border-light);
+		font-size: 12px;
+		font-weight: normal;
+	}
+	.cb-sources td:last-child {
+		text-align: right;
+		color: var(--color-text-muted);
+		white-space: nowrap;
+		padding-left: 12px;
+	}
+	.cb-sources .cb-st {
+		font-size: 13px;
+		color: var(--color-text-muted);
+		margin: 10px 0 0 0;
+		line-height: 1.5;
+	}
+	@media (max-width: 760px) {
+		.cb-row {
+			flex-direction: column;
+			gap: 16px;
+		}
+		.cb-row .card-grid {
+			flex: none;
+			width: 100%;
+		}
 	}
 	.cb-lightbox {
 		border: none;
@@ -185,12 +270,15 @@
 	<main id="main">
 	<section>
 		<div class="prose">
-		<p class="callout accent-green">A deep dive into the US economy — 120+ charts, regularly updated.</p>
-		<p>The US Chartbook is an open-source reference for analyzing the US economy. It bridges the gap between raw data resources like FRED and professional analysis like the IMF Article IV&mdash;more curated than databases, fresher than traditional analysis.</p>
-		<article class="card-grid">
-			<a href="chartbook.pdf" onclick="gtag('event', 'chartbook_download', {link_url: 'chartbook.pdf', link_text: 'Chartbook'});">
+		<p class="callout accent-green">A deep dive into the US economy — 250+ charts, regularly updated.</p>
+		<p>The US Chartbook covers nine areas of the US economy in detail, with charts, tables, commentary, and links to public data sources. It connects to BEA, BLS, Census, the Federal Reserve, and Treasury APIs to stay current.</p>
+		</div>
+		<div class="cb-row">
+		<article class="cb-download">
+			<h4>Read the latest edition</h4>
+			<hr class="hr-accent accent-green">
+			<a href="chartbook.pdf" target="_blank" rel="noopener" onclick="gtag('event', 'chartbook_download', {link_url: 'chartbook.pdf', link_text: 'Chartbook'});">
 			<div class="nav-card accent-green">
-
 				<div class="nav-card-banner">
 					<img loading="lazy" decoding="async" src="images/chartbook_banner.png" alt="US Economic Chartbook" width="293" height="68">
 				</div>
@@ -198,27 +286,35 @@
 					<h3>Chartbook <i class="fa fa-download"></i></h3>
 				</div>
 				<div class="nav-card-body">
-					<p>120+ charts on the US economy: labor markets, inflation, GDP, trade, and more. Includes data sources and code.</p><p><strong>PDF</strong> · Updated: <span class="cb_update"><noscript>regularly</noscript></span></p>
+					<p>250+ charts on the US economy: labor markets, inflation, GDP, trade, and more. Includes data sources and code.</p><p><strong>PDF</strong> · Updated: <span class="cb_update"><noscript>regularly</noscript></span></p>
 				</div>
 			</div>
 			</a>
+			<p class="cb-free">Free to read, use, and modify. <a href="https://github.com/bdecon/US-chartbook">Source code on GitHub</a>.</p>
 		</article>
-		<p class="cb-free">Free to read, use, and modify. <a href="https://github.com/bdecon/US-chartbook">Source code on GitHub</a>.</p>
+		<div class="cb-sources" id="cb-sources">
+			<h4>Data Sources</h4>
+			<hr class="hr-accent accent-green">
+			<table><tbody id="cb-sources-table">
+			</tbody></table>
+			<p class="cb-st" id="cb-st"></p>
+			<noscript><p style="font-size: 14px; color: var(--color-text-muted)">Enable JavaScript to see the latest data sources.</p></noscript>
+		</div>
 		</div>
 
 		<details class="details-section">
 			<summary>What's Inside</summary>
-			<p>The chartbook tracks economic and social developments in the United States since 1989, drawing on public data from BEA, BLS, Census, the Federal Reserve, Treasury, and other sources. Each section contains charts, tables, descriptive text, and links to relevant materials.</p>
+			<p>The chartbook tracks economic and social developments in the United States since 1989. Each section contains charts, tables, descriptive text, and links to relevant materials. It bridges the gap between raw data resources like FRED and professional analysis like the IMF Article IV&mdash;more curated than databases, fresher than traditional analysis.</p>
 			<ol>
-				<li>Overall Economic Activity</li>
-				<li>Financial Accounts</li>
-				<li>Households</li>
-				<li>Businesses</li>
-				<li>Government</li>
-				<li>External Sector</li>
-				<li>Labor Markets</li>
-				<li>Financial Markets</li>
-				<li>Prices</li>
+				<li><strong>Overall Economic Activity</strong> — GDP, national income, economic growth, and business cycles</li>
+				<li><strong>Financial Accounts</strong> — Wealth, liabilities, sectoral balances, and investment</li>
+				<li><strong>Households</strong> — Demographics, income, spending, saving, balance sheets, housing, and poverty</li>
+				<li><strong>Businesses</strong> — Investment, corporate profits, balance sheets, industrial production, and retail sales</li>
+				<li><strong>Government</strong> — Receipts, expenditures, government jobs, and balance sheets</li>
+				<li><strong>External Sector</strong> — Trade, capital flows, exchange rates, and the international investment position</li>
+				<li><strong>Labor Markets</strong> — Employment, unemployment, participation, wages, productivity, and union membership</li>
+				<li><strong>Financial Markets</strong> — Equity markets, interest rates, monetary policy, and yield curves</li>
+				<li><strong>Prices</strong> — Consumer prices, producer prices, PCE inflation, inflation expectations, and commodities</li>
 			</ol>
 		</details>
 
@@ -258,6 +354,20 @@
 	<script>
 		fetch('date.txt').then(r => r.text()).then(t => {
 			document.querySelectorAll('.cb_update').forEach(el => el.textContent = t.trim());
+		});
+
+		fetch('files/chartbook_sources.json').then(r => r.json()).then(d => {
+			const tbody = document.getElementById('cb-sources-table');
+			for (const r of d.recent) {
+				const tr = document.createElement('tr');
+				tr.innerHTML = `<td>${r.name}</td><td>${r.period}</td>`;
+				tbody.appendChild(tr);
+			}
+			const more = document.createElement('tr');
+			more.innerHTML = `<td style="color:var(--color-text-subtle);border:none;padding-top:2px">…</td><td style="border:none"></td>`;
+			tbody.appendChild(more);
+			document.getElementById('cb-st').textContent =
+				'Also tracks interest rates, equities, commodities, exchange rates, and more.';
 		});
 
 		const lightbox = document.getElementById('cb-lightbox');

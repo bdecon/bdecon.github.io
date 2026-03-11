@@ -879,6 +879,220 @@
 		.ac-cell-label { font-size: 11px; }
 		.ac-legend { font-size: 12px; gap: 10px; }
 	}
+
+	/* Decision tree */
+	.dt-tree {
+		--dt-us: #443983;
+		--dt-fi: #2A8A8A;
+		--dt-line: #ccc;
+		--dt-us-bg: #f0f0f8;
+		--dt-fi-bg: #f0f8f7;
+		--dt-us-border: #b0b0d8;
+		--dt-fi-border: #a0d0cc;
+		text-align: center;
+		font-family: var(--font-ui);
+		padding: 0 0 8px;
+	}
+	.dt-question-main {
+		font-size: 21px;
+		font-weight: 700;
+		color: var(--color-text-dark);
+	}
+	.dt-question-sub {
+		font-size: 20px;
+		color: var(--color-text-muted);
+		margin-top: 4px;
+	}
+	/* Main stem from question to fork */
+	.dt-stem {
+		width: 1.5px;
+		height: 14px;
+		margin: 4px auto 0;
+		background: var(--dt-line);
+	}
+	/* Branches container — side by side on desktop */
+	.dt-branches {
+		display: flex;
+		position: relative;
+		padding-top: 16px;
+	}
+	/* Horizontal bar connecting branches */
+	.dt-branches::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 25%;
+		right: 25%;
+		border-top: 1.5px solid var(--dt-line);
+	}
+	/* Each branch */
+	.dt-branch {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		position: relative;
+	}
+	/* Drop from main bar to country label */
+	.dt-branch::before {
+		content: '';
+		position: absolute;
+		top: -16px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 2px;
+		height: 16px;
+	}
+	.dt-branch-us::before { background: var(--dt-us); }
+	.dt-branch-fi::before { background: var(--dt-fi); }
+	/* Country label */
+	.dt-country {
+		font-size: 20px;
+		font-weight: 700;
+		margin-bottom: 0;
+	}
+	.dt-branch-us .dt-country { color: var(--dt-us); }
+	.dt-branch-fi .dt-country { color: var(--dt-fi); }
+	/* Cards area — fork connector via Π-shape */
+	.dt-cards {
+		display: flex;
+		align-items: stretch;
+		gap: 0;
+		position: relative;
+		padding-top: 28px;
+		width: 100%;
+		max-width: 370px;
+	}
+	/* Vertical stem from country to Π */
+	.dt-cards::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 1.5px;
+		height: 12px;
+	}
+	.dt-branch-us .dt-cards::after { background: var(--dt-us); }
+	.dt-branch-fi .dt-cards::after { background: var(--dt-fi); }
+	/* Π-shape: horizontal bar + two drops */
+	.dt-cards::before {
+		content: '';
+		position: absolute;
+		top: 12px;
+		left: calc(25% + 2px);
+		right: calc(25% + 2px);
+		height: 16px;
+		border-top: 1.5px solid;
+		border-left: 1.5px solid;
+		border-right: 1.5px solid;
+		box-sizing: border-box;
+	}
+	.dt-branch-us .dt-cards::before { border-color: var(--dt-us); }
+	.dt-branch-fi .dt-cards::before { border-color: var(--dt-fi); }
+	/* Option cards */
+	.dt-card {
+		flex: 1;
+		border-radius: 8px;
+		padding: 20px 8px 16px;
+		border: 1.5px solid;
+		text-align: center;
+		min-height: 190px;
+	}
+	.dt-card-us {
+		background: var(--dt-us-bg);
+		border-color: var(--dt-us-border);
+	}
+	.dt-card-fi {
+		background: var(--dt-fi-bg);
+		border-color: var(--dt-fi-border);
+	}
+	.dt-card-title {
+		font-size: 17px;
+		font-weight: 700;
+		color: var(--color-text-dark);
+		line-height: 1.3;
+		margin-bottom: 10px;
+	}
+	.dt-card-amount {
+		font-size: 28px;
+		font-weight: 700;
+		line-height: 1.1;
+	}
+	.dt-branch-us .dt-card-amount { color: var(--dt-us); }
+	.dt-branch-fi .dt-card-amount { color: var(--dt-fi); }
+	.dt-card-unit {
+		font-size: 15px;
+		color: var(--color-text-muted);
+		margin-top: 4px;
+	}
+	.dt-card-ctx {
+		font-size: 14px;
+		color: var(--color-text-muted);
+		line-height: 1.5;
+		margin-top: 14px;
+	}
+	.dt-or {
+		flex: 0 0 28px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 15px;
+		font-style: italic;
+		color: var(--color-text-muted);
+	}
+	/* Dashed divider between US and Finland */
+	.dt-divider {
+		flex: 0 0 1px;
+		border-left: 1px dashed var(--dt-line);
+		align-self: stretch;
+		margin: 40px 16px;
+	}
+	.dt-tagline {
+		font-size: 18px;
+		font-style: italic;
+		margin-top: 10px;
+	}
+	.dt-branch-us .dt-tagline { color: var(--dt-us); }
+	.dt-branch-fi .dt-tagline { color: var(--dt-fi); }
+
+	/* Dark mode */
+	[data-theme="dark"] .dt-tree {
+		--dt-us: #9B9BD4;
+		--dt-fi: #3aadad;
+		--dt-line: #555;
+		--dt-us-bg: #252540;
+		--dt-fi-bg: #152e2e;
+		--dt-us-border: #5a5a8a;
+		--dt-fi-border: #2a5a55;
+	}
+
+	/* Mobile: stack branches vertically */
+	@media (max-width: 500px) {
+		.dt-branches {
+			flex-direction: column;
+			padding-top: 0;
+			gap: 0;
+		}
+		.dt-branches::before { display: none; }
+		.dt-stem { display: none; }
+		.dt-branch::before { display: none; }
+		.dt-branch { padding-top: 0; }
+		.dt-divider {
+			flex: 0 0 auto;
+			border-left: none;
+			border-top: 1px dashed var(--dt-line);
+			width: 80%;
+			margin: 12px auto;
+			align-self: center;
+		}
+		.dt-cards { max-width: 100%; }
+		.dt-card { min-height: auto; }
+		.dt-card-title { font-size: 16px; }
+		.dt-card-amount { font-size: 24px; }
+		.dt-card-ctx { font-size: 13px; }
+		.dt-tagline { font-size: 16px; }
+	}
 </style>
 </head>
 <body>
@@ -1354,9 +1568,54 @@
 		<p>You have a child under 5. If you live in the United States, you choose between private childcare at <span class="highlight-accent accent-teal"><a href="https://www.childcareaware.org/price-landscape24/" target="_blank" rel="noopener" style="color: inherit;">about $15,000 per year</a></span> or one parent leaves the workforce. If you live in Finland, you choose between public childcare at $0-4,080 per year or a <a href="https://www.kela.fi/child-home-care-allowance" target="_blank" rel="noopener">home care allowance</a> of ~$5,000 per year paid to the parent. Same situation. Radically different options.</p>
 
 		<!-- Decision tree -->
-		<div class="chart-container" id="decision-tree-container" style="margin-bottom: 48px; max-width: 654px;">
-			<div class="chart-body" style="padding: 24px 12px 0 12px;">
-				<svg id="decision-tree-svg" class="chart-svg" viewBox="0 0 784 450" preserveAspectRatio="xMidYMid meet"></svg>
+		<div class="chart-container" id="decision-tree-container" style="margin-bottom: 48px; max-width: 720px;">
+			<div class="chart-body" style="padding: 24px 16px 12px 16px;">
+				<div class="dt-tree">
+					<div class="dt-question-main">You have a child under 5.</div>
+					<div class="dt-question-sub">What are your options?</div>
+					<div class="dt-stem"></div>
+					<div class="dt-branches">
+						<div class="dt-branch dt-branch-us">
+							<div class="dt-country">United States</div>
+							<div class="dt-cards">
+								<div class="dt-card dt-card-us">
+									<div class="dt-card-title">Private<br>childcare</div>
+									<div class="dt-card-amount">$14,760</div>
+									<div class="dt-card-unit">per year</div>
+									<div class="dt-card-ctx">More than in-state<br>college tuition<br>in 38 states</div>
+								</div>
+								<span class="dt-or">or</span>
+								<div class="dt-card dt-card-us">
+									<div class="dt-card-title">Leave the<br>workforce</div>
+									<div class="dt-card-amount">$0</div>
+									<div class="dt-card-unit">income</div>
+									<div class="dt-card-ctx">3.8% of US adults<br>are out of work for<br>childcare reasons</div>
+								</div>
+							</div>
+							<div class="dt-tagline">Both options cost the family.</div>
+						</div>
+						<div class="dt-divider"></div>
+						<div class="dt-branch dt-branch-fi">
+							<div class="dt-country">Finland</div>
+							<div class="dt-cards">
+								<div class="dt-card dt-card-fi">
+									<div class="dt-card-title">Public<br>childcare</div>
+									<div class="dt-card-amount">$0–4,080</div>
+									<div class="dt-card-unit">per year</div>
+									<div class="dt-card-ctx">Income-scaled fees.<br>Legal right<br>from infancy.</div>
+								</div>
+								<span class="dt-or">or</span>
+								<div class="dt-card dt-card-fi">
+									<div class="dt-card-title">Home care<br>allowance</div>
+									<div class="dt-card-amount">~$5,000</div>
+									<div class="dt-card-unit">per year</div>
+									<div class="dt-card-ctx">Paid to the parent.<br>A real choice,<br>not a last resort.</div>
+								</div>
+							</div>
+							<div class="dt-tagline">Both options help the family.</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 
