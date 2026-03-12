@@ -87,6 +87,7 @@
 			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <i class="fa fa-external-link" aria-hidden="true"></i></a> </li>
 			<li><a href="python.html" class="active" aria-current="page">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
+					<li><a href="getstarted.html">Getting Started</a></li>
 					<li><a href="imfapi1.html">IMF API</a></li>
 					<li><a href="blsapi.html">BLS API</a></li>
 					<li><a href="beaapi.html">BEA API</a></li>
@@ -127,17 +128,17 @@
 	<hr class="section-bar accent-orange">
 	<h3>Background</h3>
 	<h4>BEA</h4>
-	<p>The Bureau of Economic Analysis is part of the U.S. Department of Commerce. BEA produces economic statistics including GDP, personal income, and industry accounts. You can read more about BEA <a href="https://www.bea.gov/about">here</a>.</p>
+	<p>The Bureau of Economic Analysis is part of the U.S. Department of Commerce. BEA produces the <a href="https://www.bea.gov/national-data">National Income and Product Accounts</a> (NIPA)&mdash;the official GDP estimates and related tables that break down the economy by spending category, industry, and income type. You can read more about BEA <a href="https://www.bea.gov/about">here</a>.</p>
 
 	<h4>API Registration</h4>
-	<p>To use the BEA API, you need to <a href="https://apps.bea.gov/API/signup/">register for a free API key</a>. The examples below assume the API key is stored in a separate config file.</p>
+	<p>To use the BEA API, you need to <a href="https://apps.bea.gov/API/signup/">register for a free API key</a>. The examples below assume the API key is stored in a separate config file (see the <a href="getstarted.html">Getting Started guide</a> for details).</p>
 
 	<h4>Python</h4>
 	<p>The examples use Python 3.x with the requests and pandas packages.</p>
 
 	<hr class="section-bar accent-orange">
 	<h3>Example 1: Fetch NIPA Table</h3>
-	<p>This example requests NIPA table 2.3.6 (Real Personal Consumption Expenditures by Major Type of Product) for the latest five years.</p>
+	<p>This example requests NIPA table 2.3.6, which breaks down real Personal Consumption Expenditures (PCE) by major product type: services, nondurable goods, and durable goods. PCE is the largest component of GDP, so understanding what's driving consumer spending growth is a common analytical task.</p>
 
 	<span class="step-label accent-orange">Import Libraries</span>
 	<p>In[1]:</p>
@@ -145,53 +146,68 @@
 import pandas as pd
 from config import bea_key as api_key   # File with API key</code></pre>
 
-	<span class="step-label accent-orange">Construct API Request</span>
-	<p>The API URL is built from several components: the base URL with your API key, the dataset name, table ID, frequency, years, and format.</p>
-	<p>In[2]:</p>
-	<pre><code class="python"># Components of request
-base = f'https://apps.bea.gov/api/data/?&UserID={api_key}'
-dset = '&method=GetData&datasetname=NIPA'
-tbl = 'T20306' # Real PCE by Major Type of Product: NIPA Table 2.3.6.
-freq = '&Frequency=Q'
-yr = ','.join(map(str, range(2021, 2026)))
-fmt = '&ResultFormat=json'
-url = f'{base}{dset}&TableName={tbl}{freq}&Year={yr}{fmt}'</code></pre>
-
 	<span class="step-label accent-orange">Request Data</span>
-	<p>In[3]:</p>
-	<pre><code class="python"># Request data
-r = requests.get(url)</code></pre>
+	<p>The <code>requests</code> library accepts a <code>params</code> dictionary that it encodes into the URL query string. This is cleaner than concatenating URL fragments by hand.</p>
+	<p>In[2]:</p>
+	<pre><code class="python">url = 'https://apps.bea.gov/api/data/'
+params = {
+    'UserID': api_key,
+    'method': 'GetData',
+    'datasetname': 'NIPA',
+    'TableName': 'T20306',   # Real PCE by Major Type of Product (Table 2.3.6)
+    'Frequency': 'Q',
+    'Year': ','.join(map(str, range(2021, 2026))),
+    'ResultFormat': 'json'
+}
+
+r = requests.get(url, params=params)</code></pre>
 
 	<span class="step-label accent-orange">Process the Data</span>
-	<p>The API returns JSON data which Python converts to a dictionary. The data includes thousands separators which are removed. The <code>TimePeriod</code> column is converted to datetime. Consumer spending growth (<code>pce</code>) and category contributions (<code>res</code>) are then calculated.</p>
-	<p>In[4]:</p>
-	<pre><code class="python"># Read as pandas dataframe and organize
+	<p>The API returns JSON with one row per series per quarter. We parse it into a dataframe, clean the values (BEA includes commas in numbers), and pivot so each series code becomes a column.</p>
+	<p>In[3]:</p>
+	<pre><code class="python"># Parse API response into a dataframe
 df = pd.DataFrame(r.json()['BEAAPI']['Results']['Data'])
-df['Value'] = df.DataValue.str.replace(',','').astype('float')
+df['Value'] = df.DataValue.str.replace(',', '').astype(float)
 df['Date'] = pd.to_datetime(df.TimePeriod, format='mixed')
-data = df.set_index(['Date', 'SeriesCode'])['Value'].unstack()
-pce = (((data['DPCERX'].pct_change() + 1) ** 4) - 1) * 100
 
-s = {'DSERRX': 'Services', 'DNDGRX': 'Nondurable Goods',
-     'DDURRX': 'Durable Goods'}
-res = (data[s.keys()].diff().div(data['DPCERX'].diff(), axis=0)
-              .multiply(pce, axis=0).dropna()
-              .loc['2022':].rename(s, axis=1))
-res.index.name = ''</code></pre>
+# Pivot so each series code is a column
+data = df.set_index(['Date', 'SeriesCode'])['Value'].unstack()</code></pre>
+
+	<p>The series codes come from the table's column headers: <code>DPCERX</code> is total real PCE, <code>DSERRX</code> is services, <code>DNDGRX</code> is nondurable goods, and <code>DDURRX</code> is durable goods. You can find these codes in the API response's <code>SeriesCode</code> field or on the <a href="https://apps.bea.gov/iTable/?reqid=19&step=2&isuri=1&categories=survey">BEA interactive tables</a>.</p>
+
+	<span class="step-label accent-orange">Calculate Contributions</span>
+	<p>To understand what's driving consumer spending, we calculate how much each category contributed to the total growth rate. First, we annualize the quarterly growth rate&mdash;raising <code>(1 + quarterly rate)</code> to the 4th power converts it to an annual pace. Then, each category's contribution equals its share of the quarterly change times the total growth rate.</p>
+	<p>In[4]:</p>
+	<pre><code class="python"># Annualize quarterly growth: (1 + q/q rate)^4 - 1
+pce_growth = (((data['DPCERX'].pct_change() + 1) ** 4) - 1) * 100
+
+# Map series codes to readable names
+categories = {
+    'DSERRX': 'Services',
+    'DNDGRX': 'Nondurable Goods',
+    'DDURRX': 'Durable Goods'
+}
+
+# Each category's share of the quarterly change × total growth rate
+shares = data[categories].diff().div(data['DPCERX'].diff(), axis=0)
+contributions = (shares.multiply(pce_growth, axis=0)
+                 .dropna().loc['2022':]
+                 .rename(categories, axis=1))
+contributions.index.name = ''</code></pre>
 
 	<span class="step-label accent-orange">Visualize Results</span>
 	<p>A stacked bar chart shows the contribution of each category to overall consumer spending growth.</p>
 	<p>In[5]:</p>
 	<pre><code class="python"># Create chart
-ax = (res.plot(kind='bar', stacked=True, figsize=(6.7, 4),
-               rot=0, color=['mediumblue', 'deepskyblue', 'darkorange'],
-               width=0.8, zorder=3))
+ax = (contributions.plot(kind='bar', stacked=True, figsize=(6.7, 4),
+                         rot=0, color=['mediumblue', 'deepskyblue', 'darkorange'],
+                         width=0.8, zorder=3))
 ax.legend(ncols=3, loc='upper center')
 ax.set_ylim(-2, 6)
 ax.axhline(0, lw=0.5, color='gray', zorder=0)
 ax.grid(axis='y', zorder=0, color='lightgray')
 ax.set_xticklabels([f'Q1\n{i.year}' if i.month == 1 else f'Q{(i.month+2)/3:.0f}'
-                    for i in res.index])
+                    for i in contributions.index])
 title = 'Contribution to Real Consumer Spending Growth, by Category'
 subtitle = 'quarterly change, annualized, in percent'
 ax.text(-0.02, 1.09, title, transform=ax.transAxes, fontsize=12);
@@ -208,19 +224,18 @@ ax.text(-0.03, -0.2, footer, transform=ax.transAxes, fontsize=10);</code></pre>
 	<span class="step-label accent-orange">Fetch Table List</span>
 	<p>Request the list of available tables in the GDPbyIndustry dataset. Table 25 (Composition of Gross Output) is what we want for this example.</p>
 	<p>In[6]:</p>
-	<pre><code class="python"># Components of request
-base = f'https://apps.bea.gov/api/data/?&UserID={api_key}'
-get_param = '&method=GetParameterValues'
-dataset = '&DataSetName=GDPbyIndustry'
-param = 'TableID'
+	<pre><code class="python">url = 'https://apps.bea.gov/api/data/'
+params = {
+    'UserID': api_key,
+    'method': 'GetParameterValues',
+    'DataSetName': 'GDPbyIndustry',
+    'ParameterName': 'TableID',
+    'ResultFormat': 'json'
+}
 
-# Construct URL from parameters above
-url = f'{base}{get_param}{dataset}&ParameterName={param}&ResultFormat=json'
+r = requests.get(url, params=params)
 
-# Request parameter information from BEA API
-r = requests.get(url)
-
-# Show the results as a table:
+# Show the results as a table
 pd.DataFrame(r.json()['BEAAPI']['Results']['ParamValue']).set_index('Key').head()</code></pre>
 	<p>Out[6]:</p>
 	<table class="dataframe">
@@ -261,15 +276,12 @@ pd.DataFrame(r.json()['BEAAPI']['Results']['ParamValue']).set_index('Key').head(
 	<span class="step-label accent-orange">Fetch Industry List</span>
 	<p>Request the list of industry codes. Industry code 23 is the Construction industry.</p>
 	<p>In[7]:</p>
-	<pre><code class="python">param = 'Industry'
+	<pre><code class="python"># Reuse the same params, just change which parameter we're looking up
+params['ParameterName'] = 'Industry'
 
-# Construct URL from parameters above
-url = f'{base}{get_param}{dataset}&ParameterName={param}&ResultFormat=json'
+r = requests.get(url, params=params).json()
 
-# Request parameter information from BEA API
-r = requests.get(url).json()
-
-# Show the results as a table:
+# Show the results as a table
 pd.DataFrame(r['BEAAPI']['Results']['ParamValue']).set_index('Key').head(10)</code></pre>
 	<p>Out[7]:</p>
 	<table class="dataframe">
@@ -330,17 +342,19 @@ pd.DataFrame(r['BEAAPI']['Results']['ParamValue']).set_index('Key').head(10)</co
 	<span class="step-label accent-orange">Fetch Industry Data</span>
 	<p>Using the parameters discovered above, fetch table 25 for industry 23 (Construction). The results are organized into a pandas dataframe.</p>
 	<p>In[8]:</p>
-	<pre><code class="python">m = '&method=GetData'
-ind = '&TableId=25'
-freq = '&Frequency=A'
-year = '&Year=ALL'
-fmt = '&ResultFormat=json'
-indus = '&Industry=23'  # Construction Industry
+	<pre><code class="python"># Now fetch actual data using the codes we discovered above
+params = {
+    'UserID': api_key,
+    'method': 'GetData',
+    'DataSetName': 'GDPbyIndustry',
+    'TableId': 25,       # Composition of Gross Output
+    'Industry': 23,      # Construction
+    'Frequency': 'A',
+    'Year': 'ALL',
+    'ResultFormat': 'json'
+}
 
-# Combined url for request
-url = f'{base}{m}{dataset}{year}{indus}{ind}{freq}{fmt}'
-
-r = requests.get(url)
+r = requests.get(url, params=params)
 
 df = pd.DataFrame(r.json()['BEAAPI']['Results'][0]['Data'])
 df = df.replace('Construction', 'Gross Output')

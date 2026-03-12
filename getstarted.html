@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Getting Started with Python for Economics | BD Economics</title>
+	<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+	<link rel="stylesheet" href="add-ins/github.css">
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<meta name="description" content="Install Python, learn pandas and numpy for economics, and make your first API call. Covers CPI inflation rates, nominal vs real adjustments, growth decomposition, and the Keynesian fiscal multiplier.">
+	<meta name="keywords" content="Python economics, Python getting started, install Python economics, pandas tutorial economics, numpy linear algebra economics, Jupyter notebook economics, CPI inflation Python, nominal real GDP Python, fiscal multiplier Python, API tutorial setup, Python data analysis beginner">
+	<meta name="author" content="Brian Dew">
+	<link rel="canonical" href="https://bd-econ.com/getstarted.html">
+	<!-- Open Graph -->
+	<meta property="og:title" content="Getting Started with Python for Economics | BD Economics">
+	<meta property="og:description" content="Install Python, learn pandas and numpy for economics, and make your first API call. Covers inflation rates, real vs nominal, and the fiscal multiplier.">
+	<meta property="og:url" content="https://bd-econ.com/getstarted.html">
+	<meta property="og:type" content="article">
+	<meta property="og:image" content="https://bd-econ.com/images/01_bdlogo.png">
+	<!-- Twitter Card -->
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Getting Started with Python for Economics | BD Economics">
+	<meta name="twitter:description" content="Install Python, learn pandas and numpy for economics, and make your first API call. Covers inflation rates, real vs nominal, and the fiscal multiplier.">
+	<meta name="twitter:image" content="https://bd-econ.com/images/01_bdlogo.png">
+	<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="favicon/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+	<link rel="manifest" href="favicon/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+<script>
+(function() {
+	var saved = localStorage.getItem('theme');
+	if (saved) {
+		document.documentElement.setAttribute('data-theme', saved);
+	} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+		document.documentElement.setAttribute('data-theme', 'dark');
+	}
+})();
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Getting Started with Python for Economics",
+    "description": "Install Python, learn pandas and numpy for economics, and make your first API call. Covers inflation rates, real vs nominal adjustments, growth decomposition, and the Keynesian fiscal multiplier.",
+    "author": {
+        "@type": "Person",
+        "name": "Brian Dew"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "BD Economics",
+        "url": "https://bd-econ.com"
+    },
+    "mainEntityOfPage": "https://bd-econ.com/getstarted.html"
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Guides",
+            "item": "https://bd-econ.com/python.html"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Getting Started",
+            "item": "https://bd-econ.com/getstarted.html"
+        }
+    ]
+}
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PGVF5S620Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PGVF5S620Y');
+</script>
+<style>
+	.trail-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 5px;
+		font-size: 11px;
+		font-family: var(--font-ui);
+		padding: 2px 8px;
+		border-radius: 10px;
+		letter-spacing: 0.3px;
+	}
+	.trail-beginner {
+		color: #1565c0;
+		background: color-mix(in srgb, #1e88e5 12%, transparent);
+	}
+	.trail-intermediate {
+		color: #555;
+		background: color-mix(in srgb, #555 10%, transparent);
+	}
+	.trail-advanced {
+		color: #555;
+		background: color-mix(in srgb, #555 15%, transparent);
+	}
+	[data-theme="dark"] .trail-beginner { color: #42a5f5; }
+	[data-theme="dark"] .trail-intermediate { color: #bbb; }
+	[data-theme="dark"] .trail-advanced { color: #bbb; }
+	.card-grid :is(.nav-card, .nav-card-muted) {
+		display: flex;
+		flex-direction: column;
+	}
+	.card-grid .nav-card-body {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		height: auto;
+		min-height: 125px;
+	}
+	.card-grid .trail-badge { margin-top: auto; }
+</style>
+</head>
+<body>
+	<a href="#main" class="skip-link">Skip to main content</a>
+	<nav>
+		<ul class="ul_nav" id="menu">
+			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
+			<li><a href="about.html">About</a> </li>
+			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <i class="fa fa-external-link" aria-hidden="true"></i></a> </li>
+			<li><a href="python.html" class="active" aria-current="page">Guides <span class="nav-arrow">&darr;</span></a>
+				<ul class="hidden">
+					<li><a href="getstarted.html">Getting Started</a></li>
+					<li><a href="imfapi1.html">IMF API</a></li>
+					<li><a href="blsapi.html">BLS API</a></li>
+					<li><a href="beaapi.html">BEA API</a></li>
+					<li><a href="censusapi.html">Census API</a></li>
+					<li><a href="treasuryapi.html">Treasury API</a></li>
+					<li><a href="cps.html">CPS Microdata</a></li>
+			</ul>
+			</li>
+		<li>
+			<a href="reports.html">Reports <span class="nav-arrow">&darr;</span></a>
+			<ul class="hidden">
+				<li><a href="chartbook.html">US Chartbook</a></li>
+				<li><a href="indicators.html">Economic Indicators</a></li>
+				<li><a href="gdpm.html">Monthly GDP</a></li>
+				<li><a href="imfweo.html">IMF WEO</a></li>
+			</ul>
+			</li>
+			<li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><i class="fa fa-moon-o" id="theme-icon"></i></button></li>
+			<li class="icon">
+				<button type="button" onclick="responsiveNav()" aria-label="Toggle navigation menu" aria-expanded="false">&#9776;</button>
+			</li>
+		</ul>
+	</nav>
+	<div class="page-strip accent-ltblue">
+		<img decoding="async" src="images/getstarted_strip.jpg" alt="" aria-hidden="true" class="page-strip-img">
+	</div>
+	<header>
+	<h1>Getting Started</h1>
+	</header>
+	<main id="main">
+	<section>
+	<article class="article_code prose">
+	<h2>Getting Started with Python for Economics</h2>
+	<p>This page covers everything you need to start using the <a href="python.html">six API tutorials</a> on this site: installing Python, the basics of pandas, and common economic calculations. If you already have Python set up, skip ahead to <a href="#pandas">Working with Data</a> or <a href="#calculations">Common Calculations</a>.</p>
+
+	<hr class="section-bar accent-ltblue">
+	<h3 id="setup">Setup</h3>
+
+	<h4>Install Python</h4>
+	<p>The easiest way to install Python is with <a href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a>, a lightweight installer that works on Windows, Mac, and Linux. Download the installer for your operating system and follow the prompts.</p>
+
+	<h4>Install Packages</h4>
+	<p>Open a terminal (or Anaconda Prompt on Windows) and install the packages used in the tutorials:</p>
+	<pre><code class="bash">pip install requests pandas matplotlib jupyter</code></pre>
+
+	<h4>Launch Jupyter</h4>
+	<p>Jupyter notebooks let you write and run Python code in small cells, seeing results immediately. This is ideal for exploring data. To start:</p>
+	<pre><code class="bash">jupyter notebook</code></pre>
+	<p>This opens a browser window where you can create a new notebook and start writing code. Each cell runs independently, but variables carry over from one cell to the next&mdash;so you can build up an analysis step by step.</p>
+
+	<hr class="section-bar accent-ltblue">
+	<h3 id="basics">Python Essentials</h3>
+	<p>You don't need to learn all of Python to follow the tutorials. Here are the pieces that come up most often.</p>
+
+	<span class="step-label accent-ltblue">Variables and Types</span>
+	<p>In[1]:</p>
+	<pre><code class="python"># Numbers
+gdp = 28_781.0          # underscores for readability (ignored by Python)
+growth_rate = 2.5
+
+# Strings
+agency = 'Bureau of Economic Analysis'
+
+# Lists (ordered collection)
+years = [2022, 2023, 2024, 2025]
+
+# Dictionaries (key-value pairs — used heavily in API responses)
+indicators = {
+    'GDP': 28_781.0,
+    'Unemployment': 4.0,
+    'Inflation': 2.5
+}</code></pre>
+
+	<span class="step-label accent-ltblue">f-strings and Imports</span>
+	<p>f-strings let you embed variables directly in text. Imports load external packages.</p>
+	<p>In[2]:</p>
+	<pre><code class="python">import pandas as pd    # data analysis
+import numpy as np     # math and linear algebra
+import requests        # HTTP requests (for APIs)
+
+# f-strings: prefix a string with f to embed variables
+print(f'{agency} reports GDP of ${gdp:,.0f} billion')
+print(f'Year range: {years[0]} to {years[-1]}')</code></pre>
+	<pre>Bureau of Economic Analysis reports GDP of $28,781 billion
+Year range: 2022 to 2025</pre>
+
+	<span class="step-label accent-ltblue">Dictionaries in Practice</span>
+	<p>API responses are typically JSON, which Python reads as nested dictionaries. Navigating them is a core skill.</p>
+	<p>In[3]:</p>
+	<pre><code class="python"># A simplified API response
+response = {
+    'status': 'REQUEST_SUCCEEDED',
+    'Results': {
+        'series': [
+            {'seriesID': 'LNS14000003', 'data': [{'year': '2025', 'value': '3.5'}]}
+        ]
+    }
+}
+
+# Navigate to the data
+value = response['Results']['series'][0]['data'][0]['value']
+print(f'Unemployment rate: {value}%')</code></pre>
+	<pre>Unemployment rate: 3.5%</pre>
+
+	<hr class="section-bar accent-ltblue">
+	<h3 id="pandas">Working with Data</h3>
+	<p>Pandas is the main tool for working with tabular data in Python. The two key objects are <strong>Series</strong> (a single column) and <strong>DataFrame</strong> (a table).</p>
+
+	<span class="step-label accent-ltblue">Create a DataFrame</span>
+	<p>In[4]:</p>
+	<pre><code class="python"># Create from a dictionary
+df = pd.DataFrame({
+    'quarter': ['2024-Q1', '2024-Q2', '2024-Q3', '2024-Q4'],
+    'gdp': [22050, 22320, 22580, 22710],
+    'unemployment': [3.8, 3.9, 4.1, 4.0]
+})
+
+df</code></pre>
+	<p>Out[4]:</p>
+	<table class="dataframe">
+	  <thead>
+	    <tr>
+	      <th></th>
+	      <th>quarter</th>
+	      <th>gdp</th>
+	      <th>unemployment</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr><th>0</th><td>2024-Q1</td><td>22050</td><td>3.8</td></tr>
+	    <tr><th>1</th><td>2024-Q2</td><td>22320</td><td>3.9</td></tr>
+	    <tr><th>2</th><td>2024-Q3</td><td>22580</td><td>4.1</td></tr>
+	    <tr><th>3</th><td>2024-Q4</td><td>22710</td><td>4.0</td></tr>
+	  </tbody>
+	</table>
+
+	<span class="step-label accent-ltblue">Time Series Index</span>
+	<p>Most economic data is a time series. Setting a datetime index unlocks powerful time-based operations.</p>
+	<p>In[5]:</p>
+	<pre><code class="python"># Create a monthly series with a date index
+months = pd.date_range('2024-01', periods=6, freq='MS')
+price_index = pd.Series([310.1, 311.1, 312.2, 313.0, 313.2, 314.1], index=months, name='CPI')
+
+# Select by date range
+price_index.loc['2024-03':'2024-05']</code></pre>
+	<p>Out[5]:</p>
+	<pre>2024-03-01    312.2
+2024-04-01    313.0
+2024-05-01    313.2
+Name: CPI, dtype: float64</pre>
+
+	<span class="step-label accent-ltblue">Combining Series</span>
+	<p>Much of economics is about relationships between variables. Pandas makes it easy to combine series and compute new ones.</p>
+	<p>In[6]:</p>
+	<pre><code class="python"># GDP (billions) and population (millions) by year
+gdp = pd.Series([21_061, 22_996, 25_463, 27_361, 28_781],
+                index=[2020, 2021, 2022, 2023, 2024], name='GDP')
+pop = pd.Series([331, 332, 333, 335, 336],
+                index=[2020, 2021, 2022, 2023, 2024], name='Population')
+
+# GDP per capita (in thousands)
+per_capita = (gdp / pop * 1000).round(0)
+per_capita</code></pre>
+	<p>Out[6]:</p>
+	<pre>2020    63627.0
+2021    69265.0
+2022    76466.0
+2023    81674.0
+2024    85657.0
+dtype: float64</pre>
+
+	<hr class="section-bar accent-ltblue">
+	<h3 id="economics">Economics Example: The Fiscal Multiplier</h3>
+	<p>Python can solve the kind of problems you'd work through by hand in an economics class. Here's a simple Keynesian model solved with NumPy's linear algebra tools.</p>
+
+	<span class="step-label accent-ltblue">A Simple Macro Model</span>
+	<p>In the basic Keynesian model, GDP (<em>Y</em>) equals consumption (<em>C</em>) plus investment (<em>I</em>) plus government spending (<em>G</em>). Consumption depends on after-tax income:</p>
+	<ul>
+		<li>Y = C + I + G</li>
+		<li>C = 200 + 0.75(Y &minus; T)</li>
+	</ul>
+	<p>With I&nbsp;=&nbsp;300, G&nbsp;=&nbsp;400, and T&nbsp;=&nbsp;300, we can rearrange into a system of two equations:</p>
+	<ul>
+		<li>Y &minus; C = 700 &emsp;(from Y = C + I + G)</li>
+		<li>&minus;0.75Y + C = &minus;25 &emsp;(from C = 200 + 0.75(Y &minus; 300))</li>
+	</ul>
+	<p>In[7]:</p>
+	<pre><code class="python"># Coefficient matrix: [Y, C]
+A = np.array([[1, -1],
+              [-0.75, 1]])
+b = np.array([700, -25])
+
+Y, C = np.linalg.solve(A, b)
+print(f'GDP = ${Y:,.0f}B, Consumption = ${C:,.0f}B')</code></pre>
+	<pre>GDP = $2,700B, Consumption = $2,000B</pre>
+
+	<span class="step-label accent-ltblue">What If Congress Increases Spending?</span>
+	<p>Suppose government spending rises by $100 billion (G goes from 400 to 500). Only the first equation changes&mdash;the right-hand side becomes 800:</p>
+	<p>In[8]:</p>
+	<pre><code class="python"># G rises by 100: Y - C = 800 (was 700)
+b_new = np.array([800, -25])
+Y_new, C_new = np.linalg.solve(A, b_new)
+
+print(f'New GDP = ${Y_new:,.0f}B  (was ${Y:,.0f}B)')
+print(f'Change in GDP: ${Y_new - Y:,.0f}B from ${100}B in spending')
+print(f'Multiplier: {(Y_new - Y) / 100:.0f}x')</code></pre>
+	<pre>New GDP = $3,100B  (was $2,700B)
+Change in GDP: $400B from $100B in spending
+Multiplier: 4x</pre>
+	<p>Each dollar of government spending raised GDP by four dollars. The multiplier is 1/(1&nbsp;&minus;&nbsp;0.75)&nbsp;=&nbsp;4, because the initial spending becomes someone's income, 75% of which is spent again, and so on. This is a simplified model, but it illustrates why fiscal policy can have outsized effects on the economy.</p>
+
+	<hr class="section-bar accent-ltblue">
+	<h3 id="calculations">Common Calculations</h3>
+	<p>The API tutorials use a few economic calculations that are worth seeing in one place.</p>
+
+	<span class="step-label accent-ltblue">From Price Index to Inflation Rate</span>
+	<p>The Consumer Price Index (CPI) is a price level, not an inflation rate. To get the headline inflation rate that you see in the news, compare each month's index to the same month one year earlier.</p>
+	<p>In[9]:</p>
+	<pre><code class="python"># 18 months of CPI-U data (made up but realistic)
+cpi = pd.Series(
+    [305.7, 307.0, 307.8, 307.7, 308.0, 308.7,
+     309.7, 310.3, 312.2, 313.5, 314.1, 314.2,
+     314.5, 315.6, 315.3, 315.8, 316.2, 316.5],
+    index=pd.date_range('2023-07', periods=18, freq='MS'),
+    name='CPI-U'
+)
+
+# Headline inflation: 12-month percent change
+inflation = (cpi.pct_change(12) * 100).dropna().round(1)
+inflation</code></pre>
+	<p>Out[9]:</p>
+	<pre>2024-07-01    2.9
+2024-08-01    2.8
+2024-09-01    2.4
+2024-10-01    2.6
+2024-11-01    2.7
+2024-12-01    2.5
+Name: CPI-U, dtype: float64</pre>
+
+	<span class="step-label accent-ltblue">Adjusting for Inflation</span>
+	<p>To compare dollar values across time, adjust for inflation by dividing by the price index. This converts nominal values to real (constant-dollar) values.</p>
+	<p>In[10]:</p>
+	<pre><code class="python"># Median weekly earnings (nominal) and CPI-U (2020 = 100)
+earnings = pd.Series([984, 1001, 1059, 1100, 1145],
+                     index=[2020, 2021, 2022, 2023, 2024], name='Nominal')
+cpi_annual = pd.Series([100.0, 104.7, 113.1, 117.7, 120.6],
+                       index=[2020, 2021, 2022, 2023, 2024], name='CPI')
+
+# Real earnings in 2020 dollars
+real = (earnings / cpi_annual * 100).round(0)
+
+pd.DataFrame({'Nominal': earnings, 'Real (2020$)': real})</code></pre>
+	<p>Out[10]:</p>
+	<table class="dataframe">
+	  <thead>
+	    <tr>
+	      <th></th>
+	      <th>Nominal</th>
+	      <th>Real (2020$)</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr><th>2020</th><td>984</td><td>984.0</td></tr>
+	    <tr><th>2021</th><td>1001</td><td>956.0</td></tr>
+	    <tr><th>2022</th><td>1059</td><td>936.0</td></tr>
+	    <tr><th>2023</th><td>1100</td><td>934.0</td></tr>
+	    <tr><th>2024</th><td>1145</td><td>949.0</td></tr>
+	  </tbody>
+	</table>
+	<p>Nominal weekly earnings rose 16% from 2020 to 2024, but real earnings actually fell 4%&mdash;wage growth didn't keep pace with inflation. This is a key distinction in any analysis of living standards.</p>
+
+	<span class="step-label accent-ltblue">Growth Decomposition</span>
+	<p>When a total is the sum of components, you can decompose its growth into each component's contribution. Here, consumer spending (PCE) equals goods plus services.</p>
+	<p>In[11]:</p>
+	<pre><code class="python"># Quarterly PCE components (billions, made up)
+pce = pd.DataFrame({
+    'Goods': [5800, 5850, 5900, 5880],
+    'Services': [10200, 10350, 10500, 10650]
+}, index=pd.date_range('2024-01', periods=4, freq='QS'))
+pce['Total'] = pce['Goods'] + pce['Services']
+
+# Each component's contribution = its change / previous total × 100
+for comp in ['Goods', 'Services']:
+    pce[f'{comp} contribution'] = pce[comp].diff() / pce['Total'].shift() * 100
+
+pce[['Goods contribution', 'Services contribution']].dropna().round(2)</code></pre>
+	<p>Out[11]:</p>
+	<table class="dataframe">
+	  <thead>
+	    <tr>
+	      <th></th>
+	      <th>Goods contribution</th>
+	      <th>Services contribution</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr><th>2024-04-01</th><td>0.31</td><td>0.94</td></tr>
+	    <tr><th>2024-07-01</th><td>0.31</td><td>0.93</td></tr>
+	    <tr><th>2024-10-01</th><td>-0.12</td><td>0.91</td></tr>
+	  </tbody>
+	</table>
+	<p>Services drove most of the growth, while goods spending turned negative in Q4. The contributions sum to the total growth rate each quarter&mdash;this is the same technique used in the <a href="beaapi.html">BEA tutorial</a> to analyze real consumer spending.</p>
+
+	<hr class="section-bar accent-ltblue">
+	<h3 id="apis">Setting Up for the API Tutorials</h3>
+
+	<span class="step-label accent-ltblue">API Keys</span>
+	<p>Most government data APIs require a free API key for access. The tutorials on this site store keys in a file called <code>config.py</code> that you create in the same folder as your notebook:</p>
+	<pre><code class="python"># config.py — keep this file private, don't commit it to git
+bls_key = 'your-key-here'
+bea_key = 'your-key-here'
+census_key = 'your-key-here'</code></pre>
+	<p>Then in your notebook, import the key you need:</p>
+	<pre><code class="python">from config import bea_key as api_key</code></pre>
+	<p>The <a href="treasuryapi.html">Treasury API</a> is the exception&mdash;it requires no key at all, which makes it a good first tutorial to try.</p>
+
+	<span class="step-label accent-ltblue">Making a Request</span>
+	<p>The basic pattern for fetching data from an API is the same across all the tutorials:</p>
+	<p>In[12]:</p>
+	<pre><code class="python">import requests
+
+url = 'https://api.fiscaldata.treasury.gov/services/api/fiscal_service'
+url += '/v1/accounting/mts/mts_table_1'
+params = {
+    'fields': 'record_date,current_month_gross_outly_amt',
+    'sort': '-record_date',
+    'page[size]': 3
+}
+
+r = requests.get(url, params=params)
+r.json()['data']</code></pre>
+	<p>Out[12] (your output will reflect the most recent data available):</p>
+<pre>[{'record_date': '2025-10-31', 'current_month_gross_outly_amt': '637640'},
+ {'record_date': '2025-09-30', 'current_month_gross_outly_amt': '547839'},
+ {'record_date': '2025-08-31', 'current_month_gross_outly_amt': '527946'}]</pre>
+
+	<hr class="section-bar accent-ltblue">
+	<h3>Next Steps</h3>
+	<p>Each tutorial below walks through a complete example&mdash;from API request to finished chart. Treasury is the easiest starting point since it requires no API key.</p>
+	</article>
+
+	<article class="card-grid">
+	<a href="treasuryapi.html">
+	<div class="nav-card accent-red">
+		<div class="nav-card-banner">
+			<img loading="lazy" decoding="async" src="images/treasury_banner.png" alt="Treasury API tutorial" width="391" height="68">
+		</div>
+		<div class="nav-card-head">
+			<h3>Treasury API</h3>
+		</div>
+		<div class="nav-card-body">
+			<p>Access federal finance data including revenue, spending, and debt from the US Treasury Fiscal Data API. No API key required.</p>
+			<span class="trail-badge trail-beginner">■ Beginner</span>
+		</div>
+	</div>
+	</a>
+	<a href="censusapi.html">
+	<div class="nav-card accent-green">
+		<div class="nav-card-banner">
+			<img loading="lazy" decoding="async" src="images/census_banner.png" alt="Census API tutorial" width="207" height="68">
+		</div>
+		<div class="nav-card-head">
+			<h3>Census API</h3>
+		</div>
+		<div class="nav-card-body">
+			<p>Retrieve US economic indicators from the Census Bureau, including manufacturing, international trade, and construction data.</p>
+			<span class="trail-badge trail-beginner">■ Beginner</span>
+		</div>
+	</div>
+	</a>
+	<a href="beaapi.html">
+	<div class="nav-card accent-orange">
+		<div class="nav-card-banner">
+			<img loading="lazy" decoding="async" src="images/bea_banner.png" alt="BEA API tutorial" width="542" height="130">
+		</div>
+		<div class="nav-card-head">
+			<h3>BEA API</h3>
+		</div>
+		<div class="nav-card-body">
+			<p>Retrieve national accounts data from the Bureau of Economic Analysis including GDP, consumer spending, and industry statistics.</p>
+			<span class="trail-badge trail-intermediate">◆ Intermediate</span>
+		</div>
+	</div>
+	</a>
+	<a href="blsapi.html">
+	<div class="nav-card accent-purple">
+		<div class="nav-card-banner">
+			<img loading="lazy" decoding="async" src="images/bls_banner.png" alt="BLS API tutorial" width="257" height="68">
+		</div>
+		<div class="nav-card-head">
+			<h3>BLS API</h3>
+		</div>
+		<div class="nav-card-body">
+			<p>Retrieve US labor statistics&mdash;employment, wages, prices&mdash;directly from the Bureau of Labor Statistics (BLS) API.</p>
+			<span class="trail-badge trail-intermediate">◆ Intermediate</span>
+		</div>
+	</div>
+	</a>
+	<a href="imfapi1.html">
+	<div class="nav-card accent-blue">
+		<div class="nav-card-banner">
+			<img loading="lazy" decoding="async" src="images/imf_banner.png" alt="IMF API tutorial" width="293" height="68">
+		</div>
+		<div class="nav-card-head">
+			<h3>IMF API</h3>
+		</div>
+		<div class="nav-card-body">
+			<p>Access international economic data from the International Monetary Fund (IMF). Covers GDP, trade, prices, and more for 190+ countries.</p>
+			<span class="trail-badge trail-intermediate">◆ Intermediate</span>
+		</div>
+	</div>
+	</a>
+	<a href="cps.html">
+	<div class="nav-card accent-teal">
+		<div class="nav-card-banner">
+			<img loading="lazy" decoding="async" src="images/cps_banner.png" alt="CPS microdata tutorial" width="542" height="130">
+		</div>
+		<div class="nav-card-head">
+			<h3>CPS Microdata</h3>
+		</div>
+		<div class="nav-card-body">
+			<p>Read and analyze Current Population Survey microdata with Python. Build custom labor market statistics from household-level data.</p>
+			<span class="trail-badge trail-advanced">◆◆ Advanced</span>
+		</div>
+	</div>
+	</a>
+	</article>
+
+	<div class="subfooter" data-hub="guides" data-current="getstarted.html" style="--accent-color: var(--color-card-ltblue)"></div>
+	</section>
+	</main>
+
+		<footer>
+		<div class="footer_left">
+			<p><time datetime="2026">2026</time>, by Brian Dew</p>
+		</div>
+		<div class="footer_right">
+			<a href="https://github.com/bdecon/" aria-label="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
+			<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+			<a href="https://twitter.com/bd_econ" aria-label="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+			<a href="https://briandew.wordpress.com/" target="_blank" rel="noopener" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
+		</div>
+	</footer>
+	<script src="scripts/nav.js"></script>
+	<script src="add-ins/highlight.pack.js"></script>
+	<script>hljs.initHighlighting();</script>
+</body>
+</html>

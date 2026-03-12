@@ -14,9 +14,15 @@
   </url>
   <url>
     <loc>https://bd-econ.com/python.html</loc>
-    <lastmod>2026-03-05</lastmod>
+    <lastmod>2026-03-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bd-econ.com/getstarted.html</loc>
+    <lastmod>2026-03-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bd-econ.com/reports.html</loc>
@@ -68,13 +74,13 @@
   </url>
   <url>
     <loc>https://bd-econ.com/blsapi.html</loc>
-    <lastmod>2026-01-12</lastmod>
+    <lastmod>2026-03-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bd-econ.com/beaapi.html</loc>
-    <lastmod>2026-01-12</lastmod>
+    <lastmod>2026-03-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -86,19 +92,19 @@
   </url>
   <url>
     <loc>https://bd-econ.com/censusapi.html</loc>
-    <lastmod>2026-01-11</lastmod>
+    <lastmod>2026-03-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bd-econ.com/treasuryapi.html</loc>
-    <lastmod>2026-01-11</lastmod>
+    <lastmod>2026-03-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bd-econ.com/censusapi2.html</loc>
-    <lastmod>2026-01-11</lastmod>
+    <lastmod>2026-03-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

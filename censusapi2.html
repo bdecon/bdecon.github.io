@@ -113,6 +113,7 @@
 			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <i class="fa fa-external-link" aria-hidden="true"></i></a> </li>
 			<li><a href="python.html" class="active" aria-current="page">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
+					<li><a href="getstarted.html">Getting Started</a></li>
 					<li><a href="imfapi1.html">IMF API</a></li>
 					<li><a href="blsapi.html">BLS API</a></li>
 					<li><a href="beaapi.html">BEA API</a></li>
@@ -195,7 +196,7 @@
 	<hr class="section-bar accent-green">
 	<h3>Example: Top U.S. Export Partners</h3>
 	<span class="step-label accent-green">Setup</span>
-	<p>Import the required packages and load your Census API key from a local config file. You can register for a free API key at the <a href="https://api.census.gov/data/key_signup.html">Census Bureau website</a>.</p>
+	<p>Import the required packages and load your Census API key from a local config file (see the <a href="getstarted.html">Getting Started guide</a> for details). You can register for a free API key at the <a href="https://api.census.gov/data/key_signup.html">Census Bureau website</a>.</p>
 
 	<p>In[1]:</p>
 	<pre><code class="python">import requests
@@ -205,32 +206,24 @@ import config
 
 key = config.census_key</code></pre>
 
-	<span class="step-label accent-green">Build the API Request</span>
-	<p>Construct the API URL to retrieve export values by country for a specific month. The endpoint <code>intltrade/exports/hs</code> provides Harmonized System trade data.</p>
+	<span class="step-label accent-green">Request Data from the API</span>
+	<p>Construct the API request to retrieve export values by country for a specific month. The endpoint <code>intltrade/exports/hs</code> provides Harmonized System trade data.</p>
 
 	<p>In[2]:</p>
-	<pre><code class="python">base = 'https://api.census.gov/data/timeseries/intltrade/exports/hs'
-param = 'CTY_CODE,CTY_NAME,ALL_VAL_MO'
-time = '2025-10'
+	<pre><code class="python">url = 'https://api.census.gov/data/timeseries/intltrade/exports/hs'
+params = {
+    'get': 'CTY_CODE,CTY_NAME,ALL_VAL_MO',
+    'key': key,
+    'time': '2025-10'
+}
 
-url = f'{base}?get={param}&key={key}&time={time}'</code></pre>
-
-	<span class="step-label accent-green">Request Data from the API</span>
-	<p>Make the request and check that it was successful before parsing the JSON response.</p>
-
-	<p>In[3]:</p>
-	<pre><code class="python">r = requests.get(url)
-
-if r.status_code == 200:
-    data = r.json()
-else:
-    print(f'Error: {r.status_code}')</code></pre>
+data = requests.get(url, params=params).json()</code></pre>
 
 	<p>The response contains a list of lists, with the first row being column headers:</p>
 
-	<p>In[4]:</p>
+	<p>In[3]:</p>
 	<pre><code class="python">data[:3]</code></pre>
-	<p>Out[4]:</p>
+	<p>Out[3]:</p>
 <pre>[['CTY_CODE', 'CTY_NAME', 'ALL_VAL_MO', 'time'],
  ['0001', 'OPEC', '5765070418', '2025-10'],
  ['0003', 'PACIFIC RIM', '35817684498', '2025-10']]</pre>
@@ -238,10 +231,10 @@ else:
 	<span class="step-label accent-green">Process the Data</span>
 	<p>Convert to a DataFrame, filter to individual countries (codes 1000-8000), and convert values to numeric billions.</p>
 
-	<p>In[5]:</p>
+	<p>In[4]:</p>
 	<pre><code class="python">df = pd.DataFrame(data[1:], columns=data[0])
 
-# Filter to individual countries only (exclude aggregates)
+# Some codes are non-numeric (e.g. '-'); keep only numeric codes
 df = df.loc[df['CTY_CODE'].str.isdigit()]
 df['CTY_CODE'] = df['CTY_CODE'].astype(int)
 df = df[(df['CTY_CODE'] >= 1000) & (df['CTY_CODE'] < 8000)]
@@ -252,7 +245,7 @@ df['ALL_VAL_MO'] = df['ALL_VAL_MO'].astype(float) / 1e9</code></pre>
 	<span class="step-label accent-green">Select Top Partners</span>
 	<p>Sort by export value and select the top 20 trading partners.</p>
 
-	<p>In[6]:</p>
+	<p>In[5]:</p>
 	<pre><code class="python">top20 = (df.sort_values('ALL_VAL_MO', ascending=True)
            .tail(20)
            .set_index('CTY_NAME')['ALL_VAL_MO'])</code></pre>
@@ -260,7 +253,7 @@ df['ALL_VAL_MO'] = df['ALL_VAL_MO'].astype(float) / 1e9</code></pre>
 	<span class="step-label accent-green">Create the Visualization</span>
 	<p>Plot a horizontal bar chart showing the top export destinations.</p>
 
-	<p>In[7]:</p>
+	<p>In[6]:</p>
 	<pre><code class="python">fig, ax = plt.subplots(figsize=(8, 8))
 top20.plot(kind='barh', ax=ax, color='#4a7c59')
 ax.set_xlabel('')
@@ -275,16 +268,16 @@ for i, (country, val) in enumerate(top20.items()):
 ax.set_title('Top 20 U.S. Export Destinations, October 2025\n', fontsize=12)
 plt.tight_layout()
 plt.show()</code></pre>
-	<p>Out[7]:</p>
+	<p>Out[6]:</p>
 	<img decoding="async" src="images/census_example2.png" alt="Top 20 U.S. Export Partners" loading="lazy" width="528" height="595"/>
 
 	<hr class="section-bar accent-green">
-	<h3>Additional Resources</h3>
+	<h3>Further Resources</h3>
 	<ul>
-		<li><a href="https://www.census.gov/data/developers/data-sets/international-trade.html">Census International Trade API</a> - Main documentation</li>
-		<li><a href="https://api.census.gov/data/timeseries/intltrade/exports/hs/variables.html">API Variables</a> - Full list of available fields</li>
-		<li><a href="https://www.census.gov/foreign-trade/schedules/b/index.html">Schedule B Codes</a> - Product classification codes for detailed commodity analysis</li>
-		<li><a href="censusapi.html">Part 1: Manufacturing Data</a> - Basic Census API example with M3 survey data</li>
+		<li><a href="https://www.census.gov/data/developers/data-sets/international-trade.html">Census International Trade API</a> &mdash; main documentation</li>
+		<li><a href="https://api.census.gov/data/timeseries/intltrade/exports/hs/variables.html">API Variables</a> &mdash; full list of available fields</li>
+		<li><a href="https://www.census.gov/foreign-trade/schedules/b/index.html">Schedule B Codes</a> &mdash; product classification codes for detailed commodity analysis</li>
+		<li><a href="censusapi.html">Census API Part 1</a> &mdash; manufacturing data from the M3 survey</li>
 	</ul>
 	</article>
 	<div class="subfooter" data-hub="guides" data-current="censusapi.html" style="--accent-color: var(--color-card-green)"></div>

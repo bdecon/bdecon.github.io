@@ -87,6 +87,7 @@
 			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <i class="fa fa-external-link" aria-hidden="true"></i></a> </li>
 			<li><a href="python.html" class="active" aria-current="page">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
+					<li><a href="getstarted.html">Getting Started</a></li>
 					<li><a href="imfapi1.html">IMF API</a></li>
 					<li><a href="blsapi.html">BLS API</a></li>
 					<li><a href="beaapi.html">BEA API</a></li>
@@ -122,7 +123,7 @@
 	<h2>US Treasury Fiscal Data API with Python</h2>
 	<p>The <a href="https://fiscaldata.treasury.gov/api-documentation/">US Treasury Fiscal Data API</a> offers data on federal finances, including revenue, spending, debt, and more. With Python, you can retrieve and analyze this data programmatically.</p>
 
-	<p>This example uses the Python <code>requests</code> and <code>pandas</code> packages to retrieve treasury data from the Monthly Treasury Statement and analyze federal revenue composition.</p>
+	<p>This example uses the Python <code>requests</code> and <code>pandas</code> packages to retrieve treasury data from the Monthly Treasury Statement and analyze federal revenue composition. If you're new to Python, the <a href="getstarted.html">Getting Started guide</a> covers setup and the basics.</p>
 
 	<hr class="section-bar accent-red">
 	<h3>Background</h3>
@@ -134,46 +135,59 @@
 
 	<hr class="section-bar accent-red">
 	<h3>Example: Federal Revenue by Type</h3>
+	<p>How has the composition of federal revenue changed recently? Corporate income taxes and customs duties are two categories worth watching&mdash;corporate taxes are a large and cyclical revenue source, while customs duties have grown sharply with recent changes in trade policy.</p>
+
 	<span class="step-label accent-red">Import Packages</span>
 	<p>In[1]:</p>
 	<pre><code class="python">import requests
 import pandas as pd</code></pre>
 
 	<span class="step-label accent-red">Request Data from the API</span>
-	<p>Let's look at government revenue by type, from table 9 of the Monthly Treasury Statement (MTS). We want to see the share of federal revenue coming from corporate income taxes and customs duties since 2023.</p>
-	<p>We use the <code>filter</code> parameter to request only the categories of interest. The line description from the original MTS table has two lines for "Total"&mdash;one for receipts and one for outlays&mdash;so we'll need to remove the outlays data in the next step.</p>
+	<p>We request data from table 9 of the Monthly Treasury Statement (MTS), which breaks down federal receipts and outlays by type. The <code>filter</code> parameter uses the API's <code>:in:</code> operator to return only rows matching our categories of interest. You can find the available field names and filter operators in the <a href="https://fiscaldata.treasury.gov/api-documentation/#filters">API documentation</a>.</p>
 	<p>In[2]:</p>
 	<pre><code class="python">url = 'https://api.fiscaldata.treasury.gov/services/api/fiscal_service'
-endpt = '/v1/accounting/mts/mts_table_9'
-param = '?filter=classification_desc:in:(Corporation Income Taxes,Customs Duties,Total)&page[size]=800'
+url += '/v1/accounting/mts/mts_table_9'
 
-r = requests.get(f'{url}{endpt}{param}')</code></pre>
+params = {
+    'filter': 'classification_desc:in:(Corporation Income Taxes,Customs Duties,Total)',
+    'page[size]': 800
+}
 
-	<span class="step-label accent-red">Clean and Transform the Data</span>
-	<p>Next, clean up the results and rename the variables. Remove data related to line 33, which is total outlays. Convert the dates to datetime format and calculate the 12-month rolling sum.</p>
+r = requests.get(url, params=params)</code></pre>
+
+	<span class="step-label accent-red">Clean the Data</span>
+	<p>The API returns one row per category per month. We rename the columns for readability and remove line 33, which is total outlays&mdash;the table includes both receipts and outlays rows labeled "Total", so we filter by the source line number to keep only receipts.</p>
 	<p>In[3]:</p>
 	<pre><code class="python">rn = {'current_month_rcpt_outly_amt': 'Value', 'src_line_nbr': 'Line',
       'classification_desc': 'Category'}
 df = pd.DataFrame(r.json()['data']).rename(rn, axis=1).query('Line != "33"')
 df['Date'] = pd.to_datetime(df['record_date'])
-df = df.sort_values('Date')
-df = df.set_index(['Category', 'Date'])
-data = (df['Value'].unstack().T.astype('float') / 1_000_000).rolling(12).sum().dropna()</code></pre>
+df['Value'] = df['Value'].astype(float)
+df = df.sort_values('Date')</code></pre>
+
+	<span class="step-label accent-red">Aggregate to Trailing 12 Months</span>
+	<p>Monthly fiscal data is seasonal&mdash;April is always a big revenue month (tax day), for example. A trailing 12-month sum smooths out this seasonality and shows the annual pace.</p>
+	<p>In[4]:</p>
+	<pre><code class="python"># Pivot so each category is a column, convert to trillions
+data = (df.set_index(['Date', 'Category'])['Value']
+        .unstack().astype(float) / 1_000_000)
+
+# Rolling 12-month sum to smooth seasonality
+data = data.rolling(12).sum().dropna()</code></pre>
 
 	<span class="step-label accent-red">Plot the Results</span>
-	<p>Create a plot showing the recent data, from 2023 onward. We calculate each category as a share of total federal revenue.</p>
-	<p>In[4]:</p>
-	<pre><code class="python"># Calculate the share of total
-c = ['Corporation Income Taxes', 'Customs Duties']
-res = (data[c].divide(data['Total'], axis=0) * 100)
-res.index.name = ''
-res.columns.name = ''
+	<p>Calculate each category as a share of total federal revenue and plot from 2023 onward.</p>
+	<p>In[5]:</p>
+	<pre><code class="python">c = ['Corporation Income Taxes', 'Customs Duties']
+shares = data[c].divide(data['Total'], axis=0) * 100
+shares.index.name = ''
+shares.columns.name = ''
 
-title = ('Corporate Income Taxes and Customs Duties\n'+
-         'Share of Total Federal Revenue,\n'+
+title = ('Corporate Income Taxes and Customs Duties\n'
+         'Share of Total Federal Revenue,\n'
          'in percent, trailing 12 months')
-res.loc['2023-01-01':].plot(title=title, figsize=(4.5,5))</code></pre>
-	<p>Out[4]:</p>
+shares.loc['2023-01-01':].plot(title=title, figsize=(4.5, 5))</code></pre>
+	<p>Out[5]:</p>
 	<img decoding="async" src="images/treasury_tax.png" alt="Federal Revenue by Type" loading="lazy" width="415" height="501"/>
 
 	<hr class="section-bar accent-red">

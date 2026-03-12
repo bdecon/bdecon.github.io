@@ -107,6 +107,7 @@
 			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <i class="fa fa-external-link" aria-hidden="true"></i></a> </li>
 			<li><a href="python.html" class="active" aria-current="page">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
+					<li><a href="getstarted.html">Getting Started</a></li>
 					<li><a href="imfapi1.html">IMF API</a></li>
 					<li><a href="blsapi.html">BLS API</a></li>
 					<li><a href="beaapi.html">BEA API</a></li>
@@ -188,53 +189,55 @@
 	<hr class="section-bar accent-green">
 	<h3>Example: Nondefense Capital Goods Orders</h3>
 	<span class="step-label accent-green">Setup</span>
-	<p>The Census API key is stored locally in a file called <code>config.py</code>. You can register for a free API key at the <a href="https://api.census.gov/data/key_signup.html">Census Bureau website</a>.</p>
+	<p>The Census API key is stored locally in a file called <code>config.py</code> (see the <a href="getstarted.html">Getting Started guide</a> for details). You can register for a free API key at the <a href="https://api.census.gov/data/key_signup.html">Census Bureau website</a>.</p>
 
 	<p>In[1]:</p>
 	<pre><code class="python">import requests
 import pandas as pd
-import matplotlib.pyplot as plt
 import config
 key = config.census_key</code></pre>
 
-	<span class="step-label accent-green">Build the API URL</span>
-	<p>In this example, <code>category_code</code> is <code>NXA</code> which represents nondefense capital goods excluding aircraft. The <code>data_type_code</code> is the seasonally adjusted value, <code>VS</code>. Data are retrieved for the period from 2022 onward.</p>
+	<span class="step-label accent-green">Request Data from the API</span>
+	<p>The Census API takes query parameters including the fields to return (<code>get</code>), a category code, data type, and time range. Here, <code>NXA</code> is nondefense capital goods excluding aircraft, and <code>VS</code> is the seasonally adjusted value. Data are retrieved from 2022 onward.</p>
 
 	<p>In[2]:</p>
-	<pre><code class="python">base = 'https://api.census.gov/data/timeseries/eits/advm3'
-param = 'cell_value,time_slot_id'
-time = '&time=from+2022'
-cat = '&category_code=NXA'
-dtc = '&data_type_code=VS'
-oth = '&for=us&seasonally_adj=yes'
+	<pre><code class="python">url = 'https://api.census.gov/data/timeseries/eits/advm3'
+params = {
+    'get': 'cell_value,time_slot_id',
+    'key': key,
+    'category_code': 'NXA',   # Nondefense capital goods ex. aircraft
+    'data_type_code': 'VS',   # Seasonally adjusted value
+    'time': 'from 2022',
+    'for': 'us',
+    'seasonally_adj': 'yes'
+}
 
-url = f'{base}?get={param}&key={key}{cat}{dtc}{time}{oth}'</code></pre>
-
-	<span class="step-label accent-green">Request Data from the API</span>
-	<p>Request data from the API and interpret the result as JSON. This will convert the JSON response into a Python list of lists.</p>
-
-	<p>In[3]:</p>
-	<pre><code class="python">r = requests.get(url).json()</code></pre>
+r = requests.get(url, params=params).json()</code></pre>
 
 	<span class="step-label accent-green">Convert to Pandas DataFrame</span>
-	<p>Read the results into a pandas DataFrame. The first row (index 0) contains the headers. Convert the dates to datetime format and calculate the 12-month growth rate in percent.</p>
+	<p>The Census API returns JSON as a list of lists, where the first row contains column headers. We parse this into a DataFrame and set up a datetime index.</p>
 
-	<p>In[4]:</p>
+	<p>In[3]:</p>
 	<pre><code class="python">df = pd.DataFrame(r[1:], columns=r[0])
 df.index = pd.to_datetime(df['time'] + '-01')
 df.index.name = ''
 df = df.sort_index()
-data = df['cell_value'].astype('float').pct_change(12) * 100</code></pre>
+df['cell_value'] = df['cell_value'].astype(float)</code></pre>
+
+	<span class="step-label accent-green">Calculate Growth Rate</span>
+	<p>The <code>pct_change(12)</code> method compares each month to the same month one year earlier, giving us a year-over-year growth rate that avoids seasonal distortions.</p>
+
+	<p>In[4]:</p>
+	<pre><code class="python">growth = df['cell_value'].pct_change(12) * 100</code></pre>
 
 	<span class="step-label accent-green">Plot the Results</span>
-	<p>Create a line plot showing the 12-month percent change since 2024.</p>
+	<p>Plot the 12-month percent change from 2024 onward.</p>
 
 	<p>In[5]:</p>
-	<pre><code class="python">title = ('New Orders: Nondefense capital goods excluding aircraft,'+
-         '\n12-month percent change')
-data.loc['2024':].plot(title=title)
-plt.axhline(0, lw=0.5, color='gray', zorder=0)
-plt.show()</code></pre>
+	<pre><code class="python">title = ('New Orders: Nondefense capital goods excluding aircraft,\n'
+         '12-month percent change')
+ax = growth.loc['2024':].plot(title=title)
+ax.axhline(0, lw=0.5, color='gray', zorder=0)</code></pre>
 	<p>Out[5]:</p>
 	<img decoding="async" src="images/census_m3_growth.png" alt="Census M3 New Orders Growth Rate" loading="lazy" width="567" height="471"/>
 
