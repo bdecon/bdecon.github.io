@@ -164,25 +164,8 @@
 			transition: none;
 		}
 	}
-	.chart-header .chart-title {
-		font-weight: 700;
-	}
 	.chart-download-link {
-		display: inline-block;
-		margin: 0;
 		font-size: 10px;
-		font-family: var(--font-ui);
-		color: var(--color-link);
-		text-decoration: none;
-	}
-	.chart-download-link:hover {
-		text-decoration: underline;
-	}
-	.chart-download-link:visited {
-		color: var(--color-link-visited);
-	}
-	.chart-download-link .fa {
-		margin-right: 3px;
 	}
 	.chart-compact .chart-back-body {
 		flex: 1;
@@ -234,13 +217,6 @@
 	.card-stats-table .stat-highlight {
 		font-weight: 700;
 	}
-	.chart-back-subtitle {
-		font-size: 12px;
-		font-style: italic;
-		color: var(--color-text-muted);
-		margin: 0 0 8px 0;
-		font-family: var(--font-ui);
-	}
 	.card-category-badge {
 		font-size: 12px;
 		padding: 2px 8px;
@@ -258,10 +234,6 @@
 		color: var(--color-text-subtle);
 		font-weight: 600;
 		letter-spacing: 0.5px;
-	}
-	#card-back-logo {
-		fill: var(--color-text-subtle);
-		opacity: 0.5;
 	}
 	.chart-header button {
 		font-size: 15px;
@@ -288,12 +260,11 @@
 		color: var(--color-text-dark);
 	}
 	.chart-selector-title {
-		font-family: var(--font-ui);
-		font-size: 15px;
 		font-weight: 600;
 		color: var(--color-text-dark);
 		text-align: center;
 		flex: 1;
+		margin: 0;
 	}
 	.chart-grid-details {
 		max-width: 580px;
@@ -353,19 +324,11 @@
 		font-weight: 700;
 		color: var(--color-link);
 	}
-	.chart-filter {
-		visibility: hidden;
-	}
 	.chart-legend {
 		display: flex;
 		justify-content: center;
 		gap: 16px;
 		margin: 4px 0 0 0;
-		font-size: 12px;
-		font-family: var(--font-ui);
-	}
-	.chart-legend-item.legend-off {
-		text-decoration: line-through;
 	}
 	.chart-legend-box {
 		width: 14px;
@@ -378,13 +341,13 @@
 		flex-direction: column;
 		gap: 4px;
 		padding: 10px 0 2px;
+		font-family: var(--font-ui);
 	}
 	.hbar-legend {
 		display: flex;
 		justify-content: center;
 		gap: 14px;
 		font-size: 14px;
-		font-family: var(--font-ui);
 		color: var(--color-text-dark);
 		margin-bottom: 2px;
 	}
@@ -427,12 +390,10 @@
 		display: flex;
 		align-items: center;
 		font-size: 10px;
-		font-family: var(--font-ui);
 		height: 14px;
 	}
 	.hbar-row-label {
 		font-size: 14px;
-		font-family: var(--font-ui);
 		color: var(--color-text-dark);
 		white-space: nowrap;
 		overflow: visible;
@@ -448,7 +409,6 @@
 		padding: 5px 8px;
 		border-radius: var(--radius);
 		font-size: 10px;
-		font-family: var(--font-ui);
 		white-space: nowrap;
 		pointer-events: none;
 		top: -32px;
@@ -480,6 +440,10 @@
 		border: 1px solid #b0b8c0;
 		box-sizing: border-box;
 	}
+	[data-theme="dark"] .hbar-fill-prev {
+		background: #444;
+		border-color: #666;
+	}
 	.hbar-label {
 		color: var(--color-text-dark);
 		white-space: nowrap;
@@ -493,22 +457,6 @@
 		white-space: nowrap;
 		padding: 0 2px;
 		line-height: 14px;
-	}
-	/* Navigation buttons */
-	.chart-nav-btn {
-		background: none;
-		border: 1px solid var(--color-border-light);
-		border-radius: var(--radius);
-		color: var(--color-text-muted);
-		cursor: pointer;
-		padding: 6px 10px;
-		font-size: 12px;
-		line-height: 1;
-		transition: border-color 0.2s, color 0.2s;
-	}
-	.chart-nav-btn:hover {
-		border-color: var(--color-card-blue);
-		color: var(--color-card-blue);
 	}
 	/* Loading overlay */
 	.chart-loading {
@@ -554,6 +502,39 @@
 		text-align: center;
 	}
 	@media (max-width: 760px) {
+		.page-strip { display: none; }
+		section {
+			display: flex;
+			flex-direction: column;
+		}
+		/* Reorder: chart first, prose after */
+		.ind-chart   { order: 1; }
+		.ind-intro   { order: 2; margin-top: 1.5rem; }
+		.subfooter   { order: 3; }
+		.noscript-warning { order: 0; }
+		/* Edge-to-edge chart */
+		.chart-flip-wrapper {
+			max-width: none;
+			width: calc(100% + 24px);
+			margin-left: -12px;
+		}
+		/* Tighter chart padding */
+		.chart-compact .chart-header {
+			padding: 6px 10px 5px;
+		}
+		.chart-compact .chart-body {
+			padding: 6px 8px;
+		}
+		.chart-compact .chart-footer {
+			padding: 2px 10px 6px;
+		}
+		/* Tighter selector */
+		.chart-selector {
+			margin-bottom: 0.5rem;
+		}
+		.chart-grid-details {
+			margin-bottom: 0.5rem;
+		}
 		.chart-latest-mobile.active {
 			display: block;
 			font-size: 14px;
@@ -571,10 +552,6 @@
 		.chart-back-body p {
 			font-size: 14px;
 		}
-		.chart-back-subtitle {
-			font-size: 14px;
-			color: var(--color-text-gray);
-		}
 		.card-stats-table th {
 			font-size: 10px;
 		}
@@ -582,9 +559,6 @@
 			font-size: 12px;
 		}
 		.card-number {
-			font-size: 12px;
-		}
-		.chart-download-link {
 			font-size: 12px;
 		}
 	}
@@ -596,7 +570,7 @@
 		<ul class="ul_nav" id="menu">
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
-			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <i class="fa fa-external-link" aria-hidden="true" style="font-size: 0.7em"></i></a> </li>
+			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <i class="fa fa-external-link" aria-hidden="true"></i></a> </li>
 			<li><a href="python.html">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
 					<li><a href="imfapi1.html">IMF API</a></li>
@@ -630,18 +604,18 @@
 	</header>
 	<main id="main">
 	<section>
-	<article class="prose">
+	<article class="prose ind-intro">
 	<noscript><p class="noscript-warning">This page requires JavaScript to display interactive charts.</p></noscript>
 	<p class="callout accent-ltblue">Twenty key indicators tracking the US economy.</p>
 	<p>Browse interactive charts across seven categories: output, labor, prices, trade, monetary policy, government, and business. Tap the <i class="fa fa-info-circle" aria-hidden="true"></i> button on each chart for descriptions, data, and a downloadable CSV.</p>
-	<p>For a broader view, see the <a href="chartbook.html">US Chartbook</a> with 120+ charts.</p>
+	<p>For a broader view, see the <a href="chartbook.html">US Chartbook</a> with 250+ charts.</p>
 	</article>
 
-	<article>
+	<article class="ind-chart">
 		<select id="dataset-select" aria-label="Select chart" style="display:none"></select>
 		<div class="chart-selector">
 			<button class="chart-nav-btn" id="chart-prev" title="Previous chart" aria-label="Previous chart"><i class="fa fa-chevron-left"></i></button>
-			<span class="chart-selector-title" id="chart-selector-title"></span>
+			<h4 class="chart-selector-title" id="chart-selector-title"></h4>
 			<button class="chart-nav-btn" id="chart-next" title="Next chart" aria-label="Next chart"><i class="fa fa-chevron-right"></i></button>
 		</div>
 		<details class="chart-grid-details" id="chart-grid-details">
@@ -664,7 +638,7 @@
 							<p class="chart-latest-mobile" id="chart-latest-mobile"></p>
 						</div>
 						<div class="chart-footer">
-							<span class="chart-filter" id="chart-filter"><button type="button" onclick="toggleTimeRange()">Recent 3 years</button></span>
+							<span class="chart-filter" id="chart-filter" style="visibility: hidden"><button type="button" onclick="toggleTimeRange()">Recent 3 years</button></span>
 <span class="chart-source" id="chart-source">Source: Federal Reserve, BEA</span>
 						</div>
 					</div>
@@ -677,12 +651,12 @@
 						</div>
 						<div class="chart-body chart-back-body">
 							<p id="chart-description"></p>
-							<div class="chart-back-subtitle" id="chart-subtitle-back"></div>
+							<span class="chart-subtitle" id="chart-subtitle-back"></span>
 							<div id="chart-latest"></div>
 						</div>
 						<div class="chart-footer">
 							<span style="display: flex; align-items: center; gap: 10px;">
-								<svg id="card-back-logo" viewBox="0 0 9 5" width="16" height="9" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+								<svg class="chart-logo" viewBox="0 0 9 5" width="16" height="9" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
 								<span class="card-number" id="card-number"></span>
 							</span>
 							<a id="chart-download" href="files/m2gdp.csv" class="chart-download-link" download><i class="fa fa-download"></i> Download (.csv)</a>

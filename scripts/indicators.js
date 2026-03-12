@@ -1,4 +1,7 @@
-// Read theme colors from CSS variables
+// Read theme colors and fonts from CSS variables
+const FONT_BODY = getComputedStyle(document.documentElement).getPropertyValue('--font-body').trim() || 'Tahoma, Verdana, sans-serif';
+const FONT_UI = getComputedStyle(document.documentElement).getPropertyValue('--font-ui').trim() || 'system-ui, sans-serif';
+
 function getThemeColors() {
 	const style = getComputedStyle(document.documentElement);
 	const get = (name) => style.getPropertyValue(name).trim();
@@ -322,7 +325,7 @@ const lastValuePlugin = {
 			const allSameEnd = labelData.every(d => d.lastIdx === labelData[0].lastIdx);
 
 			ctx.save();
-			ctx.font = '10px Tahoma, Verdana, sans-serif';
+			ctx.font = `10px ${FONT_BODY}`;
 			ctx.textAlign = 'left';
 
 			if (allSameEnd && labelData.length > 1) {
@@ -416,7 +419,7 @@ const lastValuePlugin = {
 				: ['Q' + Math.ceil((lastDate.getUTCMonth() + 1) / 3), lastDate.getUTCFullYear()];
 
 			ctx.save();
-			ctx.font = '10px Tahoma, Verdana, sans-serif';
+			ctx.font = `10px ${FONT_BODY}`;
 			ctx.fillStyle = getThemeColors().axisText;
 			ctx.textAlign = 'left';
 			ctx.textBaseline = 'middle';
@@ -444,7 +447,7 @@ const dataLabelsPlugin = {
 		const decimals = config.decimals ?? 0;
 
 		ctx.save();
-		ctx.font = '12px Tahoma, Verdana, sans-serif';
+		ctx.font = `12px ${FONT_BODY}`;
 		ctx.fillStyle = getThemeColors().textDark;
 		ctx.textAlign = 'center';
 		ctx.textBaseline = 'bottom';
@@ -505,7 +508,7 @@ function renderDualBarChart(config, data, latestLabel, prevLabel) {
 
 	const legend = `<div class="hbar-legend">
 		<div class="hbar-legend-item"><div class="hbar-legend-swatch" style="background: var(--color-card-red);"></div>${latestLabel || 'Latest'}</div>
-		<div class="hbar-legend-item"><div class="hbar-legend-swatch" style="background: #d8dce0; border: 1px solid #b0b8c0; box-sizing: border-box;"></div>${prevLabel || 'Previous'}</div>
+		<div class="hbar-legend-item"><div class="hbar-legend-swatch hbar-fill-prev"></div>${prevLabel || 'Previous'}</div>
 	</div>`;
 
 	const zeroLinePos = labelPct + negShare * barPct;
@@ -1209,8 +1212,8 @@ async function loadChart(datasetId) {
 					tooltip: {
 						enabled: true,
 						backgroundColor: tc.tooltipBg,
-						titleFont: { size: 12, family: "system-ui, sans-serif" },
-						bodyFont: { size: 11, family: "Tahoma, Verdana, sans-serif" },
+						titleFont: { size: 12, family: FONT_UI },
+						bodyFont: { size: 11, family: FONT_BODY },
 						padding: 8,
 						cornerRadius: 2,
 						displayColors: isMultiSeries,
@@ -1253,7 +1256,7 @@ async function loadChart(datasetId) {
 						bounds: 'data',
 						grid: { display: false },
 						ticks: {
-							font: { size: config.timeSeries === false ? (window.innerWidth <= 760 ? 11 : 14) : 11, family: "Tahoma, Verdana, sans-serif" },
+							font: { size: config.timeSeries === false ? (window.innerWidth <= 760 ? 11 : 14) : 11, family: FONT_BODY },
 							color: config.timeSeries === false ? tc.textDark : tc.axisText,
 							callback: config.timeSeries !== false
 								? currentDateFormat.tickCallback
@@ -1270,9 +1273,9 @@ async function loadChart(datasetId) {
 							? { color: function(context) { return context.tick.value === 0 ? tc.axisText : 'transparent'; } }
 							: { color: tc.grid },
 						ticks: config.type === 'bar'
-							? { font: { size: 11, family: "Tahoma, Verdana, sans-serif" }, color: tc.axisText,
+							? { font: { size: 11, family: FONT_BODY }, color: tc.axisText,
 								callback: function(value) { return value === 0 ? '0' : ''; } }
-							: { font: { size: 11, family: "Tahoma, Verdana, sans-serif" }, color: tc.axisText },
+							: { font: { size: 11, family: FONT_BODY }, color: tc.axisText },
 						title: { display: false },
 						beginAtZero: config.type === 'bar' || config.beginAtZero || false,
 						min: config.yAxisMin ?? undefined,

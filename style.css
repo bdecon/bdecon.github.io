@@ -293,6 +293,7 @@ nav{
   position: relative;
   top: -1px;
 }
+.ul_nav .fa-external-link { font-size: 0.7em; }
 .ul_nav li a:hover{background-color: var(--color-nav-hover); }
 .ul_nav li a.active{background-color: var(--color-accent-red); font-weight: 700;}
 .ul_nav li.icon {display: none;}
@@ -636,10 +637,10 @@ tr:nth-child(even){background-color: var(--color-bg-alt)}
 	justify-content: space-between;
 	align-items: center;
 	& .chart-title { margin: 0; font-size: 18px; font-weight: 600; font-family: var(--font-ui); color: inherit; }
-	& a, & button { color: inherit; opacity: 0.7; font-size: 14px; }
+	& a, & button:not(.toggle-btn) { color: inherit; opacity: 0.7; font-size: 14px; }
 	& a { text-decoration: none; }
-	& button { background: none; border: none; cursor: pointer; padding: 0; }
-	& a:hover, & button:hover { opacity: 1; }
+	& button:not(.toggle-btn) { background: none; border: none; cursor: pointer; padding: 0; }
+	& a:hover, & button:not(.toggle-btn):hover { opacity: 1; }
 }
 .chart-header-indicator {
 	display: block;
@@ -682,6 +683,10 @@ tr:nth-child(even){background-color: var(--color-bg-alt)}
 	}
 	& button:hover { text-decoration: underline; }
 }
+.chart-legend {
+	font-size: 12px;
+	font-family: var(--font-ui);
+}
 .chart-legend-item {
 	display: flex;
 	align-items: center;
@@ -713,6 +718,32 @@ tr:nth-child(even){background-color: var(--color-bg-alt)}
 	opacity: 0.5;
 }
 .chart-footer-col { flex-direction: column; align-items: flex-start; }
+.chart-download-link {
+	display: inline-block;
+	margin: 0;
+	font-size: 12px;
+	font-family: var(--font-ui);
+	color: var(--color-link);
+	text-decoration: none;
+	&:hover { text-decoration: underline; }
+	&:visited { color: var(--color-link-visited); }
+	& .fa { margin-right: 3px; }
+}
+.chart-nav-btn {
+	background: none;
+	border: 1px solid var(--color-border-light);
+	border-radius: var(--radius);
+	color: var(--color-text-muted);
+	cursor: pointer;
+	padding: 6px 10px;
+	font-size: 12px;
+	line-height: 1;
+	transition: border-color 0.2s, color 0.2s;
+	&:hover {
+		border-color: var(--color-card-blue);
+		color: var(--color-card-blue);
+	}
+}
 
 /* Collapsible Details */
 .details-section {

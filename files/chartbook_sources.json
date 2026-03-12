@@ -105,9 +105,9 @@
     },
     {
       "name": "CPS Microdata",
-      "period": "Jan 2026",
+      "period": "Feb 2026",
       "freq": "monthly",
-      "last_changed": "2026-02-17"
+      "last_changed": "2026-03-11"
     },
     {
       "name": "State Unemployment",
@@ -129,9 +129,9 @@
     },
     {
       "name": "Treasury Statement",
-      "period": "Jan 2026",
+      "period": "Feb 2026",
       "freq": "monthly",
-      "last_changed": "2026-02-17"
+      "last_changed": "2026-03-11"
     },
     {
       "name": "Money Stock (M2)",
@@ -298,6 +298,18 @@
       "last_changed": "2026-03-11"
     },
     {
+      "name": "CPS Microdata",
+      "period": "Feb 2026",
+      "freq": "monthly",
+      "last_changed": "2026-03-11"
+    },
+    {
+      "name": "Treasury Statement",
+      "period": "Feb 2026",
+      "freq": "monthly",
+      "last_changed": "2026-03-11"
+    },
+    {
       "name": "GDP (Advance)",
       "period": "Q4 2025",
       "freq": "quarterly",
@@ -331,18 +343,6 @@
       "name": "Construction Spending",
       "period": "Dec 2025",
       "freq": "monthly",
-      "last_changed": "2026-03-08"
-    },
-    {
-      "name": "Oil Production",
-      "period": "Dec 2025",
-      "freq": "monthly",
-      "last_changed": "2026-03-08"
-    },
-    {
-      "name": "Mortgage Rates",
-      "period": "Mar 5, 2026",
-      "freq": "weekly",
       "last_changed": "2026-03-08"
     }
   ],

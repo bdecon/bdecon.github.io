@@ -1,6 +1,10 @@
 (function() {
 	'use strict';
 
+	// Read font families from CSS variables
+	const FONT_BODY = getComputedStyle(document.documentElement).getPropertyValue('--font-body').trim() || 'Tahoma, Verdana, sans-serif';
+	const FONT_UI = getComputedStyle(document.documentElement).getPropertyValue('--font-ui').trim() || 'system-ui, sans-serif';
+
 	// --- State ---
 	let DATA = null;
 	let chart = null;
@@ -979,7 +983,7 @@
 			const ctx = chart.ctx;
 			const tc = getThemeColors();
 			ctx.save();
-			ctx.font = '12px system-ui, -apple-system, sans-serif';
+			ctx.font = `12px ${FONT_UI}`;
 			ctx.fillStyle = tc.axisText;
 			ctx.textAlign = 'left';
 			ctx.textBaseline = 'bottom';
@@ -1081,7 +1085,7 @@
 			const area = chart.chartArea;
 			const tc = getThemeColors();
 			ctx.save();
-			ctx.font = '10px system-ui, -apple-system, sans-serif';
+			ctx.font = `10px ${FONT_UI}`;
 			ctx.fillStyle = tc.axisText;
 			ctx.textAlign = 'right';
 			if (info.nAbove) {

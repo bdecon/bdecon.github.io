@@ -84,7 +84,7 @@
 		<ul class="ul_nav" id="menu">
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
-			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <i class="fa fa-external-link" aria-hidden="true" style="font-size: 0.7em"></i></a> </li>
+			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <i class="fa fa-external-link" aria-hidden="true"></i></a> </li>
 			<li><a href="python.html" class="active" aria-current="page">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
 					<li><a href="imfapi1.html">IMF API</a></li>
@@ -144,7 +144,7 @@
 
 	<span class="step-label accent-teal">Read and filter the data</span>
 
-	<p>This example calculates the employment-to-population ratio for women age 25 to 54 in December 2025. First, we read only the columns we need from the CSV file. This speeds up the code and uses less memory than reading the entire file. We then filter to our population of interest: women (<tt>pesex == 2</tt>) between ages 25 and 54.</p>
+	<p>This example calculates the employment-to-population ratio for women age 25 to 54 in December 2025. First, we read only the columns we need from the CSV file. This speeds up the code and uses less memory than reading the entire file. We then filter to our population of interest: women (<code>pesex == 2</code>) between ages 25 and 54.</p>
 
 	<p>In[1]:</p>
 	<pre><code class="python">import pandas as pd
@@ -157,7 +157,7 @@ df = (pd.read_csv('dec25pub.csv', usecols=columns).dropna()
 
 	<span class="step-label accent-teal">Calculate the weighted employment rate</span>
 
-	<p>The CPS is a sample survey, so each observation represents many people in the population. The <tt>pwcmpwgt</tt> variable is the person-level composite weight, which tells us how many people each survey respondent represents. We create an indicator variable for employment (<tt>prempnot == 1</tt> means employed) and then calculate the weighted average to get the employment rate.</p>
+	<p>The CPS is a sample survey, so each observation represents many people in the population. The <code>pwcmpwgt</code> variable is the person-level composite weight, which tells us how many people each survey respondent represents. We create an indicator variable for employment (<code>prempnot == 1</code> means employed) and then calculate the weighted average to get the employment rate.</p>
 
 	<p>In[2]:</p>
 	<pre><code class="python"># Identify employed portion of group as 1 & the rest as 0
@@ -178,7 +178,7 @@ print(f'December 2025: {epop*100:.1f}%')</code></pre>
 
 	<p>If you are processing decades of monthly data, the struct method is the fastest approach. This method reads the fixed-width format files directly, where each variable occupies a specific position in each row of data.</p>
 
-	<p>Download the data dictionary (e.g., <tt>January_2017_Record_Layout.txt</tt>) and the microdata file (e.g., <tt>apr17pub.dat</tt>) from the <a href="https://www.census.gov/data/datasets/time-series/demo/cps/cps-basic.html">Census CPS page</a>. This example calculates the same employment-to-population ratio for women age 25 to 54, but for April 2017.</p>
+	<p>Download the data dictionary (e.g., <code>January_2017_Record_Layout.txt</code>) and the microdata file (e.g., <code>apr17pub.dat</code>) from the <a href="https://www.census.gov/data/datasets/time-series/demo/cps/cps-basic.html">Census CPS page</a>. This example calculates the same employment-to-population ratio for women age 25 to 54, but for April 2017.</p>
 
 	<p>In[3]:</p>
 	<pre><code class="python"># Import relevant libraries
@@ -188,7 +188,7 @@ import numpy as np</code></pre>
 
 	<span class="step-label accent-teal">Parse the data dictionary</span>
 
-	<p>The data dictionary file describes how to read the fixed-width format CPS microdata files. It tells us where each variable is located in the raw data. We manually identify four variables of interest: <tt>PRTAGE</tt> for age, <tt>PESEX</tt> for gender, <tt>PREMPNOT</tt> for employment status, and <tt>PWCMPWGT</tt> for the person-level composite weight.</p>
+	<p>The data dictionary file describes how to read the fixed-width format CPS microdata files. It tells us where each variable is located in the raw data. We manually identify four variables of interest: <code>PRTAGE</code> for age, <code>PESEX</code> for gender, <code>PREMPNOT</code> for employment status, and <code>PWCMPWGT</code> for the person-level composite weight.</p>
 
 	<p>In[4]:</p>
 	<pre><code class="python"># Read data dictionary text file
@@ -197,7 +197,7 @@ data_dict = open('January_2017_Record_Layout.txt').read()
 # Manually list out the IDs for series of interest
 var_names = ['PRTAGE', 'PESEX', 'PREMPNOT', 'PWCMPWGT']</code></pre>
 
-	<p>The data dictionary text file follows a pattern that makes it machine readable. We use a regular expression to extract the variable name, length, and start/end positions. The start location is adjusted by -1 for Python's zero-based indexing. The width is stored as a string ending in <tt>s</tt>, which is the struct format code for a character.</p>
+	<p>The data dictionary text file follows a pattern that makes it machine readable. We use a regular expression to extract the variable name, length, and start/end positions. The start location is adjusted by -1 for Python's zero-based indexing. The width is stored as a string ending in <code>s</code>, which is the struct format code for a character.</p>
 
 	<p>Note that data dictionaries change over time and don't follow a consistent format, so the regex pattern may need adjustment for different years.</p>
 
@@ -215,7 +215,7 @@ print(d)</code></pre>
 
 	<span class="step-label accent-teal">Build the struct format string</span>
 
-	<p>Python's <tt>struct</tt> module can efficiently parse binary data using a format string. The format string specifies which characters to keep and which to skip. For example, <tt>121x</tt> means skip 121 characters, while <tt>2s</tt> means keep the next 2 characters as a string. By chaining these together, we can extract just the variables we need from each row.</p>
+	<p>Python's <code>struct</code> module can efficiently parse binary data using a format string. The format string specifies which characters to keep and which to skip. For example, <code>121x</code> means skip 121 characters, while <code>2s</code> means keep the next 2 characters as a string. By chaining these together, we can extract just the variables we need from each row.</p>
 
 	<p>In[6]:</p>
 	<pre><code class="python"># Lists of variable starts, ends, and lengths
@@ -244,7 +244,7 @@ unpacker = struct.Struct(unpack_fmt).unpack_from</code></pre>
 
 	<pre style="white-space: pre-wrap; word-break: break-all;">000110116792163 42017 120100-1 1 1-1 115-1-1-1  15049796 1 2 1 7 2 0 205011 2  1 1-1-1-1 36 01 338600001103000   -1-1 1-1420 1 2 1 2-1 243 1-1 9-1 1-1 1 1 1 2 1 2 57 57 57 1 0 0 1 1 1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1 2-150-1-1 50-1-1-1-1 2-1 2-150-1 50-1-1    2 5 5-1 2 3 5 2-1-1-1-1-1 -1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1 -1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1 1-121 1 1 1 6-1-1-1 -1-1-1 1 2-1-1-1-1 1 2 1 6 4      -1-1       4 3 3 1 2 4-1-1 6-138-114-1 1 9-1 3-1 2 1 1 1 0-1-1-1-1  -1  -1  -1  -10-1      -10-1-1      -1      -10-1-1-1-1-1-1-1-1-1 2-1-1 2  15049796  22986106         0  16044411  15280235 0 0 1-1-1-1 0 0 1 0-1 050 0 0 0 0 1 0 0 0-1-1-1 1 0 0-1 1 1 0 1 0 1 1 0 1 1 1 0 1 0 1 1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1 0 0 0-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1 0 1 1 3865 1-1-1-1-1-1-1 1 1 1-1-1-1  1573071277704210  -1  -114-1-1-1-1-1 0-1-1-1-1-15050 1 1 1 2 2 2 2 2 2 2 0 0 0 0 0 0 0-1-1-1-1-1 1 1 1202020                                            A</pre>
 
-	<p>If we skip the first 121 characters and keep the next two, we find <tt>42</tt>, which is the age of the person in the first row of the microdata.</p>
+	<p>If we skip the first 121 characters and keep the next two, we find <code>42</code>, which is the age of the person in the first row of the microdata.</p>
 
 	<span class="step-label accent-teal">Read the raw microdata</span>
 
@@ -266,7 +266,7 @@ print(data[:5])</code></pre>
 
 	<span class="step-label accent-teal">Create pandas dataframe</span>
 
-	<p>We convert the list of lists to a pandas DataFrame for easier filtering and analysis. The DataFrame is filtered to women (<tt>PESEX == 2</tt>) between ages 25 and 54. The sample weights have four implied decimal places in the raw data, so we divide by 10,000 to get the actual weight values.</p>
+	<p>We convert the list of lists to a pandas DataFrame for easier filtering and analysis. The DataFrame is filtered to women (<code>PESEX == 2</code>) between ages 25 and 54. The sample weights have four implied decimal places in the raw data, so we divide by 10,000 to get the actual weight values.</p>
 
 	<p>In[9]:</p>
 	<pre><code class="python"># Pandas dataframe of women age 25 to 54
@@ -285,7 +285,7 @@ print(df.head().to_string(index=False))</code></pre>
 
 	<span class="step-label accent-teal">Calculate the weighted employment rate</span>
 
-	<p>As with the CSV method, we create an indicator variable for employment (<tt>PREMPNOT == 1</tt> means employed) and calculate the weighted average using the composite weight. The result matches the <a href="https://data.bls.gov/timeseries/LNU02300062">BLS published value</a> for April 2017.</p>
+	<p>As with the CSV method, we create an indicator variable for employment (<code>PREMPNOT == 1</code> means employed) and calculate the weighted average using the composite weight. The result matches the <a href="https://data.bls.gov/timeseries/LNU02300062">BLS published value</a> for April 2017.</p>
 
 	<p>In[10]:</p>
 	<pre><code class="python"># Identify employed portion of group as 1 & the rest as 0
