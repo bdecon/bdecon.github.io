@@ -2,12 +2,10 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Monthly GDP | BD Economics</title>
-	<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 	<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 	<link rel="stylesheet" href="style.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0"></script>
 	<meta name="description" content="Monthly estimates of US GDP, freely available for download. Useful for expressing economic data relative to overall activity.">
@@ -25,26 +23,14 @@
 	<meta name="twitter:title" content="Monthly GDP | BD Economics">
 	<meta name="twitter:description" content="Monthly estimates of US GDP, freely available for download. Useful for expressing economic data relative to overall activity.">
 	<meta name="twitter:image" content="https://bd-econ.com/images/01_bdlogo.png">
-	<link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
-	<link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-icon-114x114.png">
-	<link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
-	<link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-icon-144x144.png">
-	<link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-icon-152x152.png">
 	<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
-	<link rel="icon" type="image/png" sizes="192x192"  href="favicon/android-icon-192x192.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
 	<link rel="manifest" href="favicon/manifest.json">
-	<meta name="msapplication-TileColor" content="#ffffff">
-	<meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
 <script>
 (function() {
-	var saved = localStorage.getItem('theme');
+	const saved = localStorage.getItem('theme');
 	if (saved) {
 		document.documentElement.setAttribute('data-theme', saved);
 	} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -81,6 +67,26 @@
         {"@type": "Dataset", "name": "Gross Domestic Product (GDP)", "url": "https://fred.stlouisfed.org/series/GDP"},
         {"@type": "Dataset", "name": "Real Gross Domestic Product (GDPC1)", "url": "https://fred.stlouisfed.org/series/GDPC1"},
         {"@type": "Dataset", "name": "Atlanta Fed GDPNow", "url": "https://www.atlantafed.org/cqer/research/gdpnow"}
+    ]
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Reports",
+            "item": "https://bd-econ.com/reports.html"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Monthly GDP",
+            "item": "https://bd-econ.com/gdpm.html"
+        }
     ]
 }
 </script>
@@ -256,7 +262,7 @@
 		<ul class="ul_nav" id="menu">
 			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
-			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <i class="fa fa-external-link" aria-hidden="true"></i></a> </li>
+			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <svg class="icon icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a> </li>
 			<li><a href="python.html">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
 					<li><a href="getstarted.html">Getting Started</a></li>
@@ -277,14 +283,14 @@
 				<li><a href="imfweo.html">IMF WEO</a></li>
 			</ul>
 			</li>
-			<li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><i class="fa fa-moon-o" id="theme-icon"></i></button></li>
+			<li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span></button></li>
 			<li class="icon">
 				<button type="button" onclick="responsiveNav()" aria-label="Toggle navigation menu" aria-expanded="false">&#9776;</button>
 			</li>
 		</ul>
 	</nav>
 	<div class="page-strip page-strip-compact accent-red">
-		<img decoding="async" src="images/gdpm_banner.png" alt="" aria-hidden="true" class="page-strip-img">
+		<picture><source srcset="images/gdpm_banner.webp" type="image/webp"><img decoding="async" fetchpriority="high" src="images/gdpm_banner.png" alt="" aria-hidden="true" class="page-strip-img"></picture>
 	</div>
 	<header>
 	<h1>Monthly GDP</h1>
@@ -299,7 +305,7 @@
 		<div class="chart-container">
 			<div class="chart-header accent-red">
 				<span class="chart-title">Monthly US GDP</span>
-				<a href="files/gdpm.csv" title="Download as .csv" download><i class="fa fa-download"></i></a>
+				<a href="files/gdpm.csv" title="Download as .csv" download><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg></a>
 			</div>
 			<div class="chart-body">
 				<div class="chart-body-header">
@@ -327,7 +333,7 @@
 			<div class="info-box info-section">
 				<h3>Download Data</h3>
 				<p class="download-desc">Monthly nominal and real GDP in billions of USD, seasonally adjusted annual rate</p>
-				<a href="files/gdpm.csv" class="download-btn" download><i class="fa fa-download"></i> gdpm.csv<span class="file-meta" id="file-meta"></span></a>
+				<a href="files/gdpm.csv" class="download-btn" download><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> gdpm.csv<span class="file-meta" id="file-meta"></span></a>
 			</div>
 		</div>
 	</div>
@@ -404,10 +410,10 @@
 			<p><time datetime="2026">2026</time>, by Brian Dew</p>
 		</div>
 		<div class="footer_right">
-			<a href="https://github.com/bdecon/" aria-label="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
-			<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-			<a href="https://twitter.com/bd_econ" aria-label="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-			<a href="https://briandew.wordpress.com/" target="_blank" rel="noopener" aria-label="WordPress Blog"><i class="fa fa-wordpress" aria-hidden="true"></i></a>
+			<a href="https://github.com/bdecon/" aria-label="GitHub"><svg class="icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+			<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><svg class="icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.016-.709-.52-1.248-1.342-1.248S1.4 3.226 1.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a.3.3 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/></svg></a>
+			<a href="https://twitter.com/bd_econ" aria-label="Twitter"><svg class="icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334q.002-.211-.006-.422A6.7 6.7 0 0 0 16 3.542a6.7 6.7 0 0 1-1.889.518 3.3 3.3 0 0 0 1.447-1.817 6.5 6.5 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.32 9.32 0 0 1-6.767-3.429 3.29 3.29 0 0 0 1.018 4.382A3.3 3.3 0 0 1 .64 6.575v.045a3.29 3.29 0 0 0 2.632 3.218 3.2 3.2 0 0 1-.865.115 3 3 0 0 1-.614-.057 3.28 3.28 0 0 0 3.067 2.277A6.6 6.6 0 0 1 .78 13.58a6 6 0 0 1-.78-.045A9.34 9.34 0 0 0 5.026 15"/></svg></a>
+			<a href="https://briandew.wordpress.com/" target="_blank" rel="noopener" aria-label="WordPress Blog"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.469 6.825c.84 1.537 1.318 3.3 1.318 5.175 0 3.979-2.156 7.456-5.363 9.325l3.295-9.527c.615-1.54.82-2.771.82-3.864 0-.405-.026-.78-.07-1.11m-7.981.105c.647-.03 1.232-.105 1.232-.105.582-.075.514-.93-.067-.899 0 0-1.755.135-2.88.135-1.064 0-2.85-.15-2.85-.15-.585-.03-.661.855-.075.885 0 0 .54.061 1.125.09l1.68 4.605-2.37 7.08L5.354 6.9c.649-.03 1.234-.1 1.234-.1.585-.075.516-.93-.065-.896 0 0-1.746.138-2.874.138-.2 0-.438-.008-.69-.015C4.911 3.15 8.235 1.215 12 1.215c2.809 0 5.365 1.072 7.286 2.833-.046-.003-.091-.009-.141-.009-1.06 0-1.812.923-1.812 1.914 0 .89.513 1.643 1.06 2.531.411.72.89 1.643.89 2.977 0 .915-.354 1.994-.821 3.479l-1.075 3.585-3.9-11.61.001.014zM12 22.784c-1.059 0-2.081-.153-3.048-.437l3.237-9.406 3.315 9.087c.024.053.05.101.078.149-1.12.393-2.325.609-3.582.609M1.211 12c0-1.564.336-3.05.935-4.39L7.29 21.709C3.694 19.96 1.212 16.271 1.211 12M12 0C5.385 0 0 5.385 0 12s5.385 12 12 12 12-5.385 12-12S18.615 0 12 0"/></svg></a>
 		</div>
 	</footer>
 	<script src="scripts/nav.js"></script>
