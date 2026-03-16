@@ -1,5 +1,5 @@
 {
-  "generated": "2026-03-15",
+  "generated": "2026-03-16",
   "releases": [
     {
       "name": "Employment Situation",
@@ -51,9 +51,9 @@
     },
     {
       "name": "Industrial Production",
-      "period": "Jan 2026",
+      "period": "Feb 2026",
       "freq": "monthly",
-      "last_changed": "2026-02-18"
+      "last_changed": "2026-03-16"
     },
     {
       "name": "Construction Spending",
@@ -286,6 +286,12 @@
   ],
   "recent": [
     {
+      "name": "Industrial Production",
+      "period": "Feb 2026",
+      "freq": "monthly",
+      "last_changed": "2026-03-16"
+    },
+    {
       "name": "Personal Income & Outlays",
       "period": "Jan 2026",
       "freq": "monthly",
@@ -338,12 +344,6 @@
       "period": "Mar 7, 2026",
       "freq": "weekly",
       "last_changed": "2026-03-12"
-    },
-    {
-      "name": "Employment Situation",
-      "period": "Jan 2026",
-      "freq": "monthly",
-      "last_changed": "2026-03-11"
     }
   ],
   "st_series": [
