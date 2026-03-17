@@ -52,7 +52,8 @@ const subfooterHubs = {
 			{ href: 'chartbook.html', label: 'US Chartbook' },
 			{ href: 'indicators.html', label: 'Economic Indicators' },
 			{ href: 'gdpm.html', label: 'Monthly GDP' },
-			{ href: 'imfweo.html', label: 'IMF WEO' }
+			{ href: 'imfweo.html', label: 'IMF WEO' },
+			{ href: 'calendar.html', label: 'Release Calendar' }
 		]
 	}
 };

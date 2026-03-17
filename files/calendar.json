@@ -1,0 +1,993 @@
+{
+  "generated": "2026-03-16T21:22:41",
+  "range": {
+    "start": "2026-03-16",
+    "end": "2026-06-14"
+  },
+  "entries": [
+    {
+      "name": "Industrial Production",
+      "date": "2026-03-16",
+      "time": "9:15 AM ET",
+      "frequency": "monthly",
+      "agency": "Fed",
+      "link": "indicators.html"
+    },
+    {
+      "name": "Producer Price Index",
+      "date": "2026-03-18",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS",
+      "link": null
+    },
+    {
+      "name": "Durable Goods Orders",
+      "date": "2026-03-18",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "Census",
+      "link": null
+    },
+    {
+      "name": "FOMC Projections",
+      "date": "2026-03-18",
+      "time": "2:00 PM ET",
+      "frequency": "quarterly",
+      "agency": "Fed",
+      "link": null
+    },
+    {
+      "name": "TIC Capital Flows",
+      "date": "2026-03-18",
+      "time": "4:00 PM ET",
+      "frequency": "monthly",
+      "agency": "Treasury",
+      "link": null
+    },
+    {
+      "name": "Jobless Claims",
+      "date": "2026-03-19",
+      "time": "8:30 AM ET",
+      "frequency": "weekly",
+      "agency": "DOL",
+      "link": null
+    },
+    {
+      "name": "New Home Sales",
+      "date": "2026-03-19",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "Census",
+      "link": null
+    },
+    {
+      "name": "Mortgage Rates",
+      "date": "2026-03-19",
+      "time": "12:00 PM ET",
+      "frequency": "weekly",
+      "agency": "Freddie Mac",
+      "link": null
+    },
+    {
+      "name": "Financial Accounts (Z.1)",
+      "date": "2026-03-19",
+      "time": "12:00 PM ET",
+      "frequency": "quarterly",
+      "agency": "Fed",
+      "link": null
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "date": "2026-03-19",
+      "time": "4:30 PM ET",
+      "frequency": "weekly",
+      "agency": "Fed",
+      "link": null
+    },
+    {
+      "name": "Construction Spending",
+      "date": "2026-03-23",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "Census",
+      "link": null
+    },
+    {
+      "name": "Productivity & Costs",
+      "date": "2026-03-24",
+      "time": "8:30 AM ET",
+      "frequency": "quarterly",
+      "agency": "BLS",
+      "link": "indicators.html"
+    },
+    {
+      "name": "New Home Sales",
+      "date": "2026-03-24",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "Census",
+      "link": null
+    },
+    {
+      "name": "Money Stock (M2)",
+      "date": "2026-03-24",
+      "time": "1:00 PM ET",
+      "frequency": "monthly",
+      "agency": "Fed",
+      "link": "indicators.html"
+    },
+    {
+      "name": "Import/Export Prices",
+      "date": "2026-03-25",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS",
+      "link": null
+    },
+    {
+      "name": "Current Account",
+      "date": "2026-03-25",
+      "time": "8:30 AM ET",
+      "frequency": "quarterly",
+      "agency": "BEA",
+      "link": null
+    },
+    {
+      "name": "International Investment",
+      "date": "2026-03-25",
+      "time": "8:30 AM ET",
+      "frequency": "quarterly",
+      "agency": "BEA",
+      "link": null
+    },
+    {
+      "name": "Jobless Claims",
+      "date": "2026-03-26",
+      "time": "8:30 AM ET",
+      "frequency": "weekly",
+      "agency": "DOL",
+      "link": null
+    },
+    {
+      "name": "Mortgage Rates",
+      "date": "2026-03-26",
+      "time": "12:00 PM ET",
+      "frequency": "weekly",
+      "agency": "Freddie Mac",
+      "link": null
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "date": "2026-03-26",
+      "time": "4:30 PM ET",
+      "frequency": "weekly",
+      "agency": "Fed",
+      "link": null
+    },
+    {
+      "name": "Consumer Sentiment",
+      "date": "2026-03-27",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "U of Michigan",
+      "link": null
+    },
+    {
+      "name": "House Prices",
+      "date": "2026-03-31",
+      "time": "9:00 AM ET",
+      "frequency": "monthly",
+      "agency": "S&P/Case-Shiller",
+      "link": "indicators.html"
+    },
+    {
+      "name": "JOLTS",
+      "date": "2026-03-31",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS",
+      "link": "indicators.html"
+    },
+    {
+      "name": "Construction Spending",
+      "date": "2026-04-01",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "Census",
+      "link": null
+    },
+    {
+      "name": "International Trade",
+      "date": "2026-04-02",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BEA/Census",
+      "link": "indicators.html"
+    },
+    {
+      "name": "Durable Goods Orders",
+      "date": "2026-04-02",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "Census",
+      "link": null
+    },
+    {
+      "name": "Jobless Claims",
+      "date": "2026-04-02",
+      "time": "8:30 AM ET",
+      "frequency": "weekly",
+      "agency": "DOL",
+      "link": null
+    },
+    {
+      "name": "Mortgage Rates",
+      "date": "2026-04-02",
+      "time": "12:00 PM ET",
+      "frequency": "weekly",
+      "agency": "Freddie Mac",
+      "link": null
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "date": "2026-04-02",
+      "time": "4:30 PM ET",
+      "frequency": "weekly",
+      "agency": "Fed",
+      "link": null
+    },
+    {
+      "name": "Employment Situation",
+      "date": "2026-04-03",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS",
+      "link": "indicators.html"
+    },
+    {
+      "name": "State Unemployment",
+      "date": "2026-04-08",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS",
+      "link": null
+    },
+    {
+      "name": "Personal Income & Outlays",
+      "date": "2026-04-09",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BEA",
+      "link": "indicators.html"
+    },
+    {
+      "name": "Jobless Claims",
+      "date": "2026-04-09",
+      "time": "8:30 AM ET",
+      "frequency": "weekly",
+      "agency": "DOL",
+      "link": null
+    },
+    {
+      "name": "GDP",
+      "date": "2026-04-09",
+      "time": "8:30 AM ET",
+      "frequency": "quarterly",
+      "agency": "BEA",
+      "link": "gdpm.html"
+    },
+    {
+      "name": "GDP by Industry",
+      "date": "2026-04-09",
+      "time": "8:30 AM ET",
+      "frequency": "quarterly",
+      "agency": "BEA",
+      "link": null
+    },
+    {
+      "name": "GDP by State",
+      "date": "2026-04-09",
+      "time": "8:30 AM ET",
+      "frequency": "quarterly",
+      "agency": "BEA",
+      "link": null
+    },
+    {
+      "name": "Mortgage Rates",
+      "date": "2026-04-09",
+      "time": "12:00 PM ET",
+      "frequency": "weekly",
+      "agency": "Freddie Mac",
+      "link": null
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "date": "2026-04-09",
+      "time": "4:30 PM ET",
+      "frequency": "weekly",
+      "agency": "Fed",
+      "link": null
+    },
+    {
+      "name": "Consumer Price Index",
+      "date": "2026-04-10",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS",
+      "link": "indicators.html"
+    },
+    {
+      "name": "Treasury Statement",
+      "date": "2026-04-10",
+      "time": "2:00 PM ET",
+      "frequency": "monthly",
+      "agency": "Treasury",
+      "link": "treasuryapi.html"
+    },
+    {
+      "name": "Producer Price Index",
+      "date": "2026-04-14",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS",
+      "link": null
+    },
+    {
+      "name": "Consumer Expectations",
+      "date": "2026-04-14",
+      "time": "11:00 AM ET",
+      "frequency": "monthly",
+      "agency": "NY Fed",
+      "link": null
+    },
+    {
+      "name": "Import/Export Prices",
+      "date": "2026-04-15",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS",
+      "link": null
+    },
+    {
+      "name": "TIC Capital Flows",
+      "date": "2026-04-15",
+      "time": "4:00 PM ET",
+      "frequency": "monthly",
+      "agency": "Treasury",
+      "link": null
+    },
+    {
+      "name": "Retail Sales",
+      "date": "2026-04-16",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "Census",
+      "link": null
+    },
+    {
+      "name": "Jobless Claims",
+      "date": "2026-04-16",
+      "time": "8:30 AM ET",
+      "frequency": "weekly",
+      "agency": "DOL",
+      "link": null
+    },
+    {
+      "name": "Industrial Production",
+      "date": "2026-04-16",
+      "time": "9:15 AM ET",
+      "frequency": "monthly",
+      "agency": "Fed",
+      "link": "indicators.html"
+    },
+    {
+      "name": "Metro Unemployment",
+      "date": "2026-04-16",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS",
+      "link": null
+    },
+    {
+      "name": "Mortgage Rates",
+      "date": "2026-04-16",
+      "time": "12:00 PM ET",
+      "frequency": "weekly",
+      "agency": "Freddie Mac",
+      "link": null
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "date": "2026-04-16",
+      "time": "4:30 PM ET",
+      "frequency": "weekly",
+      "agency": "Fed",
+      "link": null
+    },
+    {
+      "name": "State Unemployment",
+      "date": "2026-04-22",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS",
+      "link": null
+    },
+    {
+      "name": "Housing Starts",
+      "date": "2026-04-23",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "Census",
+      "link": null
+    },
+    {
+      "name": "Jobless Claims",
+      "date": "2026-04-23",
+      "time": "8:30 AM ET",
+      "frequency": "weekly",
+      "agency": "DOL",
+      "link": null
+    },
+    {
+      "name": "New Home Sales",
+      "date": "2026-04-23",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "Census",
+      "link": null
+    },
+    {
+      "name": "Mortgage Rates",
+      "date": "2026-04-23",
+      "time": "12:00 PM ET",
+      "frequency": "weekly",
+      "agency": "Freddie Mac",
+      "link": null
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "date": "2026-04-23",
+      "time": "4:30 PM ET",
+      "frequency": "weekly",
+      "agency": "Fed",
+      "link": null
+    },
+    {
+      "name": "Durable Goods Orders",
+      "date": "2026-04-24",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "Census",
+      "link": null
+    },
+    {
+      "name": "Consumer Sentiment",
+      "date": "2026-04-24",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "U of Michigan",
+      "link": null
+    },
+    {
+      "name": "House Prices",
+      "date": "2026-04-28",
+      "time": "9:00 AM ET",
+      "frequency": "monthly",
+      "agency": "S&P/Case-Shiller",
+      "link": "indicators.html"
+    },
+    {
+      "name": "Homeownership",
+      "date": "2026-04-28",
+      "time": "10:00 AM ET",
+      "frequency": "quarterly",
+      "agency": "Census",
+      "link": null
+    },
+    {
+      "name": "Money Stock (M2)",
+      "date": "2026-04-28",
+      "time": "1:00 PM ET",
+      "frequency": "monthly",
+      "agency": "Fed",
+      "link": "indicators.html"
+    },
+    {
+      "name": "Metro Unemployment",
+      "date": "2026-04-29",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS",
+      "link": null
+    },
+    {
+      "name": "Personal Income & Outlays",
+      "date": "2026-04-30",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BEA",
+      "link": "indicators.html"
+    },
+    {
+      "name": "Jobless Claims",
+      "date": "2026-04-30",
+      "time": "8:30 AM ET",
+      "frequency": "weekly",
+      "agency": "DOL",
+      "link": null
+    },
+    {
+      "name": "GDP",
+      "date": "2026-04-30",
+      "time": "8:30 AM ET",
+      "frequency": "quarterly",
+      "agency": "BEA",
+      "link": "gdpm.html"
+    },
+    {
+      "name": "Employment Cost Index",
+      "date": "2026-04-30",
+      "time": "8:30 AM ET",
+      "frequency": "quarterly",
+      "agency": "BLS",
+      "link": null
+    },
+    {
+      "name": "Mortgage Rates",
+      "date": "2026-04-30",
+      "time": "12:00 PM ET",
+      "frequency": "weekly",
+      "agency": "Freddie Mac",
+      "link": null
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "date": "2026-04-30",
+      "time": "4:30 PM ET",
+      "frequency": "weekly",
+      "agency": "Fed",
+      "link": null
+    },
+    {
+      "name": "Construction Spending",
+      "date": "2026-05-01",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "Census",
+      "link": null
+    },
+    {
+      "name": "Durable Goods Orders",
+      "date": "2026-05-04",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "Census",
+      "link": null
+    },
+    {
+      "name": "International Trade",
+      "date": "2026-05-05",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BEA/Census",
+      "link": "indicators.html"
+    },
+    {
+      "name": "JOLTS",
+      "date": "2026-05-05",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS",
+      "link": "indicators.html"
+    },
+    {
+      "name": "State Unemployment",
+      "date": "2026-05-06",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS",
+      "link": null
+    },
+    {
+      "name": "Jobless Claims",
+      "date": "2026-05-07",
+      "time": "8:30 AM ET",
+      "frequency": "weekly",
+      "agency": "DOL",
+      "link": null
+    },
+    {
+      "name": "Productivity & Costs",
+      "date": "2026-05-07",
+      "time": "8:30 AM ET",
+      "frequency": "quarterly",
+      "agency": "BLS",
+      "link": "indicators.html"
+    },
+    {
+      "name": "Mortgage Rates",
+      "date": "2026-05-07",
+      "time": "12:00 PM ET",
+      "frequency": "weekly",
+      "agency": "Freddie Mac",
+      "link": null
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "date": "2026-05-07",
+      "time": "4:30 PM ET",
+      "frequency": "weekly",
+      "agency": "Fed",
+      "link": null
+    },
+    {
+      "name": "Employment Situation",
+      "date": "2026-05-08",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS",
+      "link": "indicators.html"
+    },
+    {
+      "name": "Consumer Price Index",
+      "date": "2026-05-12",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS",
+      "link": "indicators.html"
+    },
+    {
+      "name": "Consumer Expectations",
+      "date": "2026-05-12",
+      "time": "11:00 AM ET",
+      "frequency": "monthly",
+      "agency": "NY Fed",
+      "link": null
+    },
+    {
+      "name": "Treasury Statement",
+      "date": "2026-05-12",
+      "time": "2:00 PM ET",
+      "frequency": "monthly",
+      "agency": "Treasury",
+      "link": "treasuryapi.html"
+    },
+    {
+      "name": "Producer Price Index",
+      "date": "2026-05-13",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS",
+      "link": null
+    },
+    {
+      "name": "Import/Export Prices",
+      "date": "2026-05-14",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS",
+      "link": null
+    },
+    {
+      "name": "Retail Sales",
+      "date": "2026-05-14",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "Census",
+      "link": null
+    },
+    {
+      "name": "Jobless Claims",
+      "date": "2026-05-14",
+      "time": "8:30 AM ET",
+      "frequency": "weekly",
+      "agency": "DOL",
+      "link": null
+    },
+    {
+      "name": "Mortgage Rates",
+      "date": "2026-05-14",
+      "time": "12:00 PM ET",
+      "frequency": "weekly",
+      "agency": "Freddie Mac",
+      "link": null
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "date": "2026-05-14",
+      "time": "4:30 PM ET",
+      "frequency": "weekly",
+      "agency": "Fed",
+      "link": null
+    },
+    {
+      "name": "Industrial Production",
+      "date": "2026-05-15",
+      "time": "9:15 AM ET",
+      "frequency": "monthly",
+      "agency": "Fed",
+      "link": "indicators.html"
+    },
+    {
+      "name": "TIC Capital Flows",
+      "date": "2026-05-18",
+      "time": "4:00 PM ET",
+      "frequency": "monthly",
+      "agency": "Treasury",
+      "link": null
+    },
+    {
+      "name": "Metro Unemployment",
+      "date": "2026-05-19",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS",
+      "link": null
+    },
+    {
+      "name": "Jobless Claims",
+      "date": "2026-05-21",
+      "time": "8:30 AM ET",
+      "frequency": "weekly",
+      "agency": "DOL",
+      "link": null
+    },
+    {
+      "name": "Mortgage Rates",
+      "date": "2026-05-21",
+      "time": "12:00 PM ET",
+      "frequency": "weekly",
+      "agency": "Freddie Mac",
+      "link": null
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "date": "2026-05-21",
+      "time": "4:30 PM ET",
+      "frequency": "weekly",
+      "agency": "Fed",
+      "link": null
+    },
+    {
+      "name": "Consumer Sentiment",
+      "date": "2026-05-22",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "U of Michigan",
+      "link": null
+    },
+    {
+      "name": "State Unemployment",
+      "date": "2026-05-22",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS",
+      "link": null
+    },
+    {
+      "name": "House Prices",
+      "date": "2026-05-26",
+      "time": "9:00 AM ET",
+      "frequency": "monthly",
+      "agency": "S&P/Case-Shiller",
+      "link": "indicators.html"
+    },
+    {
+      "name": "Money Stock (M2)",
+      "date": "2026-05-26",
+      "time": "1:00 PM ET",
+      "frequency": "monthly",
+      "agency": "Fed",
+      "link": "indicators.html"
+    },
+    {
+      "name": "Housing Starts",
+      "date": "2026-05-27",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "Census",
+      "link": null
+    },
+    {
+      "name": "New Home Sales",
+      "date": "2026-05-27",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "Census",
+      "link": null
+    },
+    {
+      "name": "Personal Income & Outlays",
+      "date": "2026-05-28",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BEA",
+      "link": "indicators.html"
+    },
+    {
+      "name": "Durable Goods Orders",
+      "date": "2026-05-28",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "Census",
+      "link": null
+    },
+    {
+      "name": "Jobless Claims",
+      "date": "2026-05-28",
+      "time": "8:30 AM ET",
+      "frequency": "weekly",
+      "agency": "DOL",
+      "link": null
+    },
+    {
+      "name": "GDP",
+      "date": "2026-05-28",
+      "time": "8:30 AM ET",
+      "frequency": "quarterly",
+      "agency": "BEA",
+      "link": "gdpm.html"
+    },
+    {
+      "name": "Mortgage Rates",
+      "date": "2026-05-28",
+      "time": "12:00 PM ET",
+      "frequency": "weekly",
+      "agency": "Freddie Mac",
+      "link": null
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "date": "2026-05-28",
+      "time": "4:30 PM ET",
+      "frequency": "weekly",
+      "agency": "Fed",
+      "link": null
+    },
+    {
+      "name": "Construction Spending",
+      "date": "2026-06-01",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "Census",
+      "link": null
+    },
+    {
+      "name": "JOLTS",
+      "date": "2026-06-02",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS",
+      "link": "indicators.html"
+    },
+    {
+      "name": "Durable Goods Orders",
+      "date": "2026-06-03",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "Census",
+      "link": null
+    },
+    {
+      "name": "Metro Unemployment",
+      "date": "2026-06-03",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS",
+      "link": null
+    },
+    {
+      "name": "Jobless Claims",
+      "date": "2026-06-04",
+      "time": "8:30 AM ET",
+      "frequency": "weekly",
+      "agency": "DOL",
+      "link": null
+    },
+    {
+      "name": "Productivity & Costs",
+      "date": "2026-06-04",
+      "time": "8:30 AM ET",
+      "frequency": "quarterly",
+      "agency": "BLS",
+      "link": "indicators.html"
+    },
+    {
+      "name": "Mortgage Rates",
+      "date": "2026-06-04",
+      "time": "12:00 PM ET",
+      "frequency": "weekly",
+      "agency": "Freddie Mac",
+      "link": null
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "date": "2026-06-04",
+      "time": "4:30 PM ET",
+      "frequency": "weekly",
+      "agency": "Fed",
+      "link": null
+    },
+    {
+      "name": "Employment Situation",
+      "date": "2026-06-05",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS",
+      "link": "indicators.html"
+    },
+    {
+      "name": "International Trade",
+      "date": "2026-06-09",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BEA/Census",
+      "link": "indicators.html"
+    },
+    {
+      "name": "Consumer Expectations",
+      "date": "2026-06-09",
+      "time": "11:00 AM ET",
+      "frequency": "monthly",
+      "agency": "NY Fed",
+      "link": null
+    },
+    {
+      "name": "Consumer Price Index",
+      "date": "2026-06-10",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS",
+      "link": "indicators.html"
+    },
+    {
+      "name": "Treasury Statement",
+      "date": "2026-06-10",
+      "time": "2:00 PM ET",
+      "frequency": "monthly",
+      "agency": "Treasury",
+      "link": "treasuryapi.html"
+    },
+    {
+      "name": "Producer Price Index",
+      "date": "2026-06-11",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS",
+      "link": null
+    },
+    {
+      "name": "Jobless Claims",
+      "date": "2026-06-11",
+      "time": "8:30 AM ET",
+      "frequency": "weekly",
+      "agency": "DOL",
+      "link": null
+    },
+    {
+      "name": "Mortgage Rates",
+      "date": "2026-06-11",
+      "time": "12:00 PM ET",
+      "frequency": "weekly",
+      "agency": "Freddie Mac",
+      "link": null
+    },
+    {
+      "name": "Financial Accounts (Z.1)",
+      "date": "2026-06-11",
+      "time": "12:00 PM ET",
+      "frequency": "quarterly",
+      "agency": "Fed",
+      "link": null
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "date": "2026-06-11",
+      "time": "4:30 PM ET",
+      "frequency": "weekly",
+      "agency": "Fed",
+      "link": null
+    }
+  ]
+}

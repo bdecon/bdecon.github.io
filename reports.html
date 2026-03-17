@@ -51,7 +51,8 @@
         {"@type": "Report", "name": "US Chartbook", "url": "https://bd-econ.com/chartbook.html", "description": "250+ charts on the US economy covering labor markets, inflation, GDP, trade, and more."},
         {"@type": "WebApplication", "name": "Economic Indicators", "url": "https://bd-econ.com/indicators.html", "description": "Interactive charts for selected US economic indicators."},
         {"@type": "WebApplication", "name": "Monthly GDP", "url": "https://bd-econ.com/gdpm.html", "description": "Monthly estimates of US nominal and real GDP, combining quarterly BEA data with Fed nowcasts."},
-        {"@type": "WebApplication", "name": "IMF WEO Forecast Tracker", "url": "https://bd-econ.com/imfweo.html", "description": "Track how IMF World Economic Outlook forecasts for 196 countries evolved across 39 editions."}
+        {"@type": "WebApplication", "name": "IMF WEO Forecast Tracker", "url": "https://bd-econ.com/imfweo.html", "description": "Track how IMF World Economic Outlook forecasts for 196 countries evolved across 39 editions."},
+        {"@type": "WebApplication", "name": "Release Calendar", "url": "https://bd-econ.com/calendar.html", "description": "Upcoming US economic data release dates for 35+ indicators, sourced from the FRED API."}
     ]
 }
 </script>
@@ -90,6 +91,7 @@
 				<li><a href="indicators.html">Economic Indicators</a></li>
 				<li><a href="gdpm.html">Monthly GDP</a></li>
 				<li><a href="imfweo.html">IMF WEO</a></li>
+				<li><a href="calendar.html">Release Calendar</a></li>
 			</ul>
 			</li>
 			<li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span></button></li>
@@ -164,6 +166,20 @@
 		</div>
 		<div class="nav-card-body">
 			<p>Track how IMF World Economic Outlook forecasts for 196 countries evolved across 39 editions. GDP growth, inflation, debt, and more.</p>
+		</div>
+	</div>
+	</a>
+	<a href="calendar.html">
+	<div class="nav-card accent-brown">
+
+		<div class="nav-card-banner">
+			<picture><source srcset="images/calendar_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/calendar_banner.png" alt="Release Calendar" width="512" height="98"></picture>
+		</div>
+		<div class="nav-card-head">
+			<h3>Release Calendar</h3>
+		</div>
+		<div class="nav-card-body">
+			<p>When to expect the next jobs report, CPI, GDP, and 30+ other releases that feed into the Chartbook. Filterable by frequency and significance.</p>
 		</div>
 	</div>
 	</a>

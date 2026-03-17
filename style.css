@@ -125,6 +125,7 @@
   --color-card-purple: #553581;
   --color-card-ltblue: #4A90C4;
   --color-card-teal: #2A8A8A;
+  --color-card-brown: #8B6914;
 }
 
 /* Dark theme
@@ -210,6 +211,7 @@
   --color-card-purple: #7a50b0;
   --color-card-ltblue: #6AAAD4;
   --color-card-teal: #3aadad;
+  --color-card-brown: #a88030;
 }
 /* ===== Accent Colors ===== */
 .accent-blue   { --accent: var(--color-card-blue); }
@@ -219,6 +221,7 @@
 .accent-purple { --accent: var(--color-card-purple); }
 .accent-teal   { --accent: var(--color-card-teal); }
 .accent-ltblue { --accent: var(--color-card-ltblue); }
+.accent-brown  { --accent: var(--color-card-brown); }
 /* ===== Base & Typography ===== */
 
 /* Focus styles for keyboard navigation */

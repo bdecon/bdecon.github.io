@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Release Calendar | BD Economics</title>
+	<link rel="stylesheet" href="style.css">
+	<meta name="description" content="Upcoming US economic data releases: Employment Situation, CPI, GDP, and 30+ indicators tracked by the US Chartbook. Dates from FRED with links to related charts and tutorials.">
+	<meta name="keywords" content="economic data release calendar, BLS release dates, BEA release dates, CPI release date, jobs report date, GDP release date, economic indicators schedule">
+	<meta name="author" content="Brian Dew">
+	<link rel="canonical" href="https://bd-econ.com/calendar.html">
+	<!-- Open Graph -->
+	<meta property="og:title" content="Release Calendar | BD Economics">
+	<meta property="og:description" content="Upcoming US economic data releases: Employment Situation, CPI, GDP, and 30+ indicators. Dates from FRED.">
+	<meta property="og:url" content="https://bd-econ.com/calendar.html">
+	<meta property="og:type" content="website">
+	<meta property="og:image" content="https://bd-econ.com/images/01_bdlogo.png">
+	<!-- Twitter Card -->
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Release Calendar | BD Economics">
+	<meta name="twitter:description" content="Upcoming US economic data releases: Employment Situation, CPI, GDP, and 30+ indicators. Dates from FRED.">
+	<meta name="twitter:image" content="https://bd-econ.com/images/01_bdlogo.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+	<link rel="manifest" href="favicon/manifest.json">
+	<meta name="theme-color" content="#ffffff">
+<script>
+(function() {
+	const saved = localStorage.getItem('theme');
+	if (saved) {
+		document.documentElement.setAttribute('data-theme', saved);
+	} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+		document.documentElement.setAttribute('data-theme', 'dark');
+	}
+})();
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "US Economic Data Release Calendar",
+    "description": "Upcoming release dates for 35+ US economic data series from BLS, BEA, Census, the Federal Reserve, and Treasury. Updated weekly from the FRED API.",
+    "url": "https://bd-econ.com/calendar.html",
+    "applicationCategory": "Reference",
+    "author": {
+        "@type": "Person",
+        "name": "Brian Dew",
+        "url": "https://bd-econ.com"
+    },
+    "isAccessibleForFree": true
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Reports",
+            "item": "https://bd-econ.com/reports.html"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Release Calendar",
+            "item": "https://bd-econ.com/calendar.html"
+        }
+    ]
+}
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PGVF5S620Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PGVF5S620Y');
+</script>
+<style>
+	/* Toolbar: filters + month nav in one row */
+	.cal-toolbar {
+		max-width: 760px;
+		padding: 0 12px;
+		margin: 0 auto 16px;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		flex-wrap: wrap;
+	}
+	.cal-filters {
+		display: flex;
+		gap: 6px;
+		flex-wrap: wrap;
+		flex: 1;
+	}
+	.cal-filter {
+		padding: 4px 11px;
+		border-radius: 20px;
+		border: 1px solid var(--color-border-light);
+		background: var(--color-bg);
+		color: var(--color-text-gray);
+		font-size: 12px;
+		font-family: var(--font-ui);
+		cursor: pointer;
+		transition: var(--transition-fast);
+	}
+	.cal-filter:hover { border-color: var(--color-text-subtle); }
+	.cal-filter.active {
+		background: var(--color-card-brown);
+		color: #fff;
+		border-color: var(--color-card-brown);
+	}
+	/* Month navigation */
+	.cal-month-nav {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		margin-left: auto;
+	}
+	.cal-month-nav button {
+		background: none;
+		border: 1px solid var(--color-border-light);
+		border-radius: var(--radius);
+		padding: 3px 9px;
+		cursor: pointer;
+		color: var(--color-text-gray);
+		font-family: var(--font-ui);
+		font-size: 13px;
+		line-height: 1;
+		transition: var(--transition-fast);
+	}
+	.cal-month-nav button:hover { border-color: var(--color-text-subtle); }
+	.cal-month-nav button:disabled { opacity: 0.3; cursor: default; }
+	.cal-month-label {
+		font-size: 15px;
+		font-weight: 600;
+		font-family: var(--font-ui);
+		color: var(--color-text-gray);
+		min-width: 120px;
+		text-align: center;
+	}
+	/* Grid calendar */
+	.cal-grid {
+		max-width: 760px;
+		margin: 0 auto;
+		padding: 0 12px;
+		border-collapse: collapse;
+		table-layout: fixed;
+	}
+	.cal-grid th {
+		font-size: 11px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+		color: var(--color-text-subtle);
+		padding: 0 0 5px;
+		border-bottom: 2px solid var(--color-card-brown);
+	}
+	.cal-grid td {
+		width: 20%;
+		vertical-align: top;
+		text-align: left;
+		padding: 3px 4px 6px;
+		border-bottom: 1px solid var(--color-border-light);
+		border-right: 1px solid var(--color-border-light);
+	}
+	.cal-grid td:last-child { border-right: none; }
+	.cal-grid td.cal-outside {
+		background: color-mix(in srgb, var(--color-border-light) 30%, transparent);
+	}
+	.cal-grid td.cal-today {
+		background: color-mix(in srgb, var(--color-card-brown) 8%, transparent);
+		box-shadow: inset 0 2px 0 var(--color-card-brown);
+	}
+	.cal-grid td.cal-past { opacity: 0.35; }
+	.cal-day-num {
+		font-size: 12px;
+		font-weight: 600;
+		font-family: var(--font-ui);
+		color: var(--color-text-muted);
+		margin-bottom: 1px;
+	}
+	.cal-today .cal-day-num {
+		color: var(--color-card-brown);
+	}
+	.cal-rel {
+		display: block;
+		font-size: 11px;
+		line-height: 1.3;
+		padding: 1px 0;
+		color: var(--color-text-gray);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.cal-rel .cal-t {
+		color: var(--color-text-subtle);
+		font-size: 10px;
+	}
+	.cal-rel.major { font-weight: 600; }
+	.cal-rel a {
+		color: inherit;
+		text-decoration: none;
+	}
+	.cal-rel a:hover { text-decoration: underline; text-decoration-color: var(--color-card-brown); }
+	.cal-empty {
+		text-align: center;
+		padding: 40px 12px;
+		color: var(--color-text-muted);
+		font-size: 15px;
+	}
+	.cal-source {
+		max-width: 760px;
+		padding: 0 12px;
+		margin: 16px auto 0;
+		font-size: 12px;
+		color: var(--color-text-subtle);
+	}
+	.cal-source a { color: var(--color-text-muted); }
+	/* Mobile: compact list */
+	.cal-mobile { display: none; }
+	@media (max-width: 760px) {
+		.cal-grid { display: none; }
+		.cal-mobile { display: block; max-width: 760px; margin: 0 auto; padding: 0 12px; }
+		.cal-toolbar { justify-content: center; }
+		.cal-filters { justify-content: center; }
+		.cal-month-nav { margin-left: 0; width: 100%; justify-content: center; }
+		.cal-m-day {
+			display: flex;
+			gap: 10px;
+			padding: 7px 0;
+			border-bottom: 1px solid var(--color-border-light);
+			align-items: baseline;
+		}
+		.cal-m-day.cal-past { opacity: 0.35; }
+		.cal-m-date {
+			font-size: 12px;
+			font-weight: 600;
+			font-family: var(--font-ui);
+			color: var(--color-text-muted);
+			min-width: 68px;
+			flex-shrink: 0;
+		}
+		.cal-m-day.cal-today .cal-m-date { color: var(--color-card-brown); }
+		.cal-m-releases {
+			flex: 1;
+			min-width: 0;
+		}
+		.cal-m-rel {
+			font-size: 13px;
+			line-height: 1.45;
+			color: var(--color-text-gray);
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		.cal-m-rel.major { font-weight: 600; }
+		.cal-m-rel a { color: inherit; text-decoration: none; }
+		.cal-m-rel .cal-t {
+			color: var(--color-text-subtle);
+			font-size: 11px;
+		}
+	}
+</style>
+</head>
+<body>
+	<a href="#main" class="skip-link">Skip to main content</a>
+	<nav>
+		<ul class="ul_nav" id="menu">
+			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
+			<li><a href="about.html">About</a> </li>
+			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <svg class="icon icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a> </li>
+			<li><a href="python.html">Guides <span class="nav-arrow">&darr;</span></a>
+				<ul class="hidden">
+					<li><a href="getstarted.html">Getting Started</a></li>
+					<li><a href="imfapi1.html">IMF API</a></li>
+					<li><a href="blsapi.html">BLS API</a></li>
+					<li><a href="beaapi.html">BEA API</a></li>
+					<li><a href="censusapi.html">Census API</a></li>
+					<li><a href="treasuryapi.html">Treasury API</a></li>
+					<li><a href="cps.html">CPS Microdata</a></li>
+			</ul>
+			</li>
+		<li>
+			<a href="reports.html" class="active" aria-current="page">Reports <span class="nav-arrow">&darr;</span></a>
+			<ul class="hidden">
+				<li><a href="chartbook.html">US Chartbook</a></li>
+				<li><a href="indicators.html">Economic Indicators</a></li>
+				<li><a href="gdpm.html">Monthly GDP</a></li>
+				<li><a href="imfweo.html">IMF WEO</a></li>
+				<li><a href="calendar.html">Release Calendar</a></li>
+			</ul>
+			</li>
+			<li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span></button></li>
+			<li class="icon">
+				<button type="button" onclick="responsiveNav()" aria-label="Toggle navigation menu" aria-expanded="false">&#9776;</button>
+			</li>
+		</ul>
+	</nav>
+	<div class="page-strip page-strip-compact accent-brown">
+		<picture><source srcset="images/calendar_strip.webp" type="image/webp"><img decoding="async" fetchpriority="high" src="images/calendar_strip.jpg" alt="" aria-hidden="true" class="page-strip-img"></picture>
+	</div>
+	<header>
+		<h1>Release Calendar</h1>
+	</header>
+	<main id="main">
+	<section>
+		<article class="prose">
+			<p class="callout accent-brown">Upcoming US economic data releases tracked by the <a href="chartbook.html">Chartbook</a>.</p>
+			<p>Scheduled release dates for 35+ statistical series from BLS, BEA, Census, the Federal Reserve, Treasury, and other sources. Dates sourced from the <a href="https://fred.stlouisfed.org/docs/api/fred/releases_dates.html">FRED API</a>, updated weekly. Linked releases connect to bd-econ.com charts and tutorials.</p>
+		</article>
+
+		<div class="cal-toolbar" role="toolbar" aria-label="Calendar controls">
+			<div class="cal-filters">
+				<button class="cal-filter active" data-filter="all">All</button>
+				<button class="cal-filter" data-filter="major">Major</button>
+				<button class="cal-filter" data-filter="monthly">Monthly</button>
+				<button class="cal-filter" data-filter="quarterly">Quarterly</button>
+				<button class="cal-filter" data-filter="weekly">Weekly</button>
+			</div>
+			<div class="cal-month-nav">
+				<button id="cal-prev" aria-label="Previous month">&larr;</button>
+				<span class="cal-month-label" id="cal-month-label"></span>
+				<button id="cal-next" aria-label="Next month">&rarr;</button>
+			</div>
+		</div>
+
+		<div id="cal-body">
+			<noscript><p class="cal-empty">Enable JavaScript to view the release calendar.</p></noscript>
+		</div>
+
+		<p class="cal-source">
+			Source: <a href="https://fred.stlouisfed.org/releases">FRED Release Calendar</a>.
+			Last updated: <span id="cal-updated"></span>.
+			Dates are tentative and subject to change.
+			See also: <a href="chartbook.html">US Chartbook</a> · <a href="indicators.html">Economic Indicators</a>
+		</p>
+
+		<div class="subfooter" data-hub="reports" data-current="calendar.html" style="--accent-color: var(--color-card-brown)"></div>
+	</section>
+	</main>
+
+	<footer>
+		<div class="footer_left">
+			<p><time datetime="2026">2026</time>, by Brian Dew</p>
+		</div>
+		<div class="footer_right">
+			<a href="https://github.com/bdecon/" aria-label="GitHub"><svg class="icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+			<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><svg class="icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.016-.709-.52-1.248-1.342-1.248S1.4 3.226 1.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a.3.3 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/></svg></a>
+			<a href="https://twitter.com/bd_econ" aria-label="Twitter"><svg class="icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334q.002-.211-.006-.422A6.7 6.7 0 0 0 16 3.542a6.7 6.7 0 0 1-1.889.518 3.3 3.3 0 0 0 1.447-1.817 6.5 6.5 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.32 9.32 0 0 1-6.767-3.429 3.29 3.29 0 0 0 1.018 4.382A3.3 3.3 0 0 1 .64 6.575v.045a3.29 3.29 0 0 0 2.632 3.218 3.2 3.2 0 0 1-.865.115 3 3 0 0 1-.614-.057 3.28 3.28 0 0 0 3.067 2.277A6.6 6.6 0 0 1 .78 13.58a6 6 0 0 1-.78-.045A9.34 9.34 0 0 0 5.026 15"/></svg></a>
+			<a href="https://briandew.wordpress.com/" target="_blank" rel="noopener" aria-label="WordPress Blog"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.469 6.825c.84 1.537 1.318 3.3 1.318 5.175 0 3.979-2.156 7.456-5.363 9.325l3.295-9.527c.615-1.54.82-2.771.82-3.864 0-.405-.026-.78-.07-1.11m-7.981.105c.647-.03 1.232-.105 1.232-.105.582-.075.514-.93-.067-.899 0 0-1.755.135-2.88.135-1.064 0-2.85-.15-2.85-.15-.585-.03-.661.855-.075.885 0 0 .54.061 1.125.09l1.68 4.605-2.37 7.08L5.354 6.9c.649-.03 1.234-.1 1.234-.1.585-.075.516-.93-.065-.896 0 0-1.746.138-2.874.138-.2 0-.438-.008-.69-.015C4.911 3.15 8.235 1.215 12 1.215c2.809 0 5.365 1.072 7.286 2.833-.046-.003-.091-.009-.141-.009-1.06 0-1.812.923-1.812 1.914 0 .89.513 1.643 1.06 2.531.411.72.89 1.643.89 2.977 0 .915-.354 1.994-.821 3.479l-1.075 3.585-3.9-11.61.001.014zM12 22.784c-1.059 0-2.081-.153-3.048-.437l3.237-9.406 3.315 9.087c.024.053.05.101.078.149-1.12.393-2.325.609-3.582.609M1.211 12c0-1.564.336-3.05.935-4.39L7.29 21.709C3.694 19.96 1.212 16.271 1.211 12M12 0C5.385 0 0 5.385 0 12s5.385 12 12 12 12-5.385 12-12S18.615 0 12 0"/></svg></a>
+		</div>
+	</footer>
+	<script src="scripts/nav.js"></script>
+	<script>
+	(function() {
+		const MAJOR = new Set([
+			'Employment Situation', 'Consumer Price Index', 'GDP',
+			'Personal Income & Outlays', 'Retail Sales', 'JOLTS',
+			'Producer Price Index', 'Industrial Production',
+			'International Trade', 'Housing Starts',
+			'Employment Cost Index', 'FOMC Projections',
+			'Durable Goods Orders', 'Consumer Sentiment',
+		]);
+		const MONTH_NAMES = ['January','February','March','April','May','June',
+			'July','August','September','October','November','December'];
+		const DAY_ABBR = ['Mon','Tue','Wed','Thu','Fri'];
+
+		let calData = null;
+		let currentFilter = 'all';
+		let currentMonth = null; // {year, month} (0-indexed month)
+		let availableMonths = [];
+
+		function parseDate(s) {
+			const [y,m,d] = s.split('-').map(Number);
+			return new Date(y, m-1, d);
+		}
+		function todayStr() {
+			const n = new Date();
+			return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
+		}
+		function isPast(dateStr) { return dateStr < todayStr(); }
+		function isToday(dateStr) { return dateStr === todayStr(); }
+
+		function filterEntries(entries) {
+			return entries.filter(e => {
+				if (currentFilter === 'all') return true;
+				if (currentFilter === 'major') return MAJOR.has(e.name);
+				return e.frequency === currentFilter;
+			});
+		}
+
+		// Build a lookup: dateStr -> [entries]
+		function buildDayMap(entries) {
+			const map = {};
+			for (const e of entries) {
+				(map[e.date] ||= []).push(e);
+			}
+			return map;
+		}
+
+		function getMonthWeeks(year, month) {
+			// Returns array of weeks, each week = array of 5 days (Mon-Fri)
+			// Each day = {date, dateStr, inMonth}
+			const first = new Date(year, month, 1);
+			const last = new Date(year, month + 1, 0);
+
+			// Find the Monday on or before the 1st
+			let start = new Date(first);
+			let dow = start.getDay(); // 0=Sun
+			let offset = (dow === 0) ? -6 : 1 - dow; // days to get to Monday
+			start.setDate(start.getDate() + offset);
+
+			const weeks = [];
+			let d = new Date(start);
+			while (d <= last || d.getDay() !== 1) {
+				const week = [];
+				for (let i = 0; i < 5; i++) { // Mon-Fri
+					const ds = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+					week.push({
+						date: d.getDate(),
+						dateStr: ds,
+						inMonth: d.getMonth() === month,
+					});
+					d.setDate(d.getDate() + 1);
+				}
+				d.setDate(d.getDate() + 2); // skip Sat-Sun
+				weeks.push(week);
+				if (d > last && d.getDay() === 1) break;
+			}
+			return weeks;
+		}
+
+		// Short time: "8:30 AM ET" -> "8:30a"
+		function shortTime(t) {
+			if (!t) return '';
+			const m = t.match(/^(\d+:\d+)\s*(AM|PM)/i);
+			if (!m) return '';
+			return m[1] + (m[2].toUpperCase() === 'AM' ? 'a' : 'p');
+		}
+
+		function renderEntry(e) {
+			const major = MAJOR.has(e.name) ? ' major' : '';
+			const title = `${e.time || 'TBD'} · ${e.agency}`;
+			const time = shortTime(e.time);
+			const timeHtml = time ? `<span class="cal-t">${time}</span> ` : '';
+			const inner = e.link
+				? `${timeHtml}<a href="${e.link}" title="${title}">${e.name}</a>`
+				: `${timeHtml}${e.name}`;
+			return `<span class="cal-rel${major}" title="${title}">${inner}</span>`;
+		}
+
+		function render() {
+			if (!calData) return;
+			const container = document.getElementById('cal-body');
+			const filtered = filterEntries(calData.entries);
+			const dayMap = buildDayMap(filtered);
+			const {year, month} = currentMonth;
+			const weeks = getMonthWeeks(year, month);
+
+			// Update label & buttons
+			document.getElementById('cal-month-label').textContent =
+				`${MONTH_NAMES[month].slice(0,3)} ${year}`;
+			const mi = availableMonths.findIndex(m => m.year === year && m.month === month);
+			document.getElementById('cal-prev').disabled = mi <= 0;
+			document.getElementById('cal-next').disabled = mi >= availableMonths.length - 1;
+
+			// Desktop grid
+			let grid = `<table class="cal-grid"><thead><tr>`;
+			for (const d of DAY_ABBR) grid += `<th>${d}</th>`;
+			grid += `</tr></thead><tbody>`;
+
+			for (const week of weeks) {
+				grid += '<tr>';
+				for (const day of week) {
+					const entries = dayMap[day.dateStr] || [];
+					const today = isToday(day.dateStr);
+					const past = isPast(day.dateStr);
+					let cls = [];
+					if (!day.inMonth) cls.push('cal-outside');
+					if (today) cls.push('cal-today');
+					else if (past && day.inMonth) cls.push('cal-past');
+
+					grid += `<td class="${cls.join(' ')}">`;
+					if (day.inMonth) {
+						grid += `<span class="cal-day-num">${day.date}</span>`;
+						for (const e of entries) grid += renderEntry(e);
+					}
+					grid += '</td>';
+				}
+				grid += '</tr>';
+			}
+			grid += '</tbody></table>';
+
+			// Mobile list (only days with entries in this month)
+			let mobile = '<div class="cal-mobile">';
+			const monthDays = [];
+			for (const week of weeks) {
+				for (const day of week) {
+					if (!day.inMonth) continue;
+					const entries = dayMap[day.dateStr] || [];
+					if (entries.length === 0) continue;
+					monthDays.push({day, entries});
+				}
+			}
+			if (monthDays.length === 0) {
+				mobile += '<p class="cal-empty">No releases this month for this filter.</p>';
+			}
+			const DAY_SHORT = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+			for (const {day, entries} of monthDays) {
+				const today = isToday(day.dateStr);
+				const past = isPast(day.dateStr);
+				const d = parseDate(day.dateStr);
+				let cls = 'cal-m-day';
+				if (today) cls += ' cal-today';
+				else if (past) cls += ' cal-past';
+
+				mobile += `<div class="${cls}">`;
+				mobile += `<div class="cal-m-date">${DAY_SHORT[d.getDay()]} ${day.date}</div>`;
+				mobile += '<div class="cal-m-releases">';
+				for (const e of entries) {
+					const major = MAJOR.has(e.name) ? ' major' : '';
+					const time = shortTime(e.time);
+					const timeHtml = time ? `<span class="cal-t">${time}</span> ` : '';
+					const inner = e.link ? `<a href="${e.link}">${e.name}</a>` : e.name;
+					mobile += `<div class="cal-m-rel${major}">${timeHtml}${inner}</div>`;
+				}
+				mobile += '</div></div>';
+			}
+			mobile += '</div>';
+
+			container.innerHTML = grid + mobile;
+		}
+
+		// Month navigation
+		document.getElementById('cal-prev').addEventListener('click', () => {
+			const mi = availableMonths.findIndex(m => m.year === currentMonth.year && m.month === currentMonth.month);
+			if (mi > 0) { currentMonth = availableMonths[mi - 1]; render(); }
+		});
+		document.getElementById('cal-next').addEventListener('click', () => {
+			const mi = availableMonths.findIndex(m => m.year === currentMonth.year && m.month === currentMonth.month);
+			if (mi < availableMonths.length - 1) { currentMonth = availableMonths[mi + 1]; render(); }
+		});
+
+		// Filter buttons
+		document.querySelectorAll('.cal-filter').forEach(btn => {
+			btn.addEventListener('click', function() {
+				document.querySelector('.cal-filter.active').classList.remove('active');
+				this.classList.add('active');
+				currentFilter = this.dataset.filter;
+				render();
+			});
+		});
+
+		// Load data
+		fetch('files/calendar.json')
+			.then(r => r.json())
+			.then(data => {
+				calData = data;
+				document.getElementById('cal-updated').textContent =
+					new Date(data.generated).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+
+				// Determine available months from data
+				const months = new Set();
+				for (const e of data.entries) {
+					const [y,m] = e.date.split('-').map(Number);
+					months.add(`${y}-${m}`);
+				}
+				availableMonths = [...months].sort().map(s => {
+					const [y,m] = s.split('-').map(Number);
+					return {year: y, month: m - 1};
+				});
+
+				// Start on current month if available, else first
+				const now = new Date();
+				currentMonth = availableMonths.find(m => m.year === now.getFullYear() && m.month === now.getMonth())
+					|| availableMonths[0];
+				render();
+			})
+			.catch(() => {
+				document.getElementById('cal-body').innerHTML =
+					'<p class="cal-empty">Unable to load calendar data.</p>';
+			});
+	})();
+	</script>
+</body>
+</html>
