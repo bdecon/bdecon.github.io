@@ -1216,6 +1216,158 @@
 		renderChart();
 	};
 
+	// --- Share: copy link ---
+	document.getElementById('btn-copy-link').addEventListener('click', () => {
+		const btn = document.getElementById('btn-copy-link');
+		navigator.clipboard.writeText(window.location.href).then(() => {
+			const origHTML = btn.innerHTML;
+			btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+			btn.title = 'Copied!';
+			setTimeout(() => { btn.innerHTML = origHTML; btn.title = 'Copy link to this chart'; }, 1500);
+		});
+	});
+
+	// --- Share: download PNG ---
+	document.getElementById('btn-download-png').addEventListener('click', () => {
+		if (!chart || !DATA) return;
+
+		const country = DATA.c[currentISO];
+		const indMeta = DATA.i[currentIndicator];
+		const countryName = country ? country.n : currentISO;
+		const indLabel = indMeta ? indMeta[0] : '';
+		const indUnits = indMeta ? indMeta[1] : '';
+		const lastV = DATA.v[DATA.v.length - 1];
+		const edition = lastV[0] + ' ' + lastV[1] + ' WEO';
+
+		const chartCanvas = document.getElementById('weoChart');
+		const cw = chartCanvas.width;
+		const ch = chartCanvas.height;
+		const dpr = window.devicePixelRatio || 1;
+
+		// Layout constants (in CSS pixels, scaled by dpr)
+		const pad = 20 * dpr;
+		const titleSize = 18 * dpr;
+		const subtitleSize = 13 * dpr;
+		const legendSize = 11 * dpr;
+		const sourceSize = 11 * dpr;
+		const legendH = legendSize + 12 * dpr;
+		const headerH = (titleSize + subtitleSize + 16 * dpr) + legendH;
+		const footerH = (sourceSize + 14 * dpr);
+		const totalW = cw + pad * 2;
+		const totalH = headerH + ch + footerH + pad;
+
+		const offscreen = document.createElement('canvas');
+		offscreen.width = totalW;
+		offscreen.height = totalH;
+		const ctx = offscreen.getContext('2d');
+
+		// Background
+		const dark = isDark();
+		ctx.fillStyle = dark ? '#1e1e1e' : '#ffffff';
+		ctx.fillRect(0, 0, totalW, totalH);
+
+		// Title
+		ctx.fillStyle = dark ? '#f0f0f0' : '#1a1a2e';
+		ctx.font = `bold ${titleSize}px system-ui, -apple-system, sans-serif`;
+		ctx.textBaseline = 'top';
+		ctx.fillText(countryName, pad, pad);
+
+		// Subtitle (indicator + units + edition)
+		ctx.fillStyle = dark ? '#bbb' : '#666';
+		ctx.font = `${subtitleSize}px system-ui, -apple-system, sans-serif`;
+		const subtitle = indLabel + (indUnits ? ', ' + indUnits.toLowerCase() : '') + '  ·  ' + edition;
+		ctx.fillText(subtitle, pad, pad + titleSize + 4 * dpr);
+
+		// Legend row
+		const legendY = pad + titleSize + subtitleSize + 12 * dpr;
+		const legendMid = legendY + legendSize / 2;
+		ctx.font = `${legendSize}px system-ui, -apple-system, sans-serif`;
+		ctx.textBaseline = 'middle';
+		const legendColor = dark ? '#999' : '#888';
+		const lineColor = dark ? '#f0f0f0' : '#1a1a2e';
+		let lx = pad;
+
+		// Helper: draw legend swatch + label, advance lx
+		function legendItem(drawFn, label) {
+			drawFn(lx, legendMid);
+			ctx.fillStyle = legendColor;
+			ctx.fillText(label, lx, legendMid);
+		}
+
+		// — Actual (solid line)
+		ctx.strokeStyle = lineColor;
+		ctx.lineWidth = 2 * dpr;
+		ctx.setLineDash([]);
+		ctx.beginPath();
+		ctx.moveTo(lx, legendMid);
+		ctx.lineTo(lx + 14 * dpr, legendMid);
+		ctx.stroke();
+		lx += 18 * dpr;
+		ctx.fillStyle = legendColor;
+		ctx.fillText('Actual', lx, legendMid);
+		lx += ctx.measureText('Actual').width + 14 * dpr;
+
+		// -- Forecast (dashed line)
+		ctx.setLineDash([4 * dpr, 3 * dpr]);
+		ctx.beginPath();
+		ctx.moveTo(lx, legendMid);
+		ctx.lineTo(lx + 14 * dpr, legendMid);
+		ctx.stroke();
+		ctx.setLineDash([]);
+		lx += 18 * dpr;
+		ctx.fillStyle = legendColor;
+		ctx.fillText('Forecast', lx, legendMid);
+		lx += ctx.measureText('Forecast').width + 14 * dpr;
+
+		// Dots: far (h=5), mid (h=3), near (h=1)
+		for (const [h, label] of [[5, 'Far'], [3, 'Mid'], [1, 'Near']]) {
+			const r = horizonRadius(h) * dpr * 0.8;
+			const color = horizonColor(h);
+			const alpha = Math.min(horizonAlpha(h) * 2, 1);
+			ctx.globalAlpha = alpha;
+			ctx.fillStyle = color;
+			ctx.beginPath();
+			ctx.arc(lx + r, legendMid, r, 0, Math.PI * 2);
+			ctx.fill();
+			ctx.globalAlpha = 1;
+			lx += r * 2 + 4 * dpr;
+		}
+		ctx.fillStyle = legendColor;
+		ctx.fillText('Prior forecasts', lx, legendMid);
+		lx += ctx.measureText('Prior forecasts').width + 14 * dpr;
+
+		// Nowcast diamond
+		const ncR = NC_RADIUS * dpr * 0.7;
+		ctx.fillStyle = dark ? '#c060c0' : '#8b008b';
+		ctx.save();
+		ctx.translate(lx + ncR, legendMid);
+		ctx.rotate(Math.PI / 4);
+		ctx.fillRect(-ncR * 0.7, -ncR * 0.7, ncR * 1.4, ncR * 1.4);
+		ctx.restore();
+		lx += ncR * 2 + 4 * dpr;
+		ctx.fillStyle = legendColor;
+		ctx.fillText('Nowcast', lx, legendMid);
+
+		// Chart
+		ctx.textBaseline = 'top';
+		ctx.textAlign = 'left';
+		ctx.drawImage(chartCanvas, pad, headerH);
+
+		// Source + branding
+		ctx.fillStyle = dark ? '#999' : '#888';
+		ctx.font = `${sourceSize}px system-ui, -apple-system, sans-serif`;
+		ctx.textBaseline = 'bottom';
+		ctx.fillText('Source: IMF World Economic Outlook', pad, totalH - pad / 2);
+		ctx.textAlign = 'right';
+		ctx.fillText('bd-econ.com', totalW - pad, totalH - pad / 2);
+
+		// Download
+		const link = document.createElement('a');
+		link.download = currentISO.toLowerCase() + '_' + currentIndicator.toLowerCase() + '.png';
+		link.href = offscreen.toDataURL('image/png');
+		link.click();
+	});
+
 	// --- Init ---
 	loadData();
 })();

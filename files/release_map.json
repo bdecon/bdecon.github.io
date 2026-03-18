@@ -295,9 +295,17 @@
       "frequency": "quarterly",
       "agency": "Treasury",
       "link": null
+    },
+    {
+      "name": "Exchange Rates (REER)",
+      "fred_id": 319,
+      "time": null,
+      "frequency": "monthly",
+      "agency": "BIS",
+      "link": null
     }
   ],
-  "_manual_note": "These releases are not in FRED. Update dates annually from treasury.gov/tic (TIC) and newyorkfed.org/microeconomics/sce (Consumer Expectations). Past dates are harmlessly ignored by the script.",
+  "_manual_note": "These releases are not in FRED. Update dates annually. Sources: treasury.gov/tic (TIC), newyorkfed.org/microeconomics/sce (Consumer Expectations), bls.gov/cps (CPS Microdata: Wed after jobs day), census.gov (ASEC ~Sep, ACS 1-yr ~Sep, ACS 5-yr ~Dec). Past dates are harmlessly ignored by the script.",
   "manual": [
     {
       "name": "TIC Capital Flows",
@@ -322,6 +330,34 @@
         "2026-07-14", "2026-08-11", "2026-09-08",
         "2026-10-14", "2026-11-10", "2026-12-08"
       ]
+    },
+    {
+      "name": "CPS Microdata",
+      "time": "12:00 PM ET",
+      "frequency": "monthly",
+      "agency": "Census",
+      "link": "cps.html",
+      "dates": [
+        "2026-04-08", "2026-05-13", "2026-06-10",
+        "2026-07-08", "2026-08-12", "2026-09-09",
+        "2026-10-07", "2026-11-11", "2026-12-09"
+      ]
+    },
+    {
+      "name": "CPS ASEC (Income & Poverty) (est.)",
+      "time": null,
+      "frequency": "annual",
+      "agency": "Census",
+      "link": null,
+      "dates": ["2026-09-15"]
+    },
+    {
+      "name": "American Community Survey 1-yr (est.)",
+      "time": null,
+      "frequency": "annual",
+      "agency": "Census",
+      "link": "censusapi.html",
+      "dates": ["2026-09-17"]
     }
   ]
 }

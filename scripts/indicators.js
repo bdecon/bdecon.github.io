@@ -77,6 +77,44 @@ const recessionPlugin = {
 	}
 };
 
+// Reference line plugin (e.g., 2% inflation target)
+const refLinePlugin = {
+	id: 'refLines',
+	afterDraw: function(chart) {
+		const config = chart.config._config.datasetConfig;
+		if (!config?.refLines) return;
+
+		const ctx = chart.ctx;
+		const yAxis = chart.scales.y;
+		const xAxis = chart.scales.x;
+		const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+		ctx.save();
+		config.refLines.forEach(function(ref) {
+			const y = yAxis.getPixelForValue(ref.value);
+			if (y < yAxis.top || y > yAxis.bottom) return;
+
+			ctx.strokeStyle = isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.25)';
+			ctx.lineWidth = 1;
+			ctx.setLineDash(ref.style === 'dashed' ? [4, 4] : []);
+			ctx.beginPath();
+			ctx.moveTo(xAxis.left, y);
+			ctx.lineTo(xAxis.right, y);
+			ctx.stroke();
+
+			if (ref.label) {
+				ctx.fillStyle = isDark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.35)';
+				ctx.font = '10px ' + FONT_UI;
+				ctx.textAlign = 'left';
+				ctx.textBaseline = 'bottom';
+				ctx.fillText(ref.label, xAxis.left + 4, y - 3);
+			}
+		});
+		ctx.setLineDash([]);
+		ctx.restore();
+	}
+};
+
 // Color mapping to CSS variables (rebuilt on each chart load for theme changes)
 let colorMap = null;
 // Mix a hex color toward white by a given ratio (0 = original, 1 = white)
@@ -339,9 +377,11 @@ const lastValuePlugin = {
 					);
 
 				if (hasOverlap) {
-					// Stack labels at top when lines are close together
+					// Stack labels near the actual data points
 					ctx.textBaseline = 'top';
-					let y = 12;
+					const avgY = labelData.reduce((s, d) => s + d.yPos, 0) / labelData.length;
+					const blockH = (labelData[0].dateLabels.length + labelData.length) * 11;
+					let y = Math.max(4, avgY - blockH / 2);
 
 					ctx.fillStyle = getThemeColors().axisText;
 					labelData[0].dateLabels.forEach((label) => {
@@ -625,7 +665,7 @@ function renderLegend(config) {
 	legendContainer.innerHTML = config.series.map((s, i) => {
 		const colors = colorMap[s.color || config.color || 'blue'];
 		return `
-			<div class="chart-legend-item" data-index="${i}">
+			<div class="chart-legend-item${s.hidden ? ' legend-off' : ''}" data-index="${i}">
 				<span class="chart-legend-box" style="background-color: ${colors.line}"></span>
 				<span>${s.label}</span>
 			</div>
@@ -951,11 +991,17 @@ function populateDropdown() {
 	});
 }
 
-// Update the selector title and grid active state
+// Update the selector title, counter, and grid active state
 function updateSelectorTitle(datasetId) {
 	const config = manifest.charts.find(d => d.id === datasetId);
 	if (!config) return;
 	document.getElementById('chart-selector-title').textContent = config.title;
+
+	// Update chart counter
+	const idx = manifest.charts.indexOf(config) + 1;
+	const total = manifest.charts.length;
+	const counterEl = document.getElementById('chart-counter');
+	if (counterEl) counterEl.textContent = idx + ' / ' + total;
 
 	// Update grid active state
 	document.querySelectorAll('.chart-grid-item').forEach(el => {
@@ -1041,16 +1087,15 @@ async function loadChart(datasetId) {
 			});
 		}
 
-		// Store full data for filtering and reset view state
+		// Store full data for filtering, preserve filter state across charts
 		fullData = data;
-		isFilteredView = false;
 		currentConfig = config;
 
 		// Show/hide filter link (only for time series charts)
 		const filterEl = document.getElementById('chart-filter');
 		if (config.timeSeries !== false) {
 			filterEl.style.visibility = 'visible';
-			filterEl.querySelector('button').textContent = 'Recent 3 years';
+			filterEl.querySelector('button').textContent = isFilteredView ? 'Full history' : 'Recent 3 years';
 		} else {
 			filterEl.style.visibility = 'hidden';
 		}
@@ -1060,6 +1105,10 @@ async function loadChart(datasetId) {
 			chart.destroy();
 			chart = null;
 		}
+
+		// Hide PNG download for non-canvas chart types
+		const pngBtn = document.getElementById('btn-download-png');
+		if (pngBtn) pngBtn.style.display = config.type === 'dualBar' ? 'none' : '';
 
 		// Toggle vertical card orientation for bar-only charts
 		const wrapper = document.querySelector('.chart-flip-wrapper');
@@ -1150,6 +1199,11 @@ async function loadChart(datasetId) {
 		currentDateFormat = getDateFormatConfig(config.dateFormat || 'quarterly');
 		const ctx = document.getElementById('lineChart').getContext('2d');
 
+		// Apply filter if persisted from previous chart
+		const chartData = (isFilteredView && config.timeSeries !== false)
+			? filterToLastYears(data, 3)
+			: data;
+
 		// Build datasets based on single vs multi-series
 		let datasets;
 		let chartType = config.type || 'line';
@@ -1158,7 +1212,7 @@ async function loadChart(datasetId) {
 				const seriesColors = colorMap[s.color || config.color || 'blue'];
 				return {
 					label: s.label,
-					data: data.map(d => d.values[i]),
+					data: chartData.map(d => d.values[i]),
 					borderColor: seriesColors.line,
 					backgroundColor: seriesColors.background,
 					pointBackgroundColor: seriesColors.line,
@@ -1168,7 +1222,8 @@ async function loadChart(datasetId) {
 					pointHoverRadius: 4,
 					fill: false,
 					tension: 0.1,
-					spanGaps: true
+					spanGaps: true,
+					hidden: s.hidden || false
 				};
 			});
 		} else {
@@ -1177,7 +1232,7 @@ async function loadChart(datasetId) {
 			chartType = typeConfig.type;
 			datasets = [{
 				label: config.tooltipLabel || config.title,
-				data: data.map(d => d.value),
+				data: chartData.map(d => d.value),
 				...typeConfig.dataset
 			}];
 		}
@@ -1187,12 +1242,13 @@ async function loadChart(datasetId) {
 			type: chartType,
 			datasetConfig: config,
 			data: {
-				labels: data.map(d => d.date),
+				labels: chartData.map(d => d.date),
 				datasets: datasets
 			},
 			plugins: [
 				...(config.timeSeries !== false ? [lastValuePlugin, recessionPlugin] : []),
-				...(config.showDataLabels ? [dataLabelsPlugin] : [])
+				...(config.showDataLabels ? [dataLabelsPlugin] : []),
+				...(config.refLines ? [refLinePlugin] : [])
 			],
 			options: {
 				responsive: true,
@@ -1259,7 +1315,7 @@ async function loadChart(datasetId) {
 							font: { size: config.timeSeries === false ? (window.innerWidth <= 760 ? 11 : 14) : 11, family: FONT_BODY },
 							color: config.timeSeries === false ? tc.textDark : tc.axisText,
 							callback: config.timeSeries !== false
-								? currentDateFormat.tickCallback
+								? (isFilteredView ? getFilteredTickCallback(config.dateFormat || 'quarterly') : currentDateFormat.tickCallback)
 								: function(value, index) { return this.getLabelForValue(index); },
 							maxRotation: 0,
 							minRotation: 0,
@@ -1271,7 +1327,16 @@ async function loadChart(datasetId) {
 						border: { display: false },
 						grid: config.type === 'bar'
 							? { color: function(context) { return context.tick.value === 0 ? tc.axisText : 'transparent'; } }
-							: { color: tc.grid },
+							: {
+								color: function(context) {
+									if (context.tick.value === 0) {
+										const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+										return isDark ? 'rgba(255,255,255,0.25)' : 'rgba(0,0,0,0.22)';
+									}
+									return tc.grid;
+								},
+								lineWidth: function(context) { return context.tick.value === 0 ? 1.3 : 1; }
+							},
 						ticks: config.type === 'bar'
 							? { font: { size: 11, family: FONT_BODY }, color: tc.axisText,
 								callback: function(value) { return value === 0 ? '0' : ''; } }
@@ -1279,7 +1344,9 @@ async function loadChart(datasetId) {
 						title: { display: false },
 						beginAtZero: config.type === 'bar' || config.beginAtZero || false,
 						min: config.yAxisMin ?? undefined,
-						max: config.yAxisMax ?? undefined
+						max: config.yAxisMax ?? undefined,
+						suggestedMin: (isFilteredView && config.filteredYRef != null) ? config.filteredYRef : undefined,
+						suggestedMax: (isFilteredView && config.filteredYRef != null) ? config.filteredYRef : undefined
 					}
 				}
 			}
@@ -1371,23 +1438,21 @@ async function init() {
 	}
 }
 
-// Update chart colors after theme toggle
+// Update chart colors after theme toggle (keep CSV cache — data doesn't change)
 function refreshChartColors() {
-	csvCache.clear();
 	const select = document.getElementById('dataset-select');
 	if (select && select.value) {
 		loadChart(select.value);
 	}
 }
 
-// Navigate to previous or next chart
+// Navigate to previous or next chart (wraps around)
 function navigateChart(direction) {
 	if (!manifest) return;
 	const select = document.getElementById('dataset-select');
 	const options = Array.from(select.querySelectorAll('option'));
 	const currentIdx = options.findIndex(o => o.value === select.value);
-	const newIdx = currentIdx + direction;
-	if (newIdx < 0 || newIdx >= options.length) return;
+	const newIdx = (currentIdx + direction + options.length) % options.length;
 	select.value = options[newIdx].value;
 	loadChart(select.value);
 }
@@ -1435,6 +1500,108 @@ document.addEventListener('keydown', (e) => {
 		navigateChart(dx > 0 ? -1 : 1);
 	}, { passive: true });
 })();
+
+// Share tools: copy link
+document.getElementById('btn-copy-link').addEventListener('click', function() {
+	const btn = this;
+	const origSVG = btn.querySelector('svg').outerHTML;
+	navigator.clipboard.writeText(window.location.href).then(function() {
+		btn.querySelector('svg').outerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
+		btn.title = 'Copied!';
+		setTimeout(function() {
+			btn.querySelector('svg').outerHTML = origSVG;
+			btn.title = 'Copy link to this chart';
+		}, 1500);
+	});
+});
+
+// Share tools: download PNG
+document.getElementById('btn-download-png').addEventListener('click', function() {
+	if (!currentConfig) return;
+
+	// For dualBar charts, skip PNG (no canvas)
+	if (currentConfig.type === 'dualBar') return;
+
+	const canvas = document.getElementById('lineChart');
+	const dpr = window.devicePixelRatio || 1;
+	const srcW = canvas.width;
+	const srcH = canvas.height;
+
+	// Offscreen canvas with padding for title/source/branding
+	const pad = 24 * dpr;
+	const titleH = 40 * dpr;
+	const subtitleH = 20 * dpr;
+	const legendH = (currentConfig.series && currentConfig.series.length > 1) ? 22 * dpr : 0;
+	const footerH = 30 * dpr;
+	const totalW = srcW + pad * 2;
+	const totalH = titleH + subtitleH + legendH + srcH + footerH + pad;
+
+	const off = document.createElement('canvas');
+	off.width = totalW;
+	off.height = totalH;
+	const ctx = off.getContext('2d');
+
+	// Background
+	const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+	ctx.fillStyle = isDark ? '#1a1a1a' : '#ffffff';
+	ctx.fillRect(0, 0, totalW, totalH);
+
+	const textColor = isDark ? '#e0e0e0' : '#333';
+	const mutedColor = isDark ? '#999' : '#888';
+
+	// Title
+	ctx.fillStyle = textColor;
+	ctx.font = `bold ${16 * dpr}px ${FONT_UI}`;
+	ctx.textAlign = 'left';
+	ctx.fillText(currentConfig.title, pad, pad + 16 * dpr);
+
+	// Subtitle
+	ctx.fillStyle = mutedColor;
+	ctx.font = `${11 * dpr}px ${FONT_UI}`;
+	const subtitleText = (currentConfig.subtitle || '').replace(/<br\s*\/?>/g, ' ');
+	ctx.fillText(subtitleText, pad, pad + titleH + 2 * dpr);
+
+	// Legend for multi-series
+	if (legendH > 0 && currentConfig.series) {
+		const ly = pad + titleH + subtitleH + 4 * dpr;
+		let lx = pad;
+		ctx.font = `${10 * dpr}px ${FONT_UI}`;
+		currentConfig.series.forEach(function(s) {
+			const colors = colorMap[s.color || currentConfig.color || 'blue'];
+			// Line swatch
+			ctx.strokeStyle = colors.line;
+			ctx.lineWidth = 2 * dpr;
+			ctx.beginPath();
+			ctx.moveTo(lx, ly);
+			ctx.lineTo(lx + 14 * dpr, ly);
+			ctx.stroke();
+			lx += 18 * dpr;
+			// Label
+			ctx.fillStyle = textColor;
+			ctx.fillText(s.label, lx, ly + 4 * dpr);
+			lx += ctx.measureText(s.label).width + 16 * dpr;
+		});
+	}
+
+	// Chart canvas
+	const chartY = pad + titleH + subtitleH + legendH;
+	ctx.drawImage(canvas, pad, chartY, srcW, srcH);
+
+	// Footer: source + branding
+	const footerY = chartY + srcH + 14 * dpr;
+	ctx.fillStyle = mutedColor;
+	ctx.font = `${9 * dpr}px ${FONT_UI}`;
+	ctx.textAlign = 'left';
+	ctx.fillText('Source: ' + currentConfig.source, pad, footerY);
+	ctx.textAlign = 'right';
+	ctx.fillText('bd-econ.com', totalW - pad, footerY);
+
+	// Download
+	const link = document.createElement('a');
+	link.download = currentConfig.id + '.png';
+	link.href = off.toDataURL('image/png');
+	link.click();
+});
 
 // Initialize on page load
 init();

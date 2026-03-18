@@ -110,7 +110,10 @@
       "title": "CPI Inflation Rate",
       "subtitle": "Year-over-year change, percent",
       "source": "BLS",
-      "tooltipLabel": "Rate",
+      "series": [
+        { "label": "All Items", "color": "red" },
+        { "label": "Core (ex. Food & Energy)", "color": "blue", "hidden": true }
+      ],
       "decimals": 1,
       "valueSuffix": "%",
       "color": "red",
@@ -119,7 +122,8 @@
       "filteredYRef": 0,
       "category": "Prices",
       "order": 9,
-      "description": "The Consumer Price Index measures the average change in prices paid by urban consumers for a basket of goods and services. This chart shows the year-over-year percent change."
+      "description": "The Consumer Price Index measures the average change in prices paid by urban consumers for a basket of goods and services. All Items includes everything; Core excludes volatile food and energy prices. Both show year-over-year percent change.",
+      "refLines": [{ "value": 2, "label": "2% target", "style": "dashed" }]
     },
     {
       "id": "tbal",
@@ -194,9 +198,12 @@
       "file": "files/epop.csv",
       "type": "line",
       "title": "Employment Rate",
-      "subtitle": "Employed share, age 25 to 54, percent",
+      "subtitle": "Employed share of population, percent",
       "source": "BLS",
-      "tooltipLabel": "Rate",
+      "series": [
+        { "label": "Prime Age (25\u201354)", "color": "orange" },
+        { "label": "All (16+)", "color": "blue" }
+      ],
       "decimals": 1,
       "valueSuffix": "%",
       "color": "orange",
@@ -204,21 +211,7 @@
       "dateFormat": "monthly",
       "category": "Labor",
       "order": 5,
-      "description": "The employment-population ratio shows the share of prime-age adults (25\u201354) who are employed. The prime-age range excludes younger adults who may be in school and older adults who may be retired. Unlike the unemployment rate, it does not fall when discouraged workers stop looking for jobs.",
-      "components": [
-        {
-          "col": "emp_pa",
-          "label": "Emp",
-          "suffix": "M",
-          "decimals": 1
-        },
-        {
-          "col": "pop_pa",
-          "label": "Pop",
-          "suffix": "M",
-          "decimals": 1
-        }
-      ]
+      "description": "The employment-population ratio shows the share of the population that is employed. Prime age (25\u201354) excludes younger adults in school and older adults who may be retired. The all-ages rate (16+) includes everyone. Unlike the unemployment rate, neither falls when discouraged workers stop looking for jobs."
     },
     {
       "id": "indpro",

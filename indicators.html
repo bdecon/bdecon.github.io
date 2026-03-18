@@ -58,10 +58,10 @@
             {"@type": "ListItem", "position": 2, "name": "Productivity", "description": "Labor productivity measures GDP per hour worked, reflecting how efficiently an economy converts labor into output.", "url": "https://bd-econ.com/indicators.html#lprodbar"},
             {"@type": "ListItem", "position": 3, "name": "Money Supply", "description": "M2 measures the money supply including cash, checking deposits, savings deposits, and money market funds. This chart shows M2 as a share of nominal GDP.", "url": "https://bd-econ.com/indicators.html#m2gdp"},
             {"@type": "ListItem", "position": 4, "name": "Federal Funds Rate", "description": "The federal funds rate is the interest rate at which banks lend reserves to each other overnight. It is the Federal Reserve's primary tool for conducting monetary policy.", "url": "https://bd-econ.com/indicators.html#ffrate"},
-            {"@type": "ListItem", "position": 5, "name": "CPI Inflation Rate", "description": "The Consumer Price Index measures the average change in prices paid by urban consumers for a basket of goods and services.", "url": "https://bd-econ.com/indicators.html#cpi"},
+            {"@type": "ListItem", "position": 5, "name": "CPI Inflation Rate", "description": "The Consumer Price Index year-over-year change for all items and core (excluding food and energy).", "url": "https://bd-econ.com/indicators.html#cpi"},
             {"@type": "ListItem", "position": 6, "name": "Trade Balance", "description": "The trade balance is exports minus imports of goods and services, shown here as a share of GDP.", "url": "https://bd-econ.com/indicators.html#tbal"},
             {"@type": "ListItem", "position": 7, "name": "Tariff Rate", "description": "The effective tariff rate is calculated as customs duties collected divided by the value of goods imports. It reflects the average tax rate on imported goods.", "url": "https://bd-econ.com/indicators.html#tariff"},
-            {"@type": "ListItem", "position": 8, "name": "Employment Rate", "description": "The employment-population ratio shows the share of prime-age adults (25-54) who are employed.", "url": "https://bd-econ.com/indicators.html#epop"},
+            {"@type": "ListItem", "position": 8, "name": "Employment Rate", "description": "The employment-population ratio for prime-age (25-54) and all ages (16+).", "url": "https://bd-econ.com/indicators.html#epop"},
             {"@type": "ListItem", "position": 9, "name": "Industrial Production", "description": "The industrial production index measures the real output of the manufacturing sector.", "url": "https://bd-econ.com/indicators.html#indpro"},
             {"@type": "ListItem", "position": 10, "name": "Unemployment Rate", "description": "The unemployment rate is the share of the labor force that is actively seeking work but unable to find a job.", "url": "https://bd-econ.com/indicators.html#unrate"},
             {"@type": "ListItem", "position": 11, "name": "Job Openings per Unemployed", "description": "This ratio divides the number of job openings by the number of unemployed persons. A higher ratio indicates a tighter labor market.", "url": "https://bd-econ.com/indicators.html#joun"},
@@ -265,12 +265,44 @@
 		margin-right: 8px;
 		color: var(--color-text-dark);
 	}
+	.chart-selector-center {
+		flex: 1;
+		text-align: center;
+	}
 	.chart-selector-title {
 		font-weight: 600;
 		color: var(--color-text-dark);
 		text-align: center;
-		flex: 1;
 		margin: 0;
+	}
+	.chart-counter {
+		font-size: 10px;
+		color: var(--color-text-subtle);
+		letter-spacing: 0.5px;
+	}
+	.ind-share {
+		display: flex;
+		gap: 10px;
+		margin-left: auto;
+		margin-right: 10px;
+	}
+	.ind-share button {
+		background: none;
+		border: 1px solid rgba(255,255,255,0.3);
+		border-radius: var(--radius);
+		padding: 3px;
+		cursor: pointer;
+		color: rgba(255,255,255,0.75);
+		line-height: 0;
+		transition: color 0.15s, border-color 0.15s;
+	}
+	.ind-share button:hover {
+		color: white;
+		border-color: rgba(255,255,255,0.6);
+	}
+	.ind-share .icon {
+		width: 14px;
+		height: 14px;
 	}
 	.chart-grid-details {
 		max-width: 580px;
@@ -622,9 +654,12 @@
 	<article class="ind-chart">
 		<select id="dataset-select" aria-label="Select chart" style="display:none"></select>
 		<div class="chart-selector">
-			<button class="chart-nav-btn" id="chart-prev" title="Previous chart" aria-label="Previous chart"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
-			<h4 class="chart-selector-title" id="chart-selector-title"></h4>
-			<button class="chart-nav-btn" id="chart-next" title="Next chart" aria-label="Next chart"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+			<button class="chart-nav-btn" id="chart-prev" title="Previous chart (← key)" aria-label="Previous chart"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+			<div class="chart-selector-center">
+				<h4 class="chart-selector-title" id="chart-selector-title"></h4>
+				<span class="chart-counter" id="chart-counter"></span>
+			</div>
+			<button class="chart-nav-btn" id="chart-next" title="Next chart (→ key)" aria-label="Next chart"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
 		</div>
 		<details class="chart-grid-details" id="chart-grid-details">
 			<summary>Browse all charts</summary>
@@ -637,7 +672,11 @@
 						<div class="chart-loading" id="chart-loading"><div class="chart-loading-spinner"></div></div>
 						<div class="chart-header accent-blue">
 							<span class="chart-title"><span id="chart-title">M2 Money Supply / GDP</span> <span class="card-category-badge" id="card-category-front"></span></span>
-							<button id="chart-info" title="About this indicator" aria-label="About this indicator"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></svg></button>
+							<div class="ind-share">
+								<button id="btn-copy-link" title="Copy link to this chart" aria-label="Copy link to this chart"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button>
+								<button id="btn-download-png" title="Download chart as PNG" aria-label="Download chart as PNG"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg></button>
+							</div>
+							<button id="chart-info" title="Details &amp; data" aria-label="Details and data"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></svg></button>
 						</div>
 						<div class="chart-body">
 							<span class="chart-subtitle" id="chart-subtitle">index, 1988=1</span>

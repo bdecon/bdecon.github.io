@@ -84,3 +84,22 @@ const subfooterHubs = {
 	});
 	el.appendChild(siblings);
 })();
+
+// Tutorial share button (copy link)
+document.querySelectorAll('.tutorial-share').forEach(function(btn) {
+	btn.addEventListener('click', function() {
+		var label = btn.querySelector('.share-label');
+		navigator.clipboard.writeText(window.location.href).then(function() {
+			var origSVG = btn.querySelector('svg').outerHTML;
+			var origText = label.textContent;
+			btn.querySelector('svg').outerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+			label.textContent = 'Copied!';
+			btn.title = 'Copied!';
+			setTimeout(function() {
+				btn.querySelector('svg').outerHTML = origSVG;
+				label.textContent = origText;
+				btn.title = 'Copy link';
+			}, 1500);
+		});
+	});
+});

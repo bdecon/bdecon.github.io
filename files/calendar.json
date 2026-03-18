@@ -1,18 +1,10 @@
 {
-  "generated": "2026-03-16T21:22:41",
+  "generated": "2026-03-17T21:33:12",
   "range": {
-    "start": "2026-03-16",
-    "end": "2026-06-14"
+    "start": "2026-03-17",
+    "end": "2026-06-15"
   },
   "entries": [
-    {
-      "name": "Industrial Production",
-      "date": "2026-03-16",
-      "time": "9:15 AM ET",
-      "frequency": "monthly",
-      "agency": "Fed",
-      "link": "indicators.html"
-    },
     {
       "name": "Producer Price Index",
       "date": "2026-03-18",
@@ -83,6 +75,14 @@
       "time": "4:30 PM ET",
       "frequency": "weekly",
       "agency": "Fed",
+      "link": null
+    },
+    {
+      "name": "Exchange Rates (REER)",
+      "date": "2026-03-19",
+      "time": null,
+      "frequency": "monthly",
+      "agency": "BIS",
       "link": null
     },
     {
@@ -252,6 +252,14 @@
       "frequency": "monthly",
       "agency": "BLS",
       "link": null
+    },
+    {
+      "name": "CPS Microdata",
+      "date": "2026-04-08",
+      "time": "12:00 PM ET",
+      "frequency": "monthly",
+      "agency": "Census",
+      "link": "cps.html"
     },
     {
       "name": "Personal Income & Outlays",
@@ -451,6 +459,14 @@
       "time": "4:30 PM ET",
       "frequency": "weekly",
       "agency": "Fed",
+      "link": null
+    },
+    {
+      "name": "Exchange Rates (REER)",
+      "date": "2026-04-23",
+      "time": null,
+      "frequency": "monthly",
+      "agency": "BIS",
       "link": null
     },
     {
@@ -662,6 +678,14 @@
       "link": null
     },
     {
+      "name": "CPS Microdata",
+      "date": "2026-05-13",
+      "time": "12:00 PM ET",
+      "frequency": "monthly",
+      "agency": "Census",
+      "link": "cps.html"
+    },
+    {
       "name": "Import/Export Prices",
       "date": "2026-05-14",
       "time": "8:30 AM ET",
@@ -747,6 +771,14 @@
       "time": "4:30 PM ET",
       "frequency": "weekly",
       "agency": "Fed",
+      "link": null
+    },
+    {
+      "name": "Exchange Rates (REER)",
+      "date": "2026-05-21",
+      "time": null,
+      "frequency": "monthly",
+      "agency": "BIS",
       "link": null
     },
     {
@@ -942,6 +974,14 @@
       "link": "indicators.html"
     },
     {
+      "name": "CPS Microdata",
+      "date": "2026-06-10",
+      "time": "12:00 PM ET",
+      "frequency": "monthly",
+      "agency": "Census",
+      "link": "cps.html"
+    },
+    {
       "name": "Treasury Statement",
       "date": "2026-06-10",
       "time": "2:00 PM ET",
@@ -987,6 +1027,22 @@
       "time": "4:30 PM ET",
       "frequency": "weekly",
       "agency": "Fed",
+      "link": null
+    },
+    {
+      "name": "Industrial Production",
+      "date": "2026-06-15",
+      "time": "9:15 AM ET",
+      "frequency": "monthly",
+      "agency": "Fed",
+      "link": "indicators.html"
+    },
+    {
+      "name": "TIC Capital Flows",
+      "date": "2026-06-15",
+      "time": "4:00 PM ET",
+      "frequency": "monthly",
+      "agency": "Treasury",
       "link": null
     }
   ]
