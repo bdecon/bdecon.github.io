@@ -1,18 +1,23 @@
 /* Brian Dew BD Economics - style.css */
 
+/* ===== Font Face ===== */
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/inter-regular.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url('fonts/inter-500.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('fonts/inter-600.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 700; font-display: swap; src: url('fonts/inter-700.woff2') format('woff2'); }
+
 /* ===== Variables ===== */
 :root {
   color-scheme: light dark;
 
   /* Fonts */
-  --font-body: Tahoma, Verdana, Segoe, sans-serif;
-  --font-ui: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --radius: 4px;
+  --font: 'Inter', sans-serif;
+  --radius: 0;
 
   /* Type Scale — fluid from 320px to 1080px viewport */
   --text-xs: 12px;
   --text-sm: 14px;
-  --text-base: 15px;
+  --text-base: 16px;
   --text-md: 16px;
   --text-lg: 17px;
   --text-xl: clamp(16px, 0.5vw + 14.5px, 18px);
@@ -65,13 +70,9 @@
   /* Code */
   --color-code-bg: #efefef;
 
-  /* Shadows */
-  --color-shadow: color-mix(in srgb, black 10%, transparent);
-  --color-shadow-strong: color-mix(in srgb, black 15%, transparent);
-
-  /* Elevation — shadow in light, border in dark */
-  --elevation-shadow: 0 2px 8px var(--color-shadow), 0 4px 16px color-mix(in srgb, black 6%, transparent);
-  --elevation-border: none;
+  /* Elevation — borders in both modes */
+  --elevation-shadow: none;
+  --elevation-border: 1.5px solid var(--color-border-light);
 
   /* Chart colors */
   --color-grid: color-mix(in srgb, black 6%, transparent);
@@ -90,8 +91,6 @@
   --blockquote-radius: 0;
   --banner-blend: multiply;
   --banner-opacity: 0.8;
-  --card-hover-shadow: 0 4px 12px var(--color-shadow-strong), 0 8px 24px var(--color-shadow);
-  --card-hover-transform: translateY(-2px);
 
   /* Trail badge colors */
   --color-trail-intro: #2e7d32;
@@ -179,8 +178,6 @@
   --blockquote-radius: 0 var(--radius) var(--radius) 0;
   --banner-blend: screen;
   --banner-opacity: 0.5;
-  --card-hover-shadow: none;
-  --card-hover-transform: none;
 
   --color-trail-intro: #66bb6a;
   --color-trail-beginner: #42a5f5;
@@ -259,7 +256,7 @@ html{
 body{
 	margin: 0;
 	padding: 50px 0 0;  /* clear fixed nav universally */
-	font-family: var(--font-body);
+	font-family: var(--font);
 	background-color: var(--color-canvas);
 	color: var(--color-text-dark);
 	-webkit-text-size-adjust: 100%;
@@ -301,7 +298,7 @@ hr {
 
 /* Noscript fallback warning */
 .noscript-warning { background: var(--color-bg-highlight); color: var(--color-text-gray); padding: 10px; border-radius: var(--radius); font-size: var(--text-sm); border: var(--elevation-border); }
-:is(h1, h2, h3, h4) { font-family: var(--font-ui); line-height: 1.25; text-wrap: balance; }
+:is(h1, h2, h3, h4) { font-family: var(--font); line-height: 1.25; text-wrap: balance; letter-spacing: -0.01em; }
 h1 { margin: 10px 0; }
 h2 { margin: 20px 0 10px; font-size: var(--text-4xl); }
 h3 { margin: 2.5rem 0 10px; font-size: var(--text-3xl); }
@@ -315,7 +312,7 @@ h4 { margin: 32px 0 10px 0; font-size: var(--text-lg); color: var(--color-headin
 	color: inherit;
 }
 
-.cb_update{font-family: var(--font-ui); font-weight: bold;}
+.cb_update{font-family: var(--font); font-weight: bold;}
 
 /* Styling for links */
 a {
@@ -358,7 +355,7 @@ nav{
 		padding: 14px 24px;
 		text-decoration: none;
 		transition: var(--transition-slow);
-		font-family: var(--font-ui);
+		font-family: var(--font);
 		font-size: var(--text-lg);
 		font-weight: 400;
 		line-height: 22px;
@@ -533,7 +530,7 @@ header {
 	text-align: center;
 	background-color: var(--color-bg-header);
 	color: white;
-	& h1, & h3 { margin: 0; font-weight: 900; font-size: clamp(22px, 2vw + 16px, 30px); }
+	& h1, & h3 { margin: 0; font-weight: 700; font-size: clamp(22px, 2vw + 16px, 30px); }
 }
 
 /* Footer styling */
@@ -553,7 +550,7 @@ footer {
 	}
 }
 .footer_left {
-	font-family: var(--font-ui);
+	font-family: var(--font);
 	font-style: italic; font-weight: 400; color: var(--color-text-gray);
 	& p { font-size: var(--text-sm); }
 }
@@ -580,7 +577,7 @@ article:not(.prose) > :first-child { margin-top: 0; }
 		margin: 10px auto 5px auto; padding-bottom: 8px;
 		border-bottom: 3px solid var(--color-accent-red);
 	}
-	& > h2 { font-size: var(--text-3xl); font-weight: 900; }
+	& > h2 { font-size: var(--text-3xl); font-weight: 700; }
 	/* Flex layout — cards stretch to equal height with badges pinned to bottom */
 	& :is(.nav-card, .nav-card-muted) { display: flex; flex-direction: column; }
 	& .nav-card-body { display: flex; flex-direction: column; flex: 1; height: auto; min-height: 125px; }
@@ -594,7 +591,7 @@ article:not(.prose) > :first-child { margin-top: 0; }
 	align-items: center;
 	gap: 5px;
 	font-size: 11px;
-	font-family: var(--font-ui);
+	font-family: var(--font);
 	padding: 2px 8px;
 	border-radius: 10px;
 	letter-spacing: 0.3px;
@@ -622,14 +619,12 @@ article:not(.prose) > :first-child { margin-top: 0; }
 	text-align: center;
 	text-decoration: none;
 	min-height: 180px;
-	transition: box-shadow var(--transition-normal), transform var(--transition-normal);
+	transition: border-color var(--transition-normal);
 	background-color: var(--color-card-tail-bg);
 }
 .nav-card-muted { opacity: 0.5; &:hover { opacity: 1; } }
 .nav-card:hover {
-	box-shadow: var(--card-hover-shadow);
-	transform: var(--card-hover-transform);
-	border-color: var(--color-border-light);
+	border-color: var(--color-text-subtle);
 }
 .nav-card-head { color: white; padding: 6px 6px 2px 6px; background-color: var(--accent); }
 .nav-card-body {
@@ -653,7 +648,7 @@ article:not(.prose) > :first-child { margin-top: 0; }
 .subfooter {
 	max-width: 760px; margin: 36px auto 0 auto; padding: 20px 12px 0 12px;
 	box-sizing: border-box; border-top: 1px solid var(--color-border-light);
-	font-family: var(--font-ui);
+	font-family: var(--font);
 }
 .subfooter-hub {
 	font-size: var(--text-sm); color: var(--color-text-muted); margin: 0 0 10px 0;
@@ -728,7 +723,7 @@ table {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	& .chart-title { margin: 0; font-size: var(--text-xl); font-weight: 600; font-family: var(--font-ui); color: inherit; }
+	& .chart-title { margin: 0; font-size: var(--text-xl); font-weight: 600; font-family: var(--font); color: inherit; }
 	& a, & button:not(.toggle-btn) { color: inherit; opacity: 0.7; font-size: var(--text-sm); }
 	& a { text-decoration: none; }
 	& button:not(.toggle-btn) { background: none; border: none; cursor: pointer; padding: 0; }
@@ -777,7 +772,7 @@ table {
 }
 .chart-legend {
 	font-size: var(--text-xs);
-	font-family: var(--font-ui);
+	font-family: var(--font);
 }
 .chart-legend-item {
 	display: flex;
@@ -810,7 +805,7 @@ table {
 	display: inline-block;
 	margin: 0;
 	font-size: var(--text-xs);
-	font-family: var(--font-ui);
+	font-family: var(--font);
 	color: var(--color-link);
 	text-decoration: none;
 	&:hover { text-decoration: underline; }
@@ -862,7 +857,7 @@ table {
 .toggle-btn {
 	padding: 3px 10px;
 	border: 1px solid var(--color-border-light);
-	font-family: var(--font-ui);
+	font-family: var(--font);
 	background: var(--color-bg-white);
 	cursor: pointer;
 	color: var(--color-text-muted);
@@ -890,7 +885,7 @@ table {
 	align-items: center;
 	gap: 12px;
 	font-size: var(--text-xs);
-	font-family: var(--font-ui);
+	font-family: var(--font);
 	color: var(--color-text-subtle);
 	margin-bottom: 1.25rem;
 	flex-wrap: wrap;
@@ -905,7 +900,7 @@ table {
 	cursor: pointer;
 	color: var(--color-text-muted);
 	font-size: var(--text-xs);
-	font-family: var(--font-ui);
+	font-family: var(--font);
 	display: inline-flex;
 	align-items: center;
 	gap: 4px;
@@ -925,7 +920,7 @@ table {
 	margin: 0 auto 1.5rem auto;
 	padding: 6px 12px 6px 14px;
 	box-sizing: border-box;
-	border-left: 3px solid var(--accent);
+	border-left: 5px solid var(--accent);
 }
 
 /* Accent blockquote */
@@ -936,7 +931,7 @@ table {
 	font-style: italic;
 	color: var(--color-text-dark);
 	line-height: 1.55;
-	border-left: 3px solid var(--accent);
+	border-left: 5px solid var(--accent);
 	background: var(--blockquote-bg);
 	border-radius: var(--blockquote-radius);
 	& cite { display: block; font-style: normal; font-size: var(--text-sm); color: var(--color-text-muted); margin-top: 6px; }
@@ -988,11 +983,11 @@ table {
 }
 /* ===== Color Variants ===== */
 
-.section-bar { width: 90%; height: 3px; margin: 30px auto 10px auto; }
+.section-bar { width: 90%; height: 5px; margin: 30px auto 10px auto; }
 
 /* Step labels — lightweight code step markers with colored underline */
 .step-label {
-	font-family: var(--font-ui);
+	font-family: var(--font);
 	font-size: var(--text-sm);
 	font-weight: 700;
 	color: var(--color-heading-gray);
