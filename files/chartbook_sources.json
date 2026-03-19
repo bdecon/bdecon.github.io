@@ -1,5 +1,5 @@
 {
-  "generated": "2026-03-17",
+  "generated": "2026-03-18",
   "releases": [
     {
       "name": "Employment Situation",
@@ -21,9 +21,9 @@
     },
     {
       "name": "Producer Price Index",
-      "period": "Jan 2026",
+      "period": "Feb 2026",
       "freq": "monthly",
-      "last_changed": "2026-03-08"
+      "last_changed": "2026-03-18"
     },
     {
       "name": "Import/Export Prices",
@@ -123,9 +123,9 @@
     },
     {
       "name": "TIC Capital Flows",
-      "period": "Dec 2025",
+      "period": "Jan 2026",
       "freq": "monthly",
-      "last_changed": "2026-02-18"
+      "last_changed": "2026-03-18"
     },
     {
       "name": "Treasury Statement",
@@ -243,9 +243,9 @@
     },
     {
       "name": "FOMC Projections",
-      "period": "Q4 2025",
+      "period": "\u2014",
       "freq": "quarterly",
-      "last_changed": "2026-01-18"
+      "last_changed": "2026-03-18"
     },
     {
       "name": "CPS ASEC",
@@ -285,6 +285,24 @@
     }
   ],
   "recent": [
+    {
+      "name": "Producer Price Index",
+      "period": "Feb 2026",
+      "freq": "monthly",
+      "last_changed": "2026-03-18"
+    },
+    {
+      "name": "TIC Capital Flows",
+      "period": "Jan 2026",
+      "freq": "monthly",
+      "last_changed": "2026-03-18"
+    },
+    {
+      "name": "FOMC Projections",
+      "period": "\u2014",
+      "freq": "quarterly",
+      "last_changed": "2026-03-18"
+    },
     {
       "name": "Industrial Production",
       "period": "Feb 2026",
@@ -326,24 +344,6 @@
       "period": "Mar 11, 2026",
       "freq": "weekly",
       "last_changed": "2026-03-13"
-    },
-    {
-      "name": "GDP (Second)",
-      "period": "Q4 2025",
-      "freq": "quarterly",
-      "last_changed": "2026-03-13"
-    },
-    {
-      "name": "International Trade",
-      "period": "Jan 2026",
-      "freq": "monthly",
-      "last_changed": "2026-03-12"
-    },
-    {
-      "name": "Initial Jobless Claims",
-      "period": "Mar 7, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-03-12"
     }
   ],
   "st_series": [
