@@ -141,9 +141,9 @@
     },
     {
       "name": "Exchange Rate (REER)",
-      "period": "Jan 2026",
+      "period": "Feb 2026",
       "freq": "monthly",
-      "last_changed": "2026-02-19"
+      "last_changed": "2026-03-19"
     },
     {
       "name": "Electricity",
@@ -171,9 +171,9 @@
     },
     {
       "name": "Fed Balance Sheet",
-      "period": "Mar 11, 2026",
+      "period": "Mar 18, 2026",
       "freq": "weekly",
-      "last_changed": "2026-03-13"
+      "last_changed": "2026-03-19"
     },
     {
       "name": "GDP (Second)",
@@ -292,8 +292,20 @@
       "last_changed": "2026-03-19"
     },
     {
+      "name": "Exchange Rate (REER)",
+      "period": "Feb 2026",
+      "freq": "monthly",
+      "last_changed": "2026-03-19"
+    },
+    {
       "name": "Initial Jobless Claims",
       "period": "Mar 14, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-03-19"
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "period": "Mar 18, 2026",
       "freq": "weekly",
       "last_changed": "2026-03-19"
     },
@@ -329,18 +341,6 @@
     },
     {
       "name": "Personal Income & Outlays",
-      "period": "Jan 2026",
-      "freq": "monthly",
-      "last_changed": "2026-03-13"
-    },
-    {
-      "name": "JOLTS",
-      "period": "Jan 2026",
-      "freq": "monthly",
-      "last_changed": "2026-03-13"
-    },
-    {
-      "name": "Retail Sales",
       "period": "Jan 2026",
       "freq": "monthly",
       "last_changed": "2026-03-13"
