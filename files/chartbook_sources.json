@@ -1,5 +1,5 @@
 {
-  "generated": "2026-03-18",
+  "generated": "2026-03-19",
   "releases": [
     {
       "name": "Employment Situation",
@@ -69,9 +69,9 @@
     },
     {
       "name": "New Home Sales",
-      "period": "Dec 2025",
+      "period": "Jan 2026",
       "freq": "monthly",
-      "last_changed": "2026-02-20"
+      "last_changed": "2026-03-19"
     },
     {
       "name": "House Prices",
@@ -165,9 +165,9 @@
     },
     {
       "name": "Initial Jobless Claims",
-      "period": "Mar 7, 2026",
+      "period": "Mar 14, 2026",
       "freq": "weekly",
-      "last_changed": "2026-03-12"
+      "last_changed": "2026-03-19"
     },
     {
       "name": "Fed Balance Sheet",
@@ -273,9 +273,9 @@
     },
     {
       "name": "Productivity (TFP)",
-      "period": "2024",
+      "period": "2025",
       "freq": "annual",
-      "last_changed": "2025-05-19"
+      "last_changed": "2026-03-19"
     },
     {
       "name": "Survey of Consumer Finances",
@@ -285,6 +285,24 @@
     }
   ],
   "recent": [
+    {
+      "name": "New Home Sales",
+      "period": "Jan 2026",
+      "freq": "monthly",
+      "last_changed": "2026-03-19"
+    },
+    {
+      "name": "Initial Jobless Claims",
+      "period": "Mar 14, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-03-19"
+    },
+    {
+      "name": "Productivity (TFP)",
+      "period": "2025",
+      "freq": "annual",
+      "last_changed": "2026-03-19"
+    },
     {
       "name": "Producer Price Index",
       "period": "Feb 2026",
@@ -325,24 +343,6 @@
       "name": "Retail Sales",
       "period": "Jan 2026",
       "freq": "monthly",
-      "last_changed": "2026-03-13"
-    },
-    {
-      "name": "Wage Tracker",
-      "period": "Feb 2026",
-      "freq": "monthly",
-      "last_changed": "2026-03-13"
-    },
-    {
-      "name": "Mortgage Rates",
-      "period": "Mar 12, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-03-13"
-    },
-    {
-      "name": "Fed Balance Sheet",
-      "period": "Mar 11, 2026",
-      "freq": "weekly",
       "last_changed": "2026-03-13"
     }
   ],
