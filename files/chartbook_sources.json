@@ -1,5 +1,5 @@
 {
-  "generated": "2026-03-19",
+  "generated": "2026-03-20",
   "releases": [
     {
       "name": "Employment Situation",
@@ -159,9 +159,9 @@
     },
     {
       "name": "Mortgage Rates",
-      "period": "Mar 12, 2026",
+      "period": "Mar 19, 2026",
       "freq": "weekly",
-      "last_changed": "2026-03-13"
+      "last_changed": "2026-03-20"
     },
     {
       "name": "Initial Jobless Claims",
@@ -286,6 +286,12 @@
   ],
   "recent": [
     {
+      "name": "Mortgage Rates",
+      "period": "Mar 19, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-03-20"
+    },
+    {
       "name": "New Home Sales",
       "period": "Jan 2026",
       "freq": "monthly",
@@ -338,12 +344,6 @@
       "period": "Feb 2026",
       "freq": "monthly",
       "last_changed": "2026-03-16"
-    },
-    {
-      "name": "Personal Income & Outlays",
-      "period": "Jan 2026",
-      "freq": "monthly",
-      "last_changed": "2026-03-13"
     }
   ],
   "st_series": [
