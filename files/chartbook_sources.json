@@ -1,5 +1,5 @@
 {
-  "generated": "2026-03-20",
+  "generated": "2026-03-21",
   "releases": [
     {
       "name": "Employment Situation",
@@ -207,9 +207,9 @@
     },
     {
       "name": "Financial Accounts",
-      "period": "Q3 2025",
+      "period": "Q4 2025",
       "freq": "quarterly",
-      "last_changed": "2026-01-18"
+      "last_changed": "2026-03-21"
     },
     {
       "name": "Current Account",
@@ -286,6 +286,12 @@
   ],
   "recent": [
     {
+      "name": "Financial Accounts",
+      "period": "Q4 2025",
+      "freq": "quarterly",
+      "last_changed": "2026-03-21"
+    },
+    {
       "name": "Mortgage Rates",
       "period": "Mar 19, 2026",
       "freq": "weekly",
@@ -338,12 +344,6 @@
       "period": "\u2014",
       "freq": "quarterly",
       "last_changed": "2026-03-18"
-    },
-    {
-      "name": "Industrial Production",
-      "period": "Feb 2026",
-      "freq": "monthly",
-      "last_changed": "2026-03-16"
     }
   ],
   "st_series": [
