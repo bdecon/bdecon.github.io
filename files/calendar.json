@@ -1,90 +1,10 @@
 {
-  "generated": "2026-03-17T21:33:12",
+  "generated": "2026-03-22T22:22:12",
   "range": {
-    "start": "2026-03-17",
-    "end": "2026-06-15"
+    "start": "2026-03-22",
+    "end": "2026-06-20"
   },
   "entries": [
-    {
-      "name": "Producer Price Index",
-      "date": "2026-03-18",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "BLS",
-      "link": null
-    },
-    {
-      "name": "Durable Goods Orders",
-      "date": "2026-03-18",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "Census",
-      "link": null
-    },
-    {
-      "name": "FOMC Projections",
-      "date": "2026-03-18",
-      "time": "2:00 PM ET",
-      "frequency": "quarterly",
-      "agency": "Fed",
-      "link": null
-    },
-    {
-      "name": "TIC Capital Flows",
-      "date": "2026-03-18",
-      "time": "4:00 PM ET",
-      "frequency": "monthly",
-      "agency": "Treasury",
-      "link": null
-    },
-    {
-      "name": "Jobless Claims",
-      "date": "2026-03-19",
-      "time": "8:30 AM ET",
-      "frequency": "weekly",
-      "agency": "DOL",
-      "link": null
-    },
-    {
-      "name": "New Home Sales",
-      "date": "2026-03-19",
-      "time": "10:00 AM ET",
-      "frequency": "monthly",
-      "agency": "Census",
-      "link": null
-    },
-    {
-      "name": "Mortgage Rates",
-      "date": "2026-03-19",
-      "time": "12:00 PM ET",
-      "frequency": "weekly",
-      "agency": "Freddie Mac",
-      "link": null
-    },
-    {
-      "name": "Financial Accounts (Z.1)",
-      "date": "2026-03-19",
-      "time": "12:00 PM ET",
-      "frequency": "quarterly",
-      "agency": "Fed",
-      "link": null
-    },
-    {
-      "name": "Fed Balance Sheet",
-      "date": "2026-03-19",
-      "time": "4:30 PM ET",
-      "frequency": "weekly",
-      "agency": "Fed",
-      "link": null
-    },
-    {
-      "name": "Exchange Rates (REER)",
-      "date": "2026-03-19",
-      "time": null,
-      "frequency": "monthly",
-      "agency": "BIS",
-      "link": null
-    },
     {
       "name": "Construction Spending",
       "date": "2026-03-23",
@@ -1043,6 +963,62 @@
       "time": "4:00 PM ET",
       "frequency": "monthly",
       "agency": "Treasury",
+      "link": null
+    },
+    {
+      "name": "Import/Export Prices",
+      "date": "2026-06-16",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS",
+      "link": null
+    },
+    {
+      "name": "Retail Sales",
+      "date": "2026-06-17",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "Census",
+      "link": null
+    },
+    {
+      "name": "FOMC Projections",
+      "date": "2026-06-17",
+      "time": "2:00 PM ET",
+      "frequency": "quarterly",
+      "agency": "Fed",
+      "link": null
+    },
+    {
+      "name": "Jobless Claims",
+      "date": "2026-06-18",
+      "time": "8:30 AM ET",
+      "frequency": "weekly",
+      "agency": "DOL",
+      "link": null
+    },
+    {
+      "name": "Mortgage Rates",
+      "date": "2026-06-18",
+      "time": "12:00 PM ET",
+      "frequency": "weekly",
+      "agency": "Freddie Mac",
+      "link": null
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "date": "2026-06-18",
+      "time": "4:30 PM ET",
+      "frequency": "weekly",
+      "agency": "Fed",
+      "link": null
+    },
+    {
+      "name": "Exchange Rates (REER)",
+      "date": "2026-06-18",
+      "time": null,
+      "frequency": "monthly",
+      "agency": "BIS",
       "link": null
     }
   ]
