@@ -2,321 +2,416 @@
   "releases": [
     {
       "name": "Employment Situation",
+      "source": "bls",
+      "source_names": [
+        "Employment Situation"
+      ],
       "fred_id": 50,
       "time": "8:30 AM ET",
       "frequency": "monthly",
-      "agency": "BLS",
-      "link": "indicators.html"
+      "agency": "BLS"
     },
     {
       "name": "Consumer Price Index",
+      "source": "bls",
+      "source_names": [
+        "Consumer Price Index"
+      ],
       "fred_id": 10,
       "time": "8:30 AM ET",
       "frequency": "monthly",
-      "agency": "BLS",
-      "link": "indicators.html"
+      "agency": "BLS"
     },
     {
       "name": "Personal Income & Outlays",
+      "source": "bea",
+      "source_names": [
+        "Personal Income and Outlays"
+      ],
       "fred_id": 54,
       "time": "8:30 AM ET",
       "frequency": "monthly",
-      "agency": "BEA",
-      "link": "indicators.html"
+      "agency": "BEA"
     },
     {
       "name": "Producer Price Index",
+      "source": "bls",
+      "source_names": [
+        "Producer Price Index"
+      ],
       "fred_id": 46,
       "time": "8:30 AM ET",
       "frequency": "monthly",
-      "agency": "BLS",
-      "link": null
+      "agency": "BLS"
     },
     {
       "name": "Import/Export Prices",
+      "source": "bls",
+      "source_names": [
+        "U.S. Import and Export Price Indexes"
+      ],
       "fred_id": 188,
       "time": "8:30 AM ET",
       "frequency": "monthly",
-      "agency": "BLS",
-      "link": null
+      "agency": "BLS"
     },
     {
       "name": "JOLTS",
+      "source": "bls",
+      "source_names": [
+        "Job Openings and Labor Turnover Survey"
+      ],
       "fred_id": 192,
       "time": "10:00 AM ET",
       "frequency": "monthly",
-      "agency": "BLS",
-      "link": "indicators.html"
+      "agency": "BLS"
     },
     {
       "name": "International Trade",
+      "source": "bea",
+      "source_names": [
+        "U.S. International Trade in Goods and Services"
+      ],
       "fred_id": 51,
       "time": "8:30 AM ET",
       "frequency": "monthly",
-      "agency": "BEA/Census",
-      "link": "indicators.html"
+      "agency": "BEA/Census"
     },
     {
       "name": "Retail Sales",
+      "source": "census",
+      "source_names": [
+        "Advance Monthly Sales for Retail and Food Services"
+      ],
       "fred_id": 9,
       "time": "8:30 AM ET",
       "frequency": "monthly",
-      "agency": "Census",
-      "link": null
+      "agency": "Census"
     },
     {
       "name": "Industrial Production",
+      "source": "fed",
+      "source_names": [
+        "G.17 - Industrial Production and Capacity Utilization"
+      ],
       "fred_id": 13,
       "time": "9:15 AM ET",
       "frequency": "monthly",
-      "agency": "Fed",
-      "link": "indicators.html"
+      "agency": "Fed"
     },
     {
       "name": "Construction Spending",
+      "source": "census",
+      "source_names": [
+        "Construction Spending",
+        "Construction Put in Place"
+      ],
       "fred_id": 229,
       "time": "10:00 AM ET",
       "frequency": "monthly",
-      "agency": "Census",
-      "link": null
+      "agency": "Census"
     },
     {
       "name": "Housing Starts",
+      "source": "census",
+      "source_names": [
+        "New Residential Construction"
+      ],
       "fred_id": 27,
       "time": "8:30 AM ET",
       "frequency": "monthly",
-      "agency": "Census",
-      "link": null
+      "agency": "Census"
     },
     {
       "name": "New Home Sales",
+      "source": "census",
+      "source_names": [
+        "New Residential Sales"
+      ],
       "fred_id": 97,
       "time": "10:00 AM ET",
       "frequency": "monthly",
-      "agency": "Census",
-      "link": null
+      "agency": "Census"
     },
     {
       "name": "House Prices",
+      "source": "fred",
       "fred_id": 199,
       "time": "9:00 AM ET",
       "frequency": "monthly",
-      "agency": "S&P/Case-Shiller",
-      "link": "indicators.html"
+      "agency": "S&P/Case-Shiller"
     },
     {
       "name": "Consumer Sentiment",
+      "source": "fred",
       "fred_id": 91,
       "time": "10:00 AM ET",
       "frequency": "monthly",
-      "agency": "U of Michigan",
-      "link": null
+      "agency": "U of Michigan"
     },
     {
       "name": "Durable Goods Orders",
+      "source": "census",
+      "source_names": [
+        "Advance Report on Durable Goods",
+        "Manufacturers' Shipments, Inventories, and Orders"
+      ],
       "fred_id": 95,
       "time": "8:30 AM ET",
       "frequency": "monthly",
-      "agency": "Census",
-      "link": null
+      "agency": "Census"
     },
     {
       "name": "Wage Tracker",
+      "source": "fred",
       "fred_id": 637,
       "time": null,
       "frequency": "monthly",
-      "agency": "Atlanta Fed",
-      "link": null
+      "agency": "Atlanta Fed"
     },
     {
       "name": "State Unemployment",
+      "source": "bls",
+      "source_names": [
+        "State Employment and Unemployment"
+      ],
       "fred_id": 112,
       "time": "10:00 AM ET",
       "frequency": "monthly",
-      "agency": "BLS",
-      "link": null
+      "agency": "BLS"
     },
     {
       "name": "Metro Unemployment",
+      "source": "bls",
+      "source_names": [
+        "Metropolitan Area Employment and Unemployment"
+      ],
       "fred_id": 113,
       "time": "10:00 AM ET",
       "frequency": "monthly",
-      "agency": "BLS",
-      "link": null
+      "agency": "BLS"
     },
     {
       "name": "Treasury Statement",
+      "source": "fred",
       "fred_id": 363,
       "time": "2:00 PM ET",
       "frequency": "monthly",
-      "agency": "Treasury",
-      "link": "treasuryapi.html"
+      "agency": "Treasury"
     },
     {
       "name": "Money Stock (M2)",
+      "source": "fed",
+      "source_names": [
+        "H.6 - Money Stock Measures"
+      ],
       "fred_id": 21,
       "time": "1:00 PM ET",
       "frequency": "monthly",
-      "agency": "Fed",
-      "link": "indicators.html"
+      "agency": "Fed"
     },
     {
       "name": "Mortgage Rates",
+      "source": "fred",
       "fred_id": 190,
       "time": "12:00 PM ET",
       "frequency": "weekly",
-      "agency": "Freddie Mac",
-      "link": null
+      "agency": "Freddie Mac"
     },
     {
       "name": "Jobless Claims",
+      "source": "fred",
       "fred_id": 180,
       "time": "8:30 AM ET",
       "frequency": "weekly",
-      "agency": "DOL",
-      "link": null
+      "agency": "DOL"
     },
     {
       "name": "Fed Balance Sheet",
+      "source": "fred",
       "fred_id": 20,
       "time": "4:30 PM ET",
       "frequency": "weekly",
-      "agency": "Fed",
-      "link": null
+      "agency": "Fed"
     },
     {
       "name": "GDP",
+      "source": "bea",
+      "source_names": [
+        "Gross Domestic Product"
+      ],
       "fred_id": 53,
       "time": "8:30 AM ET",
       "frequency": "quarterly",
-      "agency": "BEA",
-      "link": "gdpm.html"
+      "agency": "BEA"
     },
     {
       "name": "GDP by Industry",
+      "source": "bea",
+      "source_names": [
+        "Gross Domestic Product by Industry"
+      ],
       "fred_id": 331,
       "time": "8:30 AM ET",
       "frequency": "quarterly",
-      "agency": "BEA",
-      "link": null
+      "agency": "BEA"
     },
     {
       "name": "GDP by State",
+      "source": "bea",
+      "source_names": [
+        "Gross Domestic Product by State and Personal Income by State"
+      ],
       "fred_id": 140,
       "time": "8:30 AM ET",
       "frequency": "quarterly",
-      "agency": "BEA",
-      "link": null
+      "agency": "BEA"
     },
     {
       "name": "Employment Cost Index",
+      "source": "bls",
+      "source_names": [
+        "Employment Cost Index"
+      ],
       "fred_id": 11,
       "time": "8:30 AM ET",
       "frequency": "quarterly",
-      "agency": "BLS",
-      "link": null
+      "agency": "BLS"
     },
     {
       "name": "Financial Accounts (Z.1)",
+      "source": "fed",
+      "source_names": [
+        "Z.1 - Financial Accounts of the United States"
+      ],
       "fred_id": 52,
       "time": "12:00 PM ET",
       "frequency": "quarterly",
-      "agency": "Fed",
-      "link": null
+      "agency": "Fed"
     },
     {
       "name": "Current Account",
+      "source": "bea",
+      "source_names": [
+        "U.S. International Transactions"
+      ],
       "fred_id": 49,
       "time": "8:30 AM ET",
       "frequency": "quarterly",
-      "agency": "BEA",
-      "link": null
+      "agency": "BEA"
     },
     {
       "name": "International Investment",
+      "source": "bea",
+      "source_names": [
+        "U.S. International Investment Position"
+      ],
       "fred_id": 359,
       "time": "8:30 AM ET",
       "frequency": "quarterly",
-      "agency": "BEA",
-      "link": null
+      "agency": "BEA"
     },
     {
       "name": "Productivity & Costs",
+      "source": "bls",
+      "source_names": [
+        "Productivity and Costs"
+      ],
       "fred_id": 47,
       "time": "8:30 AM ET",
       "frequency": "quarterly",
-      "agency": "BLS",
-      "link": "indicators.html"
+      "agency": "BLS"
     },
     {
       "name": "Homeownership",
+      "source": "census",
+      "source_names": [
+        "Residential Vacancies and Homeownership",
+        "Housing Vacancies and Homeownership"
+      ],
       "fred_id": 296,
       "time": "10:00 AM ET",
       "frequency": "quarterly",
-      "agency": "Census",
-      "link": null
+      "agency": "Census"
     },
     {
       "name": "FOMC Projections",
+      "source": "fred",
       "fred_id": 326,
       "time": "2:00 PM ET",
       "frequency": "quarterly",
-      "agency": "Fed",
-      "link": null
+      "agency": "Fed"
     },
     {
       "name": "Consumer Expenditures",
+      "source": "fred",
       "fred_id": 479,
       "time": null,
       "frequency": "annual",
-      "agency": "BLS",
-      "link": null
+      "agency": "BLS"
     },
     {
       "name": "Total Factor Productivity",
+      "source": "fred",
       "fred_id": 107,
       "time": null,
       "frequency": "annual",
-      "agency": "BLS",
-      "link": null
+      "agency": "BLS"
     },
     {
       "name": "Electricity & Oil Production",
+      "source": "fred",
       "fred_id": 480,
       "time": null,
       "frequency": "monthly",
-      "agency": "EIA",
-      "link": null
+      "agency": "EIA"
     },
     {
       "name": "Public Debt",
+      "source": "fred",
       "fred_id": 80,
       "time": null,
       "frequency": "quarterly",
-      "agency": "Treasury",
-      "link": null
+      "agency": "Treasury"
     },
     {
       "name": "Exchange Rates (REER)",
+      "source": "fred",
       "fred_id": 319,
       "time": null,
       "frequency": "monthly",
-      "agency": "BIS",
-      "link": null
+      "agency": "BIS"
+    },
+    {
+      "name": "Consumer Credit (G.19)",
+      "source": "fed",
+      "source_names": [
+        "G.19 - Consumer Credit"
+      ],
+      "fred_id": 22,
+      "time": "3:00 PM ET",
+      "frequency": "monthly",
+      "agency": "Fed"
     }
   ],
-  "_manual_note": "These releases are not in FRED. Update dates annually. Sources: treasury.gov/tic (TIC), newyorkfed.org/microeconomics/sce (Consumer Expectations), bls.gov/cps (CPS Microdata: Wed after jobs day), census.gov (ASEC ~Sep, ACS 1-yr ~Sep, ACS 5-yr ~Dec). Past dates are harmlessly ignored by the script.",
+  "_manual_note": "These releases are not in FRED. Update dates annually. Sources: treasury.gov/tic (TIC), newyorkfed.org/microeconomics/sce (Consumer Expectations), bls.gov/cps (CPS Microdata: Wed after jobs day), census.gov (ASEC ~Sep, ACS 1-yr ~Sep, ACS 5-yr ~Dec), federalreserve.gov/monetarypolicy/beige-book-default.htm (Beige Book: 8x/year, ~2 weeks before FOMC). Past dates are harmlessly ignored by the script.",
   "manual": [
     {
       "name": "TIC Capital Flows",
       "time": "4:00 PM ET",
       "frequency": "monthly",
       "agency": "Treasury",
-      "link": null,
       "dates": [
-        "2026-03-18", "2026-04-15", "2026-05-18",
-        "2026-06-15", "2026-07-15", "2026-08-17",
-        "2026-09-15", "2026-10-15", "2026-11-17", "2026-12-15"
+        "2026-03-18",
+        "2026-04-15",
+        "2026-05-18",
+        "2026-06-15",
+        "2026-07-15",
+        "2026-08-17",
+        "2026-09-15",
+        "2026-10-15",
+        "2026-11-17",
+        "2026-12-15"
       ]
     },
     {
@@ -324,11 +419,17 @@
       "time": "11:00 AM ET",
       "frequency": "monthly",
       "agency": "NY Fed",
-      "link": null,
       "dates": [
-        "2026-03-09", "2026-04-14", "2026-05-12", "2026-06-09",
-        "2026-07-14", "2026-08-11", "2026-09-08",
-        "2026-10-14", "2026-11-10", "2026-12-08"
+        "2026-03-09",
+        "2026-04-14",
+        "2026-05-12",
+        "2026-06-09",
+        "2026-07-14",
+        "2026-08-11",
+        "2026-09-08",
+        "2026-10-14",
+        "2026-11-10",
+        "2026-12-08"
       ]
     },
     {
@@ -336,11 +437,16 @@
       "time": "12:00 PM ET",
       "frequency": "monthly",
       "agency": "Census",
-      "link": "cps.html",
       "dates": [
-        "2026-04-08", "2026-05-13", "2026-06-10",
-        "2026-07-08", "2026-08-12", "2026-09-09",
-        "2026-10-07", "2026-11-11", "2026-12-09"
+        "2026-04-08",
+        "2026-05-13",
+        "2026-06-10",
+        "2026-07-08",
+        "2026-08-12",
+        "2026-09-09",
+        "2026-10-07",
+        "2026-11-11",
+        "2026-12-09"
       ]
     },
     {
@@ -348,16 +454,32 @@
       "time": null,
       "frequency": "annual",
       "agency": "Census",
-      "link": null,
-      "dates": ["2026-09-15"]
+      "dates": [
+        "2026-09-15"
+      ]
     },
     {
       "name": "American Community Survey 1-yr (est.)",
       "time": null,
       "frequency": "annual",
       "agency": "Census",
-      "link": "censusapi.html",
-      "dates": ["2026-09-17"]
+      "dates": [
+        "2026-09-17"
+      ]
+    },
+    {
+      "name": "Beige Book",
+      "time": "2:00 PM ET",
+      "frequency": "quarterly",
+      "agency": "Fed",
+      "dates": [
+        "2026-04-15",
+        "2026-06-03",
+        "2026-07-15",
+        "2026-09-02",
+        "2026-10-14",
+        "2026-11-25"
+      ]
     }
   ]
 }

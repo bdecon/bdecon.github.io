@@ -5,20 +5,20 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Release Calendar | BD Economics</title>
 	<link rel="stylesheet" href="style.css">
-	<meta name="description" content="Upcoming US economic data releases: Employment Situation, CPI, GDP, and 30+ indicators tracked by the US Chartbook. Dates from FRED with links to related charts and tutorials.">
+	<meta name="description" content="Upcoming US economic data releases: Employment Situation, CPI, GDP, and 40+ indicators. Scheduled dates from the FRED API, updated weekly.">
 	<meta name="keywords" content="economic data release calendar, BLS release dates, BEA release dates, CPI release date, jobs report date, GDP release date, economic indicators schedule">
 	<meta name="author" content="Brian Dew">
 	<link rel="canonical" href="https://bd-econ.com/calendar.html">
 	<!-- Open Graph -->
 	<meta property="og:title" content="Release Calendar | BD Economics">
-	<meta property="og:description" content="Upcoming US economic data releases: Employment Situation, CPI, GDP, and 30+ indicators. Dates from FRED.">
+	<meta property="og:description" content="Upcoming US economic data releases: Employment Situation, CPI, GDP, and 40+ indicators. Dates from FRED.">
 	<meta property="og:url" content="https://bd-econ.com/calendar.html">
 	<meta property="og:type" content="website">
 	<meta property="og:image" content="https://bd-econ.com/images/01_bdlogo.png">
 	<!-- Twitter Card -->
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="Release Calendar | BD Economics">
-	<meta name="twitter:description" content="Upcoming US economic data releases: Employment Situation, CPI, GDP, and 30+ indicators. Dates from FRED.">
+	<meta name="twitter:description" content="Upcoming US economic data releases: Employment Situation, CPI, GDP, and 40+ indicators. Dates from FRED.">
 	<meta name="twitter:image" content="https://bd-econ.com/images/01_bdlogo.png">
 	<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
@@ -40,7 +40,7 @@
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "US Economic Data Release Calendar",
-    "description": "Upcoming release dates for 35+ US economic data series from BLS, BEA, Census, the Federal Reserve, and Treasury. Updated weekly from the FRED API.",
+    "description": "Upcoming release dates for 45 US economic data series from BLS, BEA, Census, the Federal Reserve, and Treasury. Updated weekly from the FRED API.",
     "url": "https://bd-econ.com/calendar.html",
     "applicationCategory": "Reference",
     "author": {
@@ -100,7 +100,7 @@
 		padding: 4px 11px;
 		border-radius: 20px;
 		border: 1px solid var(--color-border-light);
-		background: var(--color-bg);
+		background: var(--color-bg-white);
 		color: var(--color-text-gray);
 		font-size: 12px;
 		font-family: var(--font-ui);
@@ -198,11 +198,6 @@
 		font-size: 10px;
 	}
 	.cal-rel.major { font-weight: 600; }
-	.cal-rel a {
-		color: inherit;
-		text-decoration: none;
-	}
-	.cal-rel a:hover { text-decoration: underline; text-decoration-color: var(--color-card-brown); }
 	/* Agency badges */
 	.cal-agency {
 		display: inline-block;
@@ -218,11 +213,11 @@
 		margin-right: 2px;
 	}
 	.cal-agency-bls { background: #2563eb; }
-	.cal-agency-bea { background: #16a34a; }
-	.cal-agency-fed { background: #0d9488; }
-	.cal-agency-census { background: #ea580c; }
-	.cal-agency-treasury { background: #7c3aed; }
-	.cal-agency-other { background: #888; }
+	.cal-agency-bea { background: #15803d; }
+	.cal-agency-fed { background: #0f766e; }
+	.cal-agency-census { background: #c2410c; }
+	.cal-agency-treasury { background: #6d28d9; }
+	.cal-agency-other { background: #666; }
 	/* Today prominent time */
 	.cal-today .cal-t {
 		color: var(--color-card-brown);
@@ -277,7 +272,8 @@
 	}
 	.cal-source a { color: var(--color-text-muted); }
 	/* Mobile: compact list */
-	.cal-mobile { display: none; }
+	.cal-mobile { display: none; list-style: none; padding: 0; margin: 0; }
+	.cal-m-releases { list-style: none; padding: 0; margin: 0; }
 	@media (max-width: 760px) {
 		.cal-grid { display: none; }
 		.cal-mobile { display: block; max-width: 760px; margin: 0 auto; padding: 0 12px; }
@@ -311,7 +307,6 @@
 			color: var(--color-text-gray);
 		}
 		.cal-m-rel.major { font-weight: 600; }
-		.cal-m-rel a { color: inherit; text-decoration: none; }
 		.cal-m-rel .cal-t {
 			color: var(--color-text-subtle);
 			font-size: 11px;
@@ -333,6 +328,16 @@
 			padding: 6px 10px;
 			font-size: 12px;
 		}
+	}
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0,0,0,0);
+		border: 0;
 	}
 </style>
 </head>
@@ -380,23 +385,23 @@
 	<section>
 		<article class="prose">
 			<p class="callout accent-brown">Upcoming US economic data releases tracked by the <a href="chartbook.html">Chartbook</a>.</p>
-			<p>Scheduled release dates for 35+ statistical series from BLS, BEA, Census, the Federal Reserve, Treasury, and other sources. Dates sourced from the <a href="https://fred.stlouisfed.org/docs/api/fred/releases_dates.html">FRED API</a>, updated weekly. Linked releases connect to bd-econ.com charts and tutorials.</p>
 		</article>
 
 		<div class="cal-toolbar" role="toolbar" aria-label="Calendar controls">
-			<div class="cal-filters">
-				<button class="cal-filter active" data-filter="all">All</button>
-				<button class="cal-filter" data-filter="major">Major</button>
-				<button class="cal-filter" data-view="week">This Week</button>
+			<div class="cal-filters" role="group" aria-label="Filter releases">
+				<button class="cal-filter active" data-filter="all" aria-pressed="true" aria-label="Show all releases">All</button>
+				<button class="cal-filter" data-filter="major" aria-pressed="false" aria-label="Show major releases only">Major</button>
+				<button class="cal-filter" data-view="week" aria-pressed="false" aria-label="Show this week's releases">This Week</button>
 			</div>
 			<div class="cal-month-nav">
 				<button id="cal-prev" aria-label="Previous month">&larr;</button>
-				<span class="cal-month-label" id="cal-month-label"></span>
+				<output class="cal-month-label" id="cal-month-label" aria-live="polite"></output>
 				<button id="cal-next" aria-label="Next month">&rarr;</button>
 			</div>
 		</div>
 
 		<div id="cal-week-summary"></div>
+		<div id="cal-announcer" aria-live="polite" aria-atomic="true" class="sr-only"></div>
 		<div id="cal-body">
 			<noscript><p class="cal-empty">Enable JavaScript to view the release calendar.</p></noscript>
 		</div>
@@ -516,9 +521,11 @@
 			'BEA/Census': ['bea', 'BEA'],
 			'Fed': ['fed', 'FED'],
 			'NY Fed': ['fed', 'FED'],
+			'Atlanta Fed': ['fed', 'FED'],
 			'Census': ['census', 'CEN'],
 			'Treasury': ['treasury', 'TRES'],
 			'DOL': ['bls', 'DOL'],
+			'EIA': ['other', 'EIA'],
 			'BIS': ['other', 'BIS'],
 			'Freddie Mac': ['other', 'FMAC'],
 			'S&P/Case-Shiller': ['other', 'S&P'],
@@ -535,9 +542,7 @@
 			const time = shortTime(e.time);
 			const timeHtml = time ? `<span class="cal-t">${time}</span> ` : '';
 			const badge = agencyBadge(e.agency);
-			const inner = e.link
-				? `${timeHtml}${badge}<a href="${e.link}" title="${title}">${e.name}</a>`
-				: `${timeHtml}${badge}${e.name}`;
+			const inner = `${timeHtml}${badge}${e.name}`;
 			return `<span class="cal-rel${major}" title="${title}">${inner}</span>`;
 		}
 
@@ -547,9 +552,9 @@
 			if (!calData) { container.innerHTML = ''; return; }
 
 			const now = new Date();
-			// Find Monday of current week
+			// Find Monday of current/upcoming week (Sun looks forward)
 			const dow = now.getDay(); // 0=Sun
-			const mondayOffset = dow === 0 ? -6 : 1 - dow;
+			const mondayOffset = dow === 0 ? 1 : 1 - dow;
 			const monday = new Date(now);
 			monday.setDate(monday.getDate() + mondayOffset);
 			const friday = new Date(monday);
@@ -558,11 +563,10 @@
 			const pad2 = n => String(n).padStart(2, '0');
 			const monStr = `${monday.getFullYear()}-${pad2(monday.getMonth()+1)}-${pad2(monday.getDate())}`;
 			const friStr = `${friday.getFullYear()}-${pad2(friday.getMonth()+1)}-${pad2(friday.getDate())}`;
-			const today = todayStr();
 
-			// Get upcoming entries this week (today onward through Friday)
+			// Get entries for this week (Mon-Fri; on Sun show upcoming week)
 			const weekEntries = calData.entries.filter(e =>
-				e.date >= today && e.date <= friStr
+				e.date >= monStr && e.date <= friStr
 			);
 
 			if (weekEntries.length === 0) {
@@ -602,7 +606,7 @@
 		function getCurrentWeek() {
 			const now = new Date();
 			const dow = now.getDay();
-			const mondayOffset = dow === 0 ? -6 : 1 - dow;
+			const mondayOffset = dow === 0 ? 1 : 1 - dow;
 			const monday = new Date(now);
 			monday.setDate(monday.getDate() + mondayOffset);
 			const pad2 = n => String(n).padStart(2, '0');
@@ -621,9 +625,9 @@
 			return days;
 		}
 
-		function renderGrid(weeks, dayMap, viewClass) {
-			let grid = `<table class="cal-grid${viewClass}"><thead><tr>`;
-			for (const d of DAY_ABBR) grid += `<th>${d}</th>`;
+		function renderGrid(weeks, dayMap, viewClass, caption) {
+			let grid = `<table class="cal-grid${viewClass}"><caption class="sr-only">${caption}</caption><thead><tr>`;
+			for (const d of DAY_ABBR) grid += `<th scope="col">${d}</th>`;
 			grid += `</tr></thead><tbody>`;
 			for (const week of weeks) {
 				grid += '<tr>';
@@ -649,7 +653,7 @@
 		}
 
 		function renderMobileList(weeks, dayMap) {
-			let mobile = '<div class="cal-mobile">';
+			let mobile = '<ol class="cal-mobile" aria-label="Releases by day">';
 			const monthDays = [];
 			for (const week of weeks) {
 				for (const day of week) {
@@ -660,7 +664,7 @@
 				}
 			}
 			if (monthDays.length === 0) {
-				mobile += '<p class="cal-empty">No releases for this filter.</p>';
+				mobile += '<li><p class="cal-empty">No releases for this filter.</p></li>';
 			}
 			const DAY_SHORT = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 			let insertedDivider = false;
@@ -671,28 +675,40 @@
 				if (!insertedDivider && !past) {
 					const hasPast = monthDays.some(md => isPast(md.day.dateStr));
 					if (hasPast) {
-						mobile += '<div class="cal-m-divider">Upcoming</div>';
+						mobile += '<li class="cal-m-divider" role="separator">Upcoming</li>';
 					}
 					insertedDivider = true;
 				}
 				let cls = 'cal-m-day';
 				if (today) cls += ' cal-today';
 				else if (past) cls += ' cal-past';
-				mobile += `<div class="${cls}">`;
+				mobile += `<li class="${cls}">`;
 				mobile += `<div class="cal-m-date">${DAY_SHORT[d.getDay()]} ${day.date}</div>`;
-				mobile += '<div class="cal-m-releases">';
+				mobile += '<ul class="cal-m-releases">';
 				for (const e of entries) {
 					const major = MAJOR.has(e.name) ? ' major' : '';
 					const time = shortTime(e.time);
 					const timeHtml = time ? `<span class="cal-t">${time}</span> ` : '';
 					const badge = agencyBadge(e.agency);
-					const inner = e.link ? `<a href="${e.link}">${e.name}</a>` : e.name;
-					mobile += `<div class="cal-m-rel${major}">${timeHtml}${badge}${inner}</div>`;
+					const inner = e.name;
+					mobile += `<li class="cal-m-rel${major}">${timeHtml}${badge}${inner}</li>`;
 				}
-				mobile += '</div></div>';
+				mobile += '</ul></li>';
 			}
-			mobile += '</div>';
+			mobile += '</ol>';
 			return mobile;
+		}
+
+		function announce(msg) {
+			const el = document.getElementById('cal-announcer');
+			el.textContent = '';
+			requestAnimationFrame(() => { el.textContent = msg; });
+		}
+
+		function updatePressed() {
+			document.querySelectorAll('.cal-filter').forEach(b => {
+				b.setAttribute('aria-pressed', b.classList.contains('active'));
+			});
 		}
 
 		function render() {
@@ -708,8 +724,6 @@
 				const weekDays = getCurrentWeek();
 				const mon = weekDays[0];
 				const fri = weekDays[4];
-				const monDate = parseDate(mon.dateStr);
-				const friDate = parseDate(fri.dateStr);
 				const label = mon.month === fri.month
 					? `${MONTH_NAMES[mon.month].slice(0,3)} ${mon.date}–${fri.date}`
 					: `${MONTH_NAMES[mon.month].slice(0,3)} ${mon.date} – ${MONTH_NAMES[fri.month].slice(0,3)} ${fri.date}`;
@@ -717,22 +731,28 @@
 				document.getElementById('cal-prev').disabled = true;
 				document.getElementById('cal-next').disabled = true;
 
-				const grid = renderGrid([weekDays], dayMap, ' cal-week-view');
+				const caption = `Releases for ${label}`;
+				const grid = renderGrid([weekDays], dayMap, ' cal-week-view', caption);
 				const mobile = renderMobileList([weekDays], dayMap);
 				container.innerHTML = grid + mobile;
+				announce(caption);
 			} else {
 				const {year, month} = currentMonth;
 				const weeks = getMonthWeeks(year, month);
-				document.getElementById('cal-month-label').textContent =
-					`${MONTH_NAMES[month].slice(0,3)} ${year}`;
+				const monthLabel = `${MONTH_NAMES[month].slice(0,3)} ${year}`;
+				document.getElementById('cal-month-label').textContent = monthLabel;
 				const mi = availableMonths.findIndex(m => m.year === year && m.month === month);
 				document.getElementById('cal-prev').disabled = mi <= 0;
 				document.getElementById('cal-next').disabled = mi >= availableMonths.length - 1;
 
-				const grid = renderGrid(weeks, dayMap, '');
+				const filterLabel = currentFilter === 'major' ? 'major ' : '';
+				const caption = `${filterLabel}Releases for ${monthLabel}`;
+				const grid = renderGrid(weeks, dayMap, '', caption);
 				const mobile = renderMobileList(weeks, dayMap);
 				container.innerHTML = grid + mobile;
+				announce(caption);
 			}
+			updatePressed();
 		}
 
 		// Month navigation — exit week view on arrow click
