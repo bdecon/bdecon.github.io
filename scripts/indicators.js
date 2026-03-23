@@ -961,6 +961,26 @@ function populateDropdown() {
 	if (!grid) return;
 	grid.innerHTML = '';
 
+	const categoryIcons = {
+		'Output': 'icon-factory.svg',
+		'Labor': 'icon-construction.svg',
+		'Prices': 'icon-house.svg',
+		'Monetary': 'icon-fed.svg',
+		'Trade': 'icon-ship.svg',
+		'Government': 'icon-govt.svg',
+		'Businesses': 'icon-store.svg'
+	};
+
+	const categoryColors = {
+		'Monetary': 'var(--color-card-blue)',
+		'Output': 'var(--color-card-ltblue)',
+		'Prices': 'var(--color-card-red)',
+		'Trade': 'var(--color-card-purple)',
+		'Labor': 'var(--color-card-orange)',
+		'Government': 'var(--color-card-green)',
+		'Businesses': 'var(--color-card-teal)'
+	};
+
 	const groups = new Map();
 	charts.forEach(ds => {
 		const cat = ds.category || 'Other';
@@ -969,10 +989,46 @@ function populateDropdown() {
 	});
 
 	groups.forEach((items, category) => {
+		const group = document.createElement('div');
+		group.className = 'chart-grid-group';
+		if (categoryColors[category]) {
+			group.style.setProperty('--cat-color', categoryColors[category]);
+		}
+
+		const iconFile = categoryIcons[category];
+		if (iconFile) {
+			const iconDiv = document.createElement('div');
+			iconDiv.className = 'chart-grid-icon';
+			const img = document.createElement('img');
+			img.src = 'images/' + iconFile;
+			img.alt = category;
+			img.loading = 'lazy';
+			iconDiv.appendChild(img);
+			const firstId = items[0].id;
+			iconDiv.addEventListener('click', function(e) {
+				e.preventDefault();
+				select.value = firstId;
+				loadChart(firstId);
+
+			});
+			group.appendChild(iconDiv);
+		}
+
+		const linksDiv = document.createElement('div');
+		linksDiv.className = 'chart-grid-links';
+
 		const header = document.createElement('div');
 		header.className = 'chart-grid-category';
 		header.textContent = category;
-		grid.appendChild(header);
+
+		const firstId = items[0].id;
+		header.addEventListener('click', function(e) {
+			e.preventDefault();
+			select.value = firstId;
+			loadChart(firstId);
+			document.querySelector('.ind-chart').scrollIntoView({ behavior: 'smooth' });
+		});
+		linksDiv.appendChild(header);
 
 		items.forEach(ds => {
 			const link = document.createElement('a');
@@ -984,10 +1040,13 @@ function populateDropdown() {
 				e.preventDefault();
 				select.value = ds.id;
 				loadChart(ds.id);
-				document.getElementById('chart-grid-details').removeAttribute('open');
+
 			});
-			grid.appendChild(link);
+			linksDiv.appendChild(link);
 		});
+
+		group.appendChild(linksDiv);
+		grid.appendChild(group);
 	});
 }
 
@@ -1006,6 +1065,10 @@ function updateSelectorTitle(datasetId) {
 	// Update grid active state
 	document.querySelectorAll('.chart-grid-item').forEach(el => {
 		el.classList.toggle('active', el.dataset.id === datasetId);
+	});
+	document.querySelectorAll('.chart-grid-group').forEach(group => {
+		const hasActive = group.querySelector('.chart-grid-item.active');
+		group.classList.toggle('active', !!hasActive);
 	});
 }
 

@@ -57,9 +57,9 @@
     },
     {
       "name": "Construction Spending",
-      "period": "Dec 2025",
+      "period": "Jan 2026",
       "freq": "monthly",
-      "last_changed": "2026-03-08"
+      "last_changed": "2026-03-23"
     },
     {
       "name": "Housing Starts",
@@ -286,6 +286,12 @@
   ],
   "recent": [
     {
+      "name": "Construction Spending",
+      "period": "Jan 2026",
+      "freq": "monthly",
+      "last_changed": "2026-03-23"
+    },
+    {
       "name": "Financial Accounts",
       "period": "Q4 2025",
       "freq": "quarterly",
@@ -337,12 +343,6 @@
       "name": "TIC Capital Flows",
       "period": "Jan 2026",
       "freq": "monthly",
-      "last_changed": "2026-03-18"
-    },
-    {
-      "name": "FOMC Projections",
-      "period": "\u2014",
-      "freq": "quarterly",
       "last_changed": "2026-03-18"
     }
   ],
