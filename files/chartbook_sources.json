@@ -1,5 +1,5 @@
 {
-  "generated": "2026-03-23",
+  "generated": "2026-03-25",
   "releases": [
     {
       "name": "Employment Situation",
@@ -27,9 +27,9 @@
     },
     {
       "name": "Import/Export Prices",
-      "period": "Jan 2026",
+      "period": "Feb 2026",
       "freq": "monthly",
-      "last_changed": "2026-03-08"
+      "last_changed": "2026-03-25"
     },
     {
       "name": "JOLTS",
@@ -147,9 +147,9 @@
     },
     {
       "name": "Electricity",
-      "period": "Dec 2025",
+      "period": "Jan 2026",
       "freq": "monthly",
-      "last_changed": "2026-02-26"
+      "last_changed": "2026-03-25"
     },
     {
       "name": "Oil Production",
@@ -286,6 +286,18 @@
   ],
   "recent": [
     {
+      "name": "Import/Export Prices",
+      "period": "Feb 2026",
+      "freq": "monthly",
+      "last_changed": "2026-03-25"
+    },
+    {
+      "name": "Electricity",
+      "period": "Jan 2026",
+      "freq": "monthly",
+      "last_changed": "2026-03-25"
+    },
+    {
       "name": "Construction Spending",
       "period": "Jan 2026",
       "freq": "monthly",
@@ -332,18 +344,6 @@
       "period": "2025",
       "freq": "annual",
       "last_changed": "2026-03-19"
-    },
-    {
-      "name": "Producer Price Index",
-      "period": "Feb 2026",
-      "freq": "monthly",
-      "last_changed": "2026-03-18"
-    },
-    {
-      "name": "TIC Capital Flows",
-      "period": "Jan 2026",
-      "freq": "monthly",
-      "last_changed": "2026-03-18"
     }
   ],
   "st_series": [
