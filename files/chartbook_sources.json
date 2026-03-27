@@ -135,9 +135,9 @@
     },
     {
       "name": "Money Stock (M2)",
-      "period": "Dec 2025",
+      "period": "Feb 2026",
       "freq": "monthly",
-      "last_changed": "2026-02-02"
+      "last_changed": "2026-03-26"
     },
     {
       "name": "Exchange Rate (REER)",
@@ -165,15 +165,15 @@
     },
     {
       "name": "Initial Jobless Claims",
-      "period": "Mar 14, 2026",
+      "period": "Mar 21, 2026",
       "freq": "weekly",
-      "last_changed": "2026-03-19"
+      "last_changed": "2026-03-26"
     },
     {
       "name": "Fed Balance Sheet",
-      "period": "Mar 18, 2026",
+      "period": "Mar 25, 2026",
       "freq": "weekly",
-      "last_changed": "2026-03-19"
+      "last_changed": "2026-03-26"
     },
     {
       "name": "GDP (Second)",
@@ -286,6 +286,24 @@
   ],
   "recent": [
     {
+      "name": "Money Stock (M2)",
+      "period": "Feb 2026",
+      "freq": "monthly",
+      "last_changed": "2026-03-26"
+    },
+    {
+      "name": "Initial Jobless Claims",
+      "period": "Mar 21, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-03-26"
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "period": "Mar 25, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-03-26"
+    },
+    {
       "name": "Import/Export Prices",
       "period": "Feb 2026",
       "freq": "monthly",
@@ -325,24 +343,6 @@
       "name": "Exchange Rate (REER)",
       "period": "Feb 2026",
       "freq": "monthly",
-      "last_changed": "2026-03-19"
-    },
-    {
-      "name": "Initial Jobless Claims",
-      "period": "Mar 14, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-03-19"
-    },
-    {
-      "name": "Fed Balance Sheet",
-      "period": "Mar 18, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-03-19"
-    },
-    {
-      "name": "Productivity (TFP)",
-      "period": "2025",
-      "freq": "annual",
       "last_changed": "2026-03-19"
     }
   ],
