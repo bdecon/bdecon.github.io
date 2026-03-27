@@ -182,6 +182,18 @@
 		font-size: 12px;
 		color: var(--color-text-muted);
 	}
+	.view-btn {
+		background: none;
+		border: none;
+		padding: 0;
+		font: inherit;
+		color: var(--color-link);
+		cursor: pointer;
+		text-decoration: underline;
+	}
+	.view-btn:hover {
+		color: var(--color-link-hover, var(--color-link));
+	}
 	.chart-legend {
 		display: grid;
 		grid-template-columns: auto auto auto;
@@ -284,12 +296,83 @@
 		align-items: baseline;
 		gap: 10px;
 	}
-	.weo-info strong {
+	.weo-info dt {
 		color: var(--color-text-dark);
-		display: block;
+		font-weight: 600;
 		font-size: 12px;
 		text-transform: uppercase;
 		letter-spacing: 0.5px;
+	}
+	.weo-info dd {
+		margin: 0;
+	}
+	/* Forecast scores table */
+	.scores-controls {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		margin-bottom: 10px;
+		font-size: 13px;
+	}
+	.scores-controls select {
+		padding: 4px 6px;
+		font-size: 13px;
+		font-family: var(--font);
+		border: 1px solid var(--color-border-light);
+		border-radius: var(--radius);
+		background: var(--color-bg-white);
+		color: var(--color-text-dark);
+	}
+	.scores-table {
+		width: 100%;
+		font-size: 13px;
+		border-collapse: collapse;
+		table-layout: fixed;
+	}
+	.scores-table th, .scores-table td {
+		text-align: right;
+		padding: 3px 6px;
+		border-bottom: 1px solid var(--color-border-light);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.scores-table th:first-child, .scores-table td:first-child {
+		text-align: left;
+		width: 35%;
+	}
+	.scores-table th {
+		font-weight: 600;
+		color: var(--color-text-dark);
+		cursor: pointer;
+		user-select: none;
+		position: sticky;
+		top: 0;
+		background: var(--color-bg-white);
+	}
+	.scores-table th:hover {
+		color: var(--color-link);
+	}
+	.scores-table th .sort-arrow {
+		font-size: 10px;
+		margin-left: 2px;
+	}
+	.scores-table tbody tr:hover {
+		background: var(--color-bg-highlight, rgba(0,0,0,0.03));
+	}
+	.scores-table tbody tr {
+		cursor: pointer;
+	}
+	.scores-scroll {
+		max-height: 420px;
+		overflow-y: auto;
+		border: 1px solid var(--color-border-light);
+		border-radius: var(--radius);
+	}
+	.scores-note {
+		font-size: 12px;
+		color: var(--color-text-muted);
+		margin-top: 6px;
 	}
 	/* Collapsible sections */
 	.details-section:first-of-type {
@@ -397,6 +480,9 @@
 			padding: 6px 10px;
 			font-size: 12px;
 		}
+		/* Scores table — smaller on mobile */
+		.scores-table { font-size: 12px; }
+		.scores-controls select { font-size: 12px; }
 	}
 	/* Share buttons (stacked in chart header) */
 	.weo-share {
@@ -498,11 +584,11 @@
 	<p>Each dot below is a forecast from a previous WEO edition. Larger, fainter dots are longer-range forecasts; smaller, brighter dots are nearer-term. The solid line shows the latest actual data; the dashed line shows the latest forecasts. Where dots cluster tightly, forecasters agreed; where they spread, there was uncertainty or revision.</p>
 	</div>
 
-	<div class="info-box weo-info" id="weo-info">
-		<span><strong>Latest edition</strong><span id="weo-info-edition">...</span></span>
-		<span><strong>Next update</strong><span id="weo-info-next">...</span></span>
-		<span><a href="https://www.imf.org/en/Publications/WEO">IMF WEO page &rarr;</a></span>
-	</div>
+	<dl class="info-box weo-info" id="weo-info">
+		<div><dt>Latest edition</dt><dd id="weo-info-edition">...</dd></div>
+		<div><dt>Next update</dt><dd id="weo-info-next">...</dd></div>
+		<div><dd><a href="https://www.imf.org/en/Publications/WEO">IMF WEO page &rarr;</a></dd></div>
+	</dl>
 
 	<div class="weo-controls">
 		<div class="weo-control-row">
@@ -562,13 +648,55 @@
 		<div class="weo-tooltip" id="weo-tooltip"></div>
 	</div>
 
+	<details class="details-section" id="scores-section" open>
+		<summary>Forecast Accuracy Scores</summary>
+		<p class="scores-note">One-year-ahead (h=1) forecast errors by country. Click a column header to sort. Click a row to view that country's chart.</p>
+		<div class="scores-controls">
+			<select id="scores-indicator">
+				<option value="NGDP_RPCH">Real GDP Growth</option>
+				<option value="PCPIPCH">CPI Inflation</option>
+				<option value="BCA_NGDPD">Current Account Balance</option>
+			</select>
+			<select id="scores-period">
+				<option value="modern">2010–2024</option>
+				<option value="mid">2000–2024</option>
+				<option value="full">1992–2024</option>
+			</select>
+			<select id="scores-region">
+				<option value="all">All regions</option>
+				<option value="G110">Advanced Economies</option>
+				<option value="G505">Emerging &amp; Developing Asia</option>
+				<option value="G903">Emerging &amp; Developing Europe</option>
+				<option value="G205">Latin America &amp; Caribbean</option>
+				<option value="G400">Middle East &amp; Central Asia</option>
+				<option value="G603">Sub-Saharan Africa</option>
+			</select>
+		</div>
+		<div class="scores-scroll">
+			<table class="scores-table" id="scores-table">
+				<thead>
+					<tr>
+						<th data-col="name">Country</th>
+						<th data-col="n">N</th>
+						<th data-col="mean_error">Mean Err<br><span style="font-weight:400;font-size:11px">pp</span></th>
+						<th data-col="sign_ratio">% Over</th>
+						<th data-col="bias_score">Bias<br><span style="font-weight:400;font-size:11px">z-score</span></th>
+						<th data-col="mae">MAE<br><span style="font-weight:400;font-size:11px">pp</span></th>
+					</tr>
+				</thead>
+				<tbody id="scores-body"></tbody>
+			</table>
+		</div>
+		<p class="scores-note"><strong>Mean Err</strong>: average forecast minus actual (positive = overforecast). <strong>% Over</strong>: share of forecasts above actual. <strong>Bias</strong>: z-score of mean error across all countries. <strong>MAE</strong>: mean absolute error.</p>
+	</details>
+
 	<details class="details-section">
 		<summary>Notable Examples</summary>
 		<ul>
-			<li><strong><a href="#GRC/GGXWDG_NGDP">Greece &mdash; Government Debt</a></strong>: The IMF's own Independent Evaluation Office criticized the austerity-era debt forecasts. The dot cloud shows how projections kept underestimating Greek debt as the crisis deepened.</li>
-			<li><strong><a href="#JPN/PCPIPCH">Japan &mdash; CPI Inflation</a></strong>: For years, forecasts predicted inflation would return to 2%&mdash;and it never did. The cloud fans out above the flatline, until post-COVID inflation finally arrived and caught forecasters going the other way.</li>
-			<li><strong><a href="#ETH/NGDP_RPCH">Ethiopia &mdash; Real GDP Growth</a></strong>: Ethiopia pursued an ambitious state-led development strategy that produced consistently strong GDP growth, frequently exceeding IMF forecasts. The dot cloud shows a pattern of upward revisions as actual growth outpaced earlier projections.</li>
-			<li><strong><a href="#DEU/NGDP_RPCH">Germany &mdash; Real GDP Growth</a></strong>: Recent forecasts show persistent optimism about a rebound that hasn't materialized. The &ldquo;sick man of Europe&rdquo; narrative is visible in the gap between forecast dots and the actual line.</li>
+			<li><strong><a href="#GRC/GGXWDG_NGDP">Greece &mdash; Government Debt</a></strong>: The IMF's own Independent Evaluation Office criticized the austerity-era debt forecasts. The dot cloud shows how projections kept underestimating Greek debt as the crisis deepened. Greece's GDP growth was also overforecast by an average of 2.2 percentage points since 2010.</li>
+			<li><strong><a href="#JPN/PCPIPCH">Japan &mdash; CPI Inflation</a></strong>: For years, forecasts predicted inflation would return to 2%&mdash;and it never did. The cloud fans out above the flatline, until post-COVID inflation finally arrived and caught forecasters going the other way. Over the full sample, 64% of one-year-ahead inflation forecasts were too high.</li>
+			<li><strong><a href="#ETH/NGDP_RPCH">Ethiopia &mdash; Real GDP Growth</a></strong>: Ethiopia's state-led development strategy produced consistently strong growth that exceeded IMF forecasts. Since 2010, only 29% of one-year-ahead forecasts were too high, with actual growth beating projections by an average of 1.7 percentage points.</li>
+			<li><strong><a href="#TUR/NGDP_RPCH">Turkey &mdash; Real GDP Growth</a></strong>: The IMF has been consistently too pessimistic on Turkish growth. Since 2010, only 13% of one-year-ahead forecasts overestimated actual GDP growth, making Turkey one of the most systematically underforecast major economies (mean error: &minus;2.5 pp).</li>
 		</ul>
 	</details>
 
@@ -576,7 +704,7 @@
 		<summary>About the WEO</summary>
 		<p>The World Economic Outlook is the IMF's flagship forecast publication, covering GDP growth, inflation, fiscal balances, current account balances, and more for nearly every country. It has been published twice yearly (April and October) since 1980.</p>
 		<p>Each edition contains forecasts extending 5&ndash;6 years forward. As the forecast horizon shrinks, estimates generally converge toward the actual outcome&mdash;but not always. The IMF's <a href="https://ieo.imf.org/en/evaluations/completed/03-18-2014-imf-forecasts-process-quality-and-country-perspectives">Independent Evaluation Office found</a> systematic optimism bias during recessions. Research by <a href="https://www.imf.org/en/Publications/WP/Issues/2018/03/05/How-Well-Do-Economists-Forecast-Recessions-45672">Loungani et al. (2018)</a> showed the &ldquo;record of failure to predict recessions is virtually unblemished.&rdquo; A <a href="https://www.imf.org/-/media/files/publications/wp/2025/english/wpiea2025031-print-pdf.pdf">2025 IMF working paper</a> found forecasts overreact to good news while responding more cautiously to bad news.</p>
-		<p>By overlaying all 39 editions, you can see these patterns directly&mdash;the cloud of dots reveals where forecasts converged or diverged, and how the latest estimates compare to historical predictions.</p>
+		<p>By overlaying all editions, you can see these patterns directly&mdash;the cloud of dots reveals where forecasts converged or diverged, and how the latest estimates compare to historical predictions.</p>
 	</details>
 
 	<details class="details-section">

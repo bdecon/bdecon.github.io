@@ -196,7 +196,18 @@
 	};
 
 	function initLegendToggle() {
+		function onKeyToggle(e) {
+			if (e.key === 'Enter' || e.key === ' ') {
+				e.preventDefault();
+				e.target.click();
+			}
+		}
+
 		document.querySelectorAll('.chart-legend-item[data-toggle]').forEach(item => {
+			item.setAttribute('tabindex', '0');
+			item.setAttribute('role', 'checkbox');
+			item.setAttribute('aria-checked', !hiddenSeries.has(item.dataset.toggle));
+			item.addEventListener('keydown', onKeyToggle);
 			item.addEventListener('click', () => {
 				const key = item.dataset.toggle;
 				if (hiddenSeries.has(key)) {
@@ -206,12 +217,15 @@
 					hiddenSeries.add(key);
 					item.classList.add('legend-off');
 				}
+				item.setAttribute('aria-checked', !hiddenSeries.has(key));
 				syncGroupHeaders();
 				applyLegendToggle();
 			});
 		});
 
 		document.querySelectorAll('[data-toggle-group]').forEach(header => {
+			header.setAttribute('tabindex', '0');
+			header.addEventListener('keydown', onKeyToggle);
 			header.addEventListener('click', () => {
 				const group = header.dataset.toggleGroup;
 				const keys = GROUP_MAP[group];
@@ -365,20 +379,18 @@
 	}
 
 	function viewLink(label, view) {
-		const a = document.createElement('a');
-		a.href = '#';
-		a.textContent = label;
-		a.style.fontSize = '11px';
-		a.addEventListener('click', async (e) => {
-			e.preventDefault();
+		const btn = document.createElement('button');
+		btn.textContent = label;
+		btn.className = 'view-btn';
+		btn.addEventListener('click', async () => {
 			if (view === 'extended' && !extMerged) {
-				a.textContent = 'Loading…';
+				btn.textContent = 'Loading…';
 				await loadExtended();
 				mergeExtended();
 			}
 			setView(view);
 		});
-		return a;
+		return btn;
 	}
 
 	function updateViewLinks() {
@@ -1223,6 +1235,22 @@
 		tooltip.classList.remove('visible');
 		tooltipYear = null;
 	});
+	document.addEventListener('touchstart', (e) => {
+		if (!weoCanvas.contains(e.target)) {
+			tooltip.classList.remove('visible');
+			tooltipYear = null;
+		}
+	}, { passive: true });
+
+	// --- Resize: update aspect ratio on rotation/resize ---
+	let lastMobile = window.innerWidth <= 760;
+	window.addEventListener('resize', () => {
+		const mobile = window.innerWidth <= 760;
+		if (mobile !== lastMobile) {
+			lastMobile = mobile;
+			renderChart();
+		}
+	});
 
 	// --- Theme refresh ---
 	window.refreshChartColors = function() {
@@ -1449,6 +1477,117 @@
 		URL.revokeObjectURL(url);
 	});
 
+	// --- Forecast Accuracy Scores ---
+	let SCORES = null;
+	let scoresSortCol = 'bias_score';
+	let scoresSortAsc = false;
+	let scoresSortAbsolute = true; // sort by |bias_score| by default
+
+	async function loadScores() {
+		try {
+			const resp = await fetch('files/imfweo/forecast-scores.json');
+			if (!resp.ok) return;
+			SCORES = await resp.json();
+			renderScores();
+		} catch (e) { /* silently skip if scores unavailable */ }
+	}
+
+	function renderScores() {
+		if (!SCORES) return;
+		const ind = document.getElementById('scores-indicator').value;
+		const period = document.getElementById('scores-period').value;
+		const region = document.getElementById('scores-region').value;
+
+		const indData = SCORES.indicators[ind];
+		if (!indData) return;
+		let rows = indData.periods[period] || [];
+
+		// Filter by region
+		if (region !== 'all') {
+			rows = rows.filter(r => r.region === region);
+		}
+
+		// Sort
+		rows = rows.slice().sort((a, b) => {
+			let va = a[scoresSortCol], vb = b[scoresSortCol];
+			if (scoresSortCol === 'name') {
+				return scoresSortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
+			}
+			if (scoresSortAbsolute && scoresSortCol === 'bias_score') {
+				va = Math.abs(va); vb = Math.abs(vb);
+			}
+			return scoresSortAsc ? va - vb : vb - va;
+		});
+
+		const tbody = document.getElementById('scores-body');
+		tbody.innerHTML = '';
+		for (const r of rows) {
+			const tr = document.createElement('tr');
+			tr.dataset.iso = r.iso;
+			tr.innerHTML =
+				'<td title="' + r.name + '">' + r.name + '</td>' +
+				'<td>' + r.n + '</td>' +
+				'<td>' + r.mean_error.toFixed(2) + '</td>' +
+				'<td>' + Math.round(r.sign_ratio * 100) + '%</td>' +
+				'<td>' + r.bias_score.toFixed(2) + '</td>' +
+				'<td>' + r.mae.toFixed(2) + '</td>';
+			tr.addEventListener('click', () => {
+				if (DATA && DATA.c[r.iso]) {
+					selectCountry(r.iso);
+					// Switch indicator if available
+					const indSel = document.getElementById('indicator-select');
+					if (DATA.c[r.iso][ind]) {
+						indSel.value = ind;
+						currentIndicator = ind;
+						onSelectionChange();
+					}
+					// Scroll to chart
+					document.querySelector('.chart-container').scrollIntoView({ behavior: 'smooth' });
+				}
+			});
+			tbody.appendChild(tr);
+		}
+
+		// Update sort arrows
+		document.querySelectorAll('.scores-table th[data-col]').forEach(th => {
+			const arrow = th.querySelector('.sort-arrow');
+			if (arrow) arrow.remove();
+			if (th.dataset.col === scoresSortCol) {
+				const span = document.createElement('span');
+				span.className = 'sort-arrow';
+				span.textContent = scoresSortAsc ? ' \u25B2' : ' \u25BC';
+				th.appendChild(span);
+			}
+		});
+	}
+
+	// Sort on header click
+	document.querySelectorAll('.scores-table th[data-col]').forEach(th => {
+		th.addEventListener('click', () => {
+			const col = th.dataset.col;
+			if (col === scoresSortCol) {
+				if (scoresSortAbsolute && col === 'bias_score') {
+					// First click on active bias_score: switch to signed sort
+					scoresSortAbsolute = false;
+					scoresSortAsc = false;
+				} else {
+					scoresSortAsc = !scoresSortAsc;
+				}
+			} else {
+				scoresSortCol = col;
+				scoresSortAsc = col === 'name'; // alpha ascending by default
+				scoresSortAbsolute = col === 'bias_score';
+			}
+			renderScores();
+		});
+	});
+
+	// Re-render on filter change
+	document.getElementById('scores-indicator').addEventListener('change', renderScores);
+	document.getElementById('scores-period').addEventListener('change', renderScores);
+	document.getElementById('scores-region').addEventListener('change', renderScores);
+
 	// --- Init ---
 	loadData();
+	loadScores();
 })();
