@@ -339,7 +339,7 @@
 	}
 	.scores-table th:first-child, .scores-table td:first-child {
 		text-align: left;
-		width: 35%;
+		width: 45%;
 	}
 	.scores-table th {
 		font-weight: 600;
@@ -677,8 +677,6 @@
 				<thead>
 					<tr>
 						<th data-col="name">Country</th>
-						<th data-col="n">N</th>
-						<th data-col="mean_error">Mean Err<br><span style="font-weight:400;font-size:11px">pp</span></th>
 						<th data-col="sign_ratio">% Over</th>
 						<th data-col="bias_score">Bias<br><span style="font-weight:400;font-size:11px">z-score</span></th>
 						<th data-col="mae">MAE<br><span style="font-weight:400;font-size:11px">pp</span></th>
@@ -687,7 +685,7 @@
 				<tbody id="scores-body"></tbody>
 			</table>
 		</div>
-		<p class="scores-note"><strong>Mean Err</strong>: average forecast minus actual (positive = overforecast). <strong>% Over</strong>: share of forecasts above actual. <strong>Bias</strong>: z-score of mean error across all countries. <strong>MAE</strong>: mean absolute error.</p>
+		<p class="scores-note"><strong>% Over</strong>: share of forecasts above actual. <strong>Bias</strong>: z-score of mean forecast error across all countries (positive = overforecast). <strong>MAE</strong>: mean absolute error in percentage points.</p>
 	</details>
 
 	<details class="details-section">

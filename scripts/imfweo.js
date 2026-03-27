@@ -1526,8 +1526,6 @@
 			tr.dataset.iso = r.iso;
 			tr.innerHTML =
 				'<td title="' + r.name + '">' + r.name + '</td>' +
-				'<td>' + r.n + '</td>' +
-				'<td>' + r.mean_error.toFixed(2) + '</td>' +
 				'<td>' + Math.round(r.sign_ratio * 100) + '%</td>' +
 				'<td>' + r.bias_score.toFixed(2) + '</td>' +
 				'<td>' + r.mae.toFixed(2) + '</td>';
