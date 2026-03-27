@@ -2,8 +2,9 @@
 	'use strict';
 
 	// Read font families from CSS variables
-	const FONT_BODY = getComputedStyle(document.documentElement).getPropertyValue('--font-body').trim() || 'Tahoma, Verdana, sans-serif';
-	const FONT_UI = getComputedStyle(document.documentElement).getPropertyValue('--font-ui').trim() || 'system-ui, sans-serif';
+	const FONT_SITE = getComputedStyle(document.documentElement).getPropertyValue('--font').trim() || "'Inter', sans-serif";
+	const FONT_BODY = FONT_SITE;
+	const FONT_UI = FONT_SITE;
 
 	// --- State ---
 	let DATA = null;
@@ -273,23 +274,33 @@
 
 	// --- Data loading ---
 	async function loadData() {
-		const resp = await fetch('files/imfweo/data.json');
-		DATA = await resp.json();
+		try {
+			const resp = await fetch('files/imfweo/data.json');
+			if (!resp.ok) throw new Error('HTTP ' + resp.status);
+			DATA = await resp.json();
+		} catch (e) {
+			document.getElementById('chart-title').textContent = 'Failed to load data';
+			return;
+		}
 		populateInfoBox();
 		initDropdowns();
 		initLegendToggle();
 		restoreState();
 		renderChart();
 		updateExtLink();
-		// View links are wired in updateViewLinks() via viewLink()
 	}
 
 	// --- Extended history ---
 	async function loadExtended() {
 		if (extData) return extData;
-		const resp = await fetch('files/imfweo/data-extended.json');
-		extData = await resp.json();
-		return extData;
+		try {
+			const resp = await fetch('files/imfweo/data-extended.json');
+			if (!resp.ok) throw new Error('HTTP ' + resp.status);
+			extData = await resp.json();
+			return extData;
+		} catch (e) {
+			return null;
+		}
 	}
 
 	function mergeExtended() {
@@ -537,7 +548,7 @@
 		const list = document.getElementById('country-list');
 
 		ci.addEventListener('focus', () => {
-			ci.select();
+			ci.value = '';
 			openCombo();
 		});
 
@@ -854,6 +865,8 @@
 		document.getElementById('chart-title').textContent = countryName;
 		const indLabel = indMeta ? indMeta[0] : '';
 		const indUnits = indMeta ? indMeta[1] : '';
+		document.getElementById('weoChart').setAttribute('aria-label',
+			countryName + ' — ' + indLabel + ': IMF WEO forecast revisions');
 		document.getElementById('chart-indicator').innerHTML = `<strong>${indLabel}</strong>` + (indUnits ? ', ' + indUnits.toLowerCase() : '');
 		document.getElementById('chart-units').textContent = '';
 		const lastV = DATA.v[DATA.v.length - 1];
@@ -1366,6 +1379,74 @@
 		link.download = currentISO.toLowerCase() + '_' + currentIndicator.toLowerCase() + '.png';
 		link.href = offscreen.toDataURL('image/png');
 		link.click();
+	});
+
+	// --- Share: download CSV ---
+	document.getElementById('btn-download-csv').addEventListener('click', () => {
+		if (!DATA) return;
+		const country = DATA.c[currentISO];
+		if (!country || !country[currentIndicator]) return;
+		const d = country[currentIndicator];
+		const vintages = DATA.v;
+
+		// Month abbreviation → YYYY-MM-01
+		const MON = {Jan:'01',Feb:'02',Mar:'03',Apr:'04',May:'05',Jun:'06',
+			Jul:'07',Aug:'08',Sep:'09',Oct:'10',Nov:'11',Dec:'12'};
+		function vintageDate(v) {
+			return v[1] + '-' + (MON[v[0]] || '01') + '-01';
+		}
+
+		const indMeta = DATA.i[currentIndicator];
+		const countryName = country.n || currentISO;
+		const indLabel = indMeta ? indMeta[0] : currentIndicator;
+		const indUnits = indMeta ? indMeta[1] : '';
+
+		const comments = [
+			'# ' + countryName + ' — ' + indLabel + ' (' + indUnits + ')',
+			'# Source: IMF World Economic Outlook | bd-econ.com/imfweo.html'
+		];
+
+		const rows = [['vintage_date','year','value','forecast_horizon_years','type']];
+
+		// Forecasts: [year, value, horizon, vid_idx]
+		for (const p of d.f) {
+			const v = vintages[p[3]];
+			if (!v) continue;
+			rows.push([vintageDate(v), p[0], p[1], p[2], 'forecast']);
+		}
+
+		// Nowcasts: [year, value, isOct, vid_idx]
+		for (const p of d.nc) {
+			const v = vintages[p[3]];
+			if (!v) continue;
+			rows.push([vintageDate(v), p[0], p[1], 0, 'nowcast']);
+		}
+
+		// Latest actuals: [year, value]
+		const lastV = vintages[vintages.length - 1];
+		const lastDate = vintageDate(lastV);
+		for (const p of d.a) {
+			rows.push([lastDate, p[0], p[1], '', 'actual']);
+		}
+
+		// Latest forecasts: [year, value]
+		for (const p of d.p) {
+			rows.push([lastDate, p[0], p[1], '', 'latest_forecast']);
+		}
+
+		// Sort by vintage_date, then year
+		const header = rows.shift();
+		rows.sort((a, b) => a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : a[1] - b[1]);
+		rows.unshift(header);
+
+		const csv = comments.join('\n') + '\n' + rows.map(r => r.join(',')).join('\n');
+		const blob = new Blob([csv], { type: 'text/csv' });
+		const url = URL.createObjectURL(blob);
+		const link = document.createElement('a');
+		link.href = url;
+		link.download = currentISO.toLowerCase() + '_' + currentIndicator.toLowerCase() + '_weo_forecasts.csv';
+		link.click();
+		URL.revokeObjectURL(url);
 	});
 
 	// --- Init ---

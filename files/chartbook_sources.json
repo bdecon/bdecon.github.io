@@ -1,5 +1,5 @@
 {
-  "generated": "2026-03-26",
+  "generated": "2026-03-27",
   "releases": [
     {
       "name": "Employment Situation",
@@ -81,9 +81,9 @@
     },
     {
       "name": "Consumer Sentiment",
-      "period": "Feb 2026",
+      "period": "Mar 2026",
       "freq": "monthly",
-      "last_changed": "2026-02-20"
+      "last_changed": "2026-03-27"
     },
     {
       "name": "Capital Goods Orders",
@@ -159,9 +159,9 @@
     },
     {
       "name": "Mortgage Rates",
-      "period": "Mar 19, 2026",
+      "period": "Mar 26, 2026",
       "freq": "weekly",
-      "last_changed": "2026-03-20"
+      "last_changed": "2026-03-27"
     },
     {
       "name": "Initial Jobless Claims",
@@ -286,6 +286,18 @@
   ],
   "recent": [
     {
+      "name": "Consumer Sentiment",
+      "period": "Mar 2026",
+      "freq": "monthly",
+      "last_changed": "2026-03-27"
+    },
+    {
+      "name": "Mortgage Rates",
+      "period": "Mar 26, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-03-27"
+    },
+    {
       "name": "Money Stock (M2)",
       "period": "Feb 2026",
       "freq": "monthly",
@@ -328,20 +340,8 @@
       "last_changed": "2026-03-21"
     },
     {
-      "name": "Mortgage Rates",
-      "period": "Mar 19, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-03-20"
-    },
-    {
       "name": "New Home Sales",
       "period": "Jan 2026",
-      "freq": "monthly",
-      "last_changed": "2026-03-19"
-    },
-    {
-      "name": "Exchange Rate (REER)",
-      "period": "Feb 2026",
       "freq": "monthly",
       "last_changed": "2026-03-19"
     }
