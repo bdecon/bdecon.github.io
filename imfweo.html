@@ -308,6 +308,7 @@
 	}
 	/* Forecast scores table */
 	.scores-controls {
+		max-width: 480px;
 		display: flex;
 		flex-wrap: wrap;
 		gap: 8px;
@@ -364,6 +365,7 @@
 		cursor: pointer;
 	}
 	.scores-scroll {
+		max-width: 480px;
 		max-height: 420px;
 		overflow-y: auto;
 		border: 1px solid var(--color-border-light);
@@ -525,7 +527,7 @@
 		text-decoration: underline;
 	}
 	@media (min-width: 760px) {
-		.weo-controls, .chart-container, .weo-info {
+		.weo-controls, .chart-container, .weo-info, .scores-controls, .scores-scroll {
 			max-width: 600px;
 		}
 	}
