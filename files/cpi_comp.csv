@@ -1,11 +1,10 @@
 name,Latest,Previous
-Housing,1.4757,1.7007
-Food,0.4204,0.3559
-Medical care,0.2796,0.2379
-Recreation,0.1206,0.095
-Personal care,0.1126,0.0614
-Education,0.0721,0.0935
-Apparel,0.0648,0.0153
-Energy,0.0295,-0.0106
-Communication,-0.0654,-0.0647
-Transportation,-0.0852,0.2741
+Household energy,6.02,2.99
+Food away from home,3.9,3.68
+Medical care,3.36,2.89
+Shelter,2.96,4.25
+Food at home,2.45,1.9
+Recreation,2.27,1.78
+Other,2.08,0.88
+Vehicles,-0.84,0.06
+Motor fuel,-5.5,-3.25

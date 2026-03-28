@@ -118,10 +118,10 @@
 			max-width: 580px;
 		}
 		.chart-flip-wrapper.card-vertical {
-			max-width: 400px;
+			max-width: 440px;
 		}
 		.chart-flip-wrapper.card-vertical .chart-body {
-			min-height: 360px;
+			min-height: 340px;
 		}
 	}
 	.chart-flip-inner {
@@ -171,7 +171,7 @@
 		}
 	}
 	.chart-download-link {
-		font-size: 10px;
+		font-size: var(--text-xs);
 	}
 	.chart-compact .chart-back-body {
 		flex: 1;
@@ -182,17 +182,15 @@
 		overflow-y: auto;
 	}
 	.chart-back-body p {
-		font-size: 12px;
+		font-size: var(--text-xs);
 		line-height: 1.5;
 		color: var(--color-text-gray);
 		margin: 0 0 12px 0;
-		font-family: var(--font-ui);
 	}
 	.card-stats-table {
 		width: 100%;
 		border-collapse: collapse;
-		font-size: 10px;
-		font-family: var(--font-ui);
+		font-size: var(--text-xs);
 		color: var(--color-text-dark);
 	}
 	.card-stats-table th {
@@ -200,7 +198,7 @@
 		font-weight: 600;
 		padding: 3px 6px;
 		border-bottom: 2px solid var(--color-border);
-		font-size: 8px;
+		font-size: 10px;
 		text-transform: uppercase;
 		letter-spacing: 0.5px;
 		color: var(--color-text-muted);
@@ -211,7 +209,10 @@
 	.card-stats-table td {
 		padding: 3px 6px;
 		border-bottom: 1px solid var(--color-border-light);
-		font-size: 10px;
+		font-size: var(--text-xs);
+	}
+	.card-stats-table td:first-child {
+		font-weight: normal;
 	}
 	.card-stats-table td:not(:first-child) {
 		text-align: right;
@@ -224,19 +225,17 @@
 		font-weight: 700;
 	}
 	.card-category-badge {
-		font-size: 12px;
+		font-size: var(--text-xs);
 		padding: 2px 8px;
 		border-radius: 8px;
 		vertical-align: middle;
 		background: color-mix(in srgb, white 25%, transparent);
-		font-family: var(--font-ui);
 		margin-left: 8px;
 		font-weight: 500;
 		white-space: nowrap;
 	}
 	.card-number {
-		font-size: 10px;
-		font-family: var(--font-ui);
+		font-size: var(--text-xs);
 		color: var(--color-text-subtle);
 		font-weight: 600;
 		letter-spacing: 0.5px;
@@ -254,8 +253,7 @@
 	.chart-selector {
 		max-width: 400px;
 		margin: 0 auto 1rem auto;
-		font-family: var(--font-ui);
-		font-size: 14px;
+		font-size: var(--text-sm);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -276,7 +274,7 @@
 		margin: 0;
 	}
 	.chart-counter {
-		font-size: 10px;
+		font-size: var(--text-xs);
 		color: var(--color-text-subtle);
 		letter-spacing: 0.5px;
 	}
@@ -307,10 +305,10 @@
 	.chart-grid-details {
 		max-width: 580px;
 		margin: 0 auto 1rem auto;
-		font-family: var(--font-ui);
+		font-family: var(--font);
 	}
 	.chart-grid-details summary {
-		font-size: 14px;
+		font-size: var(--text-sm);
 		color: var(--color-link);
 		cursor: pointer;
 		text-align: center;
@@ -405,8 +403,15 @@
 	.chart-legend {
 		display: flex;
 		justify-content: center;
-		gap: 16px;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 4px 16px;
 		margin: 4px 0 0 0;
+	}
+	.chart-legend-label {
+		font-size: var(--text-xs);
+		color: var(--color-text-muted);
+		margin-right: 2px;
 	}
 	.chart-legend-box {
 		width: 14px;
@@ -414,128 +419,6 @@
 		border-radius: 1px;
 	}
 	/* Horizontal bar chart styles */
-	.hbar-chart-container {
-		display: flex;
-		flex-direction: column;
-		gap: 4px;
-		padding: 10px 0 2px;
-		font-family: var(--font-ui);
-	}
-	.hbar-legend {
-		display: flex;
-		justify-content: center;
-		gap: 14px;
-		font-size: 14px;
-		color: var(--color-text-dark);
-		margin-bottom: 2px;
-	}
-	.hbar-legend-item {
-		display: flex;
-		align-items: center;
-		gap: 4px;
-	}
-	.hbar-legend-swatch {
-		width: 16px;
-		height: 10px;
-		border-radius: 2px;
-	}
-	.hbar-rows-container {
-		position: relative;
-		padding: 6px 0;
-	}
-	.hbar-zero-line {
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		width: 1px;
-		background: var(--color-text-muted);
-		pointer-events: none;
-	}
-	.hbar-group {
-		display: flex;
-		align-items: center;
-		margin-bottom: 7px;
-		position: relative;
-	}
-	.hbar-group:last-child {
-		margin-bottom: 0;
-	}
-	.hbar-bars {
-		flex: 1;
-		min-width: 0;
-	}
-	.hbar-row {
-		display: flex;
-		align-items: center;
-		font-size: 10px;
-		height: 14px;
-	}
-	.hbar-row-label {
-		font-size: 14px;
-		color: var(--color-text-dark);
-		white-space: nowrap;
-		overflow: visible;
-		flex-shrink: 0;
-		box-sizing: border-box;
-	}
-	.hbar-group-tooltip {
-		display: none;
-		position: absolute;
-		z-index: 10;
-		background: var(--color-tooltip-bg, #333);
-		color: #fff;
-		padding: 5px 8px;
-		border-radius: var(--radius);
-		font-size: 10px;
-		white-space: nowrap;
-		pointer-events: none;
-		top: -32px;
-		left: 50%;
-		transform: translateX(-50%);
-	}
-	.hbar-group:hover .hbar-group-tooltip {
-		display: block;
-	}
-	.hbar-left {
-		display: flex;
-		justify-content: flex-end;
-		align-items: center;
-		height: 100%;
-	}
-	.hbar-right {
-		display: flex;
-		justify-content: flex-start;
-		align-items: center;
-		height: 100%;
-	}
-	.hbar-fill {
-		height: 100%;
-		background: var(--color-card-red);
-	}
-	.hbar-fill-prev {
-		height: 100%;
-		background: #d8dce0;
-		border: 1px solid #b0b8c0;
-		box-sizing: border-box;
-	}
-	[data-theme="dark"] .hbar-fill-prev {
-		background: #444;
-		border-color: #666;
-	}
-	.hbar-label {
-		color: var(--color-text-dark);
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		padding: 0 4px;
-	}
-	.hbar-bar-label {
-		font-size: 10px;
-		color: var(--color-text-muted);
-		white-space: nowrap;
-		padding: 0 2px;
-		line-height: 14px;
-	}
 	/* Loading overlay */
 	.chart-loading {
 		position: absolute;
@@ -573,8 +456,8 @@
 	}
 	.chart-latest-mobile {
 		display: none;
-		font-size: 12px;
-		font-family: var(--font-ui);
+		font-size: var(--text-xs);
+		font-family: var(--font);
 		color: var(--color-text-muted);
 		margin: 4px 0 0 0;
 		text-align: center;
@@ -603,6 +486,12 @@
 		.chart-compact .chart-body {
 			padding: 6px 8px;
 		}
+		.card-vertical .chart-compact .chart-body {
+			padding: 6px 0;
+		}
+		.card-vertical .chart-subtitle {
+			padding-left: 8px;
+		}
 		.chart-compact .chart-footer {
 			padding: 2px 10px 6px;
 		}
@@ -616,6 +505,12 @@
 		.chart-latest-mobile.active {
 			display: block;
 			font-size: 14px;
+		}
+		.chart-legend {
+			gap: 3px 10px;
+		}
+		.chart-legend-item {
+			font-size: 11px;
 		}
 	}
 	@media (min-width: 760px) {

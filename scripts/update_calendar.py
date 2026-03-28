@@ -444,6 +444,16 @@ def main():
                 'agency': rel['agency'],
             })
 
+    # ── Deduplicate ──
+    seen = set()
+    unique_entries = []
+    for entry in calendar_entries:
+        key = (entry['name'], entry['date'])
+        if key not in seen:
+            seen.add(key)
+            unique_entries.append(entry)
+    calendar_entries = unique_entries
+
     # ── Sort and write ──
     time_sort = {
         '8:30 AM ET': 0, '9:00 AM ET': 1, '9:15 AM ET': 2,

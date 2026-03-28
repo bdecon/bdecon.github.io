@@ -181,13 +181,6 @@
       "agency": "BEA"
     },
     {
-      "name": "GDP by State",
-      "date": "2026-04-09",
-      "time": "8:30 AM ET",
-      "frequency": "quarterly",
-      "agency": "BEA"
-    },
-    {
       "name": "Jobless Claims",
       "date": "2026-04-09",
       "time": "8:30 AM ET",
@@ -391,13 +384,6 @@
       "agency": "Census"
     },
     {
-      "name": "Housing Starts",
-      "date": "2026-04-29",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "Census"
-    },
-    {
       "name": "Metro Unemployment",
       "date": "2026-04-29",
       "time": "10:00 AM ET",
@@ -468,13 +454,6 @@
       "agency": "Census"
     },
     {
-      "name": "New Home Sales",
-      "date": "2026-05-05",
-      "time": "10:00 AM ET",
-      "frequency": "monthly",
-      "agency": "Census"
-    },
-    {
       "name": "State Unemployment",
       "date": "2026-05-06",
       "time": "10:00 AM ET",
@@ -494,13 +473,6 @@
       "time": "8:30 AM ET",
       "frequency": "weekly",
       "agency": "DOL"
-    },
-    {
-      "name": "Construction Spending",
-      "date": "2026-05-07",
-      "time": "10:00 AM ET",
-      "frequency": "monthly",
-      "agency": "Census"
     },
     {
       "name": "Construction Spending",
@@ -809,13 +781,6 @@
       "time": "3:00 PM ET",
       "frequency": "monthly",
       "agency": "Fed"
-    },
-    {
-      "name": "International Trade",
-      "date": "2026-06-09",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "BEA/Census"
     },
     {
       "name": "International Trade",

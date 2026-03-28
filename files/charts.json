@@ -228,7 +228,15 @@
       "category": "Output",
       "order": 3,
       "description": "The industrial production index measures the real output of the manufacturing sector. It is published by the Federal Reserve and indexed to 2012. A value above 100 indicates higher output than in 2012.",
-      "changeType": "percent"
+      "changeType": "percent",
+      "components": [
+        {
+          "col": "cap_util",
+          "label": "Cap Util",
+          "suffix": "%",
+          "decimals": 1
+        }
+      ]
     },
     {
       "id": "unrate",
@@ -293,21 +301,28 @@
       ]
     },
     {
-      "id": "p10rw",
-      "file": "files/p10rw.csv",
+      "id": "ruwe",
+      "file": "files/ruwe.csv",
       "type": "line",
-      "title": "Weekly Earnings, 10th Percentile",
+      "title": "Weekly Earnings",
       "subtitle": "Full-time workers, inflation-adjusted USD",
       "source": "Author calculation from CPS",
-      "tooltipLabel": "Value",
-      "decimals": 2,
+      "legendLabel": "Percentile:",
+      "series": [
+        { "label": "P10", "color": "orange" },
+        { "label": "P25", "color": "ltblue", "hidden": true, "showInTable": false },
+        { "label": "P50", "color": "teal", "hidden": true },
+        { "label": "P75", "color": "purple", "hidden": true, "showInTable": false },
+        { "label": "P90", "color": "red", "hidden": true }
+      ],
+      "decimals": 0,
       "valuePrefix": "$",
       "color": "orange",
       "timeSeries": true,
       "dateFormat": "monthly",
       "category": "Labor",
       "order": 8,
-      "description": "Real weekly earnings at the 10th percentile of full-time workers, adjusted for inflation. The 10th percentile means 90% of full-time workers earn more than this amount. This tracks wage growth for lower-paid workers using Current Population Survey microdata.",
+      "description": "Real usual weekly earnings at key percentiles of the full-time wage distribution, adjusted for regional inflation using CPS microdata. The 10th percentile (P10) means 90% of full-time workers earn more. Toggle series in the legend to compare across the distribution.",
       "changeType": "percent"
     },
     {
@@ -381,17 +396,17 @@
       "id": "cpicomp",
       "file": "files/cpi_comp.csv",
       "type": "dualBar",
-      "title": "Inflation Contributions",
-      "subtitle": "Contribution to year-over-year CPI,<br>percentage points",
+      "title": "CPI Components",
+      "subtitle": "Year-over-year price change by category, percent",
       "source": "BLS",
-      "decimals": 2,
+      "decimals": 1,
       "color": "red",
       "timeSeries": false,
       "latestDateSource": "files/cpi.csv",
       "latestDateFormat": "monthly",
       "category": "Prices",
       "order": 11,
-      "description": "This chart decomposes the Consumer Price Index into contributions by category, showing which goods and services are driving inflation up or down the most. Each category's contribution reflects both its price change and its weight in consumer spending."
+      "description": "Year-over-year price changes for nine major spending categories. Shelter includes rent and owners' equivalent rent. Vehicles combines new and used cars weighted by spending share. Other includes apparel, education, communication, personal care, and household furnishings."
     },
     {
       "id": "govexpbar",

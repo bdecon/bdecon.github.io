@@ -1,6 +1,28 @@
 // Read theme colors and fonts from CSS variables
-const FONT_BODY = getComputedStyle(document.documentElement).getPropertyValue('--font-body').trim() || 'Tahoma, Verdana, sans-serif';
-const FONT_UI = getComputedStyle(document.documentElement).getPropertyValue('--font-ui').trim() || 'system-ui, sans-serif';
+const FONT_BODY = getComputedStyle(document.documentElement).getPropertyValue('--font').trim() || 'Inter, sans-serif';
+const FONT_UI = FONT_BODY;
+
+// Number formatting with Intl.NumberFormat (comma grouping, fixed decimals)
+const numFmtCache = {};
+function fmtNum(value, decimals, prefix, suffix) {
+	const key = decimals;
+	if (!numFmtCache[key]) {
+		numFmtCache[key] = new Intl.NumberFormat('en-US', {
+			minimumFractionDigits: decimals,
+			maximumFractionDigits: decimals
+		});
+	}
+	return (prefix || '') + numFmtCache[key].format(value) + (suffix || '');
+}
+
+// Parse hex color to [r, g, b]
+function hexToRGB(hex) {
+	return [
+		parseInt(hex.slice(1, 3), 16),
+		parseInt(hex.slice(3, 5), 16),
+		parseInt(hex.slice(5, 7), 16)
+	];
+}
 
 function getThemeColors() {
 	const style = getComputedStyle(document.documentElement);
@@ -133,50 +155,28 @@ function updateColorMap() {
 	const a = isDark ? 0.18 : 0.08;
 	const aStrong = isDark ? 0.35 : 0.3;
 	const mix = isDark ? 0.25 : 0;
-	colorMap = {
-		blue: {
-			border: style.getPropertyValue('--color-card-blue').trim() || '#3450B2',
-			line: lighten(style.getPropertyValue('--color-card-blue').trim() || '#3450B2', mix),
-			background: `rgba(52, 80, 178, ${a})`,
-			backgroundStrong: `rgba(52, 80, 178, ${aStrong})`
-		},
-		green: {
-			border: style.getPropertyValue('--color-card-green').trim() || '#229a54',
-			line: lighten(style.getPropertyValue('--color-card-green').trim() || '#229a54', mix),
-			background: `rgba(34, 154, 84, ${a})`,
-			backgroundStrong: `rgba(34, 154, 84, ${aStrong})`
-		},
-		red: {
-			border: style.getPropertyValue('--color-card-red').trim() || '#E04040',
-			line: lighten(style.getPropertyValue('--color-card-red').trim() || '#E04040', mix),
-			background: `rgba(224, 64, 64, ${a})`,
-			backgroundStrong: `rgba(224, 64, 64, ${aStrong})`
-		},
-		orange: {
-			border: style.getPropertyValue('--color-card-orange').trim() || '#ca5c00',
-			line: lighten(style.getPropertyValue('--color-card-orange').trim() || '#ca5c00', mix),
-			background: `rgba(202, 92, 0, ${a})`,
-			backgroundStrong: `rgba(202, 92, 0, ${aStrong})`
-		},
-		purple: {
-			border: style.getPropertyValue('--color-card-purple').trim() || '#553581',
-			line: lighten(style.getPropertyValue('--color-card-purple').trim() || '#553581', mix),
-			background: `rgba(85, 53, 129, ${a})`,
-			backgroundStrong: `rgba(85, 53, 129, ${aStrong})`
-		},
-		teal: {
-			border: style.getPropertyValue('--color-card-teal').trim() || '#2A8A8A',
-			line: lighten(style.getPropertyValue('--color-card-teal').trim() || '#2A8A8A', mix),
-			background: `rgba(42, 138, 138, ${a})`,
-			backgroundStrong: `rgba(42, 138, 138, ${aStrong})`
-		},
-		ltblue: {
-			border: style.getPropertyValue('--color-card-ltblue').trim() || '#4A90C4',
-			line: lighten(style.getPropertyValue('--color-card-ltblue').trim() || '#4A90C4', mix),
-			background: `rgba(74, 144, 196, ${a})`,
-			backgroundStrong: `rgba(74, 144, 196, ${aStrong})`
-		}
+
+	const colorDefs = {
+		blue:   ['--color-card-blue',   '#3450B2'],
+		green:  ['--color-card-green',  '#229a54'],
+		red:    ['--color-card-red',    '#E04040'],
+		orange: ['--color-card-orange', '#ca5c00'],
+		purple: ['--color-card-purple', '#553581'],
+		teal:   ['--color-card-teal',   '#2A8A8A'],
+		ltblue: ['--color-card-ltblue', '#4A90C4']
 	};
+
+	colorMap = {};
+	for (const [name, [cssVar, fallback]] of Object.entries(colorDefs)) {
+		const hex = style.getPropertyValue(cssVar).trim() || fallback;
+		const [r, g, b] = hexToRGB(hex);
+		colorMap[name] = {
+			border: hex,
+			line: lighten(hex, mix),
+			background: `rgba(${r}, ${g}, ${b}, ${a})`,
+			backgroundStrong: `rgba(${r}, ${g}, ${b}, ${aStrong})`
+		};
+	}
 }
 updateColorMap();
 
@@ -369,52 +369,44 @@ const lastValuePlugin = {
 			if (allSameEnd && labelData.length > 1) {
 				// Multiple series share the same end date — one shared date label
 				const x = labelData[0].xPos + 8;
+				const minGap = 13;
+				const chartBottom = chart.chartArea.bottom;
 
-				// Check for overlap (labels within 25px of each other)
-				const sortedByY = [...labelData].sort((a, b) => a.yPos - b.yPos);
-				const hasOverlap = sortedByY.some((item, idx) =>
-						idx > 0 && Math.abs(item.yPos - sortedByY[idx-1].yPos) < 25
-					);
+				// Date label at top
+				ctx.textBaseline = 'middle';
+				ctx.fillStyle = getThemeColors().axisText;
+				let dateY = 12;
+				labelData[0].dateLabels.forEach((label) => {
+					ctx.fillText(label, x, dateY);
+					dateY += 11;
+				});
+				const dateAreaBottom = 12 + (labelData[0].dateLabels.length * 11) + 3;
 
-				if (hasOverlap) {
-					// Stack labels near the actual data points
-					ctx.textBaseline = 'top';
-					const avgY = labelData.reduce((s, d) => s + d.yPos, 0) / labelData.length;
-					const blockH = (labelData[0].dateLabels.length + labelData.length) * 11;
-					let y = Math.max(4, avgY - blockH / 2);
+				// Position labels at actual y, then de-overlap
+				const sorted = [...labelData].sort((a, b) => a.yPos - b.yPos);
+				const positions = sorted.map(d => Math.max(dateAreaBottom, Math.min(d.yPos, chartBottom - 4)));
 
-					ctx.fillStyle = getThemeColors().axisText;
-					labelData[0].dateLabels.forEach((label) => {
-						ctx.fillText(label, x, y);
-						y += 11;
-					});
-
-					const sortedByValue = [...labelData].sort((a, b) => b.value - a.value);
-					sortedByValue.forEach(({ ds, value }) => {
-						const valueStr = prefix + value.toFixed(decimals) + suffix;
-						ctx.fillStyle = ds.borderColor;
-						ctx.fillText(valueStr, x, y);
-						y += 11;
-					});
-				} else {
-					// Position labels at actual y-positions when lines are far apart
-					ctx.textBaseline = 'middle';
-
-					ctx.fillStyle = getThemeColors().axisText;
-					let dateY = 12;
-					labelData[0].dateLabels.forEach((label) => {
-						ctx.fillText(label, x, dateY);
-						dateY += 11;
-					});
-
-					const dateAreaBottom = 12 + (labelData[0].dateLabels.length * 11) + 3;
-					labelData.forEach(({ ds, value, yPos }) => {
-						const valueStr = prefix + value.toFixed(decimals) + suffix;
-						ctx.fillStyle = ds.borderColor;
-						const adjustedY = yPos < dateAreaBottom ? dateAreaBottom : yPos;
-						ctx.fillText(valueStr, x, adjustedY);
-					});
+				// Push overlapping labels downward
+				for (let i = 1; i < positions.length; i++) {
+					if (positions[i] - positions[i - 1] < minGap) {
+						positions[i] = positions[i - 1] + minGap;
+					}
 				}
+				// If bottom labels overflow, push back upward
+				if (positions[positions.length - 1] > chartBottom - 4) {
+					positions[positions.length - 1] = chartBottom - 4;
+					for (let i = positions.length - 2; i >= 0; i--) {
+						if (positions[i + 1] - positions[i] < minGap) {
+							positions[i] = positions[i + 1] - minGap;
+						}
+					}
+				}
+
+				sorted.forEach(({ ds, value }, i) => {
+					const valueStr = fmtNum(value, decimals, prefix, suffix);
+					ctx.fillStyle = ds.borderColor;
+					ctx.fillText(valueStr, x, positions[i]);
+				});
 			} else {
 				// Series end at different dates — each gets its own date+value label
 				ctx.textBaseline = 'top';
@@ -432,7 +424,7 @@ const lastValuePlugin = {
 						y += 11;
 					});
 
-					const valueStr = prefix + item.value.toFixed(decimals) + suffix;
+					const valueStr = fmtNum(item.value, decimals, prefix, suffix);
 					ctx.fillStyle = item.ds.borderColor;
 					ctx.fillText(valueStr, x, y);
 				});
@@ -452,7 +444,7 @@ const lastValuePlugin = {
 			const y = lastPoint.y;
 
 			const lastDate = new Date(chart.data.labels[lastIndex]);
-			const valueStr = prefix + dataset.data[lastIndex].toFixed(decimals) + suffix;
+			const valueStr = fmtNum(dataset.data[lastIndex], decimals, prefix, suffix);
 
 			const dateLabels = currentDateFormat
 				? currentDateFormat.lastValueFormat(lastDate)
@@ -494,7 +486,7 @@ const dataLabelsPlugin = {
 
 		meta.data.forEach((bar, index) => {
 			const value = chart.data.datasets[0].data[index];
-			ctx.fillText(value.toFixed(decimals), bar.x, bar.y - 4);
+			ctx.fillText(fmtNum(value, decimals), bar.x, bar.y - 4);
 		});
 
 		ctx.restore();
@@ -502,66 +494,6 @@ const dataLabelsPlugin = {
 };
 
 // Render horizontal bar chart with latest + previous period bars
-function renderDualBarChart(config, data, latestLabel, prevLabel) {
-	const allVals = data.flatMap(d => [d.value, d.previous].filter(v => v != null));
-	const maxVal = Math.max(...allVals.map(v => Math.abs(v)));
-	const maxNeg = Math.max(...allVals.filter(v => v < 0).map(v => Math.abs(v)), 0);
-
-	// Labels on left (labelPct%), bars on right (barPct%)
-	// Within bar zone, zero line offset by negative share
-	const labelPct = 32;
-	const barPct = 100 - labelPct;
-	const negShare = maxNeg > 0 ? Math.max(maxNeg / (maxVal + maxNeg), 0.15) : 0;
-	const zeroInBar = negShare * 100; // % within bar zone
-
-	function renderBar(val, fillClass) {
-		if (val == null) return '';
-		const pct = val >= 0
-			? (Math.abs(val) / maxVal) * (100 - zeroInBar)
-			: (Math.abs(val) / maxNeg) * zeroInBar;
-		const valStr = val.toFixed(2);
-		if (val >= 0) {
-			return `<div class="hbar-row">
-				<div class="hbar-left" style="width: ${zeroInBar}%;"></div>
-				<div class="hbar-right" style="width: ${100 - zeroInBar}%;"><div class="${fillClass}" style="width: ${pct}%;"></div><span class="hbar-bar-label">${valStr}</span></div>
-			</div>`;
-		} else {
-			return `<div class="hbar-row">
-				<div class="hbar-left" style="width: ${zeroInBar}%;"><span class="hbar-bar-label">${valStr}</span><div class="${fillClass}" style="width: ${pct}%;"></div></div>
-				<div class="hbar-right" style="width: ${100 - zeroInBar}%;"></div>
-			</div>`;
-		}
-	}
-
-	const groups = data.map(d => {
-		const tipText = `${d.name}: ${d.value.toFixed(2)} (${latestLabel})` +
-			(d.previous != null ? `, ${d.previous.toFixed(2)} (${prevLabel})` : '');
-		return `<div class="hbar-group">
-			<div class="hbar-row-label" style="width: ${labelPct}%; text-align: right; padding-right: 6px;">${d.name}</div>
-			<div class="hbar-bars" style="width: ${barPct}%;">
-				${renderBar(d.value, 'hbar-fill')}
-				${renderBar(d.previous, 'hbar-fill-prev')}
-			</div>
-			<div class="hbar-group-tooltip">${tipText}</div>
-		</div>`;
-	}).join('');
-
-	const legend = `<div class="hbar-legend">
-		<div class="hbar-legend-item"><div class="hbar-legend-swatch" style="background: var(--color-card-red);"></div>${latestLabel || 'Latest'}</div>
-		<div class="hbar-legend-item"><div class="hbar-legend-swatch hbar-fill-prev"></div>${prevLabel || 'Previous'}</div>
-	</div>`;
-
-	const zeroLinePos = labelPct + negShare * barPct;
-
-	return `<div class="hbar-chart-container">
-		${legend}
-		<div class="hbar-rows-container">
-			<div class="hbar-zero-line" style="left: ${zeroLinePos}%;"></div>
-			${groups}
-		</div>
-	</div>`;
-}
-
 // Show error message
 function showError(message) {
 	document.getElementById('chart-title').textContent = 'Error';
@@ -662,24 +594,36 @@ function renderLegend(config) {
 	}
 
 	legendContainer.style.display = 'flex';
-	legendContainer.innerHTML = config.series.map((s, i) => {
+	const prefix = config.legendLabel
+		? `<span class="chart-legend-label">${config.legendLabel}</span>`
+		: '';
+	legendContainer.innerHTML = prefix + config.series.map((s, i) => {
 		const colors = colorMap[s.color || config.color || 'blue'];
+		const active = !s.hidden;
 		return `
-			<div class="chart-legend-item${s.hidden ? ' legend-off' : ''}" data-index="${i}">
+			<div class="chart-legend-item${s.hidden ? ' legend-off' : ''}" data-index="${i}"
+				role="button" tabindex="0" aria-pressed="${active}" aria-label="Toggle ${s.label} series">
 				<span class="chart-legend-box" style="background-color: ${colors.line}"></span>
 				<span>${s.label}</span>
 			</div>
 		`;
 	}).join('');
 
-	// Add click handlers
 	legendContainer.querySelectorAll('.chart-legend-item').forEach(item => {
-		item.addEventListener('click', () => {
+		const toggle = () => {
 			const index = parseInt(item.dataset.index);
 			const isVisible = chart.isDatasetVisible(index);
 			chart.setDatasetVisibility(index, !isVisible);
 			item.classList.toggle('legend-off', isVisible);
+			item.setAttribute('aria-pressed', !isVisible);
 			chart.update();
+		};
+		item.addEventListener('click', toggle);
+		item.addEventListener('keydown', (e) => {
+			if (e.key === 'Enter' || e.key === ' ') {
+				e.preventDefault();
+				toggle();
+			}
 		});
 	});
 }
@@ -768,7 +712,7 @@ function generateStatsTable(config, data, latestDate, prevDate) {
 	const prefix = config.valuePrefix || '';
 	const suffix = config.valueSuffix || '';
 	const isMultiSeries = config.series && config.series.length > 1;
-	const formatVal = (v) => prefix + v.toFixed(decimals) + suffix;
+	const formatVal = (v) => fmtNum(v, decimals, prefix, suffix);
 
 	if (config.type === 'dualBar') {
 		// Table of all categories with period-labeled columns
@@ -840,8 +784,10 @@ function generateStatsTable(config, data, latestDate, prevDate) {
 			if (entry) rows.push({ entry, isLatest: yr === 0 });
 		}
 
+		const tableSeries = config.series.map((s, i) => ({ ...s, idx: i }))
+			.filter(s => s.showInTable !== false);
 		let html = '<table class="card-stats-table"><thead><tr><th>Period</th>';
-		config.series.forEach(s => { html += `<th>${s.label}</th>`; });
+		tableSeries.forEach(s => { html += `<th>${s.label}</th>`; });
 		html += '</tr></thead><tbody>';
 		rows.forEach(({ entry, isLatest }) => {
 			const d = new Date(entry.date);
@@ -849,8 +795,8 @@ function generateStatsTable(config, data, latestDate, prevDate) {
 			const b = isLatest ? '<strong>' : '';
 			const bc = isLatest ? '</strong>' : '';
 			html += `<tr><td>${b}${label}${bc}</td>`;
-			config.series.forEach((s, i) => {
-				const v = entry.values[i] != null && !isNaN(entry.values[i]) ? formatVal(entry.values[i]) : '\u2014';
+			tableSeries.forEach(s => {
+				const v = entry.values[s.idx] != null && !isNaN(entry.values[s.idx]) ? formatVal(entry.values[s.idx]) : '\u2014';
 				html += `<td>${b}${v}${bc}</td>`;
 			});
 			html += '</tr>';
@@ -904,7 +850,7 @@ function generateStatsTable(config, data, latestDate, prevDate) {
 			html += `<tr><td>${b}${label}${bc}</td><td>${b}${formatVal(entry.value)}${bc}</td>`;
 			comps.forEach((c, ci) => {
 				const cv = entry.components && entry.components[ci] != null
-					? (c.prefix || '') + entry.components[ci].toFixed(c.decimals ?? 1) + (c.suffix || '')
+					? fmtNum(entry.components[ci], c.decimals ?? 1, c.prefix, c.suffix)
 					: '\u2014';
 				html += `<td>${b}${cv}${bc}</td>`;
 			});
@@ -919,12 +865,10 @@ function generateStatsTable(config, data, latestDate, prevDate) {
 	const formatChange = (curr, prev) => {
 		if (pctChange) {
 			const pct = ((curr - prev) / Math.abs(prev)) * 100;
-			const sign = pct >= 0 ? '+' : '';
-			return sign + pct.toFixed(1) + '%';
+			return (pct >= 0 ? '+' : '') + fmtNum(pct, 1) + '%';
 		}
 		const diff = curr - prev;
-		const sign = diff >= 0 ? '+' : '';
-		return sign + diff.toFixed(decimals);
+		return (diff >= 0 ? '+' : '') + fmtNum(diff, decimals);
 	};
 
 	const chgHeader = pctChange ? 'Chg %' : 'Chg';
@@ -1086,11 +1030,12 @@ async function loadChart(datasetId) {
 	// Update URL hash for sharing
 	window.history.replaceState(null, '', '#' + datasetId);
 
-	// Fade out chart body and show loading
 	const chartBody = document.querySelector('.chart-flip-front .chart-body');
 	const loadingEl = document.getElementById('chart-loading');
-	chartBody.classList.add('fading');
-	loadingEl.classList.add('active');
+	if (config.type !== 'dualBar') {
+		chartBody.classList.add('fading');
+		loadingEl.classList.add('active');
+	}
 
 	// Update DOM elements
 	updateSelectorTitle(datasetId);
@@ -1098,6 +1043,7 @@ async function loadChart(datasetId) {
 	document.getElementById('chart-subtitle').innerHTML = config.subtitle || '';
 	document.getElementById('chart-source').textContent = 'Source: ' + config.source;
 	document.getElementById('chart-download').href = config.file;
+	document.getElementById('lineChart').setAttribute('aria-label', `Chart: ${config.title}`);
 
 	// Update header color (use first series color for multi-series)
 	const header = document.querySelector('.chart-flip-front .chart-header');
@@ -1181,14 +1127,13 @@ async function loadChart(datasetId) {
 			wrapper.classList.remove('card-vertical');
 		}
 
-		// Handle dual bar chart type
+		// Handle dual bar chart — render as Chart.js horizontal bar
 		if (config.type === 'dualBar') {
 			const dualData = lines.slice(1).map(line => {
 				const parts = line.split(',');
 				return { name: parts[0], value: parseFloat(parts[1]), previous: parts[2] ? parseFloat(parts[2]) : null };
 			});
 
-			// Fetch latest and previous dates from a related time series if configured
 			let latestDate = null;
 			let prevDate = null;
 			if (config.latestDateSource) {
@@ -1215,16 +1160,6 @@ async function loadChart(datasetId) {
 				}
 			}
 
-			// Hide canvas, show custom chart
-			document.getElementById('lineChart').style.display = 'none';
-			document.getElementById('chart-legend').style.display = 'none';
-			let customContainer = document.getElementById('custom-chart');
-			if (!customContainer) {
-				customContainer = document.createElement('div');
-				customContainer.id = 'custom-chart';
-				document.querySelector('.chart-flip-front .chart-body').appendChild(customContainer);
-			}
-			customContainer.style.display = 'block';
 			const dateFmt2 = getDateFormatConfig(config.latestDateFormat || 'monthly');
 			const fullMonths = ['January', 'February', 'March', 'April', 'May', 'June',
 				'July', 'August', 'September', 'October', 'November', 'December'];
@@ -1243,9 +1178,175 @@ async function loadChart(datasetId) {
 					? fullMonths[d.getUTCMonth()] + ' ' + d.getUTCFullYear()
 					: dateFmt2.lastValueFormat(d).join(' ');
 			}
-			customContainer.innerHTML = renderDualBarChart(config, dualData, latestLabel, prevLabel);
+
 			document.getElementById('chart-latest-mobile').classList.remove('active');
 			updateBackFace(config, dualData, latestDate, prevDate);
+
+			// Render on the standard canvas
+			document.getElementById('lineChart').style.display = 'block';
+			const customContainer = document.getElementById('custom-chart');
+			if (customContainer) customContainer.style.display = 'none';
+
+			if (chart) { chart.destroy(); chart = null; }
+			const ctx = document.getElementById('lineChart').getContext('2d');
+			const tc = getThemeColors();
+			const colors = colorMap[config.color || 'red'];
+			const dec = config.decimals ?? 2;
+			const pfx = config.valuePrefix || '';
+			const sfx = config.valueSuffix || '';
+			const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+			const prevColor = isDark ? '#666' : '#d0d4d8';
+			const prevBorder = isDark ? '#aaa' : '#888';
+
+			const isMobile = window.innerWidth <= 760;
+
+			// ── KNOBS ──────────────────────────────────────
+			const CANVAS_HEIGHT = 480;                    // total chart height in px
+			const BAR_THICKNESS = 0.98;                   // bar width (0-1, fraction of slot)
+			const GROUP_THICKNESS = 0.7;                  // group width (0-1, fraction of category)
+			const PAD_LEFT = isMobile ? 2 : 6;            // px, space left of y-labels
+			const PAD_RIGHT = isMobile ? -24 : -2;        // px, space right of value labels
+			const PAD_TOP = 0;                            // px, space above legend
+			const PAD_BOTTOM = 2;                         // px, space below last bar
+			const LABEL_FONT = 14;                        // y-label font size
+			const LABEL_GAP = isMobile ? 10 : 12;         // px between y-labels and bars
+			const VALUE_FONT = 12;                        // value label font size
+			const VALUE_GAP = 4;                          // px between bar end and value label
+			const LABEL_WRAP = isMobile ? 10 : 12;        // chars before wrapping y-label
+			const LEGEND_FONT = 14;                       // legend font size
+			// ───────────────────────────────────────────────
+
+			const wrapLabel = (name) => {
+				if (name.length <= LABEL_WRAP) return name;
+				const words = name.split(' ');
+				const lines = [''];
+				words.forEach(w => {
+					const cur = lines[lines.length - 1];
+					if ((cur + ' ' + w).trim().length <= LABEL_WRAP) {
+						lines[lines.length - 1] = (cur + ' ' + w).trim();
+					} else {
+						lines.push(w);
+					}
+				});
+				return lines;
+			};
+
+			chart = new Chart(ctx, {
+				type: 'bar',
+				datasetConfig: config,
+				data: {
+					labels: dualData.map(d => wrapLabel(d.name)),
+					datasets: [
+						{
+							label: latestLabel,
+							data: dualData.map(d => d.value),
+							backgroundColor: colors.line,
+							borderWidth: 0,
+							barPercentage: BAR_THICKNESS,
+							categoryPercentage: GROUP_THICKNESS
+						},
+						{
+							label: prevLabel,
+							data: dualData.map(d => d.previous),
+							backgroundColor: prevColor,
+							borderColor: prevBorder,
+							borderWidth: 1.5,
+							barPercentage: BAR_THICKNESS,
+							categoryPercentage: GROUP_THICKNESS,
+						}
+					]
+				},
+				plugins: [{
+					id: 'dualBarDataLabels',
+					afterDatasetsDraw: function(chart) {
+						const ctx = chart.ctx;
+						ctx.save();
+						ctx.font = `${VALUE_FONT}px ${FONT_BODY}`;
+						ctx.textBaseline = 'middle';
+						chart.data.datasets.forEach((dataset, di) => {
+							if (!chart.isDatasetVisible(di)) return;
+							chart.getDatasetMeta(di).data.forEach((bar, i) => {
+								const val = dataset.data[i];
+								if (val == null || isNaN(val)) return;
+								ctx.fillStyle = tc.textDark;
+								ctx.textAlign = val >= 0 ? 'left' : 'right';
+								ctx.fillText(fmtNum(val, dec, pfx, sfx), bar.x + (val >= 0 ? VALUE_GAP : -VALUE_GAP), bar.y);
+							});
+						});
+						ctx.restore();
+					}
+				}],
+				options: {
+					indexAxis: 'y',
+					responsive: true,
+					maintainAspectRatio: false,
+					layout: { padding: { left: PAD_LEFT, right: PAD_RIGHT, top: PAD_TOP, bottom: PAD_BOTTOM } },
+					plugins: {
+						legend: {
+							display: true,
+							position: 'top',
+							labels: {
+								font: { size: LEGEND_FONT, family: FONT_UI },
+								color: tc.textDark,
+								boxWidth: 14,
+								boxHeight: 10,
+								padding: 12
+							},
+							onClick: function(e, item, legend) {
+								const idx = item.datasetIndex;
+								const ci = legend.chart;
+								ci.setDatasetVisibility(idx, !ci.isDatasetVisible(idx));
+								ci.update();
+							}
+						},
+						tooltip: {
+							enabled: true,
+							backgroundColor: tc.tooltipBg,
+							titleFont: { size: 12, family: FONT_UI },
+							bodyFont: { size: 11, family: FONT_BODY },
+							padding: 8,
+							cornerRadius: 2,
+							callbacks: {
+								label: function(ctx) {
+									return ctx.dataset.label + ': ' + fmtNum(ctx.parsed.x, dec, pfx, sfx);
+								}
+							}
+						}
+					},
+					scales: {
+						x: {
+							ticks: { display: false },
+							border: { display: false },
+							grid: {
+								drawTicks: false,
+								color: function(ctx) {
+									return ctx.tick && ctx.tick.value === 0
+										? (isDark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.3)')
+										: 'transparent';
+								}
+							}
+						},
+						y: {
+							afterFit: function(axis) {
+								axis.width = isMobile ? 100 : 120;
+							},
+							grid: { display: false },
+							border: { display: false },
+							ticks: {
+								font: { size: LABEL_FONT, family: FONT_UI },
+								color: tc.textDark,
+								crossAlign: 'near',
+								autoSkip: false,
+								padding: LABEL_GAP
+							}
+						}
+					}
+				}
+			});
+
+			document.getElementById('chart-legend').style.display = 'none';
+			ctx.canvas.parentElement.style.height = CANVAS_HEIGHT + 'px';
+
 			chartBody.classList.remove('fading');
 			loadingEl.classList.remove('active');
 			return;
@@ -1253,6 +1354,7 @@ async function loadChart(datasetId) {
 
 		// Show canvas for regular charts, hide custom container
 		document.getElementById('lineChart').style.display = 'block';
+		document.getElementById('lineChart').parentElement.style.height = '';
 		const customContainer = document.getElementById('custom-chart');
 		if (customContainer) {
 			customContainer.style.display = 'none';
@@ -1345,7 +1447,7 @@ async function loadChart(datasetId) {
 								const decimals = config.decimals ?? 2;
 								const prefix = config.valuePrefix || '';
 								const suffix = config.valueSuffix || '';
-								const formattedValue = prefix + context.parsed.y.toFixed(decimals) + suffix;
+								const formattedValue = fmtNum(context.parsed.y, decimals, prefix, suffix);
 								if (isMultiSeries) {
 									return context.dataset.label + ': ' + formattedValue;
 								}
@@ -1357,7 +1459,7 @@ async function loadChart(datasetId) {
 									if (entry && entry.components) {
 										config.components.forEach((comp, ci) => {
 											if (entry.components[ci] != null) {
-												const cv = (comp.prefix || '') + entry.components[ci].toFixed(comp.decimals ?? 1) + (comp.suffix || '');
+												const cv = fmtNum(entry.components[ci], comp.decimals ?? 1, comp.prefix, comp.suffix);
 												lines.push('  ' + comp.label + ': ' + cv);
 											}
 										});
@@ -1435,11 +1537,11 @@ async function loadChart(datasetId) {
 							break;
 						}
 					}
-					return val != null ? `${s.label}: ${prefix}${val.toFixed(decimals)}${suffix}` : null;
+					return val != null ? `${s.label}: ${fmtNum(val, decimals, prefix, suffix)}` : null;
 				}).filter(Boolean);
 				mobileLatest.textContent = `Latest: ${parts.join(', ')} (${dateStr})`;
 			} else {
-				const val = prefix + lastEntry.value.toFixed(decimals) + suffix;
+				const val = fmtNum(lastEntry.value, decimals, prefix, suffix);
 				mobileLatest.textContent = `Latest: ${val} (${dateStr})`;
 			}
 			mobileLatest.classList.add('active');
