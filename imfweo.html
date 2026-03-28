@@ -318,8 +318,8 @@
 		font-size: 13px;
 	}
 	.scores-controls select {
-		padding: 4px 6px;
-		font-size: 13px;
+		padding: 6px 8px;
+		font-size: 14px;
 		font-family: var(--font);
 		border: 1px solid var(--color-border-light);
 		border-radius: var(--radius);
@@ -360,11 +360,26 @@
 		font-size: 10px;
 		margin-left: 2px;
 	}
+	.scores-table tbody tr {
+		background: transparent;
+	}
+	.scores-table tbody tr:nth-child(even) {
+		background: transparent;
+	}
 	.scores-table tbody tr:hover {
 		background: var(--color-bg-highlight, rgba(0,0,0,0.03));
 	}
 	.scores-table tbody tr {
 		cursor: pointer;
+	}
+	.scores-table td:first-child {
+		font-weight: 400;
+	}
+	.scores-table tbody tr.scores-active td {
+		font-weight: 600;
+	}
+	.scores-table tbody tr.scores-active {
+		background: var(--color-bg-highlight, rgba(0,0,0,0.04));
 	}
 	.scores-scroll {
 		max-width: 480px;
@@ -376,9 +391,10 @@
 		border-radius: var(--radius);
 	}
 	.scores-note {
-		font-size: 13px;
+		font-size: 14px;
 		color: var(--color-text-muted);
-		margin-top: 8px;
+		margin-top: 10px;
+		line-height: 1.5;
 	}
 	/* Collapsible sections */
 	.details-section:first-of-type {
@@ -488,7 +504,14 @@
 		}
 		/* Scores table — smaller on mobile */
 		.scores-table { font-size: 12px; }
-		.scores-controls select { font-size: 12px; }
+		.scores-controls {
+			flex-direction: column;
+			gap: 4px;
+		}
+		.scores-controls select {
+			font-size: 13px;
+			width: 100%;
+		}
 	}
 	/* Share buttons (stacked in chart header) */
 	.weo-share {
@@ -684,23 +707,23 @@
 					<tr>
 						<th data-col="name">Country</th>
 						<th data-col="sign_ratio">% Over</th>
-						<th data-col="bias_score">Bias<br><span style="font-weight:400;font-size:11px">z-score</span></th>
-						<th data-col="mae">MAE<br><span style="font-weight:400;font-size:11px">pp</span></th>
+						<th data-col="bias_score">Bias</th>
+						<th data-col="mae">MAE</th>
 					</tr>
 				</thead>
 				<tbody id="scores-body"></tbody>
 			</table>
 		</div>
-		<p class="scores-note"><strong>% Over</strong>: share of forecasts above actual. <strong>Bias</strong>: z-score of mean forecast error across all countries (positive = overforecast). <strong>MAE</strong>: mean absolute error in percentage points. <a id="btn-download-scores" style="cursor:pointer; text-decoration:underline;">Download full scores (CSV)</a></p>
+		<p class="scores-note"><strong>% Over</strong>: share of one-year-ahead forecasts that exceeded the actual outcome. <strong>Bias</strong>: z-score of a country's mean forecast error relative to all countries (positive = systematic overforecast). <strong>MAE</strong>: mean absolute error in percentage points. <a id="btn-download-scores" style="cursor:pointer; text-decoration:underline;">Download full scores (CSV)</a></p>
 	</details>
 
 	<details class="details-section">
 		<summary>Notable Examples</summary>
 		<ul>
-			<li><strong><a href="#GRC/GGXWDG_NGDP">Greece &mdash; Government Debt</a></strong>: The IMF's own Independent Evaluation Office criticized the austerity-era debt forecasts. The dot cloud shows how projections kept underestimating Greek debt as the crisis deepened. Greece's GDP growth was also overforecast by an average of 2.2 percentage points since 2010.</li>
+			<li><strong><a href="#GRC/GGXWDG_NGDP">Greece &mdash; Government Debt</a></strong>: The IMF's own Independent Evaluation Office criticized the austerity-era debt forecasts. The dot cloud shows how projections kept underestimating Greek debt as the crisis deepened. In the scores table above, Greece's GDP growth shows 60% of forecasts were too high since 2010.</li>
 			<li><strong><a href="#JPN/PCPIPCH">Japan &mdash; CPI Inflation</a></strong>: For years, forecasts predicted inflation would return to 2%&mdash;and it never did. The cloud fans out above the flatline, until post-COVID inflation finally arrived and caught forecasters going the other way. Over the full sample, 64% of one-year-ahead inflation forecasts were too high.</li>
-			<li><strong><a href="#ETH/NGDP_RPCH">Ethiopia &mdash; Real GDP Growth</a></strong>: Ethiopia's state-led development strategy produced consistently strong growth that exceeded IMF forecasts. Since 2010, only 29% of one-year-ahead forecasts were too high, with actual growth beating projections by an average of 1.7 percentage points.</li>
-			<li><strong><a href="#TUR/NGDP_RPCH">Turkey &mdash; Real GDP Growth</a></strong>: The IMF has been consistently too pessimistic on Turkish growth. Since 2010, only 13% of one-year-ahead forecasts overestimated actual GDP growth, making Turkey one of the most systematically underforecast major economies (mean error: &minus;2.5 pp).</li>
+			<li><strong><a href="#ETH/NGDP_RPCH">Ethiopia &mdash; Real GDP Growth</a></strong>: Ethiopia's state-led development strategy produced consistently strong growth that exceeded IMF forecasts. Since 2010, only 29% of one-year-ahead forecasts were too high&mdash;one of the lowest rates among emerging economies (bias score: &minus;1.07).</li>
+			<li><strong><a href="#TUR/NGDP_RPCH">Turkey &mdash; Real GDP Growth</a></strong>: The IMF has been consistently too pessimistic on Turkish growth. Since 2010, only 13% of one-year-ahead forecasts were too high, giving Turkey one of the strongest negative bias scores (&minus;1.38) among major economies.</li>
 		</ul>
 	</details>
 

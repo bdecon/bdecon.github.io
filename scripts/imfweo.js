@@ -616,6 +616,25 @@
 		saveState();
 		updateExtLink();
 		renderChart();
+		updateScoresHighlight();
+	}
+
+	function updateScoresHighlight() {
+		const tbody = document.getElementById('scores-body');
+		if (!tbody) return;
+		for (const tr of tbody.children) {
+			tr.classList.toggle('scores-active', tr.dataset.iso === currentISO);
+		}
+	}
+
+	function getBiasScore() {
+		if (!SCORES) return null;
+		const indData = SCORES.indicators[currentIndicator];
+		if (!indData) return null;
+		const period = document.getElementById('scores-period').value;
+		const rows = indData.periods[period] || [];
+		const row = rows.find(r => r.iso === currentISO);
+		return row ? row.bias_score : null;
 	}
 
 	// --- URL hash + localStorage ---
@@ -984,7 +1003,8 @@
 					_clipInfo: (yRange.nAbove || yRange.nBelow) ? {
 						nAbove: yRange.nAbove, nBelow: yRange.nBelow,
 						dataMax: yRange.dataMax, dataMin: yRange.dataMin
-					} : null
+					} : null,
+					// _biasScore: getBiasScore()  // see biasBadgePlugin comment
 				},
 				onHover: null
 			},
@@ -1099,6 +1119,46 @@
 			}
 		}
 	};
+
+	// --- Bias badge plugin (DISABLED): draws forecast bias score in upper-right of chart area ---
+	// To re-enable:
+	// 1. Uncomment the plugin below
+	// 2. Add biasBadgePlugin to the plugins array in renderChart()
+	// 3. Add _biasScore: getBiasScore() to the plugins config in renderChart()
+	// Note: the bias score is computed for h=1 forecasts over a fixed period (e.g. 2010-2024),
+	// which doesn't match the chart's time range or multi-horizon display. To use this properly,
+	// the score would need to be recomputed to match the chart's current view settings.
+	/*
+	const biasBadgePlugin = {
+		id: 'biasBadge',
+		afterDraw(chart) {
+			const bias = chart.options.plugins._biasScore;
+			if (bias == null) return;
+			const { ctx, chartArea } = chart;
+			const sign = bias > 0 ? '+' : '';
+			const label = 'Forecast bias';
+			const value = sign + bias.toFixed(2);
+
+			const x = chartArea.right - 8;
+			const y = chartArea.top + 9;
+			const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+			ctx.save();
+			ctx.textAlign = 'right';
+			ctx.textBaseline = 'top';
+
+			ctx.font = '11px ' + FONT_UI;
+			ctx.fillStyle = dark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.45)';
+			ctx.fillText(label, x, y);
+
+			ctx.font = '600 14px ' + FONT_UI;
+			ctx.fillStyle = dark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.6)';
+			ctx.fillText(value, x, y + 12);
+
+			ctx.restore();
+		}
+	};
+	*/
 
 	// --- Clip annotation plugin: shows when dots are beyond the y-axis ---
 	const clipAnnotationPlugin = {
@@ -1524,10 +1584,17 @@
 		for (const r of rows) {
 			const tr = document.createElement('tr');
 			tr.dataset.iso = r.iso;
+			if (r.iso === currentISO) tr.classList.add('scores-active');
+			// Bias color: warm for positive (overforecast), cool for negative
+			const biasAbs = Math.min(Math.abs(r.bias_score), 3);
+			const biasOpacity = (biasAbs / 3 * 0.25).toFixed(2);
+			const biasColor = r.bias_score > 0
+				? 'rgba(220,80,60,' + biasOpacity + ')'
+				: 'rgba(50,120,200,' + biasOpacity + ')';
 			tr.innerHTML =
 				'<td title="' + r.name + '">' + r.name + '</td>' +
 				'<td>' + Math.round(r.sign_ratio * 100) + '%</td>' +
-				'<td>' + r.bias_score.toFixed(2) + '</td>' +
+				'<td style="background:' + biasColor + '">' + r.bias_score.toFixed(2) + '</td>' +
 				'<td>' + r.mae.toFixed(2) + '</td>';
 			tr.addEventListener('click', () => {
 				if (DATA && DATA.c[r.iso]) {
