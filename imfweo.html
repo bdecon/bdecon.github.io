@@ -309,6 +309,8 @@
 	/* Forecast scores table */
 	.scores-controls {
 		max-width: 480px;
+		margin-left: auto;
+		margin-right: auto;
 		display: flex;
 		flex-wrap: wrap;
 		gap: 8px;
@@ -366,15 +368,17 @@
 	}
 	.scores-scroll {
 		max-width: 480px;
+		margin-left: auto;
+		margin-right: auto;
 		max-height: 420px;
 		overflow-y: auto;
 		border: 1px solid var(--color-border-light);
 		border-radius: var(--radius);
 	}
 	.scores-note {
-		font-size: 12px;
+		font-size: 13px;
 		color: var(--color-text-muted);
-		margin-top: 6px;
+		margin-top: 8px;
 	}
 	/* Collapsible sections */
 	.details-section:first-of-type {
@@ -652,7 +656,7 @@
 
 	<details class="details-section" id="scores-section" open>
 		<summary>Forecast Accuracy Scores</summary>
-		<p class="scores-note">One-year-ahead (h=1) forecast errors by country. Click a column header to sort. Click a row to view that country's chart.</p>
+		<p>How accurate are IMF forecasts for each country? This table scores one-year-ahead forecasts against actual outcomes. A high <em>% Over</em> means the IMF consistently overestimated; the <em>Bias</em> z-score shows how unusual that pattern is relative to other countries. Volatile economies naturally have higher errors (MAE), so the bias score helps distinguish genuine forecast bias from inherent unpredictability. Click a column to sort, or click a row to view that country's chart.</p>
 		<div class="scores-controls">
 			<select id="scores-indicator">
 				<option value="NGDP_RPCH">Real GDP Growth</option>
@@ -687,7 +691,7 @@
 				<tbody id="scores-body"></tbody>
 			</table>
 		</div>
-		<p class="scores-note"><strong>% Over</strong>: share of forecasts above actual. <strong>Bias</strong>: z-score of mean forecast error across all countries (positive = overforecast). <strong>MAE</strong>: mean absolute error in percentage points.</p>
+		<p class="scores-note"><strong>% Over</strong>: share of forecasts above actual. <strong>Bias</strong>: z-score of mean forecast error across all countries (positive = overforecast). <strong>MAE</strong>: mean absolute error in percentage points. <a id="btn-download-scores" style="cursor:pointer; text-decoration:underline;">Download full scores (CSV)</a></p>
 	</details>
 
 	<details class="details-section">

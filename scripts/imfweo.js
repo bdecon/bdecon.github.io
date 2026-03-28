@@ -1585,6 +1585,42 @@
 	document.getElementById('scores-period').addEventListener('change', renderScores);
 	document.getElementById('scores-region').addEventListener('change', renderScores);
 
+	// Download scores CSV
+	document.getElementById('btn-download-scores').addEventListener('click', () => {
+		if (!SCORES) return;
+		const ind = document.getElementById('scores-indicator').value;
+		const indData = SCORES.indicators[ind];
+		if (!indData) return;
+
+		const header = ['country', 'iso', 'region', 'period', 'pct_over', 'bias_score', 'mae'];
+		const rows = [header];
+
+		for (const [period, pRows] of Object.entries(indData.periods)) {
+			const periodLabel = SCORES.period_labels[period] || period;
+			for (const r of pRows) {
+				const regionName = SCORES.regions[r.region] || '';
+				rows.push([
+					'"' + r.name.replace(/"/g, '""') + '"',
+					r.iso, '"' + regionName + '"', periodLabel,
+					Math.round(r.sign_ratio * 100),
+					r.bias_score.toFixed(2),
+					r.mae.toFixed(2)
+				]);
+			}
+		}
+
+		const csv = '# ' + indData.label + ' — Forecast Accuracy Scores\n' +
+			'# Source: IMF World Economic Outlook | bd-econ.com/imfweo.html\n' +
+			rows.map(r => r.join(',')).join('\n');
+		const blob = new Blob([csv], { type: 'text/csv' });
+		const url = URL.createObjectURL(blob);
+		const link = document.createElement('a');
+		link.href = url;
+		link.download = ind.toLowerCase() + '_forecast_scores.csv';
+		link.click();
+		URL.revokeObjectURL(url);
+	});
+
 	// --- Init ---
 	loadData();
 	loadScores();
