@@ -1267,8 +1267,8 @@
 		tooltip.innerHTML = html;
 		tooltip.classList.add('visible');
 
-		// Position tooltip relative to chart-container using page coordinates
-		const containerRect = document.querySelector('.chart-container').getBoundingClientRect();
+		// Position tooltip relative to card using page coordinates
+		const containerRect = document.querySelector('.card').getBoundingClientRect();
 		const pageX = nativeEvt.clientX || (nativeEvt.touches && nativeEvt.touches[0].clientX);
 		const pageY = nativeEvt.clientY || (nativeEvt.touches && nativeEvt.touches[0].clientY);
 		let left = pageX - containerRect.left + 15;
@@ -1605,7 +1605,7 @@
 						onSelectionChange();
 					}
 					// Scroll to chart
-					document.querySelector('.chart-container').scrollIntoView({ behavior: 'smooth' });
+					document.querySelector('.card').scrollIntoView({ behavior: 'smooth' });
 				}
 			});
 			tbody.appendChild(tr);

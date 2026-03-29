@@ -165,12 +165,12 @@
 	<article class="ind-chart">
 		<select id="dataset-select" aria-label="Select chart" style="display:none"></select>
 		<div class="chart-selector">
-			<button class="chart-nav-btn" id="chart-prev" title="Previous chart (← key)" aria-label="Previous chart"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+			<button class="card-nav-btn" id="chart-prev" title="Previous chart (← key)" aria-label="Previous chart"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
 			<div class="chart-selector-center">
 				<h4 class="chart-selector-title" id="chart-selector-title"></h4>
 				<span class="chart-counter" id="chart-counter"></span>
 			</div>
-			<button class="chart-nav-btn" id="chart-next" title="Next chart (→ key)" aria-label="Next chart"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+			<button class="card-nav-btn" id="chart-next" title="Next chart (→ key)" aria-label="Next chart"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
 		</div>
 		<details class="chart-grid-details" id="chart-grid-details">
 			<summary>Browse all charts</summary>
@@ -179,45 +179,45 @@
 		<div class="chart-flip-wrapper" role="region" aria-label="Economic indicator chart">
 			<div class="chart-flip-inner">
 				<div class="chart-flip-front" aria-hidden="false">
-					<div class="chart-container chart-compact">
+					<div class="card card-compact">
 						<div class="chart-loading" id="chart-loading"><div class="chart-loading-spinner"></div></div>
-						<div class="chart-header accent-blue">
+						<div class="card-header accent-blue">
 							<span class="chart-title"><span id="chart-title">M2 Money Supply / GDP</span> <span class="card-category-badge" id="card-category-front"></span></span>
-							<div class="chart-share ind-share">
+							<div class="card-actions ind-share">
 								<button id="btn-copy-link" title="Copy link to this chart" aria-label="Copy link to this chart"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button>
 								<button id="btn-download-png" title="Download chart as PNG" aria-label="Download chart as PNG"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg></button>
 							</div>
 							<button id="chart-info" title="Details &amp; data" aria-label="Details and data"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></svg></button>
 						</div>
-						<div class="chart-body">
+						<div class="card-body">
 							<span class="chart-subtitle" id="chart-subtitle">index, 1988=1</span>
 							<div class="chart-legend" id="chart-legend"></div>
 							<canvas id="lineChart" role="img" aria-label="Line chart showing selected US economic indicator over time"></canvas>
 							<p class="chart-latest-mobile" id="chart-latest-mobile"></p>
 						</div>
-						<div class="chart-footer">
+						<div class="card-footer">
 							<span class="chart-filter"><span id="chart-filter" style="display: none"><button type="button" onclick="toggleTimeRange()">Recent 3 years</button></span><span id="chart-breakdown" style="display: none"><button type="button" onclick="toggleBreakdown()">By company</button></span></span>
 <span class="chart-source" id="chart-source">Source: Federal Reserve, BEA</span>
 						</div>
 					</div>
 				</div>
 				<div class="chart-flip-back" aria-hidden="true">
-					<div class="chart-container chart-compact">
-						<div class="chart-header accent-blue">
+					<div class="card card-compact">
+						<div class="card-header accent-blue">
 							<span class="chart-title"><span id="chart-title-back"></span> <span class="card-category-badge" id="card-category"></span></span>
 							<button id="chart-back-btn" title="Back to chart" aria-label="Back to chart"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7M19 12H5"/></svg></button>
 						</div>
-						<div class="chart-body chart-back-body">
+						<div class="card-body chart-back-body">
 							<p id="chart-description"></p>
 							<span class="chart-subtitle" id="chart-subtitle-back"></span>
 							<div id="chart-latest"></div>
 						</div>
-						<div class="chart-footer">
+						<div class="card-footer">
 							<span style="display: flex; align-items: center; gap: 10px;">
-								<svg class="chart-logo" viewBox="0 0 9 5" width="16" height="9" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+								<svg class="card-logo" viewBox="0 0 9 5" width="16" height="9" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
 								<span class="card-number" id="card-number"></span>
 							</span>
-							<a id="chart-download" href="files/m2gdp.csv" class="chart-download-link" download><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download (.csv)</a>
+							<a id="chart-download" href="files/m2gdp.csv" class="card-download" download><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download (.csv)</a>
 							<span class="chart-source" id="chart-source-back"></span>
 						</div>
 					</div>

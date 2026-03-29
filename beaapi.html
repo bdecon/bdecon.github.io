@@ -255,6 +255,7 @@ r = requests.get(url, params=params)
 # Show the results as a table
 pd.DataFrame(r.json()['BEAAPI']['Results']['ParamValue']).set_index('Key').head()</code></pre>
 	<p>Out[6]:</p>
+	<div class="table-wrap">
 	<table class="dataframe">
 	  <thead>
 	    <tr>
@@ -289,6 +290,7 @@ pd.DataFrame(r.json()['BEAAPI']['Results']['ParamValue']).set_index('Key').head(
 	    </tr>
 	  </tbody>
 	</table>
+	</div>
 
 	<span class="step-label accent-orange">Fetch Industry List</span>
 	<p>Request the list of industry codes. Industry code 23 is the Construction industry.</p>
@@ -301,6 +303,7 @@ r = requests.get(url, params=params).json()
 # Show the results as a table
 pd.DataFrame(r['BEAAPI']['Results']['ParamValue']).set_index('Key').head(10)</code></pre>
 	<p>Out[7]:</p>
+	<div class="table-wrap">
 	<table class="dataframe">
 	  <thead>
 	    <tr>
@@ -355,6 +358,7 @@ pd.DataFrame(r['BEAAPI']['Results']['ParamValue']).set_index('Key').head(10)</co
 	    </tr>
 	  </tbody>
 	</table>
+	</div>
 
 	<span class="step-label accent-orange">Fetch Industry Data</span>
 	<p>Using the parameters discovered above, fetch table 25 for industry 23 (Construction). The results are organized into a pandas dataframe.</p>
@@ -381,6 +385,7 @@ df = df.set_index([pd.to_datetime(df['Year']),
 df = df.apply(pd.to_numeric)
 df.tail()</code></pre>
 	<p>Out[8]:</p>
+	<div class="table-wrap">
 	<table class="dataframe wide">
 	  <thead>
 	    <tr>
@@ -471,6 +476,7 @@ df.tail()</code></pre>
 	    </tr>
 	  </tbody>
 	</table>
+	</div>
 
 	<span class="step-label accent-orange">Visualize Results</span>
 	<p>Create a chart showing the labor income share of gross value added in the construction industry.</p>

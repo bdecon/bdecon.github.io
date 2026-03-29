@@ -735,7 +735,7 @@ function updateBackFace(config, data, latestDate, prevDate) {
 	document.getElementById('chart-source-back').textContent = 'Source: ' + config.source;
 
 	// Header color
-	const backHeader = document.querySelector('.chart-flip-back .chart-header');
+	const backHeader = document.querySelector('.chart-flip-back .card-header');
 	const isMultiSeries = config.series && config.series.length > 1;
 	const colorKey = isMultiSeries
 		? (config.series[0].color || 'blue')
@@ -1195,7 +1195,7 @@ async function loadChart(datasetId) {
 	// Update URL hash for sharing
 	window.history.replaceState(null, '', '#' + datasetId);
 
-	const chartBody = document.querySelector('.chart-flip-front .chart-body');
+	const chartBody = document.querySelector('.chart-flip-front .card-body');
 	const loadingEl = document.getElementById('chart-loading');
 	if (config.type !== 'dualBar') {
 		chartBody.classList.add('fading');
@@ -1211,7 +1211,7 @@ async function loadChart(datasetId) {
 	document.getElementById('lineChart').setAttribute('aria-label', `Chart: ${config.title}`);
 
 	// Update header color (use first series color for multi-series)
-	const header = document.querySelector('.chart-flip-front .chart-header');
+	const header = document.querySelector('.chart-flip-front .card-header');
 	const isMultiSeries = config.series && config.series.length > 1;
 	const colorKey = isMultiSeries
 		? (config.series[0].color || 'blue')

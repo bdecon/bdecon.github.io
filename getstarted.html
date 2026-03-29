@@ -224,6 +224,7 @@ df = pd.DataFrame({
 
 df</code></pre>
 	<p>Out[4]:</p>
+	<div class="table-wrap">
 	<table class="dataframe">
 	  <thead>
 	    <tr>
@@ -240,6 +241,7 @@ df</code></pre>
 	    <tr><th>3</th><td>2024-Q4</td><td>22710</td><td>4.0</td></tr>
 	  </tbody>
 	</table>
+	</div>
 
 	<span class="step-label accent-ltblue">Time Series Index</span>
 	<p>Most economic data is a time series. Setting a datetime index unlocks powerful time-based operations.</p>
@@ -358,6 +360,7 @@ real = (earnings / cpi_annual * 100).round(0)
 
 pd.DataFrame({'Nominal': earnings, 'Real (2020$)': real})</code></pre>
 	<p>Out[10]:</p>
+	<div class="table-wrap">
 	<table class="dataframe">
 	  <thead>
 	    <tr>
@@ -374,6 +377,7 @@ pd.DataFrame({'Nominal': earnings, 'Real (2020$)': real})</code></pre>
 	    <tr><th>2024</th><td>1145</td><td>949.0</td></tr>
 	  </tbody>
 	</table>
+	</div>
 	<p>Nominal weekly earnings rose 16% from 2020 to 2024, but real earnings actually fell 4%&mdash;wage growth didn't keep pace with inflation. This is a key distinction in any analysis of living standards.</p>
 
 	<span class="step-label accent-ltblue">Growth Decomposition</span>
@@ -392,6 +396,7 @@ for comp in ['Goods', 'Services']:
 
 pce[['Goods contribution', 'Services contribution']].dropna().round(2)</code></pre>
 	<p>Out[11]:</p>
+	<div class="table-wrap">
 	<table class="dataframe">
 	  <thead>
 	    <tr>
@@ -406,6 +411,7 @@ pce[['Goods contribution', 'Services contribution']].dropna().round(2)</code></p
 	    <tr><th>2024-10-01</th><td>-0.12</td><td>0.91</td></tr>
 	  </tbody>
 	</table>
+	</div>
 	<p>Services drove most of the growth, while goods spending turned negative in Q4. The contributions sum to the total growth rate each quarter&mdash;this is the same technique used in the <a href="beaapi.html">BEA tutorial</a> to analyze real consumer spending.</p>
 
 	<hr class="section-bar accent-ltblue">
@@ -448,84 +454,84 @@ r.json()['data']</code></pre>
 
 	<article class="card-grid">
 	<a href="treasuryapi.html">
-	<div class="nav-card accent-red">
-		<div class="nav-card-banner">
+	<div class="card card-nav accent-red">
+		<div class="card-banner">
 			<picture><source srcset="images/treasury_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/treasury_banner.png" alt="Treasury API tutorial" width="391" height="68"></picture>
 		</div>
-		<div class="nav-card-head">
+		<div class="card-header">
 			<h3>Treasury API</h3>
 		</div>
-		<div class="nav-card-body">
+		<div class="card-body">
 			<p>Access federal finance data including revenue, spending, and debt from the US Treasury Fiscal Data API. No API key required.</p>
 			<span class="trail-badge trail-beginner">■ Beginner</span>
 		</div>
 	</div>
 	</a>
 	<a href="censusapi.html">
-	<div class="nav-card accent-green">
-		<div class="nav-card-banner">
+	<div class="card card-nav accent-green">
+		<div class="card-banner">
 			<picture><source srcset="images/census_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/census_banner.png" alt="Census API tutorial" width="207" height="68"></picture>
 		</div>
-		<div class="nav-card-head">
+		<div class="card-header">
 			<h3>Census API</h3>
 		</div>
-		<div class="nav-card-body">
+		<div class="card-body">
 			<p>Retrieve US economic indicators from the Census Bureau, including manufacturing, international trade, and construction data.</p>
 			<span class="trail-badge trail-beginner">■ Beginner</span>
 		</div>
 	</div>
 	</a>
 	<a href="beaapi.html">
-	<div class="nav-card accent-orange">
-		<div class="nav-card-banner">
+	<div class="card card-nav accent-orange">
+		<div class="card-banner">
 			<picture><source srcset="images/bea_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/bea_banner.png" alt="BEA API tutorial" width="542" height="130"></picture>
 		</div>
-		<div class="nav-card-head">
+		<div class="card-header">
 			<h3>BEA API</h3>
 		</div>
-		<div class="nav-card-body">
+		<div class="card-body">
 			<p>Retrieve national accounts data from the Bureau of Economic Analysis including GDP, consumer spending, and industry statistics.</p>
 			<span class="trail-badge trail-intermediate">◆ Intermediate</span>
 		</div>
 	</div>
 	</a>
 	<a href="blsapi.html">
-	<div class="nav-card accent-purple">
-		<div class="nav-card-banner">
+	<div class="card card-nav accent-purple">
+		<div class="card-banner">
 			<picture><source srcset="images/bls_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/bls_banner.png" alt="BLS API tutorial" width="257" height="68"></picture>
 		</div>
-		<div class="nav-card-head">
+		<div class="card-header">
 			<h3>BLS API</h3>
 		</div>
-		<div class="nav-card-body">
+		<div class="card-body">
 			<p>Retrieve US labor statistics&mdash;employment, wages, prices&mdash;directly from the Bureau of Labor Statistics (BLS) API.</p>
 			<span class="trail-badge trail-intermediate">◆ Intermediate</span>
 		</div>
 	</div>
 	</a>
 	<a href="imfapi1.html">
-	<div class="nav-card accent-blue">
-		<div class="nav-card-banner">
+	<div class="card card-nav accent-blue">
+		<div class="card-banner">
 			<picture><source srcset="images/imf_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/imf_banner.png" alt="IMF API tutorial" width="293" height="68"></picture>
 		</div>
-		<div class="nav-card-head">
+		<div class="card-header">
 			<h3>IMF API</h3>
 		</div>
-		<div class="nav-card-body">
+		<div class="card-body">
 			<p>Access international economic data from the International Monetary Fund (IMF). Covers GDP, trade, prices, and more for 190+ countries.</p>
 			<span class="trail-badge trail-intermediate">◆ Intermediate</span>
 		</div>
 	</div>
 	</a>
 	<a href="cps.html">
-	<div class="nav-card accent-teal">
-		<div class="nav-card-banner">
+	<div class="card card-nav accent-teal">
+		<div class="card-banner">
 			<picture><source srcset="images/cps_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/cps_banner.png" alt="CPS microdata tutorial" width="542" height="130"></picture>
 		</div>
-		<div class="nav-card-head">
+		<div class="card-header">
 			<h3>CPS Microdata</h3>
 		</div>
-		<div class="nav-card-body">
+		<div class="card-body">
 			<p>Read and analyze Current Population Survey microdata with Python. Build custom labor market statistics from household-level data.</p>
 			<span class="trail-badge trail-advanced">◆◆ Advanced</span>
 		</div>

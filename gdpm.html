@@ -147,12 +147,12 @@
 	<p class="callout accent-red">Monthly US GDP, estimated by smoothing official quarterly data across months and incorporating the best available forecast for the current quarter.</p>
 
 	<div class="split-row chart-row">
-		<div class="chart-container">
-			<div class="chart-header accent-red">
+		<div class="card">
+			<div class="card-header accent-red">
 				<span class="chart-title">Monthly US GDP</span>
 				<a href="files/gdpm.csv" title="Download as .csv" download><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg></a>
 			</div>
-			<div class="chart-body">
+			<div class="card-body">
 				<div class="chart-body-header">
 					<span class="chart-subtitle">USD, seasonally adjusted annual rate</span>
 					<div class="toggle-group chart-toggle accent-red">
@@ -162,7 +162,7 @@
 				</div>
 				<canvas id="lineChart" role="img" aria-label="Line chart showing monthly US GDP estimates"></canvas>
 			</div>
-			<div class="chart-footer">
+			<div class="card-footer">
 				<span class="chart-filter"><button type="button" onclick="toggleTimeRange()">Recent 3 years</button></span>
 				<span class="chart-source">Source: BEA, Atlanta Fed, Cleveland Fed</span>
 			</div>
@@ -228,7 +228,7 @@
 
 	<p>The chart below illustrates the interpolation process. The stepped gray line shows published quarterly GDP values. The smooth red line shows the monthly interpolated series. The most recent quarter includes the nowcast estimate.</p>
 
-	<div class="info-box comparison-chart-container">
+	<div class="info-box comparison-chart">
 		<canvas id="comparisonChart" role="img" aria-label="Line chart comparing GDP estimates across sources"></canvas>
 	</div>
 

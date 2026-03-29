@@ -67,45 +67,8 @@
 
   gtag('config', 'G-PGVF5S620Y');
 </script>
-<style>
-	.py-row {
-		align-items: center;
-		margin: 0 auto;
-		max-width: 760px;
-		padding: 0 12px;
-		box-sizing: border-box;
-	}
-	.py-intro {
-		flex: 1;
-		min-width: 0;
-	}
-	.py-intro p { margin: 0 0 1em 0; font-size: var(--text-base); line-height: 1.6; }
-	.py-intro p:last-child { margin-bottom: 0; }
-	.py-row a { text-decoration: none; flex: 0 0 300px; }
-	.py-row .nav-card-body {
-		display: flex;
-		flex-direction: column;
-		height: 125px;
-	}
-	.py-row .trail-badge { margin-top: auto; }
-	.py-arrow {
-		text-align: right;
-		font-size: 14px;
-		font-weight: 600;
-		color: var(--color-text-muted);
-		margin: 0;
-	}
-	.py-arrow-down { display: none; }
-	.card-grid h2 { padding-top: 24px; }
-	@media (max-width: 760px) {
-		.py-row a { flex: none; width: 300px; }
-		.py-arrow { text-align: center; }
-		.py-arrow-right { display: none; }
-		.py-arrow-down { display: inline; }
-	}
-</style>
 </head>
-<body>
+<body class="page-python">
 	<a href="#main" class="skip-link">Skip to main content</a>
 	<nav>
 		<ul class="site-nav" id="menu">
@@ -154,14 +117,14 @@
 			<p class="py-arrow">New to Python? <span class="py-arrow-right">→</span><span class="py-arrow-down">↓</span></p>
 		</div>
 		<a href="getstarted.html">
-		<div class="nav-card accent-ltblue">
-			<div class="nav-card-banner">
+		<div class="card card-nav accent-ltblue">
+			<div class="card-banner">
 				<picture><source srcset="images/getstarted_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/getstarted_banner.png" alt="Getting Started with Python" width="400" height="68"></picture>
 			</div>
-			<div class="nav-card-head">
+			<div class="card-header">
 				<h3>Getting Started</h3>
 			</div>
-			<div class="nav-card-body">
+			<div class="card-body">
 				<p>Install Python, learn key economics calculations, and make your first API request.</p>
 				<span class="trail-badge trail-intro">● Introductory</span>
 			</div>
@@ -171,90 +134,90 @@
 	<article class="card-grid">
 	<h2 class="heading-accent">Tutorials</h2>
 	<a href="treasuryapi.html">
-	<div class="nav-card accent-red">
+	<div class="card card-nav accent-red">
 
-		<div class="nav-card-banner">
+		<div class="card-banner">
 			<picture><source srcset="images/treasury_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/treasury_banner.png" alt="Treasury API tutorial" width="391" height="68"></picture>
 		</div>
-		<div class="nav-card-head">
+		<div class="card-header">
 			<h3>Treasury API</h3>
 		</div>
-		<div class="nav-card-body">
+		<div class="card-body">
 			<p>Access federal finance data including revenue, spending, and debt from the US Treasury Fiscal Data API. No API key required.</p>
 			<span class="trail-badge trail-beginner">■ Beginner</span>
 		</div>
 	</div>
 	</a>
 	<a href="censusapi.html">
-	<div class="nav-card accent-green">
+	<div class="card card-nav accent-green">
 
-		<div class="nav-card-banner">
+		<div class="card-banner">
 			<picture><source srcset="images/census_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/census_banner.png" alt="Census API tutorial" width="207" height="68"></picture>
 		</div>
-		<div class="nav-card-head">
+		<div class="card-header">
 			<h3>Census API</h3>
 		</div>
-		<div class="nav-card-body">
+		<div class="card-body">
 			<p>Retrieve US economic indicators from the Census Bureau, including manufacturing, international trade, and construction data.</p>
 			<span class="trail-badge trail-beginner">■ Beginner</span>
 		</div>
 	</div>
 	</a>
 	<a href="beaapi.html">
-	<div class="nav-card accent-orange">
+	<div class="card card-nav accent-orange">
 
-		<div class="nav-card-banner">
+		<div class="card-banner">
 			<picture><source srcset="images/bea_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/bea_banner.png" alt="BEA API tutorial" width="542" height="130"></picture>
 		</div>
-		<div class="nav-card-head">
+		<div class="card-header">
 			<h3>BEA API</h3>
 		</div>
-		<div class="nav-card-body">
+		<div class="card-body">
 			<p>Retrieve national accounts data from the Bureau of Economic Analysis including GDP, consumer spending, and industry statistics.</p>
 			<span class="trail-badge trail-intermediate">◆ Intermediate</span>
 		</div>
 	</div>
 	</a>
 	<a href="blsapi.html">
-	<div class="nav-card accent-purple">
+	<div class="card card-nav accent-purple">
 
-		<div class="nav-card-banner">
+		<div class="card-banner">
 			<picture><source srcset="images/bls_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/bls_banner.png" alt="BLS API tutorial" width="257" height="68"></picture>
 		</div>
-		<div class="nav-card-head">
+		<div class="card-header">
 			<h3>BLS API</h3>
 		</div>
-		<div class="nav-card-body">
+		<div class="card-body">
 			<p>Retrieve US labor statistics&mdash;employment, wages, prices&mdash;directly from the Bureau of Labor Statistics (BLS) API.</p>
 			<span class="trail-badge trail-intermediate">◆ Intermediate</span>
 		</div>
 	</div>
 	</a>
 	<a href="imfapi1.html">
-	<div class="nav-card accent-blue">
+	<div class="card card-nav accent-blue">
 
-		<div class="nav-card-banner">
+		<div class="card-banner">
 		<picture><source srcset="images/imf_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/imf_banner.png" alt="IMF API tutorial" width="293" height="68"></picture>
 	  </div>
-	  <div class="nav-card-head">
+	  <div class="card-header">
 		<h3>IMF API</h3>
 	  </div>
-	  <div class="nav-card-body">
+	  <div class="card-body">
 		<p>Access international economic data from the International Monetary Fund (IMF). Covers GDP, trade, prices, and more for 190+ countries.</p>
 		<span class="trail-badge trail-intermediate">◆ Intermediate</span>
 	  </div>
 	</div>
 	</a>
 	<a href="cps.html">
-	<div class="nav-card accent-teal">
+	<div class="card card-nav accent-teal">
 
-		<div class="nav-card-banner">
+		<div class="card-banner">
 			<picture><source srcset="images/cps_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/cps_banner.png" alt="CPS microdata tutorial" width="542" height="130"></picture>
 		</div>
-		<div class="nav-card-head">
+		<div class="card-header">
 			<h3>CPS Microdata</h3>
 		</div>
-		<div class="nav-card-body">
+		<div class="card-body">
 			<p>Read and analyze Current Population Survey microdata with Python. Build custom labor market statistics from household-level data.</p>
 			<span class="trail-badge trail-advanced">◆◆ Advanced</span>
 		</div>
