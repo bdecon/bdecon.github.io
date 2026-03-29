@@ -43,6 +43,7 @@ let fullData = null;
 let isFilteredView = false;
 let currentConfig = null;
 let isFlipped = false;
+let isBreakdownView = false;
 const csvCache = new Map();
 
 // NBER recession periods [start, end]
@@ -265,8 +266,8 @@ function getDateFormatConfig(dateFormat) {
 		case 'annual':
 			return {
 				tickCallback: function(value, index) {
-					const dateStr = this.getLabelForValue(index);
-					return dateStr.substring(0, 4);
+					const dateStr = this.getLabelForValue(value);
+					return dateStr ? dateStr.substring(0, 4) : '';
 				},
 				tooltipTitle: function(context) {
 					const date = new Date(context[0].label);
@@ -274,6 +275,28 @@ function getDateFormatConfig(dateFormat) {
 				},
 				lastValueFormat: function(date) {
 					return [date.getUTCFullYear()];
+				}
+			};
+		case 'weekly':
+			return {
+				tickCallback: function(value, index) {
+					const dateStr = this.getLabelForValue(value);
+					if (!dateStr) return '';
+					const date = new Date(dateStr);
+					const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+						'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+					return months[date.getUTCMonth()] + ' ' + date.getUTCFullYear();
+				},
+				tooltipTitle: function(context) {
+					const date = new Date(context[0].label);
+					const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+						'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+					return months[date.getUTCMonth()] + ' ' + date.getUTCDate() + ', ' + date.getUTCFullYear();
+				},
+				lastValueFormat: function(date) {
+					const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+						'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+					return [months[date.getUTCMonth()] + ' ' + date.getUTCDate(), date.getUTCFullYear()];
 				}
 			};
 		case 'daily':
@@ -537,18 +560,41 @@ function getFilteredTickCallback(dateFormat) {
 	};
 }
 
+// Toggle between total and breakdown view for stacked bar charts
+function toggleBreakdown() {
+	if (!currentConfig) return;
+	isBreakdownView = !isBreakdownView;
+	loadChart(currentConfig.id);
+}
+
 // Toggle between full data and last 3 years
-function toggleTimeRange() {
+async function toggleTimeRange() {
 	if (!chart || !fullData) return;
 
 	const filterLink = document.getElementById('chart-filter').querySelector('button');
 	const dateFormat = currentConfig?.dateFormat || 'quarterly';
 	const isMultiSeries = currentConfig?.series && currentConfig.series.length > 1;
+	const isStackedBar = currentConfig?.type === 'stackedBar' && currentConfig.stackedSeries;
+	const filterYears = currentConfig?.filterYears || 3;
+
+	const hasFilteredFile = !!currentConfig?.filteredFile;
 
 	if (isFilteredView) {
-		// Show all data
+		// Show all data — restore original date format
+		if (hasFilteredFile) {
+			currentDateFormat = getDateFormatConfig(dateFormat);
+		}
 		chart.data.labels = fullData.map(d => d.date);
-		if (isMultiSeries) {
+		if (isStackedBar) {
+			currentConfig.stackedSeries.forEach((s, i) => {
+				chart.data.datasets[i].data = fullData.map(d => d[s.col] || 0);
+				if (currentConfig.timeSeries !== false) {
+					chart.data.datasets[i].categoryPercentage = 1.0;
+					chart.data.datasets[i].barPercentage = 1.0;
+					chart.data.datasets[i].borderWidth = 0;
+				}
+			});
+		} else if (isMultiSeries) {
 			chart.data.datasets.forEach((ds, i) => {
 				ds.data = fullData.map(d => d.values[i]);
 			});
@@ -556,22 +602,63 @@ function toggleTimeRange() {
 			chart.data.datasets[0].data = fullData.map(d => d.value);
 		}
 		chart.options.scales.x.ticks.callback = currentDateFormat.tickCallback;
-		filterLink.textContent = 'Recent 3 years';
+		chart.options.plugins.tooltip.callbacks.title = currentDateFormat.tooltipTitle;
+		filterLink.textContent = `Recent ${filterYears} years`;
 		isFilteredView = false;
 		chart.options.scales.y.suggestedMin = undefined;
 		chart.options.scales.y.suggestedMax = undefined;
 	} else {
-		// Filter to last 3 years
-		const filtered = filterToLastYears(fullData, 3);
+		// If chart has a separate filtered file (e.g. weekly data), fetch and use it
+		let filtered;
+		if (currentConfig.filteredFile) {
+			let csv;
+			if (csvCache.has(currentConfig.filteredFile)) {
+				csv = csvCache.get(currentConfig.filteredFile);
+			} else {
+				const resp = await fetch(currentConfig.filteredFile);
+				if (!resp.ok) throw new Error('Failed to load ' + currentConfig.filteredFile);
+				csv = await resp.text();
+				csvCache.set(currentConfig.filteredFile, csv);
+			}
+			const lines = csv.trim().split('\n');
+			const headers = lines[0].split(',');
+			filtered = lines.slice(1).map(line => {
+				const parts = line.split(',');
+				if (isStackedBar) {
+					const entry = { date: parts[0] };
+					headers.slice(1).forEach((h, i) => { entry[h] = parseFloat(parts[i + 1]); });
+					return entry;
+				}
+				return isMultiSeries
+					? { date: parts[0], values: parts.slice(1).map(v => parseFloat(v)) }
+					: { date: parts[0], value: parseFloat(parts[1]) };
+			});
+		} else {
+			filtered = filterToLastYears(fullData, filterYears);
+		}
 		chart.data.labels = filtered.map(d => d.date);
-		if (isMultiSeries) {
+		if (isStackedBar) {
+			currentConfig.stackedSeries.forEach((s, i) => {
+				chart.data.datasets[i].data = filtered.map(d => d[s.col] || 0);
+				if (currentConfig.timeSeries !== false) {
+					chart.data.datasets[i].categoryPercentage = 0.9;
+					chart.data.datasets[i].barPercentage = 0.9;
+				}
+			});
+		} else if (isMultiSeries) {
 			chart.data.datasets.forEach((ds, i) => {
 				ds.data = filtered.map(d => d.values[i]);
 			});
 		} else {
 			chart.data.datasets[0].data = filtered.map(d => d.value);
 		}
-		chart.options.scales.x.ticks.callback = getFilteredTickCallback(dateFormat);
+		if (hasFilteredFile) {
+			currentDateFormat = getDateFormatConfig('weekly');
+			chart.options.scales.x.ticks.callback = currentDateFormat.tickCallback;
+			chart.options.plugins.tooltip.callbacks.title = currentDateFormat.tooltipTitle;
+		} else {
+			chart.options.scales.x.ticks.callback = getFilteredTickCallback(dateFormat);
+		}
 		filterLink.textContent = 'Full history';
 		isFilteredView = true;
 		if (currentConfig.filteredYRef != null) {
@@ -713,6 +800,80 @@ function generateStatsTable(config, data, latestDate, prevDate) {
 	const suffix = config.valueSuffix || '';
 	const isMultiSeries = config.series && config.series.length > 1;
 	const formatVal = (v) => fmtNum(v, decimals, prefix, suffix);
+
+	if (config.type === 'stackedBar' && config.stackedSeries) {
+		if (!data || data.length === 0) return '';
+
+		// Time-series stacked bar: long format (periods as rows, series as columns)
+		if (config.timeSeries !== false) {
+			const last = data[data.length - 1];
+			const lastDate = new Date(last.date);
+			const dateFormat = getDateFormatConfig(config.dateFormat || 'quarterly');
+
+			function findClosestStacked(targetDate) {
+				let closest = null;
+				let minDiff = Infinity;
+				for (const entry of data) {
+					const diff = Math.abs(new Date(entry.date) - targetDate);
+					if (diff < minDiff) { minDiff = diff; closest = entry; }
+				}
+				return closest && minDiff < 100 * 24 * 60 * 60 * 1000 ? closest : null;
+			}
+
+			const rows = [];
+			for (let yr = 6; yr >= 0; yr--) {
+				const target = new Date(lastDate);
+				target.setFullYear(target.getFullYear() - yr);
+				const entry = yr === 0 ? last : findClosestStacked(target);
+				if (entry) rows.push({ entry, isLatest: yr === 0 });
+			}
+
+			let html = '<table class="card-stats-table"><thead><tr><th>Period</th>';
+			config.stackedSeries.forEach(s => { html += `<th>${s.label}</th>`; });
+			html += '</tr></thead><tbody>';
+			rows.forEach(({ entry, isLatest }) => {
+				const d = new Date(entry.date);
+				const label = dateFormat.lastValueFormat(d).join(' ');
+				const b = isLatest ? '<strong>' : '';
+				const bc = isLatest ? '</strong>' : '';
+				html += `<tr><td>${b}${label}${bc}</td>`;
+				config.stackedSeries.forEach(s => {
+					const v = entry[s.col] != null ? formatVal(entry[s.col]) : '\u2014';
+					html += `<td>${b}${v}${bc}</td>`;
+				});
+				html += '</tr>';
+			});
+			html += '</tbody></table>';
+			return html;
+		}
+
+		// Non-time-series stacked bar: wide format (series as rows, quarters as columns)
+		const recent = data.slice(-4);
+		const qLabels = recent.map(d => {
+			const [yr, q] = d.date.split('-');
+			return `Q${parseInt(q)} '${yr.slice(2)}`;
+		});
+		let html = '<table class="card-stats-table"><thead><tr><th></th>';
+		qLabels.forEach(q => { html += `<th>${q}</th>`; });
+		html += '</tr></thead><tbody>';
+		config.stackedSeries.forEach(s => {
+			html += `<tr><td>${s.label}</td>`;
+			recent.forEach(d => {
+				html += `<td>${formatVal(d[s.col] || 0)}</td>`;
+			});
+			html += '</tr>';
+		});
+		// Total row — skip if totals are always near zero
+		const totals = recent.map(d => config.stackedSeries.reduce((sum, s) => sum + (d[s.col] || 0), 0));
+		const showTotal = totals.some(t => Math.abs(t) > 0.1);
+		if (showTotal) {
+			html += '<tr style="font-weight:600;border-top:1px solid var(--color-border)"><td>Total</td>';
+			totals.forEach(t => { html += `<td>${formatVal(t)}</td>`; });
+			html += '</tr>';
+		}
+		html += '</tbody></table>';
+		return html;
+	}
 
 	if (config.type === 'dualBar') {
 		// Table of all categories with period-labeled columns
@@ -1021,6 +1182,11 @@ async function loadChart(datasetId) {
 	updateColorMap();
 	resetFlip();
 
+	// Reset breakdown view when switching to a different chart
+	if (currentConfig && currentConfig.id !== datasetId) {
+		isBreakdownView = false;
+	}
+
 	const config = manifest.charts.find(d => d.id === datasetId);
 	if (!config) {
 		showError('Dataset not found: ' + datasetId);
@@ -1103,10 +1269,10 @@ async function loadChart(datasetId) {
 		// Show/hide filter link (only for time series charts)
 		const filterEl = document.getElementById('chart-filter');
 		if (config.timeSeries !== false) {
-			filterEl.style.visibility = 'visible';
-			filterEl.querySelector('button').textContent = isFilteredView ? 'Full history' : 'Recent 3 years';
+			filterEl.style.display = '';
+			filterEl.querySelector('button').textContent = isFilteredView ? 'Full history' : `Recent ${config.filterYears || 3} years`;
 		} else {
-			filterEl.style.visibility = 'hidden';
+			filterEl.style.display = 'none';
 		}
 
 		// Destroy existing chart
@@ -1118,6 +1284,10 @@ async function loadChart(datasetId) {
 		// Hide PNG download for non-canvas chart types
 		const pngBtn = document.getElementById('btn-download-png');
 		if (pngBtn) pngBtn.style.display = config.type === 'dualBar' ? 'none' : '';
+
+		// Hide breakdown toggle by default (stackedBar handler shows it when needed)
+		const breakdownDefault = document.getElementById('chart-breakdown');
+		if (breakdownDefault) breakdownDefault.style.display = 'none';
 
 		// Toggle vertical card orientation for bar-only charts
 		const wrapper = document.querySelector('.chart-flip-wrapper');
@@ -1352,6 +1522,283 @@ async function loadChart(datasetId) {
 			return;
 		}
 
+		// Handle stacked bar chart (e.g. Mag 7 OCF, sectoral balances)
+		if (config.type === 'stackedBar' && config.stackedSeries) {
+			const headers = lines[0].split(',');
+			const isTimeSeries = config.timeSeries !== false;
+			const stackData = lines.slice(1).map(line => {
+				const parts = line.split(',');
+				const entry = { date: parts[0] };
+				headers.slice(1).forEach((h, i) => {
+					entry[h] = parseFloat(parts[i + 1]);
+				});
+				return entry;
+			});
+
+			// Format labels based on whether this is a time series
+			const filterYears = config.filterYears || 3;
+			function stackedLabel(dateStr) {
+				if (isTimeSeries) return dateStr; // use raw date, tick callback formats
+				return dateStr; // keep raw "YYYY-QQ" for tick callback to format
+			}
+
+			// Apply filter if persisted
+			let chartStackData = stackData;
+			if (isTimeSeries && isFilteredView) {
+				chartStackData = filterToLastYears(stackData, filterYears);
+			}
+
+			// Build datasets — total (aggregate) or breakdown (stacked per series)
+			const tc = getThemeColors();
+			const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+			const isFilteredTS = isTimeSeries && isFilteredView;
+			const showTotal = config.stackedDefault === 'total' && !isBreakdownView;
+			const getColor = (s) => isDark && s.darkColor ? s.darkColor : s.color;
+
+			const buildDatasets = (data) => {
+				if (showTotal) {
+					const colors = colorMap[config.color || 'teal'];
+					return [{
+						label: config.tooltipLabel || 'Total',
+						data: data.map(d => config.stackedSeries.reduce((sum, s) => sum + (d[s.col] || 0), 0)),
+						backgroundColor: colors.line,
+						borderColor: colors.line,
+						borderWidth: 0
+					}];
+				}
+				return config.stackedSeries.map(s => ({
+					label: s.label,
+					data: data.map(d => d[s.col] || 0),
+					backgroundColor: getColor(s),
+					borderColor: isDark ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.5)',
+					borderWidth: isTimeSeries ? 0 : 0.5,
+					...(isTimeSeries ? {
+						categoryPercentage: isFilteredTS ? 0.9 : 1.0,
+						barPercentage: isFilteredTS ? 0.9 : 1.0
+					} : {})
+				}));
+			};
+
+			// Show canvas, hide custom container
+			document.getElementById('lineChart').style.display = 'block';
+			document.getElementById('lineChart').parentElement.style.height = '';
+			const customContainer = document.getElementById('custom-chart');
+			if (customContainer) customContainer.style.display = 'none';
+
+			const ctx = document.getElementById('lineChart').getContext('2d');
+			const dec = config.decimals ?? 2;
+			const pfx = config.valuePrefix || '';
+			const sfx = config.valueSuffix || '';
+
+			// Tick callback for stacked bars
+			let stackedTickCallback;
+			if (isTimeSeries) {
+				stackedTickCallback = isFilteredView
+					? getFilteredTickCallback(config.dateFormat || 'quarterly')
+					: getDateFormatConfig(config.dateFormat || 'quarterly').tickCallback;
+			} else {
+				// Non-time-series: two-row labels — "Q1" with year below on Q1, just "Q2"/"Q3"/"Q4" otherwise
+				stackedTickCallback = function(value, index) {
+					const raw = this.getLabelForValue(value);
+					if (!raw) return '';
+					const [yr, q] = raw.split('-');
+					const qn = parseInt(q);
+					return qn === 1 ? ['Q1', yr] : [`Q${qn}`, ''];
+				};
+			}
+
+			// Tooltip title for stacked bars
+			let stackedTooltipTitle;
+			if (isTimeSeries) {
+				stackedTooltipTitle = getDateFormatConfig(config.dateFormat || 'quarterly').tooltipTitle;
+			} else {
+				stackedTooltipTitle = function(context) {
+					const raw = context[0].label;
+					const [yr, q] = raw.split('-');
+					return `Q${parseInt(q)} ${yr}`;
+				};
+			}
+
+			// Data labels plugin for total view
+			const stackedDataLabelsPlugin = {
+				id: 'stackedDataLabels',
+				afterDatasetsDraw: function(ch) {
+					if (!showTotal) return;
+					const ctx2 = ch.ctx;
+					const meta = ch.getDatasetMeta(0);
+					ctx2.save();
+					ctx2.font = `500 ${window.innerWidth <= 760 ? 10 : 12}px ${FONT_BODY}`;
+					ctx2.fillStyle = tc.textDark;
+					ctx2.textAlign = 'center';
+					ctx2.textBaseline = 'bottom';
+					meta.data.forEach((bar, i) => {
+						const v = ch.data.datasets[0].data[i];
+						if (v != null && !isNaN(v)) {
+							ctx2.fillText(fmtNum(v, 1, '', ''), bar.x, bar.y - 3);
+						}
+					});
+					ctx2.restore();
+				}
+			};
+
+			chart = new Chart(ctx, {
+				type: 'bar',
+				datasetConfig: config,
+				data: {
+					labels: chartStackData.map(d => stackedLabel(d.date)),
+					datasets: buildDatasets(chartStackData)
+				},
+				plugins: [
+					...(isTimeSeries ? [recessionPlugin] : []),
+					stackedDataLabelsPlugin
+				],
+				options: {
+					responsive: true,
+					maintainAspectRatio: true,
+					layout: {
+						padding: {
+							right: window.innerWidth <= 760 ? 2 : 8,
+							left: window.innerWidth <= 760 ? 0 : 4,
+							top: showTotal ? 16 : 8
+						}
+					},
+					interaction: { intersect: false, mode: 'index' },
+					plugins: {
+						tooltip: {
+							enabled: true,
+							backgroundColor: tc.tooltipBg,
+							titleFont: { size: 12, family: FONT_UI },
+							bodyFont: { size: 11, family: FONT_BODY },
+							padding: 8,
+							cornerRadius: 2,
+							displayColors: !showTotal,
+							itemSort: (a, b) => b.raw - a.raw,
+							callbacks: {
+								title: stackedTooltipTitle,
+								afterTitle: config.tooltipSubtitle ? function() { return config.tooltipSubtitle; } : undefined,
+								label: function(context) {
+									if (context.parsed.y == null || isNaN(context.parsed.y)) return null;
+									return (showTotal ? 'Total' : context.dataset.label) + ': ' + fmtNum(context.parsed.y, dec, pfx, sfx);
+								},
+								afterBody: showTotal ? undefined : function(context) {
+									const total = context.reduce((sum, c) => sum + (c.parsed.y || 0), 0);
+									if (Math.abs(total) < 0.1) return [];
+									return ['Total: ' + fmtNum(total, dec, pfx, sfx)];
+								}
+							}
+						},
+						legend: { display: false }
+					},
+					scales: {
+						x: {
+							stacked: true,
+							grid: { display: false },
+							ticks: {
+								font: { size: window.innerWidth <= 760 ? 10 : 12, family: FONT_BODY },
+								color: tc.axisText,
+								maxRotation: 0,
+								minRotation: 0,
+								autoSkip: isTimeSeries,
+								autoSkipPadding: isTimeSeries ? 12 : 0,
+								callback: stackedTickCallback
+							}
+						},
+						y: {
+							stacked: true,
+							grace: '5%',
+							border: { display: false },
+							grid: {
+								color: function(context) {
+									if (context.tick.value === 0) {
+										return isDark ? 'rgba(255,255,255,0.25)' : 'rgba(0,0,0,0.22)';
+									}
+									return tc.grid;
+								},
+								lineWidth: function(context) { return context.tick.value === 0 ? 1.3 : 1; }
+							},
+							ticks: {
+								font: { size: 11, family: FONT_BODY },
+								color: tc.axisText
+							},
+							beginAtZero: true
+						}
+					}
+				}
+			});
+
+			// Render inline legend for stacked series (hidden in total view)
+			const legendContainer = document.getElementById('chart-legend');
+			if (showTotal) {
+				legendContainer.innerHTML = '';
+				legendContainer.style.display = 'none';
+			} else {
+				legendContainer.innerHTML = config.stackedSeries.map((s, i) =>
+					`<span class="chart-legend-item" data-index="${i}" style="cursor:pointer;">` +
+					`<span class="legend-swatch" style="background:${getColor(s)};width:10px;height:10px;display:inline-block;margin-right:4px;"></span>` +
+					`${s.label}</span>`
+				).join('');
+				legendContainer.style.display = '';
+
+				// Toggle series visibility on legend click
+				legendContainer.querySelectorAll('.chart-legend-item').forEach(el => {
+					el.addEventListener('click', () => {
+						const idx = parseInt(el.dataset.index);
+						const visible = chart.isDatasetVisible(idx);
+						chart.setDatasetVisibility(idx, !visible);
+						el.style.opacity = visible ? 0.35 : 1;
+						chart.update();
+					});
+				});
+			}
+
+			// Store data for filtering and back face
+			fullData = stackData;
+			currentConfig = config;
+			if (isTimeSeries) currentDateFormat = getDateFormatConfig(config.dateFormat || 'quarterly');
+
+			// Populate mobile annotation for time-series stacked bars
+			const mobileLatest = document.getElementById('chart-latest-mobile');
+			if (isTimeSeries) {
+				const lastEntry = stackData[stackData.length - 1];
+				const lastDate = new Date(lastEntry.date);
+				const dateStr = currentDateFormat.lastValueFormat(lastDate).join(' ');
+				const parts = config.stackedSeries.map(s => {
+					const v = lastEntry[s.col];
+					return v != null ? `${s.label}: ${fmtNum(v, dec, pfx, sfx)}` : null;
+				}).filter(Boolean);
+				mobileLatest.textContent = `Latest: ${parts.join(', ')} (${dateStr})`;
+				mobileLatest.classList.add('active');
+			} else {
+				mobileLatest.textContent = '';
+				mobileLatest.classList.remove('active');
+			}
+
+			// Update back face
+			updateBackFace(config, stackData, null, null);
+
+			// Show/hide filter
+			const filterEl = document.getElementById('chart-filter');
+			if (isTimeSeries) {
+				filterEl.style.display = '';
+				filterEl.querySelector('button').textContent = isFilteredView ? 'Full history' : `Recent ${filterYears} years`;
+			} else {
+				filterEl.style.display = 'none';
+			}
+
+			// Show/hide breakdown toggle
+			const breakdownEl = document.getElementById('chart-breakdown');
+			if (config.stackedDefault === 'total' && config.toggleLabel) {
+				breakdownEl.style.display = '';
+				breakdownEl.querySelector('button').textContent = isBreakdownView ? config.toggleLabel[1] : config.toggleLabel[0];
+			} else {
+				breakdownEl.style.visibility = 'hidden';
+			}
+
+			chartBody.classList.remove('fading');
+			loadingEl.classList.remove('active');
+			return;
+		}
+
 		// Show canvas for regular charts, hide custom container
 		document.getElementById('lineChart').style.display = 'block';
 		document.getElementById('lineChart').parentElement.style.height = '';
@@ -1366,7 +1813,7 @@ async function loadChart(datasetId) {
 
 		// Apply filter if persisted from previous chart
 		const chartData = (isFilteredView && config.timeSeries !== false)
-			? filterToLastYears(data, 3)
+			? filterToLastYears(data, config.filterYears || 3)
 			: data;
 
 		// Build datasets based on single vs multi-series
@@ -1528,7 +1975,13 @@ async function loadChart(datasetId) {
 			const suffix = config.valueSuffix || '';
 			const decimals = config.decimals ?? 2;
 
-			if (isMultiSeries) {
+			if (config.type === 'stackedBar' && config.stackedSeries) {
+				const parts = config.stackedSeries.map(s => {
+					const v = lastEntry[s.col];
+					return v != null ? `${s.label}: ${fmtNum(v, decimals, prefix, suffix)}` : null;
+				}).filter(Boolean);
+				mobileLatest.textContent = `Latest: ${parts.join(', ')} (${dateStr})`;
+			} else if (isMultiSeries) {
 				const parts = config.series.map((s, i) => {
 					let val = null;
 					for (let j = data.length - 1; j >= 0; j--) {

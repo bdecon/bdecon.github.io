@@ -16,7 +16,7 @@
       "dateFormat": "monthly",
       "fill": true,
       "category": "Monetary",
-      "order": 14,
+      "order": 16,
       "description": "M2 measures the money supply including cash, checking deposits, savings deposits, and money market funds. This chart shows M2 as a share of nominal GDP.",
       "components": [
         {
@@ -83,8 +83,41 @@
       "beginAtZero": true,
       "filteredYRef": 0,
       "category": "Monetary",
-      "order": 15,
+      "order": 17,
       "description": "The federal funds rate is the interest rate at which banks lend reserves to each other overnight. It is the Federal Reserve's primary tool for conducting monetary policy."
+    },
+    {
+      "id": "yspread",
+      "file": "files/yspread.csv",
+      "filteredFile": "files/yspread_weekly.csv",
+      "type": "line",
+      "title": "Yield Spread",
+      "subtitle": "2-year Treasury minus fed funds rate, percentage points",
+      "source": "Federal Reserve",
+      "tooltipLabel": "Spread",
+      "decimals": 2,
+      "valueSuffix": " pp",
+      "color": "blue",
+      "timeSeries": true,
+      "dateFormat": "monthly",
+      "filteredYRef": 0,
+      "category": "Monetary",
+      "order": 18,
+      "description": "The spread between the 2-year Treasury yield and the effective federal funds rate. A negative spread suggests markets expect the Fed to cut rates. A positive spread suggests rates may rise or that markets see policy as accommodative. Full history shows monthly averages; recent 3 years switches to weekly.",
+      "components": [
+        {
+          "col": "two_year",
+          "label": "2Y",
+          "suffix": "%",
+          "decimals": 2
+        },
+        {
+          "col": "ffr",
+          "label": "FFR",
+          "suffix": "%",
+          "decimals": 2
+        }
+      ]
     },
     {
       "id": "lprodbar",
@@ -111,8 +144,15 @@
       "subtitle": "Year-over-year change, percent",
       "source": "BLS",
       "series": [
-        { "label": "All Items", "color": "red" },
-        { "label": "Core (ex. Food & Energy)", "color": "blue", "hidden": true }
+        {
+          "label": "All Items",
+          "color": "red"
+        },
+        {
+          "label": "Core (ex. Food & Energy)",
+          "color": "blue",
+          "hidden": true
+        }
       ],
       "decimals": 1,
       "valueSuffix": "%",
@@ -123,7 +163,13 @@
       "category": "Prices",
       "order": 9,
       "description": "The Consumer Price Index measures the average change in prices paid by urban consumers for a basket of goods and services. All Items includes everything; Core excludes volatile food and energy prices. Both show year-over-year percent change.",
-      "refLines": [{ "value": 2, "label": "2% target", "style": "dashed" }]
+      "refLines": [
+        {
+          "value": 2,
+          "label": "2% target",
+          "style": "dashed"
+        }
+      ]
     },
     {
       "id": "tbal",
@@ -140,7 +186,7 @@
       "dateFormat": "monthly",
       "filteredYRef": 0,
       "category": "Trade",
-      "order": 12,
+      "order": 13,
       "description": "The trade balance is exports minus imports of goods and services, shown here as a share of GDP. A negative value indicates a trade deficit.",
       "components": [
         {
@@ -174,7 +220,7 @@
       "dateFormat": "monthly",
       "filteredYRef": 0,
       "category": "Trade",
-      "order": 13,
+      "order": 14,
       "description": "The effective tariff rate is calculated as customs duties collected divided by the value of goods imports. It reflects the average tax rate on imported goods.",
       "components": [
         {
@@ -194,6 +240,32 @@
       ]
     },
     {
+      "id": "fx",
+      "file": "files/fx.csv",
+      "filteredFile": "files/fx_weekly.csv",
+      "type": "line",
+      "title": "Exchange Rates",
+      "subtitle": "Trade-weighted dollar index, Jan 2006 = 100",
+      "source": "Federal Reserve",
+      "series": [
+        {
+          "label": "Broad",
+          "color": "purple"
+        },
+        {
+          "label": "Major",
+          "color": "ltblue"
+        }
+      ],
+      "decimals": 1,
+      "color": "purple",
+      "timeSeries": true,
+      "dateFormat": "monthly",
+      "category": "Trade",
+      "order": 15,
+      "description": "Trade-weighted exchange rate indices published by the Federal Reserve. The Broad index covers all major US trading partners. The Major index covers advanced economies only. A higher value means a stronger dollar. Full history shows monthly averages; recent 3 years switches to weekly."
+    },
+    {
       "id": "epop",
       "file": "files/epop.csv",
       "type": "line",
@@ -201,8 +273,14 @@
       "subtitle": "Employed share of population, percent",
       "source": "BLS",
       "series": [
-        { "label": "Prime Age (25\u201354)", "color": "orange" },
-        { "label": "All (16+)", "color": "blue" }
+        {
+          "label": "Prime Age (25\u201354)",
+          "color": "orange"
+        },
+        {
+          "label": "All (16+)",
+          "color": "blue"
+        }
       ],
       "decimals": 1,
       "valueSuffix": "%",
@@ -309,11 +387,32 @@
       "source": "Author calculation from CPS",
       "legendLabel": "Percentile:",
       "series": [
-        { "label": "P10", "color": "orange" },
-        { "label": "P25", "color": "ltblue", "hidden": true, "showInTable": false },
-        { "label": "P50", "color": "teal", "hidden": true },
-        { "label": "P75", "color": "purple", "hidden": true, "showInTable": false },
-        { "label": "P90", "color": "red", "hidden": true }
+        {
+          "label": "P10",
+          "color": "orange"
+        },
+        {
+          "label": "P25",
+          "color": "ltblue",
+          "hidden": true,
+          "showInTable": false
+        },
+        {
+          "label": "P50",
+          "color": "teal",
+          "hidden": true
+        },
+        {
+          "label": "P75",
+          "color": "purple",
+          "hidden": true,
+          "showInTable": false
+        },
+        {
+          "label": "P90",
+          "color": "red",
+          "hidden": true
+        }
       ],
       "decimals": 0,
       "valuePrefix": "$",
@@ -339,7 +438,7 @@
       "timeSeries": true,
       "dateFormat": "monthly",
       "category": "Government",
-      "order": 16,
+      "order": 19,
       "description": "Total federal government receipts (taxes, fees, and other revenue) over a trailing 12-month period, expressed as a share of GDP. This smooths seasonal variation in tax collections.",
       "components": [
         {
@@ -372,7 +471,7 @@
       "timeSeries": false,
       "showDataLabels": true,
       "category": "Government",
-      "order": 18,
+      "order": 21,
       "description": "The relative poverty rate measures the share of population living below 50% of the national median disposable income. It allows cross-country comparison of income adequacy."
     },
     {
@@ -422,7 +521,7 @@
       "timeSeries": false,
       "showDataLabels": true,
       "category": "Government",
-      "order": 17,
+      "order": 20,
       "description": "Total general government expenditure (federal, state, and local) as a share of GDP. This includes spending on social programs, defense, infrastructure, and public services."
     },
     {
@@ -465,7 +564,7 @@
       "timeSeries": true,
       "dateFormat": "quarterly",
       "category": "Businesses",
-      "order": 20,
+      "order": 25,
       "description": "Corporate profits before tax as a share of net national income. Profits are adjusted to exclude inventory price gains and use consistent depreciation. Net national income excludes depreciation, which isn't received as income.",
       "components": [
         {
@@ -499,7 +598,7 @@
       "dateFormat": "quarterly",
       "filteredYRef": 0,
       "category": "Businesses",
-      "order": 19,
+      "order": 23,
       "description": "Private nonresidential fixed investment minus depreciation, as a share of GDP. This measures net additions to the economy's productive capital stock, including equipment, structures, and intellectual property.",
       "components": [
         {
@@ -517,6 +616,119 @@
           "decimals": 1
         }
       ]
+    },
+    {
+      "id": "wti",
+      "file": "files/wti.csv",
+      "filteredFile": "files/wti_weekly.csv",
+      "type": "line",
+      "title": "Oil Price",
+      "subtitle": "WTI crude oil, dollars per barrel",
+      "source": "EIA",
+      "tooltipLabel": "WTI",
+      "decimals": 2,
+      "valuePrefix": "$",
+      "color": "red",
+      "timeSeries": true,
+      "dateFormat": "monthly",
+      "beginAtZero": true,
+      "category": "Prices",
+      "order": 12,
+      "description": "West Texas Intermediate (WTI) crude oil spot price in dollars per barrel. WTI is the primary benchmark for US oil prices. Full history shows monthly averages; recent 3 years switches to weekly."
+    },
+    {
+      "id": "mag7ocf",
+      "file": "files/mag7ocf.csv",
+      "type": "stackedBar",
+      "title": "Cash Flow",
+      "subtitle": "Magnificent 7 quarterly operating cash flow, share of GDP, percent",
+      "source": "SEC EDGAR, BEA",
+      "decimals": 2,
+      "valueSuffix": "%",
+      "color": "teal",
+      "timeSeries": false,
+      "category": "Businesses",
+      "order": 24,
+      "description": "Quarterly operating cash flow for the seven largest US technology companies (Apple, Microsoft, Google, Amazon, NVIDIA, Meta, Tesla), each shown as a share of quarterly GDP. Operating cash flow measures the cash generated by core business operations.",
+      "stackedSeries": [
+        {
+          "label": "Apple",
+          "col": "AAPL",
+          "color": "#555555",
+          "darkColor": "#999999"
+        },
+        {
+          "label": "Microsoft",
+          "col": "MSFT",
+          "color": "#0078D4"
+        },
+        {
+          "label": "Google",
+          "col": "GOOGL",
+          "color": "#EA4335"
+        },
+        {
+          "label": "Amazon",
+          "col": "AMZN",
+          "color": "#FF9900"
+        },
+        {
+          "label": "NVIDIA",
+          "col": "NVDA",
+          "color": "#76B900"
+        },
+        {
+          "label": "Meta",
+          "col": "META",
+          "color": "#7B2D8E"
+        },
+        {
+          "label": "Tesla",
+          "col": "TSLA",
+          "color": "#00B4D8"
+        }
+      ],
+      "tooltipSubtitle": "Share of GDP",
+      "stackedDefault": "total",
+      "toggleLabel": [
+        "By company",
+        "Combined"
+      ]
+    },
+    {
+      "id": "sectbal",
+      "file": "files/sectbal.csv",
+      "type": "stackedBar",
+      "title": "Sectoral Balances",
+      "subtitle": "Net lending/borrowing by sector, share of GDP, percent",
+      "source": "BEA",
+      "decimals": 1,
+      "valueSuffix": "%",
+      "color": "green",
+      "timeSeries": true,
+      "dateFormat": "quarterly",
+      "category": "Government",
+      "order": 22,
+      "description": "The three sectoral financial balances \u2014 private, government, and rest of world \u2014 must sum to zero by accounting identity. A government deficit (negative) is offset by private surplus and/or foreign capital inflows. Data shows net lending (+) or borrowing (\u2212) as a share of GDP.",
+      "stackedSeries": [
+        {
+          "label": "Private",
+          "col": "Private",
+          "color": "#A8C8D8",
+          "darkColor": "#C8DDE8"
+        },
+        {
+          "label": "Government",
+          "col": "Government",
+          "color": "#2E7D32"
+        },
+        {
+          "label": "Rest of World",
+          "col": "Rest of World",
+          "color": "#D4A017"
+        }
+      ],
+      "filterYears": 5
     }
   ]
 }

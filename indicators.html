@@ -8,20 +8,20 @@
 	<link rel="stylesheet" href="style.css">
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0"></script>
-	<meta name="description" content="Interactive charts for 20 US economic indicators including GDP, unemployment, CPI inflation, tariffs, federal funds rate, and more. Browse output, labor, prices, trade, and monetary data with downloadable CSVs.">
-	<meta name="keywords" content="interactive charts, economic data visualization, time series charts, US economy charts">
+	<meta name="description" content="Key indicators tracking the US economy — GDP, jobs, inflation, trade, interest rates, oil prices, exchange rates, and more. Interactive charts with downloadable data, updated regularly.">
+	<meta name="keywords" content="US economic indicators, GDP chart, unemployment rate, CPI inflation, oil price, exchange rate, trade balance, interest rates, economic data, interactive charts">
 	<meta name="author" content="Brian Dew">
 	<link rel="canonical" href="https://bd-econ.com/indicators.html">
 	<!-- Open Graph -->
 	<meta property="og:title" content="US Economic Indicators | Interactive Charts | BD Economics">
-	<meta property="og:description" content="Interactive charts for 20 US economic indicators including GDP, unemployment, CPI inflation, tariffs, federal funds rate, and more.">
+	<meta property="og:description" content="Key indicators tracking the US economy — GDP, jobs, inflation, trade, interest rates, oil prices, exchange rates, and more. Interactive charts with downloadable data.">
 	<meta property="og:url" content="https://bd-econ.com/indicators.html">
 	<meta property="og:type" content="website">
 	<meta property="og:image" content="https://bd-econ.com/images/01_bdlogo.png">
 	<!-- Twitter Card -->
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="US Economic Indicators | Interactive Charts | BD Economics">
-	<meta name="twitter:description" content="Interactive charts for 20 US economic indicators including GDP, unemployment, CPI inflation, tariffs, federal funds rate, and more.">
+	<meta name="twitter:description" content="Key indicators tracking the US economy — GDP, jobs, inflation, trade, interest rates, oil prices, exchange rates, and more. Interactive charts with downloadable data.">
 	<meta name="twitter:image" content="https://bd-econ.com/images/01_bdlogo.png">
 	<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
@@ -43,7 +43,7 @@
     "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "US Economic Indicators",
-    "description": "Interactive charts for 20 US economic indicators including GDP, unemployment, CPI inflation, tariffs, federal funds rate, and more.",
+    "description": "Key indicators tracking the US economy — GDP, jobs, inflation, trade, interest rates, oil prices, exchange rates, and more. Interactive charts with downloadable data.",
     "url": "https://bd-econ.com/indicators.html",
     "author": {
         "@type": "Person",
@@ -52,7 +52,7 @@
     "mainEntity": {
         "@type": "ItemList",
         "name": "US Economic Indicators",
-        "numberOfItems": 20,
+        "numberOfItems": 25,
         "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "Real GDP per Capita", "description": "Real GDP per capita divides inflation-adjusted gross domestic product by population. It is a broad measure of average economic output per person.", "url": "https://bd-econ.com/indicators.html#gdppc"},
             {"@type": "ListItem", "position": 2, "name": "Productivity", "description": "Labor productivity measures GDP per hour worked, reflecting how efficiently an economy converts labor into output.", "url": "https://bd-econ.com/indicators.html#lprodbar"},
@@ -73,7 +73,12 @@
             {"@type": "ListItem", "position": 17, "name": "Government Spending", "description": "Total general government expenditure as a share of GDP, including spending on social programs, defense, infrastructure, and public services.", "url": "https://bd-econ.com/indicators.html#govexpbar"},
             {"@type": "ListItem", "position": 18, "name": "Output and Wages", "description": "Compares inflation-adjusted GDP per worker with median earnings. The gap reflects how broadly economic gains are shared.", "url": "https://bd-econ.com/indicators.html#gdppw"},
             {"@type": "ListItem", "position": 19, "name": "Business Investment", "description": "Private nonresidential fixed investment minus depreciation, as a share of GDP.", "url": "https://bd-econ.com/indicators.html#busnfi"},
-            {"@type": "ListItem", "position": 20, "name": "Corporate Profits", "description": "Corporate profits before tax as a share of net national income. Profits are adjusted to exclude inventory price gains and use consistent depreciation.", "url": "https://bd-econ.com/indicators.html#cprof"}
+            {"@type": "ListItem", "position": 20, "name": "Corporate Profits", "description": "Corporate profits before tax as a share of net national income. Profits are adjusted to exclude inventory price gains and use consistent depreciation.", "url": "https://bd-econ.com/indicators.html#cprof"},
+            {"@type": "ListItem", "position": 21, "name": "Exchange Rates", "description": "Trade-weighted exchange rate indices published by the Federal Reserve. The Broad index covers all major US trading partners. The Major index covers advanced economies only.", "url": "https://bd-econ.com/indicators.html#fx"},
+            {"@type": "ListItem", "position": 22, "name": "Yield Spread", "description": "The spread between the 2-year Treasury yield and the effective federal funds rate.", "url": "https://bd-econ.com/indicators.html#yspread"},
+            {"@type": "ListItem", "position": 23, "name": "Oil Price", "description": "West Texas Intermediate crude oil spot price in dollars per barrel.", "url": "https://bd-econ.com/indicators.html#wti"},
+            {"@type": "ListItem", "position": 24, "name": "Cash Flow", "description": "Quarterly operating cash flow for the Magnificent 7 technology companies, each shown as a share of quarterly GDP.", "url": "https://bd-econ.com/indicators.html#mag7ocf"},
+            {"@type": "ListItem", "position": 25, "name": "Sectoral Balances", "description": "The three sectoral financial balances — private, government, and rest of world — as a share of GDP.", "url": "https://bd-econ.com/indicators.html#sectbal"}
         ]
     }
 }
@@ -504,7 +509,8 @@
 		}
 		.chart-latest-mobile.active {
 			display: block;
-			font-size: 14px;
+			font-size: 12px;
+			line-height: 1.4;
 		}
 		.chart-legend {
 			gap: 3px 10px;
@@ -581,7 +587,7 @@
 	<section>
 	<article class="prose ind-intro">
 	<noscript><p class="noscript-warning">This page requires JavaScript to display interactive charts.</p></noscript>
-	<p class="callout accent-ltblue">Twenty key indicators tracking the US economy.</p>
+	<p class="callout accent-ltblue">Key indicators tracking the US economy.</p>
 	<p>Browse interactive charts across seven categories: output, labor, prices, trade, monetary policy, government, and business. Tap the <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></svg> button on each chart for descriptions, data, and a downloadable CSV.</p>
 	<p>For a broader view, see the <a href="chartbook.html">US Chartbook</a> with 250+ charts.</p>
 	</article>
@@ -620,7 +626,7 @@
 							<p class="chart-latest-mobile" id="chart-latest-mobile"></p>
 						</div>
 						<div class="chart-footer">
-							<span class="chart-filter" id="chart-filter" style="visibility: hidden"><button type="button" onclick="toggleTimeRange()">Recent 3 years</button></span>
+							<span class="chart-filter"><span id="chart-filter" style="display: none"><button type="button" onclick="toggleTimeRange()">Recent 3 years</button></span><span id="chart-breakdown" style="display: none"><button type="button" onclick="toggleBreakdown()">By company</button></span></span>
 <span class="chart-source" id="chart-source">Source: Federal Reserve, BEA</span>
 						</div>
 					</div>
