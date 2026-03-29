@@ -1,6 +1,5 @@
-// Read font families from CSS variables
-const FONT_BODY = getComputedStyle(document.documentElement).getPropertyValue('--font-body').trim() || 'Tahoma, Verdana, sans-serif';
-const FONT_UI = getComputedStyle(document.documentElement).getPropertyValue('--font-ui').trim() || 'system-ui, sans-serif';
+// Read font family from CSS variable
+const SITE_FONT = getComputedStyle(document.documentElement).getPropertyValue('--font').trim() || "'Inter', sans-serif";
 
 // Read theme colors from CSS variables
 function getThemeColors() {
@@ -86,7 +85,7 @@ const lastValuePlugin = {
 		const valueStr = '$' + (dataset.data[lastIndex] / 1000).toFixed(1) + 'T';
 
 		ctx.save();
-		ctx.font = `10px ${FONT_BODY}`;
+		ctx.font = `10px ${SITE_FONT}`;
 		ctx.fillStyle = getThemeColors().axisText;
 		ctx.textAlign = 'left';
 		ctx.textBaseline = 'middle';
@@ -226,8 +225,8 @@ async function init() {
 					tooltip: {
 						enabled: true,
 						backgroundColor: tc.tooltipBg,
-						titleFont: { size: 12, family: FONT_UI },
-						bodyFont: { size: 11, family: FONT_BODY },
+						titleFont: { size: 12, family: SITE_FONT },
+						bodyFont: { size: 11, family: SITE_FONT },
 						padding: 8,
 						cornerRadius: 2,
 						displayColors: false,
@@ -250,7 +249,7 @@ async function init() {
 						bounds: 'data',
 						grid: { display: false },
 						ticks: {
-							font: { size: 10, family: FONT_BODY },
+							font: { size: 10, family: SITE_FONT },
 							color: tc.axisText,
 							callback: formatTickLabel,
 							maxRotation: 0,
@@ -263,7 +262,7 @@ async function init() {
 						border: { display: false },
 						grid: { color: tc.grid },
 						ticks: {
-							font: { size: 10, family: FONT_BODY },
+							font: { size: 10, family: SITE_FONT },
 							color: tc.axisText,
 							callback: function(value) {
 								return '$' + (value / 1000).toFixed(0) + 'T';
@@ -362,7 +361,7 @@ const nowcastPlugin = {
 		const centerX = (startX + right) / 2;
 
 		ctx.save();
-		ctx.font = `10px ${FONT_BODY}`;
+		ctx.font = `10px ${SITE_FONT}`;
 		ctx.fillStyle = getThemeColors().axisText;
 		ctx.textAlign = 'center';
 		ctx.fillText('Nowcast', centerX, bottom - 8);
@@ -467,7 +466,7 @@ async function initComparisonChart() {
 					title: {
 						display: true,
 						text: 'Monthly GDP vs. Quarterly GDP',
-						font: { size: 16, family: FONT_UI, weight: '600' },
+						font: { size: 16, family: SITE_FONT, weight: '600' },
 						color: getComputedStyle(document.documentElement).getPropertyValue('--color-text-strong').trim(),
 						padding: { bottom: 10 }
 					},
@@ -478,15 +477,15 @@ async function initComparisonChart() {
 							usePointStyle: true,
 							pointStyle: 'line',
 							padding: 15,
-							font: { size: 12, family: FONT_BODY },
+							font: { size: 12, family: SITE_FONT },
 							color: tc2.axisText
 						}
 					},
 					tooltip: {
 						enabled: true,
 						backgroundColor: tc2.tooltipBg,
-						titleFont: { size: 12, family: FONT_UI },
-						bodyFont: { size: 11, family: FONT_BODY },
+						titleFont: { size: 12, family: SITE_FONT },
+						bodyFont: { size: 11, family: SITE_FONT },
 						padding: 8,
 						cornerRadius: 2,
 						usePointStyle: true,
@@ -508,7 +507,7 @@ async function initComparisonChart() {
 						type: 'category',
 						grid: { display: false },
 						ticks: {
-							font: { size: 10, family: FONT_BODY },
+							font: { size: 10, family: SITE_FONT },
 							color: tc2.axisText,
 							autoSkip: false,
 							maxRotation: 0,
@@ -531,7 +530,7 @@ async function initComparisonChart() {
 						border: { display: false },
 						grid: { color: tc2.grid },
 						ticks: {
-							font: { size: 10, family: FONT_BODY },
+							font: { size: 10, family: SITE_FONT },
 							color: tc2.axisText,
 							callback: function(value) {
 								return '$' + (value / 1000).toFixed(1) + 'T';

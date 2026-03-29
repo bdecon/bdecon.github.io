@@ -190,7 +190,7 @@ df = df.set_index('date')[['value', 'note']].sort_index().replace('-', None)
 df['value'] = df.value.astype(float)
 df.tail(3)</code></pre>
 	<p>Out[4]:</p>
-	<table class="dataframe">
+	<div class="table-wrap"><table class="dataframe">
 	  <thead>
 	    <tr>
 	      <th></th>
@@ -220,7 +220,7 @@ df.tail(3)</code></pre>
 	      <td></td>
 	    </tr>
 	  </tbody>
-	</table>
+	</table></div>
 <span class="step-label accent-purple">Plot the Results</span>
 <p>Plot the monthly values with a horizontal line at the period mean to show the overall trend.</p>
 <p>In[5]:</p>
@@ -270,7 +270,7 @@ for s in results:
 
 df.tail()</code></pre>
 <p>Out[7]:</p>
-<table class="dataframe">
+<div class="table-wrap"><table class="dataframe">
   <thead>
     <tr>
       <th></th>
@@ -311,7 +311,7 @@ df.tail()</code></pre>
       <td>3.8</td>
     </tr>
   </tbody>
-</table>
+</table></div>
 <span class="step-label accent-purple">Plot the Results</span>
 <p>Plot all three series to compare how unemployment rates moved during and after the Great Recession.</p>
 <p>In[8]:</p>

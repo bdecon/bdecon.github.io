@@ -60,7 +60,6 @@ These are the decisions. Everything else derives from them.
 
 ```
 --font            Inter
---font-ui         var(--font)       Controls, labels, UI chrome
 --radius          0                 Sharp corners everywhere
 --text-xs         12px
 --text-sm         14px
@@ -70,6 +69,9 @@ These are the decisions. Everything else derives from them.
 --text-2xl        clamp(18-20px)
 --text-3xl        clamp(20-24px)
 --text-4xl        clamp(24-32px)
+
+--transition-fast   0.15s ease    Hover states, toggles
+--transition-normal 0.2s ease     Border/color transitions
 ```
 
 ### Spacing
@@ -106,7 +108,12 @@ Each has one definition in `style.css`. Pages use them as-is or extend with a pa
 |-------|---------|---------------|
 | `.prose` | Readable content wrapper | max-width: 760px, generous h/p margins |
 | `.card-grid` | Auto-fit grid of nav cards | CSS grid, 300px columns |
+| `.split-row` | Side-by-side flex layout | stacks on mobile at 760px |
+| `.page-title` | Gray bar with centered white h1 | replaces `<header>` element |
 | `.info-box` | Highlighted metadata container | bg-highlight, border, padding |
+| `.heading-accent` | Heading with text-width accent underline | uses `var(--accent)` |
+| `.key-stat` | Prominent monospace number display | SF Mono stack, 17px, bold |
+| `.label` | Small uppercase marker text | 12px, 600 weight, muted |
 
 ### Chart
 
@@ -153,6 +160,7 @@ Outside `.prose`, headings get only font-size (no margin, no color override). Pa
 | Class | Purpose |
 |-------|---------|
 | (bare `table`) | Just `border-collapse` + `width: 100%` — safe neutral defaults |
+| `.dash-table` | Data tables — right-aligned, uppercase headers, zebra rows, hover |
 | `.dataframe` | Tutorial data tables — center-aligned, bold first col, zebra rows |
 
 Page-specific tables (`.scores-table`, `.cal-grid`, `.cc-table`) define their own styling from the neutral base.

@@ -1,6 +1,5 @@
-// Read theme colors and fonts from CSS variables
-const FONT_BODY = getComputedStyle(document.documentElement).getPropertyValue('--font').trim() || 'Inter, sans-serif';
-const FONT_UI = FONT_BODY;
+// Read font from CSS variable
+const SITE_FONT = getComputedStyle(document.documentElement).getPropertyValue('--font').trim() || "'Inter', sans-serif";
 
 // Number formatting with Intl.NumberFormat (comma grouping, fixed decimals)
 const numFmtCache = {};
@@ -127,7 +126,7 @@ const refLinePlugin = {
 
 			if (ref.label) {
 				ctx.fillStyle = isDark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.35)';
-				ctx.font = '10px ' + FONT_UI;
+				ctx.font = '10px ' + SITE_FONT;
 				ctx.textAlign = 'left';
 				ctx.textBaseline = 'bottom';
 				ctx.fillText(ref.label, xAxis.left + 4, y - 3);
@@ -386,7 +385,7 @@ const lastValuePlugin = {
 			const allSameEnd = labelData.every(d => d.lastIdx === labelData[0].lastIdx);
 
 			ctx.save();
-			ctx.font = `10px ${FONT_BODY}`;
+			ctx.font = `10px ${SITE_FONT}`;
 			ctx.textAlign = 'left';
 
 			if (allSameEnd && labelData.length > 1) {
@@ -474,7 +473,7 @@ const lastValuePlugin = {
 				: ['Q' + Math.ceil((lastDate.getUTCMonth() + 1) / 3), lastDate.getUTCFullYear()];
 
 			ctx.save();
-			ctx.font = `10px ${FONT_BODY}`;
+			ctx.font = `10px ${SITE_FONT}`;
 			ctx.fillStyle = getThemeColors().axisText;
 			ctx.textAlign = 'left';
 			ctx.textBaseline = 'middle';
@@ -502,7 +501,7 @@ const dataLabelsPlugin = {
 		const decimals = config.decimals ?? 0;
 
 		ctx.save();
-		ctx.font = `12px ${FONT_BODY}`;
+		ctx.font = `12px ${SITE_FONT}`;
 		ctx.fillStyle = getThemeColors().textDark;
 		ctx.textAlign = 'center';
 		ctx.textBaseline = 'bottom';
@@ -1431,7 +1430,7 @@ async function loadChart(datasetId) {
 					afterDatasetsDraw: function(chart) {
 						const ctx = chart.ctx;
 						ctx.save();
-						ctx.font = `${VALUE_FONT}px ${FONT_BODY}`;
+						ctx.font = `${VALUE_FONT}px ${SITE_FONT}`;
 						ctx.textBaseline = 'middle';
 						chart.data.datasets.forEach((dataset, di) => {
 							if (!chart.isDatasetVisible(di)) return;
@@ -1456,7 +1455,7 @@ async function loadChart(datasetId) {
 							display: true,
 							position: 'top',
 							labels: {
-								font: { size: LEGEND_FONT, family: FONT_UI },
+								font: { size: LEGEND_FONT, family: SITE_FONT },
 								color: tc.textDark,
 								boxWidth: 14,
 								boxHeight: 10,
@@ -1472,8 +1471,8 @@ async function loadChart(datasetId) {
 						tooltip: {
 							enabled: true,
 							backgroundColor: tc.tooltipBg,
-							titleFont: { size: 12, family: FONT_UI },
-							bodyFont: { size: 11, family: FONT_BODY },
+							titleFont: { size: 12, family: SITE_FONT },
+							bodyFont: { size: 11, family: SITE_FONT },
 							padding: 8,
 							cornerRadius: 2,
 							callbacks: {
@@ -1503,7 +1502,7 @@ async function loadChart(datasetId) {
 							grid: { display: false },
 							border: { display: false },
 							ticks: {
-								font: { size: LABEL_FONT, family: FONT_UI },
+								font: { size: LABEL_FONT, family: SITE_FONT },
 								color: tc.textDark,
 								crossAlign: 'near',
 								autoSkip: false,
@@ -1627,7 +1626,7 @@ async function loadChart(datasetId) {
 					const ctx2 = ch.ctx;
 					const meta = ch.getDatasetMeta(0);
 					ctx2.save();
-					ctx2.font = `500 ${window.innerWidth <= 760 ? 10 : 12}px ${FONT_BODY}`;
+					ctx2.font = `500 ${window.innerWidth <= 760 ? 10 : 12}px ${SITE_FONT}`;
 					ctx2.fillStyle = tc.textDark;
 					ctx2.textAlign = 'center';
 					ctx2.textBaseline = 'bottom';
@@ -1667,8 +1666,8 @@ async function loadChart(datasetId) {
 						tooltip: {
 							enabled: true,
 							backgroundColor: tc.tooltipBg,
-							titleFont: { size: 12, family: FONT_UI },
-							bodyFont: { size: 11, family: FONT_BODY },
+							titleFont: { size: 12, family: SITE_FONT },
+							bodyFont: { size: 11, family: SITE_FONT },
 							padding: 8,
 							cornerRadius: 2,
 							displayColors: !showTotal,
@@ -1694,7 +1693,7 @@ async function loadChart(datasetId) {
 							stacked: true,
 							grid: { display: false },
 							ticks: {
-								font: { size: window.innerWidth <= 760 ? 10 : 12, family: FONT_BODY },
+								font: { size: window.innerWidth <= 760 ? 10 : 12, family: SITE_FONT },
 								color: tc.axisText,
 								maxRotation: 0,
 								minRotation: 0,
@@ -1717,7 +1716,7 @@ async function loadChart(datasetId) {
 								lineWidth: function(context) { return context.tick.value === 0 ? 1.3 : 1; }
 							},
 							ticks: {
-								font: { size: 11, family: FONT_BODY },
+								font: { size: 11, family: SITE_FONT },
 								color: tc.axisText
 							},
 							beginAtZero: true
@@ -1880,8 +1879,8 @@ async function loadChart(datasetId) {
 					tooltip: {
 						enabled: true,
 						backgroundColor: tc.tooltipBg,
-						titleFont: { size: 12, family: FONT_UI },
-						bodyFont: { size: 11, family: FONT_BODY },
+						titleFont: { size: 12, family: SITE_FONT },
+						bodyFont: { size: 11, family: SITE_FONT },
 						padding: 8,
 						cornerRadius: 2,
 						displayColors: isMultiSeries,
@@ -1924,7 +1923,7 @@ async function loadChart(datasetId) {
 						bounds: 'data',
 						grid: { display: false },
 						ticks: {
-							font: { size: config.timeSeries === false ? (window.innerWidth <= 760 ? 11 : 14) : 11, family: FONT_BODY },
+							font: { size: config.timeSeries === false ? (window.innerWidth <= 760 ? 11 : 14) : 11, family: SITE_FONT },
 							color: config.timeSeries === false ? tc.textDark : tc.axisText,
 							callback: config.timeSeries !== false
 								? (isFilteredView ? getFilteredTickCallback(config.dateFormat || 'quarterly') : currentDateFormat.tickCallback)
@@ -1950,9 +1949,9 @@ async function loadChart(datasetId) {
 								lineWidth: function(context) { return context.tick.value === 0 ? 1.3 : 1; }
 							},
 						ticks: config.type === 'bar'
-							? { font: { size: 11, family: FONT_BODY }, color: tc.axisText,
+							? { font: { size: 11, family: SITE_FONT }, color: tc.axisText,
 								callback: function(value) { return value === 0 ? '0' : ''; } }
-							: { font: { size: 11, family: FONT_BODY }, color: tc.axisText },
+							: { font: { size: 11, family: SITE_FONT }, color: tc.axisText },
 						title: { display: false },
 						beginAtZero: config.type === 'bar' || config.beginAtZero || false,
 						min: config.yAxisMin ?? undefined,
@@ -2169,13 +2168,13 @@ document.getElementById('btn-download-png').addEventListener('click', function()
 
 	// Title
 	ctx.fillStyle = textColor;
-	ctx.font = `bold ${16 * dpr}px ${FONT_UI}`;
+	ctx.font = `bold ${16 * dpr}px ${SITE_FONT}`;
 	ctx.textAlign = 'left';
 	ctx.fillText(currentConfig.title, pad, pad + 16 * dpr);
 
 	// Subtitle
 	ctx.fillStyle = mutedColor;
-	ctx.font = `${11 * dpr}px ${FONT_UI}`;
+	ctx.font = `${11 * dpr}px ${SITE_FONT}`;
 	const subtitleText = (currentConfig.subtitle || '').replace(/<br\s*\/?>/g, ' ');
 	ctx.fillText(subtitleText, pad, pad + titleH + 2 * dpr);
 
@@ -2183,7 +2182,7 @@ document.getElementById('btn-download-png').addEventListener('click', function()
 	if (legendH > 0 && currentConfig.series) {
 		const ly = pad + titleH + subtitleH + 4 * dpr;
 		let lx = pad;
-		ctx.font = `${10 * dpr}px ${FONT_UI}`;
+		ctx.font = `${10 * dpr}px ${SITE_FONT}`;
 		currentConfig.series.forEach(function(s) {
 			const colors = colorMap[s.color || currentConfig.color || 'blue'];
 			// Line swatch
@@ -2208,7 +2207,7 @@ document.getElementById('btn-download-png').addEventListener('click', function()
 	// Footer: source + branding
 	const footerY = chartY + srcH + 14 * dpr;
 	ctx.fillStyle = mutedColor;
-	ctx.font = `${9 * dpr}px ${FONT_UI}`;
+	ctx.font = `${9 * dpr}px ${SITE_FONT}`;
 	ctx.textAlign = 'left';
 	ctx.fillText('Source: ' + currentConfig.source, pad, footerY);
 	ctx.textAlign = 'right';

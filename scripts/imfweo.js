@@ -1,10 +1,8 @@
 (function() {
 	'use strict';
 
-	// Read font families from CSS variables
-	const FONT_SITE = getComputedStyle(document.documentElement).getPropertyValue('--font').trim() || "'Inter', sans-serif";
-	const FONT_BODY = FONT_SITE;
-	const FONT_UI = FONT_SITE;
+	// Read font from CSS variable
+	const SITE_FONT = getComputedStyle(document.documentElement).getPropertyValue('--font').trim() || "'Inter', sans-serif";
 
 	// --- State ---
 	let DATA = null;
@@ -1028,7 +1026,7 @@
 			const ctx = chart.ctx;
 			const tc = getThemeColors();
 			ctx.save();
-			ctx.font = `12px ${FONT_UI}`;
+			ctx.font = `12px ${SITE_FONT}`;
 			ctx.fillStyle = tc.axisText;
 			ctx.textAlign = 'left';
 			ctx.textBaseline = 'bottom';
@@ -1147,11 +1145,11 @@
 			ctx.textAlign = 'right';
 			ctx.textBaseline = 'top';
 
-			ctx.font = '11px ' + FONT_UI;
+			ctx.font = '11px ' + SITE_FONT;
 			ctx.fillStyle = dark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.45)';
 			ctx.fillText(label, x, y);
 
-			ctx.font = '600 14px ' + FONT_UI;
+			ctx.font = '600 14px ' + SITE_FONT;
 			ctx.fillStyle = dark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.6)';
 			ctx.fillText(value, x, y + 12);
 
@@ -1170,7 +1168,7 @@
 			const area = chart.chartArea;
 			const tc = getThemeColors();
 			ctx.save();
-			ctx.font = `10px ${FONT_UI}`;
+			ctx.font = `10px ${SITE_FONT}`;
 			ctx.fillStyle = tc.axisText;
 			ctx.textAlign = 'right';
 			if (info.nAbove) {

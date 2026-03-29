@@ -123,7 +123,7 @@
 			<h3>US Chartbook</h3>
 		</div>
 		<div class="nav-card-body">
-			<p>250+ charts on the US economy: labor markets, inflation, GDP, trade, and more. Includes data sources and code.</p><p><strong>PDF</strong> · Updated: <span class="cb_update"><noscript>regularly</noscript></span></p>
+			<p>250+ charts on the US economy: labor markets, inflation, GDP, trade, and more. Includes data sources and code.</p><p><strong>PDF</strong> · Updated: <span class="cb-update"><noscript>regularly</noscript></span></p>
 		</div>
 	</div>
 	</a>
@@ -201,7 +201,7 @@
 	<script src="scripts/nav.js"></script>
 	<script>
 		fetch('date.txt').then(r => r.text()).then(t => {
-			document.querySelectorAll('.cb_update').forEach(el => el.textContent = t.trim());
+			document.querySelectorAll('.cb-update').forEach(el => el.textContent = t.trim());
 		});
 	</script>
 </body>
