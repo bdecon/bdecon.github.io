@@ -29,9 +29,9 @@ function getThemeColors() {
 	const get = (name) => style.getPropertyValue(name).trim();
 	return {
 		grid: get('--color-grid') || 'rgba(0, 0, 0, 0.06)',
-		axisText: get('--color-text-light') || '#666',
+		axisText: get('--color-text-muted') || '#666',
 		tooltipBg: get('--color-tooltip-bg') || 'rgba(75, 75, 75, 0.95)',
-		textDark: get('--color-text-dark') || '#333'
+		textDark: get('--color-text-strong') || '#333'
 	};
 }
 
@@ -828,7 +828,7 @@ function generateStatsTable(config, data, latestDate, prevDate) {
 				if (entry) rows.push({ entry, isLatest: yr === 0 });
 			}
 
-			let html = '<table class="card-stats-table"><thead><tr><th>Period</th>';
+			let html = '<table class="dash-table card-stats-table"><thead><tr><th>Period</th>';
 			config.stackedSeries.forEach(s => { html += `<th>${s.label}</th>`; });
 			html += '</tr></thead><tbody>';
 			rows.forEach(({ entry, isLatest }) => {
@@ -853,7 +853,7 @@ function generateStatsTable(config, data, latestDate, prevDate) {
 			const [yr, q] = d.date.split('-');
 			return `Q${parseInt(q)} '${yr.slice(2)}`;
 		});
-		let html = '<table class="card-stats-table"><thead><tr><th></th>';
+		let html = '<table class="dash-table card-stats-table"><thead><tr><th></th>';
 		qLabels.forEach(q => { html += `<th>${q}</th>`; });
 		html += '</tr></thead><tbody>';
 		config.stackedSeries.forEach(s => {
@@ -888,7 +888,7 @@ function generateStatsTable(config, data, latestDate, prevDate) {
 			const dateFmt = getDateFormatConfig(config.latestDateFormat || 'monthly');
 			prevLabel = dateFmt.lastValueFormat(new Date(prevDate)).join(' ');
 		}
-		let html = `<table class="card-stats-table"><thead><tr><th>Category</th><th>${latestLabel}</th><th>${prevLabel}</th></tr></thead><tbody>`;
+		let html = `<table class="dash-table card-stats-table"><thead><tr><th>Category</th><th>${latestLabel}</th><th>${prevLabel}</th></tr></thead><tbody>`;
 		data.forEach(d => {
 			html += `<tr><td>${d.name}</td><td>${formatVal(d.value)}</td>`;
 			html += `<td>${d.previous != null ? formatVal(d.previous) : '\u2014'}</td></tr>`;
@@ -900,7 +900,7 @@ function generateStatsTable(config, data, latestDate, prevDate) {
 	if (config.timeSeries === false) {
 		// Non-time-series bar: table of all entries
 		if (!data || data.length === 0) return '';
-		let html = '<table class="card-stats-table"><tbody>';
+		let html = '<table class="dash-table card-stats-table"><tbody>';
 		data.forEach(d => {
 			const name = d.date || d.name;
 			const isUSA = /^(United States|USA|US)$/i.test(name);
@@ -947,7 +947,7 @@ function generateStatsTable(config, data, latestDate, prevDate) {
 
 		const tableSeries = config.series.map((s, i) => ({ ...s, idx: i }))
 			.filter(s => s.showInTable !== false);
-		let html = '<table class="card-stats-table"><thead><tr><th>Period</th>';
+		let html = '<table class="dash-table card-stats-table"><thead><tr><th>Period</th>';
 		tableSeries.forEach(s => { html += `<th>${s.label}</th>`; });
 		html += '</tr></thead><tbody>';
 		rows.forEach(({ entry, isLatest }) => {
@@ -999,7 +999,7 @@ function generateStatsTable(config, data, latestDate, prevDate) {
 	if (hasComponents) {
 		// Table with component columns instead of change
 		const comps = config.components;
-		let html = '<table class="card-stats-table"><thead><tr><th>Period</th><th>' +
+		let html = '<table class="dash-table card-stats-table"><thead><tr><th>Period</th><th>' +
 			(config.tooltipLabel || 'Value');
 		comps.forEach(c => { html += `</th><th>${c.label}`; });
 		html += '</th></tr></thead><tbody>';
@@ -1033,7 +1033,7 @@ function generateStatsTable(config, data, latestDate, prevDate) {
 	};
 
 	const chgHeader = pctChange ? 'Chg %' : 'Chg';
-	let html = `<table class="card-stats-table"><thead><tr><th>Period</th><th>Value</th><th>${chgHeader}</th></tr></thead><tbody>`;
+	let html = `<table class="dash-table card-stats-table"><thead><tr><th>Period</th><th>Value</th><th>${chgHeader}</th></tr></thead><tbody>`;
 	rows.forEach(({ entry, isLatest }, i) => {
 		const d = new Date(entry.date);
 		const label = dateFormat.lastValueFormat(d).join(' ');
@@ -1123,7 +1123,7 @@ function populateDropdown() {
 		linksDiv.className = 'chart-grid-links';
 
 		const header = document.createElement('div');
-		header.className = 'chart-grid-category';
+		header.className = 'label chart-grid-category';
 		header.textContent = category;
 
 		const firstId = items[0].id;

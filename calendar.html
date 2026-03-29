@@ -79,262 +79,12 @@
   gtag('js', new Date());
   gtag('config', 'G-PGVF5S620Y');
 </script>
-<style>
-	/* Toolbar: filters + month nav in one row */
-	.cal-toolbar {
-		max-width: 760px;
-		padding: 0 12px;
-		margin: 0 auto 16px;
-		display: flex;
-		align-items: center;
-		gap: 8px;
-		flex-wrap: wrap;
-	}
-	.cal-filters {
-		display: flex;
-		gap: 6px;
-		flex-wrap: wrap;
-		flex: 1;
-	}
-	.cal-filter {
-		padding: 4px 11px;
-		border-radius: 20px;
-		border: 1px solid var(--color-border-light);
-		background: var(--color-bg-white);
-		color: var(--color-text-medium);
-		font-size: 12px;
-		font-family: var(--font-ui);
-		cursor: pointer;
-		transition: var(--transition-fast);
-	}
-	.cal-filter:hover { border-color: var(--color-text-light); }
-	.cal-filter.active {
-		background: var(--color-card-brown);
-		color: #fff;
-		border-color: var(--color-card-brown);
-	}
-	/* Month navigation */
-	.cal-month-nav {
-		display: flex;
-		align-items: center;
-		gap: 6px;
-		margin-left: auto;
-	}
-	.cal-month-nav button {
-		background: none;
-		border: 1px solid var(--color-border-light);
-		border-radius: var(--radius);
-		padding: 3px 9px;
-		cursor: pointer;
-		color: var(--color-text-medium);
-		font-family: var(--font-ui);
-		font-size: 13px;
-		line-height: 1;
-		transition: var(--transition-fast);
-	}
-	.cal-month-nav button:hover { border-color: var(--color-text-light); }
-	.cal-month-nav button:disabled { opacity: 0.3; cursor: default; }
-	.cal-month-label {
-		font-size: 15px;
-		font-weight: 600;
-		font-family: var(--font-ui);
-		color: var(--color-text-medium);
-		min-width: 120px;
-		text-align: center;
-	}
-	/* Grid calendar */
-	.cal-grid {
-		max-width: 760px;
-		margin: 0 auto;
-		padding: 0 12px;
-		border-collapse: collapse;
-		table-layout: fixed;
-	}
-	.cal-grid th {
-		font-size: 11px;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.5px;
-		color: var(--color-text-light);
-		padding: 0 0 5px;
-		border-bottom: 2px solid var(--color-card-brown);
-	}
-	.cal-grid td {
-		width: 20%;
-		vertical-align: top;
-		padding: 3px 4px 6px;
-		border-bottom: 1px solid var(--color-border-light);
-		border-right: 1px solid var(--color-border-light);
-	}
-	.cal-grid td:last-child { border-right: none; }
-	.cal-grid td.cal-outside {
-		background: color-mix(in srgb, var(--color-border-light) 30%, transparent);
-	}
-	.cal-grid td.cal-today {
-		background: color-mix(in srgb, var(--color-card-brown) 8%, transparent);
-		box-shadow: inset 0 2px 0 var(--color-card-brown);
-	}
-	.cal-grid td.cal-past { opacity: 0.35; }
-	.cal-day-num {
-		font-size: 12px;
-		font-weight: 600;
-		font-family: var(--font-ui);
-		color: var(--color-text-light);
-		margin-bottom: 1px;
-	}
-	.cal-today .cal-day-num {
-		color: var(--color-card-brown);
-	}
-	.cal-rel {
-		display: block;
-		font-size: 11px;
-		line-height: 1.3;
-		padding: 1px 0;
-		color: var(--color-text-medium);
-	}
-	.cal-rel .cal-t {
-		color: var(--color-text-light);
-		font-size: 10px;
-	}
-	.cal-rel.major { font-weight: 600; }
-	/* Agency badges */
-	.cal-agency {
-		display: inline-block;
-		font-size: 8px;
-		font-weight: 700;
-		font-family: var(--font-ui);
-		letter-spacing: 0.3px;
-		padding: 0 3px;
-		border-radius: 2px;
-		vertical-align: middle;
-		line-height: 1.5;
-		color: #fff;
-		margin-right: 2px;
-	}
-	.cal-agency-bls { background: #2563eb; }
-	.cal-agency-bea { background: #15803d; }
-	.cal-agency-fed { background: #0f766e; }
-	.cal-agency-census { background: #c2410c; }
-	.cal-agency-treasury { background: #6d28d9; }
-	.cal-agency-other { background: #666; }
-	/* Today prominent time */
-	.cal-today .cal-t {
-		color: var(--color-card-brown);
-		font-weight: 600;
-	}
-	/* Week view — taller cells */
-	.cal-grid.cal-week-view td {
-		padding: 6px 8px 12px;
-		min-height: 120px;
-	}
-	.cal-grid.cal-week-view .cal-day-num {
-		font-size: 13px;
-		margin-bottom: 4px;
-	}
-	.cal-grid.cal-week-view .cal-rel {
-		font-size: 12px;
-		line-height: 1.45;
-		padding: 2px 0;
-	}
-	.cal-grid.cal-week-view .cal-t {
-		font-size: 11px;
-	}
-	/* This week summary */
-	.cal-week-summary {
-		max-width: 760px;
-		margin: 0 auto 14px;
-		padding: 8px 14px;
-		font-size: 13px;
-		color: var(--color-text-medium);
-		border-left: 3px solid var(--color-card-brown);
-		background: color-mix(in srgb, var(--color-card-brown) 5%, transparent);
-		border-radius: 0 var(--radius) var(--radius) 0;
-	}
-	.cal-week-summary strong {
-		color: var(--color-text-dark);
-	}
-	.cal-week-summary .cal-agency {
-		font-size: 7px;
-	}
-	.cal-empty {
-		text-align: center;
-		padding: 40px 12px;
-		color: var(--color-text-light);
-		font-size: 15px;
-	}
-	.cal-source {
-		max-width: 760px;
-		padding: 0 12px;
-		margin: 16px auto 0;
-		font-size: 12px;
-		color: var(--color-text-light);
-	}
-	.cal-source a { color: var(--color-text-light); }
-	/* Mobile: compact list */
-	.cal-mobile { display: none; list-style: none; padding: 0; margin: 0; }
-	.cal-m-releases { list-style: none; padding: 0; margin: 0; }
-	@media (max-width: 760px) {
-		.cal-grid { display: none; }
-		.cal-mobile { display: block; max-width: 760px; margin: 0 auto; padding: 0 12px; }
-		.cal-toolbar { justify-content: center; }
-		.cal-filters { justify-content: center; }
-		.cal-month-nav { margin-left: 0; width: 100%; justify-content: center; }
-		.cal-m-day {
-			display: flex;
-			gap: 10px;
-			padding: 7px 0;
-			border-bottom: 1px solid var(--color-border-light);
-			align-items: baseline;
-		}
-		.cal-m-day.cal-past { opacity: 0.35; }
-		.cal-m-date {
-			font-size: 12px;
-			font-weight: 600;
-			font-family: var(--font-ui);
-			color: var(--color-text-light);
-			min-width: 68px;
-			flex-shrink: 0;
-		}
-		.cal-m-day.cal-today .cal-m-date { color: var(--color-card-brown); }
-		.cal-m-releases {
-			flex: 1;
-			min-width: 0;
-		}
-		.cal-m-rel {
-			font-size: 13px;
-			line-height: 1.45;
-			color: var(--color-text-medium);
-		}
-		.cal-m-rel.major { font-weight: 600; }
-		.cal-m-rel .cal-t {
-			color: var(--color-text-light);
-			font-size: 11px;
-		}
-		.cal-m-divider {
-			font-size: 10px;
-			font-weight: 700;
-			font-family: var(--font-ui);
-			text-transform: uppercase;
-			letter-spacing: 0.5px;
-			color: var(--color-card-brown);
-			padding: 10px 0 4px;
-			border-bottom: 1.5px solid var(--color-card-brown);
-			margin-top: 4px;
-		}
-		.cal-week-summary {
-			margin-left: 0;
-			margin-right: 0;
-			padding: 6px 10px;
-			font-size: 12px;
-		}
-	}
-</style>
 </head>
-<body>
+<body class="page-calendar">
 	<a href="#main" class="skip-link">Skip to main content</a>
 	<nav>
-		<ul class="ul_nav" id="menu">
-			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
+		<ul class="site-nav" id="menu">
+			<li class="nav-main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
 			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <svg class="icon icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a> </li>
 			<li><a href="python.html">Guides <span class="nav-arrow">&darr;</span></a>
@@ -367,9 +117,9 @@
 	<div class="page-strip page-strip-compact accent-brown">
 		<picture><source srcset="images/calendar_strip.webp" type="image/webp"><img decoding="async" fetchpriority="high" src="images/calendar_strip.jpg" alt="" aria-hidden="true" class="page-strip-img"></picture>
 	</div>
-	<header>
+	<div class="page-title">
 		<h1>Release Calendar</h1>
-	</header>
+	</div><!-- .page-title -->
 	<main id="main">
 	<section>
 		<article class="prose">
@@ -407,10 +157,10 @@
 	</main>
 
 	<footer>
-		<div class="footer_left">
+		<div class="footer-left">
 			<p><time datetime="2026">2026</time>, by Brian Dew</p>
 		</div>
-		<div class="footer_right">
+		<div class="footer-right">
 			<a href="https://github.com/bdecon/" aria-label="GitHub"><svg class="icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
 			<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><svg class="icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.016-.709-.52-1.248-1.342-1.248S1.4 3.226 1.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a.3.3 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/></svg></a>
 			<a href="https://twitter.com/bd_econ" aria-label="Twitter"><svg class="icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334q.002-.211-.006-.422A6.7 6.7 0 0 0 16 3.542a6.7 6.7 0 0 1-1.889.518 3.3 3.3 0 0 0 1.447-1.817 6.5 6.5 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.32 9.32 0 0 1-6.767-3.429 3.29 3.29 0 0 0 1.018 4.382A3.3 3.3 0 0 1 .64 6.575v.045a3.29 3.29 0 0 0 2.632 3.218 3.2 3.2 0 0 1-.865.115 3 3 0 0 1-.614-.057 3.28 3.28 0 0 0 3.067 2.277A6.6 6.6 0 0 1 .78 13.58a6 6 0 0 1-.78-.045A9.34 9.34 0 0 0 5.026 15"/></svg></a>
@@ -664,7 +414,7 @@
 				if (!insertedDivider && !past) {
 					const hasPast = monthDays.some(md => isPast(md.day.dateStr));
 					if (hasPast) {
-						mobile += '<li class="cal-m-divider" role="separator">Upcoming</li>';
+						mobile += '<li class="label cal-m-divider" role="separator">Upcoming</li>';
 					}
 					insertedDivider = true;
 				}

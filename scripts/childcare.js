@@ -492,7 +492,7 @@
 				.attr('x1', xp).attr('x2', xp)
 				.attr('y1', above ? ly - fh : ly)
 				.attr('y2', above ? ly + lh : ly + lh + fh)
-				.attr('stroke', 'var(--color-text-dark)')
+				.attr('stroke', 'var(--color-text-strong)')
 				.attr('stroke-width', 0.8);
 			var fy = above ? ly - fh - 3 : ly + lh + 3;
 			drawFlag(mg, m.code, xp - fw/2, fy, fw, fh);
@@ -681,7 +681,7 @@
 				svg.append('line')
 					.attr('x1', dcCentroid[0]).attr('y1', dcCentroid[1])
 					.attr('x2', dcX + dcSize / 2).attr('y2', dcY + dcSize / 2)
-					.attr('stroke', 'var(--color-text-light)')
+					.attr('stroke', 'var(--color-text-muted)')
 					.attr('stroke-width', 0.7)
 					.attr('stroke-dasharray', '2,2')
 					.attr('pointer-events', 'none');
@@ -690,7 +690,7 @@
 				svg.append('line')
 					.attr('x1', nycOriginX).attr('y1', nycOriginY)
 					.attr('x2', nycX + nycSize / 2).attr('y2', nycY + nycSize / 2)
-					.attr('stroke', 'var(--color-text-light)')
+					.attr('stroke', 'var(--color-text-muted)')
 					.attr('stroke-width', 0.7)
 					.attr('stroke-dasharray', '2,2')
 					.attr('pointer-events', 'none');
@@ -877,7 +877,7 @@
 			.attr('x', VB_W / 2).attr('y', VB_H / 2)
 			.attr('text-anchor', 'middle')
 			.attr('font-size', 14)
-			.attr('fill', 'var(--color-text-light)')
+			.attr('fill', 'var(--color-text-muted)')
 			.text('Failed to load data');
 	});
 
@@ -1452,7 +1452,7 @@
 			renderColumn(1);
 		}).catch(function(err) {
 			console.error('Failed to load wage peers data:', err);
-			col1.innerHTML = '<p style="color:var(--color-text-light);font-size:14px;">Failed to load data.</p>';
+			col1.innerHTML = '<p style="color:var(--color-text-muted);font-size:14px;">Failed to load data.</p>';
 		});
 	});
 

@@ -142,7 +142,7 @@ Each has one definition in `style.css`. Pages use them as-is or extend with a pa
 |---------|------|--------|-------|
 | `h2` | `--text-3xl` | 40px top, 12px bottom | Section headings |
 | `h3` | `--text-2xl` | 40px top, 12px bottom | Subsection headings |
-| `h4` | `--text-lg` | 32px top, 12px bottom | `--color-text-light` |
+| `h4` | `--text-lg` | 32px top, 12px bottom | `--color-text-muted` |
 | `p` | `--text-base` | 1.5em bottom | Reading spacing |
 | `li` | `--text-base` | 0.4em bottom | |
 
@@ -195,14 +195,9 @@ Page-specific tables (`.scores-table`, `.cal-grid`, `.cc-table`) define their ow
 
 These are open questions where we need to pick one answer and apply it everywhere.
 
-### 1. Chart container max-width
+### ~~1. Chart container max-width~~ DECIDED
 
-Currently varies: 480px (imfweo, gdpm), 580px (indicators), 620px (childcare), 600px (desktop override on imfweo). Should there be 1-2 standard widths?
-
-Options:
-- A. Single width for all charts (e.g., 640px)
-- B. Two widths: narrow (480px) for single-series, wide (640px+) for complex charts
-- C. Keep page-specific (current approach)
+Page-specific. Each chart has different data density needs. Current: 480px (imfweo, gdpm), 580px (indicators), 620px (childcare).
 
 ### 2. Chart header share/download buttons
 
@@ -225,15 +220,55 @@ No variables. Consolidated to 10 allowed px values: **2, 4, 6, 8, 12, 16, 20, 24
 ### ~~6. Color use in body text~~ DECIDED
 
 Three tiers, clearly named by visual weight:
-- `--color-text-dark` (#1e1e1e / #efefef) — headings, strong emphasis
-- `--color-text-medium` (#555 / #c8c8c8) — body text, readable content
-- `--color-text-light` (#888 / #999) — meta, captions, sources, controls
+- `--color-text-strong` (#1e1e1e / #efefef) — headings, strong emphasis
+- `--color-text` (#555 / #c8c8c8) — body text, readable content
+- `--color-text-muted` (#888 / #999) — meta, captions, sources, controls
 
 Old variables `--color-text-gray`, `--color-text-muted`, `--color-text-subtle`, `--color-heading-gray` are eliminated.
 
 ### ~~7. Dark mode completeness~~ DECIDED
 
 Dark mode works via CSS variable overrides in style.css. Shared components get dark mode automatically. Only page-specific elements with hardcoded colors need inline `[data-theme="dark"]` rules. Current state: 21/23 pages need zero inline dark mode CSS. When building new elements, use existing variables first — only write a dark mode override when no variable covers the color.
+
+---
+
+## Page-Type Contracts
+
+What each page type gets for free from style.css, and what it must provide itself.
+
+### Guide (10 pages, 0 lines inline CSS)
+
+**From style.css:** `.prose` typography/spacing, `.dataframe` tables, `.tutorial-meta` bar, `.subfooter` sibling nav, `.callout`, `.details-section`, `.step-label`, code block styling, `.card-grid` for nav cards.
+
+**Page provides:** Content inside `<article class="prose">`. Nothing else needed.
+
+**Gold standard:** cps.html — zero inline CSS.
+
+### Dashboard (4 pages, ~1,200 lines inline CSS)
+
+**From style.css:** `.chart-container`/`.chart-header`/`.chart-body`/`.chart-footer`/`.chart-source`, `.chart-compact` (including mobile padding), `.chart-tooltip`, `.chart-legend`/`.chart-legend-item`, `.form-select`, `.toggle-btn`/`.toggle-group`, `.info-box`, `.page-strip` (hidden on mobile), `.chart-nav-btn`, `.chart-download-link`.
+
+**Page provides:** Chart max-width, section reorder on mobile, edge-to-edge breakout calc, controls layout, share/download button layout, page-specific components (flip cards, combo box, calendar grid, score table, step cards).
+
+**Sub-types:** Chart dashboards (gdpm, indicators, imfweo) vs. calendar (calendar.html — grid layout, no chart containers).
+
+### Report (1 page, ~1,100 lines inline CSS)
+
+**From style.css:** `.prose` typography, `.details-section`, `.chart-container`/`.chart-header`/etc., `.hr-accent`, `.callout`, `.blockquote-accent`, `.highlight-accent`, `.info-box`.
+
+**Page provides:** Justified text, custom visualizations (maps, SVG charts, interactive comparisons, decision trees), tab navigation, dark mode for custom colors.
+
+### Nav page (3 pages, ~80 lines inline CSS)
+
+**From style.css:** `.card-grid`, `.nav-card`, `.page-strip`, `.callout`, `.prose`.
+
+**Page provides:** Minimal layout for card arrangement (python.html arrow flow, index.html announcement banner).
+
+### Single page (2 pages, ~175 lines inline CSS)
+
+**From style.css:** `.prose`, `.info-box`, `.details-section`.
+
+**Page provides:** Unique layout (about.html bio row, chartbook.html download/preview grid).
 
 ---
 

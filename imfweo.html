@@ -96,420 +96,12 @@
   gtag('js', new Date());
   gtag('config', 'G-PGVF5S620Y');
 </script>
-<style>
-	.weo-controls {
-		display: flex;
-		flex-direction: column;
-		gap: 6px;
-		margin: 1rem auto;
-		max-width: 480px;
-	}
-	.weo-control-row {
-		display: flex;
-		align-items: center;
-		gap: 6px;
-	}
-	.weo-control-row label {
-		font-size: 14px;
-		font-weight: 600;
-		color: var(--color-text-light);
-		white-space: nowrap;
-		min-width: 62px;
-	}
-	.weo-controls select, .combo-box input {
-		flex: 1;
-		min-width: 0;
-	}
-	.combo-box {
-		flex: 1;
-		min-width: 0;
-		position: relative;
-	}
-	.combo-box input {
-		width: 100%;
-		box-sizing: border-box;
-	}
-	.combo-list {
-		display: none;
-		position: absolute;
-		left: 0; right: 0;
-		top: 100%;
-		max-height: 220px;
-		overflow-y: auto;
-		background: var(--color-bg-white);
-		border: 1px solid var(--color-border-light);
-		border-top: none;
-		border-radius: 0 0 var(--radius) var(--radius);
-		z-index: 50;
-		box-shadow: 0 4px 12px color-mix(in srgb, black 12%, transparent);
-	}
-	.combo-list.open { display: block; }
-	.combo-item {
-		padding: 6px 10px;
-		font-size: 14px;
-		cursor: pointer;
-		color: var(--color-text-dark);
-	}
-	.combo-item:hover, .combo-item.active {
-		background: var(--color-card-blue);
-		color: #fff;
-	}
-	.combo-item mark {
-		background: none;
-		font-weight: 700;
-		color: inherit;
-	}
-	.chart-container {
-		max-width: 480px;
-		margin: 0 auto;
-	}
-	.chart-compact .chart-body {
-		padding: 12px 18px 2px;
-	}
-	.chart-compact .chart-footer {
-		padding: 2px 18px 15px;
-	}
-	.ext-history-bar {
-		text-align: center;
-		padding: 2px 0;
-		font-size: 12px;
-		color: var(--color-text-light);
-	}
-	.view-btn {
-		background: none;
-		border: none;
-		padding: 0;
-		font: inherit;
-		color: var(--color-link);
-		cursor: pointer;
-		text-decoration: underline;
-	}
-	.view-btn:hover {
-		color: var(--color-link-hover, var(--color-link));
-	}
-	.chart-legend {
-		display: grid;
-		grid-template-columns: auto auto auto;
-		grid-template-rows: auto auto auto auto;
-		gap: 0 14px;
-		column-gap: 14px;
-		font-size: 14px;
-		color: var(--color-text-light);
-		margin-bottom: 6px;
-		line-height: 1.5;
-		padding: 4px 0;
-		border-bottom: 1px solid var(--color-border);
-	}
-	.legend-col-header {
-		font-weight: 700;
-		font-size: 12px;
-		text-transform: uppercase;
-		letter-spacing: 0.5px;
-		color: var(--color-text-dark);
-		padding-bottom: 2px;
-		margin-bottom: 5px;
-		border-bottom: 3.5px solid var(--color-card-blue);
-		cursor: pointer;
-		user-select: none;
-	}
-	.legend-col-header.legend-off {
-		opacity: 0.35;
-	}
-	.legend-hdr-latest { grid-column: 1; grid-row: 1; }
-	.legend-hdr-prev { grid-column: 2 / 4; grid-row: 1; }
-	.legend-hdr-nc { grid-column: 3; grid-row: 2; margin-left: -4px; font-size: 10px; border-bottom-width: 1.5px; margin-bottom: 3px; }
-	.legend-col1 { grid-column: 1; }
-	.legend-col2 { grid-column: 2; }
-	.legend-col3 { grid-column: 3; margin-left: -4px; }
-	.legend-swatch {
-		display: inline-block;
-		flex-shrink: 0;
-	}
-	.legend-line, .legend-line-dashed, .legend-line-gray, .legend-line-region {
-		width: 14px;
-	}
-	.weo-tooltip-icon {
-		display: inline-block;
-		flex-shrink: 0;
-		margin-right: 3px;
-		vertical-align: middle;
-	}
-	/* Tooltip — extends .chart-tooltip from style.css */
-	.weo-tooltip { max-width: 240px; }
-	.weo-tooltip-latest { font-weight: 600; margin-bottom: 4px; }
-	.weo-tooltip-list {
-		max-height: 180px;
-		overflow-y: auto;
-	}
-	.weo-tooltip-row {
-		display: flex;
-		justify-content: space-between;
-		gap: 8px;
-	}
-	.weo-tooltip-dot {
-		display: inline-block;
-		border-radius: 50%;
-		margin-right: 3px;
-		vertical-align: middle;
-	}
-	/* Info box */
-	.weo-info {
-		max-width: 480px;
-		margin: 0.75rem auto;
-		padding: 8px 12px;
-		font-size: 14px;
-		color: var(--color-text-light);
-		display: flex;
-		justify-content: space-between;
-		align-items: baseline;
-		gap: 10px;
-	}
-	.weo-info-label {
-		display: block;
-		color: var(--color-text-dark);
-		font-weight: 600;
-		font-size: 12px;
-		text-transform: uppercase;
-		letter-spacing: 0.5px;
-	}
-	/* Forecast scores table */
-	.scores-controls {
-		max-width: 480px;
-		margin-left: auto;
-		margin-right: auto;
-		display: flex;
-		flex-wrap: wrap;
-		gap: 8px;
-		margin-bottom: 10px;
-		font-size: 13px;
-	}
-	.scores-table {
-		width: 100%;
-		font-size: 13px;
-		border-collapse: collapse;
-		table-layout: fixed;
-	}
-	.scores-table th, .scores-table td {
-		text-align: right;
-		padding: 3px 6px;
-		border-bottom: 1px solid var(--color-border-light);
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-	.scores-table th:first-child, .scores-table td:first-child {
-		text-align: left;
-		width: 45%;
-	}
-	.scores-table th {
-		font-weight: 600;
-		color: var(--color-text-dark);
-		cursor: pointer;
-		user-select: none;
-		position: sticky;
-		top: 0;
-		background: var(--color-bg-white);
-	}
-	.scores-table th:hover {
-		color: var(--color-link);
-	}
-	.scores-table th .sort-arrow {
-		font-size: 10px;
-		margin-left: 2px;
-	}
-	.scores-table tbody tr {
-		cursor: pointer;
-	}
-	.scores-table tbody tr:hover {
-		background: var(--color-bg-highlight, rgba(0,0,0,0.03));
-	}
-	.scores-table tbody tr.scores-active td {
-		font-weight: 600;
-	}
-	.scores-table tbody tr.scores-active {
-		background: var(--color-bg-highlight, rgba(0,0,0,0.04));
-	}
-	.scores-scroll {
-		max-width: 480px;
-		margin-left: auto;
-		margin-right: auto;
-		max-height: 420px;
-		overflow-y: auto;
-		border: 1px solid var(--color-border-light);
-		border-radius: var(--radius);
-	}
-	.scores-note {
-		font-size: 14px;
-		color: var(--color-text-light);
-		margin-top: 10px;
-		line-height: 1.5;
-	}
-	/* Collapsible sections */
-	.details-section:first-of-type {
-		margin-top: 36px;
-	}
-	.weo-glossary-table {
-		font-size: 14px;
-	}
-	.weo-glossary-table th, .weo-glossary-table td {
-		padding: 4px 8px;
-		border-bottom: 1px solid var(--color-border-light);
-	}
-	.weo-glossary-table th {
-		font-weight: 600;
-		color: var(--color-text-dark);
-	}
-	.weo-countries p { margin: 0.4em 0; }
-	.weo-countries strong { font-size: 14px; color: var(--color-text-dark); }
-	@media (max-width: 760px) {
-		/* Zero out outer padding — chart goes edge-to-edge */
-		main {
-			padding: 0;
-		}
-		header {
-			padding: 4px 0 3px;
-		}
-		section {
-			margin: 0;
-			padding: 0;
-		}
-		.page-strip { display: none; }
-		.prose {
-			padding: 0 10px;
-			display: flex;
-			flex-direction: column;
-		}
-		/* Reorder: controls + chart first, text after */
-		.weo-controls  { order: 1; }
-		.chart-container { order: 2; }
-		.weo-info      { order: 3; }
-		.weo-intro     { order: 4; margin-top: 1.5rem; }
-		.details-section { order: 5; }
-		.noscript-warning { order: 0; }
-		/* Full-width breakout */
-		.weo-controls, .weo-info, .chart-container {
-			max-width: none;
-			width: calc(100% + 14px);
-			margin-left: -7px;
-			box-sizing: border-box;
-		}
-		/* Tight controls */
-		.weo-controls {
-			margin-top: 4px;
-			margin-bottom: 4px;
-			gap: 3px;
-		}
-		.weo-control-row label {
-			min-width: 52px;
-			font-size: 12px;
-		}
-		/* Tight chart */
-		.chart-container {
-			margin-top: 2px;
-			margin-bottom: 0;
-		}
-		.chart-compact .chart-header {
-			padding: 5px 8px 4px;
-		}
-		.chart-compact .chart-body {
-			padding: 4px 4px 2px;
-		}
-		.chart-compact .chart-footer {
-			padding: 2px 8px 6px;
-		}
-		/* Legend */
-		.chart-legend {
-			font-size: 12px;
-			column-gap: 8px;
-			padding: 2px 3px;
-			margin-bottom: 3px;
-		}
-		.legend-col-header {
-			font-size: 10px;
-			margin-bottom: 2px;
-			padding-bottom: 1px;
-		}
-		.legend-hdr-nc {
-			font-size: 8px;
-			margin-left: 0;
-		}
-		.legend-col3 {
-			margin-left: 0;
-		}
-		#legend-region {
-			max-width: 130px;
-			overflow: hidden;
-			text-overflow: ellipsis;
-		}
-		/* Info box at the bottom — compact */
-		.weo-info {
-			margin: 1rem 0 0;
-			padding: 6px 10px;
-			font-size: 12px;
-		}
-		/* Scores table — smaller on mobile */
-		.scores-table { font-size: 12px; }
-		.scores-controls {
-			flex-direction: column;
-			gap: 4px;
-		}
-		.scores-controls select {
-			font-size: 13px;
-			width: 100%;
-		}
-	}
-	/* Share buttons (stacked in chart header) */
-	.weo-share {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-end;
-		gap: 6px;
-		margin-left: auto;
-		align-self: center;
-	}
-	.weo-share button {
-		background: none;
-		border: 1px solid rgba(255,255,255,0.35);
-		border-radius: var(--radius);
-		padding: 4px;
-		cursor: pointer;
-		color: rgba(255,255,255,0.8);
-		line-height: 0;
-		transition: color 0.15s, border-color 0.15s, background 0.15s;
-	}
-	.weo-share button:hover {
-		color: #fff;
-		border-color: rgba(255,255,255,0.7);
-		background: rgba(255,255,255,0.12);
-	}
-	.weo-share button svg {
-		width: 14px;
-		height: 14px;
-	}
-	.chart-header .weo-download-links,
-	.chart-header .weo-download-links a {
-		font-size: 11px;
-		color: white;
-		opacity: 1;
-	}
-	.chart-header .weo-download-links a {
-		cursor: pointer;
-	}
-	.chart-header .weo-download-links a:hover {
-		text-decoration: underline;
-	}
-	@media (min-width: 760px) {
-		.weo-controls, .chart-container, .weo-info, .scores-controls, .scores-scroll {
-			max-width: 600px;
-		}
-	}
-</style>
 </head>
-<body>
+<body class="page-weo">
 	<a href="#main" class="skip-link">Skip to main content</a>
 	<nav>
-		<ul class="ul_nav" id="menu">
-			<li class="nav_main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
+		<ul class="site-nav" id="menu">
+			<li class="nav-main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
 			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <svg class="icon icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a> </li>
 			<li><a href="python.html">Guides <span class="nav-arrow">&darr;</span></a>
@@ -542,9 +134,9 @@
 	<div class="page-strip page-strip-compact accent-blue">
 		<picture><source srcset="images/imfweo_strip.webp" type="image/webp"><img decoding="async" fetchpriority="high" src="images/imfweo_strip.jpg" alt="" aria-hidden="true" class="page-strip-img"></picture>
 	</div>
-	<header>
+	<div class="page-title">
 	<h1>IMF WEO Forecast Tracker</h1>
-	</header>
+	</div><!-- .page-title -->
 	<main id="main">
 	<section>
 	<article class="prose">
@@ -559,20 +151,20 @@
 	</div>
 
 	<div class="info-box weo-info" id="weo-info">
-		<div><span class="weo-info-label">Latest edition</span><span id="weo-info-edition">...</span></div>
-		<div><span class="weo-info-label">Next update</span><span id="weo-info-next">...</span></div>
+		<div><span class="label weo-info-label">Latest edition</span><span id="weo-info-edition">...</span></div>
+		<div><span class="label weo-info-label">Next update</span><span id="weo-info-next">...</span></div>
 		<div><a href="https://www.imf.org/en/Publications/WEO">IMF WEO page &rarr;</a></div>
 	</div>
 
 	<div class="weo-controls">
-		<div class="weo-control-row">
+		<div class="control-row weo-control-row">
 			<label for="country-input">Country:</label>
 			<div class="combo-box" id="country-combo">
 				<input type="text" id="country-input" class="form-select" autocomplete="off" spellcheck="false" placeholder="Type to search...">
 				<div class="combo-list" id="country-list"></div>
 			</div>
 		</div>
-		<div class="weo-control-row">
+		<div class="control-row weo-control-row">
 			<label for="indicator-select">Indicator:</label>
 			<select id="indicator-select" class="form-select"></select>
 		</div>
@@ -584,7 +176,7 @@
 				<span class="chart-title" id="chart-title">Loading...</span>
 				<span class="chart-header-indicator" id="chart-indicator"></span>
 			</div>
-			<div class="weo-share">
+			<div class="chart-share weo-share">
 				<button id="btn-copy-link" title="Copy link to this chart" aria-label="Copy link to this chart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button>
 				<div class="weo-download-links"><a id="btn-download-png" title="Download chart as PNG">PNG</a> · <a id="btn-download-csv" title="Download data as CSV">CSV</a></div>
 			</div>
@@ -647,7 +239,7 @@
 			</select>
 		</div>
 		<div class="scores-scroll">
-			<table class="scores-table" id="scores-table">
+			<table class="dash-table scores-table" id="scores-table">
 				<thead>
 					<tr>
 						<th data-col="name">Country</th>
@@ -681,7 +273,7 @@
 
 	<details class="details-section">
 		<summary>Indicator Glossary</summary>
-		<table class="weo-glossary-table">
+		<table class="dash-table weo-glossary-table">
 			<thead>
 				<tr><th>Code</th><th>Name</th><th>Units</th><th>Description</th></tr>
 			</thead>
@@ -733,10 +325,10 @@
 	</main>
 
 	<footer>
-		<div class="footer_left">
+		<div class="footer-left">
 			<p><time datetime="2026">2026</time>, by Brian Dew</p>
 		</div>
-		<div class="footer_right">
+		<div class="footer-right">
 			<a href="https://github.com/bdecon/" aria-label="GitHub"><svg class="icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
 			<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><svg class="icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.016-.709-.52-1.248-1.342-1.248S1.4 3.226 1.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a.3.3 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/></svg></a>
 			<a href="https://twitter.com/bd_econ" aria-label="Twitter"><svg class="icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334q.002-.211-.006-.422A6.7 6.7 0 0 0 16 3.542a6.7 6.7 0 0 1-1.889.518 3.3 3.3 0 0 0 1.447-1.817 6.5 6.5 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.32 9.32 0 0 1-6.767-3.429 3.29 3.29 0 0 0 1.018 4.382A3.3 3.3 0 0 1 .64 6.575v.045a3.29 3.29 0 0 0 2.632 3.218 3.2 3.2 0 0 1-.865.115 3 3 0 0 1-.614-.057 3.28 3.28 0 0 0 3.067 2.277A6.6 6.6 0 0 1 .78 13.58a6 6 0 0 1-.78-.045A9.34 9.34 0 0 0 5.026 15"/></svg></a>

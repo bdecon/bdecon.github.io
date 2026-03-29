@@ -8,7 +8,7 @@ function getThemeColors() {
 	const get = (name) => style.getPropertyValue(name).trim();
 	return {
 		grid: get('--color-grid') || 'rgba(0, 0, 0, 0.06)',
-		axisText: get('--color-text-light') || '#666',
+		axisText: get('--color-text-muted') || '#666',
 		tooltipBg: get('--color-tooltip-bg') || 'rgba(75, 75, 75, 0.95)'
 	};
 }
@@ -296,8 +296,8 @@ function refreshChartColors() {
 		chart.update();
 	}
 	if (comparisonChart) {
-		const textDark = getComputedStyle(document.documentElement).getPropertyValue('--color-text-dark').trim();
-		const textGray = getComputedStyle(document.documentElement).getPropertyValue('--color-text-medium').trim();
+		const textDark = getComputedStyle(document.documentElement).getPropertyValue('--color-text-strong').trim();
+		const textGray = getComputedStyle(document.documentElement).getPropertyValue('--color-text').trim();
 		comparisonChart.options.plugins.title.color = textDark;
 		comparisonChart.options.plugins.legend.labels.color = tc.axisText;
 		comparisonChart.options.scales.x.ticks.color = tc.axisText;
@@ -434,7 +434,7 @@ async function initComparisonChart() {
 					{
 						label: 'Quarterly GDP',
 						data: quarterlyAligned,
-						borderColor: getComputedStyle(document.documentElement).getPropertyValue('--color-text-medium').trim() || '#555',
+						borderColor: getComputedStyle(document.documentElement).getPropertyValue('--color-text').trim() || '#555',
 						backgroundColor: 'transparent',
 						borderWidth: 2.5,
 						pointRadius: 0,
@@ -468,7 +468,7 @@ async function initComparisonChart() {
 						display: true,
 						text: 'Monthly GDP vs. Quarterly GDP',
 						font: { size: 16, family: FONT_UI, weight: '600' },
-						color: getComputedStyle(document.documentElement).getPropertyValue('--color-text-dark').trim(),
+						color: getComputedStyle(document.documentElement).getPropertyValue('--color-text-strong').trim(),
 						padding: { bottom: 10 }
 					},
 					legend: {
