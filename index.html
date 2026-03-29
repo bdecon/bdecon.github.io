@@ -60,8 +60,8 @@
 </script>
 <style>
 .announcement {
-	background: #e4e4e4;
-	padding: 14px 20px 14px;
+	background: var(--color-bg-highlight);
+	padding: 16px 20px;
 	margin: 0;
 	font-size: 15px;
 	border: 1px solid var(--color-border-light);
@@ -70,9 +70,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	gap: 10px;
+	gap: 12px;
 }
-[data-theme="dark"] .announcement { background: #262626; }
 .announce-text {
 	transition: opacity 0.4s ease;
 	opacity: 1;
@@ -87,14 +86,14 @@
 .announce-arrow {
 	background: none;
 	border: none;
-	color: var(--color-text-subtle);
+	color: var(--color-text-light);
 	cursor: pointer;
 	font-size: 15px;
 	padding: 2px 4px;
 	line-height: 1;
 	flex-shrink: 0;
 }
-.announce-arrow:hover { color: var(--color-text-gray); }
+.announce-arrow:hover { color: var(--color-text-medium); }
 </style>
 </head>
 <body>

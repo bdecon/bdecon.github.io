@@ -29,7 +29,7 @@ function getThemeColors() {
 	const get = (name) => style.getPropertyValue(name).trim();
 	return {
 		grid: get('--color-grid') || 'rgba(0, 0, 0, 0.06)',
-		axisText: get('--color-text-muted') || '#666',
+		axisText: get('--color-text-light') || '#666',
 		tooltipBg: get('--color-tooltip-bg') || 'rgba(75, 75, 75, 0.95)',
 		textDark: get('--color-text-dark') || '#333'
 	};

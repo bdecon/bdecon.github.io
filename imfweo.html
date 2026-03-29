@@ -112,20 +112,13 @@
 	.weo-control-row label {
 		font-size: 14px;
 		font-weight: 600;
-		color: var(--color-text-muted);
+		color: var(--color-text-light);
 		white-space: nowrap;
 		min-width: 62px;
 	}
 	.weo-controls select, .combo-box input {
 		flex: 1;
 		min-width: 0;
-		padding: 6px 8px;
-		font-size: 14px;
-		font-family: var(--font-ui);
-		border: 1px solid var(--color-border-light);
-		border-radius: var(--radius);
-		background: var(--color-bg-white);
-		color: var(--color-text-dark);
 	}
 	.combo-box {
 		flex: 1;
@@ -180,7 +173,7 @@
 		text-align: center;
 		padding: 2px 0;
 		font-size: 12px;
-		color: var(--color-text-muted);
+		color: var(--color-text-light);
 	}
 	.view-btn {
 		background: none;
@@ -201,7 +194,7 @@
 		gap: 0 14px;
 		column-gap: 14px;
 		font-size: 14px;
-		color: var(--color-text-muted);
+		color: var(--color-text-light);
 		margin-bottom: 6px;
 		line-height: 1.5;
 		padding: 4px 0;
@@ -241,34 +234,9 @@
 		margin-right: 3px;
 		vertical-align: middle;
 	}
-	/* Tooltip */
-	.weo-tooltip {
-		position: absolute;
-		pointer-events: none;
-		background: var(--color-tooltip-bg);
-		color: #fff;
-		font-family: var(--font-ui);
-		font-size: 12px;
-		padding: 8px 10px;
-		border-radius: var(--radius);
-		z-index: 100;
-		max-width: 240px;
-		line-height: 1.45;
-		opacity: 0;
-		transition: opacity 0.15s;
-	}
-	.weo-tooltip.visible {
-		opacity: 1;
-	}
-	.weo-tooltip-header, .weo-tooltip-latest {
-		font-weight: 600;
-		margin-bottom: 4px;
-	}
-	.weo-tooltip-header {
-		font-size: 14px;
-		border-bottom: 1px solid color-mix(in srgb, white 20%, transparent);
-		padding-bottom: 3px;
-	}
+	/* Tooltip — extends .chart-tooltip from style.css */
+	.weo-tooltip { max-width: 240px; }
+	.weo-tooltip-latest { font-weight: 600; margin-bottom: 4px; }
 	.weo-tooltip-list {
 		max-height: 180px;
 		overflow-y: auto;
@@ -290,21 +258,19 @@
 		margin: 0.75rem auto;
 		padding: 8px 12px;
 		font-size: 14px;
-		color: var(--color-text-muted);
+		color: var(--color-text-light);
 		display: flex;
 		justify-content: space-between;
 		align-items: baseline;
 		gap: 10px;
 	}
-	.weo-info dt {
+	.weo-info-label {
+		display: block;
 		color: var(--color-text-dark);
 		font-weight: 600;
 		font-size: 12px;
 		text-transform: uppercase;
 		letter-spacing: 0.5px;
-	}
-	.weo-info dd {
-		margin: 0;
 	}
 	/* Forecast scores table */
 	.scores-controls {
@@ -316,15 +282,6 @@
 		gap: 8px;
 		margin-bottom: 10px;
 		font-size: 13px;
-	}
-	.scores-controls select {
-		padding: 6px 8px;
-		font-size: 14px;
-		font-family: var(--font);
-		border: 1px solid var(--color-border-light);
-		border-radius: var(--radius);
-		background: var(--color-bg-white);
-		color: var(--color-text-dark);
 	}
 	.scores-table {
 		width: 100%;
@@ -361,19 +318,10 @@
 		margin-left: 2px;
 	}
 	.scores-table tbody tr {
-		background: transparent;
-	}
-	.scores-table tbody tr:nth-child(even) {
-		background: transparent;
+		cursor: pointer;
 	}
 	.scores-table tbody tr:hover {
 		background: var(--color-bg-highlight, rgba(0,0,0,0.03));
-	}
-	.scores-table tbody tr {
-		cursor: pointer;
-	}
-	.scores-table td:first-child {
-		font-weight: 400;
 	}
 	.scores-table tbody tr.scores-active td {
 		font-weight: 600;
@@ -392,7 +340,7 @@
 	}
 	.scores-note {
 		font-size: 14px;
-		color: var(--color-text-muted);
+		color: var(--color-text-light);
 		margin-top: 10px;
 		line-height: 1.5;
 	}
@@ -401,12 +349,9 @@
 		margin-top: 36px;
 	}
 	.weo-glossary-table {
-		width: 100%;
 		font-size: 14px;
-		border-collapse: collapse;
 	}
 	.weo-glossary-table th, .weo-glossary-table td {
-		text-align: left;
 		padding: 4px 8px;
 		border-bottom: 1px solid var(--color-border-light);
 	}
@@ -416,7 +361,7 @@
 	}
 	.weo-countries p { margin: 0.4em 0; }
 	.weo-countries strong { font-size: 14px; color: var(--color-text-dark); }
-	@media (max-width: 759px) {
+	@media (max-width: 760px) {
 		/* Zero out outer padding — chart goes edge-to-edge */
 		main {
 			padding: 0;
@@ -613,23 +558,23 @@
 	<p>Each dot below is a forecast from a previous WEO edition. Larger, fainter dots are longer-range forecasts; smaller, brighter dots are nearer-term. The solid line shows the latest actual data; the dashed line shows the latest forecasts. Where dots cluster tightly, forecasters agreed; where they spread, there was uncertainty or revision.</p>
 	</div>
 
-	<dl class="info-box weo-info" id="weo-info">
-		<div><dt>Latest edition</dt><dd id="weo-info-edition">...</dd></div>
-		<div><dt>Next update</dt><dd id="weo-info-next">...</dd></div>
-		<div><dd><a href="https://www.imf.org/en/Publications/WEO">IMF WEO page &rarr;</a></dd></div>
-	</dl>
+	<div class="info-box weo-info" id="weo-info">
+		<div><span class="weo-info-label">Latest edition</span><span id="weo-info-edition">...</span></div>
+		<div><span class="weo-info-label">Next update</span><span id="weo-info-next">...</span></div>
+		<div><a href="https://www.imf.org/en/Publications/WEO">IMF WEO page &rarr;</a></div>
+	</div>
 
 	<div class="weo-controls">
 		<div class="weo-control-row">
 			<label for="country-input">Country:</label>
 			<div class="combo-box" id="country-combo">
-				<input type="text" id="country-input" autocomplete="off" spellcheck="false" placeholder="Type to search...">
+				<input type="text" id="country-input" class="form-select" autocomplete="off" spellcheck="false" placeholder="Type to search...">
 				<div class="combo-list" id="country-list"></div>
 			</div>
 		</div>
 		<div class="weo-control-row">
 			<label for="indicator-select">Indicator:</label>
-			<select id="indicator-select"></select>
+			<select id="indicator-select" class="form-select"></select>
 		</div>
 	</div>
 
@@ -674,24 +619,24 @@
 			<span class="chart-source">Source: IMF World Economic Outlook</span>
 			<svg class="chart-logo" viewBox="0 0 9 5" width="16" height="9" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
 		</div>
-		<div class="weo-tooltip" id="weo-tooltip"></div>
+		<div class="chart-tooltip weo-tooltip" id="weo-tooltip"></div>
 	</div>
 
 	<details class="details-section" id="scores-section" open>
 		<summary>Forecast Accuracy Scores</summary>
 		<p>How accurate are IMF forecasts for each country? This table scores one-year-ahead forecasts against actual outcomes. A high <em>% Over</em> means the IMF consistently overestimated; the <em>Bias</em> z-score shows how unusual that pattern is relative to other countries. Volatile economies naturally have higher errors (MAE), so the bias score helps distinguish genuine forecast bias from inherent unpredictability. Click a column to sort, or click a row to view that country's chart.</p>
 		<div class="scores-controls">
-			<select id="scores-indicator">
+			<select id="scores-indicator" class="form-select">
 				<option value="NGDP_RPCH">Real GDP Growth</option>
 				<option value="PCPIPCH">CPI Inflation</option>
 				<option value="BCA_NGDPD">Current Account Balance</option>
 			</select>
-			<select id="scores-period">
+			<select id="scores-period" class="form-select">
 				<option value="modern">2010–2024</option>
 				<option value="mid">2000–2024</option>
 				<option value="full">1992–2024</option>
 			</select>
-			<select id="scores-region">
+			<select id="scores-region" class="form-select">
 				<option value="all">All regions</option>
 				<option value="G110">Advanced Economies</option>
 				<option value="G505">Emerging &amp; Developing Asia</option>

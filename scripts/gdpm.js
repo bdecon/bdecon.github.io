@@ -8,7 +8,7 @@ function getThemeColors() {
 	const get = (name) => style.getPropertyValue(name).trim();
 	return {
 		grid: get('--color-grid') || 'rgba(0, 0, 0, 0.06)',
-		axisText: get('--color-text-muted') || '#666',
+		axisText: get('--color-text-light') || '#666',
 		tooltipBg: get('--color-tooltip-bg') || 'rgba(75, 75, 75, 0.95)'
 	};
 }
@@ -297,7 +297,7 @@ function refreshChartColors() {
 	}
 	if (comparisonChart) {
 		const textDark = getComputedStyle(document.documentElement).getPropertyValue('--color-text-dark').trim();
-		const textGray = getComputedStyle(document.documentElement).getPropertyValue('--color-text-gray').trim();
+		const textGray = getComputedStyle(document.documentElement).getPropertyValue('--color-text-medium').trim();
 		comparisonChart.options.plugins.title.color = textDark;
 		comparisonChart.options.plugins.legend.labels.color = tc.axisText;
 		comparisonChart.options.scales.x.ticks.color = tc.axisText;
@@ -434,7 +434,7 @@ async function initComparisonChart() {
 					{
 						label: 'Quarterly GDP',
 						data: quarterlyAligned,
-						borderColor: getComputedStyle(document.documentElement).getPropertyValue('--color-text-gray').trim() || '#555',
+						borderColor: getComputedStyle(document.documentElement).getPropertyValue('--color-text-medium').trim() || '#555',
 						backgroundColor: 'transparent',
 						borderWidth: 2.5,
 						pointRadius: 0,

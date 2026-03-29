@@ -111,7 +111,7 @@
 	.cb-free {
 		text-align: center;
 		font-size: 14px;
-		color: var(--color-text-muted);
+		color: var(--color-text-light);
 		margin: 8px 0 4px 0;
 	}
 	.cb-previews {
@@ -152,7 +152,7 @@
 		border: 1px solid var(--color-border-light);
 		border-radius: var(--radius);
 		padding: 14px 18px;
-		box-shadow: 0 2px 8px color-mix(in srgb, var(--color-text-gray) 12%, transparent);
+		box-shadow: 0 2px 8px color-mix(in srgb, var(--color-text-medium) 12%, transparent);
 		min-height: 420px;
 	}
 	.cb-download h4 {
@@ -175,7 +175,7 @@
 		font-size: 12px;
 		text-transform: uppercase;
 		letter-spacing: 0.5px;
-		color: var(--color-text-subtle);
+		color: var(--color-text-light);
 		margin: 16px 0 0 0;
 		padding-bottom: 4px;
 		border-bottom: 2px solid var(--color-card-green);
@@ -198,7 +198,7 @@
 		border: 1px solid var(--color-border-light);
 		border-radius: var(--radius);
 		padding: 14px 18px;
-		box-shadow: 0 2px 8px color-mix(in srgb, var(--color-text-gray) 12%, transparent);
+		box-shadow: 0 2px 8px color-mix(in srgb, var(--color-text-medium) 12%, transparent);
 		display: flex;
 		flex-direction: column;
 		gap: 0;
@@ -213,27 +213,22 @@
 		margin: 6px 0 10px 0;
 	}
 	.cb-sources table {
-		width: 100%;
-		border-collapse: collapse;
+		flex: 1;
 	}
 	.cb-sources td {
 		padding: 5px 6px;
 		border-bottom: 1px solid var(--color-border-light);
 		font-size: 14px;
-		font-weight: normal;
-	}
-	.cb-sources table {
-		flex: 1;
 	}
 	.cb-sources td:last-child {
 		text-align: right;
-		color: var(--color-text-muted);
+		color: var(--color-text-light);
 		white-space: nowrap;
 		padding-left: 12px;
 	}
 	.cb-sources .cb-st {
 		font-size: 13px;
-		color: var(--color-text-muted);
+		color: var(--color-text-light);
 		margin: 10px 0 0 0;
 		line-height: 1.5;
 	}
@@ -339,7 +334,7 @@
 			<table><tbody id="cb-sources-table">
 			</tbody></table>
 			<p class="cb-st" id="cb-st"></p>
-			<noscript><p style="font-size: 14px; color: var(--color-text-muted)">Enable JavaScript to see the latest data sources.</p></noscript>
+			<noscript><p style="font-size: 14px; color: var(--color-text-light)">Enable JavaScript to see the latest data sources.</p></noscript>
 		</div>
 		</div>
 		<hr class="section-bar accent-green" style="max-width: 760px">
@@ -406,7 +401,7 @@
 				tbody.appendChild(tr);
 			}
 			const more = document.createElement('tr');
-			more.innerHTML = `<td style="color:var(--color-text-subtle);border:none;padding-top:2px">…</td><td style="border:none"></td>`;
+			more.innerHTML = `<td style="color:var(--color-text-light);border:none;padding-top:2px">…</td><td style="border:none"></td>`;
 			tbody.appendChild(more);
 			document.getElementById('cb-st').textContent =
 				'Also tracks interest rates, equities, commodities, exchange rates, and more.';

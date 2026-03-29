@@ -164,7 +164,7 @@
 			DATA.canada && info === DATA.canada.national) {
 			displayName = 'Canada (national)';
 		}
-		var lines = '<div class="cc-tooltip-header">' + displayName + '</div>';
+		var lines = '<div class="chart-tooltip-header">' + displayName + '</div>';
 		lines += '<div style="margin-bottom:3px"><span class="cc-tooltip-value">' +
 			fmtVal(val, currentMetric) + '</span></div>';
 		if (mid === 'gdp_per_child_0_5' && val != null) {
@@ -507,7 +507,7 @@
 			var ttLabel = (legendNames[m.code] || m.code) + ' (national)';
 			var ttVal = fmtVal(m.val, metric);
 			mg.on('mouseenter', function(event) {
-				var html = '<div class="cc-tooltip-header">' + ttLabel + '</div>' +
+				var html = '<div class="chart-tooltip-header">' + ttLabel + '</div>' +
 					'<div><span class="cc-tooltip-value">' + ttVal + '</span></div>';
 				showTooltip(event, html);
 			}).on('mousemove', function(event) {
@@ -681,7 +681,7 @@
 				svg.append('line')
 					.attr('x1', dcCentroid[0]).attr('y1', dcCentroid[1])
 					.attr('x2', dcX + dcSize / 2).attr('y2', dcY + dcSize / 2)
-					.attr('stroke', 'var(--color-text-muted)')
+					.attr('stroke', 'var(--color-text-light)')
 					.attr('stroke-width', 0.7)
 					.attr('stroke-dasharray', '2,2')
 					.attr('pointer-events', 'none');
@@ -690,7 +690,7 @@
 				svg.append('line')
 					.attr('x1', nycOriginX).attr('y1', nycOriginY)
 					.attr('x2', nycX + nycSize / 2).attr('y2', nycY + nycSize / 2)
-					.attr('stroke', 'var(--color-text-muted)')
+					.attr('stroke', 'var(--color-text-light)')
 					.attr('stroke-width', 0.7)
 					.attr('stroke-dasharray', '2,2')
 					.attr('pointer-events', 'none');
@@ -877,7 +877,7 @@
 			.attr('x', VB_W / 2).attr('y', VB_H / 2)
 			.attr('text-anchor', 'middle')
 			.attr('font-size', 14)
-			.attr('fill', 'var(--color-text-muted)')
+			.attr('fill', 'var(--color-text-light)')
 			.text('Failed to load data');
 	});
 
@@ -1452,7 +1452,7 @@
 			renderColumn(1);
 		}).catch(function(err) {
 			console.error('Failed to load wage peers data:', err);
-			col1.innerHTML = '<p style="color:var(--color-text-muted);font-size:14px;">Failed to load data.</p>';
+			col1.innerHTML = '<p style="color:var(--color-text-light);font-size:14px;">Failed to load data.</p>';
 		});
 	});
 
