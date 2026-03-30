@@ -148,7 +148,7 @@
 		</ul>
 	</nav>
 	<div class="page-strip page-strip-compact accent-ltblue">
-		<picture><source srcset="images/indicators_banner.webp" type="image/webp"><img decoding="async" fetchpriority="high" src="images/indicators_banner.png" alt="" aria-hidden="true" class="page-strip-img"></picture>
+		<picture><source srcset="images/indicators_banner.webp" type="image/webp"><img decoding="async" fetchpriority="high" src="images/indicators_banner.png" alt="" aria-hidden="true" class="page-strip-img" width="512" height="68"></picture>
 	</div>
 	<div class="page-title">
 	<h1>Economic Indicators</h1>
@@ -168,7 +168,7 @@
 			<button class="btn card-nav-btn" id="chart-prev" title="Previous chart (← key)" aria-label="Previous chart"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
 			<div class="chart-selector-center">
 				<h4 class="chart-selector-title" id="chart-selector-title"></h4>
-				<span class="chart-counter" id="chart-counter"></span>
+				<span class="label chart-counter" id="chart-counter"></span>
 			</div>
 			<button class="btn card-nav-btn" id="chart-next" title="Next chart (→ key)" aria-label="Next chart"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
 		</div>
@@ -215,7 +215,7 @@
 						<div class="card-footer">
 							<span style="display: flex; align-items: center; gap: 10px;">
 								<svg class="card-logo" viewBox="0 0 9 5" width="16" height="9" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
-								<span class="card-number" id="card-number"></span>
+								<span class="label card-number" id="card-number"></span>
 							</span>
 							<a id="chart-download" href="files/m2gdp.csv" class="card-download" download><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download (.csv)</a>
 							<span class="chart-source" id="chart-source-back"></span>

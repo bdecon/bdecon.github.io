@@ -10,7 +10,7 @@
 	let currentISO = 'USA';
 	let currentIndicator = 'NGDP_RPCH';
 	let yearMin = 2010;
-	let yearMax = 2030;
+	const yearMax = 2030;
 
 	// Extended history (1990–2002 vintages, 3 indicators only)
 	const EXTENDED_INDICATORS = new Set(['NGDP_RPCH', 'PCPIPCH', 'BCA_NGDPD']);

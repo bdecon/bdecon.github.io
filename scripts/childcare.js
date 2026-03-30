@@ -11,58 +11,58 @@
 	//
 	// viewBox: 680 x 520 (mobile-first, ~4:3)
 	// ============================================================
-	var VB_W = 680, VB_H = 900;
+	const VB_W = 680, VB_H = 900;
 
 	// Row 1: US map (centered)
-	var US_LABEL_X = (VB_W - 660) / 2;
-	var US_LABEL_Y = 32; // pinned — title stays in place
-	var US = { x: (VB_W - 660) / 2 + 10, y: 40, w: 660, h: 370 };
+	const US_LABEL_X = (VB_W - 660) / 2;
+	const US_LABEL_Y = 32; // pinned — title stays in place
+	const US = { x: (VB_W - 660) / 2 + 10, y: 40, w: 660, h: 370 };
 
 	// --- Middle zone: separators + legend (all independent) ---
-	var US_BOTTOM = US.y + US.h;
-	var SEP_TOP_Y = US_BOTTOM + 20;           // top separator
-	var LEGEND_Y = US_BOTTOM + 88;             // legend bar + flags + labels
-	var SEP_BOT_Y = US_BOTTOM + 130;           // bottom separator
-	var LEG = { x: 55, y: LEGEND_Y, w: 570, h: 12 };
+	const US_BOTTOM = US.y + US.h;
+	let SEP_TOP_Y = US_BOTTOM + 20;           // top separator
+	let LEGEND_Y = US_BOTTOM + 88;             // legend bar + flags + labels
+	let SEP_BOT_Y = US_BOTTOM + 130;           // bottom separator
+	const LEG = { x: 55, y: LEGEND_Y, w: 570, h: 12 };
 
 	// --- Row 2: Canada + Nordics (independent of legend) ---
-	var ROW2_LABELS_Y = US_BOTTOM + 176;       // "Canada" / "Nordic Countries" titles
-	var ROW2_MAP_Y = US_BOTTOM + 180;           // where maps start rendering
-	var ROW2_GAP = 20;
-	var ROW2_CA_W = 399, ROW2_NO_W = 209;
-	var ROW2_TOTAL = ROW2_CA_W + ROW2_GAP + ROW2_NO_W;
-	var ROW2_X = (VB_W - ROW2_TOTAL) / 2;
-	var ROW2_H = VB_H - ROW2_MAP_Y - 6;
-	var CA = { x: ROW2_X, y: ROW2_LABELS_Y, w: ROW2_CA_W, h: ROW2_H };
-	var NO = { x: ROW2_X + ROW2_CA_W + ROW2_GAP + 4, y: ROW2_LABELS_Y, w: ROW2_NO_W, h: ROW2_H };
+	let ROW2_LABELS_Y = US_BOTTOM + 176;       // "Canada" / "Nordic Countries" titles
+	let ROW2_MAP_Y = US_BOTTOM + 180;           // where maps start rendering
+	const ROW2_GAP = 20;
+	const ROW2_CA_W = 399, ROW2_NO_W = 209;
+	const ROW2_TOTAL = ROW2_CA_W + ROW2_GAP + ROW2_NO_W;
+	const ROW2_X = (VB_W - ROW2_TOTAL) / 2;
+	let ROW2_H = VB_H - ROW2_MAP_Y - 6;
+	const CA = { x: ROW2_X, y: ROW2_LABELS_Y, w: ROW2_CA_W, h: ROW2_H };
+	const NO = { x: ROW2_X + ROW2_CA_W + ROW2_GAP + 4, y: ROW2_LABELS_Y, w: ROW2_NO_W, h: ROW2_H };
 	// DC inset — positioned off the mid-Atlantic coast near actual DC
 	// Exact position is set dynamically after computing the US projection transform
 	// HI note: Hawaii is included in pre-projected AlbersUsa (repositioned)
 
 	// --- TopoJSON sources ---
-	var TOPO = {
+	const TOPO = {
 		us:      { url: 'https://cdn.jsdelivr.net/npm/us-atlas@3/states-albers-10m.json', key: 'states' },
 		canada:  { url: 'files/canada_provinces.json', key: 'data' },
 		nordics: { url: 'files/nordic_countries.json', key: 'data' }
 	};
 
 	// --- State ---
-	var DATA = null, METRICS = [], currentMetric = null;
-	var WORLD_AVG_GDP = 123.6e12 / 643.56e6 / 1e6; // ~$0.192M (IMF WEO Oct 2025 / UN WPP 2024)
-	var topoCache = {};
-	var spendingTier = 'narrow'; // 'narrow' or 'broad'
-	var wageOccupation = 'cc_only'; // 'cc_only', 'preschool', or 'cacomp'
+	let DATA = null, METRICS = [], currentMetric = null;
+	const WORLD_AVG_GDP = 123.6e12 / 643.56e6 / 1e6; // ~$0.192M (IMF WEO Oct 2025 / UN WPP 2024)
+	const topoCache = {};
+	let spendingTier = 'narrow'; // 'narrow' or 'broad'
+	let wageOccupation = 'cc_only'; // 'cc_only', 'preschool', or 'cacomp'
 
 	// --- DOM refs ---
-	var metricTabs = document.getElementById('metric-tabs');
-	var mapIndicator = document.getElementById('map-indicator');
-	var mapSource = document.getElementById('map-source');
-	var mapCaveat = document.getElementById('map-caveat');
-	var tooltip = document.getElementById('map-tooltip');
-	var container = document.getElementById('map-container');
-	var svg = d3.select('#map-svg');
-	var spendingToggle = document.getElementById('spending-toggle');
-	var wageToggle = document.getElementById('wage-toggle');
+	const metricTabs = document.getElementById('metric-tabs');
+	const mapIndicator = document.getElementById('map-indicator');
+	const mapSource = document.getElementById('map-source');
+	const mapCaveat = document.getElementById('map-caveat');
+	const tooltip = document.getElementById('map-tooltip');
+	const container = document.getElementById('map-container');
+	const svg = d3.select('#map-svg');
+	const spendingToggle = document.getElementById('spending-toggle');
+	const wageToggle = document.getElementById('wage-toggle');
 
 	// Click on SVG background clears pinned tooltip
 	svg.on('click', function() { clearPin(); });
@@ -73,9 +73,9 @@
 	// enrollment: linear (25-77%, fine)
 	// gdp_per_child: winsorized at 95th percentile (caps DC outlier)
 	function getColorScale(metricId) {
-		var vals = [];
+		const vals = [];
 		['us', 'canada', 'nordics'].forEach(function(r) {
-			var rd = DATA[r];
+			const rd = DATA[r];
 			if (!rd || !rd.regions) return;
 			Object.values(rd.regions).forEach(function(d) {
 				if (d[metricId] != null) vals.push(d[metricId]);
@@ -84,24 +84,24 @@
 		if (!vals.length) return null;
 		vals.sort(d3.ascending);
 
-		var lo = vals[0], hi = vals[vals.length - 1];
+		let lo = vals[0], hi = vals[vals.length - 1];
 		if (lo === hi) { lo -= 0.01; hi += 0.01; }
-		var scale;
+		let scale;
 
 		if (metricId === 'spending_pct_gdp_narrow' || metricId === 'spending_pct_gdp_broad' || metricId === 'workforce_share_pct') {
 			// Log scale: compresses high end, expands low end
-			var logLo = Math.max(lo, 0.01);  // avoid log(0)
+			const logLo = Math.max(lo, 0.01);  // avoid log(0)
 			scale = d3.scaleSequentialLog(function(t) { return d3.interpolateViridis(1 - t); })
 				.domain([logLo, hi]);
 			return { scale: scale, lo: logLo, hi: hi, type: 'log' };
 		} else if (metricId === 'gdp_per_child_0_5') {
 			// Winsorized: cap at 95th percentile
-			var p95 = d3.quantile(vals, 0.95);
-			var capHi = p95 || hi;
+			const p95 = d3.quantile(vals, 0.95);
+			const capHi = p95 || hi;
 			scale = d3.scaleSequential(function(t) { return d3.interpolateViridis(1 - t); })
 				.domain([lo, capHi]);
 			// Wrap so values above cap get the max color
-			var rawScale = scale;
+			const rawScale = scale;
 			scale = function(v) {
 				return rawScale(Math.min(v, capHi));
 			};
@@ -123,20 +123,20 @@
 
 	// --- Lookup region data (handles zero-padded and unpadded FIPS) ---
 	function lookupRegion(regionData, id) {
-		var s = String(id);
+		const s = String(id);
 		return regionData[s] || regionData[s.padStart(2, '0')];
 	}
 
 	// --- Tooltip ---
-	var pinnedRegion = null; // currently pinned element
+	let pinnedRegion = null; // currently pinned element
 
 	function showTooltip(event, html) {
 		tooltip.innerHTML = html;
 		tooltip.classList.add('visible');
-		var rect = container.getBoundingClientRect();
-		var x = event.clientX - rect.left + 12;
-		var y = event.clientY - rect.top - 10;
-		var tw = tooltip.offsetWidth, th = tooltip.offsetHeight;
+		const rect = container.getBoundingClientRect();
+		let x = event.clientX - rect.left + 12;
+		let y = event.clientY - rect.top - 10;
+		const tw = tooltip.offsetWidth, th = tooltip.offsetHeight;
 		if (x + tw > rect.width - 10) x = x - tw - 24;
 		if (y + th > rect.height - 10) y = rect.height - th - 10;
 		if (y < 0) y = 10;
@@ -156,15 +156,15 @@
 	}
 
 	function tooltipHtml(info, regionKey) {
-		var mid = currentMetric.id;
-		var val = info[mid];
+		const mid = currentMetric.id;
+		const val = info[mid];
 		// Show "(national)" when Canada is in national fallback mode
-		var displayName = info.name;
+		let displayName = info.name;
 		if (regionKey === 'canada' && isCanadaNational(mid) &&
 			DATA.canada && info === DATA.canada.national) {
 			displayName = 'Canada (national)';
 		}
-		var lines = '<div class="chart-tooltip-header">' + displayName + '</div>';
+		let lines = '<div class="chart-tooltip-header">' + displayName + '</div>';
 		lines += '<div style="margin-bottom:3px"><span class="cc-tooltip-value">' +
 			fmtVal(val, currentMetric) + '</span></div>';
 		if (mid === 'gdp_per_child_0_5' && val != null) {
@@ -180,29 +180,29 @@
 				d3.format(',')(info.pt_wage_annual) +
 				' / $' + d3.format(',')(info.all_median_wage_annual) + '</div>';
 		} else if (mid === 'wage_ratio_cacomp_pct' && info.cc_wage_annual != null && info.pt_wage_annual != null) {
-			var blended = Math.round(0.63 * info.pt_wage_annual + 0.37 * info.cc_wage_annual);
+			const blended = Math.round(0.63 * info.pt_wage_annual + 0.37 * info.cc_wage_annual);
 			lines += '<div style="font-size:10px;opacity:0.8">Wage: $' +
 				d3.format(',')(blended) +
 				' / $' + d3.format(',')(info.all_median_wage_annual) + '</div>';
 		} else if (val != null && isWageMetric(currentMetric) && info.wage_local_fmt) {
-			var wLocal = mid === 'wage_ratio_cc_pct' ? info.wage_local_cc :
+			const wLocal = mid === 'wage_ratio_cc_pct' ? info.wage_local_cc :
 				mid === 'wage_ratio_pt_pct' ? info.wage_local_pt : info.wage_local_comp;
 			if (wLocal != null && info.wage_local_all != null) {
-				var fmtW = function(v) {
-					var s = v >= 100 ? d3.format(',')(Math.round(v)) : v.toFixed(2);
+				const fmtW = function(v) {
+					const s = v >= 100 ? d3.format(',')(Math.round(v)) : v.toFixed(2);
 					return info.wage_local_fmt.replace('%s', s);
 				};
 				lines += '<div style="font-size:10px;opacity:0.8">Wage: ' +
 					fmtW(wLocal) + ' / ' + fmtW(info.wage_local_all) + '</div>';
 			}
 		}
-		var natData = DATA[regionKey] && DATA[regionKey].national;
+		const natData = DATA[regionKey] && DATA[regionKey].national;
 		// Skip national comparison when showing national-level data
 		if (natData && natData[mid] != null && val != null && info !== natData) {
-			var natVal = natData[mid];
-			var diff = val - natVal;
-			var sign = diff >= 0 ? '+' : '';
-			var label = regionKey === 'us' ? 'US average' :
+			const natVal = natData[mid];
+			const diff = val - natVal;
+			const sign = diff >= 0 ? '+' : '';
+			const label = regionKey === 'us' ? 'US average' :
 				regionKey === 'canada' ? 'CA average' : 'Average';
 			lines += '<div style="font-size:10px;opacity:0.7;margin-top:2px">' + label + ': ' +
 				fmtVal(natVal, currentMetric) +
@@ -219,21 +219,21 @@
 
 	// --- Check if Canada has only national-level data for the current metric ---
 	function isCanadaNational(metricId) {
-		var regions = DATA.canada && DATA.canada.regions;
-		var nat = DATA.canada && DATA.canada.national;
+		const regions = DATA.canada && DATA.canada.regions;
+		const nat = DATA.canada && DATA.canada.national;
 		if (!regions || !nat) return true;
-		var natVal = nat[metricId];
+		const natVal = nat[metricId];
 		if (natVal == null) return true;
-		var vals = Object.values(regions).map(function(d) { return d[metricId]; });
-		var unique = vals.filter(function(v, i, a) { return v != null && a.indexOf(v) === i; });
+		const vals = Object.values(regions).map(function(d) { return d[metricId]; });
+		const unique = vals.filter(function(v, i, a) { return v != null && a.indexOf(v) === i; });
 		// National-only if every province has the same value or null
 		return unique.length <= 1;
 	}
 
 	// --- Draw features into a group ---
 	function drawFeatures(g, features, mesh, regionData, regionKey, colorInfo, path) {
-		var mid = currentMetric.id;
-		var hasData = Object.values(regionData).some(function(d) { return d[mid] != null; });
+		const mid = currentMetric.id;
+		const hasData = Object.values(regionData).some(function(d) { return d[mid] != null; });
 
 		g.selectAll('.region')
 			.data(features)
@@ -248,7 +248,7 @@
 			})
 			.on('mousemove', function(event, d) {
 				if (pinnedRegion) return;
-				var info = lookupRegion(regionData, d.id);
+				const info = lookupRegion(regionData, d.id);
 				if (info) showTooltip(event, tooltipHtml(info, regionKey));
 			})
 			.on('mouseleave', function() {
@@ -264,13 +264,13 @@
 				pinnedRegion = this;
 				d3.select(this).classed('active', true);
 				this.parentNode.appendChild(this);
-				var info = lookupRegion(regionData, d.id);
+				const info = lookupRegion(regionData, d.id);
 				if (info) showTooltip(event, tooltipHtml(info, regionKey));
 			})
 			.transition().duration(400)
 			.attr('fill', function(d) {
-				var info = lookupRegion(regionData, d.id);
-				var val = info ? info[mid] : null;
+				const info = lookupRegion(regionData, d.id);
+				const val = info ? info[mid] : null;
 				if (!hasData || val == null || !colorInfo) return '#ddd';
 				return colorInfo.scale(val);
 			});
@@ -284,17 +284,17 @@
 	// --- Draw inset box ---
 	function drawInset(parent, info, regionKey, colorInfo, x, y, size, label, fs) {
 		if (!info) return;
-		var val = info[currentMetric.id];
-		var fill = (val != null && colorInfo) ? colorInfo.scale(val) : '#ddd';
-		var g = parent.append('g').attr('class', 'inset-box');
+		const val = info[currentMetric.id];
+		const fill = (val != null && colorInfo) ? colorInfo.scale(val) : '#ddd';
+		const g = parent.append('g').attr('class', 'inset-box');
 		g.append('rect')
 			.attr('x', x).attr('y', y)
 			.attr('width', size).attr('height', size)
 			.attr('fill', fill).attr('rx', 1);
-		var labelLines = label.split('\n');
-		var lx = x + size + 4;
-		var ly = labelLines.length > 1 ? y + size / 2 - 4 : y + size / 2 + 4;
-		var txt = g.append('text')
+		const labelLines = label.split('\n');
+		const lx = x + size + 4;
+		const ly = labelLines.length > 1 ? y + size / 2 - 4 : y + size / 2 + 4;
+		const txt = g.append('text')
 			.attr('x', lx)
 			.attr('y', ly)
 			.attr('text-anchor', 'start')
@@ -325,16 +325,16 @@
 
 	// --- Map a value to 0-1 position on the legend bar ---
 	function legendPos(v, colorInfo) {
-		var lo = colorInfo.lo, hi = colorInfo.hi;
+		const lo = colorInfo.lo, hi = colorInfo.hi;
 		if (colorInfo.type === 'log') {
-			var logLo = Math.log(lo), logHi = Math.log(hi);
+			const logLo = Math.log(lo), logHi = Math.log(hi);
 			return Math.max(0, Math.min(1, (Math.log(Math.max(v, lo)) - logLo) / (logHi - logLo)));
 		}
 		return Math.max(0, Math.min(1, (v - lo) / (hi - lo)));
 	}
 
 	// --- Legend semantic labels (low/high end descriptors) ---
-	var LEGEND_LABELS = {
+	const LEGEND_LABELS = {
 		'enrollment_pct': ['Low enrollment', 'High enrollment'],
 		'wage_ratio_cc_pct': ['Poverty wage', 'Livable wage'],
 		'wage_ratio_pt_pct': ['Lower wage', 'Higher wage'],
@@ -347,20 +347,20 @@
 
 	// --- Draw legend inside SVG ---
 	function drawLegend(parent, colorInfo, metric, fs) {
-		var lx = LEG.x, ly = LEG.y, lw = LEG.w, lh = LEG.h;
-		var lg = parent.append('g').attr('class', 'legend-group');
+		const lx = LEG.x, ly = LEG.y, lw = LEG.w, lh = LEG.h;
+		const lg = parent.append('g').attr('class', 'legend-group');
 		if (!colorInfo) return;
 
-		var gradId = 'lg-' + Date.now();
-		var defs = lg.append('defs');
-		var grad = defs.append('linearGradient').attr('id', gradId);
+		const gradId = 'lg-' + Date.now();
+		const defs = lg.append('defs');
+		const grad = defs.append('linearGradient').attr('id', gradId);
 		// Generate gradient stops that match the scale type
-		for (var i = 0; i <= 20; i++) {
-			var t = i / 20;
-			var v;
+		for (let i = 0; i <= 20; i++) {
+			const t = i / 20;
+			let v;
 			if (colorInfo.type === 'log') {
 				// Log-spaced stops so gradient visually matches the scale
-				var logLo = Math.log(colorInfo.lo), logHi = Math.log(colorInfo.hi);
+				const logLo = Math.log(colorInfo.lo), logHi = Math.log(colorInfo.hi);
 				v = Math.exp(logLo + t * (logHi - logLo));
 			} else {
 				v = colorInfo.lo + t * (colorInfo.hi - colorInfo.lo);
@@ -370,9 +370,9 @@
 				.attr('stop-color', colorInfo.scale(v));
 		}
 
-		var isResources = metric.id === 'gdp_per_child_0_5';
-		var barX = isResources ? lx - 30 : lx;
-		var barW = isResources ? lw + 60 : lw;
+		const isResources = metric.id === 'gdp_per_child_0_5';
+		const barX = isResources ? lx - 30 : lx;
+		const barW = isResources ? lw + 60 : lw;
 
 		lg.append('rect')
 			.attr('x', barX).attr('y', ly)
@@ -381,12 +381,12 @@
 			.attr('rx', 1);
 
 		// Min/max labels
-		var hiLabel = colorInfo.trueHi
+		const hiLabel = colorInfo.trueHi
 			? fmtVal(colorInfo.hi, metric) + '+'
 			: fmtVal(colorInfo.hi, metric);
 		if (isResources) {
 			// Resources: labels above endpoints of the wider bar
-			var aboveY = ly - 6;
+			const aboveY = ly - 6;
 			lg.append('text').attr('class', 'legend-label legend-label-end')
 				.attr('x', barX).attr('y', aboveY)
 				.attr('text-anchor', 'start')
@@ -399,7 +399,7 @@
 				.text(hiLabel);
 		} else {
 			// Default: labels outside the bar, vertically centered
-			var labelY = ly + lh / 2 + 7.5;
+			const labelY = ly + lh / 2 + 7.5;
 			lg.append('text').attr('class', 'legend-label legend-label-end')
 				.attr('x', lx - 6).attr('y', labelY)
 				.attr('text-anchor', 'end')
@@ -413,10 +413,10 @@
 		}
 
 		// Semantic legend labels (e.g. "Low enrollment" / "High enrollment")
-		var semLabels = LEGEND_LABELS[metric.id];
+		const semLabels = LEGEND_LABELS[metric.id];
 		if (semLabels) {
-			var semY = SEP_TOP_Y + 22;
-			var semOff = container.clientWidth < 500 ? 8 : 2;
+			const semY = SEP_TOP_Y + 22;
+			const semOff = container.clientWidth < 500 ? 8 : 2;
 			lg.append('text').attr('class', 'legend-semantic')
 				.attr('x', lx - 32).attr('y', semY + semOff)
 				.attr('text-anchor', 'start')
@@ -430,21 +430,21 @@
 		}
 
 		// National average ticks with flags (alternating above/below)
-		var fw = fs(18), fh = fs(13);
-		var legendMarkers = [];
+		const fw = fs(18), fh = fs(13);
+		const legendMarkers = [];
 
 		// US and Canada national averages
 		['us', 'canada'].forEach(function(rk) {
-			var nat = DATA[rk] && DATA[rk].national;
+			const nat = DATA[rk] && DATA[rk].national;
 			if (!nat || nat[metric.id] == null) return;
 			legendMarkers.push({ code: rk === 'us' ? 'US' : 'CA', val: nat[metric.id] });
 		});
 
 		// Nordic countries (each is its own nation)
-		var nordicMap = { '208': 'DK', '246': 'FI', '578': 'NO', '752': 'SE' };
+		const nordicMap = { '208': 'DK', '246': 'FI', '578': 'NO', '752': 'SE' };
 		if (DATA.nordics && DATA.nordics.regions) {
 			Object.keys(nordicMap).forEach(function(id) {
-				var r = DATA.nordics.regions[id];
+				const r = DATA.nordics.regions[id];
 				if (r && r[metric.id] != null) {
 					legendMarkers.push({ code: nordicMap[id], val: r[metric.id] });
 				}
@@ -456,19 +456,19 @@
 
 		// Greedy collision avoidance: assign each flag to above or below,
 		// picking whichever level has room (rightmost edge is clear)
-		var edgeAbove = -Infinity, edgeBelow = -Infinity;
-		var minGap = fw + 3; // minimum horizontal space between flags on same level
+		let edgeAbove = -Infinity, edgeBelow = -Infinity;
+		const minGap = fw + 3; // minimum horizontal space between flags on same level
 
 		// Name map for legend tooltip headers
-		var legendNames = { US: 'United States', CA: 'Canada', DK: 'Denmark', FI: 'Finland', NO: 'Norway', SE: 'Sweden' };
+		const legendNames = { US: 'United States', CA: 'Canada', DK: 'Denmark', FI: 'Finland', NO: 'Norway', SE: 'Sweden' };
 
 		legendMarkers.forEach(function(m) {
-			var tPos = legendPos(m.val, colorInfo);
-			var xp = barX + tPos * barW;
-			var flagLeft = xp - fw / 2;
+			const tPos = legendPos(m.val, colorInfo);
+			const xp = barX + tPos * barW;
+			const flagLeft = xp - fw / 2;
 
 			// Pick the level with more clearance
-			var above;
+			let above;
 			if (flagLeft >= edgeAbove && flagLeft >= edgeBelow) {
 				above = true; // both clear, default to above
 			} else if (flagLeft >= edgeAbove) {
@@ -486,7 +486,7 @@
 				edgeBelow = flagLeft + minGap;
 			}
 
-			var mg = lg.append('g').attr('class', 'legend-marker').style('cursor', 'pointer');
+			const mg = lg.append('g').attr('class', 'legend-marker').style('cursor', 'pointer');
 
 			mg.append('line')
 				.attr('x1', xp).attr('x2', xp)
@@ -494,7 +494,7 @@
 				.attr('y2', above ? ly + lh : ly + lh + fh)
 				.attr('stroke', 'var(--color-text-strong)')
 				.attr('stroke-width', 0.8);
-			var fy = above ? ly - fh - 3 : ly + lh + 3;
+			const fy = above ? ly - fh - 3 : ly + lh + 3;
 			drawFlag(mg, m.code, xp - fw/2, fy, fw, fh);
 			// Invisible hit area over flag + tick
 			mg.append('rect')
@@ -504,10 +504,10 @@
 				.attr('fill', 'transparent');
 
 			// Tooltip on hover
-			var ttLabel = (legendNames[m.code] || m.code) + ' (national)';
-			var ttVal = fmtVal(m.val, metric);
+			const ttLabel = (legendNames[m.code] || m.code) + ' (national)';
+			const ttVal = fmtVal(m.val, metric);
 			mg.on('mouseenter', function(event) {
-				var html = '<div class="chart-tooltip-header">' + ttLabel + '</div>' +
+				const html = '<div class="chart-tooltip-header">' + ttLabel + '</div>' +
 					'<div><span class="cc-tooltip-value">' + ttVal + '</span></div>';
 				showTooltip(event, html);
 			}).on('mousemove', function(event) {
@@ -528,20 +528,9 @@
 	}
 
 	// --- Composite render ---
-	var TAB_LABELS = {
-		spending_pct_gdp_narrow: 'Spending',
-		spending_pct_gdp_broad: 'Spending',
-		wage_ratio_cc_pct: 'Wages',
-		wage_ratio_pt_pct: 'Wages',
-		wage_ratio_cacomp_pct: 'Wages',
-		enrollment_pct: 'Enrollment',
-		gdp_per_child_0_5: 'Resources',
-		workforce_share_pct: 'Workforce'
-	};
-
 	// Resolve current spending metric based on toggle state
 	function resolveSpendingMetric() {
-		var id = spendingTier === 'broad' ? 'spending_pct_gdp_broad' : 'spending_pct_gdp_narrow';
+		const id = spendingTier === 'broad' ? 'spending_pct_gdp_broad' : 'spending_pct_gdp_narrow';
 		return METRICS.find(function(m) { return m.id === id; });
 	}
 
@@ -551,7 +540,7 @@
 
 	// Resolve current wage metric based on occupation toggle state
 	function resolveWageMetric() {
-		var id = wageOccupation === 'cc_only' ? 'wage_ratio_cc_pct' :
+		const id = wageOccupation === 'cc_only' ? 'wage_ratio_cc_pct' :
 			wageOccupation === 'preschool' ? 'wage_ratio_pt_pct' : 'wage_ratio_cacomp_pct';
 		return METRICS.find(function(m) { return m.id === id; });
 	}
@@ -566,8 +555,8 @@
 		if (!DATA || !currentMetric) return;
 
 		// Mobile detection: scale up fonts when viewBox (680) is wider than container
-		var mobile = container.clientWidth < 500;
-		var fs = mobile ? function(base) { return Math.round(base * 1.6); } : function(base) { return base; };
+		const mobile = container.clientWidth < 500;
+		const fs = mobile ? function(base) { return Math.round(base * 1.6); } : function(base) { return base; };
 
 		// Desktop/mobile layout overrides (outer vars are shared defaults)
 		if (!mobile) {
@@ -593,7 +582,7 @@
 		}
 
 		// Set viewBox based on desktop/mobile
-		var vbH = mobile ? 900 : 858;
+		const vbH = mobile ? 900 : 858;
 		svg.attr('viewBox', '0 0 ' + VB_W + ' ' + vbH);
 
 		// Show/hide spending toggle
@@ -601,7 +590,7 @@
 		// Show/hide wage occupation toggle
 		wageToggle.classList.toggle('visible', isWageMetric(currentMetric));
 
-		var colorInfo = getColorScale(currentMetric.id);
+		const colorInfo = getColorScale(currentMetric.id);
 		mapIndicator.textContent = currentMetric.name;
 		mapSource.textContent = 'Source: ' + currentMetric.source;
 		mapCaveat.textContent = currentMetric.caveat || '';
@@ -612,27 +601,27 @@
 			loadTopo('canada'),
 			loadTopo('nordics')
 		]).then(function(topos) {
-			var usTopo = topos[0], caTopo = topos[1], noTopo = topos[2];
+			const usTopo = topos[0], caTopo = topos[1], noTopo = topos[2];
 
 			// =======================
 			// US MAP (pre-projected AlbersUsa)
 			// =======================
 			// states-albers-10m.json is already projected to ~960x600.
 			// We need a null-projection path generator and scale to fit our area.
-			var usFC = topojson.feature(usTopo, usTopo.objects.states);
+			const usFC = topojson.feature(usTopo, usTopo.objects.states);
 
 			// Compute bounding box of the pre-projected coordinates
 			// Clamp left edge to X=50 to exclude far-west Aleutian Islands from sizing
-			var usBounds = d3.geoPath(null).bounds(usFC);
-			var bx = Math.max(usBounds[0][0], 50), by = usBounds[0][1];
-			var bw = usBounds[1][0] - bx, bh = usBounds[1][1] - by;
+			const usBounds = d3.geoPath(null).bounds(usFC);
+			const bx = Math.max(usBounds[0][0], 50), by = usBounds[0][1];
+			const bw = usBounds[1][0] - bx, bh = usBounds[1][1] - by;
 
 			// Scale and translate to fit our US area
-			var usScale = Math.min(US.w / bw, US.h / bh);
-			var usTx = US.x + (US.w - bw * usScale) / 2 - bx * usScale;
-			var usTy = US.y + (US.h - bh * usScale) / 2 - by * usScale;
+			const usScale = Math.min(US.w / bw, US.h / bh);
+			const usTx = US.x + (US.w - bw * usScale) / 2 - bx * usScale;
+			const usTy = US.y + (US.h - bh * usScale) / 2 - by * usScale;
 
-			var usPath = d3.geoPath(
+			const usPath = d3.geoPath(
 				d3.geoTransform({
 					point: function(x, y) {
 						this.stream.point(x * usScale + usTx, y * usScale + usTy);
@@ -642,10 +631,10 @@
 
 			// All US features (AlbersUsa already excludes territories,
 			// and repositions AK + HI)
-			var usMesh = topojson.mesh(usTopo, usTopo.objects.states,
+			const usMesh = topojson.mesh(usTopo, usTopo.objects.states,
 				function(a, b) { return a !== b; });
 
-			var usG = svg.append('g');
+			const usG = svg.append('g');
 			drawFeatures(usG, usFC.features, usMesh,
 				DATA.us.regions, 'us', colorInfo, usPath);
 
@@ -657,24 +646,24 @@
 			drawFlag(svg, 'US', US_LABEL_X + 4, US_LABEL_Y + 1, mobile ? 28 : 18, mobile ? 20 : 13);
 
 			// DC and NYC inset positions
-			var dcSize = 14, nycSize = 14;
+			const dcSize = 14, nycSize = 14;
 
-			var dcFeature = usFC.features.find(function(f) {
+			const dcFeature = usFC.features.find(function(f) {
 				return String(f.id) === '11' || String(f.id).padStart(2, '0') === '11';
 			});
-			var dcCentroid = dcFeature ? usPath.centroid(dcFeature) : [0, 0];
-			var dcX = dcCentroid[0] + 40;
-			var dcY = dcCentroid[1] + 15;
+			const dcCentroid = dcFeature ? usPath.centroid(dcFeature) : [0, 0];
+			const dcX = dcCentroid[0] + 40;
+			const dcY = dcCentroid[1] + 15;
 
-			var nyFeature = usFC.features.find(function(f) {
+			const nyFeature = usFC.features.find(function(f) {
 				return String(f.id) === '36' || String(f.id).padStart(2, '0') === '36';
 			});
 			// NYC — exact pre-projected coordinates from the TopoJSON geometry
 			// (southern tip of NY state polygon, ~Manhattan area)
-			var nycOriginX = 869 * usScale + usTx;
-			var nycOriginY = 219 * usScale + usTy;
-			var nycX = nycOriginX + 25;
-			var nycY = nycOriginY + 10;
+			const nycOriginX = 869 * usScale + usTx;
+			const nycOriginY = 219 * usScale + usTy;
+			const nycX = nycOriginX + 25;
+			const nycY = nycOriginY + 10;
 
 			// Draw leader lines first (below boxes in z-order)
 			if (dcFeature) {
@@ -699,8 +688,8 @@
 			// Draw inset boxes on top of lines
 			drawInset(svg, lookupRegion(DATA.us.regions, 11), 'us', colorInfo,
 				dcX, dcY, mobile ? 20 : dcSize, 'DC', fs);
-			var nycMetroMetrics = {'wage_ratio_cc_pct': 1, 'wage_ratio_pt_pct': 1, 'wage_ratio_cacomp_pct': 1, 'workforce_share_pct': 1};
-			var nycLabel = nycMetroMetrics[currentMetric.id] ? 'NYC\nMetro' : 'NYC';
+			const nycMetroMetrics = {'wage_ratio_cc_pct': 1, 'wage_ratio_pt_pct': 1, 'wage_ratio_cacomp_pct': 1, 'workforce_share_pct': 1};
+			const nycLabel = nycMetroMetrics[currentMetric.id] ? 'NYC\nMetro' : 'NYC';
 			drawInset(svg, DATA.us.regions['NYC'], 'us', colorInfo,
 				nycX, nycY, mobile ? 20 : nycSize, nycLabel, fs);
 
@@ -724,22 +713,22 @@
 			// =======================
 			// CANADA (conic equal-area, own projection)
 			// =======================
-			var caFC = topojson.feature(caTopo, caTopo.objects.data);
+			const caFC = topojson.feature(caTopo, caTopo.objects.data);
 
 			// Fit to Canada excluding Nunavut's arctic islands (same
 			// approach as Svalbard for Norway — NU is still rendered
 			// but doesn't drive the zoom level)
-			var caFitFC = {
+			const caFitFC = {
 				type: 'FeatureCollection',
 				features: caFC.features.filter(function(f) {
 					return f.id !== 'NU';
 				})
 			};
-			var caProj = d3.geoConicEqualArea()
+			const caProj = d3.geoConicEqualArea()
 				.rotate([96, 0])
 				.parallels([49, 63])
 				.fitExtent([[CA.x - 6, ROW2_MAP_Y], [CA.x + CA.w - 6, ROW2_MAP_Y + CA.h]], caFitFC);
-			var caPath = d3.geoPath(caProj);
+			const caPath = d3.geoPath(caProj);
 
 			// Clip Canada to its area
 			svg.append('defs').append('clipPath').attr('id', 'ca-clip')
@@ -747,17 +736,17 @@
 				.attr('x', CA.x - 6).attr('y', ROW2_MAP_Y)
 				.attr('width', CA.w + 6).attr('height', CA.h);
 
-			var caG = svg.append('g')
+			const caG = svg.append('g')
 				.attr('clip-path', 'url(#ca-clip)');
 
-			var caNatMode = isCanadaNational(currentMetric.id);
+			const caNatMode = isCanadaNational(currentMetric.id);
 
 			if (caNatMode) {
 				// National fallback: draw one merged shape
-				var caMerged = topojson.merge(caTopo, caTopo.objects.data.geometries);
-				var natData = DATA.canada.national;
-				var natVal = natData ? natData[currentMetric.id] : null;
-				var fill = (natVal != null && colorInfo) ? colorInfo.scale(natVal) : '#ddd';
+				const caMerged = topojson.merge(caTopo, caTopo.objects.data.geometries);
+				const natData = DATA.canada.national;
+				const natVal = natData ? natData[currentMetric.id] : null;
+				const fill = (natVal != null && colorInfo) ? colorInfo.scale(natVal) : '#ddd';
 				caG.append('path')
 					.datum(caMerged)
 					.attr('class', 'region')
@@ -780,7 +769,7 @@
 					});
 			} else {
 				// Province mode: individual features + internal borders
-				var caMesh = topojson.mesh(caTopo, caTopo.objects.data,
+				const caMesh = topojson.mesh(caTopo, caTopo.objects.data,
 					function(a, b) { return a !== b; });
 				drawFeatures(caG, caFC.features, caMesh,
 					DATA.canada.regions, 'canada', colorInfo, caPath);
@@ -796,16 +785,16 @@
 			// =======================
 			// NORDICS (conformal, own projection)
 			// =======================
-			var noFC = topojson.feature(noTopo, noTopo.objects.data);
-			var noMesh = topojson.mesh(noTopo, noTopo.objects.data,
+			const noFC = topojson.feature(noTopo, noTopo.objects.data);
+			const noMesh = topojson.mesh(noTopo, noTopo.objects.data,
 				function(a, b) { return a !== b; });
-			var noProj = d3.geoConicConformal()
+			const noProj = d3.geoConicConformal()
 				.parallels([57, 68])
 				.rotate([-15, 0])
 				.fitExtent([[NO.x, ROW2_MAP_Y], [NO.x + NO.w, ROW2_MAP_Y + NO.h]], noFC);
-			var noPath = d3.geoPath(noProj);
+			const noPath = d3.geoPath(noProj);
 
-			var noG = svg.append('g');
+			const noG = svg.append('g');
 			drawFeatures(noG, noFC.features, noMesh,
 				DATA.nordics.regions, 'nordics', colorInfo, noPath);
 
@@ -814,8 +803,8 @@
 				.attr('x', NO.x - 18).attr('y', NO.y - 8)
 				.attr('font-size', fs(16))
 				.text('Nordic Countries');
-			var nfx = NO.x - 18, nfy = NO.y + 1;
-			var nfw = mobile ? 26 : 17, nfh = mobile ? 18 : 12, nfg = mobile ? 5 : 4;
+			const nfx = NO.x - 18, nfy = NO.y + 1;
+			const nfw = mobile ? 26 : 17, nfh = mobile ? 18 : 12, nfg = mobile ? 5 : 4;
 			drawFlag(svg, 'DK', nfx, nfy, nfw, nfh);
 			drawFlag(svg, 'FI', nfx + nfw + nfg, nfy, nfw, nfh);
 			drawFlag(svg, 'NO', nfx + 2*(nfw + nfg), nfy, nfw, nfh);
@@ -825,9 +814,9 @@
 
 	// --- Tab clicks ---
 	metricTabs.addEventListener('click', function(e) {
-		var btn = e.target.closest('.cc-tab');
+		const btn = e.target.closest('.cc-tab');
 		if (!btn) return;
-		var metricId = btn.getAttribute('data-metric');
+		const metricId = btn.getAttribute('data-metric');
 		if (metricId === 'spending_pct_gdp') {
 			// Spending meta-tab: resolve to current tier
 			currentMetric = resolveSpendingMetric();
@@ -844,7 +833,7 @@
 
 	// --- Spending toggle clicks ---
 	spendingToggle.addEventListener('click', function(e) {
-		var btn = e.target.closest('.spending-toggle-btn');
+		const btn = e.target.closest('.spending-toggle-btn');
 		if (!btn) return;
 		spendingTier = btn.getAttribute('data-tier');
 		spendingToggle.querySelectorAll('.spending-toggle-btn').forEach(function(b) { b.classList.remove('active'); });
@@ -855,7 +844,7 @@
 
 	// --- Wage occupation toggle clicks ---
 	wageToggle.addEventListener('click', function(e) {
-		var btn = e.target.closest('.wage-toggle-btn');
+		const btn = e.target.closest('.wage-toggle-btn');
 		if (!btn) return;
 		wageOccupation = btn.getAttribute('data-occ');
 		wageToggle.querySelectorAll('.wage-toggle-btn').forEach(function(b) { b.classList.remove('active'); });
@@ -889,13 +878,13 @@
 	// ============================================================
 	// HERO DOT SPECTRUM — US national, hardcoded for instant render
 	// ============================================================
-	var US_CHILDCARE = { label: 'Childcare Workers', wage: 15.41 };
+	const US_CHILDCARE = { label: 'Childcare Workers', wage: 15.41 };
 
 	// Manual layout: each peer has a fixed side ('above'/'below') and
 	// tier (1 = closest to axis, 2 = further). Positioned by hand to
 	// avoid all overlaps in the tight $14.61–$16.23 range.
 	// Source: BLS OEWS May 2024 national file.
-	var US_PEERS = [
+	const US_PEERS = [
 		{ label: 'Fast Food\nCooks',        wage: 14.50, side: 'below', tier: 1 },
 		{ label: 'Restaurant\nHosts',       wage: 14.61, side: 'above', tier: 1 },
 		{ label: 'Fast Food\nWorkers',      wage: 14.65, side: 'below', tier: 1 },
@@ -910,28 +899,28 @@
 		{ label: 'Bartenders',              wage: 16.12, side: 'below', tier: 3 }
 	];
 
-	var heroSvg = d3.select('#wp-hero-svg');
-	var heroContainer = document.getElementById('wp-hero-container');
-	var wageMin = 14.50, wageMax = 16.19;
+	const heroSvg = d3.select('#wp-hero-svg');
+	const heroContainer = document.getElementById('wp-hero-container');
+	const wageMin = 14.50, wageMax = 16.19;
 
-	var textColor = function() {
+	const textColor = function() {
 		return document.documentElement.getAttribute('data-theme') === 'dark' ? '#efefef' : '#1e1e1e';
 	};
-	var mutedColor = function() {
+	const mutedColor = function() {
 		return document.documentElement.getAttribute('data-theme') === 'dark' ? '#bbb' : '#666';
 	};
-	var tealColor = function() {
+	const tealColor = function() {
 		return document.documentElement.getAttribute('data-theme') === 'dark' ? '#3aadad' : '#2A8A8A';
 	};
-	var peerDotColor = function() {
+	const peerDotColor = function() {
 		return document.documentElement.getAttribute('data-theme') === 'dark' ? '#888' : '#aaa';
 	};
 
 	function drawHero() {
 		heroSvg.selectAll('*').remove();
 
-		var cw = heroContainer.clientWidth;
-		var mobile = cw < 500;
+		const cw = heroContainer.clientWidth;
+		const mobile = cw < 500;
 
 		if (mobile) {
 			drawHeroMobile();
@@ -941,14 +930,14 @@
 	}
 
 	function drawHeroDesktop() {
-		var VW = 680, VH = 300;
+		const VW = 680, VH = 300;
 		heroSvg.attr('viewBox', '0 0 ' + VW + ' ' + VH);
 
-		var MARGIN = { left: 32, right: 8 };
-		var axisY = 170;
-		var x = d3.scaleLinear().domain([wageMin, wageMax]).range([MARGIN.left, VW - MARGIN.right]);
-		var TIER_ABOVE = { 1: -22, 2: -56, 3: -90 };
-		var TIER_BELOW = { 1: 20, 2: 56, 3: 92 };
+		const MARGIN = { left: 32, right: 8 };
+		const axisY = 170;
+		const x = d3.scaleLinear().domain([wageMin, wageMax]).range([MARGIN.left, VW - MARGIN.right]);
+		const TIER_ABOVE = { 1: -22, 2: -56, 3: -90 };
+		const TIER_BELOW = { 1: 20, 2: 56, 3: 92 };
 
 		// Title
 		heroSvg.append('text')
@@ -987,16 +976,16 @@
 
 		// Peer dots, leader lines, labels + wages
 		US_PEERS.forEach(function(p) {
-			var px = x(p.wage);
-			var tierMap = p.side === 'above' ? TIER_ABOVE : TIER_BELOW;
-			var labelY = axisY + tierMap[p.tier];
-			var lineStart = p.side === 'above' ? axisY - 4 : axisY + 4;
-			var lines = p.label.split('\n');
-			var isAbove = p.side === 'above';
-			var lineH = 12; // line height for multi-line labels
+			const px = x(p.wage);
+			const tierMap = p.side === 'above' ? TIER_ABOVE : TIER_BELOW;
+			const labelY = axisY + tierMap[p.tier];
+			const lineStart = p.side === 'above' ? axisY - 4 : axisY + 4;
+			const lines = p.label.split('\n');
+			const isAbove = p.side === 'above';
+			const lineH = 12; // line height for multi-line labels
 
 			// Name first, wage underneath — on both sides
-			var labelBaseY, wageY, lineEnd;
+			let labelBaseY, wageY, lineEnd;
 			if (isAbove) {
 				// name at top, wage below name, line connects wage to axis
 				wageY = labelY;
@@ -1021,7 +1010,7 @@
 				.attr('r', 3.5).attr('fill', peerDotColor());
 
 			// Multi-line label
-			var labelText = heroSvg.append('text')
+			const labelText = heroSvg.append('text')
 				.attr('x', px).attr('y', labelBaseY)
 				.attr('text-anchor', 'middle')
 				.attr('font-size', 11.5).attr('fill', textColor());
@@ -1045,7 +1034,7 @@
 			.attr('cx', x(US_CHILDCARE.wage)).attr('cy', axisY)
 			.attr('r', 6).attr('fill', tealColor());
 
-		var ccLabel = heroSvg.append('text')
+		const ccLabel = heroSvg.append('text')
 			.attr('x', x(US_CHILDCARE.wage)).attr('y', axisY - 46)
 			.attr('text-anchor', 'middle')
 			.attr('font-size', 16).attr('font-weight', 700)
@@ -1065,7 +1054,7 @@
 			.text('$15.41/hr');
 
 		// Endpoint annotations
-		var leftAnnot = heroSvg.append('text')
+		const leftAnnot = heroSvg.append('text')
 			.attr('x', 32).attr('y', axisY + 58)
 			.attr('text-anchor', 'middle')
 			.attr('font-size', 12).attr('fill', tealColor())
@@ -1082,7 +1071,7 @@
 			.attr('dy', '1.0em')
 			.text('occ.');
 
-		var rightAnnot = heroSvg.append('text')
+		const rightAnnot = heroSvg.append('text')
 			.attr('x', VW - 16).attr('y', axisY - 90)
 			.attr('text-anchor', 'end')
 			.attr('font-size', 16).attr('fill', tealColor())
@@ -1105,19 +1094,19 @@
 	}
 
 	function drawHeroMobile() {
-		var VW = 380, VH = 620;
+		const VW = 380, VH = 620;
 		heroSvg.attr('viewBox', '0 -10 ' + VW + ' ' + (VH + 10));
 
-		var axisX = VW / 2; // center the axis
-		var MARGIN = { top: 80, bottom: 40 };
-		var labelOffset = 32; // gap from axis to label text
+		const axisX = VW / 2; // center the axis
+		const MARGIN = { top: 80, bottom: 40 };
+		const labelOffset = 32; // gap from axis to label text
 
 		// Sort peers by wage for vertical layout
-		var allPeers = US_PEERS.slice().sort(function(a, b) { return b.wage - a.wage; });
+		const allPeers = US_PEERS.slice().sort(function(a, b) { return b.wage - a.wage; });
 
 		// Insert childcare worker into the sorted list
-		var allItems = [];
-		var inserted = false;
+		const allItems = [];
+		let inserted = false;
 		allPeers.forEach(function(p) {
 			if (!inserted && US_CHILDCARE.wage >= p.wage) {
 				allItems.push({ label: US_CHILDCARE.label, wage: US_CHILDCARE.wage, isChildcare: true });
@@ -1129,7 +1118,7 @@
 
 		// Assign alternating sides: even index = right, odd = left
 		// Childcare worker always goes right (prominent side)
-		var sideCounter = 0;
+		let sideCounter = 0;
 		allItems.forEach(function(p) {
 			if (p.isChildcare) {
 				p.side = 'right';
@@ -1139,7 +1128,7 @@
 			}
 		});
 
-		var y = d3.scaleLinear()
+		const y = d3.scaleLinear()
 			.domain([wageMax, wageMin])
 			.range([MARGIN.top, VH - MARGIN.bottom]);
 
@@ -1180,10 +1169,10 @@
 
 		// Draw all items
 		allItems.forEach(function(p) {
-			var py = y(p.wage);
-			var dotR = p.isChildcare ? 7 : 4;
-			var dotColor = p.isChildcare ? tealColor() : peerDotColor();
-			var isRight = p.side === 'right';
+			const py = y(p.wage);
+			const dotR = p.isChildcare ? 7 : 4;
+			const dotColor = p.isChildcare ? tealColor() : peerDotColor();
+			const isRight = p.side === 'right';
 
 			// Dot on axis
 			heroSvg.append('circle')
@@ -1191,8 +1180,8 @@
 				.attr('r', dotR).attr('fill', dotColor);
 
 			// Leader line
-			var lineStart = isRight ? axisX + dotR + 4 : axisX - dotR - 4;
-			var lineEnd = isRight ? axisX + labelOffset - 4 : axisX - labelOffset + 4;
+			const lineStart = isRight ? axisX + dotR + 4 : axisX - dotR - 4;
+			const lineEnd = isRight ? axisX + labelOffset - 4 : axisX - labelOffset + 4;
 			heroSvg.append('line')
 				.attr('x1', lineStart).attr('x2', lineEnd)
 				.attr('y1', py).attr('y2', py)
@@ -1201,12 +1190,12 @@
 				.attr('stroke-dasharray', p.isChildcare ? 'none' : '2,2');
 
 			// Label
-			var labelX = isRight ? axisX + labelOffset : axisX - labelOffset;
-			var anchor = isRight ? 'start' : 'end';
-			var nudge = p.label.indexOf('Recreation') === 0 ? -14 : p.label.indexOf('Restaurant') === 0 ? 14 : p.label.indexOf('Sports Book') === 0 ? 14 : 0;
+			const labelX = isRight ? axisX + labelOffset : axisX - labelOffset;
+			const anchor = isRight ? 'start' : 'end';
+			const nudge = p.label.indexOf('Recreation') === 0 ? -14 : p.label.indexOf('Restaurant') === 0 ? 14 : p.label.indexOf('Sports Book') === 0 ? 14 : 0;
 
 			if (p.isChildcare) {
-				var ccText = heroSvg.append('text')
+				const ccText = heroSvg.append('text')
 					.attr('x', labelX).attr('y', py - 10 + nudge)
 					.attr('text-anchor', anchor)
 					.attr('dominant-baseline', 'auto')
@@ -1238,7 +1227,7 @@
 
 		// Endpoint annotations
 		// Bottom: "Lowest paid occ." — left side, aligned with Fast Food Cooks
-		var lowestAnnot = heroSvg.append('text')
+		const lowestAnnot = heroSvg.append('text')
 			.attr('x', axisX - labelOffset - 106).attr('y', y(14.50) - 6)
 			.attr('text-anchor', 'end')
 			.attr('font-size', 12).attr('fill', tealColor())
@@ -1248,7 +1237,7 @@
 		lowestAnnot.append('tspan').attr('x', axisX - labelOffset - 106).attr('dy', '1.0em').text('occ.');
 
 		// Top: "742 occupations paid more"
-		var topAnnot = heroSvg.append('text')
+		const topAnnot = heroSvg.append('text')
 			.attr('x', axisX + labelOffset).attr('y', MARGIN.top - 16)
 			.attr('text-anchor', 'start')
 			.attr('font-size', 13).attr('fill', tealColor())
@@ -1274,7 +1263,7 @@
 	window.addEventListener('resize', drawHero);
 
 	// Redraw hero on theme toggle
-	var observer = new MutationObserver(function(mutations) {
+	const observer = new MutationObserver(function(mutations) {
 		mutations.forEach(function(m) {
 			if (m.attributeName === 'data-theme') {
 				drawHero();
@@ -1289,39 +1278,39 @@
 	// ============================================================
 	// EXPLORE PANEL — lazy-loaded from JSON
 	// ============================================================
-	var wpData = null;
-	var compareActive = false;
-	var select1 = document.getElementById('wp-select-1');
-	var select2 = document.getElementById('wp-select-2');
-	var compareBtn = document.getElementById('wp-compare-btn');
-	var removeBtn = document.getElementById('wp-remove-btn');
-	var col1 = document.getElementById('wp-col-1');
-	var col2 = document.getElementById('wp-col-2');
-	var crossNote = document.getElementById('wp-cross-note');
-	var exploreDetails = document.getElementById('wp-explore');
+	let wpData = null;
+	let compareActive = false;
+	const select1 = document.getElementById('wp-select-1');
+	const select2 = document.getElementById('wp-select-2');
+	const compareBtn = document.getElementById('wp-compare-btn');
+	const removeBtn = document.getElementById('wp-remove-btn');
+	const col1 = document.getElementById('wp-col-1');
+	const col2 = document.getElementById('wp-col-2');
+	const crossNote = document.getElementById('wp-cross-note');
+	const exploreDetails = document.getElementById('wp-explore');
 
 	function fmtUsd(val, geo) {
-		var usd = val / geo.ppp_usd;
+		const usd = val / geo.ppp_usd;
 		if (geo.period === 'hour') return '$' + usd.toFixed(2) + '/hr';
 		return '$' + d3.format(',')(Math.round(usd)) + '/mo';
 	}
 
 	function populateDropdown(sel) {
 		sel.innerHTML = '';
-		var groups = { us: [], canada: [], nordic: [] };
+		const groups = { us: [], canada: [], nordic: [] };
 		Object.keys(wpData.geographies).forEach(function(key) {
-			var g = wpData.geographies[key];
+			const g = wpData.geographies[key];
 			if (groups[g.group]) groups[g.group].push({ key: key, label: g.label });
 		});
 
-		var groupLabels = {
+		const groupLabels = {
 			us: 'United States',
 			canada: 'Canada',
 			nordic: 'Nordic Countries'
 		};
 
 		['us', 'canada', 'nordic'].forEach(function(grp) {
-			var items = groups[grp];
+			const items = groups[grp];
 			if (!items.length) return;
 			// Sort: national first, then alphabetical
 			items.sort(function(a, b) {
@@ -1331,10 +1320,10 @@
 				if (b.key.indexOf('Canada') !== -1 && b.key.indexOf('CAN--Canada') !== -1) return 1;
 				return a.label.localeCompare(b.label);
 			});
-			var og = document.createElement('optgroup');
+			const og = document.createElement('optgroup');
 			og.label = groupLabels[grp];
 			items.forEach(function(item) {
-				var opt = document.createElement('option');
+				const opt = document.createElement('option');
 				opt.value = item.key;
 				opt.textContent = item.label;
 				og.appendChild(opt);
@@ -1344,20 +1333,20 @@
 	}
 
 	function renderColumn(colNum) {
-		var sel = colNum === 1 ? select1 : select2;
-		var col = colNum === 1 ? col1 : col2;
-		var key = sel.value;
-		var geo = wpData.geographies[key];
+		const sel = colNum === 1 ? select1 : select2;
+		const col = colNum === 1 ? col1 : col2;
+		const key = sel.value;
+		const geo = wpData.geographies[key];
 		if (!geo) { col.innerHTML = ''; return; }
 
-		var periodLabel = geo.period === 'hour' ? 'hourly' : 'monthly';
-		var html = '<div class="card-header accent-teal wp-col-header">';
-		html += '<p class="wp-geo-name">' + escHtml(geo.label) + '</p>';
+		const periodLabel = geo.period === 'hour' ? 'hourly' : 'monthly';
+		let html = '<div class="card-header accent-teal wp-col-header">';
+		html += '<h4 class="wp-geo-name">' + escHtml(geo.label) + '</h4>';
 		html += '<p class="wp-occ-label">Median wage, USD (PPP), ' + periodLabel + '</p>';
 		html += '</div>';
 
 		// Build merged array: childcare + peers
-		var rows = geo.peers.map(function(p) {
+		const rows = geo.peers.map(function(p) {
 			return { label: p.label, wage: p.wage, isChildcare: false };
 		});
 		rows.push({ label: geo.childcare_label, wage: geo.childcare_wage, isChildcare: true });
@@ -1369,7 +1358,7 @@
 
 		html += '<div class="wp-peer-list">';
 		rows.forEach(function(r) {
-			var cls = 'wp-peer-row' + (r.isChildcare ? ' wp-childcare' : '');
+			const cls = 'wp-peer-row' + (r.isChildcare ? ' wp-childcare' : '');
 			html += '<div class="' + cls + '">';
 			html += '<span class="wp-peer-name">' + escHtml(r.label) + '</span>';
 			html += '<span class="wp-peer-wage">' + fmtUsd(r.wage, geo) + '</span>';
@@ -1382,9 +1371,9 @@
 	}
 
 	function updateNotes() {
-		var geo1 = wpData.geographies[select1.value];
-		var geo2 = compareActive ? wpData.geographies[select2.value] : null;
-		var notes = [];
+		const geo1 = wpData.geographies[select1.value];
+		const geo2 = compareActive ? wpData.geographies[select2.value] : null;
+		const notes = [];
 
 		if ((geo1 && geo1.comparability === 'low') || (geo2 && geo2.comparability === 'low')) {
 			notes.push('Canada uses a broader occupation group (NOC 422) that includes education paraprofessionals alongside childcare workers.');
@@ -1414,8 +1403,8 @@
 		col2.style.display = '';
 		// Default second dropdown to a different geography
 		if (select2.value === select1.value) {
-			var opts = select2.querySelectorAll('option');
-			for (var i = 0; i < opts.length; i++) {
+			const opts = select2.querySelectorAll('option');
+			for (let i = 0; i < opts.length; i++) {
 				if (opts[i].value !== select1.value) {
 					select2.value = opts[i].value;
 					break;
@@ -1439,7 +1428,7 @@
 	select2.addEventListener('change', function() { renderColumn(2); });
 
 	// Lazy load JSON when details is opened
-	var loaded = false;
+	let loaded = false;
 	exploreDetails.addEventListener('toggle', function() {
 		if (!exploreDetails.open || loaded) return;
 		loaded = true;
@@ -1461,7 +1450,7 @@
 (function() {
 	'use strict';
 
-	var DATA = [
+	const DATA = [
 		{id:"USA",label:"United States",short:"US",group:"us",gdp:1.2753,kids:6.72,enrolled:0.66,notEnrolled:6.06,enrollPct:9.8},
 		{id:"NYC",label:"New York City",short:"NYC",group:"us",gdp:2.4135,kids:6.42,enrolled:1.25,notEnrolled:5.17,enrollPct:19.4},
 		{id:"MA",label:"Massachusetts",short:"Mass.",group:"us",gdp:1.8567,kids:5.88,enrolled:0.56,notEnrolled:5.32,enrollPct:9.5},
@@ -1477,20 +1466,19 @@
 	];
 
 	// World average: $123.6T GDP (IMF WEO Oct 2025) / 643.56M pop 0-5 (UN WPP 2024)
-	var WORLD_AVG = 123.6e12 / 643.56e6 / 1e6; // ~0.192M
+	const WORLD_AVG = 123.6e12 / 643.56e6 / 1e6; // ~0.192M
 
-	var GROUP_LABELS = {us: 'United States', canada: 'Canada', nordic: 'Nordics'};
-	var GROUP_ORDER = ['us', 'canada', 'nordic'];
+	const GROUP_LABELS = {us: 'United States', canada: 'Canada', nordic: 'Nordics'};
+	const GROUP_ORDER = ['us', 'canada', 'nordic'];
 
-	var TEAL = '#2A8A8A';
-	var NAVY = '#1B2A4A';
-	var GRAY_MED = '#888';
+	let TEAL = '#2A8A8A';
+	const NAVY = '#1B2A4A';
 
-	var svg = d3.select('#resources-svg');
-	var containerEl = document.getElementById('resources-container');
+	const svg = d3.select('#resources-svg');
+	const containerEl = document.getElementById('resources-container');
 
 	// ── Tooltip ──
-	var tooltip = d3.select('#resources-container').append('div')
+	const tooltip = d3.select('#resources-container').append('div')
 		.style('position', 'absolute')
 		.style('pointer-events', 'none')
 		.style('background', 'rgba(0,0,0,0.85)')
@@ -1505,9 +1493,9 @@
 		.style('transition', 'opacity 0.15s');
 
 	function showTooltip(evt, html) {
-		var rect = containerEl.getBoundingClientRect();
-		var x = evt.clientX - rect.left + 12;
-		var y = evt.clientY - rect.top - 10;
+		const rect = containerEl.getBoundingClientRect();
+		let x = evt.clientX - rect.left + 12;
+		const y = evt.clientY - rect.top - 10;
 		if (x + 180 > rect.width) x = x - 190;
 		tooltip.html(html).style('left', x + 'px').style('top', y + 'px').style('opacity', 1);
 	}
@@ -1521,10 +1509,10 @@
 
 	// Compute x positions with gaps between groups
 	function computeXSlots() {
-		var GAP = 0.45;
-		var slots = [];
-		var prevGroup = DATA[0].group;
-		var s = 0;
+		const GAP = 0.45;
+		const slots = [];
+		let prevGroup = DATA[0].group;
+		let s = 0;
 		DATA.forEach(function(d) {
 			if (d.group !== prevGroup) { s += GAP; prevGroup = d.group; }
 			slots.push(s);
@@ -1535,8 +1523,8 @@
 
 	// Helper: render multi-line horizontal x label centered at (cx, baseY)
 	function drawLabel(parent, d, cx, baseY, mc, fontSize) {
-		var fs = fontSize || 12;
-		var lines = Array.isArray(d.short) ? d.short : [d.short];
+		const fs = fontSize || 12;
+		const lines = Array.isArray(d.short) ? d.short : [d.short];
 		lines.forEach(function(line, j) {
 			parent.append('text')
 				.attr('x', cx).attr('y', baseY + j * (fs + 1))
@@ -1547,8 +1535,8 @@
 
 	function render() {
 		svg.selectAll('*').remove();
-		var cw = containerEl.clientWidth;
-		var mobile = cw < 500;
+		const cw = containerEl.clientWidth;
+		const mobile = cw < 500;
 		if (mobile) {
 			renderMobile();
 		} else {
@@ -1557,35 +1545,35 @@
 	}
 
 	function renderDesktop() {
-		var W = 680, totalH = 712;
+		const W = 680, totalH = 712;
 		svg.attr('viewBox', '0 -6 ' + W + ' ' + totalH);
-		var margin = {top: 54, right: 15, bottom: 60, left: 34};
-		var gapBetweenPanels = 155;
-		var panelH = (totalH - margin.top - margin.bottom - gapBetweenPanels) / 2;
+		const margin = {top: 54, right: 15, bottom: 60, left: 34};
+		const gapBetweenPanels = 155;
+		const panelH = (totalH - margin.top - margin.bottom - gapBetweenPanels) / 2;
 
-		var xInfo = computeXSlots();
-		var slotWidth = (W - margin.left - margin.right) / xInfo.total;
+		const xInfo = computeXSlots();
+		const slotWidth = (W - margin.left - margin.right) / xInfo.total;
 		function xPos(i) { return margin.left + (xInfo.slots[i] + 0.5) * slotWidth; }
-		var barW = slotWidth * 0.6;
+		const barW = slotWidth * 0.6;
 
-		var yGdp = d3.scaleLinear()
+		const yGdp = d3.scaleLinear()
 			.domain([0, d3.max(DATA, function(d){return d.gdp;}) * 1.10])
 			.range([margin.top + panelH, margin.top]);
 
-		var botTop = margin.top + panelH + gapBetweenPanels;
-		var yKids = d3.scaleLinear()
+		const botTop = margin.top + panelH + gapBetweenPanels;
+		const yKids = d3.scaleLinear()
 			.domain([0, 8.5])
 			.range([botTop + panelH - 2, botTop + 18]);
 
-		var tc = textColor(), mc = mutedColor(), dark = isDark();
+		const tc = textColor(), mc = mutedColor(), dark = isDark();
 		TEAL = dark ? '#3aadad' : '#2A8A8A';
-		var bl = dark ? '#c8c8c8' : '#555';
-		var GRAY_LIGHT = dark ? '#6A6A9A' : '#B0B0D0';
+		const bl = dark ? '#c8c8c8' : '#555';
+		const GRAY_LIGHT = dark ? '#6A6A9A' : '#B0B0D0';
 
-		var tooltipLabel = {WA: 'Washington State'};
+		const tooltipLabel = {WA: 'Washington State'};
 
 		// ── Top panel: GDP per child ──
-		var topG = svg.append('g');
+		const topG = svg.append('g');
 
 		topG.append('text')
 			.attr('x', 15).attr('y', margin.top - 42)
@@ -1596,7 +1584,7 @@
 			.attr('font-size', 18).attr('fill', mc)
 			.text('GDP per 0\u20135 year old, USD millions');
 
-		var yGdpAxis = d3.axisLeft(yGdp).tickValues([0, 1, 2])
+		const yGdpAxis = d3.axisLeft(yGdp).tickValues([0, 1, 2])
 			.tickFormat(function(d){return d;});
 		topG.append('g')
 			.attr('transform', 'translate(' + margin.left + ',0)')
@@ -1611,7 +1599,7 @@
 			.attr('stroke', dark ? '#333' : '#eee').attr('stroke-width', 0.5);
 
 		DATA.forEach(function(d, i) {
-			var cx = xPos(i);
+			const cx = xPos(i);
 			topG.append('rect')
 				.attr('x', cx - barW/2).attr('y', yGdp(d.gdp))
 				.attr('width', barW).attr('height', yGdp(0) - yGdp(d.gdp))
@@ -1634,36 +1622,36 @@
 				.on('mouseleave', hideTooltip);
 		});
 
-		var navyColor = dark ? '#D4A748' : NAVY;
+		const navyColor = dark ? '#D4A748' : NAVY;
 		topG.append('line')
 			.attr('x1', margin.left).attr('x2', W - margin.right)
 			.attr('y1', yGdp(WORLD_AVG)).attr('y2', yGdp(WORLD_AVG))
 			.attr('stroke', navyColor).attr('stroke-width', 2).attr('stroke-dasharray', '5,3');
-		var wavLabelText = 'World average $' + WORLD_AVG.toFixed(1) + 'M';
-		var wavG = svg.append('g');
-		var wavLabel = wavG.append('text')
+		const wavLabelText = 'World average $' + WORLD_AVG.toFixed(1) + 'M';
+		const wavG = svg.append('g');
+		const wavLabel = wavG.append('text')
 			.attr('x', margin.left + 5).attr('y', yGdp(WORLD_AVG) - 6)
 			.attr('text-anchor', 'start').attr('font-size', 15).attr('font-weight', 800).attr('fill', navyColor)
 			.text(wavLabelText);
-		var wavBBox = wavLabel.node().getBBox();
+		const wavBBox = wavLabel.node().getBBox();
 		wavG.insert('rect', 'text')
 			.attr('x', wavBBox.x - 3).attr('y', wavBBox.y - 2)
 			.attr('width', wavBBox.width + 6).attr('height', wavBBox.height + 4)
 			.attr('fill', dark ? '#1a1a2e' : '#fff').attr('opacity', 0.75)
 			.attr('rx', 2);
 
-		var labelY = yGdp(0) + 14;
-		var labelNudge = {DNK: -4};
+		const labelY = yGdp(0) + 14;
+		const labelNudge = {DNK: -4};
 		DATA.forEach(function(d, i) { drawLabel(topG, d, xPos(i) + (labelNudge[d.id] || 0), labelY, bl); });
 
-		var groups = GROUP_ORDER.map(function(g) {
-			var indices = [];
+		const groups = GROUP_ORDER.map(function(g) {
+			const indices = [];
 			DATA.forEach(function(d, i) { if (d.group === g) indices.push(i); });
 			return {group: g, start: indices[0], end: indices[indices.length - 1]};
 		});
 		groups.forEach(function(g) {
-			var x1 = xPos(g.start) - barW/2 - 2;
-			var x2 = xPos(g.end) + barW/2 + 2;
+			const x1 = xPos(g.start) - barW/2 - 2;
+			const x2 = xPos(g.end) + barW/2 + 2;
 			topG.append('line')
 				.attr('x1', x1).attr('x2', x2)
 				.attr('y1', yGdp(0) + 2).attr('y2', yGdp(0) + 2)
@@ -1671,7 +1659,7 @@
 		});
 
 		// ── Bottom panel: Children per 100 people ──
-		var botG = svg.append('g');
+		const botG = svg.append('g');
 
 		botG.append('text')
 			.attr('x', 15).attr('y', botTop - 44)
@@ -1682,7 +1670,7 @@
 			.attr('font-size', 18).attr('fill', mc)
 			.text('Children aged 0\u20135, percent of population');
 
-		var yKidsAxis = d3.axisLeft(yKids).ticks(5);
+		const yKidsAxis = d3.axisLeft(yKids).ticks(5);
 		botG.append('g')
 			.attr('transform', 'translate(' + margin.left + ',0)')
 			.call(yKidsAxis)
@@ -1696,7 +1684,7 @@
 			.attr('stroke', dark ? '#333' : '#eee').attr('stroke-width', 0.5);
 
 		DATA.forEach(function(d, i) {
-			var cx = xPos(i);
+			const cx = xPos(i);
 			botG.append('rect')
 				.attr('x', cx - barW/2).attr('y', yKids(d.enrolled))
 				.attr('width', barW).attr('height', yKids(0) - yKids(d.enrolled))
@@ -1720,22 +1708,22 @@
 				.on('mouseleave', hideTooltip);
 		});
 
-		var botLabelY = yKids(0) + 14;
+		const botLabelY = yKids(0) + 14;
 		DATA.forEach(function(d, i) { drawLabel(botG, d, xPos(i) + (labelNudge[d.id] || 0), botLabelY, bl); });
 
 		groups.forEach(function(g) {
-			var x1 = xPos(g.start) - barW/2 - 2;
-			var x2 = xPos(g.end) + barW/2 + 2;
+			const x1 = xPos(g.start) - barW/2 - 2;
+			const x2 = xPos(g.end) + barW/2 + 2;
 			botG.append('line')
 				.attr('x1', x1).attr('x2', x2)
 				.attr('y1', yKids(0) + 2).attr('y2', yKids(0) + 2)
 				.attr('stroke', '#999').attr('stroke-width', 0.8);
 		});
 
-		var botGroupLabelY = yKids(0) + 50;
+		const botGroupLabelY = yKids(0) + 50;
 		groups.forEach(function(g) {
-			var midX = (xPos(g.start) + xPos(g.end)) / 2;
-			var bglY = (g.group === 'canada' || g.group === 'nordic') ? botGroupLabelY - 10 : botGroupLabelY;
+			const midX = (xPos(g.start) + xPos(g.end)) / 2;
+			const bglY = (g.group === 'canada' || g.group === 'nordic') ? botGroupLabelY - 10 : botGroupLabelY;
 			botG.append('text')
 				.attr('x', midX).attr('y', bglY)
 				.attr('text-anchor', 'middle').attr('font-size', 14).attr('font-weight', 700)
@@ -1743,10 +1731,10 @@
 				.text(GROUP_LABELS[g.group]);
 		});
 
-		var groupLabelY = yGdp(0) + 50;
+		const groupLabelY = yGdp(0) + 50;
 		groups.forEach(function(g) {
-			var midX = (xPos(g.start) + xPos(g.end)) / 2;
-			var glY = (g.group === 'canada' || g.group === 'nordic') ? groupLabelY - 10 : groupLabelY;
+			const midX = (xPos(g.start) + xPos(g.end)) / 2;
+			const glY = (g.group === 'canada' || g.group === 'nordic') ? groupLabelY - 10 : groupLabelY;
 			svg.append('text')
 				.attr('x', midX).attr('y', glY)
 				.attr('text-anchor', 'middle').attr('font-size', 14).attr('font-weight', 700)
@@ -1754,17 +1742,17 @@
 				.text(GROUP_LABELS[g.group]);
 		});
 
-		var legX = W - margin.right - 270, legY = botTop + 3;
+		const legX = W - margin.right - 270, legY = botTop + 3;
 		botG.append('text')
 			.attr('x', legX + 125).attr('y', legY + 10)
 			.attr('text-anchor', 'middle')
 			.attr('font-size', 15).attr('font-weight', 600).attr('fill', mc)
 			.text('Childcare/pre-k enrollment');
-		var legItemY = legY + 22;
-		var legCol2X = legX + 150;
+		const legItemY = legY + 22;
+		const legCol2X = legX + 150;
 		[{label: 'In public care', color: TEAL, col: 0},
 		 {label: 'Not enrolled', color: GRAY_LIGHT, col: 1}].forEach(function(item) {
-			var cx = item.col === 0 ? legX : legCol2X;
+			const cx = item.col === 0 ? legX : legCol2X;
 			botG.append('rect')
 				.attr('x', cx).attr('y', legItemY)
 				.attr('width', 12).attr('height', 12)
@@ -1777,28 +1765,28 @@
 	}
 
 	function renderMobile() {
-		var W = 400, H = 650;
+		const W = 400, H = 650;
 		svg.attr('viewBox', '0 -16 ' + W + ' ' + H);
-		var margin = {top: 56, right: 6, bottom: 40, left: 26};
-		var tc = textColor(), mc = mutedColor(), dark = isDark();
+		const margin = {top: 56, right: 6, bottom: 40, left: 26};
+		const tc = textColor(), mc = mutedColor(), dark = isDark();
 		TEAL = dark ? '#3aadad' : '#2A8A8A';
-		var bl = dark ? '#c8c8c8' : '#555';
-		var GRAY_LIGHT = dark ? '#6A6A9A' : '#B0B0D0';
+		const bl = dark ? '#c8c8c8' : '#555';
+		const GRAY_LIGHT = dark ? '#6A6A9A' : '#B0B0D0';
 
-		var xInfo = computeXSlots();
-		var slotWidth = (W - margin.left - margin.right) / xInfo.total;
+		const xInfo = computeXSlots();
+		const slotWidth = (W - margin.left - margin.right) / xInfo.total;
 		function xPos(i) { return margin.left + (xInfo.slots[i] + 0.5) * slotWidth; }
-		var barW = slotWidth * 0.6;
+		const barW = slotWidth * 0.6;
 
-		var barArea = 186;
+		const barArea = 186;
 
 		// Mobile short labels (avoid overlap)
-		var MOBILE_LABELS = ['US','NYC','Mass.','NM','VT','Wash.','Can.','Que.','Den.','Fin.','Nor.','Swe.'];
+		const MOBILE_LABELS = ['US','NYC','Mass.','NM','VT','Wash.','Can.','Que.','Den.','Fin.','Nor.','Swe.'];
 
 		// Staggered label helper: even indices at baseY, odd at baseY + offset
 		function drawStaggeredLabels(parent, baseY) {
 			DATA.forEach(function(d, i) {
-				var stagger = (i % 2 === 1) ? 12 : 0;
+				const stagger = (i % 2 === 1) ? 12 : 0;
 				parent.append('text')
 					.attr('x', xPos(i)).attr('y', baseY + stagger)
 					.attr('text-anchor', 'middle').attr('font-size', 12).attr('fill', bl)
@@ -1827,8 +1815,8 @@
 			.attr('font-size', 16).attr('fill', mc)
 			.text('GDP per child aged 0\u20135, USD millions');
 
-		var p1Top = margin.top;
-		var yGdp = d3.scaleLinear()
+		const p1Top = margin.top;
+		const yGdp = d3.scaleLinear()
 			.domain([0, d3.max(DATA, function(d){return d.gdp;}) * 1.18])
 			.range([p1Top + barArea, p1Top]);
 
@@ -1839,7 +1827,7 @@
 				.attr('stroke', dark ? '#333' : '#eee').attr('stroke-width', 0.5);
 		});
 
-		var yGdpAxis = d3.axisLeft(yGdp).tickValues([0, 1, 2])
+		const yGdpAxis = d3.axisLeft(yGdp).tickValues([0, 1, 2])
 			.tickFormat(function(d){return d;});
 		svg.append('g')
 			.attr('transform', 'translate(' + margin.left + ',0)')
@@ -1848,7 +1836,7 @@
 			.selectAll('text').attr('fill', mc).attr('font-size', 11);
 
 		DATA.forEach(function(d, i) {
-			var cx = xPos(i);
+			const cx = xPos(i);
 			svg.append('rect')
 				.attr('x', cx - barW/2).attr('y', yGdp(d.gdp))
 				.attr('width', barW).attr('height', yGdp(0) - yGdp(d.gdp))
@@ -1859,17 +1847,17 @@
 				.text('$' + d.gdp.toFixed(1));
 		});
 
-		var navyColor = dark ? '#D4A748' : NAVY;
+		const navyColor = dark ? '#D4A748' : NAVY;
 		svg.append('line')
 			.attr('x1', margin.left).attr('x2', W - margin.right)
 			.attr('y1', yGdp(WORLD_AVG)).attr('y2', yGdp(WORLD_AVG))
 			.attr('stroke', navyColor).attr('stroke-width', 2).attr('stroke-dasharray', '5,3');
-		var mWavG = svg.append('g');
-		var mWavLabel = mWavG.append('text')
+		const mWavG = svg.append('g');
+		const mWavLabel = mWavG.append('text')
 			.attr('x', margin.left + 5).attr('y', yGdp(WORLD_AVG) - 5)
 			.attr('text-anchor', 'start').attr('font-size', 13).attr('font-weight', 800).attr('fill', navyColor)
 			.text('World average');
-		var mWavBBox = mWavLabel.node().getBBox();
+		const mWavBBox = mWavLabel.node().getBBox();
 		mWavG.insert('rect', 'text')
 			.attr('x', mWavBBox.x - 3).attr('y', mWavBBox.y - 2)
 			.attr('width', mWavBBox.width + 6).attr('height', mWavBBox.height + 4)
@@ -1879,23 +1867,23 @@
 		drawStaggeredLabels(svg, yGdp(0) + 14);
 
 		// Group bracket lines + labels (belong to top panel)
-		var groups = GROUP_ORDER.map(function(g) {
-			var indices = [];
+		const groups = GROUP_ORDER.map(function(g) {
+			const indices = [];
 			DATA.forEach(function(d, i) { if (d.group === g) indices.push(i); });
 			return {group: g, start: indices[0], end: indices[indices.length - 1]};
 		});
 		groups.forEach(function(g) {
-			var x1 = xPos(g.start) - barW/2 - 2;
-			var x2 = xPos(g.end) + barW/2 + 2;
+			const x1 = xPos(g.start) - barW/2 - 2;
+			const x2 = xPos(g.end) + barW/2 + 2;
 			svg.append('line')
 				.attr('x1', x1).attr('x2', x2)
 				.attr('y1', yGdp(0) + 2).attr('y2', yGdp(0) + 2)
 				.attr('stroke', '#999').attr('stroke-width', 0.8);
 		});
 
-		var groupLabelY = yGdp(0) + 48;
+		const groupLabelY = yGdp(0) + 48;
 		groups.forEach(function(g) {
-			var midX = (xPos(g.start) + xPos(g.end)) / 2;
+			const midX = (xPos(g.start) + xPos(g.end)) / 2;
 			svg.append('text')
 				.attr('x', midX).attr('y', groupLabelY)
 				.attr('text-anchor', 'middle').attr('font-size', 12).attr('font-weight', 700)
@@ -1904,7 +1892,7 @@
 		});
 
 		// ── Bottom panel: Children per 100 people ──
-		var botTop = groupLabelY + 104;
+		const botTop = groupLabelY + 104;
 		svg.append('text')
 			.attr('x', 8).attr('y', botTop - 46)
 			.attr('font-size', 17).attr('font-weight', 700).attr('fill', tc)
@@ -1914,7 +1902,7 @@
 			.attr('font-size', 16).attr('fill', mc)
 			.text('Children aged 0\u20135, percent of population');
 
-		var yKids = d3.scaleLinear()
+		const yKids = d3.scaleLinear()
 			.domain([0, 8.5])
 			.range([botTop + barArea, botTop + 18]);
 
@@ -1925,7 +1913,7 @@
 				.attr('stroke', dark ? '#333' : '#eee').attr('stroke-width', 0.5);
 		});
 
-		var yKidsAxis = d3.axisLeft(yKids).ticks(5);
+		const yKidsAxis = d3.axisLeft(yKids).ticks(5);
 		svg.append('g')
 			.attr('transform', 'translate(' + margin.left + ',0)')
 			.call(yKidsAxis)
@@ -1933,7 +1921,7 @@
 			.selectAll('text').attr('fill', mc).attr('font-size', 11);
 
 		DATA.forEach(function(d, i) {
-			var cx = xPos(i);
+			const cx = xPos(i);
 			svg.append('rect')
 				.attr('x', cx - barW/2).attr('y', yKids(d.enrolled))
 				.attr('width', barW).attr('height', yKids(0) - yKids(d.enrolled))
@@ -1947,17 +1935,17 @@
 		drawStaggeredLabels(svg, yKids(0) + 14);
 
 		groups.forEach(function(g) {
-			var x1 = xPos(g.start) - barW/2 - 2;
-			var x2 = xPos(g.end) + barW/2 + 2;
+			const x1 = xPos(g.start) - barW/2 - 2;
+			const x2 = xPos(g.end) + barW/2 + 2;
 			svg.append('line')
 				.attr('x1', x1).attr('x2', x2)
 				.attr('y1', yKids(0) + 2).attr('y2', yKids(0) + 2)
 				.attr('stroke', '#999').attr('stroke-width', 0.8);
 		});
 
-		var botGroupLabelY = yKids(0) + 48;
+		const botGroupLabelY = yKids(0) + 48;
 		groups.forEach(function(g) {
-			var midX = (xPos(g.start) + xPos(g.end)) / 2;
+			const midX = (xPos(g.start) + xPos(g.end)) / 2;
 			svg.append('text')
 				.attr('x', midX).attr('y', botGroupLabelY)
 				.attr('text-anchor', 'middle').attr('font-size', 12).attr('font-weight', 700)
@@ -1966,17 +1954,17 @@
 		});
 
 		// Legend
-		var legX = W - margin.right - 320, legY = botTop + 1;
+		const legX = W - margin.right - 320, legY = botTop + 1;
 		svg.append('text')
 			.attr('x', legX + 110).attr('y', legY + 7)
 			.attr('text-anchor', 'middle')
 			.attr('font-size', 13).attr('font-weight', 600).attr('fill', mc)
 			.text('Childcare/pre-k enrollment');
-		var legItemY = legY + 20;
-		var legCol2X = legX + 130;
+		const legItemY = legY + 20;
+		const legCol2X = legX + 130;
 		[{label: 'In public care', color: TEAL, col: 0},
 		 {label: 'Not enrolled', color: GRAY_LIGHT, col: 1}].forEach(function(item) {
-			var cx = item.col === 0 ? legX : legCol2X;
+			const cx = item.col === 0 ? legX : legCol2X;
 			svg.append('rect')
 				.attr('x', cx).attr('y', legItemY)
 				.attr('width', 10).attr('height', 10)
@@ -1991,7 +1979,7 @@
 	render();
 	window.addEventListener('resize', render);
 
-	var observer = new MutationObserver(function(mutations) {
+	const observer = new MutationObserver(function(mutations) {
 		mutations.forEach(function(m) {
 			if (m.attributeName === 'data-theme') render();
 		});
@@ -2004,7 +1992,7 @@
 	'use strict';
 
 	function getColors() {
-		var dk = document.documentElement.getAttribute('data-theme') === 'dark';
+		const dk = document.documentElement.getAttribute('data-theme') === 'dark';
 		return {
 			norway:  '#5DC863',
 			denmark: dk ? '#aaa' : '#777',
@@ -2013,7 +2001,7 @@
 			us:      dk ? '#3aadad' : '#2A8A8A'
 		};
 	}
-	var DATA = [
+	const DATA = [
 		{country: 'Norway',    colorKey: 'norway',  ages: [3.0, 86.4, 94.7, 96.8, 97.2, 97.4]},
 		{country: 'Denmark',   colorKey: 'denmark', ages: [3.0, 76.2, 86.6, 94.7, 96.2, 95.4]},
 		{country: 'Sweden',    colorKey: 'sweden',  ages: [3.0, 50.4, 91.2, 94.4, 95.5, 95.9]},
@@ -2021,13 +2009,13 @@
 		{country: 'United States', colorKey: 'us',  ages: [3, 5, 7, 14.2, 42.4, 89.4]}
 	];
 
-	var AGES = [0, 1, 2, 3, 4, 5];
+	const AGES = [0, 1, 2, 3, 4, 5];
 
-	var svg = d3.select('#enrollment-age-svg');
-	var containerEl = document.getElementById('enrollment-age-container');
+	const svg = d3.select('#enrollment-age-svg');
+	const containerEl = document.getElementById('enrollment-age-container');
 
 	// Tooltip
-	var tooltip = d3.select('#enrollment-age-container').append('div')
+	const tooltip = d3.select('#enrollment-age-container').append('div')
 		.style('position', 'absolute')
 		.style('pointer-events', 'none')
 		.style('background', 'rgba(0,0,0,0.85)')
@@ -2042,9 +2030,9 @@
 		.style('transition', 'opacity 0.15s');
 
 	function showTooltip(evt, html) {
-		var rect = containerEl.getBoundingClientRect();
-		var x = evt.clientX - rect.left + 12;
-		var y = evt.clientY - rect.top - 10;
+		const rect = containerEl.getBoundingClientRect();
+		let x = evt.clientX - rect.left + 12;
+		const y = evt.clientY - rect.top - 10;
 		if (x + 200 > rect.width) x = x - 220;
 		tooltip.html(html).style('left', x + 'px').style('top', y + 'px').style('opacity', 1);
 	}
@@ -2057,15 +2045,15 @@
 	function mutedColor() { return isDark() ? '#b0b0b0' : '#888'; }
 
 	function interp(ages, x) {
-		var i = Math.floor(x), f = x - i;
+		const i = Math.floor(x), f = x - i;
 		if (i >= ages.length - 1) return ages[ages.length - 1];
 		return ages[i] + f * (ages[i + 1] - ages[i]);
 	}
 
 	function render() {
 		svg.selectAll('*').remove();
-		var cw = containerEl.clientWidth;
-		var mobile = cw < 500;
+		const cw = containerEl.clientWidth;
+		const mobile = cw < 500;
 		if (mobile) {
 			renderMobile();
 		} else {
@@ -2074,18 +2062,18 @@
 	}
 
 	function renderDesktop() {
-		var W = 680, H = 591;
+		const W = 680, H = 591;
 		svg.attr('viewBox', '0 0 ' + W + ' ' + H);
-		var margin = {top: 122, right: 24, bottom: 30, left: 45};
-		var chartW = W - margin.left - margin.right;
-		var chartH = H - margin.top - margin.bottom;
-		var tc = textColor(), mc = mutedColor(), dark = isDark();
-		var colors = getColors();
+		const margin = {top: 122, right: 24, bottom: 30, left: 45};
+		const chartW = W - margin.left - margin.right;
+		const chartH = H - margin.top - margin.bottom;
+		const tc = textColor(), mc = mutedColor(), dark = isDark();
+		const colors = getColors();
 		DATA.forEach(function(d) { d.color = colors[d.colorKey]; });
 
-		var xScale = d3.scaleLinear().domain([0, 5]).range([margin.left, margin.left + chartW]);
-		var yScale = d3.scaleLinear().domain([0, 100]).range([margin.top + chartH, margin.top]);
-		var lineFn = d3.line()
+		const xScale = d3.scaleLinear().domain([0, 5]).range([margin.left, margin.left + chartW]);
+		const yScale = d3.scaleLinear().domain([0, 100]).range([margin.top + chartH, margin.top]);
+		const lineFn = d3.line()
 			.x(function(d, i) { return xScale(i); })
 			.y(function(d) { return yScale(d); });
 
@@ -2110,7 +2098,7 @@
 				.attr('stroke-width', v === 0 ? 1 : 0.5);
 		});
 
-		var yAxis = d3.axisLeft(yScale).tickValues([0, 25, 50, 75, 100])
+		const yAxis = d3.axisLeft(yScale).tickValues([0, 25, 50, 75, 100])
 			.tickFormat(function(d) { return d + '%'; });
 		svg.append('g')
 			.attr('transform', 'translate(' + margin.left + ',0)')
@@ -2118,7 +2106,7 @@
 			.call(function(g) { g.select('.domain').remove(); g.selectAll('.tick line').attr('stroke', '#ddd'); })
 			.selectAll('text').attr('fill', tc).attr('font-size', 14);
 
-		var xAxis = d3.axisBottom(xScale).tickValues(AGES)
+		const xAxis = d3.axisBottom(xScale).tickValues(AGES)
 			.tickFormat(function(d) { return 'Age ' + d; });
 		svg.append('g')
 			.attr('transform', 'translate(0,' + (margin.top + chartH) + ')')
@@ -2142,8 +2130,8 @@
 			.text('leave');
 
 		DATA.forEach(function(series) {
-			var lineColor = series.color;
-			var isUS = series.country === 'United States';
+			const lineColor = series.color;
+			const isUS = series.country === 'United States';
 			svg.append('path')
 				.datum(series.ages)
 				.attr('d', lineFn)
@@ -2160,8 +2148,8 @@
 			});
 		});
 
-		var bgStroke = dark ? '#1a1a2e' : '#fff';
-		var labels = [
+		const bgStroke = dark ? '#1a1a2e' : '#fff';
+		const labels = [
 			{text: 'Norway',        x: 2,   di: 0, dy: -7,  anchor: 'middle', bold: false},
 			{text: 'Denmark',       x: 1.34, di: 1, dy: -4,  anchor: 'middle', bold: false},
 			{text: 'Sweden',        x: 1.15, di: 2, dy: -6,  anchor: 'middle', bold: false},
@@ -2170,7 +2158,7 @@
 			{text: 'States', x: 1.5, di: 4, dy: -13,  anchor: 'middle', bold: true}
 		];
 		labels.forEach(function(lb) {
-			var val = interp(DATA[lb.di].ages, lb.x);
+			const val = interp(DATA[lb.di].ages, lb.x);
 			svg.append('text')
 				.attr('x', xScale(lb.x)).attr('y', yScale(val) + lb.dy)
 				.attr('text-anchor', lb.anchor)
@@ -2181,10 +2169,10 @@
 		});
 
 		// "Public childcare gap" annotation
-		var gapX = xScale(2.3) + 20;
-		var gapY = 340;
-		var gapFillD = dark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.7)';
-		var gapLines = [{t: 'Public', dy: 0}, {t: 'childcare', dy: 26}, {t: 'gap', dy: 52}];
+		const gapX = xScale(2.3) + 20;
+		const gapY = 340;
+		const gapFillD = dark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.7)';
+		const gapLines = [{t: 'Public', dy: 0}, {t: 'childcare', dy: 26}, {t: 'gap', dy: 52}];
 		gapLines.forEach(function(line) {
 			svg.append('text')
 				.attr('x', gapX).attr('y', gapY + line.dy)
@@ -2196,14 +2184,14 @@
 		});
 
 		AGES.forEach(function(age) {
-			var colW = chartW / 5;
-			var x0 = xScale(age) - colW / 2;
+			const colW = chartW / 5;
+			const x0 = xScale(age) - colW / 2;
 			svg.append('rect')
 				.attr('x', Math.max(margin.left, x0)).attr('y', margin.top)
 				.attr('width', colW).attr('height', chartH)
 				.attr('fill', 'transparent').attr('cursor', 'pointer')
 				.on('mousemove', function(evt) {
-					var html = '<strong>Age ' + age + '</strong><br>';
+					let html = '<strong>Age ' + age + '</strong><br>';
 					DATA.forEach(function(s) {
 						html += '<span style="color:' + s.color + '">\u25CF</span> ' +
 							s.country + ': <strong>' + s.ages[age] + '%</strong><br>';
@@ -2215,18 +2203,18 @@
 	}
 
 	function renderMobile() {
-		var W = 420, H = 420;
+		const W = 420, H = 420;
 		svg.attr('viewBox', '0 0 ' + W + ' ' + H);
-		var margin = {top: 112, right: 20, bottom: 26, left: 42};
-		var chartW = W - margin.left - margin.right;
-		var chartH = H - margin.top - margin.bottom;
-		var tc = textColor(), mc = mutedColor(), dark = isDark();
-		var colors = getColors();
+		const margin = {top: 112, right: 20, bottom: 26, left: 42};
+		const chartW = W - margin.left - margin.right;
+		const chartH = H - margin.top - margin.bottom;
+		const tc = textColor(), mc = mutedColor(), dark = isDark();
+		const colors = getColors();
 		DATA.forEach(function(d) { d.color = colors[d.colorKey]; });
 
-		var xScale = d3.scaleLinear().domain([0, 5]).range([margin.left, margin.left + chartW]);
-		var yScale = d3.scaleLinear().domain([0, 100]).range([margin.top + chartH, margin.top]);
-		var lineFn = d3.line()
+		const xScale = d3.scaleLinear().domain([0, 5]).range([margin.left, margin.left + chartW]);
+		const yScale = d3.scaleLinear().domain([0, 100]).range([margin.top + chartH, margin.top]);
+		const lineFn = d3.line()
 			.x(function(d, i) { return xScale(i); })
 			.y(function(d) { return yScale(d); });
 
@@ -2252,7 +2240,7 @@
 				.attr('stroke-width', v === 0 ? 1 : 0.5);
 		});
 
-		var yAxis = d3.axisLeft(yScale).tickValues([0, 25, 50, 75, 100])
+		const yAxis = d3.axisLeft(yScale).tickValues([0, 25, 50, 75, 100])
 			.tickFormat(function(d) { return d + '%'; });
 		svg.append('g')
 			.attr('transform', 'translate(' + margin.left + ',0)')
@@ -2260,7 +2248,7 @@
 			.call(function(g) { g.select('.domain').remove(); g.selectAll('.tick line').remove(); })
 			.selectAll('text').attr('fill', tc).attr('font-size', 12);
 
-		var xAxis = d3.axisBottom(xScale).tickValues(AGES)
+		const xAxis = d3.axisBottom(xScale).tickValues(AGES)
 			.tickFormat(function(d) { return 'Age ' + d; });
 		svg.append('g')
 			.attr('transform', 'translate(0,' + (margin.top + chartH) + ')')
@@ -2286,8 +2274,8 @@
 
 		// Lines + dots
 		DATA.forEach(function(series) {
-			var lineColor = series.color;
-			var isUS = series.country === 'United States';
+			const lineColor = series.color;
+			const isUS = series.country === 'United States';
 			svg.append('path')
 				.datum(series.ages)
 				.attr('d', lineFn)
@@ -2305,15 +2293,15 @@
 		});
 
 		// Labels — positioned to right of lines at age 5
-		var bgStroke = dark ? '#1a1a2e' : '#fff';
-		var mLabels = [
+		const bgStroke = dark ? '#1a1a2e' : '#fff';
+		const mLabels = [
 			{text: 'Norway',  di: 0, x: 4.6, dy: -6,  anchor: 'end'},
 			{text: 'Denmark', di: 1, x: 1, dy: 20,   anchor: 'middle'},
 			{text: 'Sweden',  di: 2, x: 4.6, dy: 15,  anchor: 'end'},
 			{text: 'Finland', di: 3, x: 3.5, dy: 14,  anchor: 'middle'},
 		];
 		mLabels.forEach(function(lb) {
-			var val = interp(DATA[lb.di].ages, lb.x);
+			const val = interp(DATA[lb.di].ages, lb.x);
 			svg.append('text')
 				.attr('x', xScale(lb.x)).attr('y', yScale(val) + lb.dy)
 				.attr('text-anchor', lb.anchor)
@@ -2323,7 +2311,7 @@
 				.text(lb.text);
 		});
 		// US label — two lines, below line around age 4-5
-		var usVal = interp(DATA[4].ages, 4.5);
+		const usVal = interp(DATA[4].ages, 4.5);
 		[{text: 'United', dy: 130}, {text: 'States', dy: 152}].forEach(function(lb) {
 			svg.append('text')
 				.attr('x', xScale(4.5) - 40).attr('y', yScale(usVal) + lb.dy)
@@ -2335,9 +2323,9 @@
 		});
 
 		// "Public childcare gap" annotation (3 lines for mobile)
-		var gapX = xScale(2.5);
-		var gapY = 230;
-		var gapFill = dark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.5)';
+		const gapX = xScale(2.5);
+		const gapY = 230;
+		const gapFill = dark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.5)';
 		[{t:'Public',dy:0},{t:'childcare',dy:28},{t:'gap',dy:56}].forEach(function(line) {
 			svg.append('text')
 				.attr('x', gapX).attr('y', gapY + line.dy)
@@ -2352,7 +2340,7 @@
 	render();
 	window.addEventListener('resize', render);
 
-	var observer = new MutationObserver(function(mutations) {
+	const observer = new MutationObserver(function(mutations) {
 		mutations.forEach(function(m) {
 			if (m.attributeName === 'data-theme') render();
 		});
@@ -2364,7 +2352,7 @@
 (function() {
 	'use strict';
 
-	var DATA = [
+	const DATA = [
 		{id: 'USA', label: 'United States', short: 'US',      ecec: 0.27, total: 39.0},
 		{id: 'DNK', label: 'Denmark',        short: 'Denmark', ecec: 1.19, total: 47.4},
 		{id: 'FIN', label: 'Finland',        short: 'Finland', ecec: 1.28, total: 55.9},
@@ -2372,13 +2360,13 @@
 		{id: 'SWE', label: 'Sweden',         short: 'Sweden',  ecec: 1.49, total: 50.0}
 	];
 
-	var TEAL = '#2A8A8A';
+	let TEAL = '#2A8A8A';
 
-	var svgEl = d3.select('#spending-compare-svg');
-	var containerEl = document.getElementById('spending-compare-container');
+	const svgEl = d3.select('#spending-compare-svg');
+	const containerEl = document.getElementById('spending-compare-container');
 
 	// Tooltip
-	var tooltip = d3.select('#spending-compare-container').append('div')
+	const tooltip = d3.select('#spending-compare-container').append('div')
 		.style('position', 'absolute')
 		.style('pointer-events', 'none')
 		.style('background', 'rgba(0,0,0,0.85)')
@@ -2393,9 +2381,9 @@
 		.style('transition', 'opacity 0.15s');
 
 	function showTooltip(evt, html) {
-		var rect = containerEl.getBoundingClientRect();
-		var x = evt.clientX - rect.left + 12;
-		var y = evt.clientY - rect.top - 10;
+		const rect = containerEl.getBoundingClientRect();
+		let x = evt.clientX - rect.left + 12;
+		const y = evt.clientY - rect.top - 10;
 		if (x + 200 > rect.width) x = x - 220;
 		tooltip.html(html).style('left', x + 'px').style('top', y + 'px').style('opacity', 1);
 	}
@@ -2409,8 +2397,8 @@
 
 	function render() {
 		svgEl.selectAll('*').remove();
-		var cw = containerEl.clientWidth;
-		var mobile = cw < 500;
+		const cw = containerEl.clientWidth;
+		const mobile = cw < 500;
 
 		if (mobile) {
 			renderMobile();
@@ -2420,27 +2408,27 @@
 	}
 
 	function renderDesktop() {
-		var W = 680, H = 395;
+		const W = 680, H = 395;
 		svgEl.attr('viewBox', '0 0 ' + W + ' ' + H);
-		var margin = {top: 96, right: 15, bottom: 30, left: 43};
-		var panelGap = 46;
-		var panelW = (W - margin.left - margin.right - panelGap) / 2;
-		var chartH = H - margin.top - margin.bottom;
-		var barW = panelW / DATA.length * 0.6;
+		const margin = {top: 96, right: 15, bottom: 30, left: 43};
+		const panelGap = 46;
+		const panelW = (W - margin.left - margin.right - panelGap) / 2;
+		const chartH = H - margin.top - margin.bottom;
+		const barW = panelW / DATA.length * 0.6;
 
-		var tc = textColor(), mc = mutedColor(), dark = isDark();
+		const tc = textColor(), mc = mutedColor(), dark = isDark();
 		TEAL = dark ? '#3aadad' : '#2A8A8A';
-		var bl = dark ? '#c8c8c8' : '#555';
+		const bl = dark ? '#c8c8c8' : '#555';
 
 		function xPos(panelLeft, i) {
 			return panelLeft + (i + 0.5) * (panelW / DATA.length);
 		}
 
-		var leftX = margin.left;
-		var rightX = margin.left + panelW + panelGap;
+		const leftX = margin.left;
+		const rightX = margin.left + panelW + panelGap;
 
-		var yEcec = d3.scaleLinear().domain([0, 1.8]).range([margin.top + chartH, margin.top]);
-		var yTotal = d3.scaleLinear().domain([0, 68]).range([margin.top + chartH, margin.top]);
+		const yEcec = d3.scaleLinear().domain([0, 1.8]).range([margin.top + chartH, margin.top]);
+		const yTotal = d3.scaleLinear().domain([0, 68]).range([margin.top + chartH, margin.top]);
 
 		// Main title
 		svgEl.append('text')
@@ -2453,13 +2441,13 @@
 			.text('Government spending as share of GDP');
 
 		// ── Left panel: Total govt ──
-		var leftG = svgEl.append('g');
+		const leftG = svgEl.append('g');
 		leftG.append('text')
 			.attr('x', leftX + panelW / 2 - 16).attr('y', margin.top)
 			.attr('text-anchor', 'middle').attr('font-size', 15.5).attr('font-weight', 700).attr('fill', mc)
 			.text('Total government spending');
 
-		var yTotalAxis = d3.axisLeft(yTotal).tickValues([0, 20, 40, 60])
+		const yTotalAxis = d3.axisLeft(yTotal).tickValues([0, 20, 40, 60])
 			.tickFormat(function(d) { return d + '%'; });
 		leftG.append('g')
 			.attr('transform', 'translate(' + leftX + ',0)')
@@ -2475,9 +2463,9 @@
 				.attr('stroke-width', v === 0 ? 1 : 0.5);
 		});
 
-		var barColor = isDark() ? '#7B7BC0' : '#443983';
+		const barColor = isDark() ? '#7B7BC0' : '#443983';
 		DATA.forEach(function(d, i) {
-			var cx = xPos(leftX, i);
+			const cx = xPos(leftX, i);
 			leftG.append('rect')
 				.attr('x', cx - barW / 2).attr('y', yTotal(d.total))
 				.attr('width', barW).attr('height', yTotal(0) - yTotal(d.total))
@@ -2505,13 +2493,13 @@
 		});
 
 		// ── Right panel: ECEC ──
-		var rightG = svgEl.append('g');
+		const rightG = svgEl.append('g');
 		rightG.append('text')
 			.attr('x', rightX + panelW / 2 - 16).attr('y', margin.top)
 			.attr('text-anchor', 'middle').attr('font-size', 15.5).attr('font-weight', 700).attr('fill', TEAL)
 			.text('Early childhood education & care');
 
-		var yEcecAxis = d3.axisLeft(yEcec).tickValues([0, 0.5, 1.0, 1.5])
+		const yEcecAxis = d3.axisLeft(yEcec).tickValues([0, 0.5, 1.0, 1.5])
 			.tickFormat(function(d) { return d.toFixed(1) + '%'; });
 		rightG.append('g')
 			.attr('transform', 'translate(' + rightX + ',0)')
@@ -2528,7 +2516,7 @@
 		});
 
 		DATA.forEach(function(d, i) {
-			var cx = xPos(rightX, i);
+			const cx = xPos(rightX, i);
 			rightG.append('rect')
 				.attr('x', cx - barW / 2).attr('y', yEcec(d.ecec))
 				.attr('width', barW).attr('height', yEcec(0) - yEcec(d.ecec))
@@ -2556,18 +2544,18 @@
 	}
 
 	function renderMobile() {
-		var W = 420, panelH = 250;
-		var gap = 30;
-		var H = panelH * 2 + gap + 30;
+		const W = 420, panelH = 250;
+		const gap = 30;
+		const H = panelH * 2 + gap + 30;
 		svgEl.attr('viewBox', '0 0 ' + W + ' ' + H);
 
-		var margin = {top: 56, right: 12, bottom: 28, left: 46};
-		var chartW = W - margin.left - margin.right;
-		var barChartH = panelH - 50;
-		var barW = chartW / DATA.length * 0.55;
-		var tc = textColor(), mc = mutedColor(), dark = isDark();
+		const margin = {top: 56, right: 12, bottom: 28, left: 46};
+		const chartW = W - margin.left - margin.right;
+		const barChartH = panelH - 50;
+		const barW = chartW / DATA.length * 0.55;
+		const tc = textColor(), mc = mutedColor(), dark = isDark();
 		TEAL = dark ? '#3aadad' : '#2A8A8A';
-		var bl = dark ? '#c8c8c8' : '#555';
+		const bl = dark ? '#c8c8c8' : '#555';
 
 		function xPos(i) {
 			return margin.left + (i + 0.5) * (chartW / DATA.length);
@@ -2584,10 +2572,10 @@
 			.text('Total government spending, share of GDP');
 
 		// ── Panel 1: Total govt ──
-		var p1Top = margin.top;
-		var p1G = svgEl.append('g');
+		const p1Top = margin.top;
+		const p1G = svgEl.append('g');
 
-		var yTotal = d3.scaleLinear().domain([0, 68]).range([p1Top + barChartH, p1Top + 16]);
+		const yTotal = d3.scaleLinear().domain([0, 68]).range([p1Top + barChartH, p1Top + 16]);
 
 		[0, 20, 40, 60].forEach(function(v) {
 			p1G.append('line')
@@ -2597,7 +2585,7 @@
 				.attr('stroke-width', v === 0 ? 1 : 0.5);
 		});
 
-		var yTotalAxis = d3.axisLeft(yTotal).tickValues([0, 20, 40, 60])
+		const yTotalAxis = d3.axisLeft(yTotal).tickValues([0, 20, 40, 60])
 			.tickFormat(function(d) { return d + '%'; });
 		p1G.append('g')
 			.attr('transform', 'translate(' + margin.left + ',0)')
@@ -2605,9 +2593,9 @@
 			.call(function(g) { g.select('.domain').remove(); g.selectAll('.tick line').remove(); })
 			.selectAll('text').attr('fill', mc).attr('font-size', 12);
 
-		var barColor = isDark() ? '#7B7BC0' : '#443983';
+		const barColor = isDark() ? '#7B7BC0' : '#443983';
 		DATA.forEach(function(d, i) {
-			var cx = xPos(i);
+			const cx = xPos(i);
 			p1G.append('rect')
 				.attr('x', cx - barW / 2).attr('y', yTotal(d.total))
 				.attr('width', barW).attr('height', yTotal(0) - yTotal(d.total))
@@ -2623,8 +2611,8 @@
 		});
 
 		// ── Panel 2: ECEC ──
-		var p2Top = p1Top + panelH + gap;
-		var p2G = svgEl.append('g');
+		const p2Top = p1Top + panelH + gap;
+		const p2G = svgEl.append('g');
 
 		p2G.append('text')
 			.attr('x', 12).attr('y', p2Top - 12)
@@ -2635,7 +2623,7 @@
 			.attr('font-size', 16).attr('fill', mc)
 			.text('Early childhood education & care, share of GDP');
 
-		var yEcec = d3.scaleLinear().domain([0, 1.8]).range([p2Top + barChartH + 6, p2Top + 22]);
+		const yEcec = d3.scaleLinear().domain([0, 1.8]).range([p2Top + barChartH + 6, p2Top + 22]);
 
 		[0, 0.5, 1.0, 1.5].forEach(function(v) {
 			p2G.append('line')
@@ -2645,7 +2633,7 @@
 				.attr('stroke-width', v === 0 ? 1 : 0.5);
 		});
 
-		var yEcecAxis = d3.axisLeft(yEcec).tickValues([0, 0.5, 1.0, 1.5])
+		const yEcecAxis = d3.axisLeft(yEcec).tickValues([0, 0.5, 1.0, 1.5])
 			.tickFormat(function(d) { return d.toFixed(1) + '%'; });
 		p2G.append('g')
 			.attr('transform', 'translate(' + margin.left + ',0)')
@@ -2654,7 +2642,7 @@
 			.selectAll('text').attr('fill', mc).attr('font-size', 12);
 
 		DATA.forEach(function(d, i) {
-			var cx = xPos(i);
+			const cx = xPos(i);
 			p2G.append('rect')
 				.attr('x', cx - barW / 2).attr('y', yEcec(d.ecec))
 				.attr('width', barW).attr('height', yEcec(0) - yEcec(d.ecec))
@@ -2673,7 +2661,7 @@
 	render();
 	window.addEventListener('resize', render);
 
-	var observer = new MutationObserver(function(mutations) {
+	const observer = new MutationObserver(function(mutations) {
 		mutations.forEach(function(m) {
 			if (m.attributeName === 'data-theme') render();
 		});
@@ -2685,7 +2673,7 @@
 (function() {
 	'use strict';
 
-	var DATA = [
+	const DATA = [
 		{id: 'USA', label: 'United States', short: 'US',      nilf: 3.83, poverty: 20.8},
 		{id: 'DNK', label: 'Denmark',        short: 'Denmark', nilf: 0.6,  poverty: 4.2},
 		{id: 'FIN', label: 'Finland',        short: 'Finland', nilf: 0.3,  poverty: 4.6},
@@ -2693,14 +2681,13 @@
 		{id: 'SWE', label: 'Sweden',         short: 'Sweden',  nilf: 0.4,  poverty: 8.4}
 	];
 
-	var TEAL = '#2A8A8A';
-	var GRAY_MED = '#888';
+	let TEAL = '#2A8A8A';
 
-	var svg = d3.select('#outcomes-svg');
-	var containerEl = document.getElementById('outcomes-container');
+	const svg = d3.select('#outcomes-svg');
+	const containerEl = document.getElementById('outcomes-container');
 
 	// Tooltip
-	var tooltip = d3.select('#outcomes-container').append('div')
+	const tooltip = d3.select('#outcomes-container').append('div')
 		.style('position', 'absolute')
 		.style('pointer-events', 'none')
 		.style('background', 'rgba(0,0,0,0.85)')
@@ -2715,9 +2702,9 @@
 		.style('transition', 'opacity 0.15s');
 
 	function showTooltip(evt, html) {
-		var rect = containerEl.getBoundingClientRect();
-		var x = evt.clientX - rect.left + 12;
-		var y = evt.clientY - rect.top - 10;
+		const rect = containerEl.getBoundingClientRect();
+		let x = evt.clientX - rect.left + 12;
+		const y = evt.clientY - rect.top - 10;
 		if (x + 200 > rect.width) x = x - 220;
 		tooltip.html(html).style('left', x + 'px').style('top', y + 'px').style('opacity', 1);
 	}
@@ -2731,8 +2718,8 @@
 
 	function render() {
 		svg.selectAll('*').remove();
-		var cw = containerEl.clientWidth;
-		var mobile = cw < 500;
+		const cw = containerEl.clientWidth;
+		const mobile = cw < 500;
 		if (mobile) {
 			renderMobile();
 		} else {
@@ -2741,29 +2728,29 @@
 	}
 
 	function renderDesktop() {
-		var W = 680, H = 376;
+		const W = 680, H = 376;
 		svg.attr('viewBox', '0 0 ' + W + ' ' + H);
-		var margin = {top: 78, right: 15, bottom: 24, left: 43};
-		var panelGap = 46;
-		var panelW = (W - margin.left - margin.right - panelGap) / 2;
-		var chartH = H - margin.top - margin.bottom;
-		var barW = panelW / DATA.length * 0.6;
-		var tc = textColor(), mc = mutedColor(), dark = isDark();
+		const margin = {top: 78, right: 15, bottom: 24, left: 43};
+		const panelGap = 46;
+		const panelW = (W - margin.left - margin.right - panelGap) / 2;
+		const chartH = H - margin.top - margin.bottom;
+		const barW = panelW / DATA.length * 0.6;
+		const tc = textColor(), mc = mutedColor(), dark = isDark();
 		TEAL = dark ? '#3aadad' : '#2A8A8A';
-		var bl = dark ? '#c8c8c8' : '#555';
+		const bl = dark ? '#c8c8c8' : '#555';
 
 		function xPos(panelLeft, i) {
 			return panelLeft + (i + 0.5) * (panelW / DATA.length);
 		}
 
-		var leftX = margin.left;
-		var rightX = margin.left + panelW + panelGap;
+		const leftX = margin.left;
+		const rightX = margin.left + panelW + panelGap;
 
-		var yNilf = d3.scaleLinear().domain([0, 4.6]).range([margin.top + chartH, margin.top]);
-		var yPov = d3.scaleLinear().domain([0, 22]).range([margin.top + chartH, margin.top]);
+		const yNilf = d3.scaleLinear().domain([0, 4.6]).range([margin.top + chartH, margin.top]);
+		const yPov = d3.scaleLinear().domain([0, 22]).range([margin.top + chartH, margin.top]);
 
 		// ── Left panel: NILF for childcare ──
-		var leftG = svg.append('g');
+		const leftG = svg.append('g');
 
 		leftG.append('text')
 			.attr('x', leftX + panelW / 2 - 15).attr('y', margin.top - 40)
@@ -2778,7 +2765,7 @@
 			.attr('text-anchor', 'middle').attr('font-size', 16).attr('fill', mc)
 			.text('out of work for childcare');
 
-		var yNilfAxis = d3.axisLeft(yNilf).tickValues([0, 1, 2, 3, 4])
+		const yNilfAxis = d3.axisLeft(yNilf).tickValues([0, 1, 2, 3, 4])
 			.tickFormat(function(d) { return d + '%'; });
 		leftG.append('g')
 			.attr('transform', 'translate(' + leftX + ',0)')
@@ -2795,7 +2782,7 @@
 		});
 
 		DATA.forEach(function(d, i) {
-			var cx = xPos(leftX, i);
+			const cx = xPos(leftX, i);
 			leftG.append('rect')
 				.attr('x', cx - barW / 2).attr('y', yNilf(d.nilf))
 				.attr('width', barW).attr('height', yNilf(0) - yNilf(d.nilf))
@@ -2822,7 +2809,7 @@
 		});
 
 		// ── Right panel: Poverty rate ──
-		var rightG = svg.append('g');
+		const rightG = svg.append('g');
 
 		rightG.append('text')
 			.attr('x', rightX + panelW / 2 - 15).attr('y', margin.top - 40)
@@ -2833,7 +2820,7 @@
 			.attr('text-anchor', 'middle').attr('font-size', 16).attr('fill', mc)
 			.text('Child poverty rate');
 
-		var yPovAxis = d3.axisLeft(yPov).tickValues([0, 5, 10, 15, 20])
+		const yPovAxis = d3.axisLeft(yPov).tickValues([0, 5, 10, 15, 20])
 			.tickFormat(function(d) { return d + '%'; });
 		rightG.append('g')
 			.attr('transform', 'translate(' + rightX + ',0)')
@@ -2849,9 +2836,9 @@
 				.attr('stroke-width', v === 0 ? 1 : 0.5);
 		});
 
-		var barColor = isDark() ? '#7B7BC0' : '#443983';
+		const barColor = isDark() ? '#7B7BC0' : '#443983';
 		DATA.forEach(function(d, i) {
-			var cx = xPos(rightX, i);
+			const cx = xPos(rightX, i);
 			rightG.append('rect')
 				.attr('x', cx - barW / 2).attr('y', yPov(d.poverty))
 				.attr('width', barW).attr('height', yPov(0) - yPov(d.poverty))
@@ -2879,26 +2866,26 @@
 	}
 
 	function renderMobile() {
-		var W = 420, panelH = 220;
-		var gap = 28;
-		var H = panelH * 2 + gap + 26;
+		const W = 420, panelH = 220;
+		const gap = 28;
+		const H = panelH * 2 + gap + 26;
 		svg.attr('viewBox', '0 0 ' + W + ' ' + H);
 
-		var margin = {top: 58, right: 12, bottom: 24, left: 46};
-		var chartW = W - margin.left - margin.right;
-		var barChartH = panelH - 46;
-		var barW = chartW / DATA.length * 0.55;
-		var tc = textColor(), mc = mutedColor(), dark = isDark();
+		const margin = {top: 58, right: 12, bottom: 24, left: 46};
+		const chartW = W - margin.left - margin.right;
+		const barChartH = panelH - 46;
+		const barW = chartW / DATA.length * 0.55;
+		const tc = textColor(), mc = mutedColor(), dark = isDark();
 		TEAL = dark ? '#3aadad' : '#2A8A8A';
-		var bl = dark ? '#c8c8c8' : '#555';
+		const bl = dark ? '#c8c8c8' : '#555';
 
 		function xPos(i) {
 			return margin.left + (i + 0.5) * (chartW / DATA.length);
 		}
 
 		// ── Panel 1: NILF for childcare ──
-		var p1Top = margin.top - 16;
-		var p1G = svg.append('g');
+		const p1Top = margin.top - 16;
+		const p1G = svg.append('g');
 
 		p1G.append('text')
 			.attr('x', 12).attr('y', 32)
@@ -2909,7 +2896,7 @@
 			.attr('font-size', 14).attr('fill', mc)
 			.text('Adults ages 20-64 out of work for childcare');
 
-		var yNilf = d3.scaleLinear().domain([0, 4.6]).range([p1Top + barChartH, p1Top + 16]);
+		const yNilf = d3.scaleLinear().domain([0, 4.6]).range([p1Top + barChartH, p1Top + 16]);
 
 		[0, 1, 2, 3, 4].forEach(function(v) {
 			p1G.append('line')
@@ -2919,7 +2906,7 @@
 				.attr('stroke-width', v === 0 ? 1 : 0.5);
 		});
 
-		var yNilfAxis = d3.axisLeft(yNilf).tickValues([0, 1, 2, 3, 4])
+		const yNilfAxis = d3.axisLeft(yNilf).tickValues([0, 1, 2, 3, 4])
 			.tickFormat(function(d) { return d + '%'; });
 		p1G.append('g')
 			.attr('transform', 'translate(' + margin.left + ',0)')
@@ -2928,7 +2915,7 @@
 			.selectAll('text').attr('fill', mc).attr('font-size', 12);
 
 		DATA.forEach(function(d, i) {
-			var cx = xPos(i);
+			const cx = xPos(i);
 			p1G.append('rect')
 				.attr('x', cx - barW / 2).attr('y', yNilf(d.nilf))
 				.attr('width', barW).attr('height', yNilf(0) - yNilf(d.nilf))
@@ -2944,8 +2931,8 @@
 		});
 
 		// ── Panel 2: Poverty rate ──
-		var p2Top = p1Top + panelH + gap;
-		var p2G = svg.append('g');
+		const p2Top = p1Top + panelH + gap;
+		const p2G = svg.append('g');
 
 		p2G.append('text')
 			.attr('x', 12).attr('y', p2Top - 14)
@@ -2956,7 +2943,7 @@
 			.attr('font-size', 14).attr('fill', mc)
 			.text('Child poverty rate');
 
-		var yPov = d3.scaleLinear().domain([0, 22]).range([p2Top + barChartH, p2Top + 16]);
+		const yPov = d3.scaleLinear().domain([0, 22]).range([p2Top + barChartH, p2Top + 16]);
 
 		[0, 5, 10, 15, 20].forEach(function(v) {
 			p2G.append('line')
@@ -2966,7 +2953,7 @@
 				.attr('stroke-width', v === 0 ? 1 : 0.5);
 		});
 
-		var yPovAxis = d3.axisLeft(yPov).tickValues([0, 5, 10, 15, 20])
+		const yPovAxis = d3.axisLeft(yPov).tickValues([0, 5, 10, 15, 20])
 			.tickFormat(function(d) { return d + '%'; });
 		p2G.append('g')
 			.attr('transform', 'translate(' + margin.left + ',0)')
@@ -2974,9 +2961,9 @@
 			.call(function(g) { g.select('.domain').remove(); g.selectAll('.tick line').remove(); })
 			.selectAll('text').attr('fill', mc).attr('font-size', 12);
 
-		var barColor = isDark() ? '#7B7BC0' : '#443983';
+		const barColor = isDark() ? '#7B7BC0' : '#443983';
 		DATA.forEach(function(d, i) {
-			var cx = xPos(i);
+			const cx = xPos(i);
 			p2G.append('rect')
 				.attr('x', cx - barW / 2).attr('y', yPov(d.poverty))
 				.attr('width', barW).attr('height', yPov(0) - yPov(d.poverty))
@@ -2995,7 +2982,7 @@
 	render();
 	window.addEventListener('resize', render);
 
-	var observer = new MutationObserver(function(mutations) {
+	const observer = new MutationObserver(function(mutations) {
 		mutations.forEach(function(m) {
 			if (m.attributeName === 'data-theme') render();
 		});

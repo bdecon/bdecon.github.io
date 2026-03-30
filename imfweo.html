@@ -133,7 +133,7 @@
 		</ul>
 	</nav>
 	<div class="page-strip page-strip-compact accent-blue">
-		<picture><source srcset="images/imfweo_strip.webp" type="image/webp"><img decoding="async" fetchpriority="high" src="images/imfweo_strip.jpg" alt="" aria-hidden="true" class="page-strip-img"></picture>
+		<picture><source srcset="images/imfweo_strip.webp" type="image/webp"><img decoding="async" fetchpriority="high" src="images/imfweo_strip.jpg" alt="" aria-hidden="true" class="page-strip-img" width="1600" height="200"></picture>
 	</div>
 	<div class="page-title">
 	<h1>IMF WEO Forecast Tracker</h1>
@@ -152,8 +152,8 @@
 	</div>
 
 	<div class="info-box weo-info" id="weo-info">
-		<div><span class="label weo-info-label">Latest edition</span><span id="weo-info-edition">...</span></div>
-		<div><span class="label weo-info-label">Next update</span><span id="weo-info-next">...</span></div>
+		<div><span class="label weo-info-label">Latest edition</span><span id="weo-info-edition">…</span></div>
+		<div><span class="label weo-info-label">Next update</span><span id="weo-info-next">…</span></div>
 		<div><a href="https://www.imf.org/en/Publications/WEO">IMF WEO page &rarr;</a></div>
 	</div>
 
@@ -161,7 +161,7 @@
 		<div class="control-row weo-control-row">
 			<label for="country-input">Country:</label>
 			<div class="combo-box" id="country-combo">
-				<input type="text" id="country-input" class="form-select" autocomplete="off" spellcheck="false" placeholder="Type to search...">
+				<input type="text" id="country-input" class="form-select" autocomplete="off" spellcheck="false" placeholder="Type to search…">
 				<div class="combo-list" id="country-list"></div>
 			</div>
 		</div>
@@ -174,7 +174,7 @@
 	<div class="card card-compact">
 		<div class="card-header accent-blue">
 			<div>
-				<span class="chart-title" id="chart-title">Loading...</span>
+				<span class="chart-title" id="chart-title">Loading…</span>
 				<span class="chart-header-indicator" id="chart-indicator"></span>
 			</div>
 			<div class="card-actions weo-share">
@@ -219,17 +219,17 @@
 		<summary>Forecast Accuracy Scores</summary>
 		<p>How accurate are IMF forecasts for each country? This table scores one-year-ahead forecasts against actual outcomes. A high <em>% Over</em> means the IMF consistently overestimated; the <em>Bias</em> z-score shows how unusual that pattern is relative to other countries. Volatile economies naturally have higher errors (MAE), so the bias score helps distinguish genuine forecast bias from inherent unpredictability. Click a column to sort, or click a row to view that country's chart.</p>
 		<div class="scores-controls">
-			<select id="scores-indicator" class="form-select">
+			<select id="scores-indicator" class="form-select" aria-label="Forecast indicator">
 				<option value="NGDP_RPCH">Real GDP Growth</option>
 				<option value="PCPIPCH">CPI Inflation</option>
 				<option value="BCA_NGDPD">Current Account Balance</option>
 			</select>
-			<select id="scores-period" class="form-select">
+			<select id="scores-period" class="form-select" aria-label="Time period">
 				<option value="modern">2010–2024</option>
 				<option value="mid">2000–2024</option>
 				<option value="full">1992–2024</option>
 			</select>
-			<select id="scores-region" class="form-select">
+			<select id="scores-region" class="form-select" aria-label="Region filter">
 				<option value="all">All regions</option>
 				<option value="G110">Advanced Economies</option>
 				<option value="G505">Emerging &amp; Developing Asia</option>

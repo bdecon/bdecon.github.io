@@ -43,7 +43,7 @@
 	/* Tab bar */
 	.cc-tabs { display: flex; flex-wrap: nowrap; gap: 0; margin-bottom: 0; padding-left: 30px; overflow-x: auto; }
 	.cc-tab {
-		padding: 5px 10px; font-size: 14px; border-bottom: none; border-radius: 4px 4px 0 0;
+		padding: 5px 10px; font-size: var(--text-sm); border-bottom: none; border-radius: 4px 4px 0 0;
 		color: var(--color-card-teal); white-space: nowrap; flex-shrink: 0; margin-right: -1px; position: relative;
 	}
 	.cc-tab-short { display: none; }
@@ -60,7 +60,7 @@
 	.cc-infra-row { display: flex; gap: 3px; }
 	.cc-infra-label {
 		flex: 1;
-		font-size: 17px;
+		font-size: var(--text-lg);
 		font-weight: 700;
 		color: var(--color-text-strong);
 		padding: 8px 4px 2px;
@@ -85,7 +85,7 @@
 		padding: 20px 8px 6px;
 		background: linear-gradient(transparent, color-mix(in srgb, black 60%, transparent));
 		color: #fff;
-		font-size: 12px;
+		font-size: var(--text-xs);
 		font-weight: 600;
 		letter-spacing: 0.02em;
 	}
@@ -109,7 +109,7 @@
 	.card { max-width: 620px; margin: 3rem auto 48px; border-bottom: 12px solid var(--color-card-teal); }
 	#map-container { max-width: 100%; }
 	.cc-wage-box .card { max-width: 100%; margin-left: 0; margin-right: 0; }
-	.card-header .map-category { font-size: 14px; text-transform: uppercase; letter-spacing: 0.08em; color: color-mix(in srgb, white 90%, transparent); margin: 0 0 1px 0; }
+	.card-header .map-category { font-size: var(--text-sm); text-transform: uppercase; letter-spacing: 0.08em; color: color-mix(in srgb, white 90%, transparent); margin: 0 0 1px 0; }
 	.card-footer .chart-source { text-align: left; }
 	/* Map SVG */
 	.map-svg { display: block; width: 100%; height: auto; }
@@ -120,29 +120,29 @@
 	/* Inset boxes (DC, NYC) */
 	.inset-box { cursor: pointer; }
 	.inset-box rect { stroke: var(--color-text-muted); stroke-width: 0.5; }
-	.inset-box text { font-size: 14px; fill: var(--color-text-muted); }
+	.inset-box text { font-size: var(--text-sm); fill: var(--color-text-muted); }
 	/* No-data region */
 	.map-svg .region[fill="#ddd"] { cursor: default; }
 	/* Vertical separator between map panels */
 	.map-divider { fill: var(--color-card-teal); opacity: 0.22; }
 	[data-theme="dark"] .map-divider { opacity: 0.35; }
 	/* Region group labels */
-	.group-label { font-size: 18px; fill: var(--color-text-muted); font-weight: 600; font-style: italic; }
-	.legend-semantic { font-size: 17px; font-weight: 600; fill: var(--color-card-teal); }
+	.group-label { font-size: var(--text-xl); fill: var(--color-text-muted); font-weight: 600; font-style: italic; }
+	.legend-semantic { font-size: var(--text-lg); font-weight: 600; fill: var(--color-card-teal); }
 	/* Legend (drawn in SVG) */
-	.legend-label { font-size: 10px; fill: var(--color-text-muted); }
-	.legend-label-end { font-size: 14px; font-weight: 600; fill: var(--color-text-strong); }
+	.legend-label { font-size: var(--text-xs); fill: var(--color-text-muted); }
+	.legend-label-end { font-size: var(--text-sm); font-weight: 600; fill: var(--color-text-strong); }
 	/* Tooltip — extends .chart-tooltip from style.css */
 	.cc-tooltip { max-width: 220px; }
 	.cc-tooltip-value { font-weight: 600; }
 	/* Stats panel */
-	.stats-panel { font-size: 12px; fill: var(--color-text-muted); }
+	.stats-panel { font-size: var(--text-xs); fill: var(--color-text-muted); }
 	.stats-panel .stats-name { font-weight: 600; fill: var(--color-text-strong); }
 	/* Page title */
-	#cc-page-title { font-size: 32px; }
+	#cc-page-title { font-size: var(--text-4xl); }
 	/* Table title */
 	.cc-table-title {
-		font-size: 17px; font-weight: 700;
+		font-size: var(--text-lg); font-weight: 700;
 		color: var(--color-text-strong); text-align: center; margin: 0.75rem 0 12px 0;
 	}
 	/* Comparison table — extends .dash-table */
@@ -182,21 +182,20 @@
 	.cc-page .details-section li { color: var(--color-text-muted); }
 	/* ---- Wage Peers: Hero dot spectrum ---- */
 	.wp-hero-svg { display: block; width: 100%; height: auto; }
-	.wp-hero-svg text {  }
 	/* ---- Wage Peers: Explore panel ---- */
 	.wp-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 0.5rem 0; }
 	.wp-controls select { max-width: 260px; }
-	.wp-controls .btn { padding: 4px 10px; font-size: 14px; border-color: var(--color-card-teal); color: var(--color-card-teal); }
+	.wp-controls .btn { padding: 4px 10px; font-size: var(--text-sm); border-color: var(--color-card-teal); color: var(--color-card-teal); }
 	.wp-controls .btn:hover { background: var(--color-card-teal); color: #fff; }
 	.wp-columns { display: flex; gap: 12px; }
 	.wp-column { flex: 1; min-width: 0; }
 	.wp-col-header { padding: 10px 12px; display: block; }
-	.wp-col-header .wp-geo-name { font-size: 17px; font-weight: 700; margin: 0; }
-	.wp-col-header .wp-occ-label { font-size: 14px; opacity: 0.85; margin: 2px 0 0 0; }
+	.wp-col-header h4 { margin: 0; }
+	.wp-col-header .wp-occ-label { font-size: var(--text-sm); opacity: 0.85; margin: 2px 0 0 0; }
 	.wp-peer-list { border: 1px solid var(--color-border-light); border-top: none; border-radius: 0 0 4px 4px; }
 	.wp-peer-row {
 		display: flex; align-items: center; padding: 5px 12px;
-		font-size: 14px; border-bottom: 1px solid var(--color-border-light); color: var(--color-text-strong);
+		font-size: var(--text-sm); border-bottom: 1px solid var(--color-border-light); color: var(--color-text-strong);
 	}
 	.wp-peer-row:last-child { border-bottom: none; }
 	.wp-peer-name { flex: 1; min-width: 0; }
@@ -204,18 +203,18 @@
 	.wp-peer-row.wp-childcare { background: var(--color-card-teal); color: #fff; font-weight: 600; border-radius: var(--radius); }
 	.wp-peer-row.wp-childcare .wp-peer-wage { color: #fff; }
 	[data-theme="dark"] .wp-peer-row.wp-childcare { background: #0e7490; }
-	.wp-note { font-size: 12px; color: var(--color-text-muted); margin: 6px 0 0 0; font-style: italic; }
+	.wp-note { font-size: var(--text-xs); color: var(--color-text-muted); margin: 6px 0 0 0; font-style: italic; }
 	/* Wage peers inset box */
 	.cc-explore-tag {
 		position: absolute; top: -10px; right: 16px; z-index: 2; background: var(--color-card-teal); color: #fff;
-		font-size: 12px; font-weight: 600; letter-spacing: 0.04em; padding: 3px 10px; border-radius: 10px; line-height: 1.4; box-shadow: 0 0 0 2px var(--color-bg-input);
+		font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.04em; padding: 3px 10px; border-radius: 10px; line-height: 1.4; box-shadow: 0 0 0 2px var(--color-bg-input);
 	}
 	.cc-wage-box { position: relative; border: 2px solid var(--color-card-teal); border-radius: 6px; padding: 16px; margin: calc(1.5rem + 20px) 0 1.5rem; background: var(--color-bg-input); }
 	[data-theme="dark"] .cc-wage-box .card { background: transparent; border: none; }
-	.cc-wage-box > h3 { font-size: 20px; font-weight: 700; color: var(--color-card-teal); margin: 10px 0 8px 0; }
+	.cc-wage-box > h3 { font-size: var(--text-2xl); font-weight: 700; color: var(--color-card-teal); margin: 10px 0 8px 0; }
 	.cc-wage-title-mobile { display: none; }
 	.cc-wage-box > p {
-		font-size: 14px; color: var(--color-text-muted);
+		font-size: var(--text-sm); color: var(--color-text-muted);
 		line-height: 1.65; padding: 0 6px; text-align: left;
 	}
 	/* Feedback loop diagrams */
@@ -229,7 +228,7 @@
 	.fb-brown-text { fill: #8B7355; }
 	.fb-arc { fill: none; stroke-width: 3; }
 	.fb-divider { stroke: #ccc; stroke-width: 1; }
-	.fb-title { font-size: 16px; font-weight: 700;  }
+	.fb-title { font-size: var(--text-base); font-weight: 700;  }
 	.fb-label { font-size: 13px;  fill: var(--color-text-strong); }
 	.fb-label-m { font-size: 15px;  fill: var(--color-text-strong); }
 	[data-theme="dark"] .fb-brown-fill { fill: #A89080; }
@@ -238,17 +237,16 @@
 	[data-theme="dark"] .fb-divider { stroke: #555; }
 
 	/* Age coverage grid */
-	.ac-subtitle { font-size: 18px; font-weight: 700; color: var(--color-text-strong); margin-bottom: 12px; }
+	.ac-subtitle { margin-bottom: 12px; }
 	.ac-grid { display: grid; grid-template-columns: auto repeat(6, 1fr); gap: 6px; align-items: center; }
-	.ac-corner { }
-	.ac-age { text-align: center; font-size: 14px; color: var(--color-text-muted); }
+	.ac-age { text-align: center; font-size: var(--text-sm); color: var(--color-text-muted); }
 	.ac-label {
 		display: flex;
 		flex-direction: column;
 		align-items: flex-end;
 		gap: 2px;
 		justify-content: center;
-		font-size: 14px;
+		font-size: var(--text-sm);
 		font-weight: 600;
 		color: var(--color-text-strong);
 		padding-right: 4px;
@@ -260,8 +258,8 @@
 		border: 0.5px solid color-mix(in srgb, black 15%, transparent); border-radius: 1px; order: 1;
 	}
 	.ac-cell { height: 38px; border-radius: 3px; display: flex; align-items: center; justify-content: center; }
-	.ac-cell-label { font-size: 14px; color: var(--color-text-muted); text-align: center; line-height: 1.15; }
-	.ac-cell-label.ac-white { color: #fff; font-weight: 600; font-size: 12px; }
+	.ac-cell-label { font-size: var(--text-sm); color: var(--color-text-muted); text-align: center; line-height: 1.15; }
+	.ac-cell-label.ac-white { color: #fff; font-weight: 600; font-size: var(--text-xs); }
 	.ac-estab, .ac-swatch.ac-estab { background: var(--color-card-teal); }
 	.ac-new, .ac-swatch.ac-new { background: color-mix(in srgb, #21918C 40%, transparent); border: 1.5px dashed var(--color-card-teal); }
 	.ac-pilot, .ac-swatch.ac-pilot { background: color-mix(in srgb, #21918C 20%, transparent); border: 1.5px dashed var(--color-card-teal); }
@@ -271,7 +269,7 @@
 	.ac-sep { grid-column: 1 / -1; border-top: 0.75px dashed var(--color-text-muted); margin: 2px 0; }
 	.ac-legend {
 		display: flex; align-items: center; gap: 14px;
-		margin-top: 10px; font-size: 14px; color: var(--color-text-muted);
+		margin-top: 10px; font-size: var(--text-sm); color: var(--color-text-muted);
 	}
 	.ac-swatch {
 		display: inline-block; width: 13px; height: 13px;
@@ -294,8 +292,8 @@
 		text-align: center;
 		padding: 0 0 8px;
 	}
-	.dt-question-main { font-size: 21px; font-weight: 700; color: var(--color-text-strong); }
-	.dt-question-sub { font-size: 20px; color: var(--color-text-muted); margin-top: 4px; }
+	.dt-question-main { margin: 0; }
+	.dt-question-sub { font-size: var(--text-2xl); color: var(--color-text-muted); margin-top: 4px; }
 	/* Main stem from question to fork */
 	.dt-stem { width: 1.5px; height: 14px; margin: 4px auto 0; background: var(--dt-line); }
 	/* Branches container — side by side on desktop */
@@ -320,7 +318,7 @@
 	.dt-branch-us::before { background: var(--dt-us); }
 	.dt-branch-fi::before { background: var(--dt-fi); }
 	/* Country label */
-	.dt-country { font-size: 20px; font-weight: 700; margin-bottom: 0; }
+	.dt-country { font-size: var(--text-2xl); margin: 0; }
 	.dt-branch-us .dt-country { color: var(--dt-us); }
 	.dt-branch-fi .dt-country { color: var(--dt-fi); }
 	/* Cards area — fork connector via Π-shape */
@@ -367,15 +365,12 @@
 	}
 	.dt-card-us { background: var(--dt-us-bg); border-color: var(--dt-us-border); }
 	.dt-card-fi { background: var(--dt-fi-bg); border-color: var(--dt-fi-border); }
-	.dt-card-title {
-		font-size: 17px; font-weight: 700;
-		color: var(--color-text-strong); line-height: 1.3; margin-bottom: 10px;
-	}
-	.dt-card-amount { font-size: 28px; font-weight: 700; line-height: 1.1; }
+	.dt-card-title { line-height: 1.3; margin-bottom: 10px; }
+	.dt-card-amount { font-size: var(--text-4xl); line-height: 1.1; }
 	.dt-branch-us .dt-card-amount { color: var(--dt-us); }
 	.dt-branch-fi .dt-card-amount { color: var(--dt-fi); }
 	.dt-card-unit { font-size: 15px; color: var(--color-text-muted); margin-top: 4px; }
-	.dt-card-ctx { font-size: 14px; color: var(--color-text-muted); line-height: 1.5; margin-top: 14px; }
+	.dt-card-ctx { font-size: var(--text-sm); color: var(--color-text-muted); line-height: 1.5; margin-top: 14px; }
 	.dt-or {
 		flex: 0 0 28px;
 		display: flex;
@@ -387,7 +382,7 @@
 	}
 	/* Dashed divider between US and Finland */
 	.dt-divider { flex: 0 0 1px; border-left: 1px dashed var(--dt-line); align-self: stretch; margin: 40px 16px; }
-	.dt-tagline { font-size: 18px; font-style: italic; margin-top: 10px; }
+	.dt-tagline { font-size: var(--text-xl); font-style: italic; margin-top: 10px; }
 	.dt-branch-us .dt-tagline { color: var(--dt-us); }
 	.dt-branch-fi .dt-tagline { color: var(--dt-fi); }
 
@@ -399,9 +394,12 @@
 
 	/* Mobile: stack branches vertically */
 	/* Cost compare calculator */
-	.cost-btn { padding: 6px 14px; font-size: 14px; border-color: var(--color-card-teal); color: var(--color-card-teal); }
+	.cost-btn { padding: 6px 14px; font-size: var(--text-sm); border-color: var(--color-card-teal); color: var(--color-card-teal); }
 	.cost-btn.active { background: var(--color-card-teal); border-color: var(--color-card-teal); color: #fff; }
 	.cost-result-box { flex: 1; min-width: 0; text-align: center; padding: 12px 8px; border-radius: 6px; }
+	.cost-result-label { font-size: var(--text-sm); font-weight: 600; color: var(--color-text-muted); margin-bottom: 6px; }
+	.cost-result-value { font-size: var(--text-4xl); font-weight: 700; line-height: 1.1; }
+	.cost-result-pct { font-size: var(--text-sm); color: var(--color-text-muted); margin-top: 4px; }
 	#cost-slider {
 		-webkit-appearance: none;
 		appearance: none;
@@ -429,15 +427,15 @@
 		padding: 6px 10px;
 		background: linear-gradient(transparent, color-mix(in srgb, black 60%, transparent));
 		color: color-mix(in srgb, white 85%, transparent);
-		font-size: 12px;
+		font-size: var(--text-xs);
 		line-height: 1.3;
 	}
 	.cc-cost-body { padding: 16px 18px 14px; background: var(--color-bg-input); }
-	.cc-cost-body p { font-size: 14px; line-height: 1.65; color: var(--color-text-strong); margin: 0 0 12px; }
-	.cc-cost-body .cc-cost-heading { font-size: 17px; font-weight: 700; margin: 0 0 10px; }
-	.cc-cost-body .cc-cost-note { font-size: 12px; color: var(--color-text-muted); margin: 12px 0 0; line-height: 1.4; }
-	.cc-cost-label { font-size: 17px; font-weight: 600; color: var(--color-text-muted); }
-	#cost-income-label { font-size: 18px; font-weight: 700; color: var(--color-text-strong); }
+	.cc-cost-body p { font-size: var(--text-sm); line-height: 1.65; color: var(--color-text-strong); margin: 0 0 12px; }
+	.cc-cost-body h4 { margin: 0 0 10px; }
+	.cc-cost-body .cc-cost-note { font-size: var(--text-xs); color: var(--color-text-muted); margin: 12px 0 0; line-height: 1.4; }
+	.cc-cost-label { font-size: var(--text-lg); font-weight: 600; color: var(--color-text-muted); }
+	#cost-income-label { font-size: var(--text-xl); font-weight: 700; color: var(--color-text-strong); }
 	.cc-cost-slider-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
 	.cc-cost-kids-row { display: flex; align-items: center; gap: 8px; margin: 14px 0 16px; }
 	#cost-results { display: flex; gap: 12px; justify-content: center; }
@@ -454,7 +452,7 @@
 		}
 		.cc-infra-cell-label .cc-infra-cell-cat {
 			display: block;
-			font-size: 12px;
+			font-size: var(--text-xs);
 			font-weight: 600;
 			color: var(--color-text-muted);
 			letter-spacing: 0.08em;
@@ -469,34 +467,34 @@
 		#map-container .card-body { padding-left: 4px; padding-right: 4px; }
 		.spending-toggle, .wage-toggle { margin-top: 4px; }
 		.cc-tabs { padding-left: 0; }
-		.cc-tab { font-size: 12px; padding: 4px 7px; }
+		.cc-tab { font-size: var(--text-xs); padding: 4px 7px; }
 		.cc-tab-full { display: none; }
 		.cc-tab-short { display: inline; }
 		.legend-semantic { font-size: 22px; }
 		.group-label { font-size: 22px; }
-		.legend-label-end { font-size: 16px; }
-		.inset-box text { font-size: 16px; }
+		.legend-label-end { font-size: var(--text-base); }
+		.inset-box text { font-size: var(--text-base); }
 		.cc-page > p:not(.callout),
 		.cc-page .details-section p { text-align: left; hyphens: none; }
 		.wp-columns { flex-direction: column; }
 		.cc-page { padding: 0 6px; }
 		.card { max-width: 100%; }
 		.cc-tabs { padding-left: 6px; }
-		.cc-tab { padding: 4px 8px; font-size: 14px; }
+		.cc-tab { padding: 4px 8px; font-size: var(--text-sm); }
 		#map-container .cc-explore-tag { display: none; }
 		.cc-wage-title-desktop { display: none; }
 		.cc-wage-title-mobile { display: block; }
 		.fb-desktop { display: none; }
 		.fb-mobile { display: block; width: 100%; }
-		.ac-subtitle { font-size: 16px; }
-		.ac-age { font-size: 12px; }
-		.ac-label { font-size: 12px; }
+		.ac-subtitle { font-size: var(--text-base); }
+		.ac-age { font-size: var(--text-xs); }
+		.ac-label { font-size: var(--text-xs); }
 		.ac-flag { width: 22px; height: 14px; }
 		.ac-label-full { display: none; }
 		.ac-label-short { display: inline; }
 		.ac-cell { height: 32px; }
 		.ac-cell-label { font-size: 11px; }
-		.ac-legend { font-size: 12px; gap: 10px; }
+		.ac-legend { font-size: var(--text-xs); gap: 10px; }
 		.dt-branches { flex-direction: column; padding-top: 0; gap: 0; }
 		.dt-branches::before { display: none; }
 		.dt-stem { display: none; }
@@ -508,10 +506,10 @@
 		}
 		.dt-cards { max-width: 100%; }
 		.dt-card { min-height: auto; }
-		.dt-card-title { font-size: 16px; }
-		.dt-card-amount { font-size: 24px; }
+		.dt-card-title { font-size: var(--text-base); }
+		.dt-card-amount { font-size: var(--text-3xl); }
 		.dt-card-ctx { font-size: 13px; }
-		.dt-tagline { font-size: 16px; }
+		.dt-tagline { font-size: var(--text-base); }
 	}</style>
 </head>
 <body>
@@ -550,7 +548,7 @@
 	</nav>
 
 	<div class="page-strip accent-teal">
-		<picture><source srcset="images/childcare_strip.webp" type="image/webp"><img decoding="async" fetchpriority="high" src="images/childcare_strip.jpg" alt="" aria-hidden="true" class="page-strip-img"></picture>
+		<picture><source srcset="images/childcare_strip.webp" type="image/webp"><img decoding="async" fetchpriority="high" src="images/childcare_strip.jpg" alt="" aria-hidden="true" class="page-strip-img" width="1600" height="200"></picture>
 	</div>
 	<div class="page-title" style="padding-bottom: 14px;">
 	<h1 id="cc-page-title">Childcare as Infrastructure</h1>
@@ -574,18 +572,18 @@
 	<p>During World War II, the federal government built public childcare centers so that mothers could work in shipyards and factories. It was, as the economist <a href="https://news.harvard.edu/gazette/story/2024/08/when-universal-childcare-for-working-mothers-was-federally-funded-claudia-goldin/" target="_blank" rel="noopener">Claudia Goldin noted</a>, "a national, practically universal, federally funded preschool program. It is, to this day, the only one." When the war ended, the centers closed. The program had been built for the war effort, not for families — and nothing replaced it.</p>
 
 	<div style="position: relative; margin: 40px auto; max-width: 480px; border-radius: var(--radius); overflow: hidden;">
-		<img loading="lazy" decoding="async" src="files/childcare-images/storytime_cropped.jpg" alt="Teacher reading to children at a federally funded childcare center, 1943" style="display: block; width: 100%; filter: sepia(0.3) saturate(0.8);">
+		<img loading="lazy" decoding="async" src="files/childcare-images/storytime_cropped.jpg" alt="Teacher reading to children at a federally funded childcare center, 1943" width="780" height="600" style="display: block; width: 100%; filter: sepia(0.3) saturate(0.8);">
 		<div style="position: absolute; inset: 0; background: var(--color-card-teal); mix-blend-mode: multiply; opacity: 0.15;"></div>
 		<div style="background: var(--color-card-teal); padding: 6px 10px;">
 			<span style="font-size: 14px; color: #fff; font-weight: 500; line-height: 1.4; text-shadow: 0 1px 2px color-mix(in srgb, black 30%, transparent);">Federally funded childcare center.<br>New Britain, CT, 1943. Photo: Gordon Parks</span>
 		</div>
 	</div>
 
-	<p>In 1971, Congress passed the Comprehensive Child Development Act, a bipartisan bill to establish universal childcare. President Nixon <a href="https://www.presidency.ucsb.edu/documents/veto-the-economic-opportunity-amendments-1971" target="_blank" rel="noopener">vetoed it</a>. His speechwriter, Pat Buchanan, drafted a message warning against "the vast moral authority of the National Government" being committed "to the side of communal approaches to child rearing over against the family-centered approach." <img loading="lazy" decoding="async" src="files/childcare-images/flags/us.png" alt="US flag" class="cc-flag"></p>
+	<p>In 1971, Congress passed the Comprehensive Child Development Act, a bipartisan bill to establish universal childcare. President Nixon <a href="https://www.presidency.ucsb.edu/documents/veto-the-economic-opportunity-amendments-1971" target="_blank" rel="noopener">vetoed it</a>. His speechwriter, Pat Buchanan, drafted a message warning against "the vast moral authority of the National Government" being committed "to the side of communal approaches to child rearing over against the family-centered approach." <img loading="lazy" decoding="async" src="files/childcare-images/flags/us.png" alt="US flag" class="cc-flag" width="120" height="80"></p>
 
 		<h3>Not all countries failed</h3>
 
-	<p>The Nordic countries — <img loading="lazy" decoding="async" src="files/childcare-images/flags/dk.png" alt="Denmark flag" class="cc-flag">Denmark, <img src="files/childcare-images/flags/fi.png" alt="Finland flag" class="cc-flag">Finland, <img src="files/childcare-images/flags/no.png" alt="Norway flag" class="cc-flag">Norway, and <img src="files/childcare-images/flags/se.png" alt="Sweden flag" class="cc-flag">Sweden — built their systems through political contest, not consensus. In 1934, Swedish social scientists <a href="https://en.wikipedia.org/wiki/Crisis_in_the_Population_Question" target="_blank" rel="noopener">Alva and Gunnar Myrdal</a> argued for sharing the responsibility of child-rearing between families and society. It took forty years of organizing — by labor unions, by women's movements, by social democratic parties — before <a href="https://centreforpublicimpact.org/public-impact-fundamentals/swedens-1975-national-preschool-reform/" target="_blank" rel="noopener">Sweden passed its National Preschool Act</a> in 1975.</p>
+	<p>The Nordic countries — <img loading="lazy" decoding="async" src="files/childcare-images/flags/dk.png" alt="Denmark flag" class="cc-flag" width="120" height="80">Denmark, <img src="files/childcare-images/flags/fi.png" alt="Finland flag" class="cc-flag" width="120" height="80">Finland, <img src="files/childcare-images/flags/no.png" alt="Norway flag" class="cc-flag" width="120" height="80">Norway, and <img src="files/childcare-images/flags/se.png" alt="Sweden flag" class="cc-flag" width="120" height="80">Sweden — built their systems through political contest, not consensus. In 1934, Swedish social scientists <a href="https://en.wikipedia.org/wiki/Crisis_in_the_Population_Question" target="_blank" rel="noopener">Alva and Gunnar Myrdal</a> argued for sharing the responsibility of child-rearing between families and society. It took forty years of organizing — by labor unions, by women's movements, by social democratic parties — before <a href="https://centreforpublicimpact.org/public-impact-fundamentals/swedens-1975-national-preschool-reform/" target="_blank" rel="noopener">Sweden passed its National Preschool Act</a> in 1975.</p>
 
 	<p>Each country took its own path. Finland guaranteed every child a <a href="https://okm.fi/en/legislation-ecec" target="_blank" rel="noopener">legal right to public care</a> from infancy. Denmark and Norway built comparable systems. Today, between <a href="https://www.oecd.org/en/data/indicators/enrolment-rate-in-early-childhood-education.html" target="_blank" rel="noopener">65% and 80%</a> of young children in every Nordic country are enrolled in public childcare. Those systems survived because they worked, and because the people who depended on them organized to protect them.</p>
 
@@ -596,7 +594,7 @@
 	<h2 class="cc-table-title">US–Nordic Childcare Gap at a Glance</h2>
 	<table class="dash-table cc-table">
 		<thead>
-			<tr><th></th><th>United States<br><img loading="lazy" decoding="async" class="cc-flag" src="files/childcare-images/flags/us.png" alt="US flag"></th><th>Nordics<br><span class="cc-flag-row"><img class="cc-flag" src="files/childcare-images/flags/dk.png" alt="Denmark flag"> <img class="cc-flag" src="files/childcare-images/flags/fi.png" alt="Finland flag"> <img class="cc-flag" src="files/childcare-images/flags/no.png" alt="Norway flag"> <img class="cc-flag" src="files/childcare-images/flags/se.png" alt="Sweden flag"></span></th></tr>
+			<tr><th></th><th>United States<br><img loading="lazy" decoding="async" class="cc-flag" src="files/childcare-images/flags/us.png" alt="US flag" width="120" height="80"></th><th>Nordics<br><span class="cc-flag-row"><img class="cc-flag" src="files/childcare-images/flags/dk.png" alt="Denmark flag" width="120" height="80"> <img class="cc-flag" src="files/childcare-images/flags/fi.png" alt="Finland flag" width="120" height="80"> <img class="cc-flag" src="files/childcare-images/flags/no.png" alt="Norway flag" width="120" height="80"> <img class="cc-flag" src="files/childcare-images/flags/se.png" alt="Sweden flag" width="120" height="80"></span></th></tr>
 		</thead>
 		<tbody>
 			<tr><td>Childcare cost to families</td><td>$15K/yr</td><td>$0-4K/yr</td></tr>
@@ -643,7 +641,7 @@
 				<span class="chart-source">Includes public childcare and preschool only. See footnotes for sources.</span>
 				<svg viewBox="0 0 9 5" width="16" height="9" aria-hidden="true" class="card-logo"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"></rect><rect x="0" y="4" width="4" height="1"></rect><rect x="2" y="2" width="2" height="1"></rect><rect x="3" y="2" width="1" height="2"></rect><rect x="8" y="0" width="1" height="5"></rect><rect x="5" y="4" width="4" height="1"></rect><rect x="5" y="2" width="2" height="1"></rect><rect x="5" y="2" width="1" height="2"></rect></svg>
 			</div>
-		<div style="position: absolute; pointer-events: none; background: rgba(0, 0, 0, 0.85); color: rgb(255, 255, 255); padding: 6px 10px; border-radius: 4px; font-size: 14px; line-height: 1.4; max-width: 200px; opacity: 0; z-index: 10; transition: opacity 0.15s;"></div><div style="position: absolute; pointer-events: none; background: rgba(0, 0, 0, 0.85); color: rgb(255, 255, 255); padding: 6px 10px; border-radius: 4px; font-size: 14px; line-height: 1.4; max-width: 200px; opacity: 0; z-index: 10; transition: opacity 0.15s;"></div><div style="position: absolute; pointer-events: none; background: rgba(0, 0, 0, 0.85); color: rgb(255, 255, 255); padding: 6px 10px; border-radius: 4px; font-size: 14px; line-height: 1.4; max-width: 200px; opacity: 0; z-index: 10; transition: opacity 0.15s;"></div><div style="position: absolute; pointer-events: none; background: rgba(0, 0, 0, 0.85); color: rgb(255, 255, 255); padding: 6px 10px; border-radius: 4px; font-size: 14px; line-height: 1.4; max-width: 200px; opacity: 0; z-index: 10; transition: opacity 0.15s;"></div></div>
+		<div class="chart-tooltip" style="max-width: 200px; padding: 6px 10px; font-size: 14px; line-height: 1.4;"></div><div class="chart-tooltip" style="max-width: 200px; padding: 6px 10px; font-size: 14px; line-height: 1.4;"></div><div class="chart-tooltip" style="max-width: 200px; padding: 6px 10px; font-size: 14px; line-height: 1.4;"></div><div class="chart-tooltip" style="max-width: 200px; padding: 6px 10px; font-size: 14px; line-height: 1.4;"></div></div>
 
 		<h3>And the need for public childcare is there</h3>
 
@@ -659,14 +657,14 @@
 		<div class="cc-cost-wrap">
 			<span class="cc-explore-tag">▸ Explore</span>
 		<div id="cost-compare-container">
-			<div class="cc-cost-img-wrap">
-				<img loading="lazy" decoding="async" src="files/childcare-images/raa_preschool.jpg" alt="Children playing outside Råå Day Care Center in Helsingborg, Sweden">
-				<div class="cc-cost-caption">
+			<figure class="cc-cost-img-wrap">
+				<img loading="lazy" decoding="async" src="files/childcare-images/raa_preschool.jpg" alt="Children playing outside Råå Day Care Center in Helsingborg, Sweden" width="1100" height="702">
+				<figcaption class="cc-cost-caption">
 					Råå Day Care Center, Helsingborg, Sweden. Photo: Adam Mørk
-				</div>
-			</div>
+				</figcaption>
+			</figure>
 			<div class="cc-cost-body">
-				<p class="cc-cost-heading">How Sweden prices childcare</p>
+				<h4 class="cc-cost-heading">How Sweden prices childcare</h4>
 				<p>In Sweden, parents drop their children off at a public daycare in their neighborhood and pay a fee based on their income (<a href="https://www.skolverket.se/regler-och-ansvar/ansvar-i-skolfragor/maxtaxa-i-forskola-fritidshem-och-pedagogisk-omsorg" target="_blank" rel="noopener">maxtaxa</a>) — 3% for the first child, 2% for the second, 1% for the third, and nothing after that. The fee is capped, so no family pays more than about $2,100 a year per child regardless of income.</p>
 				<p>In the US, a family earning $40,000 pays the same price as a family earning $400,000.</p>
 				<hr class="hr-accent accent-teal">
@@ -676,7 +674,7 @@
 						<span class="cc-cost-label">Household income</span>
 						<span id="cost-income-label">$60K</span>
 					</div>
-					<input type="range" id="cost-slider" min="5000" max="200000" step="5000" value="60000">
+					<input type="range" id="cost-slider" min="5000" max="200000" step="5000" value="60000" aria-label="Household income">
 				</div>
 				<div class="cc-cost-kids-row">
 					<span class="cc-cost-label">Children</span>
@@ -687,7 +685,7 @@
 						<button class="btn cost-btn" data-kids="4">4</button>
 					</div>
 				</div>
-				<div id="cost-results"><div class="cost-result-box" style="background:rgba(224, 64, 64, 0.07);"><div style="font-size:14px;font-weight:600;color:var(--color-text-muted);margin-bottom:6px;">United States</div><div style="font-size:32px;font-weight:700;color:#c03030;line-height:1.1;">$14,760</div><div style="font-size:14px;color:var(--color-text-muted);margin-top:4px;">25% of income</div></div><div class="cost-result-box" style="background:rgba(42, 138, 138, 0.07);"><div style="font-size:14px;font-weight:600;color:var(--color-text-muted);margin-bottom:6px;">Sweden</div><div style="font-size:32px;font-weight:700;color:#2A8A8A;line-height:1.1;">$1,800</div><div style="font-size:14px;color:var(--color-text-muted);margin-top:4px;">3% of income</div></div></div>
+				<div id="cost-results"><div class="cost-result-box" style="background:rgba(224, 64, 64, 0.07);"><div class="cost-result-label">United States</div><div class="cost-result-value" style="color:#c03030;">$14,760</div><div class="cost-result-pct">25% of income</div></div><div class="cost-result-box" style="background:rgba(42, 138, 138, 0.07);"><div class="cost-result-label">Sweden</div><div class="cost-result-value" style="color:#2A8A8A;">$1,800</div><div class="cost-result-pct">3% of income</div></div></div>
 				<p class="chart-source cc-cost-note">Some US families receive partial subsidies through Head Start or state programs. Most do not.</p>
 			</div>
 		</div>
@@ -740,14 +738,14 @@
 
 				document.getElementById('cost-results').innerHTML =
 					'<div class="cost-result-box" style="background:' + usBg + ';">' +
-						'<div style="font-size:14px;font-weight:600;color:var(--color-text-muted);margin-bottom:6px;">United States</div>' +
-						'<div style="font-size:32px;font-weight:700;color:' + usColor + ';line-height:1.1;">' + fmt(us) + '</div>' +
-						'<div style="font-size:14px;color:var(--color-text-muted);margin-top:4px;">' + usPct + '% of income</div>' +
+						'<div class="cost-result-label">United States</div>' +
+						'<div class="cost-result-value" style="color:' + usColor + ';">' + fmt(us) + '</div>' +
+						'<div class="cost-result-pct">' + usPct + '% of income</div>' +
 					'</div>' +
 					'<div class="cost-result-box" style="background:' + seBg + ';">' +
-						'<div style="font-size:14px;font-weight:600;color:var(--color-text-muted);margin-bottom:6px;">Sweden</div>' +
-						'<div style="font-size:32px;font-weight:700;color:' + seColor + ';line-height:1.1;">' + fmt(se) + '</div>' +
-						'<div style="font-size:14px;color:var(--color-text-muted);margin-top:4px;">' + sePct + '% of income</div>' +
+						'<div class="cost-result-label">Sweden</div>' +
+						'<div class="cost-result-value" style="color:' + seColor + ';">' + fmt(se) + '</div>' +
+						'<div class="cost-result-pct">' + sePct + '% of income</div>' +
 					'</div>';
 			}
 
@@ -794,7 +792,7 @@
 				<span class="chart-source">Source: OECD.</span>
 				<svg viewBox="0 0 9 5" width="16" height="9" aria-hidden="true" class="card-logo"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"></rect><rect x="0" y="4" width="4" height="1"></rect><rect x="2" y="2" width="2" height="1"></rect><rect x="3" y="2" width="1" height="2"></rect><rect x="8" y="0" width="1" height="5"></rect><rect x="5" y="4" width="4" height="1"></rect><rect x="5" y="2" width="2" height="1"></rect><rect x="5" y="2" width="1" height="2"></rect></svg>
 			</div>
-		<div style="position: absolute; pointer-events: none; background: rgba(0, 0, 0, 0.85); color: rgb(255, 255, 255); padding: 6px 10px; border-radius: 4px; font-size: 14px; line-height: 1.4; max-width: 220px; opacity: 0; z-index: 10; transition: opacity 0.15s;"></div><div style="position: absolute; pointer-events: none; background: rgba(0, 0, 0, 0.85); color: rgb(255, 255, 255); padding: 6px 10px; border-radius: 4px; font-size: 14px; line-height: 1.4; max-width: 220px; opacity: 0; z-index: 10; transition: opacity 0.15s;"></div><div style="position: absolute; pointer-events: none; background: rgba(0, 0, 0, 0.85); color: rgb(255, 255, 255); padding: 6px 10px; border-radius: 4px; font-size: 14px; line-height: 1.4; max-width: 220px; opacity: 0; z-index: 10; transition: opacity 0.15s;"></div><div style="position: absolute; pointer-events: none; background: rgba(0, 0, 0, 0.85); color: rgb(255, 255, 255); padding: 6px 10px; border-radius: 4px; font-size: 14px; line-height: 1.4; max-width: 220px; opacity: 0; z-index: 10; transition: opacity 0.15s;"></div></div>
+		<div class="chart-tooltip" style="max-width: 220px; padding: 6px 10px; font-size: 14px; line-height: 1.4;"></div><div class="chart-tooltip" style="max-width: 220px; padding: 6px 10px; font-size: 14px; line-height: 1.4;"></div><div class="chart-tooltip" style="max-width: 220px; padding: 6px 10px; font-size: 14px; line-height: 1.4;"></div><div class="chart-tooltip" style="max-width: 220px; padding: 6px 10px; font-size: 14px; line-height: 1.4;"></div></div>
 
 		<hr>
 		<h3>So the services and infrastructure do not exist</h3>
@@ -821,7 +819,7 @@
 				<span class="chart-source">US age 5 includes kindergarten. See footnotes for sources.</span>
 				<svg viewBox="0 0 9 5" width="16" height="9" aria-hidden="true" class="card-logo"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"></rect><rect x="0" y="4" width="4" height="1"></rect><rect x="2" y="2" width="2" height="1"></rect><rect x="3" y="2" width="1" height="2"></rect><rect x="8" y="0" width="1" height="5"></rect><rect x="5" y="4" width="4" height="1"></rect><rect x="5" y="2" width="2" height="1"></rect><rect x="5" y="2" width="1" height="2"></rect></svg>
 			</div>
-		<div style="position: absolute; pointer-events: none; background: rgba(0, 0, 0, 0.85); color: rgb(255, 255, 255); padding: 6px 10px; border-radius: 4px; font-size: 14px; line-height: 1.4; max-width: 220px; opacity: 0; z-index: 10; transition: opacity 0.15s;"></div><div style="position: absolute; pointer-events: none; background: rgba(0, 0, 0, 0.85); color: rgb(255, 255, 255); padding: 6px 10px; border-radius: 4px; font-size: 14px; line-height: 1.4; max-width: 220px; opacity: 0; z-index: 10; transition: opacity 0.15s;"></div><div style="position: absolute; pointer-events: none; background: rgba(0, 0, 0, 0.85); color: rgb(255, 255, 255); padding: 6px 10px; border-radius: 4px; font-size: 14px; line-height: 1.4; max-width: 220px; opacity: 0; z-index: 10; transition: opacity 0.15s;"></div><div style="position: absolute; pointer-events: none; background: rgba(0, 0, 0, 0.85); color: rgb(255, 255, 255); padding: 6px 10px; border-radius: 4px; font-size: 14px; line-height: 1.4; max-width: 220px; opacity: 0; z-index: 10; transition: opacity 0.15s;"></div></div>
+		<div class="chart-tooltip" style="max-width: 220px; padding: 6px 10px; font-size: 14px; line-height: 1.4;"></div><div class="chart-tooltip" style="max-width: 220px; padding: 6px 10px; font-size: 14px; line-height: 1.4;"></div><div class="chart-tooltip" style="max-width: 220px; padding: 6px 10px; font-size: 14px; line-height: 1.4;"></div><div class="chart-tooltip" style="max-width: 220px; padding: 6px 10px; font-size: 14px; line-height: 1.4;"></div></div>
 
 		<p>Families would enroll their children if the slots existed. Low enrollment reflects a physical absence. Even if Congress appropriated the money tomorrow, the buildings, the trained workers, and the licensed slots to serve every family do not exist. The US has no childcare infrastructure for most children, in the same literal sense that a city with no airport has no aviation infrastructure.</p>
 
@@ -836,7 +834,7 @@
 				<div class="cc-infra-item">
 					<div class="cc-infra-cell-label">Norway<span class="cc-infra-cell-cat">Public aviation infrastructure</span></div>
 					<div class="cc-infra-cell">
-						<img loading="lazy" decoding="async" src="files/childcare-images/oslo_airport.jpg" alt="Oslo Gardermoen Airport at night">
+						<img loading="lazy" decoding="async" src="files/childcare-images/oslo_airport.jpg" alt="Oslo Gardermoen Airport at night" width="960" height="566">
 						<div class="cc-infra-tint"></div>
 						<span class="cc-infra-caption">Oslo Gardermoen Airport</span>
 					</div>
@@ -844,7 +842,7 @@
 				<div class="cc-infra-item">
 					<div class="cc-infra-cell-label">United States<span class="cc-infra-cell-cat">Public aviation infrastructure</span></div>
 					<div class="cc-infra-cell">
-						<img loading="lazy" decoding="async" src="files/childcare-images/atlanta_airport.jpg" alt="Atlanta airport terminal interior">
+						<img loading="lazy" decoding="async" src="files/childcare-images/atlanta_airport.jpg" alt="Atlanta airport terminal interior" width="2560" height="1669">
 						<div class="cc-infra-tint"></div>
 						<span class="cc-infra-caption">Hartsfield-Jackson Atlanta Airport</span>
 					</div>
@@ -855,7 +853,7 @@
 				<div class="cc-infra-item">
 					<div class="cc-infra-cell-label">Norway<span class="cc-infra-cell-cat">Public childcare infrastructure</span></div>
 					<div class="cc-infra-cell">
-						<img loading="lazy" decoding="async" src="files/childcare-images/barnehage.jpg" alt="Bamsebo barnehage, Norwegian childcare center">
+						<img loading="lazy" decoding="async" src="files/childcare-images/barnehage.jpg" alt="Bamsebo barnehage, Norwegian childcare center" width="1024" height="450">
 						<div class="cc-infra-tint"></div>
 						<span class="cc-infra-caption">Bamsebo barnehage, ages 1-5</span>
 					</div>
@@ -863,7 +861,7 @@
 				<div class="cc-infra-item">
 					<div class="cc-infra-cell-label">United States<span class="cc-infra-cell-cat">Public childcare infrastructure</span></div>
 					<div class="cc-infra-cell">
-						<img loading="lazy" decoding="async" src="files/childcare-images/empty_lot.jpg" alt="Empty lot in US neighborhood">
+						<img loading="lazy" decoding="async" src="files/childcare-images/empty_lot.jpg" alt="Empty lot in US neighborhood" width="1023" height="614">
 						<div class="cc-infra-tint"></div>
 						<span class="cc-infra-caption">Empty lot</span>
 					</div>
@@ -942,52 +940,52 @@
 		<!-- Decision tree -->
 		<div class="card" id="decision-tree-container" style="margin-bottom: 48px; max-width: 720px;">
 			<div class="card-body" style="padding: 24px 16px 12px 16px;">
-				<div class="dt-tree">
-					<div class="dt-question-main">You have a child under 5.</div>
-					<div class="dt-question-sub">What are your options?</div>
+				<section class="dt-tree">
+					<h3 class="dt-question-main">You have a child under 5.</h3>
+					<p class="dt-question-sub">What are your options?</p>
 					<div class="dt-stem"></div>
 					<div class="dt-branches">
 						<div class="dt-branch dt-branch-us">
-							<div class="dt-country">United States</div>
+							<h4 class="dt-country">United States</h4>
 							<div class="dt-cards">
 								<div class="dt-card dt-card-us">
-									<div class="dt-card-title">Private<br>childcare</div>
-									<div class="dt-card-amount">$14,760</div>
-									<div class="dt-card-unit">per year</div>
-									<div class="dt-card-ctx">More than in-state<br>college tuition<br>in 38 states</div>
+									<h4 class="dt-card-title">Private<br>childcare</h4>
+									<span class="key-stat dt-card-amount">$14,760</span>
+									<span class="dt-card-unit">per year</span>
+									<p class="dt-card-ctx">More than in-state<br>college tuition<br>in 38 states</p>
 								</div>
 								<span class="dt-or">or</span>
 								<div class="dt-card dt-card-us">
-									<div class="dt-card-title">Leave the<br>workforce</div>
-									<div class="dt-card-amount">$0</div>
-									<div class="dt-card-unit">income</div>
-									<div class="dt-card-ctx">3.8% of US adults<br>are out of work for<br>childcare reasons</div>
+									<h4 class="dt-card-title">Leave the<br>workforce</h4>
+									<span class="key-stat dt-card-amount">$0</span>
+									<span class="dt-card-unit">income</span>
+									<p class="dt-card-ctx">3.8% of US adults<br>are out of work for<br>childcare reasons</p>
 								</div>
 							</div>
-							<div class="dt-tagline">Both options cost the family.</div>
+							<p class="dt-tagline">Both options cost the family.</p>
 						</div>
 						<div class="dt-divider"></div>
 						<div class="dt-branch dt-branch-fi">
-							<div class="dt-country">Finland</div>
+							<h4 class="dt-country">Finland</h4>
 							<div class="dt-cards">
 								<div class="dt-card dt-card-fi">
-									<div class="dt-card-title">Public<br>childcare</div>
-									<div class="dt-card-amount">$0–4,080</div>
-									<div class="dt-card-unit">per year</div>
-									<div class="dt-card-ctx">Income-scaled fees.<br>Legal right<br>from infancy.</div>
+									<h4 class="dt-card-title">Public<br>childcare</h4>
+									<span class="key-stat dt-card-amount">$0–4,080</span>
+									<span class="dt-card-unit">per year</span>
+									<p class="dt-card-ctx">Income-scaled fees.<br>Legal right<br>from infancy.</p>
 								</div>
 								<span class="dt-or">or</span>
 								<div class="dt-card dt-card-fi">
-									<div class="dt-card-title">Home care<br>allowance</div>
-									<div class="dt-card-amount">~$5,000</div>
-									<div class="dt-card-unit">per year</div>
-									<div class="dt-card-ctx">Paid to the parent.<br>A real choice,<br>not a last resort.</div>
+									<h4 class="dt-card-title">Home care<br>allowance</h4>
+									<span class="key-stat dt-card-amount">~$5,000</span>
+									<span class="dt-card-unit">per year</span>
+									<p class="dt-card-ctx">Paid to the parent.<br>A real choice,<br>not a last resort.</p>
 								</div>
 							</div>
-							<div class="dt-tagline">Both options help the family.</div>
+							<p class="dt-tagline">Both options help the family.</p>
 						</div>
 					</div>
-				</div>
+				</section>
 			</div>
 		</div>
 
@@ -1026,7 +1024,7 @@
 				<span class="chart-source">See footnotes for sources.</span>
 				<svg viewBox="0 0 9 5" width="16" height="9" aria-hidden="true" class="card-logo"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"></rect><rect x="0" y="4" width="4" height="1"></rect><rect x="2" y="2" width="2" height="1"></rect><rect x="3" y="2" width="1" height="2"></rect><rect x="8" y="0" width="1" height="5"></rect><rect x="5" y="4" width="4" height="1"></rect><rect x="5" y="2" width="2" height="1"></rect><rect x="5" y="2" width="1" height="2"></rect></svg>
 			</div>
-		<div style="position: absolute; pointer-events: none; background: rgba(0, 0, 0, 0.85); color: rgb(255, 255, 255); padding: 6px 10px; border-radius: 4px; font-size: 14px; line-height: 1.4; max-width: 220px; opacity: 0; z-index: 10; transition: opacity 0.15s;"></div><div style="position: absolute; pointer-events: none; background: rgba(0, 0, 0, 0.85); color: rgb(255, 255, 255); padding: 6px 10px; border-radius: 4px; font-size: 14px; line-height: 1.4; max-width: 220px; opacity: 0; z-index: 10; transition: opacity 0.15s;"></div><div style="position: absolute; pointer-events: none; background: rgba(0, 0, 0, 0.85); color: rgb(255, 255, 255); padding: 6px 10px; border-radius: 4px; font-size: 14px; line-height: 1.4; max-width: 220px; opacity: 0; z-index: 10; transition: opacity 0.15s;"></div><div style="position: absolute; pointer-events: none; background: rgba(0, 0, 0, 0.85); color: rgb(255, 255, 255); padding: 6px 10px; border-radius: 4px; font-size: 14px; line-height: 1.4; max-width: 220px; opacity: 0; z-index: 10; transition: opacity 0.15s;"></div></div>
+		<div class="chart-tooltip" style="max-width: 220px; padding: 6px 10px; font-size: 14px; line-height: 1.4;"></div><div class="chart-tooltip" style="max-width: 220px; padding: 6px 10px; font-size: 14px; line-height: 1.4;"></div><div class="chart-tooltip" style="max-width: 220px; padding: 6px 10px; font-size: 14px; line-height: 1.4;"></div><div class="chart-tooltip" style="max-width: 220px; padding: 6px 10px; font-size: 14px; line-height: 1.4;"></div></div>
 
 		<p>Workforce exit and poverty are not separate problems. They are what happens when families have no public childcare — and the costs do not stop with families.</p>
 
@@ -1055,7 +1053,7 @@
     <p>The scale of the US–Nordic childcare worker pay gap, and the occupations that pay closest to childcare workers, vary by state and country.</p>
 
 		<!-- Wage peers inset box -->
-		<div class="cc-wage-box">
+		<aside class="cc-wage-box">
 			<span class="cc-explore-tag">▸ Explore</span>
 			<h3 class="cc-wage-title-desktop">US childcare workers are paid $15.41 per hour</h3>
 			<h3 class="cc-wage-title-mobile">US childcare workers make $15.41/hr</h3>
@@ -1087,7 +1085,7 @@
 				<p class="chart-source wp-note" id="wp-cross-note" style="display:none;"></p>
 				<span class="chart-source" style="margin-top:6px;">Source: BLS OEWS 2024, Statistics Canada LFS 2025, Nordic national statistics offices.</span>
 			</details>
-		</div>
+		</aside>
 
 		<hr>
 		<h3>Why the market can't fix it</h3>
@@ -1204,25 +1202,25 @@
 
 		<p>Building a childcare system requires solving several problems at once: funding, physical infrastructure, workforce, and political durability. Finland solved all of them over a century. The US examples below have each solved one piece of the puzzle. None has yet assembled the full system.</p>
 
-		<p><img loading="lazy" decoding="async" src="files/childcare-images/flags/fi.png" alt="Flag of Finland" class="cc-flag-lg"><strong>Finland</strong> shows what a complete system looks like. Every child has a <a href="https://okm.fi/en/legislation-ecec" target="_blank" rel="noopener">legal right</a> to public childcare from the end of parental leave — around nine months — until school begins at age seven. Fees are based on income, capped at roughly $335 per month for the first child, and free for the year before school. Staff ratios for children under three are one adult per four children. Parents who prefer to stay home receive a <a href="https://www.kela.fi/child-home-care-allowance" target="_blank" rel="noopener">home care allowance</a> of roughly $5,000 a year. Either path is a real option — not a concession.</p>
+		<p><img loading="lazy" decoding="async" src="files/childcare-images/flags/fi.png" alt="Flag of Finland" class="cc-flag-lg" width="120" height="80"><strong>Finland</strong> shows what a complete system looks like. Every child has a <a href="https://okm.fi/en/legislation-ecec" target="_blank" rel="noopener">legal right</a> to public childcare from the end of parental leave — around nine months — until school begins at age seven. Fees are based on income, capped at roughly $335 per month for the first child, and free for the year before school. Staff ratios for children under three are one adult per four children. Parents who prefer to stay home receive a <a href="https://www.kela.fi/child-home-care-allowance" target="_blank" rel="noopener">home care allowance</a> of roughly $5,000 a year. Either path is a real option — not a concession.</p>
 
 		<p>The system was <a href="https://jacobin.com/2021/10/finland-public-universal-childcare-day-care-early-education" target="_blank" rel="noopener">built over a century</a>: first kindergarten in 1888, the Day Care Act in 1973, a universal legal right in 1996. Childcare workers are public employees with union-negotiated wages, pensions, and job security. Preschool teachers are paid roughly the same as elementary school teachers. The workforce is stable because the jobs are professional — and the system is politically untouchable because every family depends on it.</p>
 
 		<hr>
 
-		<p><img loading="lazy" decoding="async" src="files/childcare-images/flags/nyc.png" alt="Flag of New York City" class="cc-flag-lg"><strong>New York City</strong> is building a public system age by age. Four-year-olds have free, full-day <a href="https://www.schools.nyc.gov/enrollment/enroll-grade-by-grade/pre-k" target="_blank" rel="noopener">Pre-K</a>, with roughly two-thirds of the age group enrolled. Three-year-olds have 3-K, with about half enrolled, though seats are <a href="https://www.chalkbeat.org/newyork/2025/05/20/preschool-offers-long-commutes-empty-seats/" target="_blank" rel="noopener">unevenly distributed</a> across the city. Below age three, the city is just getting started: a <a href="https://www.nyc.gov/mayors-office/news/2025/12/mayor-adams--chancellor-aviles-ramos-announce-open-enrollment-fo" target="_blank" rel="noopener">Birth-to-2 pilot</a> launched in January 2026 with 200 free seats for infants and toddlers, and a <a href="https://www.chalkbeat.org/newyork/2026/03/03/nyc-free-child-care-2k-program-launch-2026-what-to-know/" target="_blank" rel="noopener">2-K program</a> announced in March 2026 will offer 2,000 free seats for two-year-olds starting in September, with plans to reach 12,000 by fall 2027. Public childcare funding in New York City is 0.23% of GDP — roughly the same as the national average.</p>
+		<p><img loading="lazy" decoding="async" src="files/childcare-images/flags/nyc.png" alt="Flag of New York City" class="cc-flag-lg" width="120" height="80"><strong>New York City</strong> is building a public system age by age. Four-year-olds have free, full-day <a href="https://www.schools.nyc.gov/enrollment/enroll-grade-by-grade/pre-k" target="_blank" rel="noopener">Pre-K</a>, with roughly two-thirds of the age group enrolled. Three-year-olds have 3-K, with about half enrolled, though seats are <a href="https://www.chalkbeat.org/newyork/2025/05/20/preschool-offers-long-commutes-empty-seats/" target="_blank" rel="noopener">unevenly distributed</a> across the city. Below age three, the city is just getting started: a <a href="https://www.nyc.gov/mayors-office/news/2025/12/mayor-adams--chancellor-aviles-ramos-announce-open-enrollment-fo" target="_blank" rel="noopener">Birth-to-2 pilot</a> launched in January 2026 with 200 free seats for infants and toddlers, and a <a href="https://www.chalkbeat.org/newyork/2026/03/03/nyc-free-child-care-2k-program-launch-2026-what-to-know/" target="_blank" rel="noopener">2-K program</a> announced in March 2026 will offer 2,000 free seats for two-year-olds starting in September, with plans to reach 12,000 by fall 2027. Public childcare funding in New York City is 0.23% of GDP — roughly the same as the national average.</p>
 
 		<p>Mayor Mamdani's stated goal is universal care from six weeks to five years. But the expansion is built on a private workforce. The typical childcare worker in New York City makes about $36,500 a year, while an elementary school teacher in the same city makes $95,000. Closing that gap has no mechanism in the current structure, and the wage gap will follow the program into every new age group it reaches.</p>
 
 		<hr>
 
-		<p><img loading="lazy" decoding="async" src="files/childcare-images/flags/nm.png" alt="Flag of New Mexico" class="cc-flag-lg"><strong>New Mexico</strong> is the first US state to offer <a href="https://www.nmececd.org/universal/" target="_blank" rel="noopener">universal childcare</a> — free from infancy, with no income limit. In 2022, <a href="https://ballotpedia.org/New_Mexico_Constitutional_Amendment_1,_Land_Grant_Permanent_Fund_Distribution_for_Early_Childhood_Education_Amendment_(2022)" target="_blank" rel="noopener">70% of voters</a> approved a constitutional amendment directing oil revenue into early childhood education. In February 2026, the legislature <a href="https://www.nmececd.org/2026/02/12/senate-passes-sb-241-and-sb-96-strengthening-child-care-access-and-supply/" target="_blank" rel="noopener">codified the program in state law</a>, authorizing up to $700 million a year — which would bring public childcare funding to roughly 0.6% of GDP, the highest of any US state but still less than half of any Nordic country. About half of four-year-olds and a fifth of three-year-olds are enrolled in state pre-K.</p>
+		<p><img loading="lazy" decoding="async" src="files/childcare-images/flags/nm.png" alt="Flag of New Mexico" class="cc-flag-lg" width="120" height="80"><strong>New Mexico</strong> is the first US state to offer <a href="https://www.nmececd.org/universal/" target="_blank" rel="noopener">universal childcare</a> — free from infancy, with no income limit. In 2022, <a href="https://ballotpedia.org/New_Mexico_Constitutional_Amendment_1,_Land_Grant_Permanent_Fund_Distribution_for_Early_Childhood_Education_Amendment_(2022)" target="_blank" rel="noopener">70% of voters</a> approved a constitutional amendment directing oil revenue into early childhood education. In February 2026, the legislature <a href="https://www.nmececd.org/2026/02/12/senate-passes-sb-241-and-sb-96-strengthening-child-care-access-and-supply/" target="_blank" rel="noopener">codified the program in state law</a>, authorizing up to $700 million a year — which would bring public childcare funding to roughly 0.6% of GDP, the highest of any US state but still less than half of any Nordic country. About half of four-year-olds and a fifth of three-year-olds are enrolled in state pre-K.</p>
 
 		<p>The entitlement is universal. The infrastructure is not. Of <a href="https://www.nmececd.org/wp-content/uploads/2026/02/UCC-Brief_1-20-26.pdf" target="_blank" rel="noopener">194,000 eligible children, about 40,000 are served</a> — roughly one in five. Fourteen of the state's 33 counties are <a href="https://sourcenm.com/2025/10/26/capacity-issues-may-limit-new-mexicos-universal-child-care-program/" target="_blank" rel="noopener">childcare deserts</a>, and there are only 32 licensed slots for every 100 children under two. The childcare workforce has <a href="https://www.nmececd.org/wp-content/uploads/2026/02/UCC-Brief_1-20-26.pdf" target="_blank" rel="noopener">grown 64%</a> since 2019, against a 7% national decline — but from a base too small to meet the need. New Mexico has the funding and the legal architecture. What it does not yet have are the facilities and workers to turn the right into a reality.</p>
 
 		<hr>
 
-		<p><img loading="lazy" decoding="async" src="files/childcare-images/flags/vt.png" alt="Flag of Vermont" class="cc-flag-lg"><strong>Vermont</strong> funds childcare at 0.55% of GDP with 24.3% enrollment — both the highest of any US state. Three- and four-year-olds get 10 hours a week of <a href="https://education.vermont.gov/student-support/early-education/universal-prekindergarten-act-166" target="_blank" rel="noopener">free universal pre-K</a> — 76% of four-year-olds are enrolled. For younger children, the state offers a <a href="https://dcf.vermont.gov/benefits/ccfap" target="_blank" rel="noopener">subsidy</a>: in 2023, <a href="https://letsgrowkids.org/vermont-child-care-bill-act-76-educators-families-kids" target="_blank" rel="noopener">Act 76</a> created a dedicated 0.44% employer-side payroll tax as part of roughly $125 million a year in new funding. The governor vetoed it. The legislature overrode the veto. The subsidy pays private providers on a sliding scale, with no copay for lower-income families. But for children under three, there is no universal program — only the subsidy.</p>
+		<p><img loading="lazy" decoding="async" src="files/childcare-images/flags/vt.png" alt="Flag of Vermont" class="cc-flag-lg" width="120" height="80"><strong>Vermont</strong> funds childcare at 0.55% of GDP with 24.3% enrollment — both the highest of any US state. Three- and four-year-olds get 10 hours a week of <a href="https://education.vermont.gov/student-support/early-education/universal-prekindergarten-act-166" target="_blank" rel="noopener">free universal pre-K</a> — 76% of four-year-olds are enrolled. For younger children, the state offers a <a href="https://dcf.vermont.gov/benefits/ccfap" target="_blank" rel="noopener">subsidy</a>: in 2023, <a href="https://letsgrowkids.org/vermont-child-care-bill-act-76-educators-families-kids" target="_blank" rel="noopener">Act 76</a> created a dedicated 0.44% employer-side payroll tax as part of roughly $125 million a year in new funding. The governor vetoed it. The legislature overrode the veto. The subsidy pays private providers on a sliding scale, with no copay for lower-income families. But for children under three, there is no universal program — only the subsidy.</p>
 
 		<p>Vermont is the closest any US state has come to Nordic levels on the metrics in this report. But it is a subsidy in a private market, not a public system. Families find their own provider and sit on <a href="https://www.newamerica.org/education-policy/edcentral/one-year-later-vermonts-act-76-is-showing-promise/" target="_blank" rel="noopener">waitlists</a> — the state still needs <a href="https://vtdigger.org/2024/07/17/vermonts-child-care-providers-have-new-hope-after-act-76-but-worries-remain/" target="_blank" rel="noopener">thousands of additional slots</a>. And the subsidies passed, but the <a href="https://cscce.berkeley.edu/workforce-index-2024/states/vermont/" target="_blank" rel="noopener">wages did not fully follow</a>: childcare workers went from about $13 an hour to roughly $18, real progress but not professional pay. On funding, even Vermont is less than half of any Nordic country.</p>
 		
@@ -1236,7 +1234,7 @@
 				<span class="chart-title map-category">Closing the gap</span>
 			</div>
 			<div class="card-body" style="padding: 8px 12px 10px;">
-				<div class="ac-subtitle">Universal public childcare programs, selected cases</div>
+				<h3 class="ac-subtitle">Universal public childcare programs, selected cases</h3>
 				<div class="ac-grid">
 					<div class="ac-corner"></div>
 					<div class="ac-age">Age 0</div>
@@ -1246,7 +1244,7 @@
 					<div class="ac-age">Age 4</div>
 					<div class="ac-age">Age 5</div>
 
-					<div class="ac-label"><img src="files/childcare-images/flags/fi.png" alt="" class="ac-flag">Finland</div>
+					<div class="ac-label"><img src="files/childcare-images/flags/fi.png" alt="" class="ac-flag" width="120" height="80">Finland</div>
 					<div class="ac-cell ac-estab"><span class="ac-cell-label ac-white"><span class="ac-label-full">Parental<br>leave</span><span class="ac-label-short">Leave</span></span></div>
 					<div class="ac-cell ac-estab"></div>
 					<div class="ac-cell ac-estab"></div>
@@ -1254,11 +1252,11 @@
 					<div class="ac-cell ac-estab"></div>
 					<div class="ac-cell ac-estab"></div>
 
-					<div class="ac-note" style="grid-column: 1 / -1;"><em>+ universal child benefit at every age</em></div>
+					<p class="ac-note" style="grid-column: 1 / -1;"><em>+ universal child benefit at every age</em></p>
 
 					<div class="ac-sep"></div>
 
-					<div class="ac-label"><img src="files/childcare-images/flags/nyc.png" alt="" class="ac-flag"><span class="ac-label-full">NYC</span><span class="ac-label-short">NYC</span></div>
+					<div class="ac-label"><img src="files/childcare-images/flags/nyc.png" alt="" class="ac-flag" width="120" height="80"><span class="ac-label-full">NYC</span><span class="ac-label-short">NYC</span></div>
 					<div class="ac-cell ac-pilot"><span class="ac-cell-label">Pilot</span></div>
 					<div class="ac-cell ac-pilot"><span class="ac-cell-label">Pilot</span></div>
 					<div class="ac-cell ac-proposed"><span class="ac-cell-label">2-K</span></div>
@@ -1266,7 +1264,7 @@
 					<div class="ac-cell ac-estab"></div>
 					<div class="ac-cell ac-estab"></div>
 
-					<div class="ac-label"><img src="files/childcare-images/flags/nm.png" alt="" class="ac-flag"><span class="ac-label-full">New Mexico</span><span class="ac-label-short">N. Mexico</span></div>
+					<div class="ac-label"><img src="files/childcare-images/flags/nm.png" alt="" class="ac-flag" width="120" height="80"><span class="ac-label-full">New Mexico</span><span class="ac-label-short">N. Mexico</span></div>
 					<div class="ac-cell ac-new"><span class="ac-cell-label">New</span></div>
 					<div class="ac-cell ac-new"><span class="ac-cell-label">New</span></div>
 					<div class="ac-cell ac-new"><span class="ac-cell-label">New</span></div>
@@ -1274,7 +1272,7 @@
 					<div class="ac-cell ac-estab"></div>
 					<div class="ac-cell ac-estab"></div>
 
-					<div class="ac-label"><img src="files/childcare-images/flags/vt.png" alt="" class="ac-flag">Vermont</div>
+					<div class="ac-label"><img src="files/childcare-images/flags/vt.png" alt="" class="ac-flag" width="120" height="80">Vermont</div>
 					<div class="ac-cell ac-none"></div>
 					<div class="ac-cell ac-none"></div>
 					<div class="ac-cell ac-none"></div>
@@ -1284,7 +1282,7 @@
 
 					<div class="ac-sep"></div>
 
-					<div class="ac-label"><img src="files/childcare-images/flags/us.png" alt="" class="ac-flag"><span class="ac-label-full">US federal</span><span class="ac-label-short">US fed.</span></div>
+					<div class="ac-label"><img src="files/childcare-images/flags/us.png" alt="" class="ac-flag" width="120" height="80"><span class="ac-label-full">US federal</span><span class="ac-label-short">US fed.</span></div>
 					<div class="ac-cell ac-none"></div>
 					<div class="ac-cell ac-none"></div>
 					<div class="ac-cell ac-none"></div>

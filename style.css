@@ -238,6 +238,7 @@ body{
 	background-color: var(--color-canvas);
 	color: var(--color-text-strong);
 	text-size-adjust: 100%;
+	-webkit-tap-highlight-color: transparent;
 	}
 
 main {
@@ -279,7 +280,7 @@ hr {
 
 /* Noscript fallback warning */
 .noscript-warning { background: var(--color-bg-highlight); color: var(--color-text); padding: 12px; font-size: var(--text-sm); border: var(--elevation-border); }
-:is(h1, h2, h3, h4) { line-height: 1.25; text-wrap: balance; letter-spacing: -0.01em; }
+:is(h1, h2, h3, h4) { line-height: 1.25; text-wrap: balance; letter-spacing: -0.01em; scroll-margin-top: 64px; }
 h1 { margin: 8px 0; }
 h2 { font-size: var(--text-4xl); }
 h3 { font-size: var(--text-3xl); }
@@ -792,7 +793,7 @@ table { border-collapse: collapse; width: 100%; }
 	border: 1px solid var(--color-border-light);
 	background: var(--color-bg-input);
 	color: var(--color-text-muted);
-	transition: all var(--transition-fast);
+	transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
 	font-size: var(--text-xs);
 	font-weight: 600;
 	&:hover { background: var(--color-bg-highlight); }
@@ -992,14 +993,14 @@ table { border-collapse: collapse; width: 100%; }
 /* ----- Python Guides ----- */
 
 .page-python {
-	& .py-row { align-items: center; margin: 0 auto; max-width: 760px; padding: 0 12px; box-sizing: border-box; }
+	& .py-row { align-items: center; }
 	& .py-intro { flex: 1; min-width: 0; }
 	& .py-intro p { margin: 0 0 1em; font-size: var(--text-base); line-height: 1.6; }
 	& .py-intro p:last-child { margin-bottom: 0; }
 	& .py-row a { text-decoration: none; flex: 0 0 300px; }
 	& .py-row .card-body { display: flex; flex-direction: column; height: 125px; }
 	& .py-row .trail-badge { margin-top: auto; }
-	& .py-arrow { text-align: right; font-size: 14px; font-weight: 600; color: var(--color-text-muted); margin: 0; }
+	& .py-arrow { text-align: right; font-size: var(--text-sm); font-weight: 600; color: var(--color-text-muted); margin: 0; }
 	& .py-arrow-down { display: none; }
 	& .card-grid h2 { padding-top: 24px; }
 	@media (max-width: 760px) {
@@ -1033,15 +1034,14 @@ table { border-collapse: collapse; width: 100%; }
 /* ----- Chartbook ----- */
 
 .page-chartbook {
-	& .details-section { max-width: 760px; padding: 0 12px; box-sizing: border-box; }
-	& .cb-free { text-align: center; font-size: 14px; color: var(--color-text-muted); margin: 8px 0 4px; }
+	& .cb-free { text-align: center; font-size: var(--text-sm); color: var(--color-text-muted); margin: 8px 0 4px; }
 	& .cb-previews { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin: 16px 0 8px; }
 	& .cb-previews img {
 		width: 220px; height: auto; border: 1px solid var(--color-grid);
 		border-radius: var(--radius); cursor: pointer; transition: opacity 0.15s;
 		&:hover { opacity: 0.85; }
 	}
-	& .cb-row { align-items: stretch; margin: 0 auto; max-width: 760px; padding: 0 12px; box-sizing: border-box; }
+	& .cb-row { align-items: stretch; }
 	& .cb-download, & .cb-sources {
 		padding: 14px 18px; display: flex; flex-direction: column;
 		& h4 { margin: 0; }
@@ -1231,7 +1231,7 @@ table { border-collapse: collapse; width: 100%; }
 
 	/* Badges */
 	& .card-category-badge { font-size: var(--text-xs); padding: 2px 8px; border-radius: 8px; vertical-align: middle; background: color-mix(in srgb, white 25%, transparent); margin-left: 8px; font-weight: 500; white-space: nowrap; }
-	& .card-number { font-size: var(--text-xs); color: var(--color-text-muted); font-weight: 600; letter-spacing: 0.5px; }
+	& .card-number { text-transform: none; }
 	& .card-header button { font-size: var(--text-base); padding: 2px 4px; }
 	& .card-download { font-size: var(--text-xs); }
 
@@ -1243,7 +1243,7 @@ table { border-collapse: collapse; width: 100%; }
 	}
 	& .chart-selector-center { flex: 1; text-align: center; }
 	& .chart-selector-title { font-weight: 600; color: var(--color-text-strong); text-align: center; margin: 0; }
-	& .chart-counter { font-size: var(--text-xs); color: var(--color-text-muted); letter-spacing: 0.5px; }
+	& .chart-counter { text-transform: none; }
 	& .ind-share { gap: 8px; margin-right: 8px; }
 
 	/* Chart grid navigation */
@@ -1349,8 +1349,7 @@ table { border-collapse: collapse; width: 100%; }
 	& .info-section h3 { margin: 0 0 8px; font-size: var(--text-base); }
 	& .info-section p { margin: 0 0 12px; font-size: var(--text-sm); color: var(--color-text-muted); }
 	& .info-section p.estimate-value { margin: 0 0 8px; }
-	& .info-section p.estimate-updated { font-size: var(--text-sm); color: var(--color-text-muted); margin: 0; }
-	& .info-section p.download-desc { font-size: var(--text-sm); color: var(--color-text-muted); margin: 0 0 12px; }
+	& .info-section p.estimate-updated { margin: 0; }
 	& .file-meta { font-weight: 400; opacity: 0.85; }
 	& .download-btn {
 		display: inline-flex; align-items: center; gap: 6px;
