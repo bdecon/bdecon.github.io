@@ -171,7 +171,7 @@ import numpy as np
 # Read selected columns and query for women age 25 to 54
 columns = ['prtage', 'pesex', 'prempnot', 'pwcmpwgt']
 df = (pd.read_csv('dec25pub.csv', usecols=columns).dropna()
-        .query('pesex == 2 and 25 <= prtage <= 54'))</code></pre>
+        .query('pesex == 2 and 25 &lt;= prtage &lt;= 54'))</code></pre>
 
 	<span class="step-label accent-teal">Calculate the weighted employment rate</span>
 
@@ -274,9 +274,9 @@ raw_data = open('apr17pub.dat', 'rb').readlines()
 
 wgt = d['PWCMPWGT']  # Location of sample weight variable
 
-# Unpack and store data of interest if sample weight > 0
+# Unpack and store data of interest if sample weight &gt; 0
 data = [[*map(int, unpacker(row))] for row in raw_data
-        if int(row[wgt[0]:wgt[1]]) > 0]
+        if int(row[wgt[0]:wgt[1]]) &gt; 0]
 
 print(data[:5])</code></pre>
 
@@ -289,7 +289,7 @@ print(data[:5])</code></pre>
 	<p>In[9]:</p>
 	<pre><code class="python"># Pandas dataframe of women age 25 to 54
 df = (pd.DataFrame(data, columns=d.keys())
-      .query('PESEX == 2 and 25 <= PRTAGE <= 54')
+      .query('PESEX == 2 and 25 &lt;= PRTAGE &lt;= 54')
       .assign(PWCMPWGT = lambda x: x['PWCMPWGT'] / 10000))
 
 print(df.head().to_string(index=False))</code></pre>

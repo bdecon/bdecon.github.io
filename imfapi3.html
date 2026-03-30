@@ -232,8 +232,8 @@ df = df.rename(columns={'THA': 'Thailand', 'VNM': 'Vietnam'})</code></pre>
 forecast_start = pd.Timestamp('2025')
 
 for col in df.columns:
-    hist = df.loc[df.index < forecast_start, col]
-    proj = df.loc[df.index >= forecast_start, col]
+    hist = df.loc[df.index &lt; forecast_start, col]
+    proj = df.loc[df.index &gt;= forecast_start, col]
     line, = ax.plot(hist.index, hist, linewidth=1.5, label=col)
     ax.plot(proj.index, proj, linewidth=1.5,
             linestyle='--', color=line.get_color())
@@ -278,7 +278,7 @@ for key, val in attrs.items():
     iso = countries[parts[0]]
     ind = indicators[parts[1]]
     year_str = val[0][0]
-    # Handle fiscal year format: "FY2023/24" -> 2023
+    # Handle fiscal year format: "FY2023/24" -&gt; 2023
     if year_str.startswith('FY'):
         year = int(year_str[2:6])
     else:

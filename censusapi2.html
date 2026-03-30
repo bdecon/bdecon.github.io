@@ -234,7 +234,7 @@ data = requests.get(url, params=params).json()</code></pre>
 # Some codes are non-numeric (e.g. '-'); keep only numeric codes
 df = df.loc[df['CTY_CODE'].str.isdigit()]
 df['CTY_CODE'] = df['CTY_CODE'].astype(int)
-df = df[(df['CTY_CODE'] >= 1000) & (df['CTY_CODE'] < 8000)]
+df = df[(df['CTY_CODE'] &gt;= 1000) &amp; (df['CTY_CODE'] &lt; 8000)]
 
 # Convert to billions
 df['ALL_VAL_MO'] = df['ALL_VAL_MO'].astype(float) / 1e9</code></pre>
