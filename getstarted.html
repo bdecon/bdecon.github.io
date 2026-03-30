@@ -159,7 +159,7 @@
 	<h3 id="basics">Python Essentials</h3>
 	<p>You don't need to learn all of Python to follow the tutorials. Here are the pieces that come up most often.</p>
 
-	<span class="step-label accent-ltblue">Variables and Types</span>
+	<span class="label step-label accent-ltblue">Variables and Types</span>
 	<p>In[1]:</p>
 	<pre><code class="python"># Numbers
 gdp = 28_781.0          # underscores for readability (ignored by Python)
@@ -178,7 +178,7 @@ indicators = {
     'Inflation': 2.5
 }</code></pre>
 
-	<span class="step-label accent-ltblue">f-strings and Imports</span>
+	<span class="label step-label accent-ltblue">f-strings and Imports</span>
 	<p>f-strings let you embed variables directly in text. Imports load external packages.</p>
 	<p>In[2]:</p>
 	<pre><code class="python">import pandas as pd    # data analysis
@@ -191,7 +191,7 @@ print(f'Year range: {years[0]} to {years[-1]}')</code></pre>
 	<pre>Bureau of Economic Analysis reports GDP of $28,781 billion
 Year range: 2022 to 2025</pre>
 
-	<span class="step-label accent-ltblue">Dictionaries in Practice</span>
+	<span class="label step-label accent-ltblue">Dictionaries in Practice</span>
 	<p>API responses are typically JSON, which Python reads as nested dictionaries. Navigating them is a core skill.</p>
 	<p>In[3]:</p>
 	<pre><code class="python"># A simplified API response
@@ -213,7 +213,7 @@ print(f'Unemployment rate: {value}%')</code></pre>
 	<h3 id="pandas">Working with Data</h3>
 	<p>Pandas is the main tool for working with tabular data in Python. The two key objects are <strong>Series</strong> (a single column) and <strong>DataFrame</strong> (a table).</p>
 
-	<span class="step-label accent-ltblue">Create a DataFrame</span>
+	<span class="label step-label accent-ltblue">Create a DataFrame</span>
 	<p>In[4]:</p>
 	<pre><code class="python"># Create from a dictionary
 df = pd.DataFrame({
@@ -243,7 +243,7 @@ df</code></pre>
 	</table>
 	</div>
 
-	<span class="step-label accent-ltblue">Time Series Index</span>
+	<span class="label step-label accent-ltblue">Time Series Index</span>
 	<p>Most economic data is a time series. Setting a datetime index unlocks powerful time-based operations.</p>
 	<p>In[5]:</p>
 	<pre><code class="python"># Create a monthly series with a date index
@@ -258,7 +258,7 @@ price_index.loc['2024-03':'2024-05']</code></pre>
 2024-05-01    313.2
 Name: CPI, dtype: float64</pre>
 
-	<span class="step-label accent-ltblue">Combining Series</span>
+	<span class="label step-label accent-ltblue">Combining Series</span>
 	<p>Much of economics is about relationships between variables. Pandas makes it easy to combine series and compute new ones.</p>
 	<p>In[6]:</p>
 	<pre><code class="python"># GDP (billions) and population (millions) by year
@@ -282,7 +282,7 @@ dtype: float64</pre>
 	<h3 id="economics">Economics Example: The Fiscal Multiplier</h3>
 	<p>Python can solve the kind of problems you'd work through by hand in an economics class. Here's a simple Keynesian model solved with NumPy's linear algebra tools.</p>
 
-	<span class="step-label accent-ltblue">A Simple Macro Model</span>
+	<span class="label step-label accent-ltblue">A Simple Macro Model</span>
 	<p>In the basic Keynesian model, GDP (<em>Y</em>) equals consumption (<em>C</em>) plus investment (<em>I</em>) plus government spending (<em>G</em>). Consumption depends on after-tax income:</p>
 	<ul>
 		<li>Y = C + I + G</li>
@@ -303,7 +303,7 @@ Y, C = np.linalg.solve(A, b)
 print(f'GDP = ${Y:,.0f}B, Consumption = ${C:,.0f}B')</code></pre>
 	<pre>GDP = $2,700B, Consumption = $2,000B</pre>
 
-	<span class="step-label accent-ltblue">What If Congress Increases Spending?</span>
+	<span class="label step-label accent-ltblue">What If Congress Increases Spending?</span>
 	<p>Suppose government spending rises by $100 billion (G goes from 400 to 500). Only the first equation changes&mdash;the right-hand side becomes 800:</p>
 	<p>In[8]:</p>
 	<pre><code class="python"># G rises by 100: Y - C = 800 (was 700)
@@ -322,7 +322,7 @@ Multiplier: 4x</pre>
 	<h3 id="calculations">Common Calculations</h3>
 	<p>The API tutorials use a few economic calculations that are worth seeing in one place.</p>
 
-	<span class="step-label accent-ltblue">From Price Index to Inflation Rate</span>
+	<span class="label step-label accent-ltblue">From Price Index to Inflation Rate</span>
 	<p>The Consumer Price Index (CPI) is a price level, not an inflation rate. To get the headline inflation rate that you see in the news, compare each month's index to the same month one year earlier.</p>
 	<p>In[9]:</p>
 	<pre><code class="python"># 18 months of CPI-U data (made up but realistic)
@@ -346,7 +346,7 @@ inflation</code></pre>
 2024-12-01    2.5
 Name: CPI-U, dtype: float64</pre>
 
-	<span class="step-label accent-ltblue">Adjusting for Inflation</span>
+	<span class="label step-label accent-ltblue">Adjusting for Inflation</span>
 	<p>To compare dollar values across time, adjust for inflation by dividing by the price index. This converts nominal values to real (constant-dollar) values.</p>
 	<p>In[10]:</p>
 	<pre><code class="python"># Median weekly earnings (nominal) and CPI-U (2020 = 100)
@@ -380,7 +380,7 @@ pd.DataFrame({'Nominal': earnings, 'Real (2020$)': real})</code></pre>
 	</div>
 	<p>Nominal weekly earnings rose 16% from 2020 to 2024, but real earnings actually fell 4%&mdash;wage growth didn't keep pace with inflation. This is a key distinction in any analysis of living standards.</p>
 
-	<span class="step-label accent-ltblue">Growth Decomposition</span>
+	<span class="label step-label accent-ltblue">Growth Decomposition</span>
 	<p>When a total is the sum of components, you can decompose its growth into each component's contribution. Here, consumer spending (PCE) equals goods plus services.</p>
 	<p>In[11]:</p>
 	<pre><code class="python"># Quarterly PCE components (billions, made up)
@@ -417,7 +417,7 @@ pce[['Goods contribution', 'Services contribution']].dropna().round(2)</code></p
 	<hr class="section-bar accent-ltblue">
 	<h3 id="apis">Setting Up for the API Tutorials</h3>
 
-	<span class="step-label accent-ltblue">API Keys</span>
+	<span class="label step-label accent-ltblue">API Keys</span>
 	<p>Most government data APIs require a free API key for access. The tutorials on this site store keys in a file called <code>config.py</code> that you create in the same folder as your notebook:</p>
 	<pre><code class="python"># config.py — keep this file private, don't commit it to git
 bls_key = 'your-key-here'
@@ -427,7 +427,7 @@ census_key = 'your-key-here'</code></pre>
 	<pre><code class="python">from config import bea_key as api_key</code></pre>
 	<p>The <a href="treasuryapi.html">Treasury API</a> is the exception&mdash;it requires no key at all, which makes it a good first tutorial to try.</p>
 
-	<span class="step-label accent-ltblue">Making a Request</span>
+	<span class="label step-label accent-ltblue">Making a Request</span>
 	<p>The basic pattern for fetching data from an API is the same across all the tutorials:</p>
 	<p>In[12]:</p>
 	<pre><code class="python">import requests

@@ -185,7 +185,7 @@
 
 	<hr class="section-bar accent-green">
 	<h3>Example: Nondefense Capital Goods Orders</h3>
-	<span class="step-label accent-green">Setup</span>
+	<span class="label step-label accent-green">Setup</span>
 	<p>The Census API key is stored locally in a file called <code>config.py</code> (see the <a href="getstarted.html">Getting Started guide</a> for details). You can register for a free API key at the <a href="https://api.census.gov/data/key_signup.html">Census Bureau website</a>.</p>
 
 	<p>In[1]:</p>
@@ -194,7 +194,7 @@ import pandas as pd
 import config
 key = config.census_key</code></pre>
 
-	<span class="step-label accent-green">Request Data from the API</span>
+	<span class="label step-label accent-green">Request Data from the API</span>
 	<p>The Census API takes query parameters including the fields to return (<code>get</code>), a category code, data type, and time range. Here, <code>NXA</code> is nondefense capital goods excluding aircraft, and <code>VS</code> is the seasonally adjusted value. Data are retrieved from 2022 onward.</p>
 
 	<p>In[2]:</p>
@@ -211,7 +211,7 @@ params = {
 
 r = requests.get(url, params=params).json()</code></pre>
 
-	<span class="step-label accent-green">Convert to Pandas DataFrame</span>
+	<span class="label step-label accent-green">Convert to Pandas DataFrame</span>
 	<p>The Census API returns JSON as a list of lists, where the first row contains column headers. We parse this into a DataFrame and set up a datetime index.</p>
 
 	<p>In[3]:</p>
@@ -221,13 +221,13 @@ df.index.name = ''
 df = df.sort_index()
 df['cell_value'] = df['cell_value'].astype(float)</code></pre>
 
-	<span class="step-label accent-green">Calculate Growth Rate</span>
+	<span class="label step-label accent-green">Calculate Growth Rate</span>
 	<p>The <code>pct_change(12)</code> method compares each month to the same month one year earlier, giving us a year-over-year growth rate that avoids seasonal distortions.</p>
 
 	<p>In[4]:</p>
 	<pre><code class="python">growth = df['cell_value'].pct_change(12) * 100</code></pre>
 
-	<span class="step-label accent-green">Plot the Results</span>
+	<span class="label step-label accent-green">Plot the Results</span>
 	<p>Plot the 12-month percent change from 2024 onward.</p>
 
 	<p>In[5]:</p>

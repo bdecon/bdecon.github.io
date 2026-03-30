@@ -157,13 +157,13 @@
 	<h3>Example 1: Fetch NIPA Table</h3>
 	<p>This example requests NIPA table 2.3.6, which breaks down real Personal Consumption Expenditures (PCE) by major product type: services, nondurable goods, and durable goods. PCE is the largest component of GDP, so understanding what's driving consumer spending growth is a common analytical task.</p>
 
-	<span class="step-label accent-orange">Import Libraries</span>
+	<span class="label step-label accent-orange">Import Libraries</span>
 	<p>In[1]:</p>
 	<pre><code class="python">import requests
 import pandas as pd
 from config import bea_key as api_key   # File with API key</code></pre>
 
-	<span class="step-label accent-orange">Request Data</span>
+	<span class="label step-label accent-orange">Request Data</span>
 	<p>The <code>requests</code> library accepts a <code>params</code> dictionary that it encodes into the URL query string. This is cleaner than concatenating URL fragments by hand.</p>
 	<p>In[2]:</p>
 	<pre><code class="python">url = 'https://apps.bea.gov/api/data/'
@@ -179,7 +179,7 @@ params = {
 
 r = requests.get(url, params=params)</code></pre>
 
-	<span class="step-label accent-orange">Process the Data</span>
+	<span class="label step-label accent-orange">Process the Data</span>
 	<p>The API returns JSON with one row per series per quarter. We parse it into a dataframe, clean the values (BEA includes commas in numbers), and pivot so each series code becomes a column.</p>
 	<p>In[3]:</p>
 	<pre><code class="python"># Parse API response into a dataframe
@@ -192,7 +192,7 @@ data = df.set_index(['Date', 'SeriesCode'])['Value'].unstack()</code></pre>
 
 	<p>The series codes come from the table's column headers: <code>DPCERX</code> is total real PCE, <code>DSERRX</code> is services, <code>DNDGRX</code> is nondurable goods, and <code>DDURRX</code> is durable goods. You can find these codes in the API response's <code>SeriesCode</code> field or on the <a href="https://apps.bea.gov/iTable/?reqid=19&step=2&isuri=1&categories=survey">BEA interactive tables</a>.</p>
 
-	<span class="step-label accent-orange">Calculate Contributions</span>
+	<span class="label step-label accent-orange">Calculate Contributions</span>
 	<p>To understand what's driving consumer spending, we calculate how much each category contributed to the total growth rate. First, we annualize the quarterly growth rate&mdash;raising <code>(1 + quarterly rate)</code> to the 4th power converts it to an annual pace. Then, each category's contribution equals its share of the quarterly change times the total growth rate.</p>
 	<p>In[4]:</p>
 	<pre><code class="python"># Annualize quarterly growth: (1 + q/q rate)^4 - 1
@@ -212,7 +212,7 @@ contributions = (shares.multiply(pce_growth, axis=0)
                  .rename(categories, axis=1))
 contributions.index.name = ''</code></pre>
 
-	<span class="step-label accent-orange">Visualize Results</span>
+	<span class="label step-label accent-orange">Visualize Results</span>
 	<p>A stacked bar chart shows the contribution of each category to overall consumer spending growth.</p>
 	<p>In[5]:</p>
 	<pre><code class="python"># Create chart
@@ -238,7 +238,7 @@ ax.text(-0.03, -0.2, footer, transform=ax.transAxes, fontsize=10);</code></pre>
 	<h3>Example 2: Collect API Parameters</h3>
 	<p>This example shows how to navigate API metadata to find dataset parameters. Using the metadata, we can discover the codes for tables and industries we want to request.</p>
 
-	<span class="step-label accent-orange">Fetch Table List</span>
+	<span class="label step-label accent-orange">Fetch Table List</span>
 	<p>Request the list of available tables in the GDPbyIndustry dataset. Table 25 (Composition of Gross Output) is what we want for this example.</p>
 	<p>In[6]:</p>
 	<pre><code class="python">url = 'https://apps.bea.gov/api/data/'
@@ -292,7 +292,7 @@ pd.DataFrame(r.json()['BEAAPI']['Results']['ParamValue']).set_index('Key').head(
 	</table>
 	</div>
 
-	<span class="step-label accent-orange">Fetch Industry List</span>
+	<span class="label step-label accent-orange">Fetch Industry List</span>
 	<p>Request the list of industry codes. Industry code 23 is the Construction industry.</p>
 	<p>In[7]:</p>
 	<pre><code class="python"># Reuse the same params, just change which parameter we're looking up
@@ -360,7 +360,7 @@ pd.DataFrame(r['BEAAPI']['Results']['ParamValue']).set_index('Key').head(10)</co
 	</table>
 	</div>
 
-	<span class="step-label accent-orange">Fetch Industry Data</span>
+	<span class="label step-label accent-orange">Fetch Industry Data</span>
 	<p>Using the parameters discovered above, fetch table 25 for industry 23 (Construction). The results are organized into a pandas dataframe.</p>
 	<p>In[8]:</p>
 	<pre><code class="python"># Now fetch actual data using the codes we discovered above
@@ -478,7 +478,7 @@ df.tail()</code></pre>
 	</table>
 	</div>
 
-	<span class="step-label accent-orange">Visualize Results</span>
+	<span class="label step-label accent-orange">Visualize Results</span>
 	<p>Create a chart showing the labor income share of gross value added in the construction industry.</p>
 	<p>In[9]:</p>
 	<pre><code class="python"># Labor income share of industry value added

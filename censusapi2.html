@@ -192,7 +192,7 @@
 
 	<hr class="section-bar accent-green">
 	<h3>Example: Top U.S. Export Partners</h3>
-	<span class="step-label accent-green">Setup</span>
+	<span class="label step-label accent-green">Setup</span>
 	<p>Import the required packages and load your Census API key from a local config file (see the <a href="getstarted.html">Getting Started guide</a> for details). You can register for a free API key at the <a href="https://api.census.gov/data/key_signup.html">Census Bureau website</a>.</p>
 
 	<p>In[1]:</p>
@@ -203,7 +203,7 @@ import config
 
 key = config.census_key</code></pre>
 
-	<span class="step-label accent-green">Request Data from the API</span>
+	<span class="label step-label accent-green">Request Data from the API</span>
 	<p>Construct the API request to retrieve export values by country for a specific month. The endpoint <code>intltrade/exports/hs</code> provides Harmonized System trade data.</p>
 
 	<p>In[2]:</p>
@@ -225,7 +225,7 @@ data = requests.get(url, params=params).json()</code></pre>
  ['0001', 'OPEC', '5765070418', '2025-10'],
  ['0003', 'PACIFIC RIM', '35817684498', '2025-10']]</pre>
 
-	<span class="step-label accent-green">Process the Data</span>
+	<span class="label step-label accent-green">Process the Data</span>
 	<p>Convert to a DataFrame, filter to individual countries (codes 1000-8000), and convert values to numeric billions.</p>
 
 	<p>In[4]:</p>
@@ -239,7 +239,7 @@ df = df[(df['CTY_CODE'] &gt;= 1000) &amp; (df['CTY_CODE'] &lt; 8000)]
 # Convert to billions
 df['ALL_VAL_MO'] = df['ALL_VAL_MO'].astype(float) / 1e9</code></pre>
 
-	<span class="step-label accent-green">Select Top Partners</span>
+	<span class="label step-label accent-green">Select Top Partners</span>
 	<p>Sort by export value and select the top 20 trading partners.</p>
 
 	<p>In[5]:</p>
@@ -247,7 +247,7 @@ df['ALL_VAL_MO'] = df['ALL_VAL_MO'].astype(float) / 1e9</code></pre>
            .tail(20)
            .set_index('CTY_NAME')['ALL_VAL_MO'])</code></pre>
 
-	<span class="step-label accent-green">Create the Visualization</span>
+	<span class="label step-label accent-green">Create the Visualization</span>
 	<p>Plot a horizontal bar chart showing the top export destinations.</p>
 
 	<p>In[6]:</p>
