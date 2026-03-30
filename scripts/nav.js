@@ -53,7 +53,7 @@ const subfooterHubs = {
 			{ href: 'indicators.html', label: 'Economic Indicators' },
 			{ href: 'gdpm.html', label: 'Monthly GDP' },
 			{ href: 'imfweo.html', label: 'IMF WEO' },
-			{ href: 'calendar.html', label: 'Release Calendar' }
+			{ href: 'calendar.html', label: 'Data Calendar' }
 		]
 	}
 };

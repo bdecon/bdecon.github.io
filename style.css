@@ -5,12 +5,15 @@
 @font-face { font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url('fonts/inter-500.woff2') format('woff2'); }
 @font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('fonts/inter-600.woff2') format('woff2'); }
 @font-face { font-family: 'Inter'; font-style: normal; font-weight: 700; font-display: swap; src: url('fonts/inter-700.woff2') format('woff2'); }
+@font-face { font-family: 'Space Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/spacemono-regular.woff2') format('woff2'); }
+@font-face { font-family: 'Space Mono'; font-style: normal; font-weight: 700; font-display: swap; src: url('fonts/spacemono-700.woff2') format('woff2'); }
 
 /* ===== Variables ===== */
 :root {
   color-scheme: light dark;
 
   --font: 'Inter', sans-serif;
+  --font-mono: 'Space Mono', monospace;
   --radius: 0;
 
   /* Spacing Scale — 4px base, 1.5× progression (Swiss grid) */
@@ -61,7 +64,7 @@
   --color-bg-input: #fff;
   --color-bg-header: #707070;
   --color-bg-alt: #f2f2f2;
-  --color-bg-highlight: #F5F5F5;
+  --color-bg-highlight: #e8e8e8;
 
   /* Links */
   --color-link: #A80038;
@@ -76,7 +79,7 @@
   --color-code-bg: #efefef;
 
   /* Elevation */
-  --elevation-border: 1.5px solid var(--color-border-light);
+  --elevation-border: 2px solid var(--color-border-light);
 
   /* Chart colors */
   --color-grid: color-mix(in srgb, black 6%, transparent);
@@ -113,14 +116,14 @@
   --syn-addition-bg: #dfd;
 
   /* Card Header Colors */
-  --color-card-blue: #3450B2;
-  --color-card-green: #229a54;
+  --color-card-blue: #3d5a8a;
+  --color-card-green: #3a7a5a;
   --color-card-red: #E04040;
-  --color-card-orange: #ca5c00;
-  --color-card-purple: #553581;
-  --color-card-ltblue: #4A90C4;
-  --color-card-teal: #2A8A8A;
-  --color-card-brown: #8B6914;
+  --color-card-orange: #9a6830;
+  --color-card-purple: #5a4a70;
+  --color-card-ltblue: #4a7a96;
+  --color-card-teal: #3a7878;
+  --color-card-brown: #7a6a3a;
 }
 
 /* Dark theme
@@ -183,14 +186,14 @@
   --syn-deletion-bg: none;
   --syn-addition-bg: none;
 
-  --color-card-blue: #4e64e0;
-  --color-card-green: #2fbf6a;
+  --color-card-blue: #5a7aaa;
+  --color-card-green: #5a9a7a;
   --color-card-red: #e85a5a;
-  --color-card-orange: #e87a20;
-  --color-card-purple: #7a50b0;
-  --color-card-ltblue: #6AAAD4;
-  --color-card-teal: #3aadad;
-  --color-card-brown: #a88030;
+  --color-card-orange: #b08050;
+  --color-card-purple: #7a6a90;
+  --color-card-ltblue: #6a9ab0;
+  --color-card-teal: #5a9a9a;
+  --color-card-brown: #9a8a5a;
 }
 /* ===== Accent Colors ===== */
 .accent-blue   { --accent: var(--color-card-blue); }
@@ -303,7 +306,7 @@ hr {
 
 /* Noscript fallback warning */
 .noscript-warning { background: var(--color-bg-highlight); color: var(--color-text); padding: 12px; font-size: var(--text-sm); border: var(--elevation-border); }
-:is(h1, h2, h3, h4) { line-height: 1.2; text-wrap: balance; letter-spacing: -0.02em; scroll-margin-top: 64px; }
+:is(h1, h2, h3, h4) { font-family: var(--font-mono); line-height: 1.2; text-wrap: balance; letter-spacing: -0.02em; scroll-margin-top: 64px; }
 h1 { margin: 8px 0; }
 h2 { font-size: var(--text-4xl); }
 h3 { font-size: var(--text-3xl); }
@@ -320,7 +323,7 @@ a {
 /* Code blocks */
 pre {
 	background: var(--color-code-bg);
-	border: 1px solid var(--color-border-light);
+	border: 2px solid var(--color-border-light);
 	padding: 16px;
 	margin: 16px 0;
 	overflow-x: auto;
@@ -363,13 +366,16 @@ nav{
 	& li:first-child { margin-right: auto; order: 1; }
 	& li a, & li p {
 		display: inline-block;
+		font-family: var(--font-mono);
 		color: var(--color-nav-text);
 		text-align: center;
 		padding: 14px 24px;
 		text-decoration: none;
 		transition: var(--transition-normal);
-		font-size: var(--text-lg);
+		font-size: var(--text-sm);
 		font-weight: 400;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
 		line-height: 22px;
 	}
 	& .icon-external { width: 0.7em; height: 0.7em; }
@@ -471,8 +477,8 @@ ul li a:hover + .hidden, .hidden:hover { display: block; }
 		}
 	}
 	nav { height: 50px; padding: 0; }
-	.card-nav .card-body { height: auto; min-height: 80px; overflow: visible; }
 	.card-nav { min-height: auto; }
+	.card-nav .card-body { min-height: auto; }
 	main { padding: 6px 12px 12px; }
 	footer { padding: 16px 12px 6px; }
 }
@@ -487,7 +493,7 @@ ul li a:hover + .hidden, .hidden:hover { display: block; }
 	text-align: center;
 	background-color: var(--color-bg-header);
 	color: white;
-	& h1 { margin: 0; font-weight: 700; font-size: clamp(22px, 2vw + 16px, 30px); letter-spacing: -0.03em; }
+	& h1 { margin: 0; font-weight: 700; font-size: clamp(22px, 2vw + 16px, 30px); letter-spacing: 0.06em; text-transform: uppercase; }
 	& .page-title-byline { color: color-mix(in srgb, white 55%, transparent); margin: 4px 0 0; line-height: 1; letter-spacing: 0.12em; }
 }
 
@@ -505,8 +511,8 @@ footer {
 	&::before { content: ''; position: absolute; top: 0; left: 5%; width: 90%; border-top: 2px solid var(--color-border-light); }
 }
 .footer-left {
-	font-weight: 400; color: var(--color-text-muted);
-	& p { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.5px; }
+	font-family: var(--font-mono); font-weight: 600; color: var(--color-text-muted);
+	& p { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.08em; }
 }
 .footer-right { text-align: right; }
 .footer-right a {
@@ -564,8 +570,8 @@ article:not(.prose) > :first-child { margin-top: 0; }
 	& > h2, & > h3 { grid-column: 1 / -1; margin: 8px auto 4px; }
 	& > h2 { font-size: var(--text-3xl); font-weight: 700; }
 	/* Flex layout — cards stretch to equal height with badges pinned to bottom */
-	& .card-nav { display: flex; flex-direction: column; }
-	& .card-nav .card-body { display: flex; flex-direction: column; flex: 1; height: auto; min-height: 125px; }
+	& .card-nav { display: flex; flex-direction: column; height: 100%; }
+	& .card-nav .card-body { display: flex; flex-direction: column; flex: 1; }
 	& .trail-badge { margin-top: auto; }
 	@media (max-width: 680px) { grid-template-columns: 1fr; max-width: 300px; margin: 0 auto; }
 }
@@ -594,7 +600,7 @@ article:not(.prose) > :first-child { margin-top: 0; }
 	position: relative;
 	border: var(--elevation-border);
 	background: var(--color-card-bg);
-	transition: border-color var(--transition-normal);
+	transition: none;
 }
 .card-header {
 	color: white;
@@ -624,12 +630,18 @@ article:not(.prose) > :first-child { margin-top: 0; }
 	min-height: 180px;
 	&:hover { border-color: var(--color-text-muted); }
 	& .card-header {
-		display: block; text-align: center; padding: 6px 6px 2px;
-		& h3 { font-size: var(--text-4xl); font-weight: bold; margin: 0 0 8px; color: inherit; }
+		background: var(--color-bg-highlight); color: var(--color-text-strong);
+		display: flex; align-items: center; justify-content: center; gap: 8px;
+		padding: 8px 12px;
+		&::before {
+			content: ''; width: 10px; height: 10px; flex-shrink: 0;
+			background: var(--accent);
+		}
+		& h3 { font-size: var(--text-xl); font-weight: bold; margin: 0; text-transform: uppercase; letter-spacing: 0.04em; }
 	}
 	& .card-body {
-		padding: 2px 12px 12px; height: 125px;
-		& p { margin-top: 8px; margin-bottom: 0; font-size: var(--text-sm); line-height: 1.4;
+		padding: 2px 12px 12px; min-height: 125px;
+		& p { margin-top: 8px; margin-bottom: 0; font-size: var(--text-base); line-height: 1.4;
 			@media (max-width: 760px) { margin-bottom: 8px; }
 		}
 	}
@@ -654,7 +666,7 @@ table {
 	width: 100%;
 	font-size: var(--text-sm);
 	& th, & td { padding: 4px 8px; border-bottom: 1px solid var(--color-border-light); }
-	& th { font-weight: 600; }
+	& th { font-family: var(--font-mono); font-weight: 700; letter-spacing: 0.04em; }
 	& td { font-variant-numeric: tabular-nums; }
 	& tbody tr:nth-child(even) { background-color: var(--color-bg-alt); }
 	& tbody tr:hover { background: var(--color-bg-highlight); }
@@ -803,6 +815,7 @@ table {
    .btn-group  — joined segmented control (first/last radius, shared borders)
    .btn--pill  — standalone pill shape (border-radius: 20px) */
 .btn {
+	font-family: var(--font-mono);
 	padding: 4px 12px;
 	border: 1px solid var(--color-border-light);
 	background: var(--color-bg-input);
@@ -835,7 +848,7 @@ table {
 	padding: 6px 8px;
 	font-size: var(--text-sm);
 	font-family: var(--font);
-	border: 1px solid var(--color-border-light);
+	border: 2px solid var(--color-border-light);
 	background: var(--color-bg-input);
 	color: var(--color-text-strong);
 }
@@ -866,6 +879,7 @@ table {
 
 /* Label — small uppercase marker text */
 .label {
+	font-family: var(--font-mono);
 	font-size: var(--text-xs);
 	font-weight: 600;
 	color: var(--color-text-muted);
@@ -994,7 +1008,7 @@ table {
 	}
 	& .announce-text { transition: opacity 0.4s ease; opacity: 1; }
 	& .announce-text.fade-out { opacity: 0; }
-	& .announcement a { color: var(--color-text); text-decoration: none; }
+	& .announcement a { color: var(--color-text-strong); text-decoration: none; }
 	& .announcement a:hover { text-decoration: underline; }
 	& .announce-label { font-weight: 700; }
 	& .announce-arrow { color: var(--color-text-muted); font-size: var(--text-base); padding: 2px 4px; line-height: 1; flex-shrink: 0; }
@@ -1009,7 +1023,7 @@ table {
 	& .py-intro p { margin: 0 0 1em; font-size: var(--text-base); line-height: 1.6; }
 	& .py-intro p:last-child { margin-bottom: 0; }
 	& .py-row a { text-decoration: none; flex: 0 0 300px; }
-	& .py-row .card-body { display: flex; flex-direction: column; height: 125px; }
+	& .py-row .card-body { display: flex; flex-direction: column; flex: 1; }
 	& .py-row .trail-badge { margin-top: auto; }
 	& .py-arrow { text-align: right; font-size: var(--text-sm); font-weight: 600; color: var(--color-text-muted); margin: 0; }
 	& .py-arrow-down { display: none; }
@@ -1220,6 +1234,18 @@ table {
 /* ----- Economic Indicators ----- */
 
 .page-indicators {
+	/* Banner: blue bar left, blue-tinted photo, cinnamon bleed from right */
+	& .page-strip {
+		background: linear-gradient(90deg, #4a7a96 2%, #4a7a96 60%, #7a7060 72%, #9a6830 82%);
+		position: relative; overflow: hidden;
+		& .page-strip-img { opacity: 0.3; clip-path: inset(0 0 0 2%); }
+		&::after {
+			content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 4px;
+			background: linear-gradient(90deg, #4a7a96, #9a6830);
+			transform: skewY(-0.5deg); z-index: 2;
+		}
+	}
+
 	/* Flip card mechanism */
 	& .chart-flip-wrapper { perspective: 1000px; max-width: 400px; margin: 16px auto; }
 	& .chart-flip-inner { position: relative; transform-style: preserve-3d; transition: transform 0.6s; }
@@ -1343,7 +1369,6 @@ table {
 [data-theme="dark"] .page-indicators {
 	& .chart-flip-inner { border: 1px solid var(--color-border); }
 	& .chart-flip-wrapper .card { border: none; background: var(--color-card-bg); }
-	& .chart-flip-front .card { border-bottom: 6px solid var(--chart-color, var(--color-card-blue)); }
 	& .card-header:not(.dark-text) .card-category-badge { background: color-mix(in srgb, black 30%, transparent); }
 }
 
@@ -1402,7 +1427,7 @@ table {
 	}
 }
 
-/* ----- Release Calendar ----- */
+/* ----- Data Calendar ----- */
 
 .page-calendar {
 	/* Centered prose-width column for all calendar elements */
@@ -1919,7 +1944,7 @@ table {
 			.cc-page { padding: 0 6px; }
 			.card { max-width: 100%; }
 			.cc-tabs { padding-left: 6px; }
-			.cc-tab { padding: 4px 8px; font-size: var(--text-sm); }
+			.cc-tab { padding: 4px 8px; }
 			#map-container .cc-explore-tag { display: none; }
 			.cc-wage-title-desktop { display: none; }
 			.cc-wage-title-mobile { display: block; }
@@ -1954,8 +1979,6 @@ table {
 
 /* Childcare dark mode — data-theme on <html>, page class on <body> */
 [data-theme="dark"] .cc-tab { background: var(--color-surface); border-color: var(--color-border); }
-[data-theme="dark"] .cc-tab:hover { background: var(--color-bg-highlight); }
-[data-theme="dark"] .cc-tab.active { background: var(--color-card-teal); color: #fff; border-color: var(--color-card-teal); }
 [data-theme="dark"] .cc-infra-tint { opacity: 0.35; }
 [data-theme="dark"] .cc-infra-label { color: #e0e0e0; }
 [data-theme="dark"] .cc-page { --color-border-light: #666; }

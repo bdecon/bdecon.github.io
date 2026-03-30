@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Getting Started with Python for Economics | BD Economics</title>
+	<title>Setup with Python for Economics | BD Economics</title>
 	<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 	<link rel="stylesheet" href="style.css">
 	<meta name="description" content="Install Python, learn pandas and numpy for economics, and make your first API call. Covers CPI inflation rates, nominal vs real adjustments, growth decomposition, and the Keynesian fiscal multiplier.">
@@ -11,14 +11,14 @@
 	<meta name="author" content="Brian Dew">
 	<link rel="canonical" href="https://bd-econ.com/getstarted.html">
 	<!-- Open Graph -->
-	<meta property="og:title" content="Getting Started with Python for Economics | BD Economics">
+	<meta property="og:title" content="Setup with Python for Economics | BD Economics">
 	<meta property="og:description" content="Install Python, learn pandas and numpy for economics, and make your first API call. Covers inflation rates, real vs nominal, and the fiscal multiplier.">
 	<meta property="og:url" content="https://bd-econ.com/getstarted.html">
 	<meta property="og:type" content="article">
 	<meta property="og:image" content="https://bd-econ.com/images/01_bdlogo.png">
 	<!-- Twitter Card -->
 	<meta name="twitter:card" content="summary">
-	<meta name="twitter:title" content="Getting Started with Python for Economics | BD Economics">
+	<meta name="twitter:title" content="Setup with Python for Economics | BD Economics">
 	<meta name="twitter:description" content="Install Python, learn pandas and numpy for economics, and make your first API call. Covers inflation rates, real vs nominal, and the fiscal multiplier.">
 	<meta name="twitter:image" content="https://bd-econ.com/images/01_bdlogo.png">
 	<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
@@ -40,7 +40,7 @@
 {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "Getting Started with Python for Economics",
+    "headline": "Setup with Python for Economics",
     "description": "Install Python, learn pandas and numpy for economics, and make your first API call. Covers inflation rates, real vs nominal adjustments, growth decomposition, and the Keynesian fiscal multiplier.",
     "author": {
         "@type": "Person",
@@ -70,7 +70,7 @@
         {
             "@type": "ListItem",
             "position": 2,
-            "name": "Getting Started",
+            "name": "Setup",
             "item": "https://bd-econ.com/getstarted.html"
         }
     ]
@@ -86,7 +86,7 @@
   gtag('config', 'G-PGVF5S620Y');
 </script>
 </head>
-<body>
+<body class="page-getstarted">
 	<a href="#main" class="skip-link">Skip to main content</a>
 	<nav>
 		<ul class="site-nav" id="menu">
@@ -95,7 +95,7 @@
 			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <svg class="icon icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a> </li>
 			<li><a href="python.html" class="active" aria-current="page">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
-					<li><a href="getstarted.html">Getting Started</a></li>
+					<li><a href="getstarted.html">Setup</a></li>
 					<li><a href="imfapi1.html">IMF API</a></li>
 					<li><a href="blsapi.html">BLS API</a></li>
 					<li><a href="beaapi.html">BEA API</a></li>
@@ -111,7 +111,7 @@
 				<li><a href="indicators.html">Economic Indicators</a></li>
 				<li><a href="gdpm.html">Monthly GDP</a></li>
 				<li><a href="imfweo.html">IMF WEO</a></li>
-				<li><a href="calendar.html">Release Calendar</a></li>
+				<li><a href="calendar.html">Data Calendar</a></li>
 			</ul>
 			</li>
 			<li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span></button></li>
@@ -124,7 +124,7 @@
 		<picture><source srcset="images/getstarted_strip.webp" type="image/webp"><img decoding="async" fetchpriority="high" src="images/getstarted_strip.jpg" alt="" aria-hidden="true" class="page-strip-img" width="1500" height="200"></picture>
 	</div>
 	<div class="page-title">
-	<h1>Getting Started</h1>
+	<h1>Setup</h1>
 	</div><!-- .page-title -->
 	<main id="main">
 	<section>
@@ -137,7 +137,7 @@
 		<button class="tutorial-share" title="Copy link" aria-label="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span class="share-label">Link</span></button>
 	</div>
 
-	<h2>Getting Started with Python for Economics</h2>
+	<h2>Setup with Python for Economics</h2>
 	<p>This page covers everything you need to start using the <a href="python.html">six API tutorials</a> on this site: installing Python, the basics of pandas, and common economic calculations. If you already have Python set up, skip ahead to <a href="#pandas">Working with Data</a> or <a href="#calculations">Common Calculations</a>.</p>
 
 	<hr class="section-bar accent-ltblue">
@@ -496,7 +496,7 @@ r.json()['data']</code></pre>
 	</div>
 	</a>
 	<a href="blsapi.html">
-	<div class="card card-nav accent-purple">
+	<div class="card card-nav accent-teal">
 		<div class="card-banner">
 			<picture><source srcset="images/bls_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/bls_banner.png" alt="BLS API tutorial" width="257" height="68"></picture>
 		</div>

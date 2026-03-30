@@ -52,7 +52,7 @@
         {"@type": "WebApplication", "name": "Economic Indicators", "url": "https://bd-econ.com/indicators.html", "description": "Interactive charts for selected US economic indicators."},
         {"@type": "WebApplication", "name": "Monthly GDP", "url": "https://bd-econ.com/gdpm.html", "description": "Monthly estimates of US nominal and real GDP, combining quarterly BEA data with Fed nowcasts."},
         {"@type": "WebApplication", "name": "IMF WEO Forecast Tracker", "url": "https://bd-econ.com/imfweo.html", "description": "Track how IMF World Economic Outlook forecasts for 196 countries evolved across 72 editions."},
-        {"@type": "WebApplication", "name": "Release Calendar", "url": "https://bd-econ.com/calendar.html", "description": "Upcoming US economic data release dates for 35+ indicators, sourced from the FRED API."}
+        {"@type": "WebApplication", "name": "Data Calendar", "url": "https://bd-econ.com/calendar.html", "description": "Upcoming US economic data release dates for 35+ indicators, sourced from the FRED API."}
     ]
 }
 </script>
@@ -66,7 +66,7 @@
   gtag('config', 'G-PGVF5S620Y');
 </script>
 </head>
-<body>
+<body class="page-reports">
 	<a href="#main" class="skip-link">Skip to main content</a>
 	<nav>
 		<ul class="site-nav" id="menu">
@@ -75,7 +75,7 @@
 			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <svg class="icon icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a> </li>
 			<li><a href="python.html">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
-					<li><a href="getstarted.html">Getting Started</a></li>
+					<li><a href="getstarted.html">Setup</a></li>
 					<li><a href="imfapi1.html">IMF API</a></li>
 					<li><a href="blsapi.html">BLS API</a></li>
 					<li><a href="beaapi.html">BEA API</a></li>
@@ -91,7 +91,7 @@
 				<li><a href="indicators.html">Economic Indicators</a></li>
 				<li><a href="gdpm.html">Monthly GDP</a></li>
 				<li><a href="imfweo.html">IMF WEO</a></li>
-				<li><a href="calendar.html">Release Calendar</a></li>
+				<li><a href="calendar.html">Data Calendar</a></li>
 			</ul>
 			</li>
 			<li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span></button></li>
@@ -173,10 +173,10 @@
 	<div class="card card-nav accent-brown">
 
 		<div class="card-banner">
-			<picture><source srcset="images/calendar_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/calendar_banner.png" alt="Release Calendar" width="512" height="98"></picture>
+			<picture><source srcset="images/calendar_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/calendar_banner.png" alt="Data Calendar" width="512" height="98"></picture>
 		</div>
 		<div class="card-header">
-			<h3>Release Calendar</h3>
+			<h3>Data Calendar</h3>
 		</div>
 		<div class="card-body">
 			<p>When to expect the next jobs report, CPI, GDP, and 30+ other releases that feed into the Chartbook. Filterable by frequency and significance.</p>

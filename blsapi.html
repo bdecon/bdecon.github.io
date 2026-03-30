@@ -86,7 +86,7 @@
   gtag('config', 'G-PGVF5S620Y');
 </script>
 </head>
-<body>
+<body class="page-blsapi">
 	<a href="#main" class="skip-link">Skip to main content</a>
 	<nav>
 		<ul class="site-nav" id="menu">
@@ -95,7 +95,7 @@
 			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <svg class="icon icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a> </li>
 			<li><a href="python.html" class="active" aria-current="page">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
-					<li><a href="getstarted.html">Getting Started</a></li>
+					<li><a href="getstarted.html">Setup</a></li>
 					<li><a href="imfapi1.html">IMF API</a></li>
 					<li><a href="blsapi.html">BLS API</a></li>
 					<li><a href="beaapi.html">BEA API</a></li>
@@ -111,7 +111,7 @@
 				<li><a href="indicators.html">Economic Indicators</a></li>
 				<li><a href="gdpm.html">Monthly GDP</a></li>
 				<li><a href="imfweo.html">IMF WEO</a></li>
-				<li><a href="calendar.html">Release Calendar</a></li>
+				<li><a href="calendar.html">Data Calendar</a></li>
 			</ul>
 			</li>
 			<li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span></button></li>
@@ -232,7 +232,7 @@ ax.legend();</code></pre>
 <p>The v1 API is simple but limited in the number of requests and years returned. For more complex requests, the v2 API shown in example 2 is preferable.</p>
 <hr class="section-bar accent-purple">
 <h3>Example 2: Requesting multiple series and specific dates</h3>
-<p>The second example uses the BLS API v2 (which requires free <a href = "https://data.bls.gov/registrationEngine/">registration</a>) to request more than one series at the same time. The version 2 API has a higher daily query limit, allows more years and series to be returned in each query, and allows some additional options such as requesting data in percent change rather than level. See <a href="https://www.bls.gov/developers/api_faqs.htm#register1">difference between v1 and v2</a>. The API key is stored in a local <code>config.py</code> file; see the <a href="getstarted.html">Getting Started guide</a> for details.</p>
+<p>The second example uses the BLS API v2 (which requires free <a href = "https://data.bls.gov/registrationEngine/">registration</a>) to request more than one series at the same time. The version 2 API has a higher daily query limit, allows more years and series to be returned in each query, and allows some additional options such as requesting data in percent change rather than level. See <a href="https://www.bls.gov/developers/api_faqs.htm#register1">difference between v1 and v2</a>. The API key is stored in a local <code>config.py</code> file; see the <a href="getstarted.html">Setup guide</a> for details.</p>
 <span class="label step-label accent-purple">Parameters</span>
 <p>The v2 API uses a POST request instead of GET&mdash;we send a JSON body specifying which series, years, and API key we want. The <code>requests</code> library's <code>json=</code> parameter handles the serialization and headers automatically. See: <a href="https://stackoverflow.com/questions/3477333/what-is-the-difference-between-post-and-get">What is the difference between POST and GET?</a></p>
 <p>In[6]:</p>
