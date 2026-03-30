@@ -2,7 +2,7 @@
 	'use strict';
 
 	// Read font from CSS variable
-	const SITE_FONT = getComputedStyle(document.documentElement).getPropertyValue('--font').trim() || "'Inter', sans-serif";
+	const SITE_FONT = getComputedStyle(document.documentElement).getPropertyValue('--font').trim() || "'Lato', sans-serif";
 
 	// --- State ---
 	let DATA = null;

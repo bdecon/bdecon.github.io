@@ -166,7 +166,7 @@
 
 	<article class="ind-chart">
 		<select id="dataset-select" aria-label="Select chart" style="display:none"></select>
-		<div class="chart-selector">
+		<div class="control-panel chart-selector">
 			<button class="btn card-nav-btn" id="chart-prev" title="Previous chart (← key)" aria-label="Previous chart"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
 			<div class="chart-selector-center">
 				<h4 class="chart-selector-title" id="chart-selector-title"></h4>
@@ -181,7 +181,7 @@
 		<div class="chart-flip-wrapper" role="region" aria-label="Economic indicator chart">
 			<div class="chart-flip-inner">
 				<div class="chart-flip-front" aria-hidden="false">
-					<div class="card card-compact">
+					<div class="card card-compact card-chart">
 						<div class="chart-loading" id="chart-loading"><div class="chart-loading-spinner"></div></div>
 						<div class="card-header accent-blue">
 							<span class="chart-title"><span id="chart-title">M2 Money Supply / GDP</span> <span class="card-category-badge" id="card-category-front"></span></span>
@@ -204,7 +204,7 @@
 					</div>
 				</div>
 				<div class="chart-flip-back" aria-hidden="true">
-					<div class="card card-compact">
+					<div class="card card-compact card-chart">
 						<div class="card-header accent-blue">
 							<span class="chart-title"><span id="chart-title-back"></span> <span class="card-category-badge" id="card-category"></span></span>
 							<button id="chart-back-btn" title="Back to chart" aria-label="Back to chart"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7M19 12H5"/></svg></button>

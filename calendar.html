@@ -130,15 +130,15 @@
 		</article>
 
 		<div class="control-panel cal-toolbar" role="toolbar" aria-label="Calendar controls">
-			<div class="btn btn--pill cal-filters" role="group" aria-label="Filter releases">
+			<div class="cal-filters" role="group" aria-label="Filter releases">
 				<button class="btn btn--pill cal-filter active" data-filter="all" aria-pressed="true" aria-label="Show all releases">All</button>
 				<button class="btn btn--pill cal-filter" data-filter="major" aria-pressed="false" aria-label="Show major releases only">Major</button>
 				<button class="btn btn--pill cal-filter" data-view="week" aria-pressed="false" aria-label="Show this week's releases">This Week</button>
 			</div>
 			<div class="cal-month-nav">
-				<button id="cal-prev" aria-label="Previous month">&larr;</button>
+				<button class="btn" id="cal-prev" aria-label="Previous month">&larr;</button>
 				<output class="cal-month-label" id="cal-month-label" aria-live="polite"></output>
-				<button id="cal-next" aria-label="Next month">&rarr;</button>
+				<button class="btn" id="cal-next" aria-label="Next month">&rarr;</button>
 			</div>
 		</div>
 
@@ -355,7 +355,7 @@
 			}
 
 			const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-			let html = '<div class="cal-week-summary"><strong>This week:</strong> ';
+			let html = '<div class="info-box accent-brown cal-week-summary"><h3>This week</h3> ';
 			const dayParts = [];
 			for (const [dateStr, entries] of Object.entries(byDay).sort()) {
 				const d = parseDate(dateStr);

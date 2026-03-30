@@ -155,8 +155,8 @@
 
 	<div class="dash-column">
 	<div class="info-box weo-info" id="weo-info">
-		<div><span class="label weo-info-label">Latest edition</span><span id="weo-info-edition">…</span></div>
-		<div><span class="label weo-info-label">Next update</span><span id="weo-info-next">…</span></div>
+		<div><div class="label">Latest edition</div><span id="weo-info-edition">…</span></div>
+		<div><div class="label">Next update</div><span id="weo-info-next">…</span></div>
 		<div><a href="https://www.imf.org/en/Publications/WEO">IMF WEO page &rarr;</a></div>
 	</div>
 
@@ -174,7 +174,7 @@
 		</div>
 	</div>
 
-	<div class="card card-compact">
+	<div class="card card-compact card-chart">
 		<div class="card-header accent-blue">
 			<div>
 				<span class="chart-title" id="chart-title">Loading…</span>
@@ -182,7 +182,7 @@
 			</div>
 			<div class="card-actions weo-share">
 				<button id="btn-copy-link" title="Copy link to this chart" aria-label="Copy link to this chart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button>
-				<div class="weo-download-links"><a id="btn-download-png" title="Download chart as PNG">PNG</a> · <a id="btn-download-csv" title="Download data as CSV">CSV</a></div>
+				<div class="note weo-download-links"><a id="btn-download-png" title="Download chart as PNG">PNG</a> · <a id="btn-download-csv" title="Download data as CSV">CSV</a></div>
 			</div>
 		</div>
 		<div class="card-body">
@@ -191,19 +191,19 @@
 				<div class="legend-col-header legend-hdr-latest" id="legend-latest-header" data-toggle-group="latest">Oct 2025 WEO</div>
 				<div class="legend-col-header legend-hdr-prev" data-toggle-group="prev">Previous WEOs</div>
 				<div class="legend-col-header legend-hdr-nc" data-toggle-group="nc">Same-year nowcast</div>
-				<div class="chart-legend-item legend-col1" style="grid-row:2" data-toggle="actual"><span class="legend-swatch legend-line"></span> Actual</div>
-				<div class="chart-legend-item legend-col1" style="grid-row:3" data-toggle="forecast"><span class="legend-swatch legend-line-dashed"></span> Forecast/est.</div>
-				<div class="chart-legend-item legend-col1 legend-off" style="grid-row:4" data-toggle="world"><span class="legend-swatch legend-line-gray"></span> World average</div>
-				<div class="chart-legend-item legend-col1 legend-off" style="grid-row:5" data-toggle="region" id="legend-region"><span class="legend-swatch legend-line-region"></span> <span id="legend-region-name">Region average</span></div>
-				<div class="chart-legend-item legend-col2" style="grid-row:2" data-toggle="cloud_far"><span class="legend-swatch legend-dot-h5"></span> 5-year forecast</div>
-				<div class="chart-legend-item legend-col2" style="grid-row:3" data-toggle="cloud_mid"><span class="legend-swatch legend-dot-h3"></span> 3-year forecast</div>
-				<div class="chart-legend-item legend-col2" style="grid-row:4" data-toggle="cloud_near"><span class="legend-swatch legend-dot-h1"></span> 1-year forecast</div>
-				<div class="chart-legend-item legend-col3" style="grid-row:3" data-toggle="nc_apr"><span class="legend-swatch legend-nc-diamond"></span> April</div>
-				<div class="chart-legend-item legend-col3" style="grid-row:4" data-toggle="nc_oct"><span class="legend-swatch legend-nc-square"></span> October</div>
+				<div class="chart-legend-item legend-col1" data-toggle="actual"><span class="legend-swatch legend-line"></span> Actual</div>
+				<div class="chart-legend-item legend-col1" data-toggle="forecast"><span class="legend-swatch legend-line-dashed"></span> Forecast/est.</div>
+				<div class="chart-legend-item legend-col1 legend-off" data-toggle="world"><span class="legend-swatch legend-line-gray"></span> World average</div>
+				<div class="chart-legend-item legend-col1 legend-off" data-toggle="region" id="legend-region"><span class="legend-swatch legend-line-region"></span> <span id="legend-region-name">Region average</span></div>
+				<div class="chart-legend-item legend-col2" data-toggle="cloud_far"><span class="legend-swatch legend-dot-h5"></span> 5-year forecast</div>
+				<div class="chart-legend-item legend-col2" data-toggle="cloud_mid"><span class="legend-swatch legend-dot-h3"></span> 3-year forecast</div>
+				<div class="chart-legend-item legend-col2" data-toggle="cloud_near"><span class="legend-swatch legend-dot-h1"></span> 1-year forecast</div>
+				<div class="chart-legend-item legend-col3" data-toggle="nc_apr"><span class="legend-swatch legend-nc-diamond"></span> April</div>
+				<div class="chart-legend-item legend-col3" data-toggle="nc_oct"><span class="legend-swatch legend-nc-square"></span> October</div>
 			</div>
 			<canvas id="weoChart" role="img" aria-label="Scatter chart showing how IMF World Economic Outlook forecasts evolved across editions"></canvas>
 		</div>
-		<div id="ext-history-bar" class="ext-history-bar">
+		<div id="ext-history-bar" class="note ext-history-bar">
 			<span class="view-label">Time range:</span>
 			<span id="view-ext"></span>
 			<span id="view-sep-1"></span>
@@ -223,26 +223,35 @@
 		<summary>Forecast Accuracy Scores</summary>
 		<p>How accurate are IMF forecasts for each country? This table scores one-year-ahead forecasts against actual outcomes. A high <em>% Over</em> means the IMF consistently overestimated; the <em>Bias</em> z-score shows how unusual that pattern is relative to other countries. Volatile economies naturally have higher errors (MAE), so the bias score helps distinguish genuine forecast bias from inherent unpredictability. Click a column to sort, or click a row to view that country's chart.</p>
 		<div class="dash-column">
-		<div class="scores-controls">
-			<select id="scores-indicator" class="form-select" aria-label="Forecast indicator">
-				<option value="NGDP_RPCH">Real GDP Growth</option>
-				<option value="PCPIPCH">CPI Inflation</option>
-				<option value="BCA_NGDPD">Current Account Balance</option>
-			</select>
-			<select id="scores-period" class="form-select" aria-label="Time period">
-				<option value="modern">2010–2024</option>
-				<option value="mid">2000–2024</option>
-				<option value="full">1992–2024</option>
-			</select>
-			<select id="scores-region" class="form-select" aria-label="Region filter">
-				<option value="all">All regions</option>
-				<option value="G110">Advanced Economies</option>
-				<option value="G505">Emerging &amp; Developing Asia</option>
-				<option value="G903">Emerging &amp; Developing Europe</option>
-				<option value="G205">Latin America &amp; Caribbean</option>
-				<option value="G400">Middle East &amp; Central Asia</option>
-				<option value="G603">Sub-Saharan Africa</option>
-			</select>
+		<div class="control-panel scores-controls">
+			<div class="control-row">
+				<label for="scores-indicator">Indicator:</label>
+				<select id="scores-indicator" class="form-select">
+					<option value="NGDP_RPCH">Real GDP Growth</option>
+					<option value="PCPIPCH">CPI Inflation</option>
+					<option value="BCA_NGDPD">Current Account Balance</option>
+				</select>
+			</div>
+			<div class="control-row">
+				<label for="scores-period">Period:</label>
+				<select id="scores-period" class="form-select">
+					<option value="modern">2010–2024</option>
+					<option value="mid">2000–2024</option>
+					<option value="full">1992–2024</option>
+				</select>
+			</div>
+			<div class="control-row">
+				<label for="scores-region">Region:</label>
+				<select id="scores-region" class="form-select">
+					<option value="all">All regions</option>
+					<option value="G110">Advanced Economies</option>
+					<option value="G505">Emerging &amp; Developing Asia</option>
+					<option value="G903">Emerging &amp; Developing Europe</option>
+					<option value="G205">Latin America &amp; Caribbean</option>
+					<option value="G400">Middle East &amp; Central Asia</option>
+					<option value="G603">Sub-Saharan Africa</option>
+				</select>
+			</div>
 		</div>
 		<div class="scores-scroll">
 			<table class="dash-table scores-table" id="scores-table">
@@ -257,7 +266,7 @@
 				<tbody id="scores-body"></tbody>
 			</table>
 		</div>
-		<p class="note scores-note"><strong>% Over</strong>: share of one-year-ahead forecasts that exceeded the actual outcome. <strong>Bias</strong>: z-score of a country's mean forecast error relative to all countries (positive = systematic overforecast). <strong>MAE</strong>: mean absolute error in percentage points. <a id="btn-download-scores" class="download-link" role="button">Download full scores (CSV)</a></p>
+		<p class="note"><strong>% Over</strong>: share of one-year-ahead forecasts that exceeded the actual outcome. <strong>Bias</strong>: z-score of a country's mean forecast error relative to all countries (positive = systematic overforecast). <strong>MAE</strong>: mean absolute error in percentage points. <a id="btn-download-scores" class="download-link" role="button">Download full scores (CSV)</a></p>
 		</div>
 	</details>
 
