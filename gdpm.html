@@ -171,13 +171,13 @@
 		</div>
 
 		<div class="info-boxes">
-			<div class="info-box info-section">
+			<div class="info-box info-section accent-red">
 				<h3>Latest Estimate</h3>
-				<p class="key-stat estimate-value" id="estimate-value">—</p>
+				<p class="key-stat-row"><span class="estimate-period" id="estimate-period"></span> <span class="key-stat" id="estimate-number">—</span></p>
 				<p class="estimate-updated">Data as of <span id="estimate-asof">—</span></p>
 			</div>
 
-			<div class="info-box info-section">
+			<div class="info-box info-section accent-red">
 				<h3>Download Data</h3>
 				<p class="download-desc">Monthly nominal and real GDP in billions of USD, seasonally adjusted annual rate</p>
 				<a href="files/gdpm.csv" class="download-btn" download><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> gdpm.csv<span class="file-meta" id="file-meta"></span></a>
@@ -230,8 +230,13 @@
 
 	<p>The chart below illustrates the interpolation process. The stepped gray line shows published quarterly GDP values. The smooth red line shows the monthly interpolated series. The most recent quarter includes the nowcast estimate.</p>
 
-	<div class="info-box comparison-chart">
-		<canvas id="comparisonChart" role="img" aria-label="Line chart comparing GDP estimates across sources"></canvas>
+	<div class="card comparison-chart accent-red">
+		<div class="card-header">
+			<span class="chart-title">Quarterly vs. Monthly Nominal GDP</span>
+		</div>
+		<div class="card-body">
+			<canvas id="comparisonChart" role="img" aria-label="Line chart comparing quarterly and monthly nominal GDP"></canvas>
+		</div>
 	</div>
 
 	<hr class="section-bar accent-red">

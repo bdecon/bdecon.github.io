@@ -7,7 +7,7 @@ function getThemeColors() {
 	const get = (name) => style.getPropertyValue(name).trim();
 	return {
 		grid: get('--color-grid') || 'rgba(0, 0, 0, 0.06)',
-		axisText: get('--color-text-muted') || '#666',
+		axisText: get('--color-text') || '#3a3a3a',
 		tooltipBg: get('--color-tooltip-bg') || 'rgba(75, 75, 75, 0.95)'
 	};
 }
@@ -177,7 +177,8 @@ async function init() {
 			minimumFractionDigits: 1,
 			maximumFractionDigits: 1
 		});
-		document.getElementById('estimate-value').textContent = monthYear + ': $' + billions + 'B';
+		document.getElementById('estimate-period').innerHTML = months[latestDate.getUTCMonth()] + '<br>' + latestDate.getUTCFullYear();
+		document.getElementById('estimate-number').textContent = '$' + billions + 'B';
 
 		// Calculate actual file size from fetched data
 		const fileBytes = new Blob([csv]).size;
@@ -213,7 +214,7 @@ async function init() {
 				maintainAspectRatio: true,
 				layout: {
 					padding: {
-						right: 48,
+						right: 42,
 						top: 15
 					}
 				},
@@ -361,10 +362,12 @@ const nowcastPlugin = {
 		const centerX = (startX + right) / 2;
 
 		ctx.save();
-		ctx.font = `10px ${SITE_FONT}`;
+		ctx.font = `12px ${SITE_FONT}`;
 		ctx.fillStyle = getThemeColors().axisText;
 		ctx.textAlign = 'center';
-		ctx.fillText('Nowcast', centerX, bottom - 8);
+		const midY = (chart.chartArea.top + bottom) / 2;
+		ctx.fillText('Now-', centerX, midY - 6);
+		ctx.fillText('cast', centerX, midY + 8);
 		ctx.restore();
 	}
 };
@@ -463,13 +466,7 @@ async function initComparisonChart() {
 					mode: 'index'
 				},
 				plugins: {
-					title: {
-						display: true,
-						text: 'Monthly GDP vs. Quarterly GDP',
-						font: { size: 16, family: SITE_FONT, weight: '600' },
-						color: getComputedStyle(document.documentElement).getPropertyValue('--color-text-strong').trim(),
-						padding: { bottom: 10 }
-					},
+					title: { display: false },
 					legend: {
 						display: true,
 						position: 'bottom',
@@ -507,7 +504,7 @@ async function initComparisonChart() {
 						type: 'category',
 						grid: { display: false },
 						ticks: {
-							font: { size: 10, family: SITE_FONT },
+							font: { size: 11, family: SITE_FONT },
 							color: tc2.axisText,
 							autoSkip: false,
 							maxRotation: 0,
@@ -520,7 +517,7 @@ async function initComparisonChart() {
 									'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 								// Show label for each quarter (Jan, Apr, Jul, Oct)
 								if (date.getUTCMonth() % 3 === 0) {
-									return months[date.getUTCMonth()] + ' ' + date.getUTCFullYear();
+									return [months[date.getUTCMonth()], date.getUTCFullYear()];
 								}
 								return '';
 							}
@@ -530,7 +527,7 @@ async function initComparisonChart() {
 						border: { display: false },
 						grid: { color: tc2.grid },
 						ticks: {
-							font: { size: 10, family: SITE_FONT },
+							font: { size: 11, family: SITE_FONT },
 							color: tc2.axisText,
 							callback: function(value) {
 								return '$' + (value / 1000).toFixed(1) + 'T';

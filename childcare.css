@@ -22,7 +22,6 @@
 	& #decision-tree-container { margin-bottom: 48px; max-width: 900px; & > .card-body { padding: 24px 16px 12px; } }
 	& #metric-tabs { margin-top: 2.5rem; }
 	& .cc-source-italic { font-style: italic; color: var(--color-text); }
-	& .details-section:not([open]) + .details-section { margin-top: var(--space-2); }
 
 	/* Hero photo */
 	.cc-hero-photo {

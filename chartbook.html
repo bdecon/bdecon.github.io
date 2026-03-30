@@ -149,11 +149,13 @@
 		<article class="prose">
 		<p class="callout accent-green">A deep dive into the US economy — 250+ charts, regularly updated.</p>
 		<p>The US Chartbook covers nine areas of the US economy in detail, with charts, tables, commentary, and links to public data sources. It connects to BEA, BLS, Census, the Federal Reserve, and Treasury APIs to stay current.</p>
-		</article>
 		<div class="split-row cb-row prose">
-		<article class="card cb-download">
-			<h2>Read the latest edition <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="cb-icon"><path d="M12 5v14m7-7-7 7-7-7"/></svg></h2>
-			<hr class="hr-accent accent-green">
+		<article class="card cb-download accent-green">
+			<div class="card-header">
+				<span class="chart-title">Read the latest edition</span>
+			</div>
+			<div class="card-body">
+			<p>Click below to open the latest version of the US Chartbook.</p>
 			<a href="chartbook.pdf" target="_blank" rel="noopener" onclick="gtag('event', 'chartbook_download', {link_url: 'chartbook.pdf', link_text: 'Chartbook'});">
 			<div class="card card-nav accent-green">
 				<div class="card-banner">
@@ -170,19 +172,23 @@
 			</div>
 			</a>
 			<p class="note cb-free"><a href="https://github.com/bdecon/US-chartbook">Source code on GitHub</a></p>
+			</div>
 		</article>
-		<div class="card cb-sources" id="cb-sources">
-			<h2>Data Sources</h2>
-			<hr class="hr-accent accent-green">
+		<div class="card cb-sources accent-green" id="cb-sources">
+			<div class="card-header">
+				<span class="chart-title">Data Sources</span>
+			</div>
+			<div class="card-body">
 			<table class="dash-table"><tbody id="cb-sources-table">
 			</tbody></table>
 			<p class="note cb-st" id="cb-st"></p>
 			<noscript><p>Enable JavaScript to see the latest data sources.</p></noscript>
+			</div>
 		</div>
 		</div>
 		<hr class="section-bar accent-green">
 
-		<details class="details-section prose">
+		<details class="details-section">
 			<summary>What's Inside</summary>
 			<p>The chartbook tracks economic and social developments in the United States since 1989. Each section contains charts, tables, descriptive text, and links to relevant materials. It bridges the gap between raw data resources like FRED and professional analysis like the IMF Article IV&mdash;more curated than databases, fresher than traditional analysis.</p>
 			<ol>
@@ -198,7 +204,7 @@
 			</ol>
 		</details>
 
-		<details class="details-section prose">
+		<details class="details-section">
 			<summary>Sample Pages</summary>
 			<div class="cb-previews">
 				<picture><source srcset="images/cb_preview_toc.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/cb_preview_toc.png" alt="Chartbook table of contents" width="600" height="776" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}"></picture>
@@ -207,11 +213,12 @@
 			</div>
 		</details>
 
-		<details class="details-section prose">
+		<details class="details-section">
 			<summary>Related</summary>
 			<p>For interactive versions of key indicators, see the <a href="indicators.html">Economic Indicators</a> page. For international economic data and forecasts, see the <a href="imfweo.html">IMF World Economic Outlook</a> page. The <a href="calendar.html">Release Calendar</a> shows when the next update is expected for each data source tracked by the Chartbook. Contributions and corrections are welcome via <a href="https://github.com/bdecon/US-chartbook">GitHub</a>.</p>
 		</details>
 
+		</article>
 	<div class="subfooter" data-hub="reports" data-current="chartbook.html" style="--accent-color: var(--color-card-green)"></div>
 	</section>
 	</main>
