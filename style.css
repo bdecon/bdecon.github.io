@@ -217,7 +217,7 @@
   left: 0;
   background: var(--color-accent-red);
   color: #fff;
-  padding: 8px 16px;
+  padding: var(--space-2) var(--space-4);
   z-index: var(--z-dropdown);
   font-size: var(--text-sm);
   text-decoration: none;
@@ -296,7 +296,7 @@ hr {
 	& .details-section { margin: 2.5rem 0 1rem; }
 	& .details-section summary { padding: 10px 0; }
 	& .details-section summary::before { border-left-color: var(--color-text-strong); }
-	& .details-section[open] summary { margin-bottom: 24px; }
+	& .details-section[open] summary { margin-bottom: var(--space-5); }
 	& .details-section p { font-size: 15px; color: var(--color-text-muted); line-height: 1.65; text-align: justify; hyphens: auto; margin-bottom: 28px; }
 	& .details-section li { color: var(--color-text-muted); }
 	@media (max-width: 760px) {
@@ -305,8 +305,8 @@ hr {
 }
 
 /* Noscript fallback warning */
-.noscript-warning { background: var(--color-bg-highlight); color: var(--color-text); padding: 12px; font-size: var(--text-sm); border: var(--elevation-border); }
-:is(h1, h2, h3, h4) { font-family: var(--font-mono); line-height: 1.2; text-wrap: balance; letter-spacing: -0.02em; scroll-margin-top: 64px; }
+.noscript-warning { background: var(--color-bg-highlight); color: var(--color-text); padding: var(--space-3); font-size: var(--text-sm); border: var(--elevation-border); }
+:is(h1, h2, h3, h4) { font-family: var(--font-mono); line-height: 1.2; text-wrap: balance; letter-spacing: -0.02em; scroll-margin-top: var(--space-8); }
 h1 { margin: 8px 0; }
 h2 { font-size: var(--text-4xl); }
 h3 { font-size: var(--text-3xl); }
@@ -324,7 +324,7 @@ a {
 pre {
 	background: var(--color-code-bg);
 	border: 2px solid var(--color-border-light);
-	padding: 16px;
+	padding: var(--space-4);
 	margin: 16px 0;
 	overflow-x: auto;
 	font-size: var(--text-sm);
@@ -408,7 +408,7 @@ nav{
 .nav-logo {
 	fill: var(--color-nav-text);
 	vertical-align: middle;
-	margin-right: 4px;
+	margin-right: var(--space-1);
 	position: relative;
 	top: -1px;
 }
@@ -416,7 +416,7 @@ ul li a:hover + .hidden, .hidden:hover { display: block; }
 /* Theme toggle button */
 .theme-toggle {
   color: var(--color-nav-text);
-  padding: 14px 10px; margin-right: 16px;
+  padding: 14px 10px; margin-right: var(--space-4);
   font-size: var(--text-base); line-height: 1; opacity: 0.7; transition: opacity var(--transition-normal);
   &:hover { opacity: 1; }
 }
@@ -547,7 +547,7 @@ article:not(.prose) > :first-child { margin-top: 0; }
 /* Side-by-side row — two items, stacks on mobile */
 .split-row {
 	display: flex;
-	gap: 24px;
+	gap: var(--space-5);
 	align-items: flex-start;
 	@media (max-width: 760px) { flex-direction: column; }
 }
@@ -580,7 +580,7 @@ article:not(.prose) > :first-child { margin-top: 0; }
 .trail-badge {
 	display: inline-flex;
 	align-items: center;
-	gap: 4px;
+	gap: var(--space-1);
 	font-size: var(--text-xs);
 	padding: 2px 8px;
 	border-radius: 10px;
@@ -596,7 +596,7 @@ article:not(.prose) > :first-child { margin-top: 0; }
 /* Card — the universal container: border, background, optional colored header.
    Used for nav cards, chart cards, info panels, report sections. */
 .card, .info-box {
-	--card-ph: 16px;
+	--card-ph: var(--space-4);
 	position: relative;
 	border: var(--elevation-border);
 	background: var(--color-card-bg);
@@ -631,8 +631,8 @@ article:not(.prose) > :first-child { margin-top: 0; }
 	&:hover { border-color: var(--color-text-muted); }
 	& .card-header {
 		background: var(--color-bg-highlight); color: var(--color-text-strong);
-		display: flex; align-items: center; justify-content: center; gap: 8px;
-		padding: 8px 12px;
+		display: flex; align-items: center; justify-content: center; gap: var(--space-2);
+		padding: var(--space-2) var(--space-3);
 		&::before {
 			content: ''; width: 10px; height: 10px; flex-shrink: 0;
 			background: var(--accent);
@@ -641,8 +641,8 @@ article:not(.prose) > :first-child { margin-top: 0; }
 	}
 	& .card-body {
 		padding: 2px 12px 12px; min-height: 125px;
-		& p { margin-top: 8px; margin-bottom: 0; font-size: var(--text-base); line-height: 1.4;
-			@media (max-width: 760px) { margin-bottom: 8px; }
+		& p { margin-top: var(--space-2); margin-bottom: 0; font-size: var(--text-base); line-height: 1.4;
+			@media (max-width: 760px) { margin-bottom: var(--space-2); }
 		}
 	}
 }
@@ -665,7 +665,7 @@ table {
 	border-collapse: collapse;
 	width: 100%;
 	font-size: var(--text-sm);
-	& th, & td { padding: 4px 8px; border-bottom: 1px solid var(--color-border-light); }
+	& th, & td { padding: var(--space-1) var(--space-2); border-bottom: 1px solid var(--color-border-light); }
 	& th { font-family: var(--font-mono); font-weight: 700; letter-spacing: 0.04em; }
 	& td { font-variant-numeric: tabular-nums; }
 	& tbody tr:nth-child(even) { background-color: var(--color-bg-alt); }
@@ -690,7 +690,7 @@ table {
 	& td:first-child { font-weight: bold; text-align: left; position: sticky; left: 0; background: var(--color-surface); z-index: 1; }
 	& tr:nth-child(even) td:first-child { background: var(--color-bg-alt); }
 	& tbody tr:hover td:first-child { background: var(--color-bg-highlight); }
-	@media (max-width: 760px) { & th, & td { padding: 4px; font-size: var(--text-xs); } }
+	@media (max-width: 760px) { & th, & td { padding: var(--space-1); font-size: var(--text-xs); } }
 }
 
 /* ===== Chart Data Viz ===== */
@@ -728,7 +728,7 @@ table {
 .chart-legend-item {
 	display: flex;
 	align-items: center;
-	gap: 4px;
+	gap: var(--space-1);
 	cursor: pointer;
 	white-space: nowrap;
 	user-select: none;
@@ -747,7 +747,7 @@ table {
 
 /* Card modifiers — size, layout, and reusable card-level elements */
 .card-compact {
-	--card-ph: 12px;
+	--card-ph: var(--space-3);
 	@media (max-width: 760px) {
 		& .card-header { padding: 6px 8px; }
 		& .card-body { padding: 6px 8px; }
@@ -775,7 +775,7 @@ table {
 	margin-left: auto;
 	& button {
 		border: none;
-		padding: 4px;
+		padding: var(--space-1);
 		color: color-mix(in srgb, white 80%, transparent);
 		line-height: 0;
 		transition: color var(--transition-fast);
@@ -801,12 +801,12 @@ table {
 			border-left: 5px solid var(--color-text-muted);
 			border-top: 4px solid transparent;
 			border-bottom: 4px solid transparent;
-			margin-right: 8px; transition: transform var(--transition-fast);
+			margin-right: var(--space-2); transition: transform var(--transition-fast);
 		}
 		&.section-summary { font-size: var(--text-2xl); }
 	}
 	&[open] summary::before { transform: rotate(90deg); }
-	&[open] summary { margin-bottom: 8px; }
+	&[open] summary { margin-bottom: var(--space-2); }
 	& h3 { margin: 24px 0 12px; }
 	& ol, & ul { margin-bottom: 0; }
 }
@@ -816,7 +816,7 @@ table {
    .btn--pill  — standalone pill shape (border-radius: 20px) */
 .btn {
 	font-family: var(--font-mono);
-	padding: 4px 12px;
+	padding: var(--space-1) var(--space-3);
 	border: 1px solid var(--color-border-light);
 	background: var(--color-bg-input);
 	color: var(--color-text-muted);
@@ -860,7 +860,7 @@ table {
 	background: var(--color-tooltip-bg);
 	color: #fff;
 	font-size: var(--text-xs);
-	padding: 8px 12px;
+	padding: var(--space-2) var(--space-3);
 	z-index: 100;
 	line-height: 1.45;
 	opacity: 0;
@@ -870,9 +870,9 @@ table {
 .chart-tooltip-header {
 	font-weight: 600;
 	font-size: var(--text-sm);
-	margin-bottom: 4px;
+	margin-bottom: var(--space-1);
 	border-bottom: 1px solid color-mix(in srgb, white 20%, transparent);
-	padding-bottom: 4px;
+	padding-bottom: var(--space-1);
 }
 
 /* ===== Text Components ===== */
@@ -909,7 +909,7 @@ table {
 .tutorial-meta {
 	display: flex;
 	align-items: center;
-	gap: 12px;
+	gap: var(--space-3);
 	font-size: var(--text-xs);
 	color: var(--color-text-muted);
 	margin-bottom: 20px;
@@ -918,7 +918,7 @@ table {
 .tutorial-meta span { white-space: nowrap; }
 .tutorial-meta .meta-sep { color: var(--color-border-light); }
 .tutorial-meta button {
-	padding: 2px 4px; display: inline-flex; align-items: center; gap: 4px;
+	padding: 2px 4px; display: inline-flex; align-items: center; gap: var(--space-1);
 	transition: var(--transition-fast);
 	&:hover { color: var(--color-text-strong); }
 	& svg { width: 12px; height: 12px; }
@@ -963,7 +963,7 @@ table {
 }
 
 /* Card variant: info box — highlighted container for metadata, notes, stats */
-.info-box { background: var(--color-bg-highlight); padding: 12px 16px; }
+.info-box { background: var(--color-bg-highlight); padding: var(--space-3) var(--space-4); }
 
 /* ===== Syntax Highlighting ===== */
 
