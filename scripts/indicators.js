@@ -741,10 +741,7 @@ function updateBackFace(config, data, latestDate, prevDate) {
 		? (config.series[0].color || 'blue')
 		: (config.color || 'blue');
 	const headerColor = colorMap[colorKey];
-	backHeader.style.backgroundColor = headerColor.border;
-	const isDarkText = colorKey === 'yellow';
-	backHeader.style.color = isDarkText ? '#222' : 'white';
-	backHeader.classList.toggle('dark-text', isDarkText);
+	backHeader.style.borderTopColor = headerColor.border;
 
 	// Category badge (back and front)
 	const categoryEl = document.getElementById('card-category');
@@ -1217,13 +1214,7 @@ async function loadChart(datasetId) {
 		? (config.series[0].color || 'blue')
 		: (config.color || 'blue');
 	const headerColor = colorMap[colorKey];
-	header.style.backgroundColor = headerColor.border;
-	// Set CSS custom property for gradient fade
-	document.querySelector('.chart-flip-wrapper').style.setProperty('--chart-color', headerColor.border);
-	// Use dark text for low-contrast backgrounds (yellow)
-	const isDarkText = colorKey === 'yellow';
-	header.style.color = isDarkText ? '#222' : 'white';
-	header.classList.toggle('dark-text', isDarkText);
+	header.style.borderTopColor = headerColor.border;
 
 	try {
 		// Use cached CSV if available

@@ -6,6 +6,7 @@
 	<title>Childcare as Infrastructure | BD Economics</title>
 	<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="childcare.css">
 	<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 	<script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
 	<meta name="description" content="The US came within reach of public childcare. Twice. An interactive comparison of 71 geographies.">
@@ -17,16 +18,6 @@
 	<link rel="manifest" href="favicon/manifest.json">
 	<meta name="theme-color" content="#ffffff">
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-PGVF5S620Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-PGVF5S620Y');
-</script>
-
 <script>
 (function() {
 	const saved = localStorage.getItem('theme');
@@ -37,15 +28,24 @@
 	}
 })();
 </script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PGVF5S620Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'G-PGVF5S620Y');
+</script>
 </head>
 <body class="page-childcare">
 	<a href="#main" class="skip-link">Skip to main content</a>
-	<nav>
+	<header>
+	<nav aria-label="Main navigation">
 		<ul class="site-nav" id="menu">
 			<li class="nav-main"> <a href="index.html"><svg class="nav-logo" viewBox="0 0 9 5" width="22" height="12" aria-hidden="true"><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>Economics</a> </li>
 			<li><a href="about.html">About</a> </li>
-			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <svg class="icon icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a> </li>
+			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <svg class="icon icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg><span class="sr-only"> (opens in new tab)</span></a> </li>
 			<li><a href="python.html">Guides <span class="nav-arrow">&darr;</span></a>
 				<ul class="hidden">
 					<li><a href="getstarted.html">Setup</a></li>
@@ -55,7 +55,7 @@
 					<li><a href="censusapi.html">Census API</a></li>
 					<li><a href="treasuryapi.html">Treasury API</a></li>
 					<li><a href="cps.html">CPS Microdata</a></li>
-				</ul>
+			</ul>
 			</li>
 		<li>
 			<a href="reports.html">Reports <span class="nav-arrow">&darr;</span></a>
@@ -64,7 +64,7 @@
 				<li><a href="indicators.html">Economic Indicators</a></li>
 				<li><a href="gdpm.html">Monthly GDP</a></li>
 				<li><a href="imfweo.html">IMF WEO</a></li>
-				<li><a href="calendar.html">Data Calendar</a></li>
+				<li><a href="calendar.html">Release Calendar</a></li>
 			</ul>
 			</li>
 			<li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span></button></li>
@@ -73,6 +73,7 @@
 			</li>
 		</ul>
 	</nav>
+	</header>
 
 	<div class="page-strip accent-teal">
 		<picture><source srcset="images/childcare_strip.webp" type="image/webp"><img decoding="async" fetchpriority="high" src="images/childcare_strip.jpg" alt="" aria-hidden="true" class="page-strip-img" width="1600" height="200"></picture>
@@ -102,7 +103,7 @@
 
 	<p>In 1971, Congress passed the Comprehensive Child Development Act, a bipartisan bill to establish universal childcare. President Nixon <a href="https://www.presidency.ucsb.edu/documents/veto-the-economic-opportunity-amendments-1971" target="_blank" rel="noopener">vetoed it</a>. His speechwriter, Pat Buchanan, drafted a message warning against "the vast moral authority of the National Government" being committed "to the side of communal approaches to child rearing over against the family-centered approach." <img loading="lazy" decoding="async" src="files/childcare-images/flags/us.png" alt="US flag" class="cc-flag" width="120" height="80"></p>
 
-		<h3>Not all countries failed</h3>
+		<h2>Not all countries failed</h2>
 
 	<p>The Nordic countries — <img loading="lazy" decoding="async" src="files/childcare-images/flags/dk.png" alt="Denmark flag" class="cc-flag" width="120" height="80">Denmark, <img src="files/childcare-images/flags/fi.png" alt="Finland flag" class="cc-flag" width="120" height="80">Finland, <img src="files/childcare-images/flags/no.png" alt="Norway flag" class="cc-flag" width="120" height="80">Norway, and <img src="files/childcare-images/flags/se.png" alt="Sweden flag" class="cc-flag" width="120" height="80">Sweden — built their systems through political contest, not consensus. In 1934, Swedish social scientists <a href="https://en.wikipedia.org/wiki/Crisis_in_the_Population_Question" target="_blank" rel="noopener">Alva and Gunnar Myrdal</a> argued for sharing the responsibility of child-rearing between families and society. It took forty years of organizing — by labor unions, by women's movements, by social democratic parties — before <a href="https://centreforpublicimpact.org/public-impact-fundamentals/swedens-1975-national-preschool-reform/" target="_blank" rel="noopener">Sweden passed its National Preschool Act</a> in 1975.</p>
 
@@ -112,7 +113,7 @@
 
 	<p>The Nordic countries have public childcare systems. The United States does not. The <span class="highlight-accent accent-teal">childcare gap</span> between them is enormous.</p>
 
-	<h3 class="cc-table-title">US–Nordic Childcare Gap at a Glance</h3>
+	<h2 class="cc-table-title">US–Nordic Childcare Gap at a Glance</h2>
 	<table class="dash-table cc-table">
 		<thead>
 			<tr><th></th><th>United States<br><img loading="lazy" decoding="async" class="cc-flag" src="files/childcare-images/flags/us.png" alt="US flag" width="120" height="80"></th><th>Nordics<br><span class="cc-flag-row"><img class="cc-flag" src="files/childcare-images/flags/dk.png" alt="Denmark flag" width="120" height="80"> <img class="cc-flag" src="files/childcare-images/flags/fi.png" alt="Finland flag" width="120" height="80"> <img class="cc-flag" src="files/childcare-images/flags/no.png" alt="Norway flag" width="120" height="80"> <img class="cc-flag" src="files/childcare-images/flags/se.png" alt="Sweden flag" width="120" height="80"></span></th></tr>
@@ -140,7 +141,7 @@
 		
 		<p>The most common defense of the US childcare gap is that the country can't afford to do what the Nordics do. This section eliminates that explanation. The US has comparable resources per child. It has a comparable share of young children in its population. The gap between the US and Nordic childcare systems is not a gap in resources. It is a gap in what those resources are spent on.</p>
 
-		<h3>The money is there</h3>
+		<h2>The money is there</h2>
 
 		<p>The US is not too poor to fund childcare. One way to see this is Gross Domestic Product per young child — the annual economic activity of an area divided by its number of young children. GDP per young child serves as a rough measure of the financial resources available in a society for each child it needs to support.</p>
 
@@ -155,7 +156,7 @@
 					<span class="chart-title map-category">Same resources, different infrastructure</span>
 				</div>
 				</div>
-			<div class="card-body cc-card-body-tight" style="padding-top: 16px;">
+			<div class="card-body cc-card-body-tight cc-card-body-chart">
 				<svg id="resources-svg" class="chart-svg" viewBox="0 -6 680 712" preserveAspectRatio="xMidYMid meet"><g><text x="15" y="12" font-size="17" font-weight="700" fill="#333">The US and peers have abundant financial resources</text><text x="15" y="36" font-size="18" fill="#888">GDP per 0–5 year old, USD millions</text><g transform="translate(34,0)" fill="none" font-size="10" font-family="sans-serif" text-anchor="end"><g class="tick" opacity="1" transform="translate(0,276)"><line stroke="#ddd" x2="-6"></line><text fill="#888" x="-9" dy="0.32em" font-size="12">0</text></g><g class="tick" opacity="1" transform="translate(0,192.567791023975)"><line stroke="#ddd" x2="-6"></line><text fill="#888" x="-9" dy="0.32em" font-size="12">1</text></g><g class="tick" opacity="1" transform="translate(0,109.13558204794998)"><line stroke="#ddd" x2="-6"></line><text fill="#888" x="-9" dy="0.32em" font-size="12">2</text></g></g><line class="grid-gdp" x1="34" x2="665" y1="275.5" y2="275.5" stroke="#eee" stroke-width="0.5"></line><line class="grid-gdp" x1="34" x2="665" y1="192.067791023975" y2="192.067791023975" stroke="#eee" stroke-width="0.5"></line><line class="grid-gdp" x1="34" x2="665" y1="108.63558204794998" y2="108.63558204794998" stroke="#eee" stroke-width="0.5"></line><rect x="43.78294573643411" y="169.09890389287528" width="29.348837209302328" height="106.40109610712472" fill="#2A8A8A" opacity="0.85"></rect><text x="58.457364341085274" y="166.09890389287528" text-anchor="middle" font-size="11.5" fill="#333">$1.3M</text><rect x="41.78294573643411" y="54" width="33.34883720930233" height="221.5" fill="transparent" cursor="pointer"></rect><rect x="92.69767441860465" y="74.13636363636364" width="29.348837209302328" height="201.36363636363637" fill="#2A8A8A" opacity="0.85"></rect><text x="107.37209302325581" y="71.13636363636364" text-anchor="middle" font-size="11.5" fill="#333">$2.4M</text><rect x="90.69767441860465" y="54" width="33.34883720930233" height="221.5" fill="transparent" cursor="pointer"></rect><rect x="141.61240310077523" y="120.59141759421439" width="29.348837209302328" height="154.9085824057856" fill="#2A8A8A" opacity="0.85"></rect><text x="156.28682170542638" y="117.59141759421439" text-anchor="middle" font-size="11.5" fill="#333">$1.9M</text><rect x="139.61240310077523" y="54" width="33.34883720930233" height="221.5" fill="transparent" cursor="pointer"></rect><rect x="190.52713178294576" y="186.25256605834605" width="29.348837209302328" height="89.24743394165395" fill="#2A8A8A" opacity="0.85"></rect><text x="205.2015503875969" y="183.25256605834605" text-anchor="middle" font-size="11.5" fill="#333">$1.1M</text><rect x="188.52713178294576" y="54" width="33.34883720930233" height="221.5" fill="transparent" cursor="pointer"></rect><rect x="239.44186046511632" y="162.29083564043168" width="29.348837209302328" height="113.20916435956832" fill="#2A8A8A" opacity="0.85"></rect><text x="254.11627906976747" y="159.29083564043168" text-anchor="middle" font-size="11.5" fill="#333">$1.4M</text><rect x="237.44186046511632" y="54" width="33.34883720930233" height="221.5" fill="transparent" cursor="pointer"></rect><rect x="288.35658914728685" y="140.06449516921862" width="29.348837209302328" height="135.43550483078138" fill="#2A8A8A" opacity="0.85"></rect><text x="303.03100775193803" y="137.06449516921862" text-anchor="middle" font-size="11.5" fill="#333">$1.6M</text><rect x="286.35658914728685" y="54" width="33.34883720930233" height="221.5" fill="transparent" cursor="pointer"></rect><rect x="359.28294573643416" y="192.31808765090307" width="29.348837209302328" height="83.18191234909693" fill="#2A8A8A" opacity="0.85"></rect><text x="373.95736434108534" y="189.31808765090307" text-anchor="middle" font-size="11.5" fill="#333">$1.0M</text><rect x="357.28294573643416" y="54" width="33.34883720930233" height="221.5" fill="transparent" cursor="pointer"></rect><rect x="408.19767441860466" y="200.63627888581274" width="29.348837209302328" height="74.86372111418726" fill="#2A8A8A" opacity="0.85"></rect><text x="422.87209302325584" y="197.63627888581274" text-anchor="middle" font-size="11.5" fill="#333">$0.9M</text><rect x="406.19767441860466" y="54" width="33.34883720930233" height="221.5" fill="transparent" cursor="pointer"></rect><rect x="479.1240310077519" y="173.1203363655197" width="29.348837209302328" height="102.3796636344803" fill="#2A8A8A" opacity="0.85"></rect><text x="493.7984496124031" y="170.1203363655197" text-anchor="middle" font-size="11.5" fill="#333">$1.2M</text><rect x="477.1240310077519" y="54" width="33.34883720930233" height="221.5" fill="transparent" cursor="pointer"></rect><rect x="528.0387596899226" y="188.25493907377063" width="29.348837209302328" height="87.24506092622937" fill="#2A8A8A" opacity="0.85"></rect><text x="542.7131782945737" y="185.25493907377063" text-anchor="middle" font-size="11.5" fill="#333">$1.0M</text><rect x="526.0387596899226" y="54" width="33.34883720930233" height="221.5" fill="transparent" cursor="pointer"></rect><rect x="576.953488372093" y="147.12286004859033" width="29.348837209302328" height="128.37713995140967" fill="#2A8A8A" opacity="0.85"></rect><text x="591.6279069767442" y="144.12286004859033" text-anchor="middle" font-size="11.5" fill="#333">$1.5M</text><rect x="574.953488372093" y="54" width="33.34883720930233" height="221.5" fill="transparent" cursor="pointer"></rect><rect x="625.8682170542636" y="201.3371094412114" width="29.348837209302328" height="74.1628905587886" fill="#2A8A8A" opacity="0.85"></rect><text x="640.5426356589147" y="198.3371094412114" text-anchor="middle" font-size="11.5" fill="#333">$0.9M</text><rect x="623.8682170542636" y="54" width="33.34883720930233" height="221.5" fill="transparent" cursor="pointer"></rect><line x1="34" x2="665" y1="259.4762865475842" y2="259.4762865475842" stroke="#1B2A4A" stroke-width="2" stroke-dasharray="5,3"></line><text x="58.457364341085274" y="289.5" text-anchor="middle" font-size="12" fill="#555">US</text><text x="107.37209302325581" y="289.5" text-anchor="middle" font-size="12" fill="#555">NYC</text><text x="156.28682170542638" y="289.5" text-anchor="middle" font-size="12" fill="#555">Mass.</text><text x="205.2015503875969" y="289.5" text-anchor="middle" font-size="12" fill="#555">New</text><text x="205.2015503875969" y="302.5" text-anchor="middle" font-size="12" fill="#555">Mexico</text><text x="254.11627906976747" y="289.5" text-anchor="middle" font-size="12" fill="#555">Vermont</text><text x="303.03100775193803" y="289.5" text-anchor="middle" font-size="12" fill="#555">Wash.</text><text x="373.95736434108534" y="289.5" text-anchor="middle" font-size="12" fill="#555">Canada</text><text x="422.87209302325584" y="289.5" text-anchor="middle" font-size="12" fill="#555">Quebec</text><text x="489.7984496124031" y="289.5" text-anchor="middle" font-size="12" fill="#555">Denmark</text><text x="542.7131782945737" y="289.5" text-anchor="middle" font-size="12" fill="#555">Finland</text><text x="591.6279069767442" y="289.5" text-anchor="middle" font-size="12" fill="#555">Norway</text><text x="640.5426356589147" y="289.5" text-anchor="middle" font-size="12" fill="#555">Sweden</text><line x1="41.78294573643411" x2="319.7054263565892" y1="277.5" y2="277.5" stroke="#999" stroke-width="0.8"></line><line x1="357.28294573643416" x2="439.546511627907" y1="277.5" y2="277.5" stroke="#999" stroke-width="0.8"></line><line x1="477.1240310077519" x2="657.2170542635658" y1="277.5" y2="277.5" stroke="#999" stroke-width="0.8"></line></g><g><rect x="36" y="236.64407348632812" width="163.78843688964844" height="22.25503921508789" fill="#fff" opacity="0.75" rx="2"></rect><text x="39" y="253.4762865475842" text-anchor="start" font-size="15" font-weight="800" fill="#1B2A4A">World average $0.2M</text></g><g><text x="15" y="386.5" font-size="17" font-weight="700" fill="#333">But the US has no public childcare system</text><text x="15" y="410.5" font-size="18" fill="#888">Children aged 0–5, percent of population</text><g transform="translate(34,0)" fill="none" font-size="10" font-family="sans-serif" text-anchor="end"><g class="tick" opacity="1" transform="translate(0,650.5)"><line stroke="#ddd" x2="-6"></line><text fill="#888" x="-9" dy="0.32em" font-size="12">0</text></g><g class="tick" opacity="1" transform="translate(0,603.0882352941176)"><line stroke="#ddd" x2="-6"></line><text fill="#888" x="-9" dy="0.32em" font-size="12">2</text></g><g class="tick" opacity="1" transform="translate(0,555.6764705882354)"><line stroke="#ddd" x2="-6"></line><text fill="#888" x="-9" dy="0.32em" font-size="12">4</text></g><g class="tick" opacity="1" transform="translate(0,508.2647058823529)"><line stroke="#ddd" x2="-6"></line><text fill="#888" x="-9" dy="0.32em" font-size="12">6</text></g><g class="tick" opacity="1" transform="translate(0,460.8529411764706)"><line stroke="#ddd" x2="-6"></line><text fill="#888" x="-9" dy="0.32em" font-size="12">8</text></g></g><line class="grid-kids" x1="34" x2="665" y1="650" y2="650" stroke="#eee" stroke-width="0.5"></line><line class="grid-kids" x1="34" x2="665" y1="602.5882352941176" y2="602.5882352941176" stroke="#eee" stroke-width="0.5"></line><line class="grid-kids" x1="34" x2="665" y1="555.1764705882354" y2="555.1764705882354" stroke="#eee" stroke-width="0.5"></line><line class="grid-kids" x1="34" x2="665" y1="507.7647058823529" y2="507.7647058823529" stroke="#eee" stroke-width="0.5"></line><line class="grid-kids" x1="34" x2="665" y1="460.3529411764706" y2="460.3529411764706" stroke="#eee" stroke-width="0.5"></line><rect x="43.78294573643411" y="634.3541176470588" width="29.348837209302328" height="15.645882352941157" fill="#2A8A8A" opacity="0.85"></rect><rect x="43.78294573643411" y="490.69647058823534" width="29.348837209302328" height="143.6576470588235" fill="#B0B0D0" opacity="0.85"></rect><rect x="41.78294573643411" y="448.5" width="33.34883720930233" height="201.5" fill="transparent" cursor="pointer"></rect><rect x="92.69767441860465" y="620.3676470588235" width="29.348837209302328" height="29.632352941176464" fill="#2A8A8A" opacity="0.85"></rect><rect x="92.69767441860465" y="497.8082352941177" width="29.348837209302328" height="122.55941176470583" fill="#B0B0D0" opacity="0.85"></rect><rect x="90.69767441860465" y="448.5" width="33.34883720930233" height="201.5" fill="transparent" cursor="pointer"></rect><rect x="141.61240310077523" y="636.7247058823529" width="29.348837209302328" height="13.27529411764715" fill="#2A8A8A" opacity="0.85"></rect><rect x="141.61240310077523" y="510.6094117647059" width="29.348837209302328" height="126.11529411764695" fill="#B0B0D0" opacity="0.85"></rect><rect x="139.61240310077523" y="448.5" width="33.34883720930233" height="201.5" fill="transparent" cursor="pointer"></rect><rect x="190.52713178294576" y="627.2423529411765" width="29.348837209302328" height="22.757647058823522" fill="#2A8A8A" opacity="0.85"></rect><rect x="190.52713178294576" y="497.09705882352944" width="29.348837209302328" height="130.14529411764704" fill="#B0B0D0" opacity="0.85"></rect><rect x="188.52713178294576" y="448.5" width="33.34883720930233" height="201.5" fill="transparent" cursor="pointer"></rect><rect x="239.44186046511632" y="619.6564705882353" width="29.348837209302328" height="30.343529411764735" fill="#2A8A8A" opacity="0.85"></rect><rect x="239.44186046511632" y="525.3070588235294" width="29.348837209302328" height="94.3494117647059" fill="#B0B0D0" opacity="0.85"></rect><rect x="237.44186046511632" y="448.5" width="33.34883720930233" height="201.5" fill="transparent" cursor="pointer"></rect><rect x="288.35658914728685" y="641.2288235294117" width="29.348837209302328" height="8.77117647058833" fill="#2A8A8A" opacity="0.85"></rect><rect x="288.35658914728685" y="492.8299999999999" width="29.348837209302328" height="148.39882352941174" fill="#B0B0D0" opacity="0.85"></rect><rect x="286.35658914728685" y="448.5" width="33.34883720930233" height="201.5" fill="transparent" cursor="pointer"></rect><rect x="359.28294573643416" y="609.7" width="29.348837209302328" height="40.299999999999955" fill="#2A8A8A" opacity="0.85"></rect><rect x="359.28294573643416" y="519.3805882352941" width="29.348837209302328" height="90.31941176470593" fill="#B0B0D0" opacity="0.85"></rect><rect x="357.28294573643416" y="448.5" width="33.34883720930233" height="201.5" fill="transparent" cursor="pointer"></rect><rect x="408.19767441860466" y="575.5635294117646" width="29.348837209302328" height="74.43647058823535" fill="#2A8A8A" opacity="0.85"></rect><rect x="408.19767441860466" y="516.0617647058823" width="29.348837209302328" height="59.50176470588235" fill="#B0B0D0" opacity="0.85"></rect><rect x="406.19767441860466" y="448.5" width="33.34883720930233" height="201.5" fill="transparent" cursor="pointer"></rect><rect x="479.1240310077519" y="537.8711764705882" width="29.348837209302328" height="112.12882352941176" fill="#2A8A8A" opacity="0.85"></rect><rect x="479.1240310077519" y="501.36411764705883" width="29.348837209302328" height="36.507058823529405" fill="#B0B0D0" opacity="0.85"></rect><rect x="477.1240310077519" y="448.5" width="33.34883720930233" height="201.5" fill="transparent" cursor="pointer"></rect><rect x="528.0387596899226" y="570.5852941176471" width="29.348837209302328" height="79.4147058823529" fill="#2A8A8A" opacity="0.85"></rect><rect x="528.0387596899226" y="527.6776470588235" width="29.348837209302328" height="42.90764705882361" fill="#B0B0D0" opacity="0.85"></rect><rect x="526.0387596899226" y="448.5" width="33.34883720930233" height="201.5" fill="transparent" cursor="pointer"></rect><rect x="576.953488372093" y="535.5005882352941" width="29.348837209302328" height="114.49941176470588" fill="#2A8A8A" opacity="0.85"></rect><rect x="576.953488372093" y="506.3423529411765" width="29.348837209302328" height="29.158235294117617" fill="#B0B0D0" opacity="0.85"></rect><rect x="574.953488372093" y="448.5" width="33.34883720930233" height="201.5" fill="transparent" cursor="pointer"></rect><rect x="625.8682170542636" y="535.974705882353" width="29.348837209302328" height="114.02529411764704" fill="#2A8A8A" opacity="0.85"></rect><rect x="625.8682170542636" y="493.54117647058825" width="29.348837209302328" height="42.43352941176471" fill="#B0B0D0" opacity="0.85"></rect><rect x="623.8682170542636" y="448.5" width="33.34883720930233" height="201.5" fill="transparent" cursor="pointer"></rect><text x="58.457364341085274" y="664" text-anchor="middle" font-size="12" fill="#555">US</text><text x="107.37209302325581" y="664" text-anchor="middle" font-size="12" fill="#555">NYC</text><text x="156.28682170542638" y="664" text-anchor="middle" font-size="12" fill="#555">Mass.</text><text x="205.2015503875969" y="664" text-anchor="middle" font-size="12" fill="#555">New</text><text x="205.2015503875969" y="677" text-anchor="middle" font-size="12" fill="#555">Mexico</text><text x="254.11627906976747" y="664" text-anchor="middle" font-size="12" fill="#555">Vermont</text><text x="303.03100775193803" y="664" text-anchor="middle" font-size="12" fill="#555">Wash.</text><text x="373.95736434108534" y="664" text-anchor="middle" font-size="12" fill="#555">Canada</text><text x="422.87209302325584" y="664" text-anchor="middle" font-size="12" fill="#555">Quebec</text><text x="489.7984496124031" y="664" text-anchor="middle" font-size="12" fill="#555">Denmark</text><text x="542.7131782945737" y="664" text-anchor="middle" font-size="12" fill="#555">Finland</text><text x="591.6279069767442" y="664" text-anchor="middle" font-size="12" fill="#555">Norway</text><text x="640.5426356589147" y="664" text-anchor="middle" font-size="12" fill="#555">Sweden</text><line x1="41.78294573643411" x2="319.7054263565892" y1="652" y2="652" stroke="#999" stroke-width="0.8"></line><line x1="357.28294573643416" x2="439.546511627907" y1="652" y2="652" stroke="#999" stroke-width="0.8"></line><line x1="477.1240310077519" x2="657.2170542635658" y1="652" y2="652" stroke="#999" stroke-width="0.8"></line><text x="180.74418604651166" y="700" text-anchor="middle" font-size="14" font-weight="700" fill="#888">United States</text><text x="398.41472868217056" y="690" text-anchor="middle" font-size="14" font-weight="700" fill="#888">Canada</text><text x="567.1705426356589" y="690" text-anchor="middle" font-size="14" font-weight="700" fill="#888">Nordics</text><text x="520" y="443.5" text-anchor="middle" font-size="15" font-weight="600" fill="#888">Childcare/pre-k enrollment</text><rect x="395" y="455.5" width="12" height="12" fill="#2A8A8A" opacity="0.85"></rect><text x="411" y="465.5" font-size="16" fill="#333">In public care</text><rect x="545" y="455.5" width="12" height="12" fill="#B0B0D0" opacity="0.85"></rect><text x="561" y="465.5" font-size="16" fill="#333">Not enrolled</text></g><text x="180.74418604651166" y="325.5" text-anchor="middle" font-size="14" font-weight="700" fill="#888">United States</text><text x="398.41472868217056" y="315.5" text-anchor="middle" font-size="14" font-weight="700" fill="#888">Canada</text><text x="567.1705426356589" y="315.5" text-anchor="middle" font-size="14" font-weight="700" fill="#888">Nordics</text></svg>
 			</div>
 			<div class="card-footer card-footer-col">
@@ -164,7 +165,7 @@
 			</div>
 		<div class="chart-tooltip cc-tooltip cc-tooltip-narrow"></div><div class="chart-tooltip cc-tooltip cc-tooltip-narrow"></div><div class="chart-tooltip cc-tooltip cc-tooltip-narrow"></div><div class="chart-tooltip cc-tooltip cc-tooltip-narrow"></div></div>
 
-		<h3>And the need for public childcare is there</h3>
+		<h2>And the need for public childcare is there</h2>
 
 		<p>The need for affordable childcare is the same everywhere. The US has roughly the same share of young children as the Nordics — between 5% and 7% of the total population. The difference is what happens to them before age 5.</p>
 		
@@ -293,7 +294,7 @@
 		</script>
 
 		<hr>
-		<h3>But US public childcare funding is not there</h3>
+		<h2>But US public childcare funding is not there</h2>
 
 		<p>If resources are abundant and the need is the same, the gap must come from funding decisions. It does. The US runs nearly its entire childcare system through the private market. The Nordic countries run theirs through the public sector. The US spends <a href="https://www.oecd.org/en/topics/sub-issues/public-spending-on-childcare-and-early-education.html" target="_blank" rel="noopener">0.3% of GDP</a> on public childcare and early education for children under 5 — about 50 cents per American per day. The Nordic countries spend around 1.3% of GDP. The entire gap between bottom-ranked US childcare and top-ranked Nordic systems boils down to <span class="highlight-accent accent-teal">one percent of GDP.</span></p>
 
@@ -316,7 +317,7 @@
 		<div class="chart-tooltip cc-tooltip"></div><div class="chart-tooltip cc-tooltip"></div><div class="chart-tooltip cc-tooltip"></div><div class="chart-tooltip cc-tooltip"></div></div>
 
 		<hr>
-		<h3>So the services and infrastructure do not exist</h3>
+		<h2>So the services and infrastructure do not exist</h2>
 
 		<p>Public funding creates public slots. Public slots create enrollment. This is not complicated. Countries that fund childcare have near-universal enrollment. The US, which funds almost nothing, enrolls almost no one.</p>
 
@@ -401,7 +402,7 @@
 
 		<hr>
 
-		<h3>The US–Nordic childcare gap persists at the state level</h3>
+		<h2>The US–Nordic childcare gap persists at the state level</h2>
 
 		<p>If the gap were explained by the US being too big or too diverse, it should disappear when you look at individual states. It does not. No US state — not Massachusetts, not Minnesota, not California — has built childcare infrastructure comparable to any Nordic country. The map below compares funding, enrollment, wages, and workforce outcomes at the state level. The gap persists everywhere.</p>
 
@@ -454,13 +455,13 @@
 
 		<p>To see which system offers more freedom, compare the experiences of a parent of a young child in the US and in Finland.</p>
 
-		<h3>A tale of two systems</h3>
+		<h2>A tale of two systems</h2>
 
 		<p>You have a child under 5. If you live in the United States, you choose between private childcare at <span class="highlight-accent accent-teal"><a href="https://www.childcareaware.org/price-landscape24/" target="_blank" rel="noopener" class="cc-inherit-link">about $15,000 per year</a></span> or one parent leaves the workforce. If you live in Finland, you choose between public childcare at $0-4,080 per year or a <a href="https://www.kela.fi/child-home-care-allowance" target="_blank" rel="noopener">home care allowance</a> of ~$5,000 per year paid to the parent. Same situation. Radically different options.</p>
 
 		<!-- Decision tree -->
 		<div class="card" id="decision-tree-container">
-			<div class="card-body" style="padding: 24px 16px 12px;">
+			<div class="card-body">
 				<section class="dt-tree">
 					<h3 class="dt-question-main">You have a child under 5.</h3>
 					<p class="dt-question-sub">What are your options?</p>
@@ -470,17 +471,17 @@
 							<h4 class="dt-country">United States</h4>
 							<div class="dt-cards">
 								<div class="dt-card dt-card-us">
-									<h4 class="dt-card-title">Private<br>childcare</h4>
+									<h4 class="dt-card-title">Private childcare</h4>
 									<span class="key-stat dt-card-amount">$14,760</span>
 									<span class="dt-card-unit">per year</span>
-									<p class="dt-card-ctx">More than in-state<br>college tuition<br>in 38 states</p>
+									<p class="dt-card-ctx">More than in-state college tuition in 38 states</p>
 								</div>
 								<span class="dt-or">or</span>
 								<div class="dt-card dt-card-us">
-									<h4 class="dt-card-title">Leave the<br>workforce</h4>
+									<h4 class="dt-card-title">Leave the workforce</h4>
 									<span class="key-stat dt-card-amount">$0</span>
 									<span class="dt-card-unit">income</span>
-									<p class="dt-card-ctx">3.8% of US adults<br>are out of work for<br>childcare reasons</p>
+									<p class="dt-card-ctx">3.8% of US adults are out of work for childcare reasons</p>
 								</div>
 							</div>
 							<p class="dt-tagline">Both options cost the family.</p>
@@ -490,17 +491,17 @@
 							<h4 class="dt-country">Finland</h4>
 							<div class="dt-cards">
 								<div class="dt-card dt-card-fi">
-									<h4 class="dt-card-title">Public<br>childcare</h4>
+									<h4 class="dt-card-title">Public childcare</h4>
 									<span class="key-stat dt-card-amount">$0–4,080</span>
 									<span class="dt-card-unit">per year</span>
-									<p class="dt-card-ctx">Income-scaled fees.<br>Legal right<br>from infancy.</p>
+									<p class="dt-card-ctx">Income-scaled fees. Legal right from infancy.</p>
 								</div>
 								<span class="dt-or">or</span>
 								<div class="dt-card dt-card-fi">
-									<h4 class="dt-card-title">Home care<br>allowance</h4>
+									<h4 class="dt-card-title">Home care allowance</h4>
 									<span class="key-stat dt-card-amount">~$5,000</span>
 									<span class="dt-card-unit">per year</span>
-									<p class="dt-card-ctx">Paid to the parent.<br>A real choice,<br>not a last resort.</p>
+									<p class="dt-card-ctx">Paid to the parent. A real choice, not a last resort.</p>
 								</div>
 							</div>
 							<p class="dt-tagline">Both options help the family.</p>
@@ -519,7 +520,7 @@
 		<p>The apparent freedom of the private market is a constraint in disguise. Families pay rates that can total $150,000 for two children before kindergarten — if they can afford it at all. Families who can't afford it piece together informal arrangements, or a parent — usually the mother — leaves paid work. That is not choice. It is the daily emergency resulting from the national removal of viable choices.</p>
 
 		<hr>
-		<h3>The cost to families</h3>
+		<h2>The cost to families</h2>
 
 		<p>The economics are straightforward. Full-time childcare costs about $15,000 per child. At a household income of $200,000, that is steep but manageable. At $40,000, it is more than a third of everything the family makes before taxes. For a family with two children, that is $30,000 a year — close to the full take-home pay of a worker earning $20 an hour.</p>
 
@@ -538,7 +539,7 @@
 					<span class="chart-title map-category">Without public childcare:</span>
 				</div>
 				</div>
-			<div class="card-body cc-card-body-tight" style="padding-top: 2px; padding-bottom: 0;">
+			<div class="card-body cc-card-body-tight">
 				<svg id="outcomes-svg" class="chart-svg" viewBox="0 0 680 376" preserveAspectRatio="xMidYMid meet"><g><text x="172" y="38" text-anchor="middle" font-size="18" font-weight="700" fill="#2A8A8A">Parents leave the workforce</text><text x="172" y="65" text-anchor="middle" font-size="16" fill="#888">Share of adults ages 20-64</text><text x="172" y="86" text-anchor="middle" font-size="16" fill="#888">out of work for childcare</text><g transform="translate(43,0)" fill="none" font-size="10" font-family="sans-serif" text-anchor="end"><g class="tick" opacity="1" transform="translate(0,352.5)"><line stroke="#ddd" x2="-6"></line><text fill="#888" x="-9" dy="0.32em" font-size="11">0%</text></g><g class="tick" opacity="1" transform="translate(0,292.9347826086956)"><line stroke="#ddd" x2="-6"></line><text fill="#888" x="-9" dy="0.32em" font-size="11">1%</text></g><g class="tick" opacity="1" transform="translate(0,233.36956521739128)"><line stroke="#ddd" x2="-6"></line><text fill="#888" x="-9" dy="0.32em" font-size="11">2%</text></g><g class="tick" opacity="1" transform="translate(0,173.80434782608697)"><line stroke="#ddd" x2="-6"></line><text fill="#888" x="-9" dy="0.32em" font-size="11">3%</text></g><g class="tick" opacity="1" transform="translate(0,114.2391304347826)"><line stroke="#ddd" x2="-6"></line><text fill="#888" x="-9" dy="0.32em" font-size="11">4%</text></g></g><line x1="43" x2="331" y1="352" y2="352" stroke="#ccc" stroke-width="1"></line><line x1="43" x2="331" y1="292.4347826086956" y2="292.4347826086956" stroke="#eee" stroke-width="0.5"></line><line x1="43" x2="331" y1="232.86956521739128" y2="232.86956521739128" stroke="#eee" stroke-width="0.5"></line><line x1="43" x2="331" y1="173.30434782608697" y2="173.30434782608697" stroke="#eee" stroke-width="0.5"></line><line x1="43" x2="331" y1="113.7391304347826" y2="113.7391304347826" stroke="#eee" stroke-width="0.5"></line><rect x="54.519999999999996" y="123.86521739130433" width="34.56" height="228.13478260869567" fill="#2A8A8A" opacity="0.85"></rect><text x="71.8" y="119.86521739130433" text-anchor="middle" font-size="11" fill="#333">3.8%</text><text x="71.8" y="367" text-anchor="middle" font-size="12" fill="#555">US</text><rect x="52.519999999999996" y="78" width="38.56" height="274" fill="transparent" cursor="pointer"></rect><rect x="112.12" y="316.2608695652174" width="34.56" height="35.73913043478262" fill="#2A8A8A" opacity="0.85"></rect><text x="129.4" y="312.2608695652174" text-anchor="middle" font-size="11" fill="#333">0.6%</text><text x="129.4" y="367" text-anchor="middle" font-size="12" fill="#555">Denmark</text><rect x="110.12" y="78" width="38.56" height="274" fill="transparent" cursor="pointer"></rect><rect x="169.72" y="334.1304347826087" width="34.56" height="17.86956521739131" fill="#2A8A8A" opacity="0.85"></rect><text x="187" y="330.1304347826087" text-anchor="middle" font-size="11" fill="#333">0.3%</text><text x="187" y="367" text-anchor="middle" font-size="12" fill="#555">Finland</text><rect x="167.72" y="78" width="38.56" height="274" fill="transparent" cursor="pointer"></rect><rect x="227.32" y="334.1304347826087" width="34.56" height="17.86956521739131" fill="#2A8A8A" opacity="0.85"></rect><text x="244.6" y="330.1304347826087" text-anchor="middle" font-size="11" fill="#333">0.3%</text><text x="244.6" y="367" text-anchor="middle" font-size="12" fill="#555">Norway</text><rect x="225.32" y="78" width="38.56" height="274" fill="transparent" cursor="pointer"></rect><rect x="284.91999999999996" y="328.17391304347825" width="34.56" height="23.82608695652175" fill="#2A8A8A" opacity="0.85"></rect><text x="302.2" y="324.17391304347825" text-anchor="middle" font-size="11" fill="#333">0.4%</text><text x="302.2" y="367" text-anchor="middle" font-size="12" fill="#555">Sweden</text><rect x="282.91999999999996" y="78" width="38.56" height="274" fill="transparent" cursor="pointer"></rect></g><g><text x="506" y="38" text-anchor="middle" font-size="18" font-weight="700" fill="#443983">Children fall into poverty</text><text x="506" y="68" text-anchor="middle" font-size="16" fill="#888">Child poverty rate</text><g transform="translate(377,0)" fill="none" font-size="10" font-family="sans-serif" text-anchor="end"><g class="tick" opacity="1" transform="translate(0,352.5)"><line stroke="#ddd" x2="-6"></line><text fill="#888" x="-9" dy="0.32em" font-size="11">0%</text></g><g class="tick" opacity="1" transform="translate(0,290.22727272727275)"><line stroke="#ddd" x2="-6"></line><text fill="#888" x="-9" dy="0.32em" font-size="11">5%</text></g><g class="tick" opacity="1" transform="translate(0,227.95454545454544)"><line stroke="#ddd" x2="-6"></line><text fill="#888" x="-9" dy="0.32em" font-size="11">10%</text></g><g class="tick" opacity="1" transform="translate(0,165.6818181818182)"><line stroke="#ddd" x2="-6"></line><text fill="#888" x="-9" dy="0.32em" font-size="11">15%</text></g><g class="tick" opacity="1" transform="translate(0,103.40909090909092)"><line stroke="#ddd" x2="-6"></line><text fill="#888" x="-9" dy="0.32em" font-size="11">20%</text></g></g><line x1="377" x2="665" y1="352" y2="352" stroke="#ccc" stroke-width="1"></line><line x1="377" x2="665" y1="289.72727272727275" y2="289.72727272727275" stroke="#eee" stroke-width="0.5"></line><line x1="377" x2="665" y1="227.45454545454544" y2="227.45454545454544" stroke="#eee" stroke-width="0.5"></line><line x1="377" x2="665" y1="165.1818181818182" y2="165.1818181818182" stroke="#eee" stroke-width="0.5"></line><line x1="377" x2="665" y1="102.90909090909092" y2="102.90909090909092" stroke="#eee" stroke-width="0.5"></line><rect x="388.52" y="92.94545454545455" width="34.56" height="259.05454545454546" fill="#443983" opacity="0.85"></rect><text x="405.8" y="88.94545454545455" text-anchor="middle" font-size="11" fill="#333">20.8%</text><text x="405.8" y="367" text-anchor="middle" font-size="12" fill="#555">US</text><rect x="386.52" y="78" width="38.56" height="274" fill="transparent" cursor="pointer"></rect><rect x="446.12" y="299.6909090909091" width="34.56" height="52.30909090909091" fill="#443983" opacity="0.85"></rect><text x="463.4" y="295.6909090909091" text-anchor="middle" font-size="11" fill="#333">4.2%</text><text x="463.4" y="367" text-anchor="middle" font-size="12" fill="#555">Denmark</text><rect x="444.12" y="78" width="38.56" height="274" fill="transparent" cursor="pointer"></rect><rect x="503.72" y="294.7090909090909" width="34.56" height="57.29090909090911" fill="#443983" opacity="0.85"></rect><text x="521" y="290.7090909090909" text-anchor="middle" font-size="11" fill="#333">4.6%</text><text x="521" y="367" text-anchor="middle" font-size="12" fill="#555">Finland</text><rect x="501.72" y="78" width="38.56" height="274" fill="transparent" cursor="pointer"></rect><rect x="561.32" y="264.81818181818187" width="34.56" height="87.18181818181813" fill="#443983" opacity="0.85"></rect><text x="578.6" y="260.81818181818187" text-anchor="middle" font-size="11" fill="#333">7.0%</text><text x="578.6" y="367" text-anchor="middle" font-size="12" fill="#555">Norway</text><rect x="559.32" y="78" width="38.56" height="274" fill="transparent" cursor="pointer"></rect><rect x="618.9200000000001" y="247.38181818181818" width="34.56" height="104.61818181818182" fill="#443983" opacity="0.85"></rect><text x="636.2" y="243.38181818181818" text-anchor="middle" font-size="11" fill="#333">8.4%</text><text x="636.2" y="367" text-anchor="middle" font-size="12" fill="#555">Sweden</text><rect x="616.9200000000001" y="78" width="38.56" height="274" fill="transparent" cursor="pointer"></rect></g></svg>
 			</div>
 			<div class="card-footer card-footer-col">
@@ -550,7 +551,7 @@
 		<p>Workforce exit and poverty are not separate problems. They are what happens when families have no public childcare — and the costs do not stop with families.</p>
 
 		<hr>
-		<h3>The cost to employers</h3>
+		<h2>The cost to employers</h2>
 
 		<p><a href="https://www.bls.gov/news.release/famee.nr0.htm" target="_blank" rel="noopener">Labor force participation</a> for mothers with children under 6 is 68.3% — nearly ten points lower than for mothers whose youngest child is school-age. That gap closes when children reach kindergarten and free public education begins. Before that, 7.3 million working-age adults are out of the labor force for childcare, including 2.2 million with a bachelor's degree or higher. Employers competing for workers are drawing from a labor pool that is structurally smaller than it needs to be.</p>
 
@@ -561,7 +562,7 @@
 		<p>In the Nordic countries, public childcare removes this cost for employers. The full working-age population is available to hire, and no business needs to solve childcare on its own. That is what shared infrastructure does. It replaces a cost that every business pays individually with a system that works for everyone.</p>
 
 		<hr>
-		<h3>The cost to workers</h3>
+		<h2>The cost to workers</h2>
 		
 		<p>The US childcare system fails families who need care and employers who need workers. It also fails the people who provide the care.</p>
 		
@@ -583,14 +584,14 @@
 
 			<p>Without professional pay, here is the competition for childcare labor: the lowest-paid occupation in the US, a fast-food cook, makes only 6% less per hour. A dogwalker makes more. The diagram below shows the US occupations with wages most similar to childcare workers. These are the lowest-paying jobs in the country. The 742 occupations that pay more are not shown.</p>
 
-			<div id="wp-hero-container" style="margin: 0.75rem 0;">
+			<div id="wp-hero-container">
 					<svg id="wp-hero-svg" class="wp-hero-svg" viewBox="0 0 680 300" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Dot spectrum showing occupations with wages closest to US childcare workers"><text x="340" y="22" text-anchor="middle" font-size="20" font-weight="700" fill="#1e1e1e">Who else is paid $15.41 an hour?</text><text x="340" y="47" text-anchor="middle" font-size="15.5" font-weight="400" fill="#666">Occupations paid closest to childcare workers in the US</text><defs><marker id="axis-arrow" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="18" markerHeight="18" orient="auto"><path d="M 0 1 L 8 4 L 0 7 z" fill="#666"></path></marker></defs><line x1="32" x2="680" y1="170" y2="170" stroke="#666" stroke-width="0.5" marker-end="url(#axis-arrow)"></line><line x1="32" x2="32" y1="174" y2="180" stroke="#666" stroke-width="0.4" stroke-dasharray="2,2"></line><circle cx="32" cy="170" r="3.5" fill="#aaa"></circle><text x="32" y="190" text-anchor="middle" font-size="11.5" fill="#1e1e1e"><tspan x="32" dy="0">Fast Food</tspan><tspan x="32" dy="12">Cooks</tspan></text><text x="32" y="214" text-anchor="middle" font-size="11.5" fill="#1e1e1e" opacity="0.75">$14.50</text><line x1="73.65680473372757" x2="73.65680473372757" y1="166" y2="153" stroke="#666" stroke-width="0.4" stroke-dasharray="2,2"></line><circle cx="73.65680473372757" cy="170" r="3.5" fill="#aaa"></circle><text x="73.65680473372757" y="124" text-anchor="middle" font-size="11.5" fill="#1e1e1e"><tspan x="73.65680473372757" dy="0">Restaurant</tspan><tspan x="73.65680473372757" dy="12">Hosts</tspan></text><text x="73.65680473372757" y="148" text-anchor="middle" font-size="11.5" fill="#1e1e1e" opacity="0.75">$14.61</text><line x1="88.80473372781074" x2="88.80473372781074" y1="174" y2="180" stroke="#666" stroke-width="0.4" stroke-dasharray="2,2"></line><circle cx="88.80473372781074" cy="170" r="3.5" fill="#aaa"></circle><text x="88.80473372781074" y="190" text-anchor="middle" font-size="11.5" fill="#1e1e1e"><tspan x="88.80473372781074" dy="0">Fast Food</tspan><tspan x="88.80473372781074" dy="12">Workers</tspan></text><text x="88.80473372781074" y="214" text-anchor="middle" font-size="11.5" fill="#1e1e1e" opacity="0.75">$14.65</text><line x1="88.80473372781074" x2="88.80473372781074" y1="174" y2="252" stroke="#666" stroke-width="0.4" stroke-dasharray="2,2"></line><circle cx="88.80473372781074" cy="170" r="3.5" fill="#aaa"></circle><text x="88.80473372781074" y="262" text-anchor="middle" font-size="11.5" fill="#1e1e1e"><tspan x="88.80473372781074" dy="0">Sports Book</tspan><tspan x="88.80473372781074" dy="12">Writers</tspan></text><text x="88.80473372781074" y="286" text-anchor="middle" font-size="11.5" fill="#1e1e1e" opacity="0.75">$14.65</text><line x1="92.59171597633136" x2="92.59171597633136" y1="166" y2="85" stroke="#666" stroke-width="0.4" stroke-dasharray="2,2"></line><circle cx="92.59171597633136" cy="170" r="3.5" fill="#aaa"></circle><text x="92.59171597633136" y="56" text-anchor="middle" font-size="11.5" fill="#1e1e1e"><tspan x="92.59171597633136" dy="0">Recreation</tspan><tspan x="92.59171597633136" dy="12">Workers</tspan></text><text x="92.59171597633136" y="80" text-anchor="middle" font-size="11.5" fill="#1e1e1e" opacity="0.75">$14.66</text><line x1="213.7751479289941" x2="213.7751479289941" y1="174" y2="216" stroke="#666" stroke-width="0.4" stroke-dasharray="2,2"></line><circle cx="213.7751479289941" cy="170" r="3.5" fill="#aaa"></circle><text x="213.7751479289941" y="226" text-anchor="middle" font-size="11.5" fill="#1e1e1e"><tspan x="213.7751479289941" dy="0">Ushers &amp;</tspan><tspan x="213.7751479289941" dy="12">Attendants</tspan></text><text x="213.7751479289941" y="250" text-anchor="middle" font-size="11.5" fill="#1e1e1e" opacity="0.75">$14.98</text><line x1="217.56213017751475" x2="217.56213017751475" y1="166" y2="153" stroke="#666" stroke-width="0.4" stroke-dasharray="2,2"></line><circle cx="217.56213017751475" cy="170" r="3.5" fill="#aaa"></circle><text x="217.56213017751475" y="136" text-anchor="middle" font-size="11.5" fill="#1e1e1e"><tspan x="217.56213017751475" dy="0">Cashiers</tspan></text><text x="217.56213017751475" y="148" text-anchor="middle" font-size="11.5" fill="#1e1e1e" opacity="0.75">$14.99</text><line x1="270.57988165680484" x2="270.57988165680484" y1="174" y2="180" stroke="#666" stroke-width="0.4" stroke-dasharray="2,2"></line><circle cx="270.57988165680484" cy="170" r="3.5" fill="#aaa"></circle><text x="270.57988165680484" y="190" text-anchor="middle" font-size="11.5" fill="#1e1e1e"><tspan x="270.57988165680484" dy="0">Shampooers</tspan></text><text x="270.57988165680484" y="202" text-anchor="middle" font-size="11.5" fill="#1e1e1e" opacity="0.75">$15.13</text><line x1="490.2248520710059" x2="490.2248520710059" y1="166" y2="153" stroke="#666" stroke-width="0.4" stroke-dasharray="2,2"></line><circle cx="490.2248520710059" cy="170" r="3.5" fill="#aaa"></circle><text x="490.2248520710059" y="124" text-anchor="middle" font-size="11.5" fill="#1e1e1e"><tspan x="490.2248520710059" dy="0">Dining</tspan><tspan x="490.2248520710059" dy="12">Attendants</tspan></text><text x="490.2248520710059" y="148" text-anchor="middle" font-size="11.5" fill="#1e1e1e" opacity="0.75">$15.71</text><line x1="600.047337278106" x2="600.047337278106" y1="174" y2="180" stroke="#666" stroke-width="0.4" stroke-dasharray="2,2"></line><circle cx="600.047337278106" cy="170" r="3.5" fill="#aaa"></circle><text x="600.047337278106" y="190" text-anchor="middle" font-size="11.5" fill="#1e1e1e"><tspan x="600.047337278106" dy="0">Gambling</tspan><tspan x="600.047337278106" dy="12">Dealers</tspan></text><text x="600.047337278106" y="214" text-anchor="middle" font-size="11.5" fill="#1e1e1e" opacity="0.75">$16.00</text><line x1="634.1301775147924" x2="634.1301775147924" y1="166" y2="153" stroke="#666" stroke-width="0.4" stroke-dasharray="2,2"></line><circle cx="634.1301775147924" cy="170" r="3.5" fill="#aaa"></circle><text x="634.1301775147924" y="124" text-anchor="middle" font-size="11.5" fill="#1e1e1e"><tspan x="634.1301775147924" dy="0">Animal</tspan><tspan x="634.1301775147924" dy="12">Caretakers</tspan></text><text x="634.1301775147924" y="148" text-anchor="middle" font-size="11.5" fill="#1e1e1e" opacity="0.75">$16.09</text><line x1="645.491124260355" x2="645.491124260355" y1="174" y2="252" stroke="#666" stroke-width="0.4" stroke-dasharray="2,2"></line><circle cx="645.491124260355" cy="170" r="3.5" fill="#aaa"></circle><text x="645.491124260355" y="262" text-anchor="middle" font-size="11.5" fill="#1e1e1e"><tspan x="645.491124260355" dy="0">Bartenders</tspan></text><text x="645.491124260355" y="274" text-anchor="middle" font-size="11.5" fill="#1e1e1e" opacity="0.75">$16.12</text><circle cx="376.61538461538436" cy="170" r="6" fill="#2A8A8A"></circle><text x="376.61538461538436" y="124" text-anchor="middle" font-size="16" font-weight="700" fill="#2A8A8A"><tspan x="376.61538461538436">Childcare</tspan><tspan x="376.61538461538436" dy="1.2em">Workers</tspan></text><text x="376.61538461538436" y="159" text-anchor="middle" font-size="14" font-weight="600" fill="#2A8A8A">$15.41/hr</text><text x="32" y="228" text-anchor="middle" font-size="12" fill="#2A8A8A" font-weight="600"><tspan x="32">Lowest</tspan><tspan x="32" dy="1.0em">paid</tspan><tspan x="32" dy="1.0em">occ.</tspan></text><text x="664" y="80" text-anchor="end" font-size="16" fill="#2A8A8A" font-weight="600"><tspan x="664">742 occupations</tspan><tspan x="664" dy="1.3em">paid more →</tspan></text><text x="340" y="286" text-anchor="middle" font-size="14" fill="#666" font-style="italic">Hourly median wages, 2024. Source: BLS OEWS.</text></svg>
 			</div>
 
 			<hr class="hr-accent accent-teal">
 			<p>Peer occupations change by location. In some states, childcare workers are paid a poverty wage — half of what a typical worker makes. In every Nordic country, they are paid 65–75% of a typical wage. Use the table below to dig deeper.</p>
 
-			<details class="details-section" id="wp-explore" style="margin: 0.5rem 0 0 0;">
+			<details class="details-section" id="wp-explore">
 				<summary>Explore wage peers by state or country</summary>
 				<p>Select a geography to see which occupations pay closest to childcare workers there.</p>
 				<div class="wp-controls">
@@ -604,7 +605,7 @@
 					<div class="wp-column" id="wp-col-2" style="display:none;"></div>
 				</div>
 				<p class="chart-source wp-note" id="wp-cross-note" style="display:none;"></p>
-				<span class="chart-source" style="margin-top:6px;">Source: BLS OEWS 2024, Statistics Canada LFS 2025, Nordic national statistics offices.</span>
+				<span class="chart-source">Source: BLS OEWS 2024, Statistics Canada LFS 2025, Nordic national statistics offices.</span>
 			</details>
 		</aside>
 
@@ -622,7 +623,7 @@
 		<p>Both systems self-reinforce. The diagram below shows two feedback loops — a virtuous cycle in the Nordics and a vicious cycle in the US.</p>
 
 		<!-- Feedback loop diagram -->
-		<div id="feedback-container" style="margin: 0.5rem 0;">
+		<div id="feedback-container">
 			<!-- Desktop -->
 			<svg class="fb-desktop" viewBox="0 30 680 260" preserveAspectRatio="xMidYMid meet">
 				<defs>
@@ -751,10 +752,10 @@
 
 		<!-- Age coverage grid -->
 		<div class="card" id="age-coverage-container">
-			<div class="card-header accent-teal" style="padding: 10px 12px 8px;">
+			<div class="card-header accent-teal">
 				<span class="chart-title map-category">Closing the gap</span>
 			</div>
-			<div class="card-body cc-card-body-tight" style="padding-bottom: 10px;">
+			<div class="card-body cc-card-body-tight">
 				<h3 class="ac-subtitle">Universal public childcare programs, selected cases</h3>
 				<div class="ac-grid">
 					<div class="ac-corner"></div>
@@ -773,7 +774,7 @@
 					<div class="ac-cell ac-estab"></div>
 					<div class="ac-cell ac-estab"></div>
 
-					<p class="ac-note" style="grid-column: 1 / -1;"><em>+ universal child benefit at every age</em></p>
+					<p class="ac-note ac-note-full"><em>+ universal child benefit at every age</em></p>
 
 					<div class="ac-sep"></div>
 
@@ -951,14 +952,45 @@
 	</main>
 
 		<footer>
+		<div class="footer-sitemap">
+			<div>
+				<h4><a href="reports.html">Data</a></h4>
+				<ul>
+					<li><a href="chartbook.html">US Chartbook</a></li>
+					<li><a href="indicators.html">Economic Indicators</a></li>
+					<li><a href="gdpm.html">Monthly GDP</a></li>
+					<li><a href="imfweo.html">WEO Forecasts</a></li>
+					<li><a href="calendar.html">Release Calendar</a></li>
+				</ul>
+			</div>
+			<div>
+				<h4><a href="python.html">Guides</a></h4>
+				<ul>
+					<li><a href="getstarted.html">Setup</a></li>
+					<li><a href="imfapi1.html">IMF API</a></li>
+					<li><a href="blsapi.html">BLS API</a></li>
+					<li><a href="censusapi.html">Census API</a></li>
+				</ul>
+			</div>
+			<div>
+				<h4><a href="about.html">About</a></h4>
+				<ul>
+					<li><a href="about.html">About BD Economics</a></li>
+					<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog</a></li>
+					<li><a href="https://github.com/bdecon/" target="_blank" rel="noopener">GitHub</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="footer-bottom">
 		<div class="footer-left">
 			<p><time datetime="2026">2026</time>, by Brian Dew</p>
 		</div>
-		<div class="footer-right">
+		<nav class="footer-right" aria-label="Social links">
 			<a href="https://github.com/bdecon/" aria-label="GitHub"><svg class="icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
 			<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><svg class="icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.016-.709-.52-1.248-1.342-1.248S1.4 3.226 1.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a.3.3 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/></svg></a>
 			<a href="https://twitter.com/bd_econ" aria-label="Twitter"><svg class="icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334q.002-.211-.006-.422A6.7 6.7 0 0 0 16 3.542a6.7 6.7 0 0 1-1.889.518 3.3 3.3 0 0 0 1.447-1.817 6.5 6.5 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.32 9.32 0 0 1-6.767-3.429 3.29 3.29 0 0 0 1.018 4.382A3.3 3.3 0 0 1 .64 6.575v.045a3.29 3.29 0 0 0 2.632 3.218 3.2 3.2 0 0 1-.865.115 3 3 0 0 1-.614-.057 3.28 3.28 0 0 0 3.067 2.277A6.6 6.6 0 0 1 .78 13.58a6 6 0 0 1-.78-.045A9.34 9.34 0 0 0 5.026 15"/></svg></a>
 			<a href="https://briandew.wordpress.com/" target="_blank" rel="noopener" aria-label="WordPress Blog"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.469 6.825c.84 1.537 1.318 3.3 1.318 5.175 0 3.979-2.156 7.456-5.363 9.325l3.295-9.527c.615-1.54.82-2.771.82-3.864 0-.405-.026-.78-.07-1.11m-7.981.105c.647-.03 1.232-.105 1.232-.105.582-.075.514-.93-.067-.899 0 0-1.755.135-2.88.135-1.064 0-2.85-.15-2.85-.15-.585-.03-.661.855-.075.885 0 0 .54.061 1.125.09l1.68 4.605-2.37 7.08L5.354 6.9c.649-.03 1.234-.1 1.234-.1.585-.075.516-.93-.065-.896 0 0-1.746.138-2.874.138-.2 0-.438-.008-.69-.015C4.911 3.15 8.235 1.215 12 1.215c2.809 0 5.365 1.072 7.286 2.833-.046-.003-.091-.009-.141-.009-1.06 0-1.812.923-1.812 1.914 0 .89.513 1.643 1.06 2.531.411.72.89 1.643.89 2.977 0 .915-.354 1.994-.821 3.479l-1.075 3.585-3.9-11.61.001.014zM12 22.784c-1.059 0-2.081-.153-3.048-.437l3.237-9.406 3.315 9.087c.024.053.05.101.078.149-1.12.393-2.325.609-3.582.609M1.211 12c0-1.564.336-3.05.935-4.39L7.29 21.709C3.694 19.96 1.212 16.271 1.211 12M12 0C5.385 0 0 5.385 0 12s5.385 12 12 12 12-5.385 12-12S18.615 0 12 0"/></svg></a>
+		</nav>
 		</div>
 		</footer>
 	<script src="scripts/nav.js"></script>
