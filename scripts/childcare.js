@@ -1351,7 +1351,7 @@
 		if (!geo) { col.innerHTML = ''; return; }
 
 		var periodLabel = geo.period === 'hour' ? 'hourly' : 'monthly';
-		var html = '<div class="wp-col-header">';
+		var html = '<div class="card-header accent-teal wp-col-header">';
 		html += '<p class="wp-geo-name">' + escHtml(geo.label) + '</p>';
 		html += '<p class="wp-occ-label">Median wage, USD (PPP), ' + periodLabel + '</p>';
 		html += '</div>';
