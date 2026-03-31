@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>BD Economics</title>
 	<link rel="stylesheet" href="style.css">
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7"></script>
 	<meta name="description" content="BD Economics provides macroeconomic research tools, data analysis, and Python tutorials for economists.">
 	<meta name="keywords" content="IMF API, Economics Dashboard, Trade Network, Trade Networks, Macroeconomics Dashboard, Macroeconomic Dashboard, Markets Dashboard, Market Dashboard, U.S. Economy, U.S. Economy Dashboard, US economy, US economy dashboard, US economy charts, US economy charts pdf, NetworkX trade, international trade networks, network analysis of trade, International Monetary Fund, IMF Statistics Department, IMF Application Programming Interface, International Monetary Fund Application Programming Interface, International Monetary Fund API, Current Population Survey, CPS with python, Current Population Survey microdata, Economic microdata, CPS Pandas, Consumer Price Index excluding shelter">
 	<meta name="author" content="Brian Dew">
@@ -160,15 +161,31 @@
 			<p class="callout accent-red">Macroeconomic data tools, tutorials, and visualizations</p>
 		</article>
 		<div class="split-row home-intro">
-			<div class="card home-panel">
-				<div class="card-header accent-red">
-					<span class="chart-title"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 139 17" fill="currentColor" class="brand-logo" role="img" aria-label="BD Economics"> <g transform="translate(0,1.5) scale(2.64,2.59)"> <rect x="0" y="0" width="1" height="5"/> <rect x="0" y="4" width="4" height="1"/> <rect x="2" y="2" width="2" height="1"/> <rect x="3" y="2" width="1" height="2"/> <rect x="8" y="0" width="1" height="5"/> <rect x="5" y="4" width="4" height="1"/> <rect x="5" y="2" width="2" height="1"/> <rect x="5" y="2" width="1" height="2"/> </g> <g transform="translate(27.7,15) scale(0.01857,-0.01857)"> <path transform="translate(0,0)" d="M94 0V700H518V622H178V390H512V312H178V78H524V0Z"/> <path transform="translate(672,0)" d="M310 -14Q195 -14 129.5 59.5Q64 133 64 272V428Q64 563 129.5 638.5Q195 714 310 714Q390 714 445.0 680.0Q500 646 528.0 588.5Q556 531 556 460V448H472V460Q471 506 454.5 546.0Q438 586 402.5 611.0Q367 636 310 636Q229 636 188.5 577.0Q148 518 148 422V278Q148 176 188.5 120.0Q229 64 310 64Q367 64 403.0 89.0Q439 114 455.5 154.0Q472 194 472 240V252H556V240Q556 169 528.0 111.5Q500 54 445.0 20.0Q390 -14 310 -14Z"/> <path transform="translate(1344,0)" d="M306 -14Q191 -14 125.5 59.5Q60 133 60 272V428Q60 563 125.5 638.5Q191 714 306 714Q422 714 487.0 638.5Q552 563 552 428V272Q552 133 487.0 59.5Q422 -14 306 -14ZM306 64Q387 64 427.5 120.0Q468 176 468 278V422Q468 518 427.5 577.0Q387 636 306 636Q225 636 184.5 577.0Q144 518 144 422V278Q144 176 184.5 120.0Q225 64 306 64Z"/> <path transform="translate(2016,0)" d="M73 0V700H241L443 36H455V700H539V0H371L169 664H157V0Z"/> <path transform="translate(2688,0)" d="M306 -14Q191 -14 125.5 59.5Q60 133 60 272V428Q60 563 125.5 638.5Q191 714 306 714Q422 714 487.0 638.5Q552 563 552 428V272Q552 133 487.0 59.5Q422 -14 306 -14ZM306 64Q387 64 427.5 120.0Q468 176 468 278V422Q468 518 427.5 577.0Q387 636 306 636Q225 636 184.5 577.0Q144 518 144 422V278Q144 176 184.5 120.0Q225 64 306 64Z"/> <path transform="translate(3360,0)" d="M46 0V700H206L300 36H312L406 700H566V0H488V664H476L382 0H230L136 664H124V0Z"/> <path transform="translate(4032,0)" d="M84 0V78H264V622H84V700H528V622H348V78H528V0Z"/> <path transform="translate(4704,0)" d="M310 -14Q195 -14 129.5 59.5Q64 133 64 272V428Q64 563 129.5 638.5Q195 714 310 714Q390 714 445.0 680.0Q500 646 528.0 588.5Q556 531 556 460V448H472V460Q471 506 454.5 546.0Q438 586 402.5 611.0Q367 636 310 636Q229 636 188.5 577.0Q148 518 148 422V278Q148 176 188.5 120.0Q229 64 310 64Q367 64 403.0 89.0Q439 114 455.5 154.0Q472 194 472 240V252H556V240Q556 169 528.0 111.5Q500 54 445.0 20.0Q390 -14 310 -14Z"/> <path transform="translate(5376,0)" d="M320 -14Q230 -14 169.0 19.5Q108 53 76.5 111.0Q45 169 45 242V272H129V248Q129 157 180.0 110.5Q231 64 320 64Q398 64 437.5 99.0Q477 134 477 190V196Q477 251 436.5 280.0Q396 309 305 322Q200 337 137.5 381.5Q75 426 75 516V528Q75 583 104.5 624.5Q134 666 186.0 690.0Q238 714 306 714Q385 714 440.5 685.0Q496 656 525.5 608.5Q555 561 555 504V462H471V498Q471 544 448.0 574.5Q425 605 387.0 620.5Q349 636 305 636Q267 636 233.5 623.0Q200 610 179.5 585.5Q159 561 159 525V519Q159 461 206.0 434.5Q253 408 347 394Q457 378 509.0 330.0Q561 282 561 202V190Q561 99 499.5 42.5Q438 -14 320 -14Z"/> </g> </svg></span>
+			<div>
+				<div class="card">
+					<div class="card-header accent-red">
+						<span class="chart-title"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 139 17" fill="currentColor" class="brand-logo" role="img" aria-label="BD Economics"> <g transform="translate(0,1.5) scale(2.64,2.59)"> <rect x="0" y="0" width="1" height="5"/> <rect x="0" y="4" width="4" height="1"/> <rect x="2" y="2" width="2" height="1"/> <rect x="3" y="2" width="1" height="2"/> <rect x="8" y="0" width="1" height="5"/> <rect x="5" y="4" width="4" height="1"/> <rect x="5" y="2" width="2" height="1"/> <rect x="5" y="2" width="1" height="2"/> </g> <g transform="translate(27.7,15) scale(0.01857,-0.01857)"> <path transform="translate(0,0)" d="M94 0V700H518V622H178V390H512V312H178V78H524V0Z"/> <path transform="translate(672,0)" d="M310 -14Q195 -14 129.5 59.5Q64 133 64 272V428Q64 563 129.5 638.5Q195 714 310 714Q390 714 445.0 680.0Q500 646 528.0 588.5Q556 531 556 460V448H472V460Q471 506 454.5 546.0Q438 586 402.5 611.0Q367 636 310 636Q229 636 188.5 577.0Q148 518 148 422V278Q148 176 188.5 120.0Q229 64 310 64Q367 64 403.0 89.0Q439 114 455.5 154.0Q472 194 472 240V252H556V240Q556 169 528.0 111.5Q500 54 445.0 20.0Q390 -14 310 -14Z"/> <path transform="translate(1344,0)" d="M306 -14Q191 -14 125.5 59.5Q60 133 60 272V428Q60 563 125.5 638.5Q191 714 306 714Q422 714 487.0 638.5Q552 563 552 428V272Q552 133 487.0 59.5Q422 -14 306 -14ZM306 64Q387 64 427.5 120.0Q468 176 468 278V422Q468 518 427.5 577.0Q387 636 306 636Q225 636 184.5 577.0Q144 518 144 422V278Q144 176 184.5 120.0Q225 64 306 64Z"/> <path transform="translate(2016,0)" d="M73 0V700H241L443 36H455V700H539V0H371L169 664H157V0Z"/> <path transform="translate(2688,0)" d="M306 -14Q191 -14 125.5 59.5Q60 133 60 272V428Q60 563 125.5 638.5Q191 714 306 714Q422 714 487.0 638.5Q552 563 552 428V272Q552 133 487.0 59.5Q422 -14 306 -14ZM306 64Q387 64 427.5 120.0Q468 176 468 278V422Q468 518 427.5 577.0Q387 636 306 636Q225 636 184.5 577.0Q144 518 144 422V278Q144 176 184.5 120.0Q225 64 306 64Z"/> <path transform="translate(3360,0)" d="M46 0V700H206L300 36H312L406 700H566V0H488V664H476L382 0H230L136 664H124V0Z"/> <path transform="translate(4032,0)" d="M84 0V78H264V622H84V700H528V622H348V78H528V0Z"/> <path transform="translate(4704,0)" d="M310 -14Q195 -14 129.5 59.5Q64 133 64 272V428Q64 563 129.5 638.5Q195 714 310 714Q390 714 445.0 680.0Q500 646 528.0 588.5Q556 531 556 460V448H472V460Q471 506 454.5 546.0Q438 586 402.5 611.0Q367 636 310 636Q229 636 188.5 577.0Q148 518 148 422V278Q148 176 188.5 120.0Q229 64 310 64Q367 64 403.0 89.0Q439 114 455.5 154.0Q472 194 472 240V252H556V240Q556 169 528.0 111.5Q500 54 445.0 20.0Q390 -14 310 -14Z"/> <path transform="translate(5376,0)" d="M320 -14Q230 -14 169.0 19.5Q108 53 76.5 111.0Q45 169 45 242V272H129V248Q129 157 180.0 110.5Q231 64 320 64Q398 64 437.5 99.0Q477 134 477 190V196Q477 251 436.5 280.0Q396 309 305 322Q200 337 137.5 381.5Q75 426 75 516V528Q75 583 104.5 624.5Q134 666 186.0 690.0Q238 714 306 714Q385 714 440.5 685.0Q496 656 525.5 608.5Q555 561 555 504V462H471V498Q471 544 448.0 574.5Q425 605 387.0 620.5Q349 636 305 636Q267 636 233.5 623.0Q200 610 179.5 585.5Q159 561 159 525V519Q159 461 206.0 434.5Q253 408 347 394Q457 378 509.0 330.0Q561 282 561 202V190Q561 99 499.5 42.5Q438 -14 320 -14Z"/> </g> </svg></span>
+					</div>
+					<div class="card-body card-body-fill">
+						<p>Open-source tools for economists and researchers. The <strong><a href="python.html">Python tutorials</a></strong> show how to access economic data from the IMF, BLS, and Census APIs. The <strong><a href="chartbook.html">US Chartbook</a></strong> provides 250+ indicators on labor markets, inflation, GDP, and trade.</p>
+					</div>
 				</div>
-				<div class="card-body card-body-fill">
-					<p>Open-source tools for economists and researchers. The <strong><a href="python.html">Python tutorials</a></strong> show how to access economic data from the IMF, BLS, and Census APIs. The <strong><a href="chartbook.html">US Chartbook</a></strong> provides 250+ indicators on labor markets, inflation, GDP, and trade.</p>
+				<div class="info-box home-sparkline" id="sparkline-box">
+					<div class="sparkline-header">
+						<span class="label" id="sparkline-title">Unemployment Rate</span>
+						<span class="key-stat" id="sparkline-value">—</span>
+					</div>
+					<div class="sparkline-wrap"><canvas id="sparkline-chart"></canvas></div>
+					<div class="sparkline-nav">
+						<button class="btn active" data-spark="unrate">Unemployment</button>
+						<button class="btn" data-spark="cpi">Inflation</button>
+						<button class="btn" data-spark="ffrate">Fed Funds</button>
+						<a href="indicators.html" class="note">See all →</a>
+					</div>
 				</div>
 			</div>
-			<div class="card home-panel">
+			<div>
+			<div class="card">
 				<div class="card-header accent-red">
 					<span class="chart-title">From the blog</span>
 					<a href="https://briandew.wordpress.com" target="_blank" rel="noopener">All posts →</a>
@@ -178,6 +195,7 @@
 						<li>Loading…</li>
 					</ul>
 				</div>
+			</div>
 			</div>
 		</div>
 		<section class="card-grid">
@@ -229,18 +247,130 @@
 	</main>
 	<script>
 	(function() {
-		const url = 'https://public-api.wordpress.com/rest/v1.1/sites/briandew.wordpress.com/posts/?number=5&fields=title,date,URL';
+		const url = 'https://public-api.wordpress.com/rest/v1.1/sites/briandew.wordpress.com/posts/?number=5&fields=title,date,URL,featured_image';
 		const list = document.getElementById('blog-posts');
 		fetch(url)
 			.then(r => r.json())
 			.then(data => {
-				list.innerHTML = data.posts.map(p => {
+				const posts = data.posts;
+				const first = posts[0];
+				const rest = posts.slice(1);
+				const d0 = new Date(first.date);
+				const fmt0 = d0.toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
+				let html = '';
+				if (first.featured_image) {
+					html += '<li class="blog-featured"><a href="' + first.URL + '" target="_blank" rel="noopener">'
+						+ '<img src="' + first.featured_image + '?w=600" alt="" loading="lazy" decoding="async"></a>'
+						+ '<a href="' + first.URL + '" target="_blank" rel="noopener">' + first.title + '</a> <span class="note">' + fmt0 + '</span></li>';
+				} else {
+					html += '<li><a href="' + first.URL + '" target="_blank" rel="noopener">' + first.title + '</a> <span class="note">' + fmt0 + '</span></li>';
+				}
+				html += rest.map(p => {
 					const d = new Date(p.date);
 					const fmt = d.toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
-					return '<li><a href="' + p.URL + '" target="_blank" rel="noopener">' + p.title + '</a> <span>' + fmt + '</span></li>';
+					return '<li><a href="' + p.URL + '" target="_blank" rel="noopener">' + p.title + '</a> <span class="note">' + fmt + '</span></li>';
 				}).join('');
+				list.innerHTML = html;
 			})
 			.catch(() => { list.innerHTML = '<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Visit the blog →</a></li>'; });
+	})();
+
+	// Sparkline widget
+	(function() {
+		const indicators = {
+			unrate: { file: 'files/unrate.csv', col: 1, title: 'Unemployment Rate', suffix: '%', color: '#9a6830', decimals: 1 },
+			cpi: { file: 'files/cpi.csv', col: 1, title: 'CPI Inflation', suffix: '%', color: '#E04040', decimals: 1 },
+			ffrate: { file: 'files/ffrate.csv', col: 1, title: 'Federal Funds Rate', suffix: '%', color: '#3d5a8a', decimals: 2 }
+		};
+		let chart = null;
+		const ctx = document.getElementById('sparkline-chart');
+		if (!ctx) return;
+
+		function parseCSV(text) {
+			const lines = text.trim().split('\n');
+			const rows = lines.slice(1).map(l => l.split(','));
+			return rows;
+		}
+
+		function render(id) {
+			const ind = indicators[id];
+			fetch(ind.file)
+				.then(r => r.text())
+				.then(text => {
+					const rows = parseCSV(text);
+					const cutoff = new Date();
+					cutoff.setFullYear(cutoff.getFullYear() - 3);
+					const recent = rows.filter(r => new Date(r[0]) >= cutoff);
+					const labels = recent.map(r => r[0]);
+					const values = recent.map(r => parseFloat(r[ind.col]));
+					const latest = values[values.length - 1];
+
+					document.getElementById('sparkline-title').textContent = ind.title;
+					document.getElementById('sparkline-value').textContent = latest.toFixed(ind.decimals) + ind.suffix;
+					document.getElementById('sparkline-box').style.setProperty('--accent', ind.color);
+
+					const min = Math.min(...values);
+					const max = Math.max(...values);
+					const pad = (max - min) * 0.15 || 0.5;
+					const FONT = getComputedStyle(document.documentElement).getPropertyValue('--font').trim() || "'Lato', sans-serif";
+
+					if (chart) chart.destroy();
+					chart = new Chart(ctx, {
+						type: 'line',
+						data: {
+							labels: labels,
+							datasets: [{
+								data: values,
+								borderColor: ind.color,
+								borderWidth: 2.5,
+								pointRadius: 0,
+								pointHitRadius: 8,
+								pointHoverRadius: 3,
+								pointHoverBackgroundColor: ind.color,
+								tension: 0.3,
+								fill: false
+							}]
+						},
+						options: {
+							responsive: true,
+							maintainAspectRatio: false,
+							plugins: {
+								legend: { display: false },
+								tooltip: {
+									displayColors: false,
+									bodyFont: { family: FONT, size: 12 },
+									titleFont: { family: FONT, size: 11 },
+									callbacks: {
+										title: items => {
+											const d = new Date(items[0].label);
+											return d.toLocaleDateString('en-US', {month: 'short', year: 'numeric'});
+										},
+										label: items => items.formattedValue + ind.suffix
+									}
+								}
+							},
+							scales: {
+								x: { display: false },
+								y: { display: false, min: min - pad, max: max + pad }
+							},
+							animation: { duration: 300 }
+						}
+					});
+				})
+				.catch(() => {});
+		}
+
+		// Button handlers
+		document.querySelectorAll('.sparkline-nav .btn').forEach(btn => {
+			btn.addEventListener('click', () => {
+				document.querySelectorAll('.sparkline-nav .btn').forEach(b => b.classList.remove('active'));
+				btn.classList.add('active');
+				render(btn.dataset.spark);
+			});
+		});
+
+		// Initial render
+		render('unrate');
 	})();
 	</script>
 		<footer>
@@ -252,7 +382,6 @@
 					<li><a href="indicators.html">Economic Indicators</a></li>
 					<li><a href="gdpm.html">Monthly GDP</a></li>
 					<li><a href="imfweo.html">WEO Forecasts</a></li>
-					<li><a href="calendar.html">Release Calendar</a></li>
 				</ul>
 			</div>
 			<div>

@@ -130,7 +130,7 @@
 		</article>
 
 		<div class="control-panel cal-toolbar" role="toolbar" aria-label="Calendar controls">
-			<div class="cal-filters" role="group" aria-label="Filter releases">
+			<div class="cal-filters accent-brown" role="group" aria-label="Filter releases">
 				<button class="btn btn--pill cal-filter active" data-filter="all" aria-pressed="true" aria-label="Show all releases">All</button>
 				<button class="btn btn--pill cal-filter" data-filter="major" aria-pressed="false" aria-label="Show major releases only">Major</button>
 				<button class="btn btn--pill cal-filter" data-view="week" aria-pressed="false" aria-label="Show this week's releases">This Week</button>
@@ -148,13 +148,6 @@
 			<noscript><p class="cal-empty">Enable JavaScript to view the release calendar.</p></noscript>
 		</div>
 
-		<p class="note cal-source">
-			Source: <a href="https://fred.stlouisfed.org/releases">FRED Release Calendar</a>.
-			Last updated: <span id="cal-updated"></span>.
-			Dates are tentative and subject to change.
-			See also: <a href="chartbook.html">US Chartbook</a> · <a href="indicators.html">Economic Indicators</a>
-		</p>
-
 		<div class="subfooter" data-hub="reports" data-current="calendar.html" style="--accent-color: var(--color-card-brown)"></div>
 	</section>
 	</main>
@@ -168,7 +161,6 @@
 					<li><a href="indicators.html">Economic Indicators</a></li>
 					<li><a href="gdpm.html">Monthly GDP</a></li>
 					<li><a href="imfweo.html">WEO Forecasts</a></li>
-					<li><a href="calendar.html">Release Calendar</a></li>
 				</ul>
 			</div>
 			<div>
@@ -370,9 +362,9 @@
 				// No major releases — show count
 				html += `${weekEntries.length} release${weekEntries.length > 1 ? 's' : ''} remaining this week (no major)`;
 			} else {
-				html += dayParts.join(' · ');
+				html += dayParts.join(' &ensp;·&ensp; ');
 			}
-			html += '</nav>';
+			html += '</div>';
 			container.innerHTML = html;
 		}
 
@@ -585,8 +577,6 @@
 			.then(r => r.json())
 			.then(data => {
 				calData = data;
-				document.getElementById('cal-updated').textContent =
-					new Date(data.generated).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
 
 				// Determine available months from data
 				const months = new Set();
