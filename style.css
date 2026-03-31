@@ -1235,7 +1235,7 @@ table {
 	& .scores-table {
 		font-size: var(--text-sm); table-layout: fixed;
 		& th, & td { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-		& th:first-child, & td:first-child { width: 45%; }
+		& th:first-child, & td:first-child { width: 35%; }
 		& th { cursor: pointer; user-select: none; position: sticky; top: 0; background: var(--color-bg-input);
 			&:hover { color: var(--color-link); }
 			& .sort-arrow { font-size: 10px; margin-left: 2px; }
@@ -1251,6 +1251,9 @@ table {
 	/* Share/download */
 	& .weo-share { flex-direction: column; align-items: flex-end; align-self: center; }
 
+	/* Data download */
+	& .weo-download-card { max-width: var(--width-md); }
+	& .weo-json-details { margin-top: var(--space-4); }
 
 	/* Mobile */
 	@media (max-width: 760px) {

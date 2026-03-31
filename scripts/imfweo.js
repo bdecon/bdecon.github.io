@@ -1574,6 +1574,9 @@
 			if (scoresSortAbsolute && scoresSortCol === 'bias_score') {
 				va = Math.abs(va); vb = Math.abs(vb);
 			}
+			// Push nulls to bottom
+			if (va == null) return 1;
+			if (vb == null) return -1;
 			return scoresSortAsc ? va - vb : vb - va;
 		});
 
@@ -1589,11 +1592,16 @@
 			const biasColor = r.bias_score > 0
 				? 'rgba(220,80,60,' + biasOpacity + ')'
 				: 'rgba(50,120,200,' + biasOpacity + ')';
+			const uVal = r.theil_u != null ? r.theil_u.toFixed(2) : '—';
+			const uColor = r.theil_u != null && r.theil_u > 1
+				? 'rgba(220,80,60,' + (Math.min(r.theil_u - 1, 1) * 0.25).toFixed(2) + ')'
+				: 'transparent';
 			tr.innerHTML =
 				'<td title="' + r.name + '">' + r.name + '</td>' +
 				'<td>' + Math.round(r.sign_ratio * 100) + '%</td>' +
 				'<td style="background:' + biasColor + '">' + r.bias_score.toFixed(2) + '</td>' +
-				'<td>' + r.mae.toFixed(2) + '</td>';
+				'<td>' + r.mae.toFixed(2) + '</td>' +
+				'<td style="background:' + uColor + '">' + uVal + '</td>';
 			tr.addEventListener('click', () => {
 				if (DATA && DATA.c[r.iso]) {
 					selectCountry(r.iso);

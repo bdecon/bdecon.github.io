@@ -148,7 +148,7 @@
 
 	<div class="weo-intro">
 	<p class="callout accent-blue">The world economy as seen by the IMF — forecasts and data for 196 countries.</p>
-	<p>The IMF publishes the <a href="https://www.imf.org/en/Publications/WEO">World Economic Outlook</a> twice a year (April and October), with macroeconomic forecasts for nearly 200 countries. This tool tracks how those forecasts have evolved across editions from April 2008 to October 2025.</p>
+	<p>The IMF publishes the <a href="https://www.imf.org/en/Publications/WEO">World Economic Outlook</a> twice a year (April and October), with macroeconomic forecasts for nearly 200 countries. This tool tracks how those forecasts have evolved across 72 editions from 1990 to October 2025.</p>
 
 	<p>Each dot below is a forecast from a previous WEO edition. Larger, fainter dots are longer-range forecasts; smaller, brighter dots are nearer-term. The solid line shows the latest actual data; the dashed line shows the latest forecasts. Where dots cluster tightly, forecasters agreed; where they spread, there was uncertainty or revision.</p>
 	</div>
@@ -221,7 +221,7 @@
 	</div>
 	<details class="details-section" id="scores-section" open>
 		<summary>Forecast Accuracy Scores</summary>
-		<p>How accurate are IMF forecasts for each country? This table scores one-year-ahead forecasts against actual outcomes. A high <em>% Over</em> means the IMF consistently overestimated; the <em>Bias</em> z-score shows how unusual that pattern is relative to other countries. Volatile economies naturally have higher errors (MAE), so the bias score helps distinguish genuine forecast bias from inherent unpredictability. Click a column to sort, or click a row to view that country's chart.</p>
+		<p>How accurate are IMF forecasts for each country? This table scores year-ahead forecasts (October vintage for the following year) against outcomes. A high <em>% Over</em> means the IMF consistently overestimated; the <em>Theil U</em> compares IMF accuracy to a naive benchmark&mdash;values above 1.0 mean the country&rsquo;s historical average would have been more accurate. Click a column to sort, or click a row to view that country's chart.</p>
 		<div class="dash-column">
 		<div class="control-panel scores-controls">
 			<div class="control-row">
@@ -230,6 +230,8 @@
 					<option value="NGDP_RPCH">Real GDP Growth</option>
 					<option value="PCPIPCH">CPI Inflation</option>
 					<option value="BCA_NGDPD">Current Account Balance</option>
+					<option value="LUR">Unemployment Rate</option>
+					<option value="GGXWDG_NGDP">Government Debt</option>
 				</select>
 			</div>
 			<div class="control-row">
@@ -261,13 +263,38 @@
 						<th data-col="sign_ratio">% Over</th>
 						<th data-col="bias_score">Bias</th>
 						<th data-col="mae">MAE</th>
+						<th data-col="theil_u">Theil U</th>
 					</tr>
 				</thead>
 				<tbody id="scores-body"></tbody>
 			</table>
 		</div>
-		<p class="note"><strong>% Over</strong>: share of one-year-ahead forecasts that exceeded the actual outcome. <strong>Bias</strong>: z-score of a country's mean forecast error relative to all countries (positive = systematic overforecast). <strong>MAE</strong>: mean absolute error in percentage points. <a id="btn-download-scores" class="download-link" role="button">Download full scores (CSV)</a></p>
+		<p class="note"><strong>% Over</strong>: share of year-ahead forecasts that exceeded the actual outcome. <strong>Bias</strong>: z-score of mean forecast error relative to all countries (positive = systematic overforecast). <strong>MAE</strong>: mean absolute error in percentage points. <strong>Theil U</strong>: RMSE ratio vs. naive forecast (historical average); U &lt; 1 = IMF adds value, U &gt; 1 = naive wins. Actuals measured from the following year&rsquo;s Fall WEO (Celasun et al. 2021 convention). <a id="btn-download-scores" class="download-link" role="button">Download full scores (CSV)</a></p>
 		</div>
+	</details>
+
+	<details class="details-section">
+		<summary>Data Download</summary>
+		<p>The underlying data is available for your own analysis. The CSV contains 21 indicators across 72 WEO editions &mdash; enough to replicate the major findings in the IMF forecast evaluation literature. The AI context file provides dataset documentation and exact replication methods for 8 published studies.</p>
+		<div class="card accent-blue weo-download-card">
+			<div class="card-header"><h3>Research data</h3></div>
+			<div class="card-body">
+				<ul>
+					<li><a href="files/imfweo/imfweo-data.csv.gz" download>imfweo-data.csv.gz</a> <span class="note">(14 MB) &mdash; 3.6M rows, 21 indicators, 72 vintages (1990&ndash;2025), 196 countries. Flat CSV with is_forecast flag.</span></li>
+					<li><a href="files/imfweo/imfweo-context.md" download>imfweo-context.md</a> <span class="note">&mdash; AI agent context: schema docs, database build recipe, exact replication methods for Blanchard&ndash;Leigh, IEO, Koch&ndash;Noureldin, Aktug&ndash;Rezghi, Timmermann, Celasun, Ismail&ndash;Perrelli&ndash;Yang, Hadzi-Vaskov&ndash;Ricci</span></li>
+				</ul>
+			</div>
+		</div>
+		<details class="details-section weo-json-details">
+			<summary>Web chart data (JSON)</summary>
+			<p class="note">These compact JSON files power this page&rsquo;s interactive chart. They contain a subset of the full CSV (8 indicators, 45 vintages) in a format optimized for Chart.js.</p>
+			<ul>
+				<li><a href="files/imfweo/data.json" download>data.json</a> <span class="note">(5.3 MB)</span></li>
+				<li><a href="files/imfweo/data-extended.json" download>data-extended.json</a> <span class="note">(1.4 MB) &mdash; 1990&ndash;2002 supplement</span></li>
+				<li><a href="files/imfweo/forecast-scores.json" download>forecast-scores.json</a> <span class="note">(205 KB) &mdash; precomputed accuracy scores</span></li>
+			</ul>
+		</details>
+		<p class="note">Data sourced from IMF World Economic Outlook editions. See the context file for full methodology, sources, and replication instructions.</p>
 	</details>
 
 	<details class="details-section">
@@ -328,8 +355,10 @@
 			<li><a href="https://ieo.imf.org/en/evaluations/completed/2014-0318-imf-forecasts-process-quality-and-country-perspectives">IEO: IMF Forecasts &mdash; Process, Quality, and Country Perspectives (2014)</a></li>
 			<li><a href="https://www.imf.org/en/Publications/WP/Issues/2018/03/05/How-Well-Do-Economists-Forecast-Recessions-45672">An, Jalles &amp; Loungani: How Well Do Economists Forecast Recessions? (2018)</a></li>
 			<li><a href="https://www.imf.org/-/media/Files/Publications/WP/2021/English/wpiea2021216-print-pdf.ashx">Celasun et al.: An Evaluation of WEO Growth Forecasts 2004&ndash;17 (2021)</a></li>
-			<li><a href="https://www.imf.org/-/media/files/publications/wp/2025/english/wpiea2025031-print-pdf.pdf">Evidence of Asymmetry in WEO Forecasts (2025)</a></li>
+			<li><a href="https://www.imf.org/-/media/files/publications/wp/2025/english/wpiea2025031-print-pdf.pdf">Aktug &amp; Rezghi: Evidence of Asymmetry in WEO Forecasts (2025)</a></li>
 			<li><a href="https://www.elibrary.imf.org/view/journals/001/2021/136/article-A001-en.xml">Hadzi-Vaskov et al.: Patterns in IMF Growth Forecast Revisions (2021)</a></li>
+			<li><a href="https://www.imf.org/-/media/Files/Publications/WP/2023/English/wpiea2023102-print-pdf.ashx">Koch &amp; Noureldin: How We Missed the Inflation Surge (2023)</a></li>
+			<li><a href="https://www.imf.org/en/Publications/WP/Issues/2020/11/13/Optimism-Bias-in-Growth-Forecasts-The-Role-of-Planned-Policy-Adjustments-49867">Ismail, Perrelli &amp; Yang: Optimism Bias in Growth Forecasts (2020)</a></li>
 			<li><a href="imfapi3.html">IMF API Guide &mdash; Working with WEO Data</a></li>
 			<li><a href="https://github.com/bdecon/bdecon.github.io">Source code on GitHub</a></li>
 		</ul>
