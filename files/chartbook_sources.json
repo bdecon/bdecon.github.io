@@ -153,9 +153,9 @@
     },
     {
       "name": "Oil Production",
-      "period": "Dec 2025",
+      "period": "Jan 2026",
       "freq": "monthly",
-      "last_changed": "2026-03-08"
+      "last_changed": "2026-03-31"
     },
     {
       "name": "Mortgage Rates",
@@ -298,6 +298,12 @@
       "last_changed": "2026-03-31"
     },
     {
+      "name": "Oil Production",
+      "period": "Jan 2026",
+      "freq": "monthly",
+      "last_changed": "2026-03-31"
+    },
+    {
       "name": "Consumer Sentiment",
       "period": "Mar 2026",
       "freq": "monthly",
@@ -338,12 +344,6 @@
       "period": "Jan 2026",
       "freq": "monthly",
       "last_changed": "2026-03-25"
-    },
-    {
-      "name": "Construction Spending",
-      "period": "Jan 2026",
-      "freq": "monthly",
-      "last_changed": "2026-03-23"
     }
   ],
   "st_series": [

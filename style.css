@@ -460,16 +460,16 @@ ul li a:hover + .hidden, .hidden:hover { display: block; }
 	nav { height: 50px; padding: 0; }
 	.card-nav { min-height: auto; }
 	.card-nav .card-body { min-height: auto; }
-	main { padding: 6px 12px 12px; }
-	footer { padding: 16px 12px 6px; }
+	main { padding: var(--space-2) var(--space-3) var(--space-3); }
+	footer { padding: var(--space-4) var(--space-3) var(--space-2); }
 }
 
 /* Phone — tighter spacing, touch targets, stacked controls
    Breakpoints: 760px (tablet), 480px (phone) */
 @media (max-width: 480px) {
-	main { padding: 6px 8px 12px; }
-	.prose { padding: 0 8px; }
-	footer { padding: 12px 8px 6px; }
+	main { padding: var(--space-2) var(--space-2) var(--space-3); }
+	.prose { padding: 0 var(--space-2); }
+	footer { padding: var(--space-3) var(--space-2) var(--space-2); }
 
 	/* Tighten vertical rhythm */
 	.prose h2 { margin-top: var(--space-6); }
