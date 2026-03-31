@@ -80,7 +80,9 @@
 		'GGD_NGDP': [0, 100],
 		'GGXONLB_NGDP': [-8, 4],
 		'TX_RPCH': [-10, 15],
-		'LUR': [0, 12]
+		'LUR': [0, 12],
+		'GGSB_NPGDP': [-8, 4],
+		'PPPSH': [0, 5]
 	};
 
 	// Hard ceilings: clamp y-axis so extreme outliers (hyperinflation,
@@ -145,8 +147,8 @@
 		const lineRegion = el('.legend-line-region');
 		if (lineRegion) Object.assign(lineRegion.style, { height: '2.5px', background: regionLineColor() });
 
-		// Forecast dots — h=5, h=3, h=1
-		for (const h of [5, 3, 1]) {
+		// Forecast dots — h=1, h=2, h=3, h=4
+		for (const h of [1, 2, 3, 4]) {
 			const dot = el('.legend-dot-h' + h);
 			if (dot) {
 				const d = horizonRadius(h) * 2;
@@ -179,17 +181,18 @@
 		forecast: ['_forecast_line'],
 		world: ['_world'],
 		region: ['_region'],
-		cloud_far: ['_cloud_h4', '_cloud_h5', '_cloud_h6', '_cloud_h7', '_cloud_h8'],
-		cloud_mid: ['_cloud_h3'],
-		cloud_near: ['_cloud_h1', '_cloud_h2'],
+		cloud_4plus: ['_cloud_h4', '_cloud_h5', '_cloud_h6', '_cloud_h7', '_cloud_h8'],
+		cloud_3yr: ['_cloud_h3'],
+		cloud_2yr: ['_cloud_h2'],
+		cloud_1yr: ['_cloud_h1'],
 		nc_apr: ['_nc_apr'],
 		nc_oct: ['_nc_oct']
 	};
-	const hiddenSeries = new Set(['world', 'region']);
+	const hiddenSeries = new Set(['world', 'region', 'cloud_4plus', 'cloud_3yr', 'cloud_2yr', 'cloud_1yr', 'nc_oct']);
 
 	const GROUP_MAP = {
 		latest: ['actual', 'forecast', 'world', 'region'],
-		prev: ['cloud_far', 'cloud_mid', 'cloud_near'],
+		prev: ['cloud_4plus', 'cloud_3yr', 'cloud_2yr', 'cloud_1yr'],
 		nc: ['nc_apr', 'nc_oct']
 	};
 
@@ -255,6 +258,7 @@
 
 	function applyLegendToggle() {
 		if (!chart) return;
+		tooltipYear = null; // force tooltip refresh
 		for (const [key, labels] of Object.entries(TOGGLE_MAP)) {
 			const hidden = hiddenSeries.has(key);
 			for (const ds of chart.data.datasets) {
@@ -262,6 +266,21 @@
 					ds.hidden = hidden;
 				}
 			}
+		}
+		// Recompute y-axis to fit visible data
+		const visibleVals = [];
+		for (const ds of chart.data.datasets) {
+			if (!ds.hidden && ds.data) {
+				for (const pt of ds.data) {
+					if (pt.y != null) visibleVals.push(pt.y);
+				}
+			}
+		}
+		if (visibleVals.length) {
+			const yRange = computeYRange(visibleVals, currentIndicator);
+			chart.options.scales.y.min = yRange.min;
+			chart.options.scales.y.max = yRange.max;
+			chart.options.scales.y.ticks.stepSize = yRange.step;
 		}
 		chart.update('none');
 	}
@@ -692,7 +711,10 @@
 		const dmin = Math.min(...allVals);
 		const dmax = Math.max(...allVals);
 		const range = dmax - dmin;
-		const pad = Math.max(range * 0.04, 0.5);
+		// Scale-aware padding: 0.5 minimum is fine for percentage-point
+		// indicators but too coarse for small-valued ones like PPPSH
+		const minPad = range < 1 ? range * 0.15 || 0.01 : 0.5;
+		const pad = Math.max(range * 0.04, minPad);
 
 		let yLo = Math.min(defaults[0], dmin - pad);
 		let yHi = Math.max(defaults[1], dmax + pad);
@@ -707,14 +729,9 @@
 			yHi = Math.min(yHi, sensible[1]);
 		}
 
-		// Snap to integers for clean axis edges (adds at most ~1 unit)
-		yLo = Math.floor(yLo);
-		yHi = Math.ceil(yHi);
-
 		const step = niceStep(yHi - yLo);
 
-		// Snap bounds to multiples of step so ticks always
-		// land on clean values (e.g. step=2 → …, -2, 0, 2, …)
+		// Snap bounds to multiples of step for clean tick values
 		yLo = Math.floor(yLo / step) * step;
 		yHi = Math.ceil(yHi / step) * step;
 
@@ -741,43 +758,44 @@
 		const datasets = [];
 		const allVals = [];
 
-		// 1a. World reference line (excluded from allVals — hidden by default,
-		//     shouldn't drive the y-axis for the country)
-		const worldPts = world.filter(p => inRange(p[0])).map(p => ({x: p[0], y: p[1]}));
-		if (worldPts.length) {
-			datasets.push({
-				type: 'line',
-				data: worldPts,
-				borderColor: worldLineColor(),
-				borderWidth: 2.5,
-				pointRadius: 0,
-				pointHoverRadius: 0,
-				fill: false,
-				order: 10,
-				label: '_world'
-			});
+		// Helper: split a reference line into solid (actual) + dashed (forecast)
+		function addRefLine(series, color, label) {
+			if (!series) return;
+			// Support both old format (array) and new format ({d, e})
+			const pts_raw = Array.isArray(series) ? series : series.d;
+			const estCut = Array.isArray(series) ? Infinity : (series.e || Infinity);
+			const pts = pts_raw.filter(p => inRange(p[0])).map(p => ({x: p[0], y: p[1]}));
+			if (!pts.length) return;
+			const actPts = pts.filter(p => p.x <= estCut);
+			const fcPts = pts.filter(p => p.x > estCut);
+			// Bridge: repeat the last actual point in the forecast line
+			if (actPts.length && fcPts.length) {
+				fcPts.unshift(actPts[actPts.length - 1]);
+			}
+			if (actPts.length) {
+				datasets.push({
+					type: 'line', data: actPts, borderColor: color,
+					borderWidth: 2.5, pointRadius: 0, pointHoverRadius: 0,
+					fill: false, order: 10, label
+				});
+			}
+			if (fcPts.length) {
+				datasets.push({
+					type: 'line', data: fcPts, borderColor: color,
+					borderWidth: 2.5, borderDash: [4, 3], pointRadius: 0,
+					pointHoverRadius: 0, fill: false, order: 10, label
+				});
+			}
 		}
+
+		// 1a. World reference line (excluded from allVals — hidden by default)
+		addRefLine(world, worldLineColor(), '_world');
 
 		// 1b. Regional reference line (excluded from allVals — hidden by default)
 		const regionISO = country.r;
 		const regionData = regionISO && DATA.r && DATA.r[regionISO];
 		const regionSeries = regionData && regionData[currentIndicator];
-		if (regionSeries) {
-			const regionPts = regionSeries.filter(p => inRange(p[0])).map(p => ({x: p[0], y: p[1]}));
-			if (regionPts.length) {
-				datasets.push({
-					type: 'line',
-					data: regionPts,
-					borderColor: regionLineColor(),
-					borderWidth: 2.5,
-					pointRadius: 0,
-					pointHoverRadius: 0,
-					fill: false,
-					order: 10,
-					label: '_region'
-				});
-			}
-		}
+		addRefLine(regionSeries, regionLineColor(), '_region');
 
 		// 2. Forecast cloud — one dataset per horizon (h=8 down to h=1)
 		for (let h = 8; h >= 1; h--) {
@@ -922,7 +940,20 @@
 		}
 
 		const { datasets, allVals, yMin, yMax } = buildDatasets();
-		const yRange = computeYRange(allVals, currentIndicator);
+		// Compute y-range from initially visible datasets only
+		const visibleLabels = new Set();
+		for (const [key, labels] of Object.entries(TOGGLE_MAP)) {
+			if (!hiddenSeries.has(key)) labels.forEach(l => visibleLabels.add(l));
+		}
+		const initVals = [];
+		for (const ds of datasets) {
+			if (visibleLabels.has(ds.label) && ds.data) {
+				for (const pt of ds.data) {
+					if (pt.y != null) initVals.push(pt.y);
+				}
+			}
+		}
+		const yRange = computeYRange(initVals.length ? initVals : allVals, currentIndicator);
 		const tc = getThemeColors();
 
 		// Apply per-dataset alpha via plugin
@@ -1055,11 +1086,10 @@
 			const xScale = chart.scales.x;
 			const yScale = chart.scales.y;
 
-			// Skip entirely if all cloud datasets are hidden
-			const anyCloudVisible = chart.data.datasets.some(ds =>
-				ds.label && ds.label.startsWith('_cloud_h') && !ds.hidden
-			);
-			if (!anyCloudVisible) return;
+			// Only draw connecting lines when 2+ cloud groups are visible
+			const cloudGroupsVisible = ['cloud_4plus', 'cloud_3yr', 'cloud_2yr', 'cloud_1yr']
+				.filter(k => !hiddenSeries.has(k)).length;
+			if (cloudGroupsVisible < 2) return;
 
 			// Collect all cloud + nowcast points grouped by vid
 			const byVid = {};
@@ -1219,21 +1249,29 @@
 		const vintages = DATA.v;
 		const indMeta = DATA.i[currentIndicator];
 
-		// Forecasts for this year (chronological)
+		// Determine which horizons are visible based on legend toggles
+		function isHorizonVisible(h) {
+			if (h === 1) return !hiddenSeries.has('cloud_1yr');
+			if (h === 2) return !hiddenSeries.has('cloud_2yr');
+			if (h === 3) return !hiddenSeries.has('cloud_3yr');
+			return !hiddenSeries.has('cloud_4plus');
+		}
+
+		// Forecasts for this year (chronological), filtered by visibility
 		const history = d.f
-			.filter(p => p[0] === year)
+			.filter(p => p[0] === year && isHorizonVisible(p[2]))
 			.map(p => ({ vid: p[3], val: p[1], h: p[2] }))
 			.sort((a, b) => a.vid - b.vid);
 
-		// Nowcasts for this year
+		// Nowcasts for this year, filtered by visibility
 		const ncs = d.nc
-			.filter(p => p[0] === year)
+			.filter(p => p[0] === year && (p[2] === 0 ? !hiddenSeries.has('nc_apr') : !hiddenSeries.has('nc_oct')))
 			.map(p => ({ val: p[1], isOct: p[2] }))
-			.sort((a, b) => a.isOct - b.isOct); // Apr first, then Oct
+			.sort((a, b) => a.isOct - b.isOct);
 
-		// Latest value
-		const latestAct = d.a.find(p => p[0] === year);
-		const latestFc = d.p.find(p => p[0] === year);
+		// Latest value (show if actual or forecast line is visible)
+		const latestAct = !hiddenSeries.has('actual') ? d.a.find(p => p[0] === year) : null;
+		const latestFc = !hiddenSeries.has('forecast') ? d.p.find(p => p[0] === year) : null;
 		const latestVal = latestAct || latestFc;
 		const latestLabel = latestAct ? 'Actual' : 'Forecast';
 
@@ -1244,7 +1282,6 @@
 
 		let html = `<div class="chart-tooltip-header">${year} &mdash; ${indMeta[0]}</div>`;
 
-		// Always-visible: latest value + nowcasts
 		if (latestVal) {
 			const lastV = vintages[vintages.length - 1];
 			html += `<div class="weo-tooltip-latest">${lastV[0]} ${lastV[1]} (${latestLabel}): ${latestVal[1].toFixed(2)}</div>`;
@@ -1256,7 +1293,6 @@
 			}
 		}
 
-		// Scrollable: forecast history
 		if (history.length) {
 			html += '<div class="weo-tooltip-list">';
 			for (const entry of history) {

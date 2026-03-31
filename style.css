@@ -1214,9 +1214,10 @@ table {
 	& [data-toggle="forecast"]   { grid-row: 3; }
 	& [data-toggle="world"]      { grid-row: 4; }
 	& [data-toggle="region"]     { grid-row: 5; }
-	& [data-toggle="cloud_far"]  { grid-row: 2; }
-	& [data-toggle="cloud_mid"]  { grid-row: 3; }
-	& [data-toggle="cloud_near"] { grid-row: 4; }
+	& [data-toggle="cloud_1yr"]   { grid-row: 2; }
+	& [data-toggle="cloud_2yr"]   { grid-row: 3; }
+	& [data-toggle="cloud_3yr"]   { grid-row: 4; }
+	& [data-toggle="cloud_4plus"] { grid-row: 5; }
 	& [data-toggle="nc_apr"]     { grid-row: 3; }
 	& [data-toggle="nc_oct"]     { grid-row: 4; }
 	& .legend-swatch { display: inline-block; flex-shrink: 0; }
