@@ -650,6 +650,22 @@ article:not(.prose) > :first-child { margin-top: 0; }
 		display: table;
 	}
 	& p { font-size: var(--text-sm); color: var(--color-text); margin: 0 0 var(--space-2); }
+	/* Offset tab — category label plate above the box */
+	& .info-box-tab {
+		position: absolute;
+		top: 18px;
+		left: calc(var(--space-4) + 56px);
+		transform: translateY(-100%);
+		font-family: var(--font-mono);
+		font-size: 11px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		padding: 2px var(--space-3);
+		background: var(--accent, var(--color-text-muted));
+		color: #fff;
+		line-height: 1.4;
+	}
 }
 .control-panel {
 	display: flex;
@@ -1080,12 +1096,14 @@ table {
 	& .home-intro { max-width: var(--width-lg); margin: 0 auto; align-items: stretch; }
 	& .home-intro > * { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-5); }
 	& .home-sparkline {
-		padding-top: var(--space-3);
+		padding-top: var(--space-2);
 		& .sparkline-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0; }
+		& .sparkline-stat { display: flex; flex-direction: column; align-items: flex-end; gap: 0; }
+		& .sparkline-stat .label { font-size: 11px; color: var(--color-text-muted); }
 		& .sparkline-header .key-stat { font-size: var(--text-2xl); margin: 0; }
 		& .sparkline-label { display: flex; align-items: center; gap: var(--space-2); }
-		& .sparkline-label .label { margin: 0; color: var(--color-text-strong); }
-		& .sparkline-icon { width: 48px; height: 48px; object-fit: contain; flex-shrink: 0; }
+		& .sparkline-label .label { margin: 0; color: var(--color-text-strong); font-size: var(--text-sm); }
+		& .sparkline-icon { width: 58px; height: 58px; object-fit: contain; flex-shrink: 0; }
 		& .sparkline-nav { display: flex; align-items: center; gap: var(--space-1); margin-top: var(--space-2); flex-wrap: wrap; }
 		& .sparkline-nav .btn { white-space: nowrap; font-size: 11px; padding: var(--space-1) var(--space-2); }
 		& .sparkline-nav .note { margin-left: auto; white-space: nowrap; }
@@ -1333,6 +1351,7 @@ table {
 	& .chart-selector {
 		max-width: var(--width-sm); margin: 0 auto var(--space-4);
 		justify-content: center;
+		flex-wrap: nowrap;
 	}
 	& .chart-selector-center { flex: 1; text-align: center; }
 	& .chart-selector-title { font-weight: 600; color: var(--color-text-strong); text-align: center; margin: 0; }
@@ -1401,7 +1420,7 @@ table {
 		& .chart-flip-wrapper { max-width: none; width: calc(100% + 24px); margin-left: -12px; }
 		& .card-vertical .card-compact .card-body { padding: var(--space-2) 0; }
 		& .card-vertical .chart-subtitle { padding-left: var(--space-2); }
-		& .chart-selector { margin-bottom: var(--space-2); }
+		& .chart-selector { margin-bottom: var(--space-2); max-width: none; flex-direction: row; align-items: center; }
 		& .chart-grid-details { margin-bottom: var(--space-2); }
 		& .chart-grid-icon { width: 70px; }
 		& .chart-grid-links .chart-grid-item { width: 100%; }

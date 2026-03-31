@@ -394,19 +394,11 @@ const lastValuePlugin = {
 				const minGap = 13;
 				const chartBottom = chart.chartArea.bottom;
 
-				// Date label at top
-				ctx.textBaseline = 'middle';
-				ctx.fillStyle = getThemeColors().axisText;
-				let dateY = 12;
-				labelData[0].dateLabels.forEach((label) => {
-					ctx.fillText(label, x, dateY);
-					dateY += 11;
-				});
-				const dateAreaBottom = 12 + (labelData[0].dateLabels.length * 11) + 3;
-
-				// Position labels at actual y, then de-overlap
+				// Position value labels at actual y, then de-overlap
 				const sorted = [...labelData].sort((a, b) => a.yPos - b.yPos);
-				const positions = sorted.map(d => Math.max(dateAreaBottom, Math.min(d.yPos, chartBottom - 4)));
+				const dateHeight = labelData[0].dateLabels.length * 11 + 3;
+				const minTop = chart.chartArea.top + dateHeight + 4;
+				const positions = sorted.map(d => Math.max(minTop, Math.min(d.yPos, chartBottom - 4)));
 
 				// Push overlapping labels downward
 				for (let i = 1; i < positions.length; i++) {
@@ -423,6 +415,15 @@ const lastValuePlugin = {
 						}
 					}
 				}
+
+				// Date label just above topmost value
+				ctx.textBaseline = 'middle';
+				ctx.fillStyle = getThemeColors().axisText;
+				let dateY = positions[0] - dateHeight;
+				labelData[0].dateLabels.forEach((label) => {
+					ctx.fillText(label, x, dateY);
+					dateY += 11;
+				});
 
 				sorted.forEach(({ ds, value }, i) => {
 					const valueStr = fmtNum(value, decimals, prefix, suffix);

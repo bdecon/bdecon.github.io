@@ -170,10 +170,11 @@
 						<p>Open-source tools for economists and researchers. The <strong><a href="python.html">Python tutorials</a></strong> show how to access economic data from the IMF, BLS, and Census APIs. The <strong><a href="chartbook.html">US Chartbook</a></strong> provides 250+ indicators on labor markets, inflation, GDP, and trade.</p>
 					</div>
 				</div>
-				<div class="info-box home-sparkline" id="sparkline-box">
+				<div class="info-box home-sparkline accent-ltblue" id="sparkline-box">
+					<span class="info-box-tab">US Economic Indicators</span>
 					<div class="sparkline-header">
-						<span class="sparkline-label"><img id="sparkline-icon" class="sparkline-icon" src="" alt="" width="48" height="48"><span class="label" id="sparkline-title">Unemployment Rate</span></span>
-						<span class="key-stat" id="sparkline-value">—</span>
+						<span class="sparkline-label"><img id="sparkline-icon" class="sparkline-icon" src="" alt="" width="58" height="58"><span class="label" id="sparkline-title">Unemployment Rate</span></span>
+						<span class="sparkline-stat"><span class="label" id="sparkline-period"></span><span class="key-stat" id="sparkline-value">—</span></span>
 					</div>
 					<div class="sparkline-wrap"><canvas id="sparkline-chart"></canvas></div>
 					<div class="sparkline-nav">
@@ -348,8 +349,15 @@
 
 		function formatDate(dateStr) {
 			if (dateStr.includes('Q')) return dateStr.replace('-', ' ');
-			const d = new Date(dateStr);
+			const d = new Date(dateStr + 'T12:00:00');
 			return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+		}
+		function formatDateCompact(dateStr) {
+			if (dateStr.includes('Q')) return dateStr.replace('-', ' ');
+			const d = new Date(dateStr + 'T12:00:00');
+			const mon = d.toLocaleDateString('en-US', { month: 'short' });
+			const yr = String(d.getFullYear()).slice(2);
+			return mon + " '" + yr;
 		}
 
 		function render(sp, config) {
@@ -368,6 +376,7 @@
 
 					document.getElementById('sparkline-title').textContent = sp.label || config.title;
 					document.getElementById('sparkline-value').textContent = pfx + latest.toFixed(dec) + sfx;
+					document.getElementById('sparkline-period').textContent = formatDateCompact(labels[labels.length - 1]);
 					document.getElementById('sparkline-box').style.setProperty('--accent', color);
 
 					const iconEl = document.getElementById('sparkline-icon');
@@ -382,7 +391,7 @@
 
 					const min = Math.min(...values);
 					const max = Math.max(...values);
-					const pad = (max - min) * 0.15 || 0.5;
+					const pad = (max - min) * 0.10 || 0.5;
 
 					if (chart) chart.destroy();
 					chart = new Chart(ctx, {
