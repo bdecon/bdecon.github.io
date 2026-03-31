@@ -629,7 +629,9 @@
 		if (!SCORES) return null;
 		const indData = SCORES.indicators[currentIndicator];
 		if (!indData) return null;
-		const period = document.getElementById('scores-period').value;
+		const periodEl = document.getElementById('scores-period');
+		if (!periodEl) return null;
+		const period = periodEl.value;
 		const rows = indData.periods[period] || [];
 		const row = rows.find(r => r.iso === currentISO);
 		return row ? row.bias_score : null;
@@ -1552,7 +1554,9 @@
 
 	function renderScores() {
 		if (!SCORES) return;
-		const ind = document.getElementById('scores-indicator').value;
+		const indEl = document.getElementById('scores-indicator');
+		if (!indEl) return;
+		const ind = indEl.value;
 		const period = document.getElementById('scores-period').value;
 		const region = document.getElementById('scores-region').value;
 
@@ -1632,67 +1636,66 @@
 		});
 	}
 
-	// Sort on header click
-	document.querySelectorAll('.scores-table th[data-col]').forEach(th => {
-		th.addEventListener('click', () => {
-			const col = th.dataset.col;
-			if (col === scoresSortCol) {
-				if (scoresSortAbsolute && col === 'bias_score') {
-					// First click on active bias_score: switch to signed sort
-					scoresSortAbsolute = false;
-					scoresSortAsc = false;
+	// Scores table UI (only if DOM elements exist)
+	if (document.getElementById('scores-table')) {
+		document.querySelectorAll('.scores-table th[data-col]').forEach(th => {
+			th.addEventListener('click', () => {
+				const col = th.dataset.col;
+				if (col === scoresSortCol) {
+					if (scoresSortAbsolute && col === 'bias_score') {
+						scoresSortAbsolute = false;
+						scoresSortAsc = false;
+					} else {
+						scoresSortAsc = !scoresSortAsc;
+					}
 				} else {
-					scoresSortAsc = !scoresSortAsc;
+					scoresSortCol = col;
+					scoresSortAsc = col === 'name';
+					scoresSortAbsolute = col === 'bias_score';
 				}
-			} else {
-				scoresSortCol = col;
-				scoresSortAsc = col === 'name'; // alpha ascending by default
-				scoresSortAbsolute = col === 'bias_score';
-			}
-			renderScores();
+				renderScores();
+			});
 		});
-	});
 
-	// Re-render on filter change
-	document.getElementById('scores-indicator').addEventListener('change', renderScores);
-	document.getElementById('scores-period').addEventListener('change', renderScores);
-	document.getElementById('scores-region').addEventListener('change', renderScores);
+		document.getElementById('scores-indicator').addEventListener('change', renderScores);
+		document.getElementById('scores-period').addEventListener('change', renderScores);
+		document.getElementById('scores-region').addEventListener('change', renderScores);
 
-	// Download scores CSV
-	document.getElementById('btn-download-scores').addEventListener('click', () => {
-		if (!SCORES) return;
-		const ind = document.getElementById('scores-indicator').value;
-		const indData = SCORES.indicators[ind];
-		if (!indData) return;
+		document.getElementById('btn-download-scores').addEventListener('click', () => {
+			if (!SCORES) return;
+			const ind = document.getElementById('scores-indicator').value;
+			const indData = SCORES.indicators[ind];
+			if (!indData) return;
 
-		const header = ['country', 'iso', 'region', 'period', 'pct_over', 'bias_score', 'mae'];
-		const rows = [header];
+			const header = ['country', 'iso', 'region', 'period', 'pct_over', 'bias_score', 'mae'];
+			const rows = [header];
 
-		for (const [period, pRows] of Object.entries(indData.periods)) {
-			const periodLabel = SCORES.period_labels[period] || period;
-			for (const r of pRows) {
-				const regionName = SCORES.regions[r.region] || '';
-				rows.push([
-					'"' + r.name.replace(/"/g, '""') + '"',
-					r.iso, '"' + regionName + '"', periodLabel,
-					Math.round(r.sign_ratio * 100),
-					r.bias_score.toFixed(2),
-					r.mae.toFixed(2)
-				]);
+			for (const [period, pRows] of Object.entries(indData.periods)) {
+				const periodLabel = SCORES.period_labels[period] || period;
+				for (const r of pRows) {
+					const regionName = SCORES.regions[r.region] || '';
+					rows.push([
+						'"' + r.name.replace(/"/g, '""') + '"',
+						r.iso, '"' + regionName + '"', periodLabel,
+						Math.round(r.sign_ratio * 100),
+						r.bias_score.toFixed(2),
+						r.mae.toFixed(2)
+					]);
+				}
 			}
-		}
 
-		const csv = '# ' + indData.label + ' — Forecast Accuracy Scores\n' +
-			'# Source: IMF World Economic Outlook | bd-econ.com/imfweo.html\n' +
-			rows.map(r => r.join(',')).join('\n');
-		const blob = new Blob([csv], { type: 'text/csv' });
-		const url = URL.createObjectURL(blob);
-		const link = document.createElement('a');
-		link.href = url;
-		link.download = ind.toLowerCase() + '_forecast_scores.csv';
-		link.click();
-		URL.revokeObjectURL(url);
-	});
+			const csv = '# ' + indData.label + ' — Forecast Accuracy Scores\n' +
+				'# Source: IMF World Economic Outlook | bd-econ.com/imfweo.html\n' +
+				rows.map(r => r.join(',')).join('\n');
+			const blob = new Blob([csv], { type: 'text/csv' });
+			const url = URL.createObjectURL(blob);
+			const link = document.createElement('a');
+			link.href = url;
+			link.download = ind.toLowerCase() + '_forecast_scores.csv';
+			link.click();
+			URL.revokeObjectURL(url);
+		});
+	}
 
 	// --- Init ---
 	loadData();
