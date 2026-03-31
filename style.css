@@ -1080,13 +1080,16 @@ table {
 	& .home-intro { max-width: var(--width-lg); margin: 0 auto; align-items: stretch; }
 	& .home-intro > * { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-5); }
 	& .home-sparkline {
-		& .sparkline-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: var(--space-1); }
+		padding-top: var(--space-3);
+		& .sparkline-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0; }
 		& .sparkline-header .key-stat { font-size: var(--text-2xl); margin: 0; }
-		& .sparkline-header .label { margin: 0; color: var(--color-text-strong); }
+		& .sparkline-label { display: flex; align-items: center; gap: var(--space-2); }
+		& .sparkline-label .label { margin: 0; color: var(--color-text-strong); }
+		& .sparkline-icon { width: 48px; height: 48px; object-fit: contain; flex-shrink: 0; }
 		& .sparkline-nav { display: flex; align-items: center; gap: var(--space-1); margin-top: var(--space-2); flex-wrap: wrap; }
 		& .sparkline-nav .btn { white-space: nowrap; font-size: 11px; padding: var(--space-1) var(--space-2); }
 		& .sparkline-nav .note { margin-left: auto; white-space: nowrap; }
-		& .sparkline-wrap { position: relative; height: 96px; }
+		& .sparkline-wrap { position: relative; height: 128px; }
 		& canvas { display: block; }
 	}
 	& .home-blog { list-style: none; padding: 0; margin: 0; & li { padding: var(--space-2) 0; } & a { font-size: var(--text-sm); } & .note { display: inline; margin-left: var(--space-2); } }

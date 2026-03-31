@@ -172,14 +172,11 @@
 				</div>
 				<div class="info-box home-sparkline" id="sparkline-box">
 					<div class="sparkline-header">
-						<span class="label" id="sparkline-title">Unemployment Rate</span>
+						<span class="sparkline-label"><img id="sparkline-icon" class="sparkline-icon" src="" alt="" width="48" height="48"><span class="label" id="sparkline-title">Unemployment Rate</span></span>
 						<span class="key-stat" id="sparkline-value">—</span>
 					</div>
 					<div class="sparkline-wrap"><canvas id="sparkline-chart"></canvas></div>
 					<div class="sparkline-nav">
-						<button class="btn active" data-spark="unrate">Unemployment</button>
-						<button class="btn" data-spark="cpi">Inflation</button>
-						<button class="btn" data-spark="ffrate">Fed Funds</button>
 						<a href="indicators.html" class="note">See all →</a>
 					</div>
 				</div>
@@ -275,58 +272,131 @@
 			.catch(() => { list.innerHTML = '<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Visit the blog →</a></li>'; });
 	})();
 
-	// Sparkline widget
+	// Sparkline widget — driven by charts.json manifest
+	// Edit SPARKLINES to swap indicators. Any chart type works (rendered as line).
+	// For stacked/multi-series charts, specify col: 'COLUMN_NAME'.
+	// Example: { id: 'mag7ocf', col: 'NVDA', label: 'NVIDIA Cash Flow', btn: 'NVIDIA' }
 	(function() {
-		const indicators = {
-			unrate: { file: 'files/unrate.csv', col: 1, title: 'Unemployment Rate', suffix: '%', color: '#9a6830', decimals: 1 },
-			cpi: { file: 'files/cpi.csv', col: 1, title: 'CPI Inflation', suffix: '%', color: '#E04040', decimals: 1 },
-			ffrate: { file: 'files/ffrate.csv', col: 1, title: 'Federal Funds Rate', suffix: '%', color: '#3d5a8a', decimals: 2 }
+		const SPARKLINES = [
+			{ id: 'unrate', btn: 'Unemployment' },
+			{ id: 'cpi', btn: 'Inflation' },
+			{ id: 'ffrate', btn: 'Fed Funds' }
+		];
+
+		const CATEGORY_ICONS = {
+			'Output': 'icon-factory.svg', 'Labor': 'icon-construction.svg',
+			'Prices': 'icon-house.svg', 'Monetary': 'icon-fed.svg',
+			'Trade': 'icon-ship.svg', 'Government': 'icon-govt.svg',
+			'Businesses': 'icon-store.svg'
 		};
+
+		const CATEGORY_CSS_VARS = {
+			'Monetary': '--color-card-blue', 'Output': '--color-card-ltblue',
+			'Prices': '--color-card-red', 'Trade': '--color-card-purple',
+			'Labor': '--color-card-orange', 'Government': '--color-card-green',
+			'Businesses': '--color-card-teal'
+		};
+
 		let chart = null;
 		const ctx = document.getElementById('sparkline-chart');
 		if (!ctx) return;
+		const rootStyle = getComputedStyle(document.documentElement);
+		const FONT = rootStyle.getPropertyValue('--font').trim() || "'Lato', sans-serif";
 
-		function parseCSV(text) {
-			const lines = text.trim().split('\n');
-			const rows = lines.slice(1).map(l => l.split(','));
-			return rows;
+		function getCategoryColor(category) {
+			const v = CATEGORY_CSS_VARS[category];
+			return v ? rootStyle.getPropertyValue(v).trim() || '#888' : '#888';
 		}
 
-		function render(id) {
-			const ind = indicators[id];
-			fetch(ind.file)
+		function parseData(text, config, sp) {
+			const lines = text.trim().split('\n');
+			const headers = lines[0].split(',');
+			const rows = lines.slice(1).map(l => l.split(','));
+			const cutoff = new Date();
+			cutoff.setFullYear(cutoff.getFullYear() - 3);
+
+			const recent = rows.filter(r => {
+				const d = r[0];
+				if (d.includes('Q')) {
+					const [y, q] = d.split('-Q');
+					return new Date(parseInt(y), (parseInt(q) - 1) * 3) >= cutoff;
+				}
+				return new Date(d) >= cutoff;
+			});
+
+			// Determine which column to read
+			let colIdx = 1;
+			if (sp.col) {
+				const idx = headers.indexOf(sp.col);
+				if (idx !== -1) colIdx = idx;
+			} else if (config.type === 'stackedBar' && config.stackedSeries) {
+				// Default to sum of all stacked series
+				return {
+					labels: recent.map(r => r[0]),
+					values: recent.map(r => config.stackedSeries.reduce((sum, s) => {
+						const i = headers.indexOf(s.col);
+						return sum + (i !== -1 ? parseFloat(r[i]) || 0 : 0);
+					}, 0))
+				};
+			}
+
+			return {
+				labels: recent.map(r => r[0]),
+				values: recent.map(r => parseFloat(r[colIdx]))
+			};
+		}
+
+		function formatDate(dateStr) {
+			if (dateStr.includes('Q')) return dateStr.replace('-', ' ');
+			const d = new Date(dateStr);
+			return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+		}
+
+		function render(sp, config) {
+			fetch(config.file)
 				.then(r => r.text())
 				.then(text => {
-					const rows = parseCSV(text);
-					const cutoff = new Date();
-					cutoff.setFullYear(cutoff.getFullYear() - 3);
-					const recent = rows.filter(r => new Date(r[0]) >= cutoff);
-					const labels = recent.map(r => r[0]);
-					const values = recent.map(r => parseFloat(r[ind.col]));
-					const latest = values[values.length - 1];
+					const data = parseData(text, config, sp);
+					if (!data || !data.values.length) return;
 
-					document.getElementById('sparkline-title').textContent = ind.title;
-					document.getElementById('sparkline-value').textContent = latest.toFixed(ind.decimals) + ind.suffix;
-					document.getElementById('sparkline-box').style.setProperty('--accent', ind.color);
+					const { labels, values } = data;
+					const latest = values[values.length - 1];
+					const color = getCategoryColor(config.category);
+					const sfx = config.valueSuffix || '';
+					const pfx = config.valuePrefix || '';
+					const dec = config.decimals ?? 1;
+
+					document.getElementById('sparkline-title').textContent = sp.label || config.title;
+					document.getElementById('sparkline-value').textContent = pfx + latest.toFixed(dec) + sfx;
+					document.getElementById('sparkline-box').style.setProperty('--accent', color);
+
+					const iconEl = document.getElementById('sparkline-icon');
+					const iconFile = CATEGORY_ICONS[config.category];
+					if (iconEl && iconFile) {
+						iconEl.src = 'images/' + iconFile;
+						iconEl.alt = config.category;
+						iconEl.style.display = '';
+					} else if (iconEl) {
+						iconEl.style.display = 'none';
+					}
 
 					const min = Math.min(...values);
 					const max = Math.max(...values);
 					const pad = (max - min) * 0.15 || 0.5;
-					const FONT = getComputedStyle(document.documentElement).getPropertyValue('--font').trim() || "'Lato', sans-serif";
 
 					if (chart) chart.destroy();
 					chart = new Chart(ctx, {
 						type: 'line',
 						data: {
-							labels: labels,
+							labels,
 							datasets: [{
 								data: values,
-								borderColor: ind.color,
+								borderColor: color,
 								borderWidth: 2.5,
 								pointRadius: 0,
 								pointHitRadius: 8,
 								pointHoverRadius: 3,
-								pointHoverBackgroundColor: ind.color,
+								pointHoverBackgroundColor: color,
 								tension: 0.3,
 								fill: false
 							}]
@@ -341,11 +411,8 @@
 									bodyFont: { family: FONT, size: 12 },
 									titleFont: { family: FONT, size: 11 },
 									callbacks: {
-										title: items => {
-											const d = new Date(items[0].label);
-											return d.toLocaleDateString('en-US', {month: 'short', year: 'numeric'});
-										},
-										label: items => items.formattedValue + ind.suffix
+										title: items => formatDate(items[0].label),
+										label: item => pfx + parseFloat(item.raw).toFixed(dec) + sfx
 									}
 								}
 							},
@@ -360,17 +427,34 @@
 				.catch(() => {});
 		}
 
-		// Button handlers
-		document.querySelectorAll('.sparkline-nav .btn').forEach(btn => {
-			btn.addEventListener('click', () => {
-				document.querySelectorAll('.sparkline-nav .btn').forEach(b => b.classList.remove('active'));
-				btn.classList.add('active');
-				render(btn.dataset.spark);
-			});
-		});
+		// Fetch manifest and build UI
+		fetch('files/charts.json')
+			.then(r => r.json())
+			.then(data => {
+				const manifest = Object.fromEntries(data.charts.map(c => [c.id, c]));
+				const nav = document.querySelector('.sparkline-nav');
+				const seeAll = nav.querySelector('a');
 
-		// Initial render
-		render('unrate');
+				SPARKLINES.forEach((sp, i) => {
+					const config = manifest[sp.id];
+					if (!config) return;
+					const btn = document.createElement('button');
+					btn.className = 'btn' + (i === 0 ? ' active' : '');
+					btn.dataset.sparkIdx = i;
+					btn.textContent = sp.btn || sp.label || config.title;
+					btn.addEventListener('click', () => {
+						nav.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+						btn.classList.add('active');
+						render(sp, config);
+					});
+					nav.insertBefore(btn, seeAll);
+				});
+
+				// Initial render
+				const first = SPARKLINES[0];
+				const firstConfig = manifest[first.id];
+				if (firstConfig) render(first, firstConfig);
+			});
 	})();
 	</script>
 		<footer>

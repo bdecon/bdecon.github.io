@@ -1780,8 +1780,6 @@ async function loadChart(datasetId) {
 			if (config.stackedDefault === 'total' && config.toggleLabel) {
 				breakdownEl.style.display = '';
 				breakdownEl.querySelector('button').textContent = isBreakdownView ? config.toggleLabel[1] : config.toggleLabel[0];
-			} else {
-				breakdownEl.style.visibility = 'hidden';
 			}
 
 			chartBody.classList.remove('fading');

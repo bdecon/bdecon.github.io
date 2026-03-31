@@ -70,6 +70,7 @@
     {
       "id": "ffrate",
       "file": "files/ffrate.csv",
+      "filteredFile": "files/ffrate_weekly.csv",
       "type": "line",
       "title": "Federal Funds Rate",
       "subtitle": "Effective rate, percent",
