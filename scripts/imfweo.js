@@ -318,6 +318,7 @@
 		initLegendToggle();
 		restoreState();
 		renderChart();
+		updateSummary();
 		updateExtLink();
 	}
 
@@ -478,6 +479,85 @@
 		document.getElementById('weo-info-next').textContent = nextMonth + ' ' + nextYear;
 	}
 
+	function updateSummary() {
+		const country = DATA.c[currentISO];
+		const indMeta = DATA.i[currentIndicator];
+		const summaryEl = document.getElementById('weo-summary');
+		if (!country || !country[currentIndicator] || !indMeta) {
+			summaryEl.style.display = 'none';
+			return;
+		}
+		summaryEl.style.display = '';
+
+		const d = country[currentIndicator];
+		const fc = d.p; // latest forecast: [[year, value], ...]
+		if (!fc || fc.length < 2) {
+			summaryEl.style.display = 'none';
+			return;
+		}
+
+		// Three time points with semantic labels
+		const labels = ['Estimate', 'Forecast', 'Long-term'];
+		const points = [fc[0], fc[1]];
+		if (fc[fc.length - 1][0] !== fc[1][0]) points.push(fc[fc.length - 1]);
+
+		// Previous vintage for revision deltas
+		const prevVid = DATA.v.length - 2;
+		const prevV = DATA.v[prevVid];
+
+		function getPrevValue(year) {
+			const fromF = d.f && d.f.find(p => p[0] === year && p[3] === prevVid);
+			if (fromF) return fromF[1];
+			const fromNC = d.nc && d.nc.find(p => p[0] === year && p[3] === prevVid);
+			if (fromNC) return fromNC[1];
+			return null;
+		}
+
+		const container = document.getElementById('weo-summary-stats');
+		container.innerHTML = points.map((pt, i) => {
+			const year = pt[0];
+			const value = pt[1];
+			const prev = getPrevValue(year);
+			const valStr = Math.abs(value) >= 100 ? value.toFixed(0) : value.toFixed(1);
+
+			let deltaHtml = '';
+			if (prev !== null) {
+				const delta = value - prev;
+				const dr = Math.round(delta * 10) / 10;
+				if (dr !== 0) {
+					const arrow = dr > 0 ? '\u25B2' : '\u25BC';
+					const sign = dr > 0 ? '+' : '';
+					const cls = dr > 0 ? 'up' : 'down';
+					deltaHtml = '<span class="weo-stat-delta weo-delta-' + cls + '">' +
+						arrow + sign + dr.toFixed(1) + '</span>';
+				} else {
+					deltaHtml = '<span class="weo-stat-delta">\u2014</span>';
+				}
+			}
+
+			return '<div class="weo-stat">' +
+				'<span class="weo-stat-label">' + labels[i] + '</span>' +
+				'<span class="weo-stat-year">' + year + '</span>' +
+				'<span class="weo-stat-value">' + valStr + '</span>' +
+				deltaHtml +
+				'</div>';
+		}).join('');
+
+		// Edition in title
+		const lastV = DATA.v[DATA.v.length - 1];
+		document.getElementById('weo-summary-title').textContent =
+			'Latest WEO Estimates and Forecasts (' + lastV[0] + ' \'' + String(lastV[1]).slice(2) + ')';
+
+		// "vs" note
+		const vsEl = document.getElementById('weo-summary-vs');
+		if (prevV) {
+			vsEl.textContent = 'vs ' + prevV[0] + ' \'' +
+				String(prevV[1]).slice(2);
+		} else {
+			vsEl.textContent = '';
+		}
+	}
+
 	function updateIndicatorDropdown() {
 		const is = document.getElementById('indicator-select');
 		const country = DATA.c[currentISO];
@@ -633,6 +713,7 @@
 		saveState();
 		updateExtLink();
 		renderChart();
+		updateSummary();
 		updateScoresHighlight();
 	}
 

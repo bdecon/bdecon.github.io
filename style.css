@@ -1201,10 +1201,34 @@ table {
 	& .chart-header-indicator { font-size: var(--text-sm); & strong { color: var(--color-text-strong); } }
 	/* Centered narrow column for all dashboard elements */
 
+	/* Unified panel */
+	& .weo-panel {
+		padding: 0;
+		margin-bottom: var(--space-3);
+	}
+	& .weo-panel-edition {
+		display: flex; justify-content: space-between; align-items: baseline;
+		gap: var(--space-4); font-size: var(--text-sm);
+		padding: var(--space-4);
+		background: var(--color-bg-highlight);
+		& > div > .label { display: block; margin-bottom: var(--space-1); }
+	}
+	& .weo-panel-section {
+		padding: var(--space-3) var(--space-4);
+		background: var(--color-card-bg);
+		& > .label { margin-bottom: var(--space-2); }
+	}
+	& .weo-panel-section.weo-summary {
+		background: var(--color-bg-highlight);
+	}
+
 	/* Controls */
 	& .weo-controls {
-		gap: var(--space-5);
+		display: flex; align-items: center; gap: var(--space-5); flex-wrap: wrap;
+		font-size: var(--text-sm);
 		& select { flex: 1; min-width: 0; }
+		& label { font-weight: 600; white-space: nowrap; }
+		& select, & input { font-family: var(--font); font-size: var(--text-sm); }
 	}
 	& .weo-control-row:first-child { flex: 1.3; }
 	& .weo-control-row:last-child { flex: 1; }
@@ -1252,8 +1276,39 @@ table {
 	& .weo-tooltip-list { max-height: 180px; overflow-y: auto; }
 	& .weo-tooltip-row { display: flex; justify-content: space-between; gap: var(--space-2); }
 
-	/* Info bar */
-	& .weo-info { margin: var(--space-3) 0; display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-2); font-size: var(--text-sm); }
+	/* Info bar (legacy compat) */
+
+	/* Summary stats */
+	& .weo-summary-header {
+		display: flex; justify-content: space-between; align-items: baseline;
+	}
+	& .weo-summary-stats {
+		display: flex; gap: var(--space-3); margin-top: var(--space-2);
+	}
+	& .weo-stat {
+		flex: 1; min-width: 0;
+		display: flex; align-items: baseline; gap: var(--space-2);
+		flex-wrap: wrap;
+	}
+	& .weo-stat-label {
+		font-family: var(--font-mono); font-size: 11px;
+		color: var(--color-text-muted); text-transform: uppercase;
+		letter-spacing: 0.04em; width: 100%;
+	}
+	& .weo-stat-year {
+		font-family: var(--font-mono); font-size: var(--text-sm);
+		color: var(--color-text-muted);
+	}
+	& .weo-stat-value {
+		font-size: var(--text-xl); font-weight: 700;
+		color: var(--color-text-strong); font-family: var(--font);
+	}
+	& .weo-stat-delta {
+		font-size: var(--text-xs); color: var(--color-text-muted);
+		font-family: var(--font-mono);
+	}
+	& .weo-delta-up { color: var(--color-card-green); }
+	& .weo-delta-down { color: var(--color-card-red); }
 
 	/* Forecast scores */
 	& .scores-table {
@@ -1285,11 +1340,15 @@ table {
 		& .page-title { padding: var(--space-1) 0; }
 		& .prose { padding: 0 var(--space-3); display: flex; flex-direction: column; }
 		& .dash-column { max-width: none; width: calc(100% + var(--space-5)); margin-left: calc(-1 * var(--space-3)); box-sizing: border-box; }
-		& .weo-controls { order: 1; margin-top: var(--space-1); margin-bottom: var(--space-1); gap: var(--space-1); flex-direction: column; }
+		& .weo-panel { order: 1; padding: var(--space-3); margin-bottom: var(--space-1); }
+		& .weo-panel-edition { font-size: var(--text-xs); }
+		& .weo-controls { gap: var(--space-1); flex-direction: column; }
+		& .weo-summary-stats { gap: var(--space-2); }
+		& .weo-stat-value { font-size: var(--text-lg); }
+		& .weo-stat-delta { font-size: 11px; }
 		& .card { order: 2; margin-top: var(--space-1); margin-bottom: 0; }
-		& .weo-info { order: 3; margin: var(--space-4) 0 0; padding: var(--space-2) var(--space-3); font-size: var(--text-xs); }
-		& .weo-intro { order: 4; margin-top: var(--space-5); }
-		& .details-section { order: 5; }
+		& .weo-intro { order: 3; margin-top: var(--space-5); }
+		& .details-section { order: 4; }
 		& .noscript-warning { order: 0; }
 		& .weo-control-row label { min-width: 52px; font-size: var(--text-xs); }
 		& .chart-legend { font-size: var(--text-xs); column-gap: var(--space-2); padding: var(--space-1); margin-bottom: var(--space-1); }
@@ -1303,7 +1362,7 @@ table {
 	@media (max-width: 480px) {
 		& .prose { padding: 0 var(--space-2); }
 		& .dash-column { width: calc(100% + var(--space-4)); margin-left: calc(-1 * var(--space-2)); }
-		& .weo-info { padding: var(--space-2); }
+		& .weo-panel { padding: var(--space-2); }
 	}
 }
 

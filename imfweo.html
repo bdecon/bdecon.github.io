@@ -154,23 +154,36 @@
 	</div>
 
 	<div class="dash-column">
-	<div class="info-box weo-info" id="weo-info">
-		<div><div class="label">Latest edition</div><span id="weo-info-edition">…</span></div>
-		<div><div class="label">Next update</div><span id="weo-info-next">…</span></div>
-		<div><a href="https://www.imf.org/en/Publications/WEO">IMF WEO page &rarr;</a></div>
-	</div>
+	<div class="info-box weo-panel" id="weo-panel">
+		<div class="weo-panel-edition" id="weo-info">
+			<div><span class="label">Latest edition</span> <span id="weo-info-edition">…</span></div>
+			<div><span class="label">Next update</span> <span id="weo-info-next">…</span></div>
+			<div><a href="https://www.imf.org/en/Publications/WEO">IMF WEO page &rarr;</a></div>
+		</div>
 
-	<div class="control-panel weo-controls">
-		<div class="control-row weo-control-row">
-			<label for="country-input">Country:</label>
-			<div class="combo-box" id="country-combo">
-				<input type="text" id="country-input" class="form-select" autocomplete="off" spellcheck="false" placeholder="Type to search…">
-				<div class="combo-list" id="country-list"></div>
+		<div class="weo-panel-section">
+			<div class="label">Select Country and Indicator</div>
+			<div class="weo-controls">
+				<div class="control-row weo-control-row">
+					<label for="country-input">Country:</label>
+					<div class="combo-box" id="country-combo">
+						<input type="text" id="country-input" class="form-select" autocomplete="off" spellcheck="false" placeholder="Type to search…">
+						<div class="combo-list" id="country-list"></div>
+					</div>
+				</div>
+				<div class="control-row weo-control-row">
+					<label for="indicator-select">Indicator:</label>
+					<select id="indicator-select" class="form-select"></select>
+				</div>
 			</div>
 		</div>
-		<div class="control-row weo-control-row">
-			<label for="indicator-select">Indicator:</label>
-			<select id="indicator-select" class="form-select"></select>
+
+		<div class="weo-panel-section weo-summary" id="weo-summary">
+			<div class="weo-summary-header">
+				<span class="label" id="weo-summary-title">Latest WEO Estimates and Forecasts</span>
+				<span class="note weo-summary-vs" id="weo-summary-vs"></span>
+			</div>
+			<div class="weo-summary-stats" id="weo-summary-stats"></div>
 		</div>
 	</div>
 
