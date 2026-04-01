@@ -928,6 +928,7 @@ table {
 	font-size: var(--text-sm);
 	font-family: var(--font);
 	border: 2px solid var(--color-border-light);
+	border-radius: 0;
 	background: var(--color-bg-input);
 	color: var(--color-text-strong);
 }
