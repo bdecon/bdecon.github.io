@@ -665,6 +665,7 @@ article:not(.prose) > :first-child { margin-top: 0; }
 		background: var(--accent, var(--color-text-muted));
 		color: #fff;
 		line-height: 1.4;
+		white-space: nowrap;
 	}
 }
 .control-panel {
@@ -1214,6 +1215,7 @@ table {
 		font-family: var(--font-mono); font-size: var(--text-xs);
 		text-transform: uppercase; letter-spacing: 0.04em;
 		color: var(--color-text-muted); margin: 0 0 var(--space-2);
+		padding-left: var(--space-4);
 	}
 
 	/* Controls box */
@@ -1246,7 +1248,7 @@ table {
 	}
 
 	/* Legend — 3-column grid */
-	& .chart-legend { display: grid; grid-template-columns: auto auto auto; justify-content: start; gap: 0 var(--space-6); font-size: var(--text-sm); color: var(--color-text-muted); margin-top: -5px; margin-bottom: var(--space-2); line-height: 1.5; padding: var(--space-1) 0; border-bottom: 1px solid var(--color-border); }
+	& .chart-legend { display: grid; grid-template-columns: auto auto auto; justify-content: start; gap: 0 var(--space-7); font-size: 14px; color: var(--color-text-muted); margin-top: -5px; margin-bottom: 0; line-height: 1.5; padding: var(--space-1) 0 var(--space-1) var(--space-2); }
 	& .legend-col-header {
 		font-weight: 600; font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.5px;
 		color: var(--color-text-strong); padding-bottom: var(--space-1); margin-bottom: var(--space-1);
@@ -1255,7 +1257,7 @@ table {
 	}
 	& .legend-hdr-latest { grid-column: 1; grid-row: 1; }
 	& .legend-hdr-prev   { grid-column: 2 / 4; grid-row: 1; }
-	& .legend-hdr-nc     { grid-column: 3; grid-row: 2; margin-left: -4px; font-size: 10px; border-bottom-width: 1.5px; margin-bottom: 3px; }
+	& .legend-hdr-nc     { grid-column: 3; grid-row: 2; margin-left: -4px; font-size: 10px; border-bottom-width: 1.5px; margin-bottom: 3px; white-space: nowrap; }
 	& .legend-col1 { grid-column: 1; }
 	& .legend-col2 { grid-column: 2; }
 	& .legend-col3 { grid-column: 3; margin-left: -4px; }
@@ -1346,6 +1348,7 @@ table {
 		& .weo-panel { padding: var(--space-3); margin-bottom: var(--space-1); }
 		& .weo-controls { gap: var(--space-2); flex-direction: column; }
 		& .weo-summary-stats { gap: var(--space-2); }
+		& .weo-stat { flex-direction: column; align-items: flex-start; gap: 0; }
 		& .weo-stat-value { font-size: var(--text-lg); }
 		& .weo-stat-delta { font-size: 11px; }
 		& .card { margin-top: var(--space-1); margin-bottom: 0; }
