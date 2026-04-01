@@ -229,7 +229,9 @@
 			header.addEventListener('keydown', onKeyToggle);
 			header.addEventListener('click', () => {
 				const group = header.dataset.toggleGroup;
-				const keys = GROUP_MAP[group];
+				const keys = group === 'prev'
+					? GROUP_MAP.prev.concat(GROUP_MAP.nc)
+					: GROUP_MAP[group];
 				const allHidden = keys.every(k => hiddenSeries.has(k));
 				keys.forEach(k => {
 					if (allHidden) {
@@ -246,11 +248,17 @@
 				applyLegendToggle();
 			});
 		});
+
+		syncGroupHeaders();
 	}
 
 	function syncGroupHeaders() {
 		document.querySelectorAll('[data-toggle-group]').forEach(header => {
-			const keys = GROUP_MAP[header.dataset.toggleGroup];
+			const group = header.dataset.toggleGroup;
+			// "Previous WEOs" header covers both cloud dots and nowcasts visually
+			const keys = group === 'prev'
+				? GROUP_MAP.prev.concat(GROUP_MAP.nc)
+				: GROUP_MAP[group];
 			const allHidden = keys.every(k => hiddenSeries.has(k));
 			header.classList.toggle('legend-off', allHidden);
 		});
@@ -536,26 +544,11 @@
 			}
 
 			return '<div class="weo-stat">' +
-				'<span class="weo-stat-label">' + labels[i] + '</span>' +
 				'<span class="weo-stat-year">' + year + '</span>' +
 				'<span class="weo-stat-value">' + valStr + '</span>' +
 				deltaHtml +
 				'</div>';
 		}).join('');
-
-		// Edition in title
-		const lastV = DATA.v[DATA.v.length - 1];
-		document.getElementById('weo-summary-title').textContent =
-			'Latest WEO Estimates and Forecasts (' + lastV[0] + ' \'' + String(lastV[1]).slice(2) + ')';
-
-		// "vs" note
-		const vsEl = document.getElementById('weo-summary-vs');
-		if (prevV) {
-			vsEl.textContent = 'vs ' + prevV[0] + ' \'' +
-				String(prevV[1]).slice(2);
-		} else {
-			vsEl.textContent = '';
-		}
 	}
 
 	function updateIndicatorDropdown() {
@@ -1056,7 +1049,7 @@
 			options: {
 				responsive: true,
 				maintainAspectRatio: true,
-				aspectRatio: window.innerWidth <= 760 ? 0.95 : 1.15,
+				aspectRatio: window.innerWidth <= 760 ? 0.95 : 1.25,
 				animation: { duration: 0 },
 				interaction: {
 					mode: 'nearest',
