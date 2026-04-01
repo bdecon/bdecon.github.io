@@ -242,12 +242,10 @@
 			.attr('d', path)
 			.attr('data-id', function(d) { return d.id; })
 			.attr('fill', '#ddd')
-			.on('mouseenter', function() {
-				// Raise to top so stroke isn't clipped by neighbors
-				this.parentNode.appendChild(this);
-			})
 			.on('mousemove', function(event, d) {
 				if (pinnedRegion) return;
+				// Raise to top so stroke isn't clipped by neighbors
+				this.parentNode.appendChild(this);
 				const info = lookupRegion(regionData, d.id);
 				if (info) showTooltip(event, tooltipHtml(info, regionKey));
 			})
