@@ -1509,7 +1509,7 @@ table {
 	& .chart-toggle { font-size: var(--text-xs); margin-top: var(--space-1); }
 
 	/* Info boxes */
-	& .info-boxes { display: flex; flex-direction: column; gap: var(--space-4); }
+	& .info-boxes { display: flex; flex-direction: column; gap: var(--space-4); & .info-box { margin-bottom: 0; } }
 	& .key-stat-row { display: flex; align-items: flex-start; gap: var(--space-2); margin: var(--space-1) 0; }
 	& .estimate-period { padding-top: 3px; }
 	& .download-btn {
