@@ -10,7 +10,7 @@
 	& .cc-cost-slider-group { margin-bottom: var(--space-2); }
 	& .cc-cost-kids-btns { display: flex; gap: var(--space-2); }
 	& #resources-container { margin-bottom: var(--space-7); }
-	& #enrollment-age-container { max-width: var(--width-lg); }
+	& #enrollment-age-container { max-width: var(--width-sm); }
 	& #outcomes-container .card-body { padding-top: 2px; padding-bottom: 0; }
 	& #wp-hero-container { margin: var(--space-3) 0; }
 	& #wp-explore { margin: var(--space-2) 0 0 0; }
@@ -30,7 +30,7 @@
 	}
 
 	/* Tab bar */
-	.cc-tabs { display: flex; flex-wrap: nowrap; gap: 0; margin-bottom: 0; padding-left: var(--space-6); overflow-x: auto; }
+	.cc-tabs { display: flex; flex-wrap: nowrap; gap: 0; margin-bottom: 0; padding-left: var(--space-6); overflow-x: auto; overflow-y: hidden; }
 	.cc-tab { padding: var(--space-1) var(--space-3); font-size: var(--text-sm); border-bottom: none; color: var(--color-card-teal); white-space: nowrap; flex-shrink: 0; margin-right: -1px; position: relative; }
 	.cc-tab-short { display: none; }
 	.cc-tab:hover { background: var(--color-bg-highlight); }
@@ -189,7 +189,7 @@
 	#cost-slider::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--color-card-teal); cursor: pointer; border: 2px solid var(--color-border); }
 	.cc-cost-wrap { position: relative; max-width: 520px; margin: var(--space-7) auto; }
 	#cost-compare-container { max-width: 520px; margin: 0 auto; overflow: hidden; border: var(--elevation-border); }
-	.cc-cost-img-wrap { position: relative; }
+	.cc-cost-img-wrap { position: relative; margin: 0; }
 	.cc-cost-img-wrap img { display: block; width: 100%; height: auto; }
 	.cc-cost-caption { padding: var(--space-2) var(--space-3); color: color-mix(in srgb, white 85%, transparent); line-height: 1.3; }
 	.cc-cost-body { padding: var(--space-4); background: var(--color-bg-input); }

@@ -2335,6 +2335,25 @@
 				.attr('font-style', 'italic')
 				.text(line.t);
 		});
+
+		// Tooltip hit rects
+		AGES.forEach(function(age) {
+			const colW = chartW / 5;
+			const x0 = xScale(age) - colW / 2;
+			svg.append('rect')
+				.attr('x', Math.max(margin.left, x0)).attr('y', margin.top)
+				.attr('width', colW).attr('height', chartH)
+				.attr('fill', 'transparent').attr('cursor', 'pointer')
+				.on('mousemove', function(evt) {
+					let html = '<strong>Age ' + age + '</strong><br>';
+					DATA.forEach(function(s) {
+						html += '<span style="color:' + s.color + '">\u25CF</span> ' +
+							s.country + ': <strong>' + s.ages[age] + '%</strong><br>';
+					});
+					showTooltip(evt, html);
+				})
+				.on('mouseleave', hideTooltip);
+		});
 	}
 
 	render();
