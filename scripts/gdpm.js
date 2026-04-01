@@ -140,7 +140,7 @@ function switchSeries(series) {
 	chart.update();
 
 	// Update toggle buttons
-	document.querySelectorAll('.chart-toggle-btn').forEach(btn => {
+	document.querySelectorAll('.chart-toggle .btn').forEach(btn => {
 		btn.classList.toggle('active', btn.dataset.series === series);
 	});
 }
@@ -276,7 +276,7 @@ async function init() {
 		});
 
 		// Set up toggle button handlers
-		document.querySelectorAll('.chart-toggle-btn').forEach(btn => {
+		document.querySelectorAll('.chart-toggle .btn').forEach(btn => {
 			btn.addEventListener('click', () => switchSeries(btn.dataset.series));
 		});
 	} catch (error) {
