@@ -1201,6 +1201,9 @@ table {
 .page-weo {
 	& .chart-header-indicator { font-size: var(--text-sm); & strong { color: var(--color-text-strong); } }
 
+	/* Banner: no tint, natural photo */
+	& .page-strip { background: var(--color-bg); }
+
 	/* Title bar edition info — same layout as old .weo-panel-edition, white text */
 	& .weo-title-edition {
 		display: flex; justify-content: space-between; align-items: baseline;
