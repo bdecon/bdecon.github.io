@@ -1218,11 +1218,6 @@ table {
 		padding-left: var(--space-4);
 	}
 
-	/* Controls box */
-	& .weo-panel {
-		margin-bottom: var(--space-3);
-		& > .label { margin-bottom: var(--space-2); }
-	}
 	/* Summary box — attached to bottom of chart card */
 	& .card-chart { margin-bottom: 0; }
 	& .weo-summary {
@@ -1233,6 +1228,7 @@ table {
 	/* Controls */
 	& .weo-controls {
 		display: flex; gap: var(--space-3);
+		margin-bottom: var(--space-3);
 		& .combo-box { flex: 3; min-width: 0; }
 		& select { flex: 2; min-width: 0; }
 		& select, & input { font-family: var(--font); font-size: var(--text-sm); }
@@ -1345,8 +1341,7 @@ table {
 		& .page-title { padding: var(--space-4) var(--space-3); }
 		& .prose { padding: 0 var(--space-3); }
 		& .dash-column { max-width: none; width: calc(100% + var(--space-5)); margin-left: calc(-1 * var(--space-3)); box-sizing: border-box; }
-		& .weo-panel { padding: var(--space-3); margin-bottom: var(--space-1); }
-		& .weo-controls { gap: var(--space-2); flex-direction: column; }
+		& .weo-controls { gap: var(--space-2); flex-direction: column; margin-bottom: var(--space-1); padding: 0 var(--space-3); }
 		& .weo-summary-stats { gap: var(--space-2); }
 		& .weo-stat { flex-direction: column; align-items: flex-start; gap: 0; }
 		& .weo-stat-value { font-size: var(--text-lg); }
@@ -1364,7 +1359,6 @@ table {
 	@media (max-width: 480px) {
 		& .prose { padding: 0 var(--space-2); }
 		& .dash-column { width: calc(100% + var(--space-4)); margin-left: calc(-1 * var(--space-2)); }
-		& .weo-panel { padding: var(--space-2); }
 	}
 }
 
