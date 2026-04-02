@@ -1112,7 +1112,7 @@ table {
 		& .sparkline-wrap { position: relative; height: 128px; }
 		& canvas { display: block; }
 	}
-	& .home-blog { list-style: none; padding: 0; margin: 0; & li { padding: var(--space-2) 0; } & a { font-size: var(--text-sm); } & .note { display: inline; margin-left: var(--space-2); } }
+	& .home-blog { list-style: none; padding: 0; margin: 0; & li { padding: var(--space-2) 0; } & a { font-size: var(--text-sm); } & .note { display: inline; margin-left: var(--space-2); white-space: nowrap; } }
 	& .blog-featured {
 		padding: 0 0 var(--space-2) !important; margin: calc(-1 * var(--space-2)) calc(-1 * var(--card-ph)) 0;
 		& > a:first-child { display: block; margin: 0; }
