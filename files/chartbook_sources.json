@@ -1,5 +1,5 @@
 {
-  "generated": "2026-04-01",
+  "generated": "2026-04-02",
   "releases": [
     {
       "name": "Employment Situation",
@@ -39,9 +39,9 @@
     },
     {
       "name": "International Trade",
-      "period": "Jan 2026",
+      "period": "Feb 2026",
       "freq": "monthly",
-      "last_changed": "2026-03-12"
+      "last_changed": "2026-04-02"
     },
     {
       "name": "Retail Sales",
@@ -159,9 +159,9 @@
     },
     {
       "name": "Mortgage Rates",
-      "period": "Mar 26, 2026",
+      "period": "Apr 2, 2026",
       "freq": "weekly",
-      "last_changed": "2026-03-27"
+      "last_changed": "2026-04-02"
     },
     {
       "name": "Initial Jobless Claims",
@@ -286,6 +286,18 @@
   ],
   "recent": [
     {
+      "name": "International Trade",
+      "period": "Feb 2026",
+      "freq": "monthly",
+      "last_changed": "2026-04-02"
+    },
+    {
+      "name": "Mortgage Rates",
+      "period": "Apr 2, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-04-02"
+    },
+    {
       "name": "JOLTS",
       "period": "Feb 2026",
       "freq": "monthly",
@@ -310,12 +322,6 @@
       "last_changed": "2026-03-27"
     },
     {
-      "name": "Mortgage Rates",
-      "period": "Mar 26, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-03-27"
-    },
-    {
       "name": "Money Stock (M2)",
       "period": "Feb 2026",
       "freq": "monthly",
@@ -336,12 +342,6 @@
     {
       "name": "Import/Export Prices",
       "period": "Feb 2026",
-      "freq": "monthly",
-      "last_changed": "2026-03-25"
-    },
-    {
-      "name": "Electricity",
-      "period": "Jan 2026",
       "freq": "monthly",
       "last_changed": "2026-03-25"
     }
