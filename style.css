@@ -1246,8 +1246,22 @@ table {
 		&:hover { color: var(--color-link-hover, var(--color-link)); }
 	}
 
+	/* Legend — simple row (default) */
+	& .legend-simple {
+		display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-1) var(--space-3);
+		font-size: 14px; color: var(--color-text-muted);
+		padding: var(--space-1) 0 var(--space-1) var(--space-2);
+		margin-top: -5px; margin-bottom: 0; line-height: 1.5;
+		&[hidden] { display: none; }
+	}
+	& .legend-more-btn {
+		background: none; border: none; cursor: pointer; padding: var(--space-1) var(--space-2);
+		font-size: var(--text-xs); color: var(--color-link); text-decoration: underline;
+		&:hover { color: var(--color-link-hover, var(--color-link)); }
+	}
+
 	/* Legend — 3-column grid */
-	& .chart-legend { display: grid; grid-template-columns: auto auto auto; justify-content: start; gap: 0 var(--space-7); font-size: 14px; color: var(--color-text-muted); margin-top: -5px; margin-bottom: 0; line-height: 1.5; padding: var(--space-1) 0 var(--space-1) var(--space-2); }
+	& .chart-legend { display: grid; grid-template-columns: auto auto auto; justify-content: start; gap: 0 var(--space-7); font-size: 14px; color: var(--color-text-muted); margin-top: -5px; margin-bottom: 0; line-height: 1.5; padding: var(--space-1) 0 var(--space-1) var(--space-2); &[hidden] { display: none; } }
 	& .legend-col-header {
 		font-weight: 600; font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.5px;
 		color: var(--color-text-strong); padding-bottom: var(--space-1); margin-bottom: var(--space-1);
@@ -1372,6 +1386,7 @@ table {
 		& .weo-stat-delta { font-size: 11px; }
 		& .card { margin-top: var(--space-1); margin-bottom: 0; }
 		& .noscript-warning { order: 0; }
+		& .legend-simple { font-size: var(--text-xs); gap: var(--space-2); padding: var(--space-1); }
 		& .chart-legend { font-size: var(--text-xs); column-gap: var(--space-2); padding: var(--space-1); margin-bottom: var(--space-1); }
 		& .legend-col-header { font-size: 10px; margin-bottom: var(--space-1); padding-bottom: var(--space-1); }
 		& .legend-hdr-nc { font-size: 8px; margin-left: 0; }

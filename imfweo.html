@@ -185,20 +185,29 @@
 		</div>
 		<div class="card-body">
 			<span class="chart-subtitle" id="chart-units"></span>
-			<div class="chart-legend" id="chart-legend">
-				<div class="legend-col-header legend-hdr-latest" id="legend-latest-header" data-toggle-group="latest">Latest WEO</div>
-				<div class="legend-col-header legend-hdr-prev" data-toggle-group="prev">Previous WEOs</div>
-				<div class="legend-col-header legend-hdr-nc" data-toggle-group="nc">Same-year nowcast</div>
-				<div class="chart-legend-item legend-col1" data-toggle="actual"><span class="legend-swatch legend-line"></span> Actual</div>
-				<div class="chart-legend-item legend-col1" data-toggle="forecast"><span class="legend-swatch legend-line-dashed"></span> Forecast/est.</div>
-				<div class="chart-legend-item legend-col1 legend-off" data-toggle="world"><span class="legend-swatch legend-line-gray"></span> World average</div>
-				<div class="chart-legend-item legend-col1 legend-off" data-toggle="region" id="legend-region"><span class="legend-swatch legend-line-region"></span> <span id="legend-region-name">Region average</span></div>
-				<div class="chart-legend-item legend-col2 legend-off" data-toggle="cloud_1yr"><span class="legend-swatch legend-dot-h1"></span> 1-year forecast</div>
-				<div class="chart-legend-item legend-col2 legend-off" data-toggle="cloud_2yr"><span class="legend-swatch legend-dot-h2"></span> 2-year forecast</div>
-				<div class="chart-legend-item legend-col2 legend-off" data-toggle="cloud_3yr"><span class="legend-swatch legend-dot-h3"></span> 3-year forecast</div>
-				<div class="chart-legend-item legend-col2 legend-off" data-toggle="cloud_4plus"><span class="legend-swatch legend-dot-h4"></span> 4+ year forecast</div>
-				<div class="chart-legend-item legend-col3" data-toggle="nc_apr"><span class="legend-swatch legend-nc-diamond"></span> April</div>
-				<div class="chart-legend-item legend-col3 legend-off" data-toggle="nc_oct"><span class="legend-swatch legend-nc-square"></span> October</div>
+			<div id="chart-legend">
+				<div class="legend-simple" id="legend-simple">
+					<div class="chart-legend-item" data-toggle="actual"><span class="legend-swatch legend-line"></span> Latest actual</div>
+					<div class="chart-legend-item" data-toggle="forecast"><span class="legend-swatch legend-line-dashed"></span> Latest forecast</div>
+					<div class="chart-legend-item legend-off" data-toggle-simple="prev_all"><span class="legend-swatch legend-dot-h1"></span> Previous WEO forecasts</div>
+					<div class="chart-legend-item" data-toggle="nc_apr"><span class="legend-swatch legend-nc-diamond"></span> April nowcast</div>
+				</div>
+				<div class="chart-legend legend-full" id="legend-full" hidden>
+					<div class="legend-col-header legend-hdr-latest" id="legend-latest-header" data-toggle-group="latest">Latest WEO</div>
+					<div class="legend-col-header legend-hdr-prev" data-toggle-group="prev">Previous WEOs</div>
+					<div class="legend-col-header legend-hdr-nc" data-toggle-group="nc">Same-year nowcast</div>
+					<div class="chart-legend-item legend-col1" data-toggle="actual"><span class="legend-swatch legend-line"></span> Actual</div>
+					<div class="chart-legend-item legend-col1" data-toggle="forecast"><span class="legend-swatch legend-line-dashed"></span> Forecast/est.</div>
+					<div class="chart-legend-item legend-col1 legend-off" data-toggle="world"><span class="legend-swatch legend-line-gray"></span> World average</div>
+					<div class="chart-legend-item legend-col1 legend-off" data-toggle="region" id="legend-region"><span class="legend-swatch legend-line-region"></span> <span id="legend-region-name">Region average</span></div>
+					<div class="chart-legend-item legend-col2 legend-off" data-toggle="cloud_1yr"><span class="legend-swatch legend-dot-h1"></span> 1-year forecast</div>
+					<div class="chart-legend-item legend-col2 legend-off" data-toggle="cloud_2yr"><span class="legend-swatch legend-dot-h2"></span> 2-year forecast</div>
+					<div class="chart-legend-item legend-col2 legend-off" data-toggle="cloud_3yr"><span class="legend-swatch legend-dot-h3"></span> 3-year forecast</div>
+					<div class="chart-legend-item legend-col2 legend-off" data-toggle="cloud_4plus"><span class="legend-swatch legend-dot-h4"></span> 4+ year forecast</div>
+					<div class="chart-legend-item legend-col3" data-toggle="nc_apr"><span class="legend-swatch legend-nc-diamond"></span> April</div>
+					<div class="chart-legend-item legend-col3 legend-off" data-toggle="nc_oct"><span class="legend-swatch legend-nc-square"></span> October</div>
+				</div>
+				<button class="legend-more-btn" id="legend-more-btn">More layers</button>
 			</div>
 			<canvas id="weoChart" role="img" aria-label="Scatter chart showing how IMF World Economic Outlook forecasts evolved across editions"></canvas>
 		</div>

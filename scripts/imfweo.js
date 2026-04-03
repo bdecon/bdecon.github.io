@@ -130,46 +130,33 @@
 		const r5 = horizonRadius(5) * 2;
 		const ncD = NC_RADIUS * 2;
 
-		const el = (sel) => document.querySelector(sel);
+		const els = (sel) => document.querySelectorAll(sel);
+		const applyAll = (sel, styles) => els(sel).forEach(e => Object.assign(e.style, styles));
 
 		// Latest line swatches
-		const lineActual = el('.legend-line');
-		if (lineActual) Object.assign(lineActual.style, { height: '2px', background: lc });
-
-		const lineDashed = el('.legend-line-dashed');
-		if (lineDashed) Object.assign(lineDashed.style, {
-			height: '0', borderTop: `2px dashed ${lc}`, background: 'none'
-		});
-
-		const lineGray = el('.legend-line-gray');
-		if (lineGray) Object.assign(lineGray.style, { height: '2.5px', background: worldLineColor() });
-
-		const lineRegion = el('.legend-line-region');
-		if (lineRegion) Object.assign(lineRegion.style, { height: '2.5px', background: regionLineColor() });
+		applyAll('.legend-line', { height: '2px', background: lc });
+		applyAll('.legend-line-dashed', { height: '0', borderTop: `2px dashed ${lc}`, background: 'none' });
+		applyAll('.legend-line-gray', { height: '2.5px', background: worldLineColor() });
+		applyAll('.legend-line-region', { height: '2.5px', background: regionLineColor() });
 
 		// Forecast dots — h=1, h=2, h=3, h=4
 		for (const h of [1, 2, 3, 4]) {
-			const dot = el('.legend-dot-h' + h);
-			if (dot) {
-				const d = horizonRadius(h) * 2;
-				Object.assign(dot.style, {
-					width: d + 'px', height: d + 'px', borderRadius: '50%',
-					background: horizonColor(h), opacity: Math.min(horizonAlpha(h) * 2, 1)
-				});
-			}
+			const d = horizonRadius(h) * 2;
+			applyAll('.legend-dot-h' + h, {
+				width: d + 'px', height: d + 'px', borderRadius: '50%',
+				background: horizonColor(h), opacity: Math.min(horizonAlpha(h) * 2, 1)
+			});
 		}
 
 		// April nowcast diamond — scale down slightly (CSS looks larger than canvas)
 		const ncLegendSize = NC_RADIUS * 1.5;
-		const ncDiamond = el('.legend-nc-diamond');
-		if (ncDiamond) Object.assign(ncDiamond.style, {
+		applyAll('.legend-nc-diamond', {
 			width: ncLegendSize + 'px', height: ncLegendSize + 'px',
 			background: nc, transform: 'rotate(45deg)'
 		});
 
 		// October nowcast square
-		const ncSquare = el('.legend-nc-square');
-		if (ncSquare) Object.assign(ncSquare.style, {
+		applyAll('.legend-nc-square', {
 			width: ncLegendSize + 'px', height: ncLegendSize + 'px', background: nc
 		});
 	}
@@ -196,6 +183,26 @@
 		nc: ['nc_apr', 'nc_oct']
 	};
 
+	// --- Legend simple/full toggle ---
+	const PREV_ALL_KEYS = GROUP_MAP.prev;
+	let legendExpanded = false;
+
+	function syncAllLegendItems() {
+		document.querySelectorAll('.chart-legend-item[data-toggle]').forEach(item => {
+			const key = item.dataset.toggle;
+			item.classList.toggle('legend-off', hiddenSeries.has(key));
+			item.setAttribute('aria-checked', !hiddenSeries.has(key));
+		});
+		// Sync "Previous forecasts" simple toggle
+		const prevSimple = document.querySelector('[data-toggle-simple="prev_all"]');
+		if (prevSimple) {
+			const anyVisible = PREV_ALL_KEYS.some(k => !hiddenSeries.has(k));
+			prevSimple.classList.toggle('legend-off', !anyVisible);
+			prevSimple.setAttribute('aria-checked', anyVisible);
+		}
+		syncGroupHeaders();
+	}
+
 	function initLegendToggle() {
 		function onKeyToggle(e) {
 			if (e.key === 'Enter' || e.key === ' ') {
@@ -213,16 +220,44 @@
 				const key = item.dataset.toggle;
 				if (hiddenSeries.has(key)) {
 					hiddenSeries.delete(key);
-					item.classList.remove('legend-off');
 				} else {
 					hiddenSeries.add(key);
-					item.classList.add('legend-off');
 				}
-				item.setAttribute('aria-checked', !hiddenSeries.has(key));
-				syncGroupHeaders();
+				syncAllLegendItems();
 				applyLegendToggle();
 			});
 		});
+
+		// "Previous forecasts" combined toggle in simple view
+		const prevSimple = document.querySelector('[data-toggle-simple="prev_all"]');
+		if (prevSimple) {
+			prevSimple.setAttribute('tabindex', '0');
+			prevSimple.setAttribute('role', 'checkbox');
+			prevSimple.setAttribute('aria-checked', 'false');
+			prevSimple.addEventListener('keydown', onKeyToggle);
+			prevSimple.addEventListener('click', () => {
+				const anyVisible = PREV_ALL_KEYS.some(k => !hiddenSeries.has(k));
+				PREV_ALL_KEYS.forEach(k => {
+					if (anyVisible) hiddenSeries.add(k);
+					else hiddenSeries.delete(k);
+				});
+				syncAllLegendItems();
+				applyLegendToggle();
+			});
+		}
+
+		// "More" / "Less" button
+		const moreBtn = document.getElementById('legend-more-btn');
+		const simpleDiv = document.getElementById('legend-simple');
+		const fullDiv = document.getElementById('legend-full');
+		if (moreBtn && simpleDiv && fullDiv) {
+			moreBtn.addEventListener('click', () => {
+				legendExpanded = !legendExpanded;
+				fullDiv.hidden = !legendExpanded;
+				simpleDiv.hidden = legendExpanded;
+				moreBtn.textContent = legendExpanded ? 'Fewer layers' : 'More layers';
+			});
+		}
 
 		document.querySelectorAll('[data-toggle-group]').forEach(header => {
 			header.setAttribute('tabindex', '0');
@@ -240,16 +275,12 @@
 						hiddenSeries.add(k);
 					}
 				});
-				// Update individual item classes
-				document.querySelectorAll('.chart-legend-item[data-toggle]').forEach(item => {
-					item.classList.toggle('legend-off', hiddenSeries.has(item.dataset.toggle));
-				});
-				syncGroupHeaders();
+				syncAllLegendItems();
 				applyLegendToggle();
 			});
 		});
 
-		syncGroupHeaders();
+		syncAllLegendItems();
 	}
 
 	function syncGroupHeaders() {
