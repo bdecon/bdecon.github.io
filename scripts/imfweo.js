@@ -322,6 +322,7 @@
 			return;
 		}
 		populateInfoBox();
+		updateMetadata();
 		initDropdowns();
 		initLegendToggle();
 		restoreState();
@@ -485,6 +486,36 @@
 		const nextMonth = (abbr === 'Oct' || abbr === 'Sep') ? 'April' : 'October';
 		const nextYear = (abbr === 'Oct' || abbr === 'Sep') ? year + 1 : year;
 		document.getElementById('weo-info-next').textContent = nextMonth + ' ' + nextYear;
+	}
+
+	function updateMetadata() {
+		const lastV = DATA.v[DATA.v.length - 1];
+
+		// Update "Countries Included (N)" heading from data
+		const nCountries = Object.keys(DATA.c).length;
+		const countrySummary = document.querySelector('.weo-countries > summary');
+		if (countrySummary) countrySummary.textContent = 'Countries Included (' + nCountries + ')';
+
+		// Update guide box edition label
+		const guideEd = document.getElementById('weo-guide-edition');
+		if (guideEd) {
+			const FULL = {Jan:'January',Feb:'February',Mar:'March',Apr:'April',
+				May:'May',Jun:'June',Jul:'July',Aug:'August',
+				Sep:'September',Oct:'October',Nov:'November',Dec:'December'};
+			guideEd.textContent = (FULL[lastV[0]] || lastV[0]) + ' ' + lastV[1];
+		}
+
+		// Update JSON-LD temporalCoverage end year
+		const ldEl = document.querySelector('script[type="application/ld+json"]');
+		if (ldEl) {
+			try {
+				const ld = JSON.parse(ldEl.textContent);
+				if (ld.temporalCoverage) {
+					ld.temporalCoverage = ld.temporalCoverage.replace(/\/\d{4}$/, '/' + lastV[1]);
+					ldEl.textContent = JSON.stringify(ld);
+				}
+			} catch (e) { /* ignore parse errors */ }
+		}
 	}
 
 	function updateSummary() {
@@ -1804,6 +1835,18 @@
 			link.download = ind.toLowerCase() + '_forecast_scores.csv';
 			link.click();
 			URL.revokeObjectURL(url);
+		});
+	}
+
+	// --- Chart guide (dismissable) ---
+	const guide = document.getElementById('weo-guide');
+	if (guide) {
+		if (localStorage.getItem('weo_guide_dismissed')) {
+			guide.style.display = 'none';
+		}
+		document.getElementById('weo-guide-close').addEventListener('click', () => {
+			guide.style.display = 'none';
+			localStorage.setItem('weo_guide_dismissed', '1');
 		});
 	}
 

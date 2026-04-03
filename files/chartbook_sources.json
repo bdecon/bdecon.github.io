@@ -165,9 +165,9 @@
     },
     {
       "name": "Initial Jobless Claims",
-      "period": "Mar 21, 2026",
+      "period": "Mar 28, 2026",
       "freq": "weekly",
-      "last_changed": "2026-03-26"
+      "last_changed": "2026-04-02"
     },
     {
       "name": "Fed Balance Sheet",
@@ -298,6 +298,12 @@
       "last_changed": "2026-04-02"
     },
     {
+      "name": "Initial Jobless Claims",
+      "period": "Mar 28, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-04-02"
+    },
+    {
       "name": "JOLTS",
       "period": "Feb 2026",
       "freq": "monthly",
@@ -325,12 +331,6 @@
       "name": "Money Stock (M2)",
       "period": "Feb 2026",
       "freq": "monthly",
-      "last_changed": "2026-03-26"
-    },
-    {
-      "name": "Initial Jobless Claims",
-      "period": "Mar 21, 2026",
-      "freq": "weekly",
       "last_changed": "2026-03-26"
     },
     {
