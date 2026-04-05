@@ -214,9 +214,9 @@ for name, cl in f.codelist.items():
     if not matches.empty:
         print(f'\n{matches}')</code></pre>
 	<p>Out[2]:</p>
-<pre>Dimensions: ['COUNTRY', 'SUBJECT', 'FREQUENCY', 'TIME_PERIOD']
+<pre>Dimensions: ['COUNTRY', 'INDICATOR', 'FREQUENCY', 'TIME_PERIOD']
 
-SUBJECT
+INDICATOR
 NGDP_R       Gross domestic product, constant prices (National currency)
 NGDP_RPCH    Gross domestic product, constant prices (Percent change)
 Name: ..., dtype: object</pre>
@@ -250,7 +250,7 @@ ax.set_xlabel('Source: IMF World Economic Outlook')</code></pre>
 	<p>Out[4]:</p>
 	<picture><source srcset="images/imf_gdp_growth.webp" type="image/webp"><img decoding="async" src="images/imf_gdp_growth.png" alt="Thailand vs Vietnam GDP Growth from WEO" loading="lazy" width="558" height="443"/></picture>
 	<p>Vietnam has sustained higher growth rates over most of this period, with both countries hit hard by COVID-19 in 2020&ndash;2021. Other popular WEO indicators include <code>PCPIPCH</code> (CPI inflation), <code>LUR</code> (unemployment rate), and <code>GGXWDG_NGDP</code> (government debt as % of GDP).</p>
-	<p>Note that the SDMX API only serves the <strong>latest WEO edition</strong>. The IMF publishes the WEO twice a year (April and October), but older editions are not available through the API&mdash;the dataflow is overwritten each cycle. To access archived WEO vintages (back to 2007), download them from the <a href="https://www.imf.org/en/Publications/SPROLLs/world-economic-outlook-databases">WEO Database page</a> or use a package like <a href="https://pypi.org/project/weo/">weo</a>.</p>
+	<p>The SDMX API typically keeps <strong>2&ndash;3 recent WEO editions</strong> accessible via version numbers (e.g., <code>6.0.0</code> for April 2025, <code>9.0.0</code> for October 2025), but older editions are removed over time. To access archived WEO vintages, download them from the <a href="https://www.imf.org/en/Publications/SPROLLs/world-economic-outlook-databases">WEO Database page</a> or explore the <a href="imfweo.html">WEO Forecast Tracker</a>, which compiles all editions back to 1990.</p>
 
 	<h4>Distinguishing Forecasts from Actuals</h4>
 	<p>WEO data mixes historical values and projections, but the API does not flag which is which in the main data response. To find the boundary, request the <code>LATEST_ACTUAL_ANNUAL_DATA</code> attribute. This returns the last year of actual data for each country&ndash;indicator pair; any year after that is a forecast.</p>
@@ -267,11 +267,11 @@ resp = requests.get(url, headers={"Accept": "application/json"})
 meta = resp.json()
 
 # The attribute is in dimensionGroupAttributes
-attrs = meta['dataSets'][0]['dimensionGroupAttributes']
+attrs = meta['data']['dataSets'][0]['dimensionGroupAttributes']
 
 # Each key is "{country_idx}:{indicator_idx}::", value is [[year]]
 # Map dimension indices back to codes
-dims = meta['structure']['dimensions']['observation']
+dims = meta['data']['structures'][0]['dimensions']['series']
 countries = {str(i): c['id']
              for i, c in enumerate(dims[0]['values'])}
 indicators = {str(i): ind['id']
