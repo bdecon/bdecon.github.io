@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kitchen Sink — BD Economics Design System</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  /* Kitchen sink page-specific: labels and section dividers */
+  .ks-section { padding: var(--space-7) 0 var(--space-4); border-bottom: 3px solid var(--color-border-light); }
+  .ks-section:first-of-type { padding-top: var(--space-5); }
+  .ks-label {
+    font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--color-text-muted); background: var(--color-bg-highlight);
+    padding: 2px var(--space-2); display: inline-block; margin-bottom: var(--space-3);
+  }
+  .ks-row { display: flex; gap: var(--space-4); flex-wrap: wrap; align-items: flex-start; margin-bottom: var(--space-5); }
+  .ks-col { flex: 1; min-width: 250px; }
+  .ks-swatch { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-2); }
+  .ks-swatch-box { width: 40px; height: 40px; border: 1px solid var(--color-border-light); flex-shrink: 0; }
+  .ks-swatch-label { font-size: var(--text-xs); color: var(--color-text-muted); }
+  .ks-spacer { margin-bottom: var(--space-5); }
+  .ks-grid-demo { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: var(--space-2); margin-bottom: var(--space-4); }
+  .ks-grid-demo > div { background: var(--color-bg-highlight); padding: var(--space-3); text-align: center; font-size: var(--text-xs); color: var(--color-text-muted); border: 1px solid var(--color-border-light); }
+  .ks-toc { columns: 3; column-gap: var(--space-5); }
+  .ks-toc a { display: block; font-size: var(--text-sm); padding: var(--space-1) 0; }
+  @media (max-width: 760px) { .ks-toc { columns: 1; } .ks-row { flex-direction: column; } }
+</style>
+<script>
+  /* Theme toggle */
+  const t = localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', t);
+</script>
+</head>
+<body class="page-kitchen-sink">
+<header>
+  <nav aria-label="Main navigation">
+    <ul class="site-nav" id="topnav">
+      <li><a href="index.html"><svg class="brand-logo" viewBox="0 0 200 18" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-label="BD Economics home"><rect x="0" y="0" width="4" height="4"/><rect x="0" y="5" width="4" height="4"/><rect x="0" y="10" width="4" height="4"/><rect x="5" y="0" width="4" height="4"/><rect x="5" y="10" width="4" height="4"/><rect x="10" y="5" width="4" height="4"/></svg></a></li>
+      <li><button class="theme-toggle" onclick="const d=document.documentElement;const n=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',n);localStorage.setItem('theme',n);" aria-label="Toggle theme">◑</button></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============================================================
+     TABLE OF CONTENTS
+     ============================================================ -->
+<div class="page-title" style="margin: calc(-1 * var(--space-2)) calc(-1 * var(--space-5)) 0; padding: var(--space-5) var(--space-3);">
+  <h1>Kitchen Sink</h1>
+  <p class="page-title-byline">Every building block in one place</p>
+</div>
+
+<article class="prose">
+<nav class="ks-toc" style="margin: var(--space-5) 0;">
+  <a href="#colors">Colors</a>
+  <a href="#typography">Typography</a>
+  <a href="#typography-prose">Typography in Prose</a>
+  <a href="#links">Links</a>
+  <a href="#code">Code</a>
+  <a href="#cards">Cards</a>
+  <a href="#cards-nav">Nav Cards</a>
+  <a href="#info-boxes">Info Boxes</a>
+  <a href="#controls">Controls</a>
+  <a href="#buttons">Buttons</a>
+  <a href="#forms">Form Elements</a>
+  <a href="#tables">Tables</a>
+  <a href="#chart-elements">Chart Elements</a>
+  <a href="#text-components">Text Components</a>
+  <a href="#layout">Layout</a>
+  <a href="#details">Details/Collapsible</a>
+  <a href="#decorative">Decorative Rules</a>
+  <a href="#combos">Combinations &amp; Cascade</a>
+  <a href="#badges">Badges</a>
+  <a href="#spacing">Spacing Scale</a>
+  <a href="#widths">Width Tiers</a>
+</nav>
+
+<!-- ============================================================
+     1. COLORS
+     ============================================================ -->
+<section class="ks-section" id="colors">
+<h2>Colors</h2>
+
+<h3>Text Colors</h3>
+<div class="ks-row">
+  <div><p style="color: var(--color-text-strong); font-weight: 700;">Strong — headings, emphasis</p></div>
+  <div><p style="color: var(--color-text);">Text — body paragraphs</p></div>
+  <div><p style="color: var(--color-text-muted);">Muted — captions, metadata</p></div>
+</div>
+
+<h3>Backgrounds</h3>
+<div class="ks-row">
+  <div class="ks-swatch"><div class="ks-swatch-box" style="background: var(--color-canvas);"></div><span class="ks-swatch-label">canvas<br>#f5f5f5</span></div>
+  <div class="ks-swatch"><div class="ks-swatch-box" style="background: var(--color-surface);"></div><span class="ks-swatch-label">surface<br>#fff</span></div>
+  <div class="ks-swatch"><div class="ks-swatch-box" style="background: var(--color-bg-alt);"></div><span class="ks-swatch-label">bg-alt<br>#f2f2f2</span></div>
+  <div class="ks-swatch"><div class="ks-swatch-box" style="background: var(--color-bg-highlight);"></div><span class="ks-swatch-label">bg-highlight<br>#e8e8e8</span></div>
+</div>
+
+<h3>Accent Colors</h3>
+<div class="ks-row">
+  <div class="ks-swatch accent-blue"><div class="ks-swatch-box" style="background: var(--accent);"></div><span class="ks-swatch-label">blue</span></div>
+  <div class="ks-swatch accent-green"><div class="ks-swatch-box" style="background: var(--accent);"></div><span class="ks-swatch-label">green</span></div>
+  <div class="ks-swatch accent-red"><div class="ks-swatch-box" style="background: var(--accent);"></div><span class="ks-swatch-label">red</span></div>
+  <div class="ks-swatch accent-orange"><div class="ks-swatch-box" style="background: var(--accent);"></div><span class="ks-swatch-label">orange</span></div>
+  <div class="ks-swatch accent-purple"><div class="ks-swatch-box" style="background: var(--accent);"></div><span class="ks-swatch-label">purple</span></div>
+  <div class="ks-swatch accent-teal"><div class="ks-swatch-box" style="background: var(--accent);"></div><span class="ks-swatch-label">teal</span></div>
+  <div class="ks-swatch accent-ltblue"><div class="ks-swatch-box" style="background: var(--accent);"></div><span class="ks-swatch-label">ltblue</span></div>
+  <div class="ks-swatch accent-brown"><div class="ks-swatch-box" style="background: var(--accent);"></div><span class="ks-swatch-label">brown</span></div>
+</div>
+
+<h3>Links</h3>
+<div class="ks-row">
+  <div class="ks-swatch"><div class="ks-swatch-box" style="background: var(--color-link);"></div><span class="ks-swatch-label">link<br>#A80038</span></div>
+  <div class="ks-swatch"><div class="ks-swatch-box" style="background: var(--color-link-visited);"></div><span class="ks-swatch-label">visited<br>#900C3F</span></div>
+  <div class="ks-swatch"><div class="ks-swatch-box" style="background: var(--color-link-hover);"></div><span class="ks-swatch-label">hover<br>#CC9900</span></div>
+</div>
+
+<h3>Borders</h3>
+<div class="ks-row">
+  <div class="ks-swatch"><div class="ks-swatch-box" style="background: var(--color-border);"></div><span class="ks-swatch-label">border<br>#e9ecef</span></div>
+  <div class="ks-swatch"><div class="ks-swatch-box" style="background: var(--color-border-light);"></div><span class="ks-swatch-label">border-light<br>#ccc</span></div>
+</div>
+</section>
+
+<!-- ============================================================
+     2. TYPOGRAPHY — STANDALONE
+     ============================================================ -->
+<section class="ks-section" id="typography">
+<h2>Typography — Standalone</h2>
+
+<span class="ks-label">h1</span>
+<h1>Heading Level 1</h1>
+
+<span class="ks-label">h2</span>
+<h2 style="margin-top: 0;">Heading Level 2</h2>
+
+<span class="ks-label">h3</span>
+<h3 style="margin-top: 0;">Heading Level 3</h3>
+
+<span class="ks-label">h4</span>
+<h4 style="margin-top: 0;">Heading Level 4</h4>
+
+<span class="ks-label">paragraph (outside .prose)</span>
+<p>This is a paragraph outside of a .prose wrapper. It uses --text-base (16px), --color-text, and 0.75em bottom margin. The line-height is 1.6. It inherits from the global p rule.</p>
+
+<span class="ks-label">list (outside .prose)</span>
+<ul>
+  <li>List item one with default styling</li>
+  <li>List item two — font-size base, color text, line-height 1.6</li>
+  <li>List item three</li>
+</ul>
+</section>
+
+<!-- ============================================================
+     3. TYPOGRAPHY — IN PROSE
+     ============================================================ -->
+<section class="ks-section" id="typography-prose">
+<h2>Typography — In Prose Wrapper</h2>
+
+<span class="ks-label">.prose</span>
+</article>
+
+<article class="prose">
+<h2>Prose H2 — 48px top margin, text-3xl</h2>
+<p>This is a paragraph inside .prose. It gets 1.5em bottom margin instead of 0.75em. The prose wrapper is max-width 760px (--width-lg), centered with auto margins and 12px side padding. This width might be too wide for comfortable reading.</p>
+
+<h3>Prose H3 — 48px top margin, text-2xl</h3>
+<p>Another paragraph. Notice the spacing is more generous inside prose. Bold <code>inline code</code> appears with a background highlight. This is the wrapper used for all tutorial and guide content.</p>
+
+<h4>Prose H4 — 32px top margin, muted color</h4>
+<p>H4 headings inside prose are color-text-muted, providing a visual hierarchy step down from h3.</p>
+
+<ul>
+  <li>Prose list items get 0.4em bottom margin</li>
+  <li>Lists have 1.5em left padding</li>
+  <li>8px top margin, 24px bottom margin</li>
+</ul>
+
+<ol>
+  <li>Ordered lists get the same treatment</li>
+  <li>Same spacing, same indentation</li>
+  <li>Same font size (base)</li>
+</ol>
+</article>
+
+<article class="prose">
+<span class="ks-label">.prose-report (justified)</span>
+</article>
+<article class="prose prose-report">
+<p>This is prose-report text. It uses justified alignment with 1.65 line-height and 28px bottom margin. This is the style used for the childcare report and any future long-form narrative content. The wider spacing and justification create a more formal, publication-like feel compared to standard prose.</p>
+<p>A second paragraph to show the 28px gap between paragraphs. Compare this to the standard prose gap above.</p>
+</article>
+
+<article class="prose">
+
+<!-- ============================================================
+     4. LINKS
+     ============================================================ -->
+<section class="ks-section" id="links">
+<h2>Links</h2>
+<p>This is a <a href="#">standard link</a> inside a paragraph. Links are underlined by default with text-underline-offset: 3px and 1px thickness. Underline is removed on hover. <a href="#">Hover over this link</a> to see the color change to gold (#CC9900).</p>
+</section>
+
+<!-- ============================================================
+     5. CODE
+     ============================================================ -->
+<section class="ks-section" id="code">
+<h2>Code</h2>
+
+<span class="ks-label">inline code</span>
+<p>Use the <code>pd.read_csv()</code> function to load data. Inline code has a background highlight and 0.9em font-size.</p>
+
+<span class="ks-label">code block (pre)</span>
+<pre><code class="language-python">import pandas as pd
+
+# Fetch data from FRED API
+df = pd.read_csv('files/gdpm.csv', parse_dates=['date'])
+df = df.set_index('date')
+
+# Calculate year-over-year growth
+df['growth'] = df['value'].pct_change(12) * 100
+print(df.tail())</code></pre>
+</section>
+
+<!-- ============================================================
+     6. CARDS
+     ============================================================ -->
+<section class="ks-section" id="cards">
+<h2>Cards</h2>
+
+<span class="ks-label">.card — bare</span>
+<div class="card">
+  <div class="card-body">
+    <p>A bare card with just card-body. No header, no footer. The universal container.</p>
+  </div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.card + .card-header (blue)</span>
+<div class="card accent-blue">
+  <div class="card-header">
+    <h3 class="chart-title">Card Title</h3>
+    <div class="card-actions">
+      <button aria-label="Action">&#x2630;</button>
+    </div>
+  </div>
+  <div class="card-body">
+    <p>Card with a header. Gray background, 4px accent top border. Flex layout with title left, actions right.</p>
+  </div>
+  <div class="card-footer">
+    <span class="chart-source">Source: Example data</span>
+    <svg class="card-logo" width="14" height="14" viewBox="0 0 14 14"><rect x="0" y="0" width="4" height="4"/><rect x="0" y="5" width="4" height="4"/><rect x="0" y="10" width="4" height="4"/><rect x="5" y="0" width="4" height="4"/><rect x="5" y="10" width="4" height="4"/><rect x="10" y="5" width="4" height="4"/></svg>
+  </div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.card-compact.card-chart (red)</span>
+<div class="card card-compact card-chart accent-red">
+  <div class="card-header">
+    <h3 class="chart-title">Chart Card</h3>
+  </div>
+  <div class="card-body">
+    <div style="height: 150px; background: var(--color-bg-alt); display: flex; align-items: center; justify-content: center; color: var(--color-text-muted);">[ Chart Canvas ]</div>
+  </div>
+  <div class="card-footer">
+    <span class="chart-source">Source: Bureau of Labor Statistics</span>
+  </div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.card-accent (teal)</span>
+<div class="card card-accent accent-teal">
+  <div class="card-header">
+    <h3 class="chart-title">Accent Border Card</h3>
+  </div>
+  <div class="card-body">
+    <p>Card with border-color matching the accent. Title also takes accent color.</p>
+  </div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">Cards in all 8 accent colors</span>
+<div class="ks-row">
+  <div class="card accent-blue" style="flex: 1; min-width: 200px;">
+    <div class="card-header"><h3 class="chart-title" style="font-size: var(--text-base);">Blue</h3></div>
+    <div class="card-body"><p style="font-size: var(--text-sm);">accent-blue</p></div>
+  </div>
+  <div class="card accent-green" style="flex: 1; min-width: 200px;">
+    <div class="card-header"><h3 class="chart-title" style="font-size: var(--text-base);">Green</h3></div>
+    <div class="card-body"><p style="font-size: var(--text-sm);">accent-green</p></div>
+  </div>
+  <div class="card accent-red" style="flex: 1; min-width: 200px;">
+    <div class="card-header"><h3 class="chart-title" style="font-size: var(--text-base);">Red</h3></div>
+    <div class="card-body"><p style="font-size: var(--text-sm);">accent-red</p></div>
+  </div>
+  <div class="card accent-orange" style="flex: 1; min-width: 200px;">
+    <div class="card-header"><h3 class="chart-title" style="font-size: var(--text-base);">Orange</h3></div>
+    <div class="card-body"><p style="font-size: var(--text-sm);">accent-orange</p></div>
+  </div>
+</div>
+<div class="ks-row">
+  <div class="card accent-purple" style="flex: 1; min-width: 200px;">
+    <div class="card-header"><h3 class="chart-title" style="font-size: var(--text-base);">Purple</h3></div>
+    <div class="card-body"><p style="font-size: var(--text-sm);">accent-purple</p></div>
+  </div>
+  <div class="card accent-teal" style="flex: 1; min-width: 200px;">
+    <div class="card-header"><h3 class="chart-title" style="font-size: var(--text-base);">Teal</h3></div>
+    <div class="card-body"><p style="font-size: var(--text-sm);">accent-teal</p></div>
+  </div>
+  <div class="card accent-ltblue" style="flex: 1; min-width: 200px;">
+    <div class="card-header"><h3 class="chart-title" style="font-size: var(--text-base);">Light Blue</h3></div>
+    <div class="card-body"><p style="font-size: var(--text-sm);">accent-ltblue</p></div>
+  </div>
+  <div class="card accent-brown" style="flex: 1; min-width: 200px;">
+    <div class="card-header"><h3 class="chart-title" style="font-size: var(--text-base);">Brown</h3></div>
+    <div class="card-body"><p style="font-size: var(--text-sm);">accent-brown</p></div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================
+     7. NAV CARDS
+     ============================================================ -->
+<section class="ks-section" id="cards-nav">
+<h2>Nav Cards</h2>
+
+<span class="ks-label">.card-nav — accent dot treatment</span>
+<div class="card-grid" style="max-width: var(--width-xl);">
+  <a href="#" class="card card-nav accent-blue">
+    <div class="card-banner"><img src="images/blsapi_banner.webp" alt=""></div>
+    <div class="card-header"><h3>Blue Card</h3></div>
+    <div class="card-body">
+      <p>Nav card with accent dot in header and colored banner strip.</p>
+      <span class="trail-badge trail-intro">Intro</span>
+    </div>
+  </a>
+  <a href="#" class="card card-nav accent-green">
+    <div class="card-banner"></div>
+    <div class="card-header"><h3>Green Card</h3></div>
+    <div class="card-body">
+      <p>Nav card without banner image — shows the accent-tinted background.</p>
+      <span class="trail-badge trail-beginner">Beginner</span>
+    </div>
+  </a>
+  <a href="#" class="card card-nav accent-red card-muted">
+    <div class="card-banner"></div>
+    <div class="card-header"><h3>Muted Card</h3></div>
+    <div class="card-body">
+      <p>Card with .card-muted — 50% opacity, full on hover. Used for coming-soon items.</p>
+      <span class="trail-badge trail-intermediate">Intermediate</span>
+    </div>
+  </a>
+</div>
+</section>
+
+<!-- ============================================================
+     8. INFO BOXES
+     ============================================================ -->
+<section class="ks-section" id="info-boxes">
+<h2>Info Boxes</h2>
+
+<span class="ks-label">.info-box — basic</span>
+<div class="info-box accent-blue">
+  <h3>Info Box Title</h3>
+  <p>Basic info box with accent-colored underline on the title. Light gray background, 2px border.</p>
+  <p>Second paragraph. Info box text uses --text-sm and --color-text.</p>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.info-box with .info-box-tab</span>
+<div class="info-box accent-teal" style="margin-top: var(--space-5);">
+  <span class="info-box-tab">Category Label</span>
+  <h3>Info Box with Tab</h3>
+  <p>The tab is an offset label plate positioned above the box border. Accent-colored background, white Space Mono text.</p>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.info-box with .key-stat</span>
+<div class="info-box accent-red">
+  <h3>Latest Estimate</h3>
+  <div class="key-stat">4.2%</div>
+  <p class="note">As of March 2026</p>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.info-box-accent</span>
+<div class="info-box info-box-accent accent-purple">
+  <h3>Accent Info Box</h3>
+  <p>Border takes the accent color. Background changes to --color-bg.</p>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.info-box + .control-panel (no double border)</span>
+<div class="info-box accent-blue">
+  <h3>Data Selection</h3>
+  <p>Choose a country and indicator below.</p>
+</div>
+<div class="control-panel">
+  <label>Country</label>
+  <select class="form-select"><option>United States</option><option>Germany</option><option>Japan</option></select>
+  <label>Indicator</label>
+  <select class="form-select"><option>GDP Growth</option><option>Inflation</option><option>Unemployment</option></select>
+</div>
+</section>
+
+<!-- ============================================================
+     9. CONTROLS
+     ============================================================ -->
+<section class="ks-section" id="controls">
+<h2>Controls</h2>
+
+<span class="ks-label">.control-panel</span>
+<div class="control-panel">
+  <label>View</label>
+  <select class="form-select"><option>Monthly</option><option>Quarterly</option><option>Annual</option></select>
+  <label>Period</label>
+  <select class="form-select"><option>All</option><option>Recent 3 years</option><option>Recent 5 years</option></select>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.control-row</span>
+<div class="control-row" style="max-width: 400px;">
+  <label>Search</label>
+  <input type="text" class="form-select" placeholder="Type to search...">
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.combo-box</span>
+<div class="control-row" style="max-width: 400px;">
+  <label>Country</label>
+  <div class="combo-box">
+    <input type="text" class="form-select" placeholder="Type a country name...">
+    <div class="combo-list open" style="position: relative;">
+      <div class="combo-item">United States</div>
+      <div class="combo-item active">United <mark>King</mark>dom</div>
+      <div class="combo-item">United Arab Emirates</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================
+     10. BUTTONS
+     ============================================================ -->
+<section class="ks-section" id="buttons">
+<h2>Buttons</h2>
+
+<span class="ks-label">.btn — states</span>
+<div class="ks-row" style="align-items: center;">
+  <button class="btn">Default</button>
+  <button class="btn active accent-blue">Active (blue)</button>
+  <button class="btn active accent-red">Active (red)</button>
+  <button class="btn active accent-teal">Active (teal)</button>
+  <button class="btn" disabled>Disabled</button>
+</div>
+
+<span class="ks-label">.btn--pill</span>
+<div class="ks-row" style="align-items: center;">
+  <button class="btn btn--pill">Pill Button</button>
+  <button class="btn btn--pill active accent-blue">Active Pill</button>
+</div>
+
+<span class="ks-label">.btn-group (segmented control)</span>
+<div class="btn-group accent-red">
+  <button class="btn active">Nominal</button>
+  <button class="btn">Real</button>
+</div>
+
+<div class="ks-spacer"></div>
+
+<div class="btn-group accent-blue">
+  <button class="btn">All</button>
+  <button class="btn active">Major</button>
+  <button class="btn">This Week</button>
+</div>
+</section>
+
+<!-- ============================================================
+     11. FORM ELEMENTS
+     ============================================================ -->
+<section class="ks-section" id="forms">
+<h2>Form Elements</h2>
+
+<span class="ks-label">.form-select</span>
+<div class="ks-row">
+  <select class="form-select">
+    <option>Select an option</option>
+    <option>Option A</option>
+    <option>Option B</option>
+  </select>
+  <input type="text" class="form-select" placeholder="Text input">
+</div>
+</section>
+
+<!-- ============================================================
+     12. TABLES
+     ============================================================ -->
+<section class="ks-section" id="tables">
+<h2>Tables</h2>
+
+<span class="ks-label">base table</span>
+<table>
+  <thead>
+    <tr><th>Indicator</th><th>Value</th><th>Change</th><th>Date</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>GDP Growth</td><td>2.8%</td><td>+0.3</td><td>2026-Q1</td></tr>
+    <tr><td>Unemployment</td><td>4.1%</td><td>-0.1</td><td>Mar 2026</td></tr>
+    <tr><td>CPI Inflation</td><td>2.4%</td><td>+0.2</td><td>Mar 2026</td></tr>
+    <tr><td>Fed Funds Rate</td><td>4.50%</td><td>0.0</td><td>Mar 2026</td></tr>
+    <tr><td>10Y Treasury</td><td>4.25%</td><td>-0.15</td><td>Apr 2026</td></tr>
+  </tbody>
+</table>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.dash-table</span>
+<table class="dash-table">
+  <thead>
+    <tr><th>Series</th><th>Latest</th><th>Prior</th><th>YoY</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Nonfarm Payrolls</td><td>151K</td><td>125K</td><td>+1.2%</td></tr>
+    <tr><td>Average Hourly Earnings</td><td>$35.93</td><td>$35.82</td><td>+4.0%</td></tr>
+    <tr><td>Initial Claims</td><td>219K</td><td>225K</td><td>-3.1%</td></tr>
+    <tr><td>Continuing Claims</td><td>1,856K</td><td>1,889K</td><td>+5.2%</td></tr>
+  </tbody>
+</table>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.dataframe in .table-wrap</span>
+<div class="table-wrap">
+  <table class="dataframe">
+    <thead>
+      <tr><th></th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>2026</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>United States</td><td>1.9</td><td>2.5</td><td>2.8</td><td>2.2</td><td>1.8</td></tr>
+      <tr><td>Euro Area</td><td>3.4</td><td>0.4</td><td>0.8</td><td>1.0</td><td>1.4</td></tr>
+      <tr><td>Japan</td><td>1.0</td><td>1.9</td><td>0.3</td><td>1.1</td><td>0.8</td></tr>
+      <tr><td>China</td><td>3.0</td><td>5.2</td><td>4.8</td><td>4.5</td><td>4.2</td></tr>
+      <tr><td>India</td><td>7.2</td><td>8.2</td><td>7.0</td><td>6.5</td><td>6.3</td></tr>
+    </tbody>
+  </table>
+</div>
+</section>
+
+<!-- ============================================================
+     13. CHART ELEMENTS
+     ============================================================ -->
+<section class="ks-section" id="chart-elements">
+<h2>Chart Elements</h2>
+
+<span class="ks-label">Full chart card with all sub-elements</span>
+<div class="card card-compact card-chart accent-blue" style="max-width: var(--width-md);">
+  <div class="card-header">
+    <div>
+      <h3 class="chart-title">Unemployment Rate</h3>
+      <span class="chart-subtitle">Percent, seasonally adjusted</span>
+    </div>
+    <div class="card-actions">
+      <button aria-label="Share">&#x2197;</button>
+      <button aria-label="Download">&#x2193;</button>
+    </div>
+  </div>
+  <div class="card-body">
+    <div style="height: 200px; background: var(--color-bg-alt); display: flex; align-items: center; justify-content: center; color: var(--color-text-muted);">[ Chart.js Canvas ]</div>
+  </div>
+  <div class="card-body" style="padding-top: 0;">
+    <div class="chart-legend">
+      <div class="chart-legend-item">
+        <div class="chart-legend-box" style="background: var(--color-card-blue);"></div>
+        <span class="chart-legend-label">Unemployment Rate</span>
+      </div>
+      <div class="chart-legend-item">
+        <div class="chart-legend-box" style="background: var(--color-card-red);"></div>
+        <span class="chart-legend-label">Natural Rate</span>
+      </div>
+      <div class="chart-legend-item legend-off">
+        <div class="chart-legend-box" style="background: var(--color-text-muted);"></div>
+        <span class="chart-legend-label">Hidden Series</span>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <span class="chart-source">Source: Bureau of Labor Statistics</span>
+    <svg class="card-logo" width="14" height="14" viewBox="0 0 14 14"><rect x="0" y="0" width="4" height="4"/><rect x="0" y="5" width="4" height="4"/><rect x="0" y="10" width="4" height="4"/><rect x="5" y="0" width="4" height="4"/><rect x="5" y="10" width="4" height="4"/><rect x="10" y="5" width="4" height="4"/></svg>
+  </div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.chart-tooltip (static demo)</span>
+<div style="position: relative; height: 80px;">
+  <div class="chart-tooltip visible" style="left: 20px; top: 10px;">
+    <div class="chart-tooltip-header">March 2026</div>
+    <div>Unemployment: <strong>4.1%</strong></div>
+    <div>Change: <strong>-0.1pp</strong></div>
+  </div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.chart-filter</span>
+<span class="chart-filter">Showing 2020-2026 &middot; <button>Show all</button></span>
+</section>
+
+<!-- ============================================================
+     14. TEXT COMPONENTS
+     ============================================================ -->
+<section class="ks-section" id="text-components">
+<h2>Text Components</h2>
+
+<span class="ks-label">.label</span>
+<div class="label">Category Label</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.step-label (with accent)</span>
+<div class="accent-blue"><span class="step-label">Step 1: Import the data</span></div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.heading-accent (with accent)</span>
+<div class="accent-red"><h3 class="heading-accent">Accented Heading</h3></div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.key-stat</span>
+<div class="key-stat">$28.4 trillion</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.callout (with accent colors)</span>
+<div class="callout accent-blue">
+  This is a blue callout. Used for introductory emphasis text. 5px left border, xl font weight 500, alt background.
+</div>
+<div class="callout accent-teal">
+  Teal callout. Each accent color produces a different left border.
+</div>
+<div class="callout accent-red">
+  Red callout.
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.blockquote-accent</span>
+<blockquote class="blockquote-accent accent-green">
+  "The economy added 151,000 jobs in February, below the expected 160,000 but broadly in line with the trend."
+  <cite>— Bureau of Labor Statistics, March 2026</cite>
+</blockquote>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.highlight-accent</span>
+<p>The rate fell to <span class="highlight-accent accent-red">4.1%</span> in March, down from <span class="highlight-accent accent-blue">4.2%</span> in February.</p>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.note / .chart-source</span>
+<p class="note">Note: Data are seasonally adjusted. Last updated April 6, 2026.</p>
+<p class="chart-source">Source: Federal Reserve Economic Data (FRED)</p>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.tutorial-meta</span>
+<div class="tutorial-meta">
+  <span>Published: Jan 15, 2026</span>
+  <span class="meta-sep">|</span>
+  <span>Updated: Mar 20, 2026</span>
+  <span class="meta-sep">|</span>
+  <button><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg> Share</button>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.noscript-warning</span>
+<div class="noscript-warning">JavaScript is required to display the interactive charts on this page.</div>
+</section>
+
+<!-- ============================================================
+     15. LAYOUT
+     ============================================================ -->
+<section class="ks-section" id="layout">
+<h2>Layout</h2>
+
+<span class="ks-label">.page-title</span>
+</article>
+<div class="page-title accent-blue">
+  <h1>Page Title Bar</h1>
+  <p class="page-title-byline">Subtitle or byline text</p>
+</div>
+<article class="prose">
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.split-row</span>
+<div class="split-row">
+  <div class="info-box accent-blue" style="flex: 1;">
+    <h3>Left Side</h3>
+    <p>Split row puts two items side by side. Stacks on mobile at 760px.</p>
+  </div>
+  <div class="info-box accent-red" style="flex: 1;">
+    <h3>Right Side</h3>
+    <p>Equal flex items with 24px gap between them.</p>
+  </div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.dash-column</span>
+<div class="dash-column">
+  <div class="info-box accent-green">
+    <h3>Dash Column</h3>
+    <p>Centered at max-width 600px (--width-md). Used for dashboard chart groups.</p>
+  </div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.subfooter</span>
+</article>
+<div class="subfooter accent-blue">
+  <p class="subfooter-hub"><a href="#">&#8592; Back to Python Guides</a></p>
+  <div class="subfooter-siblings">
+    <a href="#">Previous: BLS API</a>
+    <a href="#" class="current">Current: Census API</a>
+    <a href="#">Next: Treasury API</a>
+  </div>
+</div>
+<article class="prose">
+</section>
+
+<!-- ============================================================
+     16. DETAILS / COLLAPSIBLE
+     ============================================================ -->
+<section class="ks-section" id="details">
+<h2>Details / Collapsible</h2>
+
+<span class="ks-label">.details-section</span>
+<details class="details-section">
+  <summary>Methodology</summary>
+  <p>This section is collapsed by default. Click the summary to expand. The summary uses Space Mono, uppercase, with a custom triangle marker that rotates on open.</p>
+  <h3>Sub-heading inside details</h3>
+  <p>Content inside gets standard prose-like spacing when inside a .prose wrapper.</p>
+</details>
+
+<details class="details-section" open>
+  <summary>Data Sources (open by default)</summary>
+  <ul>
+    <li>Bureau of Labor Statistics — Employment Situation</li>
+    <li>Bureau of Economic Analysis — GDP Advance Estimate</li>
+    <li>Federal Reserve — H.10 Foreign Exchange Rates</li>
+  </ul>
+</details>
+</section>
+
+<!-- ============================================================
+     17. DECORATIVE RULES
+     ============================================================ -->
+<section class="ks-section" id="decorative">
+<h2>Decorative Rules</h2>
+
+<span class="ks-label">hr (standard)</span>
+<hr>
+
+<span class="ks-label">.hr-accent</span>
+<hr class="hr-accent accent-blue">
+<hr class="hr-accent accent-red">
+<hr class="hr-accent accent-teal">
+
+<span class="ks-label">.section-bar</span>
+<hr class="section-bar accent-green">
+</section>
+
+<!-- ============================================================
+     18. COMBINATIONS & CASCADE
+     ============================================================ -->
+<section class="ks-section" id="combos">
+<h2>Combinations &amp; Cascade</h2>
+<p>These test what happens when components nest inside each other — the real source of CSS conflicts.</p>
+
+<!-- === Headings in every container === -->
+<h3>Headings in Different Containers</h3>
+
+<span class="ks-label">h2, h3, h4 — standalone (no wrapper)</span>
+<h2 style="margin-top: var(--space-2);">H2 Standalone</h2>
+<h3 style="margin-top: var(--space-2);">H3 Standalone</h3>
+<h4 style="margin-top: var(--space-2);">H4 Standalone</h4>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">h2, h3, h4 — inside .card-body</span>
+<div class="card accent-blue">
+  <div class="card-header"><h3 class="chart-title">Card Header Title (.chart-title)</h3></div>
+  <div class="card-body">
+    <h2>H2 in card-body</h2>
+    <p>Paragraph after h2 in card-body.</p>
+    <h3>H3 in card-body</h3>
+    <p>Paragraph after h3 in card-body.</p>
+    <h4>H4 in card-body</h4>
+    <p>Paragraph after h4 in card-body.</p>
+  </div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">h2, h3, h4 — inside .info-box</span>
+<div class="info-box accent-teal">
+  <h3>Info Box H3 (the standard title)</h3>
+  <h2>H2 inside info-box — does this ever happen?</h2>
+  <p>Paragraph after h2.</p>
+  <h4>H4 inside info-box</h4>
+  <p>Paragraph after h4.</p>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">h2, h3, h4 — inside .prose > .card-body</span>
+</section>
+</article>
+
+<article class="prose">
+<section>
+<div class="card accent-green">
+  <div class="card-header"><h3 class="chart-title">Card Inside Prose</h3></div>
+  <div class="card-body">
+    <h2>H2 in prose > card > card-body</h2>
+    <p>Does .prose h2 margin (48px top) fight with card-body spacing?</p>
+    <h3>H3 in prose > card > card-body</h3>
+    <p>Does .prose h3 margin apply here?</p>
+    <h4>H4 in prose > card > card-body</h4>
+    <p>Does .prose h4 color (muted) apply here?</p>
+  </div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.info-box inside .prose</span>
+<div class="info-box accent-red">
+  <h3>Info Box Title Inside Prose</h3>
+  <p>Does .prose p margin (1.5em) override info-box p margin (0 0 8px)?</p>
+  <p>Second paragraph — check the gap between these two paragraphs.</p>
+</div>
+
+<!-- === Paragraphs in every container === -->
+<h3>Paragraphs in Different Contexts</h3>
+
+<div class="ks-row">
+  <div class="ks-col">
+    <span class="ks-label">p outside .prose</span>
+  </div>
+  <div class="ks-col">
+    <span class="ks-label">p inside .prose (this column)</span>
+  </div>
+</div>
+</section>
+</article>
+
+<div style="display: flex; gap: var(--space-4); max-width: var(--width-xl); margin: 0 auto; padding: 0 var(--space-3);">
+  <div style="flex: 1; min-width: 0;">
+    <p>This paragraph is outside .prose. It gets 0.75em bottom margin.</p>
+    <p>Second paragraph. The gap should be smaller than the prose column.</p>
+    <p>Third paragraph for comparison.</p>
+  </div>
+  <div style="flex: 1; min-width: 0;">
+    <article class="prose" style="padding: 0;">
+      <p>This paragraph is inside .prose. It gets 1.5em bottom margin.</p>
+      <p>Second paragraph. The gap should be noticeably larger.</p>
+      <p>Third paragraph for comparison.</p>
+    </article>
+  </div>
+</div>
+
+<article class="prose">
+<section>
+
+<!-- === Tables in containers === -->
+<h3>Tables in Different Containers</h3>
+
+<span class="ks-label">base table inside .card-body</span>
+<div class="card accent-blue">
+  <div class="card-header"><h3 class="chart-title">Table in Card</h3></div>
+  <div class="card-body">
+    <table>
+      <thead><tr><th>Indicator</th><th>Value</th><th>Change</th></tr></thead>
+      <tbody>
+        <tr><td>GDP</td><td>2.8%</td><td>+0.3</td></tr>
+        <tr><td>CPI</td><td>2.4%</td><td>+0.2</td></tr>
+        <tr><td>Unemployment</td><td>4.1%</td><td>-0.1</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.dash-table inside .info-box</span>
+<div class="info-box accent-orange">
+  <h3>Dash Table in Info Box</h3>
+  <table class="dash-table">
+    <thead><tr><th>Series</th><th>Latest</th><th>Prior</th></tr></thead>
+    <tbody>
+      <tr><td>Payrolls</td><td>151K</td><td>125K</td></tr>
+      <tr><td>Claims</td><td>219K</td><td>225K</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.dataframe inside .prose (the tutorial pattern)</span>
+<div class="table-wrap">
+  <table class="dataframe">
+    <thead><tr><th></th><th>2024</th><th>2025</th><th>2026</th></tr></thead>
+    <tbody>
+      <tr><td>United States</td><td>2.8</td><td>2.2</td><td>1.8</td></tr>
+      <tr><td>Euro Area</td><td>0.8</td><td>1.0</td><td>1.4</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- === Controls in containers === -->
+<h3>Controls in Different Containers</h3>
+
+<span class="ks-label">.control-panel inside .card</span>
+<div class="card accent-blue">
+  <div class="card-header"><h3 class="chart-title">Chart with Controls</h3></div>
+  <div class="control-panel" style="padding-left: var(--space-4); padding-right: var(--space-4);">
+    <label>View</label>
+    <select class="form-select"><option>Monthly</option><option>Quarterly</option></select>
+    <div class="btn-group">
+      <button class="btn active">Nominal</button>
+      <button class="btn">Real</button>
+    </div>
+  </div>
+  <div class="card-body">
+    <div style="height: 120px; background: var(--color-bg-alt); display: flex; align-items: center; justify-content: center; color: var(--color-text-muted);">[ Chart ]</div>
+  </div>
+  <div class="card-footer">
+    <span class="chart-source">Source: BEA</span>
+  </div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.btn-group inside .info-box</span>
+<div class="info-box accent-green">
+  <h3>Toggle Options</h3>
+  <div class="btn-group accent-green" style="margin-top: var(--space-2);">
+    <button class="btn active">Option A</button>
+    <button class="btn">Option B</button>
+    <button class="btn">Option C</button>
+  </div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.form-select inside .card-header</span>
+<div class="card accent-purple">
+  <div class="card-header">
+    <h3 class="chart-title">Chart Title</h3>
+    <select class="form-select" style="font-size: var(--text-xs);">
+      <option>2024</option>
+      <option>2025</option>
+      <option>2026</option>
+    </select>
+  </div>
+  <div class="card-body">
+    <p>Select dropdown embedded in the card header alongside the title.</p>
+  </div>
+</div>
+
+<!-- === Info box inside card === -->
+<h3>Containers Inside Containers</h3>
+
+<span class="ks-label">.info-box inside .card-body</span>
+<div class="card accent-blue">
+  <div class="card-header"><h3 class="chart-title">Card with Nested Info Box</h3></div>
+  <div class="card-body">
+    <p>Some introductory text in the card body.</p>
+    <div class="info-box accent-red">
+      <h3>Nested Info Box</h3>
+      <p>An info-box inside a card-body. Do borders double up? Does background layer correctly?</p>
+      <div class="key-stat">$2.4T</div>
+    </div>
+    <p>Text after the nested info box.</p>
+  </div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.card inside .card-body</span>
+<div class="card accent-teal">
+  <div class="card-header"><h3 class="chart-title">Outer Card</h3></div>
+  <div class="card-body">
+    <div class="card accent-orange">
+      <div class="card-header"><h3 class="chart-title" style="font-size: var(--text-base);">Inner Card</h3></div>
+      <div class="card-body">
+        <p>Card nested inside a card. Does the border treatment stack visually?</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.details-section inside .card-body</span>
+<div class="card accent-green">
+  <div class="card-header"><h3 class="chart-title">Card with Collapsible</h3></div>
+  <div class="card-body">
+    <p>Main card content above the collapsible.</p>
+    <details class="details-section">
+      <summary>Show Details</summary>
+      <p>Expanded content inside a card. Does the summary border-bottom clash with card borders?</p>
+      <table>
+        <thead><tr><th>Year</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>2024</td><td>2.8%</td></tr>
+          <tr><td>2025</td><td>2.2%</td></tr>
+        </tbody>
+      </table>
+    </details>
+  </div>
+</div>
+
+<!-- === Callout/blockquote interactions === -->
+<h3>Text Components in Containers</h3>
+
+<span class="ks-label">.callout inside .prose</span>
+<div class="callout accent-teal">
+  This callout is inside a .prose wrapper. Does the max-width (760px on both) cause any centering issues?
+</div>
+
+<span class="ks-label">.callout inside .card-body</span>
+<div class="card accent-blue">
+  <div class="card-body">
+    <div class="callout accent-blue">
+      Callout nested inside a card. The callout has its own max-width and margin: 0 auto. Does it behave?
+    </div>
+  </div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.blockquote-accent inside .info-box</span>
+<div class="info-box accent-green">
+  <h3>Analysis</h3>
+  <p>Some context before the quote.</p>
+  <blockquote class="blockquote-accent accent-green">
+    "Employment growth slowed to 151K in February."
+    <cite>— BLS Employment Situation, March 2026</cite>
+  </blockquote>
+  <p>Commentary after the quote.</p>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.key-stat + .note inside .card-body</span>
+<div class="card accent-red">
+  <div class="card-header"><h3 class="chart-title">GDP Estimate</h3></div>
+  <div class="card-body">
+    <div class="key-stat">2.8%</div>
+    <p class="note">Q1 2026 advance estimate, annualized</p>
+    <hr>
+    <div class="key-stat">$28.4T</div>
+    <p class="note">Nominal GDP level</p>
+  </div>
+</div>
+
+<!-- === Full page-like compositions === -->
+<h3>Page-Like Compositions</h3>
+
+<span class="ks-label">Dashboard pattern: info-box → control-panel → chart card</span>
+</section>
+</article>
+
+<div class="dash-column accent-blue">
+  <div class="info-box accent-blue" style="margin-top: var(--space-4);">
+    <span class="info-box-tab">US Economic Indicators</span>
+    <h3>Unemployment Rate</h3>
+    <p>Civilian unemployment rate, seasonally adjusted. Published monthly by BLS.</p>
+    <div class="key-stat">4.1%</div>
+    <p class="note">March 2026</p>
+  </div>
+  <div class="control-panel" style="padding-left: var(--space-4); padding-right: var(--space-4);">
+    <label>Period</label>
+    <select class="form-select"><option>All</option><option>Recent 3 years</option></select>
+    <div class="btn-group accent-blue" style="margin-left: auto;">
+      <button class="btn active">Rate</button>
+      <button class="btn">Level</button>
+    </div>
+  </div>
+  <div class="card card-compact card-chart accent-blue">
+    <div class="card-header">
+      <div>
+        <h3 class="chart-title">Unemployment Rate</h3>
+        <span class="chart-subtitle">Percent</span>
+      </div>
+      <div class="card-actions">
+        <button>&#x2197;</button>
+        <button>&#x2193;</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div style="height: 200px; background: var(--color-bg-alt); display: flex; align-items: center; justify-content: center; color: var(--color-text-muted);">[ Chart.js Canvas ]</div>
+    </div>
+    <div class="card-body" style="padding-top: 0;">
+      <div class="chart-legend">
+        <div class="chart-legend-item">
+          <div class="chart-legend-box" style="background: var(--color-card-blue);"></div>
+          <span class="chart-legend-label">Unemployment Rate</span>
+        </div>
+        <div class="chart-legend-item">
+          <div class="chart-legend-box" style="background: var(--color-card-red); opacity: 0.4;"></div>
+          <span class="chart-legend-label">Recession</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="chart-source">Source: Bureau of Labor Statistics via FRED</span>
+      <svg class="card-logo" width="14" height="14" viewBox="0 0 14 14"><rect x="0" y="0" width="4" height="4"/><rect x="0" y="5" width="4" height="4"/><rect x="0" y="10" width="4" height="4"/><rect x="5" y="0" width="4" height="4"/><rect x="5" y="10" width="4" height="4"/><rect x="10" y="5" width="4" height="4"/></svg>
+    </div>
+  </div>
+</div>
+
+<article class="prose">
+<section>
+<div class="ks-spacer"></div>
+
+<span class="ks-label">Guide pattern: prose → callout → code → table → details</span>
+<div class="callout accent-blue">
+  This tutorial shows how to retrieve unemployment data from the BLS API using Python.
+</div>
+
+<h2>Step 1: Setup</h2>
+<p>First, install the required packages and import them:</p>
+<span class="step-label accent-blue">Import packages</span>
+<pre><code class="language-python">import requests
+import pandas as pd
+import json</code></pre>
+
+<h3>Making the Request</h3>
+<p>The BLS API v2 requires an API key. Set up the request parameters:</p>
+<pre><code class="language-python">headers = {'Content-type': 'application/json'}
+data = json.dumps({
+    "seriesid": ["LNS14000000"],
+    "startyear": "2020",
+    "endyear": "2026"
+})</code></pre>
+
+<h4>Response Format</h4>
+<p>The API returns JSON with nested series data. Here's what the parsed DataFrame looks like:</p>
+
+<div class="table-wrap">
+  <table class="dataframe">
+    <thead><tr><th></th><th>year</th><th>period</th><th>value</th></tr></thead>
+    <tbody>
+      <tr><td>0</td><td>2026</td><td>M03</td><td>4.1</td></tr>
+      <tr><td>1</td><td>2026</td><td>M02</td><td>4.2</td></tr>
+      <tr><td>2</td><td>2026</td><td>M01</td><td>4.0</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<details class="details-section">
+  <summary>Full Response Structure</summary>
+  <p>The raw JSON response includes metadata about the request status, series catalog information, and the data array.</p>
+  <pre><code class="language-json">{
+  "status": "REQUEST_SUCCEEDED",
+  "Results": {
+    "series": [{
+      "seriesID": "LNS14000000",
+      "data": [...]
+    }]
+  }
+}</code></pre>
+</details>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">Report pattern: prose-report → blockquote → info-box → highlight</span>
+</section>
+</article>
+
+<article class="prose prose-report accent-teal">
+<section>
+<p>The childcare sector in the United States faces a fundamental structural challenge. Unlike most industries, the cost of providing childcare is dominated by a single factor: labor. Approximately <span class="highlight-accent accent-teal">70-80%</span> of operating costs go to staff wages and benefits, leaving almost no room for productivity gains through technology or scale.</p>
+
+<blockquote class="blockquote-accent accent-teal">
+  "The economics of childcare are unlike any other industry. You cannot automate caring for a two-year-old."
+  <cite>— Center for American Progress, 2025</cite>
+</blockquote>
+
+<div class="info-box accent-teal">
+  <span class="info-box-tab">Key Finding</span>
+  <h3>Cost Burden</h3>
+  <p>The average US family with an infant spends <strong>24%</strong> of household income on childcare — more than housing in most metro areas.</p>
+  <div class="key-stat">$14,760</div>
+  <p class="note">Average annual cost of center-based infant care, 2024</p>
+</div>
+
+<p>This cost structure creates a painful trilemma: childcare workers earn poverty-level wages (median <span class="highlight-accent accent-teal">$13.71/hr</span>), parents pay unaffordable prices, and providers operate on razor-thin margins. No market adjustment can resolve all three simultaneously without external funding.</p>
+
+<hr class="hr-accent accent-teal">
+
+<h3>International Comparison</h3>
+<p>Nordic countries resolved this trilemma decades ago through public investment. In Finland, parents pay a maximum of <span class="highlight-accent accent-teal">€295/month</span> regardless of care type, while childcare workers earn middle-class wages with full benefits and pension.</p>
+
+<table class="dash-table">
+  <thead><tr><th>Country</th><th>Parent Cost (% income)</th><th>Worker Wage</th><th>Public Funding</th></tr></thead>
+  <tbody>
+    <tr><td>United States</td><td>24%</td><td>$13.71/hr</td><td>Minimal</td></tr>
+    <tr><td>Finland</td><td>5%</td><td>€15.20/hr</td><td>~80%</td></tr>
+    <tr><td>Sweden</td><td>4%</td><td>SEK 28K/mo</td><td>~85%</td></tr>
+    <tr><td>Denmark</td><td>5%</td><td>DKK 27K/mo</td><td>~75%</td></tr>
+  </tbody>
+</table>
+</section>
+</article>
+
+<article class="prose">
+
+<!-- ============================================================
+     18b. BADGES
+     ============================================================ -->
+<section class="ks-section" id="badges">
+<h2>Badges</h2>
+
+<span class="ks-label">.trail-badge</span>
+<div class="ks-row" style="align-items: center;">
+  <span class="trail-badge trail-intro">&#9650; Intro</span>
+  <span class="trail-badge trail-beginner">&#9650; Beginner</span>
+  <span class="trail-badge trail-intermediate">&#9650; Intermediate</span>
+  <span class="trail-badge trail-advanced">&#9650; Advanced</span>
+</div>
+</section>
+
+<!-- ============================================================
+     19. SPACING SCALE
+     ============================================================ -->
+<section class="ks-section" id="spacing">
+<h2>Spacing Scale</h2>
+<div style="display: flex; flex-direction: column; gap: var(--space-2);">
+  <div style="display: flex; align-items: center; gap: var(--space-3);"><div style="width: 4px; height: 20px; background: var(--color-card-blue);"></div><span class="ks-label" style="margin: 0;">--space-1: 4px</span></div>
+  <div style="display: flex; align-items: center; gap: var(--space-3);"><div style="width: 8px; height: 20px; background: var(--color-card-blue);"></div><span class="ks-label" style="margin: 0;">--space-2: 8px</span></div>
+  <div style="display: flex; align-items: center; gap: var(--space-3);"><div style="width: 12px; height: 20px; background: var(--color-card-blue);"></div><span class="ks-label" style="margin: 0;">--space-3: 12px</span></div>
+  <div style="display: flex; align-items: center; gap: var(--space-3);"><div style="width: 16px; height: 20px; background: var(--color-card-blue);"></div><span class="ks-label" style="margin: 0;">--space-4: 16px</span></div>
+  <div style="display: flex; align-items: center; gap: var(--space-3);"><div style="width: 24px; height: 20px; background: var(--color-card-blue);"></div><span class="ks-label" style="margin: 0;">--space-5: 24px</span></div>
+  <div style="display: flex; align-items: center; gap: var(--space-3);"><div style="width: 32px; height: 20px; background: var(--color-card-blue);"></div><span class="ks-label" style="margin: 0;">--space-6: 32px</span></div>
+  <div style="display: flex; align-items: center; gap: var(--space-3);"><div style="width: 48px; height: 20px; background: var(--color-card-blue);"></div><span class="ks-label" style="margin: 0;">--space-7: 48px</span></div>
+  <div style="display: flex; align-items: center; gap: var(--space-3);"><div style="width: 64px; height: 20px; background: var(--color-card-blue);"></div><span class="ks-label" style="margin: 0;">--space-8: 64px</span></div>
+</div>
+</section>
+
+<!-- ============================================================
+     20. WIDTH TIERS
+     ============================================================ -->
+<section class="ks-section" id="widths">
+<h2>Width Tiers</h2>
+<div style="display: flex; flex-direction: column; gap: var(--space-3);">
+  <div>
+    <span class="ks-label">--width-xl: 1030px</span>
+    <div style="max-width: var(--width-xl); height: 24px; background: color-mix(in srgb, var(--color-card-blue) 20%, transparent); border: 1px solid var(--color-card-blue);"></div>
+  </div>
+  <div>
+    <span class="ks-label">--width-lg: 760px (prose)</span>
+    <div style="max-width: var(--width-lg); height: 24px; background: color-mix(in srgb, var(--color-card-green) 20%, transparent); border: 1px solid var(--color-card-green);"></div>
+  </div>
+  <div>
+    <span class="ks-label">--width-md: 600px (charts)</span>
+    <div style="max-width: var(--width-md); height: 24px; background: color-mix(in srgb, var(--color-card-orange) 20%, transparent); border: 1px solid var(--color-card-orange);"></div>
+  </div>
+  <div>
+    <span class="ks-label">--width-sm: 400px</span>
+    <div style="max-width: var(--width-sm); height: 24px; background: color-mix(in srgb, var(--color-card-red) 20%, transparent); border: 1px solid var(--color-card-red);"></div>
+  </div>
+</div>
+</section>
+
+</article>
+</main>
+
+<footer>
+  <div class="footer-bottom">
+    <div class="footer-left"><p>Kitchen Sink &mdash; Design System Reference</p></div>
+  </div>
+</footer>
+
+</body>
+</html>

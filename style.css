@@ -283,10 +283,7 @@ hr {
 }
 /* Report prose — justified long-form text with wider spacing */
 .prose-report {
-	& > p:not(.callout) { font-size: 15px; line-height: 1.65; text-align: justify; hyphens: auto; margin-bottom: 28px; }
-	@media (max-width: 760px) {
-		& > p:not(.callout) { text-align: left; hyphens: none; }
-	}
+	& > p:not(.callout) { line-height: 1.65; margin-bottom: 28px; }
 }
 
 /* Noscript fallback warning */
@@ -649,7 +646,9 @@ article:not(.prose) > :first-child { margin-top: 0; }
 		border-bottom: 2px solid var(--accent, var(--color-border-light));
 		display: table;
 	}
-	& p { font-size: var(--text-sm); color: var(--color-text); margin: 0 0 var(--space-2); }
+	& p:not(.note):not(.chart-source) { font-size: var(--text-sm); color: var(--color-text); margin: 0 0 var(--space-2); line-height: 1.6; }
+	& > :last-child { margin-bottom: 0; }
+	& hr { margin: var(--space-3) 0; }
 	/* Offset tab — category label plate above the box */
 	& .info-box-tab {
 		position: absolute;
@@ -681,6 +680,8 @@ article:not(.prose) > :first-child { margin-top: 0; }
 	& label { font-weight: 600; white-space: nowrap; }
 	& select, & input { font-family: var(--font); font-size: var(--text-sm); }
 }
+.card-accent { border-color: var(--accent); & .chart-title { color: var(--accent); } }
+.info-box-accent { border-color: var(--accent); background: var(--color-bg); }
 .info-box + .control-panel { border-top: none; padding-top: var(--space-2); }
 .card-header {
 	padding: var(--space-2) var(--card-ph);
@@ -690,12 +691,12 @@ article:not(.prose) > :first-child { margin-top: 0; }
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	& .chart-title { margin: 0; font-size: var(--text-2xl); font-weight: 600; color: inherit; }
 	& a, & button:not(.btn) { color: var(--color-text-muted); opacity: 1; font-size: var(--text-sm); }
 	& a { text-decoration: none; }
 	& button:not(.btn) { padding: 0; }
 	& a:hover, & button:not(.btn):hover { color: var(--color-text-strong); }
 }
+.chart-title { margin: 0; font-size: var(--text-2xl); font-weight: 600; color: inherit; }
 .card-body { padding: var(--space-2) var(--card-ph); & > :first-child { margin-top: 0; } }
 .card-body-fill { display: flex; flex-direction: column; flex: 1; }
 .card-footer {
