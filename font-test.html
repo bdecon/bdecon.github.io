@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Font Comparison — Accent Font Test</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* Load all candidate fonts from Google Fonts CDN */
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=Archivo+Narrow:wght@400;600;700&family=IBM+Plex+Sans+Condensed:wght@400;600;700&family=Vollkorn:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&family=Roboto+Mono:wght@400;600;700&family=Albert+Sans:wght@400;600;700&display=swap');
+
+.ft-section {
+  border-bottom: 3px solid var(--color-border-light);
+  padding: var(--space-7) 0 var(--space-5);
+}
+.ft-font-name {
+  font-size: var(--text-4xl);
+  margin: 0 0 var(--space-1);
+  color: var(--color-text-strong);
+}
+.ft-font-meta {
+  font-family: var(--font);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin: 0 0 var(--space-5);
+}
+.ft-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+.ft-label {
+  font-family: var(--font);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  background: var(--color-bg-highlight);
+  padding: 2px var(--space-2);
+  display: inline-block;
+  margin-bottom: var(--space-2);
+}
+.ft-sample { margin-bottom: var(--space-4); }
+
+/* Override --font-mono for each section */
+.ft-barlow { --test-font: 'Barlow Condensed', sans-serif; }
+.ft-archivo { --test-font: 'Archivo Narrow', sans-serif; }
+.ft-ibmplex { --test-font: 'IBM Plex Sans Condensed', sans-serif; }
+.ft-vollkorn { --test-font: 'Vollkorn', serif; }
+.ft-jakarta { --test-font: 'Plus Jakarta Sans', sans-serif; }
+.ft-spacemono { --test-font: 'Space Mono', monospace; }
+.ft-jetbrains { --test-font: 'JetBrains Mono', monospace; }
+.ft-roboto-mono { --test-font: 'Roboto Mono', monospace; }
+.ft-albert { --test-font: 'Albert Sans', sans-serif; }
+
+/* Apply test font to all accent elements within section */
+.ft-section h1, .ft-section h2, .ft-section h3, .ft-section h4,
+.ft-section .ft-nav-demo,
+.ft-section .label,
+.ft-section .ft-th,
+.ft-section .ft-footer-demo,
+.ft-section summary {
+  font-family: var(--test-font) !important;
+}
+/* Keep the font-name heading in the test font too */
+.ft-section .ft-font-name { font-family: var(--test-font) !important; }
+
+@media (max-width: 760px) { .ft-grid { grid-template-columns: 1fr; } }
+</style>
+<script>
+  const t = localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', t);
+</script>
+</head>
+<body>
+<header>
+  <nav aria-label="Main navigation">
+    <ul class="site-nav">
+      <li><a href="index.html"><svg class="brand-logo" viewBox="0 0 200 18" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-label="BD Economics home"><rect x="0" y="0" width="4" height="4"/><rect x="0" y="5" width="4" height="4"/><rect x="0" y="10" width="4" height="4"/><rect x="5" y="0" width="4" height="4"/><rect x="5" y="10" width="4" height="4"/><rect x="10" y="5" width="4" height="4"/></svg></a></li>
+      <li><button class="theme-toggle" onclick="const d=document.documentElement;const n=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',n);localStorage.setItem('theme',n);" aria-label="Toggle theme">&#9681;</button></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+<div class="page-title">
+  <h1>Accent Font Comparison</h1>
+  <p class="page-title-byline">Testing replacements for Space Mono</p>
+</div>
+
+<article class="prose">
+
+<!-- ============ CURRENT: Space Mono ============ -->
+<section class="ft-section ft-spacemono">
+<p class="ft-font-name">Space Mono (Current)</p>
+<p class="ft-font-meta">Monospace &middot; Google Fonts &middot; The baseline for comparison</p>
+
+<div class="ft-grid">
+<div>
+  <div class="ft-sample">
+    <span class="ft-label">Headings</span>
+    <h1 style="margin:0;">US Economic Indicators</h1>
+    <h2 style="margin: var(--space-2) 0 0;">Monthly GDP Estimate</h2>
+    <h3 style="margin: var(--space-2) 0 0;">Data Sources &amp; Methodology</h3>
+    <h4 style="margin: var(--space-2) 0 0;">Quarterly GDP from FRED</h4>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Navigation</span>
+    <div class="ft-nav-demo" style="font-size: var(--text-sm); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 400;">
+      Reports &nbsp;&nbsp; Guides &nbsp;&nbsp; Blog &nbsp;&nbsp; About
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Labels</span>
+    <span class="label">Category Label</span> &nbsp;
+    <span class="label">Updated: Apr 2026</span> &nbsp;
+    <span class="label">Source: BLS</span>
+  </div>
+</div>
+<div>
+  <div class="ft-sample">
+    <span class="ft-label">Table Header</span>
+    <table>
+      <thead><tr><th class="ft-th">Indicator</th><th class="ft-th">Value</th><th class="ft-th">Change</th></tr></thead>
+      <tbody>
+        <tr><td>GDP Growth</td><td>2.8%</td><td>+0.3</td></tr>
+        <tr><td>Unemployment</td><td>4.1%</td><td>-0.1</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Footer</span>
+    <div class="ft-footer-demo" style="font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted);">
+      &copy; 2026 BD Economics &middot; Data &middot; Guides &middot; About
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Card Header</span>
+    <div class="card accent-blue" style="max-width: 350px;">
+      <div class="card-header"><span class="card-title" style="font-family: var(--test-font) !important;">Real GDP per Capita</span></div>
+      <div class="card-body"><p style="font-size: var(--text-sm);">Card body text stays in Lato.</p></div>
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Collapsible</span>
+    <details class="details-section" style="margin: 0;">
+      <summary>Methodology</summary>
+      <p>Expanded content in Lato body text.</p>
+    </details>
+  </div>
+</div>
+</div>
+</section>
+<!-- ============ JetBrains Mono ============ -->
+<section class="ft-section ft-jetbrains">
+<p class="ft-font-name">JetBrains Mono</p>
+<p class="ft-font-meta">Monospace &middot; Google Fonts &middot; Designed for code, wider than Space Mono, excellent legibility</p>
+
+<div class="ft-grid">
+<div>
+  <div class="ft-sample">
+    <span class="ft-label">Headings</span>
+    <h1 style="margin:0;">US Economic Indicators</h1>
+    <h2 style="margin: var(--space-2) 0 0;">Monthly GDP Estimate</h2>
+    <h3 style="margin: var(--space-2) 0 0;">Data Sources &amp; Methodology</h3>
+    <h4 style="margin: var(--space-2) 0 0;">Quarterly GDP from FRED</h4>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Navigation</span>
+    <div class="ft-nav-demo" style="font-size: var(--text-sm); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 400;">
+      Reports &nbsp;&nbsp; Guides &nbsp;&nbsp; Blog &nbsp;&nbsp; About
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Labels</span>
+    <span class="label">Category Label</span> &nbsp;
+    <span class="label">Updated: Apr 2026</span> &nbsp;
+    <span class="label">Source: BLS</span>
+  </div>
+</div>
+<div>
+  <div class="ft-sample">
+    <span class="ft-label">Table Header</span>
+    <table>
+      <thead><tr><th class="ft-th">Indicator</th><th class="ft-th">Value</th><th class="ft-th">Change</th></tr></thead>
+      <tbody>
+        <tr><td>GDP Growth</td><td>2.8%</td><td>+0.3</td></tr>
+        <tr><td>Unemployment</td><td>4.1%</td><td>-0.1</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Footer</span>
+    <div class="ft-footer-demo" style="font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted);">
+      &copy; 2026 BD Economics &middot; Data &middot; Guides &middot; About
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Card Header</span>
+    <div class="card accent-blue" style="max-width: 350px;">
+      <div class="card-header"><span class="card-title" style="font-family: var(--test-font) !important;">Real GDP per Capita</span></div>
+      <div class="card-body"><p style="font-size: var(--text-sm);">Card body text stays in Lato.</p></div>
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Collapsible</span>
+    <details class="details-section" style="margin: 0;">
+      <summary>Methodology</summary>
+      <p>Expanded content in Lato body text.</p>
+    </details>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- ============ Roboto Mono ============ -->
+<section class="ft-section ft-roboto-mono">
+<p class="ft-font-name">Roboto Mono</p>
+<p class="ft-font-meta">Monospace &middot; Google Fonts &middot; Google's monospace, clean and neutral, pairs naturally with sans-serifs</p>
+
+<div class="ft-grid">
+<div>
+  <div class="ft-sample">
+    <span class="ft-label">Headings</span>
+    <h1 style="margin:0;">US Economic Indicators</h1>
+    <h2 style="margin: var(--space-2) 0 0;">Monthly GDP Estimate</h2>
+    <h3 style="margin: var(--space-2) 0 0;">Data Sources &amp; Methodology</h3>
+    <h4 style="margin: var(--space-2) 0 0;">Quarterly GDP from FRED</h4>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Navigation</span>
+    <div class="ft-nav-demo" style="font-size: var(--text-sm); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 400;">
+      Reports &nbsp;&nbsp; Guides &nbsp;&nbsp; Blog &nbsp;&nbsp; About
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Labels</span>
+    <span class="label">Category Label</span> &nbsp;
+    <span class="label">Updated: Apr 2026</span> &nbsp;
+    <span class="label">Source: BLS</span>
+  </div>
+</div>
+<div>
+  <div class="ft-sample">
+    <span class="ft-label">Table Header</span>
+    <table>
+      <thead><tr><th class="ft-th">Indicator</th><th class="ft-th">Value</th><th class="ft-th">Change</th></tr></thead>
+      <tbody>
+        <tr><td>GDP Growth</td><td>2.8%</td><td>+0.3</td></tr>
+        <tr><td>Unemployment</td><td>4.1%</td><td>-0.1</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Footer</span>
+    <div class="ft-footer-demo" style="font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted);">
+      &copy; 2026 BD Economics &middot; Data &middot; Guides &middot; About
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Card Header</span>
+    <div class="card accent-blue" style="max-width: 350px;">
+      <div class="card-header"><span class="card-title" style="font-family: var(--test-font) !important;">Real GDP per Capita</span></div>
+      <div class="card-body"><p style="font-size: var(--text-sm);">Card body text stays in Lato.</p></div>
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Collapsible</span>
+    <details class="details-section" style="margin: 0;">
+      <summary>Methodology</summary>
+      <p>Expanded content in Lato body text.</p>
+    </details>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- ============ Barlow Condensed ============ -->
+<section class="ft-section ft-barlow">
+<p class="ft-font-name">Barlow Condensed</p>
+<p class="ft-font-meta">Condensed grotesk &middot; Google Fonts &middot; Highway signage heritage, industrial DNA</p>
+
+<div class="ft-grid">
+<div>
+  <div class="ft-sample">
+    <span class="ft-label">Headings</span>
+    <h1 style="margin:0;">US Economic Indicators</h1>
+    <h2 style="margin: var(--space-2) 0 0;">Monthly GDP Estimate</h2>
+    <h3 style="margin: var(--space-2) 0 0;">Data Sources &amp; Methodology</h3>
+    <h4 style="margin: var(--space-2) 0 0;">Quarterly GDP from FRED</h4>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Navigation</span>
+    <div class="ft-nav-demo" style="font-size: var(--text-sm); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 400;">
+      Reports &nbsp;&nbsp; Guides &nbsp;&nbsp; Blog &nbsp;&nbsp; About
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Labels</span>
+    <span class="label">Category Label</span> &nbsp;
+    <span class="label">Updated: Apr 2026</span> &nbsp;
+    <span class="label">Source: BLS</span>
+  </div>
+</div>
+<div>
+  <div class="ft-sample">
+    <span class="ft-label">Table Header</span>
+    <table>
+      <thead><tr><th class="ft-th">Indicator</th><th class="ft-th">Value</th><th class="ft-th">Change</th></tr></thead>
+      <tbody>
+        <tr><td>GDP Growth</td><td>2.8%</td><td>+0.3</td></tr>
+        <tr><td>Unemployment</td><td>4.1%</td><td>-0.1</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Footer</span>
+    <div class="ft-footer-demo" style="font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted);">
+      &copy; 2026 BD Economics &middot; Data &middot; Guides &middot; About
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Card Header</span>
+    <div class="card accent-blue" style="max-width: 350px;">
+      <div class="card-header"><span class="card-title" style="font-family: var(--test-font) !important;">Real GDP per Capita</span></div>
+      <div class="card-body"><p style="font-size: var(--text-sm);">Card body text stays in Lato.</p></div>
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Collapsible</span>
+    <details class="details-section" style="margin: 0;">
+      <summary>Methodology</summary>
+      <p>Expanded content in Lato body text.</p>
+    </details>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- ============ Archivo Narrow ============ -->
+<section class="ft-section ft-archivo">
+<p class="ft-font-name">Archivo Narrow</p>
+<p class="ft-font-meta">Neo-grotesque narrow &middot; Google Fonts &middot; Swiss tradition, sharp terminals</p>
+
+<div class="ft-grid">
+<div>
+  <div class="ft-sample">
+    <span class="ft-label">Headings</span>
+    <h1 style="margin:0;">US Economic Indicators</h1>
+    <h2 style="margin: var(--space-2) 0 0;">Monthly GDP Estimate</h2>
+    <h3 style="margin: var(--space-2) 0 0;">Data Sources &amp; Methodology</h3>
+    <h4 style="margin: var(--space-2) 0 0;">Quarterly GDP from FRED</h4>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Navigation</span>
+    <div class="ft-nav-demo" style="font-size: var(--text-sm); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 400;">
+      Reports &nbsp;&nbsp; Guides &nbsp;&nbsp; Blog &nbsp;&nbsp; About
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Labels</span>
+    <span class="label">Category Label</span> &nbsp;
+    <span class="label">Updated: Apr 2026</span> &nbsp;
+    <span class="label">Source: BLS</span>
+  </div>
+</div>
+<div>
+  <div class="ft-sample">
+    <span class="ft-label">Table Header</span>
+    <table>
+      <thead><tr><th class="ft-th">Indicator</th><th class="ft-th">Value</th><th class="ft-th">Change</th></tr></thead>
+      <tbody>
+        <tr><td>GDP Growth</td><td>2.8%</td><td>+0.3</td></tr>
+        <tr><td>Unemployment</td><td>4.1%</td><td>-0.1</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Footer</span>
+    <div class="ft-footer-demo" style="font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted);">
+      &copy; 2026 BD Economics &middot; Data &middot; Guides &middot; About
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Card Header</span>
+    <div class="card accent-blue" style="max-width: 350px;">
+      <div class="card-header"><span class="card-title" style="font-family: var(--test-font) !important;">Real GDP per Capita</span></div>
+      <div class="card-body"><p style="font-size: var(--text-sm);">Card body text stays in Lato.</p></div>
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Collapsible</span>
+    <details class="details-section" style="margin: 0;">
+      <summary>Methodology</summary>
+      <p>Expanded content in Lato body text.</p>
+    </details>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- ============ Vollkorn ============ -->
+<section class="ft-section ft-vollkorn">
+<p class="ft-font-name">Vollkorn</p>
+<p class="ft-font-meta">Serif &middot; Google Fonts &middot; Scholarly/editorial authority, warm contrast with Lato</p>
+
+<div class="ft-grid">
+<div>
+  <div class="ft-sample">
+    <span class="ft-label">Headings</span>
+    <h1 style="margin:0;">US Economic Indicators</h1>
+    <h2 style="margin: var(--space-2) 0 0;">Monthly GDP Estimate</h2>
+    <h3 style="margin: var(--space-2) 0 0;">Data Sources &amp; Methodology</h3>
+    <h4 style="margin: var(--space-2) 0 0;">Quarterly GDP from FRED</h4>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Navigation</span>
+    <div class="ft-nav-demo" style="font-size: var(--text-sm); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 400;">
+      Reports &nbsp;&nbsp; Guides &nbsp;&nbsp; Blog &nbsp;&nbsp; About
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Labels</span>
+    <span class="label">Category Label</span> &nbsp;
+    <span class="label">Updated: Apr 2026</span> &nbsp;
+    <span class="label">Source: BLS</span>
+  </div>
+</div>
+<div>
+  <div class="ft-sample">
+    <span class="ft-label">Table Header</span>
+    <table>
+      <thead><tr><th class="ft-th">Indicator</th><th class="ft-th">Value</th><th class="ft-th">Change</th></tr></thead>
+      <tbody>
+        <tr><td>GDP Growth</td><td>2.8%</td><td>+0.3</td></tr>
+        <tr><td>Unemployment</td><td>4.1%</td><td>-0.1</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Footer</span>
+    <div class="ft-footer-demo" style="font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted);">
+      &copy; 2026 BD Economics &middot; Data &middot; Guides &middot; About
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Card Header</span>
+    <div class="card accent-blue" style="max-width: 350px;">
+      <div class="card-header"><span class="card-title" style="font-family: var(--test-font) !important;">Real GDP per Capita</span></div>
+      <div class="card-body"><p style="font-size: var(--text-sm);">Card body text stays in Lato.</p></div>
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Collapsible</span>
+    <details class="details-section" style="margin: 0;">
+      <summary>Methodology</summary>
+      <p>Expanded content in Lato body text.</p>
+    </details>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- ============ Plus Jakarta Sans ============ -->
+<section class="ft-section ft-jakarta">
+<p class="ft-font-name">Plus Jakarta Sans</p>
+<p class="ft-font-meta">Geometric sans &middot; Google Fonts &middot; Modern, clean, slightly rounded</p>
+
+<div class="ft-grid">
+<div>
+  <div class="ft-sample">
+    <span class="ft-label">Headings</span>
+    <h1 style="margin:0;">US Economic Indicators</h1>
+    <h2 style="margin: var(--space-2) 0 0;">Monthly GDP Estimate</h2>
+    <h3 style="margin: var(--space-2) 0 0;">Data Sources &amp; Methodology</h3>
+    <h4 style="margin: var(--space-2) 0 0;">Quarterly GDP from FRED</h4>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Navigation</span>
+    <div class="ft-nav-demo" style="font-size: var(--text-sm); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 400;">
+      Reports &nbsp;&nbsp; Guides &nbsp;&nbsp; Blog &nbsp;&nbsp; About
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Labels</span>
+    <span class="label">Category Label</span> &nbsp;
+    <span class="label">Updated: Apr 2026</span> &nbsp;
+    <span class="label">Source: BLS</span>
+  </div>
+</div>
+<div>
+  <div class="ft-sample">
+    <span class="ft-label">Table Header</span>
+    <table>
+      <thead><tr><th class="ft-th">Indicator</th><th class="ft-th">Value</th><th class="ft-th">Change</th></tr></thead>
+      <tbody>
+        <tr><td>GDP Growth</td><td>2.8%</td><td>+0.3</td></tr>
+        <tr><td>Unemployment</td><td>4.1%</td><td>-0.1</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Footer</span>
+    <div class="ft-footer-demo" style="font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted);">
+      &copy; 2026 BD Economics &middot; Data &middot; Guides &middot; About
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Card Header</span>
+    <div class="card accent-blue" style="max-width: 350px;">
+      <div class="card-header"><span class="card-title" style="font-family: var(--test-font) !important;">Real GDP per Capita</span></div>
+      <div class="card-body"><p style="font-size: var(--text-sm);">Card body text stays in Lato.</p></div>
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Collapsible</span>
+    <details class="details-section" style="margin: 0;">
+      <summary>Methodology</summary>
+      <p>Expanded content in Lato body text.</p>
+    </details>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- ============ IBM Plex Sans Condensed ============ -->
+<section class="ft-section ft-ibmplex">
+<p class="ft-font-name">IBM Plex Sans Condensed</p>
+<p class="ft-font-meta">Condensed grotesque &middot; Google Fonts &middot; Institutional authority, distinctive terminals</p>
+
+<div class="ft-grid">
+<div>
+  <div class="ft-sample">
+    <span class="ft-label">Headings</span>
+    <h1 style="margin:0;">US Economic Indicators</h1>
+    <h2 style="margin: var(--space-2) 0 0;">Monthly GDP Estimate</h2>
+    <h3 style="margin: var(--space-2) 0 0;">Data Sources &amp; Methodology</h3>
+    <h4 style="margin: var(--space-2) 0 0;">Quarterly GDP from FRED</h4>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Navigation</span>
+    <div class="ft-nav-demo" style="font-size: var(--text-sm); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 400;">
+      Reports &nbsp;&nbsp; Guides &nbsp;&nbsp; Blog &nbsp;&nbsp; About
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Labels</span>
+    <span class="label">Category Label</span> &nbsp;
+    <span class="label">Updated: Apr 2026</span> &nbsp;
+    <span class="label">Source: BLS</span>
+  </div>
+</div>
+<div>
+  <div class="ft-sample">
+    <span class="ft-label">Table Header</span>
+    <table>
+      <thead><tr><th class="ft-th">Indicator</th><th class="ft-th">Value</th><th class="ft-th">Change</th></tr></thead>
+      <tbody>
+        <tr><td>GDP Growth</td><td>2.8%</td><td>+0.3</td></tr>
+        <tr><td>Unemployment</td><td>4.1%</td><td>-0.1</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Footer</span>
+    <div class="ft-footer-demo" style="font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted);">
+      &copy; 2026 BD Economics &middot; Data &middot; Guides &middot; About
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Card Header</span>
+    <div class="card accent-blue" style="max-width: 350px;">
+      <div class="card-header"><span class="card-title" style="font-family: var(--test-font) !important;">Real GDP per Capita</span></div>
+      <div class="card-body"><p style="font-size: var(--text-sm);">Card body text stays in Lato.</p></div>
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Collapsible</span>
+    <details class="details-section" style="margin: 0;">
+      <summary>Methodology</summary>
+      <p>Expanded content in Lato body text.</p>
+    </details>
+  </div>
+</div>
+</div>
+</section>
+
+
+<!-- ============ Albert Sans ============ -->
+<section class="ft-section ft-albert">
+<p class="ft-font-name">Albert Sans</p>
+<p class="ft-font-meta">Geometric grotesk &middot; Google Fonts &middot; Scandinavian sensibility, open apertures (closest free Scandia alternative)</p>
+
+<div class="ft-grid">
+<div>
+  <div class="ft-sample">
+    <span class="ft-label">Headings</span>
+    <h1 style="margin:0;">US Economic Indicators</h1>
+    <h2 style="margin: var(--space-2) 0 0;">Monthly GDP Estimate</h2>
+    <h3 style="margin: var(--space-2) 0 0;">Data Sources &amp; Methodology</h3>
+    <h4 style="margin: var(--space-2) 0 0;">Quarterly GDP from FRED</h4>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Navigation</span>
+    <div class="ft-nav-demo" style="font-size: var(--text-sm); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 400;">
+      Reports &nbsp;&nbsp; Guides &nbsp;&nbsp; Blog &nbsp;&nbsp; About
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Labels</span>
+    <span class="label">Category Label</span> &nbsp;
+    <span class="label">Updated: Apr 2026</span> &nbsp;
+    <span class="label">Source: BLS</span>
+  </div>
+</div>
+<div>
+  <div class="ft-sample">
+    <span class="ft-label">Table Header</span>
+    <table>
+      <thead><tr><th class="ft-th">Indicator</th><th class="ft-th">Value</th><th class="ft-th">Change</th></tr></thead>
+      <tbody>
+        <tr><td>GDP Growth</td><td>2.8%</td><td>+0.3</td></tr>
+        <tr><td>Unemployment</td><td>4.1%</td><td>-0.1</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Footer</span>
+    <div class="ft-footer-demo" style="font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted);">
+      &copy; 2026 BD Economics &middot; Data &middot; Guides &middot; About
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Card Header</span>
+    <div class="card accent-blue" style="max-width: 350px;">
+      <div class="card-header"><span class="card-title" style="font-family: var(--test-font) !important;">Real GDP per Capita</span></div>
+      <div class="card-body"><p style="font-size: var(--text-sm);">Card body text stays in Lato.</p></div>
+    </div>
+  </div>
+  <div class="ft-sample">
+    <span class="ft-label">Collapsible</span>
+    <details class="details-section" style="margin: 0;">
+      <summary>Methodology</summary>
+      <p>Expanded content in Lato body text.</p>
+    </details>
+  </div>
+</div>
+</div>
+</section>
+
+</article>
+</main>
+
+<footer>
+  <div class="footer-bottom">
+    <div class="footer-left"><p>Font Comparison &mdash; Accent Font Test</p></div>
+  </div>
+</footer>
+
+</body>
+</html>
