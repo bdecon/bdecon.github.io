@@ -2,6 +2,8 @@
 
 This document defines the visual language and component library for bd-econ.com. Every element on the site should trace back to a decision here. If something isn't covered, it should be added — not improvised inline.
 
+**Pattern library:** `kitchen-sink.html` shows every shared component rendered with labels.
+
 ## Principles
 
 1. **One way to do each thing.** A tooltip is a tooltip. A select is a select. They look the same everywhere.
@@ -12,89 +14,79 @@ This document defines the visual language and component library for bd-econ.com.
 
 ---
 
-## Page Types
+## Fonts
 
-Every page is one of these. The type determines the layout skeleton.
+Two fonts, self-hosted from `/fonts/` (woff2):
 
-### Navigation pages
-`index.html`, `python.html`, `reports.html`
+- **`--font: 'Lato'`** — Body text, paragraphs, buttons, controls, key-stat numbers
+- **`--font-accent: 'Albert Sans'`** — Headings, nav, labels, table headers, footer, details summaries
 
-- Card grids, callout intro, minimal prose
-- No chart containers
-- Structure: `<main><section><article class="prose">` (intro) + `<article class="card-grid">` (cards)
-
-### Guides (tutorials)
-`getstarted.html`, `imfapi1-3.html`, `blsapi.html`, `beaapi.html`, `censusapi.html`, `censusapi2.html`, `treasuryapi.html`, `cps.html`
-
-- Long-form reading content with code blocks and data tables
-- `.tutorial-meta` bar, `.prose` wrapper, `.dataframe` tables
-- Structure: `<main><section><article class="card-grid">` (nav cards) + `<article class="prose">` (content)
-
-### Dashboards
-`indicators.html`, `gdpm.html`, `imfweo.html`, `calendar.html`
-
-- Interactive charts, controls, data tables
-- Chart.js canvases, `.chart-container`, `.form-select` controls
-- Structure: `<main><section><article>` (chart area) + `<article class="prose">` (methodology/about)
-
-### Reports
-`childcare_test.html` (and future reports)
-
-- Long-form narrative with embedded charts, maps, interactive elements
-- `.prose` wrapper throughout, charts inline
-- Structure: `<main><section><article class="prose">` (entire document)
-
-### Single pages
-`about.html`, `chartbook.html`
-
-- Unique layouts, minimal shared patterns
-- Structure: `<main><section><article class="prose">`
+Albert Sans weight assignments (Option B):
+- **800** — h1, h2, h3, h4 headings, `.card-title`
+- **700** — `.label`, table `th`, `.step-content h3/h4`, `.badge`
+- **600** — footer left, `.details-section summary`
+- **500** — nav links
 
 ---
 
-## Design Tokens (CSS Variables)
+## Design Tokens
 
-These are the decisions. Everything else derives from them.
-
-### Already defined in `:root`
-
+### Type Scale (8 tokens, fluid)
 ```
---font            Inter
---radius          0                 Sharp corners everywhere
---text-xs         12px
---text-sm         14px
---text-base       16px
---text-lg         17px
---text-xl         clamp(16-18px)
---text-2xl        clamp(18-20px)
---text-3xl        clamp(20-24px)
---text-4xl        clamp(24-32px)
-
---transition-fast   0.15s ease    Hover states, toggles
---transition-normal 0.2s ease     Border/color transitions
+--text-xs:   13px
+--text-sm:   15px
+--text-base: 16px
+--text-lg:   17px
+--text-xl:   clamp(16-18px)
+--text-2xl:  clamp(18-20px)
+--text-3xl:  clamp(20-24px)
+--text-4xl:  clamp(24-32px)
 ```
 
-### Spacing
+### Spacing Scale (Swiss grid, 4px base, ~1.5x progression)
+```
+--space-1: 4px   --space-2: 8px   --space-3: 12px  --space-4: 16px
+--space-5: 24px  --space-6: 32px  --space-7: 48px  --space-8: 64px
+```
 
-No variables — just 10 allowed px values. New rules should use one of these:
+### Width Tiers
 ```
-2    4    6    8    12    16    20    24    32    40
+--width-page: 1080px    Page container max-width
+--width-xl:   1030px    Card grids
+--width-lg:    720px    Prose, footer, subfooter, calendar
+--width-md:    600px    Charts, tables, dash-column
+--width-sm:    400px    Small charts, selectors
 ```
-Typography spacing (p, li margins) uses em to scale with font size. Nav uses 14px/50px (structural, tied to nav height).
 
-### Accent colors
+### Text Colors (3 tiers)
+```
+--color-text-strong  #161616 / #efefef   Headings, emphasis
+--color-text         #3a3a3a / #c8c8c8   Body paragraphs
+--color-text-muted   #666 / #999         Captions, metadata
+```
 
-Set via `.accent-{color}` class on a parent. Children read `var(--accent)`.
+### Accent Colors
+Set via `.accent-{color}` on a parent. Children read `var(--accent)`.
 ```
-blue    #3450B2     Charts, WEO, IMF
-green   #229a54     Chartbook, BEA
-red     #E04040     GDP, BLS, brand
-orange  #ca5c00     Census, calendar
-purple  #553581     Treasury
-teal    #2A8A8A     Childcare, CPS
-ltblue  #4A90C4     Getting started
-brown   #8B6914     Calendar
+blue    #3d5a8a    WEO, IMF
+green   #3a7a5a    Chartbook, BEA
+red     #E04040    GDP, BLS, brand
+orange  #9a6830    Census
+purple  #5a4a70    Treasury
+teal    #3a7878    Childcare, CPS
+ltblue  #4a7a96    Getting started
+brown   #7a6a3a    Calendar
 ```
+
+### Transitions
+```
+--transition-fast:   0.15s ease    Hover states, toggles
+--transition-normal: 0.2s ease     Border/color transitions
+```
+
+### Breakpoints
+- **760px** — tablet (nav collapse, single column)
+- **480px** — phone (tighter padding, 44px touch targets, stacked controls)
 
 ---
 
@@ -104,188 +96,178 @@ Each has one definition in `style.css`. Pages use them as-is or extend with a pa
 
 ### Layout
 
-| Class | Purpose | Key properties |
-|-------|---------|---------------|
-| `.prose` | Readable content wrapper | max-width: 760px, generous h/p margins |
-| `.card-grid` | Auto-fit grid of nav cards | CSS grid, 300px columns |
-| `.split-row` | Side-by-side flex layout | stacks on mobile at 760px |
-| `.page-title` | Gray bar with centered white h1 | replaces `<header>` element |
-| `.info-box` | Highlighted metadata container | bg-highlight, border, padding |
-| `.heading-accent` | Heading with text-width accent underline | uses `var(--accent)` |
-| `.key-stat` | Prominent monospace number display | SF Mono stack, 17px, bold |
-| `.label` | Small uppercase marker text | 12px, 600 weight, muted |
+| Class | Purpose |
+|-------|---------|
+| `.prose` | Readable content wrapper, max-width 720px |
+| `.prose-report` | Justified long-form variant |
+| `.card-grid` | Auto-fit grid of nav cards, 300px columns |
+| `.split-row` | Side-by-side flex, stacks on mobile |
+| `.dash-column` | Centered 600px column for dashboard sections |
+| `.page-title` | Gray bar with centered white h1 |
+| `.page-strip` | Full-width photo banner below nav |
+| `.subfooter` | Sibling page navigation |
+| `.grid-2` / `.grid-3` / `.grid-4` | Simple equal-width grids, stack on mobile |
 
-### Chart
+### Cards
 
 | Class | Purpose |
 |-------|---------|
-| `.chart-container` | Outer wrapper — border, background |
-| `.chart-header` | Colored top bar — uses `var(--accent)` |
-| `.chart-header-indicator` | Subtitle line in header |
-| `.chart-body` | Canvas/content area |
-| `.chart-subtitle` | Italic unit label |
-| `.chart-footer` | Source line + logo |
-| `.chart-source` | Italic right-aligned source text |
-| `.chart-compact` | Tighter padding variant |
-| `.chart-legend` | Legend container (font-size, font-family) |
-| `.chart-legend-item` | Clickable legend entry |
-| `.chart-tooltip` | Floating data label — position, bg, color, opacity, transition |
-| `.chart-tooltip-header` | Bold header row inside tooltip |
-| `.chart-nav-btn` | Bordered navigation button |
-| `.chart-download-link` | Small download text link |
+| `.card` | Universal bordered container. Set `.accent-{color}` on the card. |
+| `.card-header` | Gray bg, 4px accent top border, flex space-between |
+| `.card-title` | Card heading (Albert Sans 800). Alias: `.chart-title` (legacy) |
+| `.card-subtitle` | Italic unit/description line. Alias: `.chart-subtitle` (legacy) |
+| `.card-body` | Content area. Has its own heading/paragraph rhythm to prevent prose bleed. |
+| `.card-footer` | Source line + logo |
+| `.card-compact` | Tighter padding |
+| `.card-chart` | Tight vertical padding for canvas |
+| `.card-nav` | Clickable nav card with accent dot header |
+| `.card-accent` | Border takes accent color, title takes accent color |
+| `.card-actions` | Button container in card-header |
+| `.card-muted` | 50% opacity, full on hover |
 
-### Forms
+### Info Boxes
 
 | Class | Purpose |
 |-------|---------|
-| `.form-select` | Styled select/input — border, padding, font, bg, color |
-| `.toggle-group` | Flex container for segmented buttons |
-| `.toggle-btn` | Individual toggle — border, font, transitions |
-| `.toggle-btn.active` | Active state — bg/border from `var(--accent)`, white text |
+| `.info-box` | Secondary container, bg-alt background |
+| `.info-box-tab` | Offset label plate above the box |
+| `.info-box-accent` | Border takes accent color |
 
-### Typography (within `.prose`)
+### Controls
 
-| Element | Size | Margin | Notes |
-|---------|------|--------|-------|
-| `h2` | `--text-3xl` | 40px top, 12px bottom | Section headings |
-| `h3` | `--text-2xl` | 40px top, 12px bottom | Subsection headings |
-| `h4` | `--text-lg` | 32px top, 12px bottom | `--color-text-muted` |
-| `p` | `--text-base` | 1.5em bottom | Reading spacing |
-| `li` | `--text-base` | 0.4em bottom | |
+| Class | Purpose |
+|-------|---------|
+| `.btn` | Selectable button. Active state uses `--accent` (fallback: gray). |
+| `.btn-sm` / `.btn-lg` | Size variants |
+| `.btn--pill` | Rounded pill shape |
+| `.btn-group` | Joined segmented control |
+| `.btn-primary` | Dark bg CTA/download button |
+| `.form-select` | Styled select/input |
+| `.control-panel` | Flex bar with top/bottom borders |
+| `.control-row` | Label + input horizontal row |
+| `.combo-box` / `.combo-list` / `.combo-item` | Autocomplete dropdown |
+| `.details-section` | Collapsible `<details>` with triangle marker |
+| `.tab-bar` | Horizontal tab navigation |
+| `.tab` | Individual tab button. `.tab-bar-filled` for solid active bg. |
 
-Outside `.prose`, headings get only font-size (no margin, no color override). Paragraphs get `0.75em` bottom margin.
+### Data Display
+
+| Class | Purpose |
+|-------|---------|
+| `.key-stat` | Prominent number (Lato, text-3xl, bold) |
+| `.stat-group` | Vertical stack: label + value + note/delta |
+| `.stat-row` | Multiple stat-groups side by side |
+| `.stat-row-inline` | Horizontal year + value + delta (WEO pattern) |
+| `.stat-label` / `.stat-value` / `.stat-note` / `.stat-delta` | Stat sub-elements |
+| `.data-list` | Key-value pairs with dividers |
+| `.data-list-stacked` | Label above value variant |
+| `.compare-cols` | Side-by-side comparison lists |
+| `.compare-row-highlight` | Highlighted row in comparison |
+| `.status-cell` | Color-coded status indicator |
+| `.status-established` / `.status-partial` / `.status-planned` / `.status-none` | Status levels |
+
+### Text Components
+
+| Class | Purpose |
+|-------|---------|
+| `.label` | Small uppercase marker (Albert Sans 700) |
+| `.step-label` | Label with accent underline |
+| `.heading-accent` | Heading with text-width accent underline |
+| `.callout` | Accent left-border intro block |
+| `.blockquote-accent` | Styled blockquote with accent border |
+| `.highlight-accent` | Inline colored background span |
+| `.note` / `.chart-source` | Small muted text (same visual, different semantic role) |
+| `.badge` | Tinted pill label |
+| `.badge-solid` | Opaque bg, white text (agency labels) |
+| `.alert` | Notification box with accent left border |
+| `.empty-state` | "No data" placeholder |
+| `.noscript-warning` | JS-disabled fallback |
 
 ### Tables
 
 | Class | Purpose |
 |-------|---------|
-| (bare `table`) | Just `border-collapse` + `width: 100%` — safe neutral defaults |
-| `.dash-table` | Data tables — right-aligned, uppercase headers, zebra rows, hover |
-| `.dataframe` | Tutorial data tables — center-aligned, bold first col, zebra rows |
+| base `table` | Border-collapse, zebra rows, hover, Space Mono headers |
+| `.dash-table` | Right-aligned values, uppercase headers |
+| `.dataframe` | Tutorial output, centered, sticky first column |
+| `.table-wrap` | Horizontal scroll wrapper |
 
-Page-specific tables (`.scores-table`, `.cal-grid`, `.cc-table`) define their own styling from the neutral base.
-
-### Navigation
-
-| Class | Purpose |
-|-------|---------|
-| `.nav-card` / `.nav-card-muted` | Clickable card with colored header |
-| `.nav-card-head` | Colored top section |
-| `.nav-card-body` | White bottom section |
-| `.nav-card-banner` | Thin image strip |
-| `.page-strip` | Full-width photo banner below nav |
-| `.subfooter` | Sibling page links at bottom |
-
-### Article components
+### Chart Elements
 
 | Class | Purpose |
 |-------|---------|
-| `.callout` | Border-left accent intro block |
-| `.blockquote-accent` | Styled blockquote with accent border |
-| `.highlight-accent` | Inline colored background span |
-| `.details-section` | Collapsible `<details>` with triangle marker |
-| `.tutorial-meta` | Date/difficulty/share bar on guide pages |
-| `.step-label` | Uppercase label with accent underline |
+| `.chart-legend` / `.chart-legend-item` | Toggleable legend |
+| `.chart-tooltip` / `.chart-tooltip-header` | Floating data label |
+| `.chart-filter` | "Showing X–Y · Show all" text |
+| `.chart-source` | Source attribution in card-footer |
+| `.spinner` / `.spinner-sm` / `.spinner-lg` | CSS-only loading spinner |
+| `.loading-overlay` | Covers parent, shows spinner centered |
+
+### Media
+
+| Class | Purpose |
+|-------|---------|
+| `figure` + `figcaption` | Image/chart with caption |
+| `.figure-overlay` | Image with gradient caption overlay |
+| `.figure-caption-bar` | Solid accent caption bar variant |
+
+### Layout Utilities
+
+| Class | Purpose |
+|-------|---------|
+| `.step-cards` / `.step-card` / `.step-number` | Numbered instruction sequence |
+| `.trail-badge` | Difficulty level badge |
+| `.tutorial-meta` | Date/difficulty/share bar |
 | `.hr-accent` | Short centered colored rule |
 | `.section-bar` | Full-width colored bar |
 
-### Utility
+### Text Utilities
 
-| Class | Purpose |
-|-------|---------|
-| `.sr-only` | Screen reader only — visually hidden |
-| `.noscript-warning` | Fallback message when JS is disabled |
-| `.skip-link` | Keyboard skip-to-main link |
+```
+.text-center  .text-right  .text-mono  .text-muted  .text-strong  .text-sm  .text-xs
+```
 
----
+### Link Variants
 
-## Decisions to Make
-
-These are open questions where we need to pick one answer and apply it everywhere.
-
-### ~~1. Chart container max-width~~ DECIDED
-
-Page-specific. Each chart has different data density needs. Current: 480px (imfweo, gdpm), 580px (indicators), 620px (childcare).
-
-### 2. Chart header share/download buttons
-
-Two patterns exist: `.weo-share` (vertical stack, icon buttons) and `.ind-share` (horizontal, icon buttons). Should these merge into one `.chart-share` component?
-
-### 3. Info box variants
-
-Currently: `div.info-box` (generic), `div.info-box.info-section` (gdpm), `div.info-box.weo-info` (imfweo), `div.info-box.bio` (about). Are these all the same component with modifiers, or different components?
-
-### ~~4. Mobile strategy~~ DECIDED
-
-Two standard breakpoints:
-- **760px** — main mobile/desktop split (all pages)
-- **500px** — small phone compact mode (only for complex layouts like childcare)
-
-### ~~5. Spacing system~~ DECIDED
-
-No variables. Consolidated to 10 allowed px values: **2, 4, 6, 8, 12, 16, 20, 24, 32, 40**. Nav-related 14px/50px are structural exceptions. Typography spacing (paragraph/list margins) uses em. All rem values converted to px. Inline CSS in HTML files still needs a normalization pass.
-
-### ~~6. Color use in body text~~ DECIDED
-
-Three tiers, clearly named by visual weight:
-- `--color-text-strong` (#1e1e1e / #efefef) — headings, strong emphasis
-- `--color-text` (#555 / #c8c8c8) — body text, readable content
-- `--color-text-muted` (#888 / #999) — meta, captions, sources, controls
-
-Old variables `--color-text-gray`, `--color-text-muted`, `--color-text-subtle`, `--color-heading-gray` are eliminated.
-
-### ~~7. Dark mode completeness~~ DECIDED
-
-Dark mode works via CSS variable overrides in style.css. Shared components get dark mode automatically. Only page-specific elements with hardcoded colors need inline `[data-theme="dark"]` rules. Current state: 21/23 pages need zero inline dark mode CSS. When building new elements, use existing variables first — only write a dark mode override when no variable covers the color.
+```
+.link-muted    Gray, no underline, darkens on hover
+.link-plain    Inherits color, no underline, underlines on hover
+```
 
 ---
 
-## Page-Type Contracts
+## Page Types
 
-What each page type gets for free from style.css, and what it must provide itself.
+### Guides (10 pages, 0 page-specific CSS)
+Content in `<article class="prose">`. Everything else is automatic.
 
-### Guide (10 pages, 0 lines inline CSS)
+### Dashboards (4 pages)
+Shared card/info-box/control-panel structure. Page-specific: chart max-width, mobile reorder, unique controls.
 
-**From style.css:** `.prose` typography/spacing, `.dataframe` tables, `.tutorial-meta` bar, `.subfooter` sibling nav, `.callout`, `.details-section`, `.step-label`, code block styling, `.card-grid` for nav cards.
+### Reports (`childcare.html`)
+`.prose-report` justified text. Uses shared cards, tabs, info-boxes, compare-cols. Page-specific: decision tree, map, age coverage grid, infrastructure photos, feedback diagram. Styles in `childcare.css`.
 
-**Page provides:** Content inside `<article class="prose">`. Nothing else needed.
+### Nav pages (3 pages)
+Card grids, callouts, minimal prose.
 
-**Gold standard:** cps.html — zero inline CSS.
-
-### Dashboard (4 pages, ~1,200 lines inline CSS)
-
-**From style.css:** `.chart-container`/`.chart-header`/`.chart-body`/`.chart-footer`/`.chart-source`, `.chart-compact` (including mobile padding), `.chart-tooltip`, `.chart-legend`/`.chart-legend-item`, `.form-select`, `.toggle-btn`/`.toggle-group`, `.info-box`, `.page-strip` (hidden on mobile), `.chart-nav-btn`, `.chart-download-link`.
-
-**Page provides:** Chart max-width, section reorder on mobile, edge-to-edge breakout calc, controls layout, share/download button layout, page-specific components (flip cards, combo box, calendar grid, score table, step cards).
-
-**Sub-types:** Chart dashboards (gdpm, indicators, imfweo) vs. calendar (calendar.html — grid layout, no chart containers).
-
-### Report (1 page, ~1,100 lines inline CSS)
-
-**From style.css:** `.prose` typography, `.details-section`, `.chart-container`/`.chart-header`/etc., `.hr-accent`, `.callout`, `.blockquote-accent`, `.highlight-accent`, `.info-box`.
-
-**Page provides:** Justified text, custom visualizations (maps, SVG charts, interactive comparisons, decision trees), tab navigation, dark mode for custom colors.
-
-### Nav page (3 pages, ~80 lines inline CSS)
-
-**From style.css:** `.card-grid`, `.nav-card`, `.page-strip`, `.callout`, `.prose`.
-
-**Page provides:** Minimal layout for card arrangement (python.html arrow flow, index.html announcement banner).
-
-### Single page (2 pages, ~175 lines inline CSS)
-
-**From style.css:** `.prose`, `.info-box`, `.details-section`.
-
-**Page provides:** Unique layout (about.html bio row, chartbook.html download/preview grid).
+### Single pages (2 pages)
+Unique layouts using shared primitives.
 
 ---
 
-## What This Enables
+## CSS Files
 
-Once these decisions are made and the system is in place:
+- **`style.css`** (~2,065 lines) — All shared components + page-specific sections scoped by body class
+- **`childcare.css`** (~273 lines) — Childcare report page-specific styles + dark mode overrides
 
-- **Adding a new dashboard** means picking an accent color and writing the chart logic. The container, header, tooltip, controls, legend, and footer all come from shared CSS.
-- **Adding a new guide** means writing the content inside `<article class="prose">`. Typography, spacing, code blocks, and tables are automatic.
-- **Changing a design detail** (e.g., tooltip background opacity) means editing one rule in style.css. It updates everywhere.
-- **Dark mode** works for every shared component automatically.
-- **Mobile** works from shared breakpoints, not per-page overrides.
+---
+
+## Cascade Rules
+
+Card-body and info-box establish their own heading/paragraph/hr rhythm that overrides prose spacing:
+- `.card-body :is(h2, h3, h4)` — 16px top, 8px bottom margin
+- `.card-body p` — 12px bottom margin
+- `.card-body hr` — 12px margin
+- `.prose` h4 muted color does NOT bleed into nested cards/info-boxes
+
+`.btn.active` falls back to `--color-text-muted` (gray) when no `--accent` is set.
