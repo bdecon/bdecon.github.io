@@ -299,7 +299,7 @@
 		};
 		function agencyBadge(agency) {
 			const [cls, label] = AGENCY_MAP[agency] || ['other', agency.slice(0,4).toUpperCase()];
-			return `<span class="cal-agency cal-agency-${cls}">${label}</span>`;
+			return `<span class="badge-solid cal-agency-${cls}">${label}</span>`;
 		}
 
 		function renderEntry(e) {

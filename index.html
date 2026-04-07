@@ -258,7 +258,7 @@
 				let html = '';
 				if (first.featured_image) {
 					html += '<li class="blog-featured"><a href="' + first.URL + '" target="_blank" rel="noopener">'
-						+ '<img src="' + first.featured_image + '?w=600" alt="" loading="lazy" decoding="async"></a>'
+						+ '<img src="' + first.featured_image + '?w=600" alt="" loading="lazy" decoding="async" width="600" height="400"></a>'
 						+ '<a href="' + first.URL + '" target="_blank" rel="noopener">' + first.title + '</a> <span class="note">' + fmt0 + '</span></li>';
 				} else {
 					html += '<li><a href="' + first.URL + '" target="_blank" rel="noopener">' + first.title + '</a> <span class="note">' + fmt0 + '</span></li>';

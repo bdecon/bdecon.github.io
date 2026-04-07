@@ -1104,6 +1104,8 @@ function populateDropdown() {
 			const img = document.createElement('img');
 			img.src = 'images/' + iconFile;
 			img.alt = category;
+			img.width = 90;
+			img.height = 90;
 			img.loading = 'lazy';
 			iconDiv.appendChild(img);
 			const firstId = items[0].id;

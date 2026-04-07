@@ -1097,6 +1097,36 @@ table {
 	gap: var(--space-4);
 	& .stat-group { flex: 1; min-width: 0; }
 }
+/* Stat inline — horizontal year + value + delta on one line (WEO summary pattern) */
+.stat-row-inline {
+	display: flex;
+	gap: var(--space-3);
+	margin-top: var(--space-2);
+}
+.stat-inline {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	align-items: baseline;
+	gap: var(--space-2);
+	flex-wrap: wrap;
+}
+.stat-inline-year {
+	font-family: var(--font-mono);
+	font-size: var(--text-sm);
+	color: var(--color-text-muted);
+}
+.stat-inline-value {
+	font-size: var(--text-xl);
+	font-weight: 700;
+	color: var(--color-text-strong);
+	font-family: var(--font);
+}
+@media (max-width: 760px) {
+	.stat-row-inline { gap: var(--space-2); }
+	.stat-inline { flex-direction: column; align-items: flex-start; gap: 0; }
+	.stat-inline-value { font-size: var(--text-lg); }
+}
 
 /* Step cards — numbered instruction sequence */
 .step-cards {
@@ -1809,7 +1839,7 @@ figure {
 	}
 
 	/* Badges */
-	& .card-category-badge { font-size: var(--text-xs); padding: var(--space-1) var(--space-2); border-radius: 8px; vertical-align: middle; background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent); margin-left: var(--space-2); font-weight: 500; white-space: nowrap; }
+	& .badge { margin-left: var(--space-2); vertical-align: middle; }
 	& .card-header button { font-size: var(--text-base); padding: var(--space-1); }
 
 	/* Chart selector nav */
@@ -1853,14 +1883,7 @@ figure {
 		&.active { font-weight: 700; color: var(--color-link); }
 	}
 
-	/* Loading overlay */
-	& .chart-loading {
-		position: absolute; inset: 0; background: var(--color-card-bg);
-		display: flex; align-items: center; justify-content: center;
-		z-index: 5; opacity: 0; pointer-events: none; transition: opacity var(--transition-fast);
-		&.active { opacity: 0.8; pointer-events: auto; }
-	}
-	& .chart-loading-spinner { width: 22px; height: 22px; border: 2.5px solid var(--color-border-light); border-top-color: var(--color-card-blue); border-radius: 50%; animation: ind-spin 0.6s linear infinite; }
+	/* Loading overlay — uses shared .loading-overlay + .spinner */
 
 	/* Fade transition */
 	& .chart-flip-front .card-body { transition: opacity var(--transition-fast); &.fading { opacity: 0; } }
@@ -1898,7 +1921,6 @@ figure {
 	}
 }
 
-@keyframes ind-spin { to { transform: rotate(360deg); } }
 
 /* Indicators dark mode — data-theme is on <html>, page class on <body> */
 [data-theme="dark"] .page-indicators {
@@ -1917,14 +1939,6 @@ figure {
 	& .info-boxes { display: flex; flex-direction: column; gap: var(--space-4); & .info-box { margin-bottom: 0; } }
 	& .key-stat-row { display: flex; align-items: flex-start; gap: var(--space-2); margin: var(--space-1) 0; }
 	& .estimate-period { padding-top: 3px; }
-	& .download-btn {
-		display: inline-flex; align-items: center; gap: var(--space-2);
-		background: var(--color-nav-bg); padding: var(--space-2) var(--space-4);
-		text-decoration: none;
-		font-size: var(--text-sm); font-weight: 600;
-		&, &:link, &:visited { color: white; }
-		&:hover { background: var(--color-nav-hover); color: white; text-decoration: none; }
-	}
 
 	/* Layout */
 	& .chart-row { margin-top: var(--space-6); }
@@ -1983,13 +1997,13 @@ figure {
 	& .cal-today .cal-t { color: var(--color-card-brown); font-weight: 600; }
 
 	/* Agency badges */
-	& .cal-agency { display: inline-block; font-size: 8px; font-weight: 700; letter-spacing: 0.3px; padding: 0 3px; border-radius: 2px; vertical-align: middle; line-height: 1.5; color: #fff; margin-right: 2px; }
-	& .cal-agency-bls { background: #2563eb; }
-	& .cal-agency-bea { background: #15803d; }
-	& .cal-agency-fed { background: #0f766e; }
-	& .cal-agency-census { background: #c2410c; }
-	& .cal-agency-treasury { background: #6d28d9; }
-	& .cal-agency-other { background: var(--color-text-muted); }
+	/* Agency badge colors — uses shared .badge-solid base */
+	& .badge-solid { margin-right: 2px; }
+	& .cal-agency-bls { --accent: #2563eb; }
+	& .cal-agency-bea { --accent: #15803d; }
+	& .cal-agency-fed { --accent: #0f766e; }
+	& .cal-agency-census { --accent: #c2410c; }
+	& .cal-agency-treasury { --accent: #6d28d9; }
 
 	/* Week view */
 	& .cal-grid.cal-week-view td { padding: var(--space-2) var(--space-2) var(--space-3); min-height: 120px; }
@@ -2000,7 +2014,7 @@ figure {
 	/* Week summary */
 	& .cal-week-summary {
 		margin-bottom: var(--space-4); font-size: var(--text-sm);
-		& .cal-agency { font-size: 7px; }
+		& .badge-solid { font-size: 7px; }
 	}
 
 	/* Misc */
