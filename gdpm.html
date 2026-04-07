@@ -149,14 +149,14 @@
 	<p class="callout accent-red">Monthly US GDP, estimated by smoothing official quarterly data across months and incorporating the best available forecast for the current quarter.</p>
 
 	<div class="split-row chart-row">
-		<div class="card">
-			<div class="card-header accent-red">
-				<span class="chart-title">Monthly US GDP</span>
+		<div class="card accent-red">
+			<div class="card-header">
+				<span class="card-title">Monthly US GDP</span>
 				<a href="files/gdpm.csv" title="Download as .csv" download><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg></a>
 			</div>
 			<div class="card-body">
 				<div class="chart-body-header">
-					<span class="chart-subtitle">USD, seasonally adjusted annual rate</span>
+					<span class="card-subtitle">USD, seasonally adjusted annual rate</span>
 					<div class="btn-group chart-toggle accent-red">
 						<button class="btn active" data-series="nominal">Nominal</button>
 						<button class="btn" data-series="real">Real</button>
@@ -201,28 +201,28 @@
 		<div class="info-box step-card">
 			<div class="step-number">1</div>
 			<div class="step-content">
-				<h4>Quarterly GDP</h4>
+				<h3>Quarterly GDP</h3>
 				<p>Start with official nominal and real GDP from BEA (via FRED).</p>
 			</div>
 		</div>
 		<div class="info-box step-card">
 			<div class="step-number">2</div>
 			<div class="step-content">
-				<h4>Current Quarter</h4>
+				<h3>Current Quarter</h3>
 				<p>Estimate the latest quarter using Atlanta Fed GDPNow (real growth) and Cleveland Fed inflation nowcast to derive nominal growth.</p>
 			</div>
 		</div>
 		<div class="info-box step-card">
 			<div class="step-number">3</div>
 			<div class="step-content">
-				<h4>Interpolate</h4>
+				<h3>Interpolate</h3>
 				<p>Assign quarterly values to mid-quarter months, then linearly interpolate. This preserves the quarterly average.</p>
 			</div>
 		</div>
 		<div class="info-box step-card">
 			<div class="step-number">4</div>
 			<div class="step-content">
-				<h4>Rebase (Real series)</h4>
+				<h3>Rebase (Real series)</h3>
 				<p>Convert historical real GDP into current dollars, so past values reflect today's price level.</p>
 			</div>
 		</div>
@@ -232,7 +232,7 @@
 
 	<div class="card comparison-chart accent-red">
 		<div class="card-header">
-			<span class="chart-title">Quarterly vs. Monthly Nominal GDP</span>
+			<span class="card-title">Quarterly vs. Monthly Nominal GDP</span>
 		</div>
 		<div class="card-body">
 			<canvas id="comparisonChart" role="img" aria-label="Line chart comparing quarterly and monthly nominal GDP"></canvas>

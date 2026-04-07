@@ -204,7 +204,7 @@
 						<button class="btn cost-btn" data-kids="4">4</button>
 					</div>
 				</div>
-				<div id="cost-results"><div class="cost-result-box" style="background:rgba(224, 64, 64, 0.07);"><div class="cost-result-label">United States</div><div class="cost-result-value" style="color:#c03030;">$14,760</div><div class="cost-result-pct">25% of income</div></div><div class="cost-result-box" style="background:rgba(42, 138, 138, 0.07);"><div class="cost-result-label">Sweden</div><div class="cost-result-value" style="color:#2A8A8A;">$1,800</div><div class="cost-result-pct">3% of income</div></div></div>
+				<div id="cost-results"><div class="cost-result-box" style="background:color-mix(in srgb, var(--color-card-red) 7%, transparent);"><div class="cost-result-label">United States</div><div class="cost-result-value" style="color:var(--color-card-red);">$14,760</div><div class="cost-result-pct">25% of income</div></div><div class="cost-result-box" style="background:color-mix(in srgb, var(--color-card-teal) 7%, transparent);"><div class="cost-result-label">Sweden</div><div class="cost-result-value" style="color:var(--color-card-teal);">$1,800</div><div class="cost-result-pct">3% of income</div></div></div>
 				<p class="note">Some US families receive partial subsidies through Head Start or state programs. Most do not.</p>
 		</div>
 		</div>
@@ -248,21 +248,15 @@
 
 				label.textContent = fmtIncome(income);
 
-				var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-				var usBg = isDark ? 'rgba(224, 64, 64, 0.12)' : 'rgba(224, 64, 64, 0.07)';
-				var seBg = isDark ? 'rgba(42, 138, 138, 0.15)' : 'rgba(42, 138, 138, 0.07)';
-				var usColor = isDark ? '#ef6060' : '#c03030';
-				var seColor = isDark ? '#3aadad' : '#2A8A8A';
-
 				document.getElementById('cost-results').innerHTML =
-					'<div class="cost-result-box" style="background:' + usBg + ';">' +
+					'<div class="cost-result-box" style="background:color-mix(in srgb, var(--color-card-red) 7%, transparent);">' +
 						'<div class="cost-result-label">United States</div>' +
-						'<div class="cost-result-value" style="color:' + usColor + ';">' + fmt(us) + '</div>' +
+						'<div class="cost-result-value" style="color:var(--color-card-red);">' + fmt(us) + '</div>' +
 						'<div class="cost-result-pct">' + usPct + '% of income</div>' +
 					'</div>' +
-					'<div class="cost-result-box" style="background:' + seBg + ';">' +
+					'<div class="cost-result-box" style="background:color-mix(in srgb, var(--color-card-teal) 7%, transparent);">' +
 						'<div class="cost-result-label">Sweden</div>' +
-						'<div class="cost-result-value" style="color:' + seColor + ';">' + fmt(se) + '</div>' +
+						'<div class="cost-result-value" style="color:var(--color-card-teal);">' + fmt(se) + '</div>' +
 						'<div class="cost-result-pct">' + sePct + '% of income</div>' +
 					'</div>';
 			}

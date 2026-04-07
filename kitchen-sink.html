@@ -69,6 +69,24 @@
   <a href="#tables">Tables</a>
   <a href="#chart-elements">Chart Elements</a>
   <a href="#text-components">Text Components</a>
+  <a href="#stat-groups">Stat Groups</a>
+  <a href="#step-cards">Step Cards</a>
+  <a href="#badge-new">Badges (New)</a>
+  <a href="#btn-primary">Primary Button</a>
+  <a href="#data-list">Data List</a>
+  <a href="#alerts">Alerts</a>
+  <a href="#spinners">Loading Spinners</a>
+  <a href="#figures">Figure &amp; Caption</a>
+  <a href="#empty-states">Empty States</a>
+  <a href="#grids">Grid Columns</a>
+  <a href="#btn-sizes">Button Sizes</a>
+  <a href="#link-variants">Link Variants</a>
+  <a href="#text-utils">Text Utilities</a>
+  <a href="#card-title">Card Title</a>
+  <a href="#tab-bar">Tab Bar</a>
+  <a href="#figure-overlay">Figure Overlay</a>
+  <a href="#compare-cols">Compare Columns</a>
+  <a href="#status-cells">Status Cells</a>
   <a href="#layout">Layout</a>
   <a href="#details">Details/Collapsible</a>
   <a href="#decorative">Decorative Rules</a>
@@ -690,6 +708,757 @@ print(df.tail())</code></pre>
 
 <span class="ks-label">.noscript-warning</span>
 <div class="noscript-warning">JavaScript is required to display the interactive charts on this page.</div>
+</section>
+
+<!-- ============================================================
+     14b. STAT GROUPS
+     ============================================================ -->
+<section class="ks-section" id="stat-groups">
+<h2>Stat Groups</h2>
+
+<span class="ks-label">.stat-group — single stat</span>
+<div class="stat-group">
+  <span class="stat-label">Unemployment Rate</span>
+  <span class="stat-value">4.1%</span>
+  <span class="stat-note">March 2026, seasonally adjusted</span>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.stat-group with .stat-value-lg</span>
+<div class="stat-group">
+  <span class="stat-label">Nominal GDP</span>
+  <span class="stat-value stat-value-lg">$28.4T</span>
+  <span class="stat-note">Q1 2026 advance estimate</span>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.stat-group with .stat-delta</span>
+<div class="stat-group">
+  <span class="stat-label">CPI Inflation</span>
+  <span class="stat-value">2.4%</span>
+  <span class="stat-delta stat-delta-up">+0.2pp from prior month</span>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.stat-row — multiple stats side by side</span>
+<div class="stat-row">
+  <div class="stat-group">
+    <span class="stat-label">2025</span>
+    <span class="stat-value">2.2%</span>
+    <span class="stat-delta stat-delta-down">-0.3</span>
+  </div>
+  <div class="stat-group">
+    <span class="stat-label">2026</span>
+    <span class="stat-value">1.8%</span>
+    <span class="stat-delta stat-delta-down">-0.4</span>
+  </div>
+  <div class="stat-group">
+    <span class="stat-label">2027</span>
+    <span class="stat-value">2.1%</span>
+    <span class="stat-delta stat-delta-up">+0.3</span>
+  </div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.stat-row inside .info-box</span>
+<div class="info-box accent-blue">
+  <h3>GDP Forecast</h3>
+  <div class="stat-row">
+    <div class="stat-group">
+      <span class="stat-label">Current Year</span>
+      <span class="stat-value stat-value-lg">2.8%</span>
+      <span class="stat-delta stat-delta-up">+0.1</span>
+    </div>
+    <div class="stat-group">
+      <span class="stat-label">Next Year</span>
+      <span class="stat-value stat-value-lg">2.2%</span>
+      <span class="stat-delta stat-delta-down">-0.3</span>
+    </div>
+  </div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.stat-row inside .card-body</span>
+<div class="card accent-red">
+  <div class="card-header"><span class="chart-title">Monthly GDP</span></div>
+  <div class="card-body">
+    <div class="stat-row">
+      <div class="stat-group">
+        <span class="stat-label">Latest</span>
+        <span class="stat-value stat-value-lg">$32,017.98</span>
+        <span class="stat-note">Billions, SAAR</span>
+      </div>
+      <div class="stat-group">
+        <span class="stat-label">Growth</span>
+        <span class="stat-value">2.8%</span>
+        <span class="stat-delta stat-delta-up">+0.3pp</span>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================
+     14c. STEP CARDS
+     ============================================================ -->
+<section class="ks-section" id="step-cards">
+<h2>Step Cards</h2>
+
+<span class="ks-label">.step-cards — numbered instruction sequence</span>
+<div class="step-cards accent-blue">
+  <div class="step-card">
+    <div class="step-number">1</div>
+    <div class="step-content">
+      <h4>Get quarterly GDP</h4>
+      <p>Fetch the latest quarterly real GDP data from the FRED API using the GDPC1 series.</p>
+    </div>
+  </div>
+  <div class="step-card">
+    <div class="step-number">2</div>
+    <div class="step-content">
+      <h4>Integrate nowcast</h4>
+      <p>Add the Atlanta Fed GDPNow estimate for the current quarter as a forward-looking data point.</p>
+    </div>
+  </div>
+  <div class="step-card">
+    <div class="step-number">3</div>
+    <div class="step-content">
+      <h4>Interpolate to monthly</h4>
+      <p>Use cubic spline interpolation to convert the quarterly series into monthly frequency estimates.</p>
+    </div>
+  </div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.step-cards with different accent</span>
+<div class="step-cards accent-teal">
+  <div class="step-card">
+    <div class="step-number">1</div>
+    <div class="step-content">
+      <h4>Import packages</h4>
+      <p>Install and import requests, pandas, and json for API access.</p>
+    </div>
+  </div>
+  <div class="step-card">
+    <div class="step-number">2</div>
+    <div class="step-content">
+      <h4>Configure the request</h4>
+      <p>Set up headers, series IDs, and date range parameters.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================
+     14d. BADGES
+     ============================================================ -->
+<section class="ks-section" id="badge-new">
+<h2>Badges (New)</h2>
+
+<span class="ks-label">.badge — accent-tinted pill (uses --accent from parent)</span>
+<div class="ks-row" style="align-items: center;">
+  <span class="badge accent-blue">Output</span>
+  <span class="badge accent-green">BEA</span>
+  <span class="badge accent-red">Employment</span>
+  <span class="badge accent-orange">Census</span>
+  <span class="badge accent-purple">Treasury</span>
+  <span class="badge accent-teal">Childcare</span>
+  <span class="badge accent-ltblue">Intro</span>
+  <span class="badge accent-brown">Calendar</span>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.badge-solid — opaque background, white text (agency labels)</span>
+<div class="ks-row" style="align-items: center;">
+  <span class="badge-solid accent-blue">BLS</span>
+  <span class="badge-solid accent-green">BEA</span>
+  <span class="badge-solid accent-teal">FED</span>
+  <span class="badge-solid accent-orange">CENSUS</span>
+  <span class="badge-solid accent-purple">TREAS</span>
+  <span class="badge-solid" style="--accent: var(--color-text-muted);">OTHER</span>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.badge in context — card header with category badge</span>
+<div class="card accent-blue">
+  <div class="card-header">
+    <span class="chart-title">Real GDP per Capita <span class="badge accent-blue">Output</span></span>
+  </div>
+  <div class="card-body">
+    <p>Chart title with an inline category badge.</p>
+  </div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.badge-solid in context — data release with agency label</span>
+<p><span class="badge-solid accent-blue">BLS</span> Employment Situation — Nonfarm payrolls, unemployment rate</p>
+<p><span class="badge-solid accent-green">BEA</span> GDP Advance Estimate — First look at quarterly GDP</p>
+<p><span class="badge-solid accent-teal">FED</span> FOMC Statement — Interest rate decision and guidance</p>
+</section>
+
+<!-- ============================================================
+     14e. PRIMARY BUTTON
+     ============================================================ -->
+<section class="ks-section" id="btn-primary">
+<h2>Primary Button</h2>
+
+<span class="ks-label">.btn-primary — download/CTA action</span>
+<div class="ks-row" style="align-items: center;">
+  <a href="#" class="btn-primary">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Download CSV
+  </a>
+  <a href="#" class="btn-primary">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    Download PDF
+  </a>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.btn-primary inside .info-box</span>
+<div class="info-box accent-red">
+  <h3>Get the Data</h3>
+  <p>Monthly GDP estimates updated daily from FRED and Atlanta Fed GDPNow.</p>
+  <a href="#" class="btn-primary" style="margin-top: var(--space-2);">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Download gdpm.csv
+  </a>
+</div>
+</section>
+
+<!-- ============================================================
+     14f. DATA LIST
+     ============================================================ -->
+<section class="ks-section" id="data-list">
+<h2>Data List</h2>
+
+<span class="ks-label">.data-list — key-value pairs</span>
+<div class="data-list" style="max-width: 400px;">
+  <div class="data-item"><span class="data-label">Series</span><span class="data-value">LNS14000000</span></div>
+  <div class="data-item"><span class="data-label">Frequency</span><span class="data-value">Monthly</span></div>
+  <div class="data-item"><span class="data-label">Seasonal Adjustment</span><span class="data-value">Yes</span></div>
+  <div class="data-item"><span class="data-label">Last Updated</span><span class="data-value">Apr 4, 2026</span></div>
+  <div class="data-item"><span class="data-label">Source</span><span class="data-value">Bureau of Labor Statistics</span></div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.data-list inside .info-box</span>
+<div class="info-box accent-blue" style="max-width: 400px;">
+  <h3>Release Details</h3>
+  <div class="data-list">
+    <div class="data-item"><span class="data-label">Report</span><span class="data-value">Employment Situation</span></div>
+    <div class="data-item"><span class="data-label">Agency</span><span class="data-value"><span class="badge-solid accent-blue">BLS</span></span></div>
+    <div class="data-item"><span class="data-label">Next Release</span><span class="data-value">May 2, 2026</span></div>
+    <div class="data-item"><span class="data-label">Consensus</span><span class="data-value">+165K</span></div>
+  </div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.data-list inside .card-body</span>
+<div class="card accent-green" style="max-width: 400px;">
+  <div class="card-header"><span class="chart-title">Data Sources</span></div>
+  <div class="card-body">
+    <div class="data-list">
+      <div class="data-item"><span class="data-label">GDP</span><span class="data-value">BEA NIPA Table 1.1.1</span></div>
+      <div class="data-item"><span class="data-label">Nowcast</span><span class="data-value">Atlanta Fed GDPNow</span></div>
+      <div class="data-item"><span class="data-label">Monthly</span><span class="data-value">Cubic spline interpolation</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.data-list-stacked — label above value</span>
+<div class="data-list data-list-stacked" style="max-width: 300px;">
+  <div class="data-item"><span class="data-label">Description</span><span class="data-value">Civilian unemployment rate, seasonally adjusted</span></div>
+  <div class="data-item"><span class="data-label">Methodology</span><span class="data-value">Current Population Survey, household interview</span></div>
+</div>
+</section>
+
+<!-- ============================================================
+     14g. ALERTS
+     ============================================================ -->
+<section class="ks-section" id="alerts">
+<h2>Alerts</h2>
+
+<span class="ks-label">.alert — default (muted)</span>
+<div class="alert">
+  <p>JavaScript is required to display the interactive charts on this page.</p>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.alert with accent colors</span>
+<div class="alert accent-blue">
+  <p><strong>Note:</strong> The BLS API v2 requires a registration key for higher rate limits. <a href="#">Register here</a>.</p>
+</div>
+<div class="ks-spacer"></div>
+<div class="alert accent-red">
+  <p><strong>Data gap:</strong> February 2026 employment data has been revised. The initial estimate of +151K was revised to +143K.</p>
+</div>
+<div class="ks-spacer"></div>
+<div class="alert accent-green">
+  <p><strong>Updated:</strong> Charts now include data through March 2026.</p>
+</div>
+<div class="ks-spacer"></div>
+<div class="alert accent-orange">
+  <p><strong>Caution:</strong> Census API endpoints change between vintages. Always verify your dataset name against the current year's documentation.</p>
+</div>
+</section>
+
+<!-- ============================================================
+     14h. LOADING SPINNER
+     ============================================================ -->
+<section class="ks-section" id="spinners">
+<h2>Loading Spinners</h2>
+
+<span class="ks-label">.spinner sizes</span>
+<div class="ks-row" style="align-items: center;">
+  <div><div class="spinner-sm accent-blue"></div><span class="ks-label" style="margin: var(--space-2) 0 0;">sm (14px)</span></div>
+  <div><div class="spinner accent-blue"></div><span class="ks-label" style="margin: var(--space-2) 0 0;">default (22px)</span></div>
+  <div><div class="spinner-lg accent-blue"></div><span class="ks-label" style="margin: var(--space-2) 0 0;">lg (32px)</span></div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.spinner with different accents</span>
+<div class="ks-row" style="align-items: center;">
+  <div class="spinner accent-red"></div>
+  <div class="spinner accent-green"></div>
+  <div class="spinner accent-teal"></div>
+  <div class="spinner accent-orange"></div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.loading-overlay inside .card (set .active to show)</span>
+<div class="card accent-blue" style="max-width: var(--width-sm); position: relative;">
+  <div class="card-header"><span class="chart-title">Chart Loading</span></div>
+  <div class="card-body" style="height: 150px;">
+    <div class="loading-overlay active"><div class="spinner accent-blue"></div></div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================
+     14i. FIGURES
+     ============================================================ -->
+<section class="ks-section" id="figures">
+<h2>Figure &amp; Caption</h2>
+
+<span class="ks-label">figure with figcaption</span>
+<figure style="max-width: var(--width-md);">
+  <div style="height: 200px; background: var(--color-bg-highlight); display: flex; align-items: center; justify-content: center; color: var(--color-text-muted); border: 1px solid var(--color-border-light);">[ Image or chart ]</div>
+  <figcaption>Figure 1: A descriptive caption below the image. Source: Bureau of Labor Statistics, Employment Situation Summary, March 2026.</figcaption>
+</figure>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">figure inside .prose (the tutorial pattern)</span>
+<figure>
+  <div style="height: 150px; background: var(--color-bg-highlight); display: flex; align-items: center; justify-content: center; color: var(--color-text-muted); border: 1px solid var(--color-border-light);">[ Chart output from pandas.plot() ]</div>
+  <figcaption>The resulting line chart shows labor force participation declining from 2020 through 2022, then recovering gradually.</figcaption>
+</figure>
+</section>
+
+<!-- ============================================================
+     14j. EMPTY STATES
+     ============================================================ -->
+<section class="ks-section" id="empty-states">
+<h2>Empty States</h2>
+
+<span class="ks-label">.empty-state — standalone</span>
+<div class="empty-state">
+  <strong>No releases this week</strong>
+  Use the month navigation to browse other weeks.
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.empty-state inside .card</span>
+<div class="card accent-blue" style="max-width: var(--width-md);">
+  <div class="card-header"><span class="chart-title">Search Results</span></div>
+  <div class="card-body">
+    <div class="empty-state">
+      <strong>No matching indicators</strong>
+      Try a different search term or browse by category.
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================
+     14k. GRID COLUMNS
+     ============================================================ -->
+<section class="ks-section" id="grids">
+<h2>Grid Columns</h2>
+
+<span class="ks-label">.grid-2</span>
+<div class="grid-2">
+  <div class="info-box accent-blue"><h3>Column 1</h3><p>Two equal columns.</p></div>
+  <div class="info-box accent-green"><h3>Column 2</h3><p>Stacks on mobile.</p></div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.grid-3</span>
+<div class="grid-3">
+  <div class="info-box accent-red"><h3>Col 1</h3><p>Three columns.</p></div>
+  <div class="info-box accent-orange"><h3>Col 2</h3><p>Equal width.</p></div>
+  <div class="info-box accent-purple"><h3>Col 3</h3><p>Auto-stacking.</p></div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.grid-4</span>
+<div class="grid-4">
+  <div class="card"><div class="card-body"><p>A</p></div></div>
+  <div class="card"><div class="card-body"><p>B</p></div></div>
+  <div class="card"><div class="card-body"><p>C</p></div></div>
+  <div class="card"><div class="card-body"><p>D</p></div></div>
+</div>
+</section>
+
+<!-- ============================================================
+     14l. BUTTON SIZES
+     ============================================================ -->
+<section class="ks-section" id="btn-sizes">
+<h2>Button Sizes</h2>
+
+<span class="ks-label">.btn-sm / .btn / .btn-lg</span>
+<div class="ks-row" style="align-items: center;">
+  <button class="btn btn-sm">Small</button>
+  <button class="btn">Default</button>
+  <button class="btn btn-lg">Large</button>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">sizes with active state</span>
+<div class="ks-row accent-blue" style="align-items: center;">
+  <button class="btn btn-sm active">Small Active</button>
+  <button class="btn active">Default Active</button>
+  <button class="btn btn-lg active">Large Active</button>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.btn-group with sizes</span>
+<div class="ks-row" style="align-items: center;">
+  <div class="btn-group accent-red">
+    <button class="btn btn-sm active">S</button>
+    <button class="btn btn-sm">M</button>
+    <button class="btn btn-sm">L</button>
+  </div>
+  <div class="btn-group accent-blue">
+    <button class="btn btn-lg active">Monthly</button>
+    <button class="btn btn-lg">Quarterly</button>
+    <button class="btn btn-lg">Annual</button>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================
+     14m. LINK VARIANTS
+     ============================================================ -->
+<section class="ks-section" id="link-variants">
+<h2>Link Variants</h2>
+
+<span class="ks-label">default link</span>
+<p><a href="#">Standard underlined link</a> — default styling, removes underline on hover.</p>
+
+<span class="ks-label">.link-muted</span>
+<p><a href="#" class="link-muted">Muted link</a> — gray, no underline, darkens on hover. Good for metadata, navigation.</p>
+
+<span class="ks-label">.link-plain</span>
+<p><a href="#" class="link-plain">Plain link</a> — inherits parent color, no underline, underlines on hover. For UI elements.</p>
+
+<span class="ks-label">link variants in context</span>
+<div class="info-box accent-blue">
+  <h3>Data Sources</h3>
+  <p><a href="#" class="link-muted">Bureau of Labor Statistics</a></p>
+  <p><a href="#" class="link-muted">Bureau of Economic Analysis</a></p>
+  <p><a href="#" class="link-muted">Federal Reserve</a></p>
+</div>
+</section>
+
+<!-- ============================================================
+     14n. TEXT UTILITIES
+     ============================================================ -->
+<section class="ks-section" id="text-utils">
+<h2>Text Utilities</h2>
+
+<div class="ks-row">
+  <div class="ks-col">
+    <span class="ks-label">.text-center</span>
+    <p class="text-center">Centered text</p>
+    <span class="ks-label">.text-right</span>
+    <p class="text-right">Right-aligned text</p>
+  </div>
+  <div class="ks-col">
+    <span class="ks-label">.text-mono</span>
+    <p class="text-mono">Space Mono text for labels</p>
+    <span class="ks-label">.text-muted</span>
+    <p class="text-muted">Muted color text for captions</p>
+    <span class="ks-label">.text-strong</span>
+    <p class="text-strong">Strong bold text for emphasis</p>
+  </div>
+  <div class="ks-col">
+    <span class="ks-label">.text-sm</span>
+    <p class="text-sm">Smaller text (15px)</p>
+    <span class="ks-label">.text-xs</span>
+    <p class="text-xs">Extra small text (13px)</p>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================
+     14o. CARD TITLE (proper name)
+     ============================================================ -->
+<section class="ks-section" id="card-title">
+<h2>Card Title (Proper Name)</h2>
+<p class="text-muted text-sm">Currently the site uses <code>.chart-title</code> and <code>.chart-subtitle</code> everywhere, even for non-chart cards. These aliases use the correct names.</p>
+
+<span class="ks-label">.card-title + .card-subtitle (new names)</span>
+<div class="card accent-blue" style="max-width: var(--width-md);">
+  <div class="card-header">
+    <div>
+      <span class="card-title">Real GDP Growth</span>
+      <span class="card-subtitle">Percent change, annualized</span>
+    </div>
+    <div class="card-actions">
+      <button>&#x2197;</button>
+    </div>
+  </div>
+  <div class="card-body">
+    <div style="height: 120px; background: var(--color-bg-alt); display: flex; align-items: center; justify-content: center; color: var(--color-text-muted);">[ Chart ]</div>
+  </div>
+  <div class="card-footer">
+    <span class="chart-source">Source: BEA</span>
+  </div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.card-title on non-chart card</span>
+<div class="card accent-green" style="max-width: var(--width-md);">
+  <div class="card-header">
+    <span class="card-title">Data Sources</span>
+  </div>
+  <div class="card-body">
+    <div class="data-list">
+      <div class="data-item"><span class="data-label">Employment</span><span class="data-value">BLS</span></div>
+      <div class="data-item"><span class="data-label">GDP</span><span class="data-value">BEA</span></div>
+      <div class="data-item"><span class="data-label">Interest Rates</span><span class="data-value">Federal Reserve</span></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================
+     14p. TAB BAR
+     ============================================================ -->
+<section class="ks-section" id="tab-bar">
+<h2>Tab Bar</h2>
+
+<span class="ks-label">.tab-bar — underline style (default)</span>
+<div class="tab-bar accent-blue" style="max-width: var(--width-md);">
+  <button class="tab active">Overview</button>
+  <button class="tab">Methodology</button>
+  <button class="tab">Data Sources</button>
+  <button class="tab">Downloads</button>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.tab-bar with different accents</span>
+<div class="tab-bar accent-teal" style="max-width: var(--width-md);">
+  <button class="tab active">Enrollment</button>
+  <button class="tab">Spending</button>
+  <button class="tab">Wages</button>
+  <button class="tab">Outcomes</button>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.tab-bar-filled — solid active background</span>
+<div class="tab-bar tab-bar-filled accent-teal" style="max-width: var(--width-md);">
+  <button class="tab active">Map</button>
+  <button class="tab">Table</button>
+  <button class="tab">Chart</button>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.tab-bar above .card</span>
+<div style="max-width: var(--width-md);">
+  <div class="tab-bar accent-blue">
+    <button class="tab active">Chart</button>
+    <button class="tab">Data</button>
+    <button class="tab">About</button>
+  </div>
+  <div class="card accent-blue" style="margin: 0; border-top: none;">
+    <div class="card-body">
+      <div style="height: 120px; background: var(--color-bg-alt); display: flex; align-items: center; justify-content: center; color: var(--color-text-muted);">[ Tab content here ]</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================
+     14q. FIGURE OVERLAY
+     ============================================================ -->
+<section class="ks-section" id="figure-overlay">
+<h2>Figure Overlay</h2>
+
+<span class="ks-label">.figure-overlay — gradient caption over image</span>
+<figure class="figure-overlay" style="max-width: var(--width-sm);">
+  <div style="height: 200px; background: linear-gradient(135deg, #3a7878 0%, #2a5858 100%);"></div>
+  <figcaption>Children at a federally funded childcare center, 1943. National Archives.</figcaption>
+</figure>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.figure-caption-bar — solid accent caption</span>
+<figure class="figure-overlay figure-caption-bar accent-teal" style="max-width: var(--width-sm);">
+  <div style="height: 180px; background: linear-gradient(135deg, #4a7a96 0%, #3a5a7a 100%);"></div>
+  <figcaption>A solid-color caption bar below the image, using the accent color.</figcaption>
+</figure>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.figure-overlay inside .prose</span>
+<figure class="figure-overlay" style="max-width: var(--width-md);">
+  <div style="height: 160px; background: linear-gradient(135deg, #5a4a70 0%, #3a2a50 100%);"></div>
+  <figcaption>Nordic countries resolved the childcare trilemma decades ago through public investment in universal early childhood education.</figcaption>
+</figure>
+</section>
+
+<!-- ============================================================
+     14r. COMPARE COLUMNS
+     ============================================================ -->
+<section class="ks-section" id="compare-cols">
+<h2>Compare Columns</h2>
+
+<span class="ks-label">.compare-cols — side-by-side comparison lists</span>
+<div class="compare-cols accent-teal" style="max-width: var(--width-lg);">
+  <div class="compare-col">
+    <div class="compare-col-header" style="background: var(--accent); color: #fff;">
+      <h4>Childcare Workers</h4>
+      <p class="compare-col-sub">Median hourly wage</p>
+    </div>
+    <div class="compare-list">
+      <div class="compare-row"><span class="compare-name">Registered Nurses</span><span class="compare-value">$40.52</span></div>
+      <div class="compare-row"><span class="compare-name">K-12 Teachers</span><span class="compare-value">$30.26</span></div>
+      <div class="compare-row"><span class="compare-name">Administrative Assistants</span><span class="compare-value">$19.77</span></div>
+      <div class="compare-row compare-row-highlight"><span class="compare-name">Childcare Workers</span><span class="compare-value">$13.71</span></div>
+      <div class="compare-row"><span class="compare-name">Fast Food Workers</span><span class="compare-value">$12.98</span></div>
+      <div class="compare-row"><span class="compare-name">Cashiers</span><span class="compare-value">$12.58</span></div>
+    </div>
+  </div>
+  <div class="compare-col">
+    <div class="compare-col-header" style="background: var(--color-card-brown); color: #fff;">
+      <h4>All Occupations</h4>
+      <p class="compare-col-sub">Median hourly wage</p>
+    </div>
+    <div class="compare-list">
+      <div class="compare-row"><span class="compare-name">Software Developers</span><span class="compare-value">$63.44</span></div>
+      <div class="compare-row"><span class="compare-name">Accountants</span><span class="compare-value">$37.56</span></div>
+      <div class="compare-row"><span class="compare-name">Electricians</span><span class="compare-value">$29.61</span></div>
+      <div class="compare-row"><span class="compare-name">All Workers (median)</span><span class="compare-value">$22.26</span></div>
+      <div class="compare-row"><span class="compare-name">Retail Salespersons</span><span class="compare-value">$14.64</span></div>
+      <div class="compare-row"><span class="compare-name">Food Prep Workers</span><span class="compare-value">$13.14</span></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================================
+     14s. STATUS CELLS
+     ============================================================ -->
+<section class="ks-section" id="status-cells">
+<h2>Status Cells</h2>
+
+<span class="ks-label">.status-cell variants</span>
+<div class="ks-row accent-teal">
+  <div style="flex: 1;">
+    <div class="status-cell status-established">Established</div>
+    <span class="ks-label" style="margin-top: var(--space-1);">.status-established</span>
+  </div>
+  <div style="flex: 1;">
+    <div class="status-cell status-partial">Partial</div>
+    <span class="ks-label" style="margin-top: var(--space-1);">.status-partial</span>
+  </div>
+  <div style="flex: 1;">
+    <div class="status-cell status-planned">Planned</div>
+    <span class="ks-label" style="margin-top: var(--space-1);">.status-planned</span>
+  </div>
+  <div style="flex: 1;">
+    <div class="status-cell status-none">None</div>
+    <span class="ks-label" style="margin-top: var(--space-1);">.status-none</span>
+  </div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">status swatches for legend</span>
+<div style="display: flex; gap: var(--space-4); font-size: var(--text-sm); color: var(--color-text-muted);" class="accent-teal">
+  <span><span class="status-swatch status-established"></span>Established</span>
+  <span><span class="status-swatch status-partial"></span>Partial</span>
+  <span><span class="status-swatch status-planned"></span>Planned</span>
+  <span><span class="status-swatch status-none"></span>None</span>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">status cells with different accent (blue)</span>
+<div class="ks-row accent-blue">
+  <div style="flex: 1;"><div class="status-cell status-established">Full</div></div>
+  <div style="flex: 1;"><div class="status-cell status-partial">Partial</div></div>
+  <div style="flex: 1;"><div class="status-cell status-planned">Pilot</div></div>
+  <div style="flex: 1;"><div class="status-cell status-none">N/A</div></div>
+</div>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">status grid — coverage matrix pattern</span>
+<div style="display: grid; grid-template-columns: 100px repeat(4, 1fr); gap: var(--space-1); max-width: var(--width-md);" class="accent-teal">
+  <div></div>
+  <div class="text-center text-xs text-muted">0-1</div>
+  <div class="text-center text-xs text-muted">1-3</div>
+  <div class="text-center text-xs text-muted">3-5</div>
+  <div class="text-center text-xs text-muted">5-6</div>
+
+  <div class="text-sm text-strong" style="display: flex; align-items: center;">Finland</div>
+  <div class="status-cell status-established">&#10003;</div>
+  <div class="status-cell status-established">&#10003;</div>
+  <div class="status-cell status-established">&#10003;</div>
+  <div class="status-cell status-established">&#10003;</div>
+
+  <div class="text-sm text-strong" style="display: flex; align-items: center;">Sweden</div>
+  <div class="status-cell status-partial"></div>
+  <div class="status-cell status-established">&#10003;</div>
+  <div class="status-cell status-established">&#10003;</div>
+  <div class="status-cell status-established">&#10003;</div>
+
+  <div class="text-sm text-strong" style="display: flex; align-items: center;">US</div>
+  <div class="status-cell status-none"></div>
+  <div class="status-cell status-none"></div>
+  <div class="status-cell status-planned">Some</div>
+  <div class="status-cell status-partial">Pre-K</div>
+</div>
 </section>
 
 <!-- ============================================================
