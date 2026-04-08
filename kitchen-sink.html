@@ -183,7 +183,7 @@
 
 <article class="prose">
 <h2>Prose H2 — 48px top margin, text-3xl</h2>
-<p>This is a paragraph inside .prose. It gets 1.5em bottom margin instead of 0.75em. The prose wrapper is max-width 760px (--width-lg), centered with auto margins and 12px side padding. This width might be too wide for comfortable reading.</p>
+<p>This is a paragraph inside .prose. It gets 1.5em bottom margin instead of 0.75em. The prose wrapper is max-width 720px (--width-lg), centered with auto margins and 12px side padding.</p>
 
 <h3>Prose H3 — 48px top margin, text-2xl</h3>
 <p>Another paragraph. Notice the spacing is more generous inside prose. Bold <code>inline code</code> appears with a background highlight. This is the wrapper used for all tutorial and guide content.</p>
@@ -555,6 +555,63 @@ print(df.tail())</code></pre>
     <tr><td>Average Hourly Earnings</td><td>$35.93</td><td>$35.82</td><td>+4.0%</td></tr>
     <tr><td>Initial Claims</td><td>219K</td><td>225K</td><td>-3.1%</td></tr>
     <tr><td>Continuing Claims</td><td>1,856K</td><td>1,889K</td><td>+5.2%</td></tr>
+  </tbody>
+</table>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.data-table</span>
+<table class="data-table">
+  <thead><tr><th></th><th>Region</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>2026</th></tr></thead>
+  <tbody>
+    <tr><td>United States</td><td>North America</td><td>1.9</td><td>2.5</td><td>2.8</td><td>2.2</td><td>1.8</td></tr>
+    <tr><td>Euro Area</td><td>Europe</td><td>3.4</td><td>0.4</td><td>0.8</td><td>1.0</td><td>1.4</td></tr>
+    <tr><td>Japan</td><td>Asia Pacific</td><td>1.0</td><td>1.9</td><td>0.3</td><td>1.1</td><td>0.8</td></tr>
+    <tr><td>China</td><td>Asia Pacific</td><td>3.0</td><td>5.2</td><td>4.8</td><td>4.5</td><td>4.2</td></tr>
+    <tr><td>India</td><td>Asia Pacific</td><td>7.2</td><td>8.2</td><td>7.0</td><td>6.5</td><td>6.3</td></tr>
+  </tbody>
+</table>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.data-table + row highlight (accent-blue)</span>
+<table class="data-table accent-blue">
+  <thead><tr><th></th><th>Region</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>2026</th></tr></thead>
+  <tbody>
+    <tr><td>United States</td><td>North America</td><td>1.9</td><td>2.5</td><td>2.8</td><td>2.2</td><td>1.8</td></tr>
+    <tr><td>Euro Area</td><td>Europe</td><td>3.4</td><td>0.4</td><td>0.8</td><td>1.0</td><td>1.4</td></tr>
+    <tr class="highlight"><td>Japan</td><td>Asia Pacific</td><td>1.0</td><td>1.9</td><td>0.3</td><td>1.1</td><td>0.8</td></tr>
+    <tr><td>China</td><td>Asia Pacific</td><td>3.0</td><td>5.2</td><td>4.8</td><td>4.5</td><td>4.2</td></tr>
+    <tr><td>India</td><td>Asia Pacific</td><td>7.2</td><td>8.2</td><td>7.0</td><td>6.5</td><td>6.3</td></tr>
+  </tbody>
+</table>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.data-table + column highlight (accent-teal)</span>
+<table class="data-table accent-teal">
+  <colgroup><col><col><col><col><col class="highlight"><col><col></colgroup>
+  <thead><tr><th></th><th>Region</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>2026</th></tr></thead>
+  <tbody>
+    <tr><td>United States</td><td>North America</td><td>1.9</td><td>2.5</td><td>2.8</td><td>2.2</td><td>1.8</td></tr>
+    <tr><td>Euro Area</td><td>Europe</td><td>3.4</td><td>0.4</td><td>0.8</td><td>1.0</td><td>1.4</td></tr>
+    <tr><td>Japan</td><td>Asia Pacific</td><td>1.0</td><td>1.9</td><td>0.3</td><td>1.1</td><td>0.8</td></tr>
+    <tr><td>China</td><td>Asia Pacific</td><td>3.0</td><td>5.2</td><td>4.8</td><td>4.5</td><td>4.2</td></tr>
+    <tr><td>India</td><td>Asia Pacific</td><td>7.2</td><td>8.2</td><td>7.0</td><td>6.5</td><td>6.3</td></tr>
+  </tbody>
+</table>
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">.data-table + bold row + bold column (accent-blue)</span>
+<table class="data-table accent-blue">
+  <thead><tr><th></th><th>Region</th><th>2022</th><th>2023</th><th class="strong">2024</th><th>2025</th><th>2026</th></tr></thead>
+  <tbody>
+    <tr><td>United States</td><td>North America</td><td>1.9</td><td>2.5</td><td class="strong">2.8</td><td>2.2</td><td>1.8</td></tr>
+    <tr><td>Euro Area</td><td>Europe</td><td>3.4</td><td>0.4</td><td class="strong">0.8</td><td>1.0</td><td>1.4</td></tr>
+    <tr class="strong"><td>Japan</td><td>Asia Pacific</td><td>1.0</td><td>1.9</td><td class="strong">0.3</td><td>1.1</td><td>0.8</td></tr>
+    <tr><td>China</td><td>Asia Pacific</td><td>3.0</td><td>5.2</td><td class="strong">4.8</td><td>4.5</td><td>4.2</td></tr>
+    <tr><td>India</td><td>Asia Pacific</td><td>7.2</td><td>8.2</td><td class="strong">7.0</td><td>6.5</td><td>6.3</td></tr>
   </tbody>
 </table>
 
@@ -1835,7 +1892,7 @@ print(df.tail())</code></pre>
 
 <span class="ks-label">.callout inside .prose</span>
 <div class="callout accent-teal">
-  This callout is inside a .prose wrapper. Does the max-width (760px on both) cause any centering issues?
+  This callout is inside a .prose wrapper. Does the max-width (720px on both) cause any centering issues?
 </div>
 
 <span class="ks-label">.callout inside .card-body</span>
@@ -2070,7 +2127,7 @@ data = json.dumps({
     <div style="max-width: var(--width-xl); height: 24px; background: color-mix(in srgb, var(--color-card-blue) 20%, transparent); border: 1px solid var(--color-card-blue);"></div>
   </div>
   <div>
-    <span class="ks-label">--width-lg: 760px (prose)</span>
+    <span class="ks-label">--width-lg: 720px (prose)</span>
     <div style="max-width: var(--width-lg); height: 24px; background: color-mix(in srgb, var(--color-card-green) 20%, transparent); border: 1px solid var(--color-card-green);"></div>
   </div>
   <div>

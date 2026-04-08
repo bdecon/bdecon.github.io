@@ -281,7 +281,8 @@
 				tbody.appendChild(tr);
 			}
 			const more = document.createElement('tr');
-			more.innerHTML = `<td style="color:var(--color-text-muted);border:none;padding-top:2px">…</td><td style="border:none"></td>`;
+			more.className = 'cb-more';
+			more.innerHTML = `<td>…</td><td></td>`;
 			tbody.appendChild(more);
 			document.getElementById('cb-st').textContent =
 				'Also tracks interest rates, equities, commodities, exchange rates, and more.';

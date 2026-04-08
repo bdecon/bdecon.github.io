@@ -775,6 +775,26 @@ table {
 	& tbody tr:last-child td { border-bottom: none; }
 }
 
+/* Data table — minimal data presentation table
+   Albert Sans 700 headers, 2px strong header/footer rules, no zebra/hover
+   First column left-aligned, all others right-aligned
+   Modifiers: .highlight (row/col/cell accent wash), .strong (row/cell bold)
+   Requires .accent-* on table for highlight color */
+.data-table {
+	font-size: var(--text-xs);
+	& th, & td { padding: var(--space-1); }
+	& th { font-family: var(--font-accent); font-weight: 700; font-size: var(--text-xs); color: var(--color-text-strong); border-bottom: 2px solid var(--color-text-strong); letter-spacing: 0; }
+	& tbody tr:nth-child(even) { background: none; }
+	& tbody tr:hover { background: none; }
+	& tbody tr:last-child td { border-bottom: 2px solid var(--color-text-strong); }
+	& td:not(:first-child), & th:not(:first-child) { text-align: right; }
+	& tr.highlight td { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+	& col.highlight { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+	& td.highlight, & th.highlight { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+	& tr.strong td { font-weight: 700; }
+	& td.strong, & th.strong { font-weight: 700; }
+}
+
 /* Dash table — dashboard data: uppercase headers, right-aligned values */
 .dash-table {
 	& th, & td { text-align: right; }
@@ -1577,6 +1597,7 @@ figure {
 		& table { flex: 1; }
 		& td:last-child { text-align: right; color: var(--color-text-muted); white-space: nowrap; }
 		& .cb-st { margin: var(--space-3) 0 0; }
+		& .cb-more td { color: var(--color-text-muted); border: none; padding-top: 2px; }
 	}
 	& .cb-lightbox {
 		border: none; background: transparent; padding: 0;

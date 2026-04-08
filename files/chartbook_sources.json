@@ -1,5 +1,5 @@
 {
-  "generated": "2026-04-06",
+  "generated": "2026-04-08",
   "releases": [
     {
       "name": "Employment Situation",
@@ -99,21 +99,21 @@
     },
     {
       "name": "Consumer Expectations",
-      "period": "Feb 2026",
+      "period": "Mar 2026",
       "freq": "monthly",
-      "last_changed": "2026-03-10"
+      "last_changed": "2026-04-07"
     },
     {
       "name": "CPS Microdata",
-      "period": "Feb 2026",
+      "period": "Mar 2026",
       "freq": "monthly",
-      "last_changed": "2026-03-11"
+      "last_changed": "2026-04-08"
     },
     {
       "name": "State Unemployment",
-      "period": "Dec 2025",
+      "period": "Jan 2026",
       "freq": "monthly",
-      "last_changed": "2026-02-02"
+      "last_changed": "2026-04-08"
     },
     {
       "name": "Metro Unemployment",
@@ -286,6 +286,24 @@
   ],
   "recent": [
     {
+      "name": "CPS Microdata",
+      "period": "Mar 2026",
+      "freq": "monthly",
+      "last_changed": "2026-04-08"
+    },
+    {
+      "name": "State Unemployment",
+      "period": "Jan 2026",
+      "freq": "monthly",
+      "last_changed": "2026-04-08"
+    },
+    {
+      "name": "Consumer Expectations",
+      "period": "Mar 2026",
+      "freq": "monthly",
+      "last_changed": "2026-04-07"
+    },
+    {
       "name": "Employment Situation",
       "period": "Feb 2026",
       "freq": "monthly",
@@ -326,24 +344,6 @@
       "period": "Jan 2026",
       "freq": "monthly",
       "last_changed": "2026-03-31"
-    },
-    {
-      "name": "Oil Production",
-      "period": "Jan 2026",
-      "freq": "monthly",
-      "last_changed": "2026-03-31"
-    },
-    {
-      "name": "Consumer Sentiment",
-      "period": "Mar 2026",
-      "freq": "monthly",
-      "last_changed": "2026-03-27"
-    },
-    {
-      "name": "Money Stock (M2)",
-      "period": "Feb 2026",
-      "freq": "monthly",
-      "last_changed": "2026-03-26"
     }
   ],
   "st_series": [
