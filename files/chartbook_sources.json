@@ -1,5 +1,5 @@
 {
-  "generated": "2026-04-08",
+  "generated": "2026-04-09",
   "releases": [
     {
       "name": "Employment Situation",
@@ -15,9 +15,9 @@
     },
     {
       "name": "Personal Income & Outlays",
-      "period": "Jan 2026",
+      "period": "Feb 2026",
       "freq": "monthly",
-      "last_changed": "2026-03-13"
+      "last_changed": "2026-04-09"
     },
     {
       "name": "Producer Price Index",
@@ -165,9 +165,9 @@
     },
     {
       "name": "Initial Jobless Claims",
-      "period": "Mar 28, 2026",
+      "period": "Apr 4, 2026",
       "freq": "weekly",
-      "last_changed": "2026-04-02"
+      "last_changed": "2026-04-09"
     },
     {
       "name": "Fed Balance Sheet",
@@ -176,28 +176,28 @@
       "last_changed": "2026-04-03"
     },
     {
-      "name": "GDP (Second)",
+      "name": "GDP (Third)",
       "period": "Q4 2025",
       "freq": "quarterly",
-      "last_changed": "2026-03-13"
+      "last_changed": "2026-04-09"
     },
     {
       "name": "GDP by Industry",
-      "period": "Q3 2025",
+      "period": "Q4 2025",
       "freq": "quarterly",
-      "last_changed": "2026-02-02"
+      "last_changed": "2026-04-09"
     },
     {
       "name": "GDP by State",
-      "period": "Q3 2025",
+      "period": "Q4 2025",
       "freq": "quarterly",
-      "last_changed": "2026-02-02"
+      "last_changed": "2026-04-09"
     },
     {
       "name": "Corporate Profits",
-      "period": "Q3 2025",
+      "period": "Q4 2025",
       "freq": "quarterly",
-      "last_changed": "2026-01-18"
+      "last_changed": "2026-04-09"
     },
     {
       "name": "Employment Costs",
@@ -213,9 +213,9 @@
     },
     {
       "name": "Current Account",
-      "period": "Q3 2025",
+      "period": "Q4 2025",
       "freq": "quarterly",
-      "last_changed": "2026-01-18"
+      "last_changed": "2026-04-09"
     },
     {
       "name": "International Investment",
@@ -286,6 +286,48 @@
   ],
   "recent": [
     {
+      "name": "Personal Income & Outlays",
+      "period": "Feb 2026",
+      "freq": "monthly",
+      "last_changed": "2026-04-09"
+    },
+    {
+      "name": "Initial Jobless Claims",
+      "period": "Apr 4, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-04-09"
+    },
+    {
+      "name": "GDP (Third)",
+      "period": "Q4 2025",
+      "freq": "quarterly",
+      "last_changed": "2026-04-09"
+    },
+    {
+      "name": "GDP by Industry",
+      "period": "Q4 2025",
+      "freq": "quarterly",
+      "last_changed": "2026-04-09"
+    },
+    {
+      "name": "GDP by State",
+      "period": "Q4 2025",
+      "freq": "quarterly",
+      "last_changed": "2026-04-09"
+    },
+    {
+      "name": "Corporate Profits",
+      "period": "Q4 2025",
+      "freq": "quarterly",
+      "last_changed": "2026-04-09"
+    },
+    {
+      "name": "Current Account",
+      "period": "Q4 2025",
+      "freq": "quarterly",
+      "last_changed": "2026-04-09"
+    },
+    {
       "name": "CPS Microdata",
       "period": "Mar 2026",
       "freq": "monthly",
@@ -302,48 +344,6 @@
       "period": "Mar 2026",
       "freq": "monthly",
       "last_changed": "2026-04-07"
-    },
-    {
-      "name": "Employment Situation",
-      "period": "Feb 2026",
-      "freq": "monthly",
-      "last_changed": "2026-04-03"
-    },
-    {
-      "name": "Fed Balance Sheet",
-      "period": "Apr 1, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-04-03"
-    },
-    {
-      "name": "International Trade",
-      "period": "Feb 2026",
-      "freq": "monthly",
-      "last_changed": "2026-04-02"
-    },
-    {
-      "name": "Mortgage Rates",
-      "period": "Apr 2, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-04-02"
-    },
-    {
-      "name": "Initial Jobless Claims",
-      "period": "Mar 28, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-04-02"
-    },
-    {
-      "name": "JOLTS",
-      "period": "Feb 2026",
-      "freq": "monthly",
-      "last_changed": "2026-03-31"
-    },
-    {
-      "name": "House Prices",
-      "period": "Jan 2026",
-      "freq": "monthly",
-      "last_changed": "2026-03-31"
     }
   ],
   "st_series": [
