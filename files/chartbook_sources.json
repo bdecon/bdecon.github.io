@@ -93,9 +93,9 @@
     },
     {
       "name": "Wage Tracker",
-      "period": "Feb 2026",
+      "period": "Mar 2026",
       "freq": "monthly",
-      "last_changed": "2026-03-13"
+      "last_changed": "2026-04-09"
     },
     {
       "name": "Consumer Expectations",
@@ -159,9 +159,9 @@
     },
     {
       "name": "Mortgage Rates",
-      "period": "Apr 2, 2026",
+      "period": "Apr 9, 2026",
       "freq": "weekly",
-      "last_changed": "2026-04-02"
+      "last_changed": "2026-04-09"
     },
     {
       "name": "Initial Jobless Claims",
@@ -171,9 +171,9 @@
     },
     {
       "name": "Fed Balance Sheet",
-      "period": "Apr 1, 2026",
+      "period": "Apr 8, 2026",
       "freq": "weekly",
-      "last_changed": "2026-04-03"
+      "last_changed": "2026-04-09"
     },
     {
       "name": "GDP (Third)",
@@ -292,8 +292,26 @@
       "last_changed": "2026-04-09"
     },
     {
+      "name": "Wage Tracker",
+      "period": "Mar 2026",
+      "freq": "monthly",
+      "last_changed": "2026-04-09"
+    },
+    {
+      "name": "Mortgage Rates",
+      "period": "Apr 9, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-04-09"
+    },
+    {
       "name": "Initial Jobless Claims",
       "period": "Apr 4, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-04-09"
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "period": "Apr 8, 2026",
       "freq": "weekly",
       "last_changed": "2026-04-09"
     },
@@ -326,24 +344,6 @@
       "period": "Q4 2025",
       "freq": "quarterly",
       "last_changed": "2026-04-09"
-    },
-    {
-      "name": "CPS Microdata",
-      "period": "Mar 2026",
-      "freq": "monthly",
-      "last_changed": "2026-04-08"
-    },
-    {
-      "name": "State Unemployment",
-      "period": "Jan 2026",
-      "freq": "monthly",
-      "last_changed": "2026-04-08"
-    },
-    {
-      "name": "Consumer Expectations",
-      "period": "Mar 2026",
-      "freq": "monthly",
-      "last_changed": "2026-04-07"
     }
   ],
   "st_series": [
