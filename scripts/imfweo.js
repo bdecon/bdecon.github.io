@@ -9,18 +9,13 @@
 	let chart = null;
 	let currentISO = 'USA';
 	let currentIndicator = 'NGDP_RPCH';
-	let yearMin = 2010;
+	let yearMin = 2003;
 	const yearMax = 2030;
 
-	// Extended history (1990–2002 vintages, 3 indicators only)
-	const EXTENDED_INDICATORS = new Set(['NGDP_RPCH', 'PCPIPCH', 'BCA_NGDPD']);
-	let extData = null;       // raw extended JSON (cached after first fetch)
-	let extMerged = false;    // whether extended data has been merged into DATA
-	let extActive = false;    // whether extended view is currently shown
-	const YEAR_MIN_DEFAULT = 2010;
-	const YEAR_MIN_EXTENDED = 1990;
+	const YEAR_MIN_FULL = 1990;
+	const YEAR_MIN_DEFAULT = 2003;
 	const YEAR_MIN_RECENT = 2022;
-	let recentActive = false;
+	let currentView = 'default'; // 'full', 'default', 'recent'
 
 	// --- Horizon styles (matching vintage_dots.py) ---
 	function isDark() {
@@ -83,6 +78,14 @@
 		'LUR': [0, 12],
 		'GGSB_NPGDP': [-8, 4],
 		'PPPSH': [0, 5]
+	};
+
+	// --- Indicator footnotes (shown below chart for ambiguous names) ---
+	const INDICATOR_FOOTNOTES = {
+		'NID_NGDP': 'Gross capital formation',
+		'GGSB_NPGDP': 'Cyclically adjusted',
+		'NGAP_NPGDP': 'Distance from potential GDP',
+		'PPPSH': 'Purchasing power parity weighted',
 	};
 
 	// Hard ceilings: clamp y-axis so extreme outliers (hyperinflation,
@@ -359,109 +362,27 @@
 		restoreState();
 		renderChart();
 		updateSummary();
-		updateExtLink();
-	}
-
-	// --- Extended history ---
-	async function loadExtended() {
-		if (extData) return extData;
-		try {
-			const resp = await fetch('files/imfweo/data-extended.json');
-			if (!resp.ok) throw new Error('HTTP ' + resp.status);
-			extData = await resp.json();
-			return extData;
-		} catch (e) {
-			return null;
-		}
-	}
-
-	function mergeExtended() {
-		if (extMerged || !extData) return;
-		const offset = extData.v.length;
-
-		// Offset all existing vid_idx in main DATA
-		for (const iso in DATA.c) {
-			const c = DATA.c[iso];
-			for (const ind of EXTENDED_INDICATORS) {
-				if (!c[ind]) continue;
-				for (const dot of c[ind].f) dot[3] += offset;
-				for (const dot of c[ind].nc) dot[3] += offset;
-			}
-		}
-
-		// Prepend extended vintages
-		DATA.v = extData.v.concat(DATA.v);
-
-		// Prepend extended dots
-		for (const iso in extData.c) {
-			if (!DATA.c[iso]) continue;
-			const ext = extData.c[iso];
-			for (const ind of EXTENDED_INDICATORS) {
-				if (!ext[ind]) continue;
-				if (!DATA.c[iso][ind]) continue;
-				DATA.c[iso][ind].f = ext[ind].f.concat(DATA.c[iso][ind].f);
-				if (ext[ind].nc) {
-					DATA.c[iso][ind].nc = ext[ind].nc.concat(DATA.c[iso][ind].nc);
-				}
-			}
-		}
-
-		extMerged = true;
+		updateViewLinks();
 	}
 
 	function setView(view) {
-		// view: 'default', 'extended', 'recent'
-		extActive = view === 'extended';
-		recentActive = view === 'recent';
-		if (extActive) yearMin = YEAR_MIN_EXTENDED;
-		else if (recentActive) yearMin = YEAR_MIN_RECENT;
+		currentView = view;
+		if (view === 'full') yearMin = YEAR_MIN_FULL;
+		else if (view === 'recent') yearMin = YEAR_MIN_RECENT;
 		else yearMin = YEAR_MIN_DEFAULT;
 		updateViewLinks();
 		renderChart();
-	}
-
-	async function toggleExtended() {
-		if (!extActive) {
-			const link = document.getElementById('ext-history-link');
-			link.textContent = 'Loading…';
-			await loadExtended();
-			mergeExtended();
-			setView('extended');
-		} else {
-			setView('default');
-		}
-	}
-
-	function toggleRecent() {
-		setView(recentActive ? 'default' : 'recent');
 	}
 
 	function viewLink(label, view) {
 		const btn = document.createElement('button');
 		btn.textContent = label;
 		btn.className = 'view-btn';
-		btn.addEventListener('click', async () => {
-			if (view === 'extended' && !extMerged) {
-				btn.textContent = 'Loading…';
-				await loadExtended();
-				mergeExtended();
-			}
-			setView(view);
-		});
+		btn.addEventListener('click', () => setView(view));
 		return btn;
 	}
 
 	function updateViewLinks() {
-		const hasExt = EXTENDED_INDICATORS.has(currentIndicator);
-
-		// Reset if switching to non-extended indicator while in extended mode
-		if (!hasExt && extActive) {
-			extActive = false;
-			yearMin = YEAR_MIN_DEFAULT;
-		}
-
-		const currentView = extActive ? 'extended' : recentActive ? 'recent' : 'default';
-
 		const elExt = document.getElementById('view-ext');
 		const elSep1 = document.getElementById('view-sep-1');
 		const elDefault = document.getElementById('view-default');
@@ -474,24 +395,20 @@
 		elDefault.innerHTML = '';
 		elRecent.innerHTML = '';
 
-		// Extended (only for 3 indicators)
-		if (hasExt) {
-			if (currentView === 'extended') {
-				elExt.textContent = '1990–';
-			} else {
-				elExt.appendChild(viewLink('1990–', 'extended'));
-			}
-			elSep1.textContent = ' | ';
-			elSep1.style.display = '';
+		// Full (1990–)
+		if (currentView === 'full') {
+			elExt.textContent = '1990–';
 		} else {
-			elSep1.style.display = 'none';
+			elExt.appendChild(viewLink('1990–', 'full'));
 		}
+		elSep1.textContent = ' | ';
+		elSep1.style.display = '';
 
-		// Default
+		// Default (2003–)
 		if (currentView === 'default') {
-			elDefault.textContent = '2010–';
+			elDefault.textContent = '2003–';
 		} else {
-			elDefault.appendChild(viewLink('2010–', 'default'));
+			elDefault.appendChild(viewLink('2003–', 'default'));
 		}
 
 		// Recent
@@ -501,9 +418,6 @@
 			elRecent.appendChild(viewLink('2022–', 'recent'));
 		}
 	}
-
-	// Keep old name as alias
-	const updateExtLink = updateViewLinks;
 
 	function populateInfoBox() {
 		const lastV = DATA.v[DATA.v.length - 1];
@@ -766,7 +680,7 @@
 
 	function onSelectionChange() {
 		saveState();
-		updateExtLink();
+		updateViewLinks();
 		renderChart();
 		updateSummary();
 		updateScoresHighlight();
@@ -1052,7 +966,14 @@
 		const indUnits = indMeta ? indMeta[1] : '';
 		document.getElementById('weoChart').setAttribute('aria-label',
 			countryName + ' — ' + indLabel + ': IMF WEO forecast revisions');
-		document.getElementById('chart-indicator').innerHTML = `<strong>${indLabel}</strong>` + (indUnits ? ', ' + indUnits.toLowerCase() : '');
+		const footnoteText = INDICATOR_FOOTNOTES[currentIndicator] || '';
+		const asterisk = footnoteText ? '*' : '';
+		document.getElementById('chart-indicator').innerHTML = `<strong>${indLabel}${asterisk}</strong>` + (indUnits ? ', ' + indUnits.toLowerCase() : '');
+		const footnoteEl = document.getElementById('chart-footnote');
+		if (footnoteEl) {
+			footnoteEl.textContent = footnoteText ? '*' + footnoteText : '';
+			footnoteEl.style.display = footnoteText ? '' : 'none';
+		}
 		document.getElementById('chart-units').textContent = '';
 		const lastV = DATA.v[DATA.v.length - 1];
 		document.getElementById('legend-latest-header').textContent = lastV[0] + ' ' + lastV[1] + ' WEO';
@@ -1525,7 +1446,9 @@
 		const sourceSize = 11 * dpr;
 		const legendH = legendSize + 12 * dpr;
 		const headerH = (titleSize + subtitleSize + 16 * dpr) + legendH;
-		const footerH = (sourceSize + 14 * dpr);
+		const pngFootnote = INDICATOR_FOOTNOTES[currentIndicator] || '';
+		const footnoteH = pngFootnote ? (sourceSize + 6 * dpr) : 0;
+		const footerH = (sourceSize + 14 * dpr) + footnoteH;
 		const totalW = cw + pad * 2;
 		const totalH = headerH + ch + footerH + pad;
 
@@ -1548,7 +1471,8 @@
 		// Subtitle (indicator + units + edition)
 		ctx.fillStyle = dark ? '#bbb' : '#666';
 		ctx.font = `${subtitleSize}px system-ui, -apple-system, sans-serif`;
-		const subtitle = indLabel + (indUnits ? ', ' + indUnits.toLowerCase() : '') + '  ·  ' + edition;
+		const pngAsterisk = INDICATOR_FOOTNOTES[currentIndicator] ? '*' : '';
+		const subtitle = indLabel + pngAsterisk + (indUnits ? ', ' + indUnits.toLowerCase() : '') + '  ·  ' + edition;
 		ctx.fillText(subtitle, pad, pad + titleSize + 4 * dpr);
 
 		// Legend row
@@ -1625,6 +1549,15 @@
 		ctx.textBaseline = 'top';
 		ctx.textAlign = 'left';
 		ctx.drawImage(chartCanvas, pad, headerH);
+
+		// Footnote (if applicable)
+		if (pngFootnote) {
+			ctx.fillStyle = dark ? '#999' : '#888';
+			ctx.font = `${sourceSize}px system-ui, -apple-system, sans-serif`;
+			ctx.textBaseline = 'bottom';
+			ctx.textAlign = 'left';
+			ctx.fillText('*' + pngFootnote, pad, totalH - pad / 2 - sourceSize - 6 * dpr);
+		}
 
 		// Source + branding
 		ctx.fillStyle = dark ? '#999' : '#888';

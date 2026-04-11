@@ -1659,6 +1659,7 @@ figure {
 
 	/* Chart */
 	& .ext-history-bar { text-align: center; }
+	& .chart-footnote { text-align: left; padding: 0 var(--space-4); }
 
 	/* View toggle link */
 	& .view-btn {

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-04-09",
+  "generated": "2026-04-10",
   "releases": [
     {
       "name": "Employment Situation",
@@ -9,9 +9,9 @@
     },
     {
       "name": "Consumer Price Index",
-      "period": "Feb 2026",
+      "period": "Mar 2026",
       "freq": "monthly",
-      "last_changed": "2026-03-11"
+      "last_changed": "2026-04-10"
     },
     {
       "name": "Personal Income & Outlays",
@@ -129,9 +129,9 @@
     },
     {
       "name": "Treasury Statement",
-      "period": "Feb 2026",
+      "period": "Mar 2026",
       "freq": "monthly",
-      "last_changed": "2026-03-11"
+      "last_changed": "2026-04-10"
     },
     {
       "name": "Money Stock (M2)",
@@ -286,6 +286,18 @@
   ],
   "recent": [
     {
+      "name": "Consumer Price Index",
+      "period": "Mar 2026",
+      "freq": "monthly",
+      "last_changed": "2026-04-10"
+    },
+    {
+      "name": "Treasury Statement",
+      "period": "Mar 2026",
+      "freq": "monthly",
+      "last_changed": "2026-04-10"
+    },
+    {
       "name": "Personal Income & Outlays",
       "period": "Feb 2026",
       "freq": "monthly",
@@ -329,18 +341,6 @@
     },
     {
       "name": "GDP by State",
-      "period": "Q4 2025",
-      "freq": "quarterly",
-      "last_changed": "2026-04-09"
-    },
-    {
-      "name": "Corporate Profits",
-      "period": "Q4 2025",
-      "freq": "quarterly",
-      "last_changed": "2026-04-09"
-    },
-    {
-      "name": "Current Account",
       "period": "Q4 2025",
       "freq": "quarterly",
       "last_changed": "2026-04-09"
