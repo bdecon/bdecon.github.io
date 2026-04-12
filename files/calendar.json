@@ -1,101 +1,10 @@
 {
-  "generated": "2026-04-05T22:27:47",
+  "generated": "2026-04-12T22:30:52",
   "range": {
-    "start": "2026-04-05",
-    "end": "2026-07-04"
+    "start": "2026-04-12",
+    "end": "2026-07-11"
   },
   "entries": [
-    {
-      "name": "Durable Goods Orders",
-      "date": "2026-04-07",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "Census"
-    },
-    {
-      "name": "Consumer Credit (G.19)",
-      "date": "2026-04-07",
-      "time": "3:00 PM ET",
-      "frequency": "monthly",
-      "agency": "Fed"
-    },
-    {
-      "name": "State Unemployment",
-      "date": "2026-04-08",
-      "time": "10:00 AM ET",
-      "frequency": "monthly",
-      "agency": "BLS"
-    },
-    {
-      "name": "CPS Microdata",
-      "date": "2026-04-08",
-      "time": "12:00 PM ET",
-      "frequency": "monthly",
-      "agency": "Census"
-    },
-    {
-      "name": "GDP",
-      "date": "2026-04-09",
-      "time": "8:30 AM ET",
-      "frequency": "quarterly",
-      "agency": "BEA"
-    },
-    {
-      "name": "Personal Income & Outlays",
-      "date": "2026-04-09",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "BEA"
-    },
-    {
-      "name": "GDP by State",
-      "date": "2026-04-09",
-      "time": "8:30 AM ET",
-      "frequency": "quarterly",
-      "agency": "BEA"
-    },
-    {
-      "name": "Jobless Claims",
-      "date": "2026-04-09",
-      "time": "8:30 AM ET",
-      "frequency": "weekly",
-      "agency": "DOL"
-    },
-    {
-      "name": "GDP by Industry",
-      "date": "2026-04-09",
-      "time": "8:30 AM ET",
-      "frequency": "quarterly",
-      "agency": "BEA"
-    },
-    {
-      "name": "Mortgage Rates",
-      "date": "2026-04-09",
-      "time": "12:00 PM ET",
-      "frequency": "weekly",
-      "agency": "Freddie Mac"
-    },
-    {
-      "name": "Fed Balance Sheet",
-      "date": "2026-04-09",
-      "time": "4:30 PM ET",
-      "frequency": "weekly",
-      "agency": "Fed"
-    },
-    {
-      "name": "Consumer Price Index",
-      "date": "2026-04-10",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "BLS"
-    },
-    {
-      "name": "Treasury Statement",
-      "date": "2026-04-10",
-      "time": "2:00 PM ET",
-      "frequency": "monthly",
-      "agency": "Treasury"
-    },
     {
       "name": "Producer Price Index",
       "date": "2026-04-14",
@@ -939,6 +848,48 @@
     {
       "name": "Fed Balance Sheet",
       "date": "2026-07-02",
+      "time": "4:30 PM ET",
+      "frequency": "weekly",
+      "agency": "Fed"
+    },
+    {
+      "name": "International Trade",
+      "date": "2026-07-07",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BEA/Census"
+    },
+    {
+      "name": "CPS Microdata",
+      "date": "2026-07-08",
+      "time": "12:00 PM ET",
+      "frequency": "monthly",
+      "agency": "Census"
+    },
+    {
+      "name": "Consumer Credit (G.19)",
+      "date": "2026-07-08",
+      "time": "3:00 PM ET",
+      "frequency": "monthly",
+      "agency": "Fed"
+    },
+    {
+      "name": "Jobless Claims",
+      "date": "2026-07-09",
+      "time": "8:30 AM ET",
+      "frequency": "weekly",
+      "agency": "DOL"
+    },
+    {
+      "name": "Mortgage Rates",
+      "date": "2026-07-09",
+      "time": "12:00 PM ET",
+      "frequency": "weekly",
+      "agency": "Freddie Mac"
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "date": "2026-07-09",
       "time": "4:30 PM ET",
       "frequency": "weekly",
       "agency": "Fed"
