@@ -169,6 +169,7 @@
 	const TOGGLE_MAP = {
 		actual: ['_actual'],
 		forecast: ['_forecast_line'],
+		first_outcome: ['_first_outcome'],
 		world: ['_world'],
 		region: ['_region'],
 		cloud_4plus: ['_cloud_h4', '_cloud_h5', '_cloud_h6', '_cloud_h7', '_cloud_h8'],
@@ -178,10 +179,10 @@
 		nc_apr: ['_nc_apr'],
 		nc_oct: ['_nc_oct']
 	};
-	const hiddenSeries = new Set(['world', 'region', 'cloud_4plus', 'cloud_3yr', 'cloud_2yr', 'cloud_1yr', 'nc_oct']);
+	const hiddenSeries = new Set(['first_outcome', 'world', 'region', 'cloud_4plus', 'cloud_3yr', 'cloud_2yr', 'cloud_1yr', 'nc_oct']);
 
 	const GROUP_MAP = {
-		latest: ['actual', 'forecast', 'world', 'region'],
+		latest: ['actual', 'forecast', 'first_outcome', 'world', 'region'],
 		prev: ['cloud_4plus', 'cloud_3yr', 'cloud_2yr', 'cloud_1yr'],
 		nc: ['nc_apr', 'nc_oct']
 	};
@@ -360,9 +361,13 @@
 		initDropdowns();
 		initLegendToggle();
 		restoreState();
-		renderChart();
-		updateSummary();
-		updateViewLinks();
+		if (currentViewMode === 'table') {
+			setViewMode('table');
+		} else {
+			renderChart();
+			updateSummary();
+			updateViewLinks();
+		}
 	}
 
 	function setView(view) {
@@ -374,49 +379,19 @@
 		renderChart();
 	}
 
-	function viewLink(label, view) {
-		const btn = document.createElement('button');
-		btn.textContent = label;
-		btn.className = 'view-btn';
-		btn.addEventListener('click', () => setView(view));
-		return btn;
+	function updateViewLinks() {
+		const btns = document.querySelectorAll('.weo-range-btn');
+		btns.forEach(btn => btn.classList.toggle('active', btn.dataset.view === currentView));
 	}
 
-	function updateViewLinks() {
-		const elExt = document.getElementById('view-ext');
-		const elSep1 = document.getElementById('view-sep-1');
-		const elDefault = document.getElementById('view-default');
-		const elSep2 = document.getElementById('view-sep-2');
-		const elRecent = document.getElementById('view-recent');
-		if (!elExt) return;
-
-		// Clear
-		elExt.innerHTML = '';
-		elDefault.innerHTML = '';
-		elRecent.innerHTML = '';
-
-		// Full (1990–)
-		if (currentView === 'full') {
-			elExt.textContent = '1990–';
-		} else {
-			elExt.appendChild(viewLink('1990–', 'full'));
-		}
-		elSep1.textContent = ' | ';
-		elSep1.style.display = '';
-
-		// Default (2003–)
-		if (currentView === 'default') {
-			elDefault.textContent = '2003–';
-		} else {
-			elDefault.appendChild(viewLink('2003–', 'default'));
-		}
-
-		// Recent
-		if (currentView === 'recent') {
-			elRecent.textContent = '2022–';
-		} else {
-			elRecent.appendChild(viewLink('2022–', 'recent'));
-		}
+	// Time range toggle
+	const rangeToggle = document.getElementById('weo-range-toggle');
+	if (rangeToggle) {
+		rangeToggle.addEventListener('click', (e) => {
+			const btn = e.target.closest('.weo-range-btn');
+			if (!btn || btn.classList.contains('active')) return;
+			setView(btn.dataset.view);
+		});
 	}
 
 	function populateInfoBox() {
@@ -480,21 +455,31 @@
 			return;
 		}
 
-		// Three time points with semantic labels
-		const labels = ['Estimate', 'Forecast', 'Long-term'];
-		const points = [fc[0], fc[1]];
-		if (fc[fc.length - 1][0] !== fc[1][0]) points.push(fc[fc.length - 1]);
+		// Three consecutive time points: first three forecast years
+		const points = fc.slice(0, 3);
+		if (points.length < 2) {
+			summaryEl.style.display = 'none';
+			return;
+		}
 
 		// Previous vintage for revision deltas
 		const prevVid = DATA.v.length - 2;
-		const prevV = DATA.v[prevVid];
 
 		function getPrevValue(year) {
 			const fromF = d.f && d.f.find(p => p[0] === year && p[3] === prevVid);
 			if (fromF) return fromF[1];
 			const fromNC = d.nc && d.nc.find(p => p[0] === year && p[3] === prevVid);
 			if (fromNC) return fromNC[1];
+			const fromEV = d.ev && d.ev.find(p => p[0] === year && p[2] === prevVid);
+			if (fromEV) return fromEV[1];
 			return null;
+		}
+
+		// Update summary tab label with vintage
+		const tabEl = document.querySelector('#weo-summary .info-box-tab');
+		if (tabEl) {
+			const lastV = DATA.v[DATA.v.length - 1];
+			tabEl.textContent = lastV[0] + ' ' + lastV[1] + ' Outlook';
 		}
 
 		const container = document.getElementById('weo-summary-stats');
@@ -708,14 +693,26 @@
 
 	// --- URL hash + localStorage ---
 	function saveState() {
-		location.hash = currentISO + '/' + currentIndicator;
+		if (currentViewMode === 'table') {
+			const vi = document.getElementById('vintage-select');
+			const viVal = vi ? vi.value : '';
+			location.hash = 'table/' + currentIndicator + (viVal ? '/' + viVal : '');
+		} else {
+			location.hash = currentISO + '/' + currentIndicator;
+		}
 		localStorage.setItem('weo_iso', currentISO);
 		localStorage.setItem('weo_ind', currentIndicator);
+		localStorage.setItem('weo_view', currentViewMode);
 	}
 
 	function restoreState() {
 		const hash = location.hash.replace('#', '');
-		if (hash && hash.includes('/')) {
+		if (hash && hash.startsWith('table/')) {
+			const parts = hash.split('/');
+			if (parts[1] && DATA.i[parts[1]]) currentIndicator = parts[1];
+			if (parts[2]) currentVintageIdx = parseInt(parts[2]);
+			currentViewMode = 'table';
+		} else if (hash && hash.includes('/')) {
 			const [iso, ind] = hash.split('/');
 			if (DATA.c[iso]) currentISO = iso;
 			if (DATA.i[ind]) currentIndicator = ind;
@@ -724,6 +721,8 @@
 			const savedInd = localStorage.getItem('weo_ind');
 			if (savedISO && DATA.c[savedISO]) currentISO = savedISO;
 			if (savedInd && DATA.i[savedInd]) currentIndicator = savedInd;
+			const savedView = localStorage.getItem('weo_view');
+			if (savedView === 'table') currentViewMode = 'table';
 		}
 		setCountryInput(currentISO);
 		updateIndicatorDropdown();
@@ -732,14 +731,25 @@
 
 	window.addEventListener('hashchange', () => {
 		const hash = location.hash.replace('#', '');
-		if (hash && hash.includes('/')) {
+		if (hash && hash.startsWith('table/')) {
+			const parts = hash.split('/');
+			if (parts[1] && DATA.i[parts[1]]) currentIndicator = parts[1];
+			if (parts[2]) {
+				currentVintageIdx = parseInt(parts[2]);
+				const vs = document.getElementById('vintage-select');
+				if (vs) vs.value = currentVintageIdx;
+			}
+			if (currentViewMode !== 'table') setViewMode('table');
+			else renderTable();
+		} else if (hash && hash.includes('/')) {
 			const [iso, ind] = hash.split('/');
 			if (DATA.c[iso]) currentISO = iso;
 			if (DATA.i[ind]) currentIndicator = ind;
 			setCountryInput(currentISO);
 			updateIndicatorDropdown();
 			document.getElementById('indicator-select').value = currentIndicator;
-			renderChart();
+			if (currentViewMode !== 'chart') setViewMode('chart');
+			else renderChart();
 		}
 	});
 
@@ -947,6 +957,27 @@
 				label: '_forecast_line',
 				tension: 0
 			});
+		}
+
+		// 5. First-outcome actuals — Fall(t+1) values before data revisions
+		if (d.fo && d.fo.length > 0) {
+			const foPts = d.fo.filter(p => inRange(p[0])).map(p => ({x: p[0], y: p[1]}));
+			if (foPts.length > 1) {
+				const foColor = isDark() ? 'rgba(100, 180, 160, 0.7)' : 'rgba(50, 140, 120, 0.6)';
+				datasets.push({
+					type: 'line',
+					data: foPts,
+					borderColor: foColor,
+					borderWidth: 2,
+					borderDash: [2, 3],
+					pointRadius: 0,
+					pointHoverRadius: 3,
+					fill: false,
+					order: 1,
+					label: '_first_outcome',
+					tension: 0
+				});
+			}
 		}
 
 		return { datasets, allVals, yMin, yMax };
@@ -1439,16 +1470,17 @@
 		const dpr = window.devicePixelRatio || 1;
 
 		// Layout constants (in CSS pixels, scaled by dpr)
-		const pad = 20 * dpr;
-		const titleSize = 18 * dpr;
-		const subtitleSize = 13 * dpr;
-		const legendSize = 11 * dpr;
-		const sourceSize = 11 * dpr;
-		const legendH = legendSize + 12 * dpr;
-		const headerH = (titleSize + subtitleSize + 16 * dpr) + legendH;
+		const pad = 28 * dpr;
+		const accentH = 4 * dpr;
+		const titleSize = 24 * dpr;
+		const subtitleSize = 15 * dpr;
+		const legendSize = 13 * dpr;
+		const sourceSize = 13 * dpr;
+		const legendH = legendSize + 16 * dpr;
+		const headerH = accentH + (titleSize + subtitleSize + 20 * dpr) + legendH;
 		const pngFootnote = INDICATOR_FOOTNOTES[currentIndicator] || '';
-		const footnoteH = pngFootnote ? (sourceSize + 6 * dpr) : 0;
-		const footerH = (sourceSize + 14 * dpr) + footnoteH;
+		const footnoteH = pngFootnote ? (sourceSize + 8 * dpr) : 0;
+		const footerH = (sourceSize + 18 * dpr) + footnoteH;
 		const totalW = cw + pad * 2;
 		const totalH = headerH + ch + footerH + pad;
 
@@ -1462,97 +1494,147 @@
 		ctx.fillStyle = dark ? '#1e1e1e' : '#ffffff';
 		ctx.fillRect(0, 0, totalW, totalH);
 
+		// Accent bar at top
+		ctx.fillStyle = '#4a6fa5';
+		ctx.fillRect(0, 0, totalW, accentH);
+
 		// Title
+		const textTop = accentH + pad * 0.6;
 		ctx.fillStyle = dark ? '#f0f0f0' : '#1a1a2e';
 		ctx.font = `bold ${titleSize}px system-ui, -apple-system, sans-serif`;
 		ctx.textBaseline = 'top';
-		ctx.fillText(countryName, pad, pad);
+		ctx.fillText(countryName, pad, textTop);
 
 		// Subtitle (indicator + units + edition)
-		ctx.fillStyle = dark ? '#bbb' : '#666';
+		ctx.fillStyle = dark ? '#bbb' : '#555';
 		ctx.font = `${subtitleSize}px system-ui, -apple-system, sans-serif`;
 		const pngAsterisk = INDICATOR_FOOTNOTES[currentIndicator] ? '*' : '';
-		const subtitle = indLabel + pngAsterisk + (indUnits ? ', ' + indUnits.toLowerCase() : '') + '  ·  ' + edition;
-		ctx.fillText(subtitle, pad, pad + titleSize + 4 * dpr);
+		const subtitle = indLabel + pngAsterisk + (indUnits ? ', ' + indUnits.toLowerCase() : '') + '  \u00B7  ' + edition;
+		ctx.fillText(subtitle, pad, textTop + titleSize + 4 * dpr);
 
-		// Legend row
-		const legendY = pad + titleSize + subtitleSize + 12 * dpr;
+		// Separator line
+		const sepY = textTop + titleSize + subtitleSize + 12 * dpr;
+		ctx.strokeStyle = dark ? '#333' : '#e0e0e0';
+		ctx.lineWidth = 1 * dpr;
+		ctx.beginPath();
+		ctx.moveTo(pad, sepY);
+		ctx.lineTo(totalW - pad, sepY);
+		ctx.stroke();
+
+		// Dynamic legend — only draw items for visible datasets
+		const legendY = sepY + 6 * dpr;
 		const legendMid = legendY + legendSize / 2;
 		ctx.font = `${legendSize}px system-ui, -apple-system, sans-serif`;
 		ctx.textBaseline = 'middle';
-		const legendColor = dark ? '#999' : '#888';
+		const legendColor = dark ? '#999' : '#777';
 		const lineColor = dark ? '#f0f0f0' : '#1a1a2e';
 		let lx = pad;
+		const swatchW = 14 * dpr;
+		const gap = 14 * dpr;
 
-		// Helper: draw legend swatch + label, advance lx
-		function legendItem(drawFn, label) {
-			drawFn(lx, legendMid);
-			ctx.fillStyle = legendColor;
-			ctx.fillText(label, lx, legendMid);
-		}
-
-		// — Actual (solid line)
-		ctx.strokeStyle = lineColor;
-		ctx.lineWidth = 2 * dpr;
-		ctx.setLineDash([]);
-		ctx.beginPath();
-		ctx.moveTo(lx, legendMid);
-		ctx.lineTo(lx + 14 * dpr, legendMid);
-		ctx.stroke();
-		lx += 18 * dpr;
-		ctx.fillStyle = legendColor;
-		ctx.fillText('Actual', lx, legendMid);
-		lx += ctx.measureText('Actual').width + 14 * dpr;
-
-		// -- Forecast (dashed line)
-		ctx.setLineDash([4 * dpr, 3 * dpr]);
-		ctx.beginPath();
-		ctx.moveTo(lx, legendMid);
-		ctx.lineTo(lx + 14 * dpr, legendMid);
-		ctx.stroke();
-		ctx.setLineDash([]);
-		lx += 18 * dpr;
-		ctx.fillStyle = legendColor;
-		ctx.fillText('Forecast', lx, legendMid);
-		lx += ctx.measureText('Forecast').width + 14 * dpr;
-
-		// Dots: far (h=5), mid (h=3), near (h=1)
-		for (const [h, label] of [[5, 'Far'], [3, 'Mid'], [1, 'Near']]) {
-			const r = horizonRadius(h) * dpr * 0.8;
-			const color = horizonColor(h);
-			const alpha = Math.min(horizonAlpha(h) * 2, 1);
-			ctx.globalAlpha = alpha;
-			ctx.fillStyle = color;
+		function drawLine(color, dash) {
+			ctx.strokeStyle = color;
+			ctx.lineWidth = 2 * dpr;
+			ctx.setLineDash(dash || []);
 			ctx.beginPath();
-			ctx.arc(lx + r, legendMid, r, 0, Math.PI * 2);
-			ctx.fill();
-			ctx.globalAlpha = 1;
-			lx += r * 2 + 4 * dpr;
+			ctx.moveTo(lx, legendMid);
+			ctx.lineTo(lx + swatchW, legendMid);
+			ctx.stroke();
+			ctx.setLineDash([]);
+			lx += swatchW + 4 * dpr;
 		}
-		ctx.fillStyle = legendColor;
-		ctx.fillText('Prior forecasts', lx, legendMid);
-		lx += ctx.measureText('Prior forecasts').width + 14 * dpr;
 
-		// Nowcast diamond
-		const ncR = NC_RADIUS * dpr * 0.7;
-		ctx.fillStyle = dark ? '#c060c0' : '#8b008b';
-		ctx.save();
-		ctx.translate(lx + ncR, legendMid);
-		ctx.rotate(Math.PI / 4);
-		ctx.fillRect(-ncR * 0.7, -ncR * 0.7, ncR * 1.4, ncR * 1.4);
-		ctx.restore();
-		lx += ncR * 2 + 4 * dpr;
-		ctx.fillStyle = legendColor;
-		ctx.fillText('Nowcast', lx, legendMid);
+		function drawLabel(text) {
+			ctx.fillStyle = legendColor;
+			ctx.fillText(text, lx, legendMid);
+			lx += ctx.measureText(text).width + gap;
+		}
+
+		// Actual
+		if (!hiddenSeries.has('actual')) {
+			drawLine(lineColor);
+			drawLabel('Actual');
+		}
+
+		// Forecast
+		if (!hiddenSeries.has('forecast')) {
+			drawLine(lineColor, [4 * dpr, 3 * dpr]);
+			drawLabel('Forecast');
+		}
+
+		// Initial actual
+		if (!hiddenSeries.has('first_outcome')) {
+			const foColor = dark ? 'rgba(100, 180, 160, 0.7)' : 'rgba(50, 140, 120, 0.6)';
+			drawLine(foColor, [2 * dpr, 3 * dpr]);
+			drawLabel('Initial actual');
+		}
+
+		// World average
+		if (!hiddenSeries.has('world')) {
+			drawLine(dark ? 'rgba(180,180,180,0.5)' : 'rgba(160,160,160,0.6)');
+			drawLabel('World');
+		}
+
+		// Region average
+		if (!hiddenSeries.has('region')) {
+			const regionISO = country ? country.r : null;
+			const regionInfo = regionISO && DATA.r && DATA.r[regionISO];
+			const regionName = regionInfo ? regionInfo.n : 'Region';
+			drawLine(dark ? 'rgba(130,170,210,0.5)' : 'rgba(100,140,190,0.5)');
+			drawLabel(regionName);
+		}
+
+		// Prior forecasts — show if any cloud horizon is visible
+		const anyCloud = ['cloud_1yr','cloud_2yr','cloud_3yr','cloud_4plus'].some(k => !hiddenSeries.has(k));
+		if (anyCloud) {
+			// Draw representative dots
+			for (const h of [5, 3, 1]) {
+				const cloudKey = h === 1 ? 'cloud_1yr' : h === 2 ? 'cloud_2yr' : h === 3 ? 'cloud_3yr' : 'cloud_4plus';
+				if (hiddenSeries.has(cloudKey)) continue;
+				const r = horizonRadius(h) * dpr * 0.8;
+				ctx.globalAlpha = Math.min(horizonAlpha(h) * 2, 1);
+				ctx.fillStyle = horizonColor(h);
+				ctx.beginPath();
+				ctx.arc(lx + r, legendMid, r, 0, Math.PI * 2);
+				ctx.fill();
+				ctx.globalAlpha = 1;
+				lx += r * 2 + 3 * dpr;
+			}
+			lx += 2 * dpr;
+			drawLabel('Prior forecasts');
+		}
+
+		// Nowcast — show if either Apr or Oct is visible
+		const anyNC = !hiddenSeries.has('nc_apr') || !hiddenSeries.has('nc_oct');
+		if (anyNC) {
+			const ncR = NC_RADIUS * dpr * 0.7;
+			ctx.fillStyle = dark ? '#c060c0' : '#8b008b';
+			ctx.save();
+			ctx.translate(lx + ncR, legendMid);
+			ctx.rotate(Math.PI / 4);
+			ctx.fillRect(-ncR * 0.7, -ncR * 0.7, ncR * 1.4, ncR * 1.4);
+			ctx.restore();
+			lx += ncR * 2 + 4 * dpr;
+			drawLabel('Nowcast');
+		}
 
 		// Chart
 		ctx.textBaseline = 'top';
 		ctx.textAlign = 'left';
 		ctx.drawImage(chartCanvas, pad, headerH);
 
+		// Footer separator line
+		const footerTop = headerH + ch + 4 * dpr;
+		ctx.strokeStyle = dark ? '#333' : '#e0e0e0';
+		ctx.lineWidth = 1 * dpr;
+		ctx.beginPath();
+		ctx.moveTo(pad, footerTop);
+		ctx.lineTo(totalW - pad, footerTop);
+		ctx.stroke();
+
 		// Footnote (if applicable)
 		if (pngFootnote) {
-			ctx.fillStyle = dark ? '#999' : '#888';
+			ctx.fillStyle = dark ? '#999' : '#777';
 			ctx.font = `${sourceSize}px system-ui, -apple-system, sans-serif`;
 			ctx.textBaseline = 'bottom';
 			ctx.textAlign = 'left';
@@ -1560,11 +1642,12 @@
 		}
 
 		// Source + branding
-		ctx.fillStyle = dark ? '#999' : '#888';
+		ctx.fillStyle = dark ? '#999' : '#777';
 		ctx.font = `${sourceSize}px system-ui, -apple-system, sans-serif`;
 		ctx.textBaseline = 'bottom';
 		ctx.fillText('Source: IMF World Economic Outlook', pad, totalH - pad / 2);
 		ctx.textAlign = 'right';
+		ctx.font = `600 ${sourceSize}px system-ui, -apple-system, sans-serif`;
 		ctx.fillText('bd-econ.com', totalW - pad, totalH - pad / 2);
 
 		// Download
@@ -1801,6 +1884,366 @@
 			URL.revokeObjectURL(url);
 		});
 	}
+
+	// --- Table view ---
+	let currentViewMode = 'chart';
+	let currentVintageIdx = -1;
+	let tableMode = 'forecast';
+	let tableSortCol = 'name';
+	let tableSortAsc = true;
+	let tableYears = null;
+	let tableIndicatorInit = false;
+
+	const MONTH_FULL = {Jan:'January',Feb:'February',Mar:'March',Apr:'April',
+		May:'May',Jun:'June',Jul:'July',Aug:'August',
+		Sep:'September',Oct:'October',Nov:'November',Dec:'December'};
+
+	function vintageName(vi) {
+		const v = DATA.v[vi];
+		return (MONTH_FULL[v[0]] || v[0]) + ' ' + v[1];
+	}
+
+	function getTableYears() {
+		if (tableYears) return tableYears;
+		const latestV = DATA.v[DATA.v.length - 1];
+		const y0 = latestV[1] - 1;
+		// 5 columns: Y-1, Y, Y+1, Y+2, Y+3 (outer two hidden on mobile)
+		tableYears = [y0 - 1, y0, y0 + 1, y0 + 2, y0 + 3];
+		return tableYears;
+	}
+
+	function getCountryValue(iso, indicator, vintageIdx, year) {
+		const d = DATA.c[iso] && DATA.c[iso][indicator];
+		if (!d) return null;
+		if (vintageIdx === DATA.v.length - 1) {
+			const fromA = d.a && d.a.find(p => p[0] === year);
+			if (fromA) return fromA[1];
+			const fromP = d.p && d.p.find(p => p[0] === year);
+			if (fromP) return fromP[1];
+			return null;
+		}
+		// Historical vintages: forecasts, nowcasts, then estimates (actuals from that vintage)
+		const fromF = d.f && d.f.find(p => p[3] === vintageIdx && p[0] === year);
+		if (fromF) return fromF[1];
+		const fromNC = d.nc && d.nc.find(p => p[3] === vintageIdx && p[0] === year);
+		if (fromNC) return fromNC[1];
+		const fromEV = d.ev && d.ev.find(p => p[2] === vintageIdx && p[0] === year);
+		if (fromEV) return fromEV[1];
+		return null;
+	}
+
+	function getWorldValue(indicator, vintageIdx, year) {
+		const w = DATA.w[indicator];
+		if (!w) return null;
+		if (vintageIdx !== DATA.v.length - 1) return null;
+		const pts = Array.isArray(w) ? w : w.d;
+		if (!pts) return null;
+		const pt = pts.find(p => p[0] === year);
+		return pt ? pt[1] : null;
+	}
+
+	function fmtTableVal(v) {
+		if (v === null || v === undefined) return null;
+		const s = Math.abs(v) >= 100 ? v.toFixed(0) : v.toFixed(1);
+		return s.replace('-', '\u2212');
+	}
+
+	function getValidVintages(indicator) {
+		const valid = [];
+		const years = getTableYears();
+		const sampleISOs = Object.keys(DATA.c).slice(0, 20);
+		for (let vi = DATA.v.length - 1; vi >= 0 && valid.length < 10; vi--) {
+			for (const iso of sampleISOs) {
+				if (getCountryValue(iso, indicator, vi, years[0]) !== null ||
+					getCountryValue(iso, indicator, vi, years[1]) !== null ||
+					getCountryValue(iso, indicator, vi, years[2]) !== null) {
+					valid.push(vi);
+					break;
+				}
+			}
+		}
+		return valid;
+	}
+
+	function populateVintageDropdown() {
+		const sel = document.getElementById('vintage-select');
+		const validVintages = getValidVintages(currentIndicator);
+		sel.innerHTML = '';
+		for (const vi of validVintages) {
+			const opt = document.createElement('option');
+			opt.value = vi;
+			opt.textContent = vintageName(vi);
+			sel.appendChild(opt);
+		}
+		if (validVintages.length > 0) {
+			if (currentVintageIdx < 0 || !validVintages.includes(currentVintageIdx)) {
+				currentVintageIdx = validVintages[0];
+			}
+			sel.value = currentVintageIdx;
+		}
+	}
+
+	function populateTableIndicatorDropdown() {
+		if (tableIndicatorInit) {
+			document.getElementById('table-indicator-select').value = currentIndicator;
+			return;
+		}
+		const sel = document.getElementById('table-indicator-select');
+		sel.innerHTML = '';
+		for (const [code, meta] of Object.entries(DATA.i)) {
+			const opt = document.createElement('option');
+			opt.value = code;
+			opt.textContent = meta[0];
+			sel.appendChild(opt);
+		}
+		sel.value = currentIndicator;
+		tableIndicatorInit = true;
+	}
+
+	function renderTable() {
+		if (!DATA || currentViewMode !== 'table') return;
+
+		const vintageIdx = parseInt(document.getElementById('vintage-select').value);
+		if (isNaN(vintageIdx)) return;
+		currentVintageIdx = vintageIdx;
+
+		const years = getTableYears();
+		const isRevision = tableMode === 'revision';
+		const indMeta = DATA.i[currentIndicator];
+
+		// Determine forecast boundary: years > e are forecasts
+		const vintageYear = DATA.v[vintageIdx][1];
+		const latestVi = DATA.v.length - 1;
+		// For latest vintage, use the world-level estimates_start_after
+		// For older vintages, approximate: years >= vintage_year are forecasts
+		let estAfter;
+		if (vintageIdx === latestVi) {
+			const wData = DATA.w[currentIndicator];
+			estAfter = wData && !Array.isArray(wData) ? wData.e : vintageYear - 1;
+		} else {
+			estAfter = vintageYear - 1;
+		}
+
+		// Sorted column index (for highlight)
+		const sortedColIdx = tableSortCol.startsWith('y') ? parseInt(tableSortCol.slice(1)) : -1;
+
+		// Card header
+		const indLabel = indMeta ? indMeta[0] : currentIndicator;
+		const indUnits = indMeta ? indMeta[1] : '';
+		document.getElementById('chart-title').textContent = vintageName(vintageIdx) + ' WEO';
+		document.getElementById('chart-indicator').innerHTML =
+			'<strong>' + esc(indLabel) + '</strong>' + (indUnits ? ', ' + indUnits.toLowerCase() : '');
+		document.getElementById('chart-units').textContent = '';
+
+		// Colgroup
+		const cg = document.getElementById('weo-table-colgroup');
+		cg.innerHTML = '<col>' + years.map((y, i) => {
+			const classes = [];
+			if (i === 0 || i === years.length - 1) classes.push('col-extra');
+			if (i === sortedColIdx) classes.push('highlight');
+			return '<col' + (classes.length ? ' class="' + classes.join(' ') + '"' : '') + '>';
+		}).join('');
+
+		// Table header
+		const thead = document.getElementById('weo-table-head');
+		const arrow = (col) => tableSortCol === col
+			? ' <span class="sort-arrow">' + (tableSortAsc ? '\u25B2' : '\u25BC') + '</span>'
+			: '';
+		thead.innerHTML = '<tr>' +
+			'<th data-col="name"' + (tableSortCol === 'name' ? ' class="highlight"' : '') + '>Country' + arrow('name') + '</th>' +
+			years.map((y, i) => {
+				const classes = [];
+				if (i === 0 || i === years.length - 1) classes.push('col-extra');
+				if (i === sortedColIdx) classes.push('highlight');
+				const isForecast = y > estAfter;
+				const label = isForecast ? '<em>' + y + '</em>' : '' + y;
+				return '<th data-col="y' + i + '"' + (classes.length ? ' class="' + classes.join(' ') + '"' : '') + '>' + label + arrow('y' + i) + '</th>';
+			}).join('') +
+			'</tr>';
+
+		thead.querySelectorAll('th').forEach(th => {
+			th.addEventListener('click', () => {
+				const col = th.dataset.col;
+				if (tableSortCol === col) {
+					tableSortAsc = !tableSortAsc;
+				} else {
+					tableSortCol = col;
+					tableSortAsc = col === 'name';
+				}
+				renderTable();
+			});
+		});
+
+		// Build rows
+		const rows = [];
+		for (const [iso, c] of Object.entries(DATA.c)) {
+			const vals = years.map(y => getCountryValue(iso, currentIndicator, vintageIdx, y));
+			let display;
+			if (isRevision && vintageIdx > 0) {
+				const prev = years.map(y => getCountryValue(iso, currentIndicator, vintageIdx - 1, y));
+				display = vals.map((v, i) =>
+					v !== null && prev[i] !== null ? Math.round((v - prev[i]) * 1000) / 1000 : null);
+			} else {
+				display = vals;
+			}
+			if (display.every(v => v === null)) continue;
+			rows.push({ name: c.n, vals: display, isWorld: false });
+		}
+
+		// World row (latest vintage only, not in revision mode)
+		if (vintageIdx === latestVi && !isRevision) {
+			const wVals = years.map(y => getWorldValue(currentIndicator, vintageIdx, y));
+			if (!wVals.every(v => v === null)) {
+				rows.push({ name: 'World', vals: wVals, isWorld: true });
+			}
+		}
+
+		// Sort (World pinned at top)
+		const worldRow = rows.find(r => r.isWorld);
+		const countryRows = rows.filter(r => !r.isWorld);
+		if (tableSortCol === 'name') {
+			countryRows.sort((a, b) => tableSortAsc
+				? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
+		} else if (sortedColIdx >= 0) {
+			countryRows.sort((a, b) => {
+				const av = a.vals[sortedColIdx], bv = b.vals[sortedColIdx];
+				if (av === null && bv === null) return 0;
+				if (av === null) return 1;
+				if (bv === null) return -1;
+				return tableSortAsc ? av - bv : bv - av;
+			});
+		}
+
+		// Info bar
+		const infoEl = document.getElementById('weo-table-info');
+		if (infoEl) {
+			const nCountries = countryRows.length;
+			let infoText = nCountries + ' countries';
+			if (isRevision && vintageIdx > 0) {
+				infoText += ' \u00B7 change from ' + vintageName(vintageIdx - 1);
+			}
+			infoEl.textContent = infoText;
+		}
+
+		// Render rows
+		const all = worldRow ? [worldRow, ...countryRows] : countryRows;
+		const tbody = document.getElementById('weo-table-body');
+		tbody.innerHTML = all.map(r => {
+			const trCls = r.isWorld ? ' class="strong"' : '';
+			const cells = r.vals.map((v, i) => {
+				const classes = [];
+				if (i === 0 || i === years.length - 1) classes.push('col-extra');
+				if (i === sortedColIdx) classes.push('highlight');
+				if (v === null) {
+					classes.push('weo-val-na');
+					return '<td' + (classes.length ? ' class="' + classes.join(' ') + '"' : '') + '>\u2014</td>';
+				}
+				const fmt = fmtTableVal(v);
+				if (isRevision) {
+					if (v > 0) classes.push('weo-val-pos');
+					else if (v < 0) classes.push('weo-val-neg');
+					const sign = v > 0 ? '+' : '';
+					return '<td' + (classes.length ? ' class="' + classes.join(' ') + '"' : '') + '>' + sign + fmt + '</td>';
+				}
+				return '<td' + (classes.length ? ' class="' + classes.join(' ') + '"' : '') + '>' + fmt + '</td>';
+			}).join('');
+			return '<tr' + trCls + '><td>' + esc(r.name) + '</td>' + cells + '</tr>';
+		}).join('');
+
+		// Reset scroll to top when content changes
+		const scrollEl = document.querySelector('.weo-table-scroll');
+		if (scrollEl) scrollEl.scrollTop = 0;
+
+		saveState();
+	}
+
+	function setViewMode(mode) {
+		currentViewMode = mode;
+		for (const btn of document.querySelectorAll('.weo-tab')) {
+			btn.classList.toggle('active', btn.dataset.view === mode);
+		}
+
+		const show = (id) => { const el = document.getElementById(id); if (el) el.style.display = ''; };
+		const hide = (id) => { const el = document.getElementById(id); if (el) el.style.display = 'none'; };
+
+		if (mode === 'table') {
+			hide('chart-legend');
+			hide('weoChart');
+			hide('ext-history-bar');
+			hide('chart-footnote');
+			hide('weo-tooltip');
+			hide('weo-summary');
+			hide('weo-guide');
+			hide('weo-panel');
+			const share = document.querySelector('.weo-share');
+			if (share) share.style.display = 'none';
+
+			show('weo-table-panel');
+			show('weo-table-bar');
+			show('weo-table-info');
+			show('weo-table-wrap');
+
+			populateTableIndicatorDropdown();
+			populateVintageDropdown();
+			renderTable();
+		} else {
+			show('chart-legend');
+			show('weoChart');
+			show('ext-history-bar');
+			show('chart-footnote');
+			show('weo-summary');
+			show('weo-panel');
+			const share = document.querySelector('.weo-share');
+			if (share) share.style.display = '';
+
+			hide('weo-table-panel');
+			hide('weo-table-bar');
+			hide('weo-table-info');
+			hide('weo-table-wrap');
+
+			renderChart();
+			updateSummary();
+
+			const guideEl = document.getElementById('weo-guide');
+			if (guideEl && !localStorage.getItem('weo_guide_dismissed')) {
+				guideEl.style.display = '';
+			}
+		}
+		saveState();
+	}
+
+	// View toggle
+	document.getElementById('weo-view-toggle').addEventListener('click', (e) => {
+		const btn = e.target.closest('.weo-tab');
+		if (!btn || btn.classList.contains('active')) return;
+		setViewMode(btn.dataset.view);
+	});
+
+	// Table controls
+	document.getElementById('vintage-select').addEventListener('change', () => {
+		currentVintageIdx = parseInt(document.getElementById('vintage-select').value);
+		tableSortCol = 'name';
+		tableSortAsc = true;
+		renderTable();
+	});
+
+	document.getElementById('table-indicator-select').addEventListener('change', (e) => {
+		currentIndicator = e.target.value;
+		document.getElementById('indicator-select').value = currentIndicator;
+		tableSortCol = 'name';
+		tableSortAsc = true;
+		populateVintageDropdown();
+		renderTable();
+	});
+
+	// Mode toggle (Values / Revisions)
+	document.getElementById('weo-mode-toggle').addEventListener('click', (e) => {
+		const btn = e.target.closest('.weo-mode-btn');
+		if (!btn || btn.classList.contains('active')) return;
+		document.querySelectorAll('.weo-mode-btn').forEach(b => b.classList.toggle('active', b === btn));
+		tableMode = btn.dataset.mode;
+		renderTable();
+	});
 
 	// --- Chart guide (dismissable) ---
 	const guide = document.getElementById('weo-guide');

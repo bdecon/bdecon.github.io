@@ -163,13 +163,21 @@
 	</div>
 
 	<div class="dash-column">
-	<p class="weo-cta"><span aria-hidden="true">&darr;</span> Track forecasts by country and indicator</p>
+	<div class="weo-view-tabs" id="weo-view-toggle">
+		<button class="weo-tab active" data-view="chart">Country chart</button>
+		<button class="weo-tab" data-view="table">Forecast table</button>
+	</div>
+	<p class="weo-cta" id="weo-cta" hidden><span aria-hidden="true">&darr;</span> Track forecasts by country and indicator</p>
 	<div class="weo-controls" id="weo-panel">
 		<div class="combo-box" id="country-combo">
 			<input type="text" id="country-input" class="form-select" autocomplete="off" spellcheck="false" placeholder="Country…" aria-label="Country">
 			<div class="combo-list" id="country-list"></div>
 		</div>
 		<select id="indicator-select" class="form-select" aria-label="Indicator"></select>
+	</div>
+	<div class="weo-controls weo-table-controls" id="weo-table-panel" style="display:none">
+		<select id="vintage-select" class="form-select" aria-label="Vintage"></select>
+		<select id="table-indicator-select" class="form-select" aria-label="Indicator"></select>
 	</div>
 
 	<div class="card card-compact card-chart accent-blue">
@@ -198,6 +206,7 @@
 					<div class="legend-col-header legend-hdr-nc" data-toggle-group="nc">Same-year nowcast</div>
 					<div class="chart-legend-item legend-col1" data-toggle="actual"><span class="legend-swatch legend-line"></span> Actual</div>
 					<div class="chart-legend-item legend-col1" data-toggle="forecast"><span class="legend-swatch legend-line-dashed"></span> Forecast/est.</div>
+					<div class="chart-legend-item legend-col1 legend-off" data-toggle="first_outcome"><span class="legend-swatch legend-line-fo"></span> Initial actual</div>
 					<div class="chart-legend-item legend-col1 legend-off" data-toggle="world"><span class="legend-swatch legend-line-gray"></span> World average</div>
 					<div class="chart-legend-item legend-col1 legend-off" data-toggle="region" id="legend-region"><span class="legend-swatch legend-line-region"></span> <span id="legend-region-name">Region average</span></div>
 					<div class="chart-legend-item legend-col2 legend-off" data-toggle="cloud_1yr"><span class="legend-swatch legend-dot-h1"></span> 1-year forecast</div>
@@ -210,14 +219,27 @@
 				<button class="legend-more-btn" id="legend-more-btn">More layers</button>
 			</div>
 			<canvas id="weoChart" role="img" aria-label="Scatter chart showing how IMF World Economic Outlook forecasts evolved across editions"></canvas>
+		<div class="weo-table-bar" id="weo-table-bar" style="display:none">
+			<div class="weo-mode-toggle" id="weo-mode-toggle">
+				<button class="weo-mode-btn active" data-mode="forecast">Values</button>
+				<button class="weo-mode-btn" data-mode="revision">Revisions</button>
+			</div>
 		</div>
-		<div id="ext-history-bar" class="note ext-history-bar">
-			<span class="view-label">Time range:</span>
-			<span id="view-ext"></span>
-			<span id="view-sep-1"></span>
-			<span id="view-default"></span>
-			<span id="view-sep-2"> | </span>
-			<span id="view-recent"></span>
+		<div class="weo-table-info" id="weo-table-info" style="display:none"></div>
+		<div id="weo-table-wrap" class="weo-table-scroll" style="display:none">
+			<table class="data-table accent-blue" id="weo-forecast-table">
+				<colgroup id="weo-table-colgroup"></colgroup>
+				<thead id="weo-table-head"></thead>
+				<tbody id="weo-table-body"></tbody>
+			</table>
+		</div>
+		</div>
+		<div id="ext-history-bar" class="weo-range-bar">
+			<div class="weo-range-toggle" id="weo-range-toggle">
+				<button class="weo-range-btn" data-view="full">1990&ndash;</button>
+				<button class="weo-range-btn active" data-view="default">2003&ndash;</button>
+				<button class="weo-range-btn" data-view="recent">2022&ndash;</button>
+			</div>
 		</div>
 		<div id="chart-footnote" class="note chart-footnote"></div>
 		<div class="card-footer">
