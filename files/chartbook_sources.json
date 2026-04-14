@@ -1,5 +1,5 @@
 {
-  "generated": "2026-04-13",
+  "generated": "2026-04-14",
   "releases": [
     {
       "name": "Employment Situation",
@@ -21,9 +21,9 @@
     },
     {
       "name": "Producer Price Index",
-      "period": "Feb 2026",
+      "period": "Mar 2026",
       "freq": "monthly",
-      "last_changed": "2026-03-18"
+      "last_changed": "2026-04-14"
     },
     {
       "name": "Import/Export Prices",
@@ -286,6 +286,12 @@
   ],
   "recent": [
     {
+      "name": "Producer Price Index",
+      "period": "Mar 2026",
+      "freq": "monthly",
+      "last_changed": "2026-04-14"
+    },
+    {
       "name": "Employment Situation",
       "period": "Mar 2026",
       "freq": "monthly",
@@ -335,12 +341,6 @@
     },
     {
       "name": "GDP (Third)",
-      "period": "Q4 2025",
-      "freq": "quarterly",
-      "last_changed": "2026-04-09"
-    },
-    {
-      "name": "GDP by Industry",
       "period": "Q4 2025",
       "freq": "quarterly",
       "last_changed": "2026-04-09"
