@@ -10,7 +10,7 @@ Source: [bd-econ.com/imfweo.html](https://bd-econ.com/imfweo.html)
 
 ### Overview
 
-The IMF publishes the World Economic Outlook (WEO) twice yearly (April and October), with macroeconomic forecasts for ~196 countries extending 5–6 years forward. Each edition is a **vintage**. This database collects **72 vintages** from May 1990 through October 2025, so you can see how the IMF's forecast for any country-year evolved over time.
+The IMF publishes the World Economic Outlook (WEO) twice yearly (April and October), with macroeconomic forecasts for ~196 countries extending 5–6 years forward. Each edition is a **vintage**. This database collects **73 vintages** from May 1990 through April 2026, so you can see how the IMF's forecast for any country-year evolved over time.
 
 That matters because the IMF's forecasts shape policy. When the IMF projects 4% growth, governments borrow and spend accordingly. When those projections turn out to be systematically optimistic — as research shows they often are during downturns — the real-world consequences are significant. This database lets you measure that directly.
 
@@ -18,7 +18,7 @@ That matters because the IMF's forecasts shape policy. When the IMF projects 4% 
 
 | File | What it contains |
 |------|-----------------|
-| `imfweo-data.csv.gz` | The forecast database as a CSV. 3.6M rows, 21 indicators, 72 vintages, 196 countries. One row per (country, indicator, vintage, year). |
+| `imfweo-data.csv.gz` | The forecast database as a CSV. 3.9M rows, 21 indicators, 73 vintages, 196 countries. One row per (country, indicator, vintage, year). |
 | `data.json` | Web chart data: 45 vintages (2003–2025), 10 indicators, nested format. Powers the interactive chart. |
 | `data-extended.json` | Early history: 26 vintages (1990–2002), 3 indicators only. |
 | `forecast-scores.json` | Precomputed h=1 forecast accuracy by country (bias, MAE, sign ratio) for 5 indicators × 3 periods. |
@@ -32,7 +32,7 @@ The CSV is the primary format for analysis. Columns:
 |--------|------|-------------|
 | `iso` | string | ISO 3166-1 alpha-3 country code (e.g., `USA`, `GRC`, `BRA`) |
 | `indicator` | string | WEO indicator code (e.g., `NGDP_RPCH`) |
-| `vintage` | string | WEO edition label (e.g., `Oct 2025`, `Apr 2010`) |
+| `vintage` | string | WEO edition label (e.g., `Apr 2026`, `Apr 2010`) |
 | `year` | integer | The year being forecast or observed (e.g., 2020) |
 | `value` | float | The numeric value (e.g., 2.1 for 2.1% GDP growth) |
 | `is_forecast` | 0 or 1 | 1 = this value is a forecast/projection; 0 = actual/historical in this vintage |
@@ -42,7 +42,7 @@ The CSV is the primary format for analysis. Columns:
 
 The CSV is sorted by `iso, indicator, year, vintage` — so for any country-indicator-year, you can read down to see how the forecast evolved across editions.
 
-**Key concept — `is_forecast`**: Each vintage draws a line between "actual" and "forecast" years. In the October 2025 WEO, US GDP growth for 2024 is actual data, but 2025 is a forecast. The `is_forecast` flag marks this boundary. The same year can be a forecast in one vintage and actual in the next — that transition is the revision process.
+**Key concept — `is_forecast`**: Each vintage draws a line between "actual" and "forecast" years. In the April 2026 WEO, US GDP growth for 2025 is actual data, but 2026 is a forecast. The `is_forecast` flag marks this boundary. The same year can be a forecast in one vintage and actual in the next — that transition is the revision process.
 
 **Key concept — `horizon`**: Positive values are forecasts: horizon 1 means this was made roughly one year before the target year (e.g., Oct 2019 forecasting 2020). Horizon 0 is a same-year estimate. **Negative values are post-hoc**: horizon −1 means the vintage was published one year *after* the target year. This matters because GDP data gets revised for years after first publication — US 2020 GDP growth was initially reported as −3.4% but has since been revised to −2.1%. Researchers use the **h=−1 value** (the Fall(t+1) WEO) as the "actual" because it's the first settled estimate, before years of statistical revisions distort the picture. To get this, filter to `horizon == -1` and Fall vintages (`Oct` or `Sep`).
 
@@ -134,7 +134,7 @@ export_web_data.py    → data.json + data-extended.json + CSV
 
 ### What "actual" means
 
-The IMF's "actual" GDP growth for 2020 can differ between the Oct 2021 and Oct 2025 vintages because statistical offices revise their data for years. US 2020 GDP growth was initially reported as −3.4% but has since been revised to −2.1% — a 1.3pp difference that has nothing to do with forecast quality.
+The IMF's "actual" GDP growth for 2020 can differ between the Oct 2021 and Apr 2026 vintages because statistical offices revise their data for years. US 2020 GDP growth was initially reported as −3.4% but has since been revised to −2.1% — a 1.3pp difference that has nothing to do with forecast quality.
 
 When evaluating forecast accuracy, there are two conventions:
 
@@ -159,7 +159,7 @@ df['vintage_season'] = df.vintage.str.extract(r'(Apr|Oct|May|Sep)')[0]
 **Get the latest forecast for a country:**
 ```python
 usa_gdp = df[(df.iso == 'USA') & (df.indicator == 'NGDP_RPCH') 
-             & (df.vintage == 'Oct 2025')]
+             & (df.vintage == 'Apr 2026')]
 ```
 
 **Track how a forecast evolved:**
@@ -171,10 +171,10 @@ us2020 = us2020.sort_values('vintage')
 
 **Compute the latest revision (between two vintages):**
 ```python
-v1 = df[df.vintage == 'Apr 2025']
-v2 = df[df.vintage == 'Oct 2025']
-merged = v1.merge(v2, on=['iso', 'indicator', 'year'], suffixes=('_apr', '_oct'))
-merged['revision'] = merged.value_oct - merged.value_apr
+v1 = df[df.vintage == 'Oct 2025']
+v2 = df[df.vintage == 'Apr 2026']
+merged = v1.merge(v2, on=['iso', 'indicator', 'year'], suffixes=('_oct', '_apr'))
+merged['revision'] = merged.value_apr - merged.value_oct
 # Largest downgrades:
 gdp_rev = merged[merged.indicator == 'NGDP_RPCH']
 gdp_rev.nsmallest(10, 'revision')[['iso', 'year', 'value_apr', 'value_oct', 'revision']]
