@@ -171,9 +171,9 @@
     },
     {
       "name": "Fed Balance Sheet",
-      "period": "Apr 8, 2026",
+      "period": "Apr 15, 2026",
       "freq": "weekly",
-      "last_changed": "2026-04-09"
+      "last_changed": "2026-04-16"
     },
     {
       "name": "GDP (Third)",
@@ -310,6 +310,12 @@
       "last_changed": "2026-04-16"
     },
     {
+      "name": "Fed Balance Sheet",
+      "period": "Apr 15, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-04-16"
+    },
+    {
       "name": "Import/Export Prices",
       "period": "Mar 2026",
       "freq": "monthly",
@@ -335,12 +341,6 @@
     },
     {
       "name": "Consumer Price Index",
-      "period": "Mar 2026",
-      "freq": "monthly",
-      "last_changed": "2026-04-10"
-    },
-    {
-      "name": "Treasury Statement",
       "period": "Mar 2026",
       "freq": "monthly",
       "last_changed": "2026-04-10"
