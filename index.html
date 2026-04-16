@@ -173,7 +173,7 @@
 				<div class="info-box home-sparkline accent-ltblue" id="sparkline-box">
 					<span class="info-box-tab">US Economic Indicators</span>
 					<div class="sparkline-header">
-						<span class="sparkline-label"><img id="sparkline-icon" class="sparkline-icon" src="" alt="" width="58" height="58"><span class="label" id="sparkline-title">Unemployment Rate</span></span>
+						<span class="sparkline-label"><img id="sparkline-icon" class="sparkline-icon" src="data:," alt="" width="58" height="58"><span class="label" id="sparkline-title">Unemployment Rate</span></span>
 						<span class="sparkline-stat"><span class="label" id="sparkline-period"></span><span class="key-stat" id="sparkline-value">—</span></span>
 					</div>
 					<div class="sparkline-wrap"><canvas id="sparkline-chart"></canvas></div>
@@ -322,7 +322,7 @@
 					const [y, q] = d.split('-Q');
 					return new Date(parseInt(y), (parseInt(q) - 1) * 3) >= cutoff;
 				}
-				return new Date(d) >= cutoff;
+				return new Date(d + 'T12:00:00') >= cutoff;
 			});
 
 			// Determine which column to read

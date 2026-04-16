@@ -1,5 +1,5 @@
 {
-  "generated": "2026-04-15",
+  "generated": "2026-04-16",
   "releases": [
     {
       "name": "Employment Situation",
@@ -51,9 +51,9 @@
     },
     {
       "name": "Industrial Production",
-      "period": "Feb 2026",
+      "period": "Mar 2026",
       "freq": "monthly",
-      "last_changed": "2026-03-16"
+      "last_changed": "2026-04-16"
     },
     {
       "name": "Construction Spending",
@@ -117,9 +117,9 @@
     },
     {
       "name": "Metro Unemployment",
-      "period": "Dec 2025",
+      "period": "Jan 2026",
       "freq": "monthly",
-      "last_changed": "2026-02-17"
+      "last_changed": "2026-04-16"
     },
     {
       "name": "TIC Capital Flows",
@@ -159,15 +159,15 @@
     },
     {
       "name": "Mortgage Rates",
-      "period": "Apr 9, 2026",
+      "period": "Apr 16, 2026",
       "freq": "weekly",
-      "last_changed": "2026-04-09"
+      "last_changed": "2026-04-16"
     },
     {
       "name": "Initial Jobless Claims",
-      "period": "Apr 4, 2026",
+      "period": "Apr 11, 2026",
       "freq": "weekly",
-      "last_changed": "2026-04-09"
+      "last_changed": "2026-04-16"
     },
     {
       "name": "Fed Balance Sheet",
@@ -286,6 +286,30 @@
   ],
   "recent": [
     {
+      "name": "Industrial Production",
+      "period": "Mar 2026",
+      "freq": "monthly",
+      "last_changed": "2026-04-16"
+    },
+    {
+      "name": "Metro Unemployment",
+      "period": "Jan 2026",
+      "freq": "monthly",
+      "last_changed": "2026-04-16"
+    },
+    {
+      "name": "Mortgage Rates",
+      "period": "Apr 16, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-04-16"
+    },
+    {
+      "name": "Initial Jobless Claims",
+      "period": "Apr 11, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-04-16"
+    },
+    {
       "name": "Import/Export Prices",
       "period": "Mar 2026",
       "freq": "monthly",
@@ -320,30 +344,6 @@
       "period": "Mar 2026",
       "freq": "monthly",
       "last_changed": "2026-04-10"
-    },
-    {
-      "name": "Personal Income & Outlays",
-      "period": "Feb 2026",
-      "freq": "monthly",
-      "last_changed": "2026-04-09"
-    },
-    {
-      "name": "Wage Tracker",
-      "period": "Mar 2026",
-      "freq": "monthly",
-      "last_changed": "2026-04-09"
-    },
-    {
-      "name": "Mortgage Rates",
-      "period": "Apr 9, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-04-09"
-    },
-    {
-      "name": "Initial Jobless Claims",
-      "period": "Apr 4, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-04-09"
     }
   ],
   "st_series": [

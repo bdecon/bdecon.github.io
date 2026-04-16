@@ -1,5 +1,17 @@
+(function() {
+'use strict';
+
 // Read font from CSS variable
 const SITE_FONT = getComputedStyle(document.documentElement).getPropertyValue('--font').trim() || "'Lato', sans-serif";
+
+// Shared month abbreviations (used in tick callbacks, tooltips, last-value labels)
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+	'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+// Parse a date string (e.g. "2026-02-01") at noon to avoid UTC midnight timezone shift
+function parseDate(dateStr) {
+	return new Date(dateStr + 'T12:00:00');
+}
 
 // Number formatting with Intl.NumberFormat (comma grouping, fixed decimals)
 const numFmtCache = {};
@@ -64,14 +76,14 @@ const recessionPeriods = [
 // Recession shading plugin
 const recessionPlugin = {
 	id: 'recessionShading',
-	beforeDraw: function(chart) {
-		const config = chart.config._config.datasetConfig;
+	beforeDraw: function(ch) {
+		const config = ch.config._config.datasetConfig;
 		if (config?.timeSeries === false) return;
 
-		const ctx = chart.ctx;
-		const xAxis = chart.scales.x;
-		const yAxis = chart.scales.y;
-		const labels = chart.data.labels;
+		const ctx = ch.ctx;
+		const xAxis = ch.scales.x;
+		const yAxis = ch.scales.y;
+		const labels = ch.data.labels;
 		if (!labels || labels.length === 0) return;
 
 		const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
@@ -102,13 +114,13 @@ const recessionPlugin = {
 // Reference line plugin (e.g., 2% inflation target)
 const refLinePlugin = {
 	id: 'refLines',
-	afterDraw: function(chart) {
-		const config = chart.config._config.datasetConfig;
+	afterDraw: function(ch) {
+		const config = ch.config._config.datasetConfig;
 		if (!config?.refLines) return;
 
-		const ctx = chart.ctx;
-		const yAxis = chart.scales.y;
-		const xAxis = chart.scales.x;
+		const ctx = ch.ctx;
+		const yAxis = ch.scales.y;
+		const xAxis = ch.scales.x;
 		const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
 
 		ctx.save();
@@ -202,16 +214,6 @@ function getChartTypeConfig(type, colors, config) {
 					tension: 0.1
 				}
 			};
-		case 'area':
-			return {
-				type: 'line',
-				dataset: {
-					...baseDataset,
-					fill: true,
-					tension: 0.1,
-					backgroundColor: colors.backgroundStrong
-				}
-			};
 		case 'bar':
 			return {
 				type: 'bar',
@@ -221,16 +223,6 @@ function getChartTypeConfig(type, colors, config) {
 					borderWidth: 0,
 					categoryPercentage: 0.7,
 					barPercentage: 0.85
-				}
-			};
-		case 'scatter':
-			return {
-				type: 'scatter',
-				dataset: {
-					backgroundColor: colors.line,
-					borderColor: colors.line,
-					pointRadius: 3,
-					pointHoverRadius: 5
 				}
 			};
 		default:
@@ -246,56 +238,46 @@ function getDateFormatConfig(dateFormat) {
 	switch (dateFormat) {
 		case 'monthly':
 			return {
-				tickCallback: function(value, index) {
+				tickCallback: function(value) {
 					const dateStr = this.getLabelForValue(value);
 					return dateStr ? dateStr.substring(0, 4) : '';
 				},
 				tooltipTitle: function(context) {
-					const date = new Date(context[0].label);
-					const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-						'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-					return months[date.getUTCMonth()] + ' ' + date.getUTCFullYear();
+					const date = parseDate(context[0].label);
+					return MONTHS[date.getMonth()] + ' ' + date.getFullYear();
 				},
 				lastValueFormat: function(date) {
-					const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-						'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-					return [months[date.getUTCMonth()], date.getUTCFullYear()];
+					return [MONTHS[date.getMonth()], date.getFullYear()];
 				}
 			};
 		case 'annual':
 			return {
-				tickCallback: function(value, index) {
+				tickCallback: function(value) {
 					const dateStr = this.getLabelForValue(value);
 					return dateStr ? dateStr.substring(0, 4) : '';
 				},
 				tooltipTitle: function(context) {
-					const date = new Date(context[0].label);
-					return date.getUTCFullYear().toString();
+					const date = parseDate(context[0].label);
+					return date.getFullYear().toString();
 				},
 				lastValueFormat: function(date) {
-					return [date.getUTCFullYear()];
+					return [date.getFullYear()];
 				}
 			};
 		case 'weekly':
 			return {
-				tickCallback: function(value, index) {
+				tickCallback: function(value) {
 					const dateStr = this.getLabelForValue(value);
 					if (!dateStr) return '';
-					const date = new Date(dateStr);
-					const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-						'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-					return months[date.getUTCMonth()] + ' ' + date.getUTCFullYear();
+					const date = parseDate(dateStr);
+					return MONTHS[date.getMonth()] + ' ' + date.getFullYear();
 				},
 				tooltipTitle: function(context) {
-					const date = new Date(context[0].label);
-					const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-						'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-					return months[date.getUTCMonth()] + ' ' + date.getUTCDate() + ', ' + date.getUTCFullYear();
+					const date = parseDate(context[0].label);
+					return MONTHS[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
 				},
 				lastValueFormat: function(date) {
-					const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-						'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-					return [months[date.getUTCMonth()] + ' ' + date.getUTCDate(), date.getUTCFullYear()];
+					return [MONTHS[date.getMonth()] + ' ' + date.getDate(), date.getFullYear()];
 				}
 			};
 		case 'daily':
@@ -317,18 +299,18 @@ function getDateFormatConfig(dateFormat) {
 		case 'quarterly':
 		default:
 			return {
-				tickCallback: function(value, index) {
+				tickCallback: function(value) {
 					const dateStr = this.getLabelForValue(value);
 					return dateStr ? dateStr.substring(0, 4) : '';
 				},
 				tooltipTitle: function(context) {
-					const date = new Date(context[0].label);
-					const quarter = Math.ceil((date.getUTCMonth() + 1) / 3);
-					return 'Q' + quarter + ' ' + date.getUTCFullYear();
+					const date = parseDate(context[0].label);
+					const quarter = Math.ceil((date.getMonth() + 1) / 3);
+					return 'Q' + quarter + ' ' + date.getFullYear();
 				},
 				lastValueFormat: function(date) {
-					const quarter = 'Q' + Math.ceil((date.getUTCMonth() + 1) / 3);
-					return [quarter, date.getUTCFullYear()];
+					const quarter = 'Q' + Math.ceil((date.getMonth() + 1) / 3);
+					return [quarter, date.getFullYear()];
 				}
 			};
 	}
@@ -337,20 +319,20 @@ function getDateFormatConfig(dateFormat) {
 // Custom plugin to draw last value label
 const lastValuePlugin = {
 	id: 'lastValueLabel',
-	afterDraw: function(chart) {
+	afterDraw: function(ch) {
 		if (window.innerWidth <= 760) return;
-		const config = chart.config._config.datasetConfig;
+		const config = ch.config._config.datasetConfig;
 		const isMultiSeries = config?.series && config.series.length > 1;
 		const decimals = config?.decimals ?? 2;
 		const prefix = config?.valuePrefix || '';
 		const suffix = config?.valueSuffix || '';
-		const ctx = chart.ctx;
+		const ctx = ch.ctx;
 
 		// For multi-series, position labels at actual y-positions (or stack if overlapping)
 		if (isMultiSeries) {
-			const visibleDatasets = chart.data.datasets
+			const visibleDatasets = ch.data.datasets
 				.map((ds, i) => ({ ds, i }))
-				.filter(({ i }) => chart.isDatasetVisible(i));
+				.filter(({ i }) => ch.isDatasetVisible(i));
 
 			if (visibleDatasets.length === 0) return;
 
@@ -362,14 +344,14 @@ const lastValuePlugin = {
 				}
 				if (lastIdx < 0) return null;
 
-				const meta = chart.getDatasetMeta(i);
+				const meta = ch.getDatasetMeta(i);
 				const lastPoint = meta.data[lastIdx];
 				if (!lastPoint) return null;
 
-				const lastDate = new Date(chart.data.labels[lastIdx]);
+				const lastDate = parseDate(ch.data.labels[lastIdx]);
 				const dateLabels = currentDateFormat
 					? currentDateFormat.lastValueFormat(lastDate)
-					: ['Q' + Math.ceil((lastDate.getUTCMonth() + 1) / 3), lastDate.getUTCFullYear()];
+					: ['Q' + Math.ceil((lastDate.getMonth() + 1) / 3), lastDate.getFullYear()];
 
 				return {
 					ds, i, lastIdx,
@@ -392,12 +374,12 @@ const lastValuePlugin = {
 				// Multiple series share the same end date — one shared date label
 				const x = labelData[0].xPos + 8;
 				const minGap = 13;
-				const chartBottom = chart.chartArea.bottom;
+				const chartBottom = ch.chartArea.bottom;
 
 				// Position value labels at actual y, then de-overlap
 				const sorted = [...labelData].sort((a, b) => a.yPos - b.yPos);
 				const dateHeight = labelData[0].dateLabels.length * 11 + 3;
-				const minTop = chart.chartArea.top + dateHeight + 4;
+				const minTop = ch.chartArea.top + dateHeight + 4;
 				const positions = sorted.map(d => Math.max(minTop, Math.min(d.yPos, chartBottom - 4)));
 
 				// Push overlapping labels downward
@@ -456,8 +438,8 @@ const lastValuePlugin = {
 			ctx.restore();
 		} else {
 			// Single series - original behavior
-			const dataset = chart.data.datasets[0];
-			const meta = chart.getDatasetMeta(0);
+			const dataset = ch.data.datasets[0];
+			const meta = ch.getDatasetMeta(0);
 			const lastIndex = dataset.data.length - 1;
 			const lastPoint = meta.data[lastIndex];
 
@@ -466,12 +448,12 @@ const lastValuePlugin = {
 			const x = lastPoint.x + 8;
 			const y = lastPoint.y;
 
-			const lastDate = new Date(chart.data.labels[lastIndex]);
+			const lastDate = parseDate(ch.data.labels[lastIndex]);
 			const valueStr = fmtNum(dataset.data[lastIndex], decimals, prefix, suffix);
 
 			const dateLabels = currentDateFormat
 				? currentDateFormat.lastValueFormat(lastDate)
-				: ['Q' + Math.ceil((lastDate.getUTCMonth() + 1) / 3), lastDate.getUTCFullYear()];
+				: ['Q' + Math.ceil((lastDate.getMonth() + 1) / 3), lastDate.getFullYear()];
 
 			ctx.save();
 			ctx.font = `10px ${SITE_FONT}`;
@@ -493,12 +475,12 @@ const lastValuePlugin = {
 // Custom plugin to draw data labels above bars
 const dataLabelsPlugin = {
 	id: 'dataLabels',
-	afterDatasetsDraw: function(chart) {
-		const config = chart.config._config.datasetConfig;
+	afterDatasetsDraw: function(ch) {
+		const config = ch.config._config.datasetConfig;
 		if (!config?.showDataLabels) return;
 
-		const ctx = chart.ctx;
-		const meta = chart.getDatasetMeta(0);
+		const ctx = ch.ctx;
+		const meta = ch.getDatasetMeta(0);
 		const decimals = config.decimals ?? 0;
 
 		ctx.save();
@@ -508,7 +490,7 @@ const dataLabelsPlugin = {
 		ctx.textBaseline = 'bottom';
 
 		meta.data.forEach((bar, index) => {
-			const value = chart.data.datasets[0].data[index];
+			const value = ch.data.datasets[0].data[index];
 			ctx.fillText(fmtNum(value, decimals), bar.x, bar.y - 4);
 		});
 
@@ -532,30 +514,27 @@ function showError(message) {
 function filterToLastYears(data, years) {
 	const cutoffDate = new Date();
 	cutoffDate.setFullYear(cutoffDate.getFullYear() - years);
-	return data.filter(d => new Date(d.date) >= cutoffDate);
+	return data.filter(d => parseDate(d.date) >= cutoffDate);
 }
 
 // Tick callback for filtered view (shows month/quarter + year)
 function getFilteredTickCallback(dateFormat) {
-	const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-		'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-	return function(value, index) {
+	return function(value) {
 		const dateStr = this.getLabelForValue(value);
 		if (!dateStr) return '';
-		const date = new Date(dateStr);
-		const month = date.getUTCMonth();
-		const year = date.getUTCFullYear();
+		const date = parseDate(dateStr);
+		const month = date.getMonth();
+		const year = date.getFullYear();
 
 		if (dateFormat === 'monthly') {
-			return months[month] + ' ' + year;
+			return MONTHS[month] + ' ' + year;
 		} else if (dateFormat === 'quarterly') {
 			const quarter = Math.floor(month / 3) + 1;
 			return 'Q' + quarter + ' ' + year;
 		} else if (dateFormat === 'annual') {
 			return year.toString();
 		} else {
-			return months[month] + ' ' + year;
+			return MONTHS[month] + ' ' + year;
 		}
 	};
 }
@@ -762,8 +741,6 @@ function updateBackFace(config, data, latestDate, prevDate) {
 	const cardTotal = manifest.charts.length;
 	document.getElementById('card-number').textContent = `#${cardIndex} / ${cardTotal}`;
 
-	// Featured badge
-
 	// Description
 	const descEl = document.getElementById('chart-description');
 	if (config.description) {
@@ -804,14 +781,14 @@ function generateStatsTable(config, data, latestDate, prevDate) {
 		// Time-series stacked bar: long format (periods as rows, series as columns)
 		if (config.timeSeries !== false) {
 			const last = data[data.length - 1];
-			const lastDate = new Date(last.date);
+			const lastDate = parseDate(last.date);
 			const dateFormat = getDateFormatConfig(config.dateFormat || 'quarterly');
 
 			function findClosestStacked(targetDate) {
 				let closest = null;
 				let minDiff = Infinity;
 				for (const entry of data) {
-					const diff = Math.abs(new Date(entry.date) - targetDate);
+					const diff = Math.abs(parseDate(entry.date) - targetDate);
 					if (diff < minDiff) { minDiff = diff; closest = entry; }
 				}
 				return closest && minDiff < 100 * 24 * 60 * 60 * 1000 ? closest : null;
@@ -829,7 +806,7 @@ function generateStatsTable(config, data, latestDate, prevDate) {
 			config.stackedSeries.forEach(s => { html += `<th>${s.label}</th>`; });
 			html += '</tr></thead><tbody>';
 			rows.forEach(({ entry, isLatest }) => {
-				const d = new Date(entry.date);
+				const d = parseDate(entry.date);
 				const label = dateFormat.lastValueFormat(d).join(' ');
 				const b = isLatest ? '<strong>' : '';
 				const bc = isLatest ? '</strong>' : '';
@@ -879,11 +856,11 @@ function generateStatsTable(config, data, latestDate, prevDate) {
 		let prevLabel = 'Previous';
 		if (latestDate) {
 			const dateFmt = getDateFormatConfig(config.latestDateFormat || 'monthly');
-			latestLabel = dateFmt.lastValueFormat(new Date(latestDate)).join(' ');
+			latestLabel = dateFmt.lastValueFormat(parseDate(latestDate)).join(' ');
 		}
 		if (prevDate) {
 			const dateFmt = getDateFormatConfig(config.latestDateFormat || 'monthly');
-			prevLabel = dateFmt.lastValueFormat(new Date(prevDate)).join(' ');
+			prevLabel = dateFmt.lastValueFormat(parseDate(prevDate)).join(' ');
 		}
 		let html = `<table class="dash-table card-stats-table"><thead><tr><th>Category</th><th>${latestLabel}</th><th>${prevLabel}</th></tr></thead><tbody>`;
 		data.forEach(d => {
@@ -918,14 +895,14 @@ function generateStatsTable(config, data, latestDate, prevDate) {
 				break;
 			}
 		}
-		const lastDate = new Date(last.date);
+		const lastDate = parseDate(last.date);
 		const dateFormat = getDateFormatConfig(config.dateFormat || 'quarterly');
 
 		function findClosestMulti(targetDate) {
 			let closest = null;
 			let minDiff = Infinity;
 			for (const entry of data) {
-				const diff = Math.abs(new Date(entry.date) - targetDate);
+				const diff = Math.abs(parseDate(entry.date) - targetDate);
 				if (diff < minDiff) {
 					minDiff = diff;
 					closest = entry;
@@ -948,7 +925,7 @@ function generateStatsTable(config, data, latestDate, prevDate) {
 		tableSeries.forEach(s => { html += `<th>${s.label}</th>`; });
 		html += '</tr></thead><tbody>';
 		rows.forEach(({ entry, isLatest }) => {
-			const d = new Date(entry.date);
+			const d = parseDate(entry.date);
 			const label = dateFormat.lastValueFormat(d).join(' ');
 			const b = isLatest ? '<strong>' : '';
 			const bc = isLatest ? '</strong>' : '';
@@ -965,14 +942,14 @@ function generateStatsTable(config, data, latestDate, prevDate) {
 
 	// Time series - single series: 5 consecutive years
 	const last = data[data.length - 1];
-	const lastDate = new Date(last.date);
+	const lastDate = parseDate(last.date);
 	const dateFormat = getDateFormatConfig(config.dateFormat || 'quarterly');
 
 	function findClosest(targetDate) {
 		let closest = null;
 		let minDiff = Infinity;
 		for (const entry of data) {
-			const diff = Math.abs(new Date(entry.date) - targetDate);
+			const diff = Math.abs(parseDate(entry.date) - targetDate);
 			if (diff < minDiff) {
 				minDiff = diff;
 				closest = entry;
@@ -1001,7 +978,7 @@ function generateStatsTable(config, data, latestDate, prevDate) {
 		comps.forEach(c => { html += `</th><th>${c.label}`; });
 		html += '</th></tr></thead><tbody>';
 		rows.forEach(({ entry, isLatest }) => {
-			const d = new Date(entry.date);
+			const d = parseDate(entry.date);
 			const label = dateFormat.lastValueFormat(d).join(' ');
 			const b = isLatest ? '<strong>' : '';
 			const bc = isLatest ? '</strong>' : '';
@@ -1032,7 +1009,7 @@ function generateStatsTable(config, data, latestDate, prevDate) {
 	const chgHeader = pctChange ? 'Chg %' : 'Chg';
 	let html = `<table class="dash-table card-stats-table"><thead><tr><th>Period</th><th>Value</th><th>${chgHeader}</th></tr></thead><tbody>`;
 	rows.forEach(({ entry, isLatest }, i) => {
-		const d = new Date(entry.date);
+		const d = parseDate(entry.date);
 		const label = dateFormat.lastValueFormat(d).join(' ');
 		const change = i === 0 ? '\u2014' : formatChange(entry.value, rows[i - 1].entry.value);
 		const b = isLatest ? '<strong>' : '';
@@ -1330,15 +1307,15 @@ async function loadChart(datasetId) {
 			let latestLabel = 'Latest';
 			let prevLabel = 'Previous';
 			if (latestDate) {
-				const d = new Date(latestDate);
+				const d = parseDate(latestDate);
 				latestLabel = useFullMonth
-					? fullMonths[d.getUTCMonth()] + ' ' + d.getUTCFullYear()
+					? fullMonths[d.getMonth()] + ' ' + d.getFullYear()
 					: dateFmt2.lastValueFormat(d).join(' ');
 			}
 			if (prevDate) {
-				const d = new Date(prevDate);
+				const d = parseDate(prevDate);
 				prevLabel = useFullMonth
-					? fullMonths[d.getUTCMonth()] + ' ' + d.getUTCFullYear()
+					? fullMonths[d.getMonth()] + ' ' + d.getFullYear()
 					: dateFmt2.lastValueFormat(d).join(' ');
 			}
 
@@ -1347,8 +1324,6 @@ async function loadChart(datasetId) {
 
 			// Render on the standard canvas
 			document.getElementById('lineChart').style.display = 'block';
-			const customContainer = document.getElementById('custom-chart');
-			if (customContainer) customContainer.style.display = 'none';
 
 			if (chart) { chart.destroy(); chart = null; }
 			const ctx = document.getElementById('lineChart').getContext('2d');
@@ -1382,16 +1357,16 @@ async function loadChart(datasetId) {
 			const wrapLabel = (name) => {
 				if (name.length <= LABEL_WRAP) return name;
 				const words = name.split(' ');
-				const lines = [''];
+				const wrapped = [''];
 				words.forEach(w => {
-					const cur = lines[lines.length - 1];
+					const cur = wrapped[wrapped.length - 1];
 					if ((cur + ' ' + w).trim().length <= LABEL_WRAP) {
-						lines[lines.length - 1] = (cur + ' ' + w).trim();
+						wrapped[wrapped.length - 1] = (cur + ' ' + w).trim();
 					} else {
-						lines.push(w);
+						wrapped.push(w);
 					}
 				});
-				return lines;
+				return wrapped;
 			};
 
 			chart = new Chart(ctx, {
@@ -1421,14 +1396,14 @@ async function loadChart(datasetId) {
 				},
 				plugins: [{
 					id: 'dualBarDataLabels',
-					afterDatasetsDraw: function(chart) {
-						const ctx = chart.ctx;
+					afterDatasetsDraw: function(ch) {
+						const ctx = ch.ctx;
 						ctx.save();
 						ctx.font = `${VALUE_FONT}px ${SITE_FONT}`;
 						ctx.textBaseline = 'middle';
-						chart.data.datasets.forEach((dataset, di) => {
-							if (!chart.isDatasetVisible(di)) return;
-							chart.getDatasetMeta(di).data.forEach((bar, i) => {
+						ch.data.datasets.forEach((dataset, di) => {
+							if (!ch.isDatasetVisible(di)) return;
+							ch.getDatasetMeta(di).data.forEach((bar, i) => {
 								const val = dataset.data[i];
 								if (val == null || isNaN(val)) return;
 								ctx.fillStyle = tc.textDark;
@@ -1548,12 +1523,12 @@ async function loadChart(datasetId) {
 			const showTotal = config.stackedDefault === 'total' && !isBreakdownView;
 			const getColor = (s) => isDark && s.darkColor ? s.darkColor : s.color;
 
-			const buildDatasets = (data) => {
+			const buildDatasets = (rows) => {
 				if (showTotal) {
 					const colors = colorMap[config.color || 'teal'];
 					return [{
 						label: config.tooltipLabel || 'Total',
-						data: data.map(d => config.stackedSeries.reduce((sum, s) => sum + (d[s.col] || 0), 0)),
+						data: rows.map(d => config.stackedSeries.reduce((sum, s) => sum + (d[s.col] || 0), 0)),
 						backgroundColor: colors.line,
 						borderColor: colors.line,
 						borderWidth: 0
@@ -1561,7 +1536,7 @@ async function loadChart(datasetId) {
 				}
 				return config.stackedSeries.map(s => ({
 					label: s.label,
-					data: data.map(d => d[s.col] || 0),
+					data: rows.map(d => d[s.col] || 0),
 					backgroundColor: getColor(s),
 					borderColor: isDark ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.5)',
 					borderWidth: isTimeSeries ? 0 : 0.5,
@@ -1572,11 +1547,9 @@ async function loadChart(datasetId) {
 				}));
 			};
 
-			// Show canvas, hide custom container
+			// Show canvas
 			document.getElementById('lineChart').style.display = 'block';
 			document.getElementById('lineChart').parentElement.style.height = '';
-			const customContainer = document.getElementById('custom-chart');
-			if (customContainer) customContainer.style.display = 'none';
 
 			const ctx = document.getElementById('lineChart').getContext('2d');
 			const dec = config.decimals ?? 2;
@@ -1591,7 +1564,7 @@ async function loadChart(datasetId) {
 					: getDateFormatConfig(config.dateFormat || 'quarterly').tickCallback;
 			} else {
 				// Non-time-series: two-row labels — "Q1" with year below on Q1, just "Q2"/"Q3"/"Q4" otherwise
-				stackedTickCallback = function(value, index) {
+				stackedTickCallback = function(value) {
 					const raw = this.getLabelForValue(value);
 					if (!raw) return '';
 					const [yr, q] = raw.split('-');
@@ -1753,7 +1726,7 @@ async function loadChart(datasetId) {
 			const mobileLatest = document.getElementById('chart-latest-mobile');
 			if (isTimeSeries) {
 				const lastEntry = stackData[stackData.length - 1];
-				const lastDate = new Date(lastEntry.date);
+				const lastDate = parseDate(lastEntry.date);
 				const dateStr = currentDateFormat.lastValueFormat(lastDate).join(' ');
 				const parts = config.stackedSeries.map(s => {
 					const v = lastEntry[s.col];
@@ -1790,13 +1763,9 @@ async function loadChart(datasetId) {
 			return;
 		}
 
-		// Show canvas for regular charts, hide custom container
+		// Show canvas for regular charts
 		document.getElementById('lineChart').style.display = 'block';
 		document.getElementById('lineChart').parentElement.style.height = '';
-		const customContainer = document.getElementById('custom-chart');
-		if (customContainer) {
-			customContainer.style.display = 'none';
-		}
 
 		// Get configurations
 		currentDateFormat = getDateFormatConfig(config.dateFormat || 'quarterly');
@@ -1890,7 +1859,7 @@ async function loadChart(datasetId) {
 									return context.dataset.label + ': ' + formattedValue;
 								}
 								const label = config.tooltipLabel || config.title;
-								const lines = [label + ': ' + formattedValue];
+								const tipLines = [label + ': ' + formattedValue];
 								if (config.components && fullData) {
 									const dateLabel = chart.data.labels[context.dataIndex];
 									const entry = fullData.find(d => d.date === dateLabel);
@@ -1898,12 +1867,12 @@ async function loadChart(datasetId) {
 										config.components.forEach((comp, ci) => {
 											if (entry.components[ci] != null) {
 												const cv = fmtNum(entry.components[ci], comp.decimals ?? 1, comp.prefix, comp.suffix);
-												lines.push('  ' + comp.label + ': ' + cv);
+												tipLines.push('  ' + comp.label + ': ' + cv);
 											}
 										});
 									}
 								}
-								return lines;
+								return tipLines;
 							}
 						}
 					},
@@ -1959,7 +1928,7 @@ async function loadChart(datasetId) {
 		const mobileLatest = document.getElementById('chart-latest-mobile');
 		if (config.timeSeries !== false) {
 			const lastEntry = data[data.length - 1];
-			const lastDate = new Date(lastEntry.date);
+			const lastDate = parseDate(lastEntry.date);
 			const dateLabels = currentDateFormat.lastValueFormat(lastDate);
 			const dateStr = dateLabels.join(' ');
 			const prefix = config.valuePrefix || '';
@@ -2212,5 +2181,14 @@ document.getElementById('btn-download-png').addEventListener('click', function()
 	link.click();
 });
 
+// Wire up inline toggle buttons via addEventListener (instead of inline onclick)
+document.getElementById('chart-filter').querySelector('button').addEventListener('click', toggleTimeRange);
+document.getElementById('chart-breakdown').querySelector('button').addEventListener('click', toggleBreakdown);
+
+// Expose refreshChartColors for theme toggle (called from nav.js)
+window.refreshChartColors = refreshChartColors;
+
 // Initialize on page load
 init();
+
+})();
