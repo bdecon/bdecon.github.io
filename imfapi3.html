@@ -250,7 +250,7 @@ ax.set_xlabel('Source: IMF World Economic Outlook')</code></pre>
 	<p>Out[4]:</p>
 	<picture><source srcset="images/imf_gdp_growth.webp" type="image/webp"><img decoding="async" src="images/imf_gdp_growth.png" alt="Thailand vs Vietnam GDP Growth from WEO" loading="lazy" width="558" height="443"/></picture>
 	<p>Vietnam has sustained higher growth rates over most of this period, with both countries hit hard by COVID-19 in 2020&ndash;2021. Other popular WEO indicators include <code>PCPIPCH</code> (CPI inflation), <code>LUR</code> (unemployment rate), and <code>GGXWDG_NGDP</code> (government debt as % of GDP).</p>
-	<p>The SDMX API typically keeps <strong>2&ndash;3 recent WEO editions</strong> accessible via version numbers (e.g., <code>6.0.0</code> for April 2025, <code>9.0.0</code> for October 2025), but older editions are removed over time. To access archived WEO vintages, download them from the <a href="https://www.imf.org/en/Publications/SPROLLs/world-economic-outlook-databases">WEO Database page</a> or explore the <a href="imfweo.html">WEO Forecast Tracker</a>, which compiles all editions back to 1990.</p>
+	<p>The SDMX API exposes WEO editions as dataflow versions (use <code>dataflow/IMF.RES/WEO/*?detail=allstubs</code> to list what&rsquo;s currently available). For archived WEO vintages beyond what the API carries, download them from the <a href="https://www.imf.org/en/Publications/SPROLLs/world-economic-outlook-databases">WEO Database page</a> or explore the <a href="imfweo.html">WEO Forecast Tracker</a>, which compiles all editions back to 1990.</p>
 
 	<h4>Distinguishing Forecasts from Actuals</h4>
 	<p>WEO data mixes historical values and projections, but the API does not flag which is which in the main data response. To find the boundary, request the <code>LATEST_ACTUAL_ANNUAL_DATA</code> attribute. This returns the last year of actual data for each country&ndash;indicator pair; any year after that is a forecast.</p>
@@ -295,7 +295,7 @@ print(f"USA NGDP_RPCH: actuals through "
       f"{estimates_start[('USA', 'NGDP_RPCH')]}")</code></pre>
 	<p>Out[5a]:</p>
 <pre>USA NGDP_RPCH: actuals through 2024</pre>
-	<p>With this boundary, you can split any WEO series into historical data and forecasts programmatically&mdash;no hard-coding of dates needed. About 19 countries (including India, Egypt, and Ethiopia) use fiscal years in the format <code>FY2023/24</code>; the first year is the conventional cutoff.</p>
+	<p>With this boundary, you can split any WEO series into historical data and forecasts programmatically&mdash;no hard-coding of dates needed. Some countries (including India, Egypt, and Ethiopia) use fiscal years in the format <code>FY2023/24</code>; the first year is the conventional cutoff.</p>
 	<p>To explore how WEO forecasts have evolved across editions, see the <a href="imfweo.html">WEO Forecast Tracker</a>.</p>
 
 	<hr class="section-bar accent-blue">

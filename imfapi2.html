@@ -292,7 +292,7 @@ ax = ax.set_xlabel(recent)</code></pre>
 
 	<hr class="section-bar accent-blue">
 	<h3>Direct API Access with Requests</h3>
-	<p>The sdmx1 library is a convenience wrapper around standard HTTP calls. If you prefer to avoid the dependency&mdash;or want to understand what's happening underneath&mdash;you can query the same API directly with <code>requests</code>. Ask for CSV format and you get a pandas-ready response:</p>
+	<p>The sdmx1 library handles SDMX message parsing, data structure lookups, and format conversion behind the scenes. If you prefer to avoid the dependency&mdash;or want to see exactly what the API returns&mdash;you can query it directly with <code>requests</code>. Ask for CSV format and you get a pandas-ready response:</p>
 	<p>In[7]:</p>
 	<pre><code class="python">import requests
 import io

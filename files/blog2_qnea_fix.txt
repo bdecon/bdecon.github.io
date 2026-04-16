@@ -1,0 +1,24 @@
+FIND THIS TEXT IN BLOG POST 2 (https://briandew.wordpress.com/2016/08/10/using-the-imf-data-api-data-retrieval-with-python/):
+================================================================================
+
+The key format for QNEA is COUNTRY.INDICATOR.PRICE_TYPE.TRANSFORMATION.UNIT.FREQUENCY. In our key:
+
+IND+CHN+BRA+MEX — four countries in one request
+B1GQ — GDP indicator
+Q — constant prices (real GDP, not nominal)
+Empty dimensions (..) mean "all values"—we'll filter afterward
+XDC — domestic currency
+Q — quarterly frequency
+
+================================================================================
+REPLACE WITH:
+================================================================================
+
+The key format for QNEA is COUNTRY.INDICATOR.PRICE_TYPE.S_ADJUSTMENT.TYPE_OF_TRANSFORMATION.FREQUENCY. In our key:
+
+IND+CHN+BRA+MEX — four countries in one request
+B1GQ — GDP indicator
+Q — constant prices (real GDP, not nominal)
+Empty position (..) — all seasonal adjustment types (we filter to NSA afterward)
+XDC — domestic currency
+Q — quarterly frequency
