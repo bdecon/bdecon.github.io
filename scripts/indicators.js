@@ -1343,7 +1343,7 @@ async function loadChart(datasetId) {
 			const BAR_THICKNESS = 0.98;                   // bar width (0-1, fraction of slot)
 			const GROUP_THICKNESS = 0.7;                  // group width (0-1, fraction of category)
 			const PAD_LEFT = isMobile ? 2 : 6;            // px, space left of y-labels
-			const PAD_RIGHT = isMobile ? -24 : -2;        // px, space right of value labels
+			const PAD_RIGHT = isMobile ? -24 : 32;        // px, space right of value labels
 			const PAD_TOP = 0;                            // px, space above legend
 			const PAD_BOTTOM = 2;                         // px, space below last bar
 			const LABEL_FONT = 14;                        // y-label font size

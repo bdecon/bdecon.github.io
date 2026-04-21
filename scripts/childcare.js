@@ -584,9 +584,9 @@
 		svg.attr('viewBox', '0 0 ' + VB_W + ' ' + vbH);
 
 		// Show/hide spending toggle
-		spendingToggle.classList.toggle('visible', isSpendingMetric(currentMetric));
+		if (spendingToggle) spendingToggle.classList.toggle('visible', isSpendingMetric(currentMetric));
 		// Show/hide wage occupation toggle
-		wageToggle.classList.toggle('visible', isWageMetric(currentMetric));
+		if (wageToggle) wageToggle.classList.toggle('visible', isWageMetric(currentMetric));
 
 		const colorInfo = getColorScale(currentMetric.id);
 		mapIndicator.textContent = currentMetric.name;
@@ -830,26 +830,30 @@
 	});
 
 	// --- Spending toggle clicks ---
-	spendingToggle.addEventListener('click', function(e) {
-		const btn = e.target.closest('.spending-toggle-btn');
-		if (!btn) return;
-		spendingTier = btn.getAttribute('data-tier');
-		spendingToggle.querySelectorAll('.spending-toggle-btn').forEach(function(b) { b.classList.remove('active'); });
-		btn.classList.add('active');
-		currentMetric = resolveSpendingMetric();
-		render();
-	});
+	if (spendingToggle) {
+		spendingToggle.addEventListener('click', function(e) {
+			const btn = e.target.closest('.spending-toggle-btn');
+			if (!btn) return;
+			spendingTier = btn.getAttribute('data-tier');
+			spendingToggle.querySelectorAll('.spending-toggle-btn').forEach(function(b) { b.classList.remove('active'); });
+			btn.classList.add('active');
+			currentMetric = resolveSpendingMetric();
+			render();
+		});
+	}
 
 	// --- Wage occupation toggle clicks ---
-	wageToggle.addEventListener('click', function(e) {
-		const btn = e.target.closest('.wage-toggle-btn');
-		if (!btn) return;
-		wageOccupation = btn.getAttribute('data-occ');
-		wageToggle.querySelectorAll('.wage-toggle-btn').forEach(function(b) { b.classList.remove('active'); });
-		btn.classList.add('active');
-		currentMetric = resolveWageMetric();
-		render();
-	});
+	if (wageToggle) {
+		wageToggle.addEventListener('click', function(e) {
+			const btn = e.target.closest('.wage-toggle-btn');
+			if (!btn) return;
+			wageOccupation = btn.getAttribute('data-occ');
+			wageToggle.querySelectorAll('.wage-toggle-btn').forEach(function(b) { b.classList.remove('active'); });
+			btn.classList.add('active');
+			currentMetric = resolveWageMetric();
+			render();
+		});
+	}
 
 	// --- Load data & render ---
 	d3.json('files/childcare_us.json').then(function(data) {

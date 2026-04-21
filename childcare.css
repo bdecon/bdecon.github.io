@@ -2,15 +2,12 @@
 
 .page-childcare {
 	& .card-footer-col { flex-direction: column; align-items: flex-start; }
-	& .page-title { padding-bottom: var(--space-3); }
 	& main { padding-top: var(--space-6); }
 	& .cc-tooltip-narrow { max-width: 200px; }
 	& .cc-inherit-link, & .cc-inherit-link:link, & .cc-inherit-link:visited { color: inherit; }
 	& .cc-card-body-tight { padding: var(--space-2) var(--space-3) var(--space-1); &.cc-card-body-chart { padding-top: var(--space-4); } }
-	& .cc-cost-slider-group { margin-bottom: var(--space-2); }
-	& .cc-cost-kids-btns { display: flex; gap: var(--space-2); }
-	& #resources-container { margin-bottom: var(--space-7); }
-	& #enrollment-age-container { max-width: var(--width-sm); }
+	& #wage-diagram-figure { max-width: var(--width-md); }
+	& #enrollment-age-figure { max-width: var(--width-chart); }
 	& #outcomes-container .card-body { padding-top: 2px; padding-bottom: 0; }
 	& #wp-hero-container { margin: var(--space-3) 0; }
 	& #wp-explore { margin: var(--space-2) 0 0 0; }
@@ -19,15 +16,13 @@
 	& #age-coverage-container > .card-header { padding: var(--space-3) var(--space-3) var(--space-2); }
 	& #age-coverage-container .card-body { padding-bottom: var(--space-3); }
 	& .ac-note-full { grid-column: 1 / -1; }
-	& #decision-tree-container { margin-bottom: var(--space-7); max-width: 720px; & > .card-body { padding: var(--space-4) var(--space-3) var(--space-3); } }
-	& #metric-tabs { margin-top: var(--space-7); }
+	& #decision-tree-figure { max-width: var(--width-lg); }
+	& #decision-tree-container > .card-body { padding: var(--space-4) var(--space-3) var(--space-3); }
+	& #metric-tabs { margin-top: var(--space-7); border-bottom: none; }
+	& .cc-cost-slider-group { margin-bottom: var(--space-2); }
+	& .cc-cost-kids-btns { display: flex; gap: var(--space-2); }
 
-	/* Hero photo */
-	.cc-hero-photo {
-		position: relative; margin: var(--space-7) auto; max-width: 480px; overflow: hidden;
-		& img { display: block; width: 100%; height: auto; filter: sepia(0.3) saturate(0.8); }
-		& figcaption { background: var(--color-card-teal); padding: var(--space-2) var(--space-3); font-size: var(--text-sm); color: #fff; font-weight: 500; line-height: 1.4; }
-	}
+	.page-title { display: none; }
 
 	/* Tab bar */
 	.cc-tabs { display: flex; flex-wrap: nowrap; gap: 0; margin-bottom: 0; padding-left: var(--space-6); overflow-x: auto; overflow-y: hidden; }
@@ -55,8 +50,7 @@
 	.spending-toggle.visible { display: flex; }
 	.wage-toggle.visible { display: flex; flex-wrap: wrap; }
 	.card-logo { align-self: flex-end; margin-top: -10px; margin-bottom: var(--space-1); }
-	.card { max-width: var(--width-md); margin: var(--space-6) auto var(--space-6); }
-	#map-container { max-width: 100%; margin-top: 0; }
+	#map-container { max-width: 100%; margin: 0 auto var(--space-6); }
 	.card-header .map-category { font-size: var(--text-sm); text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted); margin: 0; }
 
 	/* Map SVG */
@@ -150,22 +144,22 @@
 	.ac-swatch { display: inline-block; width: 13px; height: 13px; vertical-align: -2px; margin-right: var(--space-1); }
 
 	/* Decision tree */
-	.dt-tree { --dt-us: #443983; --dt-fi: var(--color-card-teal); --dt-line: #ccc; --dt-us-bg: #f0f0f8; --dt-fi-bg: #f0f8f7; --dt-us-border: #b0b0d8; --dt-fi-border: #a0d0cc; text-align: center; padding: 0 0 var(--space-2); }
+	.dt-tree { --dt-us: #443983; --dt-fi: var(--color-card-teal); --dt-line: #888; --dt-us-bg: #f0f0f8; --dt-fi-bg: #f0f8f7; --dt-us-border: #b0b0d8; --dt-fi-border: #a0d0cc; text-align: center; padding: 0 0 var(--space-2); }
 	.dt-question-main { margin: 0; font-size: var(--text-2xl); }
 	.dt-question-sub { font-size: var(--text-lg); color: var(--color-text-muted); margin-top: var(--space-1); }
-	.dt-stem { width: 1.5px; height: 10px; margin: var(--space-1) auto 0; background: var(--dt-line); }
-	.dt-branches { display: flex; position: relative; padding-top: var(--space-3); }
-	.dt-branches::before { content: ''; position: absolute; top: 0; left: 25%; right: 25%; border-top: 1.5px solid var(--dt-line); }
+	.dt-stem { width: 2px; height: 18px; margin: var(--space-2) auto 0; background: var(--dt-line); }
+	.dt-branches { display: flex; position: relative; padding-top: var(--space-4); }
+	.dt-branches::before { content: ''; position: absolute; top: 0; left: calc(25% - 1px); right: calc(25% - 1px); border-top: 2px solid var(--dt-line); }
 	.dt-branch { flex: 1; display: flex; flex-direction: column; align-items: center; position: relative; }
 	.dt-branch-us { --dt-c: var(--dt-us); --dt-bg: var(--dt-us-bg); --dt-bc: var(--dt-us-border); }
 	.dt-branch-fi { --dt-c: var(--dt-fi); --dt-bg: var(--dt-fi-bg); --dt-bc: var(--dt-fi-border); }
-	.dt-branch::before { content: ''; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 1.5px; height: 12px; background: var(--dt-c); }
+	.dt-branch::before { content: ''; position: absolute; top: -16px; left: 50%; transform: translateX(-50%); width: 2px; height: 16px; background: var(--dt-c); }
 	.dt-country { font-size: var(--text-xl); margin: 0; color: var(--dt-c); }
 	.dt-cards { display: flex; align-items: stretch; position: relative; padding-top: var(--space-5); width: 100%; }
-	.dt-cards::after { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 1.5px; height: 10px; background: var(--dt-c); }
-	.dt-cards::before { content: ''; position: absolute; top: 10px; left: calc(25% + 2px); right: calc(25% + 2px); height: 12px; border: 1.5px solid var(--dt-c); border-bottom: none; box-sizing: border-box; }
+	.dt-cards::after { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 2px; height: 10px; background: var(--dt-c); }
+	.dt-cards::before { content: ''; position: absolute; top: 10px; left: calc(25% + 1px); right: calc(25% + 1px); height: 12px; border: 2px solid var(--dt-c); border-bottom: none; box-sizing: border-box; }
 	.dt-card { flex: 1; padding: var(--space-3) var(--space-2) var(--space-3); border: 1.5px solid var(--dt-bc); background: var(--dt-bg); text-align: center; display: flex; flex-direction: column; }
-	.dt-card-title { line-height: 1.3; margin-bottom: var(--space-2); font-size: var(--text-sm); }
+	.dt-card-title { line-height: 1.3; margin-bottom: var(--space-2); font-size: var(--text-sm); min-height: 2.6em; display: flex; align-items: center; justify-content: center; }
 	.dt-card-amount { font-size: var(--text-2xl); line-height: 1.1; color: var(--dt-c); white-space: nowrap; }
 	.dt-card-unit { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1); }
 	.dt-tree p.dt-card-ctx { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.4; margin-top: auto; padding-top: var(--space-2); text-align: center; hyphens: none; margin-bottom: 0; }
@@ -175,7 +169,7 @@
 	.dt-divider { flex: 0 0 1px; border-left: 1px dashed var(--dt-line); align-self: stretch; margin: var(--space-5) var(--space-3); }
 	.dt-tagline { font-size: var(--text-base); font-style: italic; margin-top: var(--space-2); color: var(--dt-c); text-align: center; hyphens: none; }
 
-	/* Cost calculator */
+	/* Cost calculator (childcare_test.html) */
 	.cost-btn { font-size: var(--text-sm); }
 	.cost-result-box { flex: 1; min-width: 0; text-align: center; padding: var(--space-3) var(--space-2); }
 	.cost-result-label { font-size: var(--text-sm); font-weight: 600; color: var(--color-text-muted); margin-bottom: var(--space-2); }
