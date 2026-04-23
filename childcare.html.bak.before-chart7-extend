@@ -634,15 +634,15 @@
 <!-- Break-out: cost paragraph + Chart 7 side-by-side -->
 <div class="report-split">
 <div class="report-split-text">
-<p>For kids age 0-4, a new universal Nordic-style public childcare system, with high enrollment and trained public sector workers, would require around 3 million new workers. Paying these workers a 25th percentile wage and public-sector benefits, along with 40 percent overhead for buildings, equipment, supplies, etc., is equivalent to 1.17 percent of GDP in 2025. Some of this is already funded by state systems covering preschool or by Head Start.</p>
+<p>For kids age 0-4, a new universal Nordic-style public childcare system, with high enrollment and trained public sector workers, would require around 3 million new workers. Paying these workers a 25th percentile wage and public-sector benefits, along with 40 percent overhead for buildings, equipment, supplies, etc., is equivalent to 1.16 percent of GDP in 2025. Some of this is already funded by state systems covering preschool or by Head Start.</p>
 </div>
-<!-- Chart 7: Nordic-style childcare cost as % of GDP, 1973-2025 -->
+<!-- Chart 7: Nordic-style childcare cost as % of GDP, 1989-2025 -->
 <figure class="report-figure" id="chart7-figure">
 <div class="card card-compact card-chart accent-teal" id="chart7-container">
 <div class="card-body">
-<h3>Building a Nordic-style system is a lighter lift than in the 1970s</h3>
+<h3>Building a Nordic-style system is a lighter lift than in 1990</h3>
 <p class="chart-subtitle">Bottom-up estimate, percent of GDP</p>
-<svg id="chart7-svg" class="chart-svg" viewBox="0 25 400 250" preserveAspectRatio="xMidYMid meet"><rect x="54.6" y="30" width="7.9" height="220" fill="#000" opacity="0.06"></rect><rect x="89.0" y="30" width="3.2" height="220" fill="#000" opacity="0.06"></rect><rect x="97.4" y="30" width="7.9" height="220" fill="#000" opacity="0.06"></rect><rect x="147.6" y="30" width="4.2" height="220" fill="#000" opacity="0.06"></rect><rect x="207.1" y="30" width="4.2" height="220" fill="#000" opacity="0.06"></rect><rect x="244.7" y="30" width="8.8" height="220" fill="#000" opacity="0.06"></rect><rect x="312.6" y="30" width="1.4" height="220" fill="#000" opacity="0.06"></rect><line x1="50" x2="340" y1="250" y2="250" stroke="#333" stroke-width="1"></line><path d="M50.0,38.6 L55.6,38.7 L61.2,56.2 L66.7,74.8 L72.3,95.2 L77.9,108.8 L83.5,108.8 L89.0,98.6 L94.6,96.2 L100.2,94.0 L105.8,95.4 L111.3,107.0 L116.9,114.7 L122.5,115.8 L128.1,119.8 L133.7,134.4 L139.2,130.1 L144.8,124.8 L150.4,117.7 L156.0,121.9 L161.5,131.1 L167.1,139.5 L172.7,141.6 L178.3,155.3 L183.8,161.0 L189.4,164.6 L195.0,168.6 L200.6,175.7 L206.2,171.3 L211.7,175.2 L217.3,174.5 L222.9,181.4 L228.5,183.2 L234.0,188.2 L239.6,190.6 L245.2,184.1 L250.8,170.9 L256.3,176.0 L261.9,184.3 L267.5,199.6 L273.1,203.7 L278.7,208.3 L284.2,208.6 L289.8,206.6 L295.4,208.1 L301.0,210.2 L306.5,215.5 L312.1,205.3 L317.7,218.8 L323.3,227.9 L328.8,228.3 L334.4,229.4 L340.0,232.2" fill="none" stroke="#2A8A8A" stroke-width="3" stroke-linejoin="round"></path><circle cx="50.0" cy="38.6" r="4" fill="#2A8A8A"></circle><text x="44.0" y="43.6" text-anchor="end" font-size="16" fill="#2A8A8A" font-weight="700">2.97%</text><circle cx="340.0" cy="232.2" r="4" fill="#2A8A8A"></circle><text x="346.0" y="237.2" text-anchor="start" font-size="16" fill="#2A8A8A" font-weight="700">1.17%</text><text x="50.0" y="270" text-anchor="middle" font-size="13" fill="#333">1973</text><text x="89.0" y="270" text-anchor="middle" font-size="13" fill="#333">1980</text><text x="144.8" y="270" text-anchor="middle" font-size="13" fill="#333">1990</text><text x="200.6" y="270" text-anchor="middle" font-size="13" fill="#333">2000</text><text x="256.3" y="270" text-anchor="middle" font-size="13" fill="#333">2010</text><text x="312.1" y="270" text-anchor="middle" font-size="13" fill="#333">2020</text></svg>
+<svg id="chart7-svg" class="chart-svg" viewBox="0 25 400 250" preserveAspectRatio="xMidYMid meet"><rect x="64" y="30" width="6" height="220" fill="#000" opacity="0.06"></rect><rect x="149" y="30" width="5" height="220" fill="#000" opacity="0.06"></rect><rect x="203" y="30" width="13" height="220" fill="#000" opacity="0.06"></rect><rect x="301" y="30" width="2" height="220" fill="#000" opacity="0.06"></rect><text x="60" y="270" text-anchor="middle" font-size="13" fill="#333">1990</text><text x="100" y="270" text-anchor="middle" font-size="13" fill="#333">1995</text><text x="140" y="270" text-anchor="middle" font-size="13" fill="#333">2000</text><text x="180" y="270" text-anchor="middle" font-size="13" fill="#333">2005</text><text x="220" y="270" text-anchor="middle" font-size="13" fill="#333">2010</text><text x="260" y="270" text-anchor="middle" font-size="13" fill="#333">2015</text><text x="300" y="270" text-anchor="middle" font-size="13" fill="#333">2020</text><text x="340" y="270" text-anchor="middle" font-size="13" fill="#333">2025</text><path d="M60.0,63.5 L68.0,55.4 L76.0,63.8 L84.0,70.0 L92.0,84.0 L100.0,95.7 L108.0,108.7 L116.0,123.1 L124.0,125.2 L132.0,129.3 L140.0,140.8 L148.0,135.8 L156.0,134.3 L164.0,137.8 L172.0,148.5 L180.0,155.9 L188.0,160.9 L196.0,159.9 L204.0,148.2 L212.0,135.3 L220.0,142.3 L228.0,151.2 L236.0,173.9 L244.0,182.2 L252.0,188.6 L260.0,194.4 L268.0,191.6 L276.0,188.9 L284.0,194.4 L292.0,197.8 L300.0,182.7 L308.0,204.3 L316.0,217.4 L324.0,220.8 L332.0,223.0 L340.0,224.6" fill="none" stroke="#2A8A8A" stroke-width="3" stroke-linejoin="round"></path><circle cx="60" cy="63.5" r="4" fill="#2A8A8A"></circle><circle cx="340" cy="224.6" r="4" fill="#2A8A8A"></circle><text x="54" y="67.5" text-anchor="end" font-size="16" fill="#2A8A8A" font-weight="700">2.14%</text><text x="346" y="228.6" text-anchor="start" font-size="16" fill="#2A8A8A" font-weight="700">1.16%</text><line x1="60" x2="340" y1="250" y2="250" stroke="#333" stroke-width="1"></line></svg>
 </div>
 <div class="card-footer card-footer-col">
 <span class="chart-source">Author, see notes</span>
@@ -655,7 +655,7 @@
 
 <article class="prose prose-report cc-page">
 
-<p>The US economy has grown much faster than typical wages for lower-wage jobs, while birth rates have fallen. As a result, childcare is a smaller lift today than in the past. In the early 1970s, the same system would have cost 3 percent of GDP, nearly triple today's 1.17 percent (see chart 7).</p>
+<p>The US economy has grown much faster than typical wages for lower-wage jobs, while birth rates have fallen. As a result, childcare is a smaller lift today than in the past. The same system would have cost 2.14 percent of GDP in 1990, nearly double the 2025 figure (see chart 7).</p>
 
 <figure class="report-figure report-figure-photo report-figure-md" id="emptylot-photo-figure">
 <div class="card card-compact card-chart accent-teal">
@@ -787,16 +787,14 @@
 </ul>
 
 <h4>Chart 7. Cost of Nordic-style childcare, percent of GDP</h4>
-<p>Bottom-up estimate of a Nordic-style universal system covering US children ages 0-4, annually from 1973 to 2025. Age 5 is excluded because public kindergarten covers it. The dashed vertical reference at <strong>1971</strong> marks Nixon's veto of the Comprehensive Child Development Act, the closest the US has come to a federal childcare bill.</p>
+<p>Bottom-up estimate of a Nordic-style universal system covering US children ages 0-4, annually from 1990 to 2025. Age 5 is excluded because public kindergarten covers it.</p>
 <ul>
 <li><code>workers</code> = population age 0-4 ÷ 4 (Nordic composite ratio of one worker per four children).</li>
 <li><code>labor</code> = workers × P25 weekly wage × 52 × 1.30 (benefits margin).</li>
 <li><code>total</code> = labor × 1.40 (overhead for buildings, training, administration).</li>
 <li><code>share</code> = total ÷ nominal GDP.</li>
 </ul>
-<p><strong>P25 weekly wage</strong>: 25th-percentile usual weekly earnings of full-time wage workers age 16+. Computed from <a href="https://microdata.epi.org/">EPI CPS microdata extracts</a> using <code>weekpay_noadj</code> with <code>orgwgt</code> from the basic monthly file (1982 onward) and the May supplement (1973-1981). 1980 is interpolated linearly between 1979 and 1981 because EPI's 1980 May extract has no wage data.</p>
-<p><strong>Population age 0-4</strong>: 1979-2025 from CPS basic monthly <code>finalwgt</code> (consistent with <a href="https://github.com/bdecon/econ_data">bd CPS</a>). 1973-1978 back-cast from <a href="https://www.childstats.gov/americaschildren/tables/pop1.asp">childstats POP1</a> ages 0-5 multiplied by 0.84 (the CPS-observed 0-4/0-5 ratio for 1979-1986) and rescaled by 0.965 to anchor at the 1979 CPS value, which preserves continuity at the 1978/1979 source seam.</p>
-<p><strong>Nominal GDP</strong>: monthly from <a href="https://www.bea.gov/data/gdp/gross-domestic-product">BEA</a>, averaged to annual.</p>
+<p>Population age 0-4 and P25 weekly wage from <a href="https://github.com/bdecon/econ_data">bd CPS</a>, a CPS microdata processing pipeline. Nominal GDP monthly from <a href="https://www.bea.gov/data/gdp/gross-domestic-product">BEA</a>, averaged to annual.</p>
 
 <h4>Diagram 1. US childcare worker wage comparators</h4>
 <p>Hourly median wages from <a href="https://www.bls.gov/oes/">BLS Occupational Employment and Wage Statistics (OEWS)</a>, May 2024 national file, cross-industry detailed occupations. Childcare Workers (<code>SOC 39-9011</code>) at $15.41 per hour.</p>
