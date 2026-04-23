@@ -2,791 +2,875 @@
 	'use strict';
 
 	// ============================================================
-	// STATE MAP — multi-level choropleth (4 metrics × US+Nordic)
-	//   L0: 2×2 overview of small-multiple tiles
-	//   L1: single full-size map for one metric
-	//   L2: zoom into a Census Division
-	// See childcare.css for styling; #mapview in childcare.html for markup.
+	// LAYOUT: Three map panels stacked vertically
+	//
+	// Row 1: US map (pre-projected AlbersUsa, proven reliable)
+	//         with DC inset square at right
+	// Teal horizontal separator
+	// Row 2: Canada (left) | Nordics (right) | Legend (bottom-right)
+	//
+	// viewBox: 680 x 520 (mobile-first, ~4:3)
 	// ============================================================
+	const VB_W = 680, VB_H = 900;
 
-// ═══════════════════════════════════════════════════════════════════════
-// Constants
-// ═══════════════════════════════════════════════════════════════════════
-const DATA_URL = "files/childcare_us.json";
-const US_TOPO_URL = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-albers-10m.json";
-const NORDIC_TOPO_URL = "files/nordic_countries.json";
+	// Row 1: US map (centered)
+	const US_LABEL_X = (VB_W - 660) / 2;
+	const US_LABEL_Y = 32; // pinned — title stays in place
+	const US = { x: (VB_W - 660) / 2 + 10, y: 40, w: 660, h: 370 };
 
-const DIVISIONS = {
-  "New England":          ["09","23","25","33","44","50"],
-  "Mid Atlantic":         ["34","36","42"],
-  "East North Central":   ["17","18","26","39","55"],
-  "West North Central":   ["19","20","27","29","31","38","46"],
-  "South Atlantic":       ["10","11","12","13","24","37","45","51","54"],
-  "East South Central":   ["01","21","28","47"],
-  "West South Central":   ["05","22","40","48"],
-  "Mountain":             ["04","08","16","30","32","35","49","56"],
-  "Pacific":              ["02","06","15","41","53"],
-};
-const FIPS_TO_DIVISION = {};
-for (const [div, fips] of Object.entries(DIVISIONS)) {
-  for (const f of fips) FIPS_TO_DIVISION[f] = div;
-}
-const FIPS_TO_USPS = {
-  "01":"AL","02":"AK","04":"AZ","05":"AR","06":"CA","08":"CO","09":"CT","10":"DE","11":"DC","12":"FL",
-  "13":"GA","15":"HI","16":"ID","17":"IL","18":"IN","19":"IA","20":"KS","21":"KY","22":"LA","23":"ME",
-  "24":"MD","25":"MA","26":"MI","27":"MN","28":"MS","29":"MO","30":"MT","31":"NE","32":"NV","33":"NH",
-  "34":"NJ","35":"NM","36":"NY","37":"NC","38":"ND","39":"OH","40":"OK","41":"OR","42":"PA","44":"RI",
-  "45":"SC","46":"SD","47":"TN","48":"TX","49":"UT","50":"VT","51":"VA","53":"WA","54":"WV","55":"WI","56":"WY"
-};
-const NORDIC_NUM_TO_ISO = {"208":"DNK","246":"FIN","578":"NOR","752":"SWE"};
-// Use ISO3 everywhere (map labels + legend markers) so users can't confuse
-// "FI" with Florida, "NO" with a USPS code, etc. States stay 2-letter USPS.
-const NORDIC_NUM_TO_CODE = {"208":"DNK","246":"FIN","578":"NOR","752":"SWE"};
+	// --- Middle zone: separators + legend (all independent) ---
+	const US_BOTTOM = US.y + US.h;
+	let SEP_TOP_Y = US_BOTTOM + 20;           // top separator
+	let LEGEND_Y = US_BOTTOM + 88;             // legend bar + flags + labels
+	let SEP_BOT_Y = US_BOTTOM + 130;           // bottom separator
+	const LEG = { x: 55, y: LEGEND_Y, w: 570, h: 12 };
 
-const METRIC_LABELS = {
-  // `name`  = tab label + L0 tile title.
-  // `title` = bold part of the chart title (shown at L1/L2 alongside `unit`).
-  // `unit`  = non-bold unit string that sits next to `title`.
-  // `short`/`high`  = Level 1 legend semantic endpoints (with context embedded).
-  // `shortMini`/`highMini` = Level 0 mini-legend terse endpoints.
-  // `nycLines` = callout label lines for NYC. Most metrics use 5-borough NYC;
-  //              workforce uses the broader NYC Metro (MSA 35620).
-  gdp_per_child_0_5:        { name: "Resources",  title: "GDP per child, age 0-5",                      unit: "Millions USD",    short: "4× world avg",    high: "9× world avg+",    shortMini:"Low", highMini:"High", nycLines: ["NYC"],          caveat: "Author, see notes" },
-  spending_pct_gdp_narrow:  { name: "Funding",    title: "Public childcare and pre-K funding",          unit: "% of GDP",        short: "Family burden",   high: "Publicly funded",  shortMini:"Low", highMini:"High", nycLines: ["NYC"],          caveat: "Author, see notes" },
-  enrollment_pct:           { name: "Enrollment", title: "Public childcare and pre-K enrollment",       unit: "% of children",   short: "Few enrolled",    high: "Most enrolled",    shortMini:"Low", highMini:"High", nycLines: ["NYC"],          caveat: "Author, see notes", subtitleL0: "Public childcare and pre-K enrollment rate" },
-  workforce_per_100_kids:   { name: "Workforce",  title: "Childcare and ECE workers per 100 children age 0-5",  unit: "",          short: "Small workforce", high: "Full workforce",   shortMini:"Low", highMini:"High", nycLines: ["NYC", "Metro"], caveat: "Author, see notes", subtitleL0: "ECEC workers per 100 children age 0-5" },
-};
+	// --- Row 2: Canada + Nordics (independent of legend) ---
+	let ROW2_LABELS_Y = US_BOTTOM + 176;       // "Canada" / "Nordic Countries" titles
+	let ROW2_MAP_Y = US_BOTTOM + 180;           // where maps start rendering
+	const ROW2_GAP = 20;
+	const ROW2_CA_W = 399, ROW2_NO_W = 209;
+	const ROW2_TOTAL = ROW2_CA_W + ROW2_GAP + ROW2_NO_W;
+	const ROW2_X = (VB_W - ROW2_TOTAL) / 2;
+	let ROW2_H = VB_H - ROW2_MAP_Y - 6;
+	const CA = { x: ROW2_X, y: ROW2_LABELS_Y, w: ROW2_CA_W, h: ROW2_H };
+	const NO = { x: ROW2_X + ROW2_CA_W + ROW2_GAP + 4, y: ROW2_LABELS_Y, w: ROW2_NO_W, h: ROW2_H };
+	// DC inset — positioned off the mid-Atlantic coast near actual DC
+	// Exact position is set dynamically after computing the US projection transform
+	// HI note: Hawaii is included in pre-projected AlbersUsa (repositioned)
 
-// AK trim (keep mainland, drop far-west Aleutians)
-const AK_TRIM_PAD = 0, AK_SHIFT_X = 0, HI_SHIFT_X = 0;
+	// --- TopoJSON sources ---
+	const TOPO = {
+		us:      { url: 'https://cdn.jsdelivr.net/npm/us-atlas@3/states-albers-10m.json', key: 'states' },
+		canada:  { url: 'files/canada_provinces.json', key: 'data' },
+		nordics: { url: 'files/nordic_countries.json', key: 'data' }
+	};
 
-// ═══════════════════════════════════════════════════════════════════════
-// Helpers
-// ═══════════════════════════════════════════════════════════════════════
+	// --- State ---
+	let DATA = null, METRICS = [], currentMetric = null;
+	const WORLD_AVG_GDP = 123.6e12 / 643.56e6 / 1e6; // ~$0.192M (IMF WEO Oct 2025 / UN WPP 2024)
+	const topoCache = {};
+	let spendingTier = 'narrow'; // 'narrow' or 'broad'
+	let wageOccupation = 'cc_only'; // 'cc_only', 'preschool', or 'cacomp'
 
-// Per-metric color scale:
-//   funding, workforce   → log (compresses Nordic high end, expands US variation)
-//   gdp_per_child_0_5    → winsorized at 95th pct (caps DC outlier)
-//   enrollment           → linear
-// Returns { scale(v) → color, pos(v) → 0..1 on bar, domain, trueHi, type }.
-function getColorScale(metricId, states, nordics, national) {
-  const vals = [];
-  Object.values(states).forEach(g => { const v = g[metricId]; if (v != null) vals.push(v); });
-  Object.values(nordics).forEach(g => { const v = g[metricId]; if (v != null) vals.push(v); });
-  if (national && national[metricId] != null) vals.push(national[metricId]);
-  vals.sort(d3.ascending);
-  let lo = vals[0], hi = vals[vals.length-1];
-  if (lo === hi) { lo -= 0.01; hi += 0.01; }
+	// --- DOM refs ---
+	const metricTabs = document.getElementById('metric-tabs');
+	const mapIndicator = document.getElementById('map-indicator');
+	const mapSource = document.getElementById('map-source');
+	const mapCaveat = document.getElementById('map-caveat');
+	const tooltip = document.getElementById('map-tooltip');
+	const container = document.getElementById('map-container');
+	const svg = d3.select('#map-svg');
+	const spendingToggle = document.getElementById('spending-toggle');
+	const wageToggle = document.getElementById('wage-toggle');
 
-  const viridis = t => d3.interpolateViridis(1 - t);  // dark = high
+	// Click on SVG background clears pinned tooltip
+	svg.on('click', function() { clearPin(); });
 
-  if (metricId === "spending_pct_gdp_narrow" || metricId === "workforce_per_100_kids") {
-    const logLo = Math.max(lo, 0.01);
-    const raw = d3.scaleSequentialLog(viridis).domain([logLo, hi]);
-    const logSpan = Math.log(hi) - Math.log(logLo);
-    return {
-      scale: v => (v == null ? "var(--color-surface, #eee)" : raw(Math.max(v, logLo))),
-      pos: v => (Math.log(Math.max(v, logLo)) - Math.log(logLo)) / logSpan,
-      domain: [logLo, hi], trueHi: hi, type: "log",
-    };
-  }
-  if (metricId === "gdp_per_child_0_5") {
-    const p95 = d3.quantile(vals, 0.95) ?? hi;
-    const raw = d3.scaleSequential(viridis).domain([lo, p95]);
-    return {
-      scale: v => (v == null ? "var(--color-surface, #eee)" : raw(Math.min(v, p95))),
-      pos: v => Math.min(1, (v - lo) / (p95 - lo)),
-      domain: [lo, p95], trueHi: hi, type: "winsorized",
-    };
-  }
-  // Linear
-  const raw = d3.scaleSequential(viridis).domain([lo, hi]);
-  return {
-    scale: v => (v == null ? "var(--color-surface, #eee)" : raw(v)),
-    pos:   v => (v - lo) / (hi - lo),
-    domain: [lo, hi], trueHi: hi, type: "linear",
-  };
-}
-function fmtVal(v, metric) {
-  if (v == null) return "—";
-  if (metric === "gdp_per_child_0_5") return "$" + v.toFixed(2) + "M";
-  if (metric === "workforce_per_100_kids") return v.toFixed(1);
-  return v.toFixed(metric === "spending_pct_gdp_narrow" ? 2 : 1) + "%";
-}
+	// --- Per-metric adaptive color scale ---
+	// spending: log (70x range between US and Nordics)
+	// wage_ratio: linear (50-75%, reasonable range)
+	// enrollment: linear (25-77%, fine)
+	// gdp_per_child: winsorized at 95th percentile (caps DC outlier)
+	function getColorScale(metricId) {
+		const vals = [];
+		['us', 'canada', 'nordics'].forEach(function(r) {
+			const rd = DATA[r];
+			if (!rd || !rd.regions) return;
+			Object.values(rd.regions).forEach(function(d) {
+				if (d[metricId] != null) vals.push(d[metricId]);
+			});
+		});
+		if (!vals.length) return null;
+		vals.sort(d3.ascending);
 
-function trimAlaskaAndShift(usFC) {
-  const ak = usFC.features.find(f => f.id === "02");
-  const hi = usFC.features.find(f => f.id === "15");
-  if (ak && ak.geometry.type === "MultiPolygon") {
-    let mainlandIdx = 0, maxPts = 0;
-    ak.geometry.coordinates.forEach((poly, i) => {
-      if (poly[0].length > maxPts) { maxPts = poly[0].length; mainlandIdx = i; }
-    });
-    const mainland = ak.geometry.coordinates[mainlandIdx][0];
-    const cutoff = d3.min(mainland, p => p[0]) + AK_TRIM_PAD;
-    ak.geometry.coordinates = ak.geometry.coordinates.filter(poly => d3.max(poly[0], p => p[0]) >= cutoff);
-    if (AK_SHIFT_X) {
-      ak.geometry.coordinates = ak.geometry.coordinates.map(poly =>
-        poly.map(ring => ring.map(([x,y]) => [x + AK_SHIFT_X, y])));
-    }
-  }
-  if (hi && hi.geometry.type === "MultiPolygon" && HI_SHIFT_X) {
-    hi.geometry.coordinates = hi.geometry.coordinates.map(poly =>
-      poly.map(ring => ring.map(([x,y]) => [x + HI_SHIFT_X, y])));
-  }
-}
+		let lo = vals[0], hi = vals[vals.length - 1];
+		if (lo === hi) { lo -= 0.01; hi += 0.01; }
+		let scale;
 
-// Legend layout (viewBox 540 wide):
-//   Row: numerics inline at bar ends (left/right of bar, vertically centered on bar)
-//   Row: above-bar marker codes (ticks from bar top)
-//   Row: the gradient bar
-//   Row: below-bar marker codes (ticks from bar bottom)
-//   Row: semantic qualitative labels at far left/right, below the markers
-//
-// This avoids crowding: numerics and markers used to collide on the same
-// below-bar y-position. Numerics inline solves that cleanly and mirrors
-// the pattern from the live map.
-function renderLegend(svgSel, colorScale, metric, markers, opts) {
-  const { showNumeric = true, showMarkers = true } = opts || {};
-  const svg = d3.select(svgSel);
-  svg.selectAll("*").remove();
+		if (metricId === 'spending_pct_gdp_narrow' || metricId === 'spending_pct_gdp_broad' || metricId === 'workforce_share_pct') {
+			// Log scale: compresses high end, expands low end
+			const logLo = Math.max(lo, 0.01);  // avoid log(0)
+			scale = d3.scaleSequentialLog(function(t) { return d3.interpolateViridis(1 - t); })
+				.domain([logLo, hi]);
+			return { scale: scale, lo: logLo, hi: hi, type: 'log' };
+		} else if (metricId === 'gdp_per_child_0_5') {
+			// Winsorized: cap at 95th percentile
+			const p95 = d3.quantile(vals, 0.95);
+			const capHi = p95 || hi;
+			scale = d3.scaleSequential(function(t) { return d3.interpolateViridis(1 - t); })
+				.domain([lo, capHi]);
+			// Wrap so values above cap get the max color
+			const rawScale = scale;
+			scale = function(v) {
+				return rawScale(Math.min(v, capHi));
+			};
+			scale.domain = rawScale.domain.bind(rawScale);
+			return { scale: scale, lo: lo, hi: capHi, type: 'winsorized', trueHi: hi };
+		} else {
+			// Linear (wage_ratio, enrollment, any future metrics)
+			scale = d3.scaleSequential(function(t) { return d3.interpolateViridis(1 - t); })
+				.domain([lo, hi]);
+			return { scale: scale, lo: lo, hi: hi, type: 'linear' };
+		}
+	}
 
-  const lab = METRIC_LABELS[metric] || {short:"Low", high:"High", shortMini:"Low", highMini:"High"};
-  const useMini = !showNumeric && !showMarkers;
-  const leftSem  = useMini ? (lab.shortMini || "Low")  : lab.short;
-  const rightSem = useMini ? (lab.highMini  || "High") : lab.high;
+	// --- Format value ---
+	function fmtVal(val, metric) {
+		if (val == null) return 'N/A';
+		return metric.prefix + val.toFixed(metric.decimals) + metric.suffix;
+	}
 
-  // Numeric end-values (only shown at L1).
-  const loLabel = showNumeric ? fmtVal(colorScale.domain[0], metric) : "";
-  const hiLabel = showNumeric
-    ? fmtVal(colorScale.domain[1], metric) + (colorScale.trueHi > colorScale.domain[1] ? "+" : "")
-    : "";
+	// --- Lookup region data (handles zero-padded and unpadded FIPS) ---
+	function lookupRegion(regionData, id) {
+		const s = String(id);
+		return regionData[s] || regionData[s.padStart(2, '0')];
+	}
 
-  // Approximate widths @ 13px; 7px per char keeps this close enough for layout.
-  const approxW = s => s.length * 7 + 6;
-  const loW = showNumeric ? approxW(loLabel) : 0;
-  const hiW = showNumeric ? approxW(hiLabel) : 0;
-  const barX = showNumeric ? loW + 6 : 0;
-  const barW = showNumeric ? (540 - loW - hiW - 12) : 540;
-  const barY = showMarkers ? 28 : 18;
-  const barH = 10;
+	// --- Tooltip ---
+	let pinnedRegion = null; // currently pinned element
 
-  // Gradient
-  const defs = svg.append("defs");
-  const gid = "lg-" + svgSel.replace(/\W/g,"") + "-" + Math.floor(Math.random()*1e6);
-  const grad = defs.append("linearGradient").attr("id", gid);
-  const [lo, hi] = colorScale.domain;
-  for (let i = 0; i <= 20; i++) {
-    const t = i/20;
-    let v;
-    if (colorScale.type === "log") {
-      const ll = Math.log(lo), lh = Math.log(hi);
-      v = Math.exp(ll + t * (lh - ll));
-    } else {
-      v = lo + t * (hi - lo);
-    }
-    grad.append("stop").attr("offset", (i*5) + "%").attr("stop-color", colorScale.scale(v));
-  }
-  svg.append("rect").attr("class","legend-bar")
-    .attr("x", barX).attr("y", barY).attr("width", barW).attr("height", barH)
-    .attr("fill", `url(#${gid})`);
+	function showTooltip(event, html) {
+		tooltip.innerHTML = html;
+		tooltip.classList.add('visible');
+		const rect = container.getBoundingClientRect();
+		let x = event.clientX - rect.left + 12;
+		let y = event.clientY - rect.top - 10;
+		const tw = tooltip.offsetWidth, th = tooltip.offsetHeight;
+		if (x + tw > rect.width - 10) x = x - tw - 24;
+		if (y + th > rect.height - 10) y = rect.height - th - 10;
+		if (y < 0) y = 10;
+		tooltip.style.left = x + 'px';
+		tooltip.style.top = y + 'px';
+	}
+	function hideTooltip() {
+		if (pinnedRegion) return; // don't hide while pinned
+		tooltip.classList.remove('visible');
+	}
+	function clearPin() {
+		if (pinnedRegion) {
+			d3.select(pinnedRegion).classed('active', false);
+			pinnedRegion = null;
+		}
+		tooltip.classList.remove('visible');
+	}
 
-  // Inline numeric end-values at bar mid-height (baseline tuned for 13px font)
-  if (showNumeric) {
-    const numY = barY + barH/2 + 4;
-    svg.append("text").attr("class","legend-label")
-      .attr("x", 0).attr("y", numY).attr("text-anchor","start").text(loLabel);
-    svg.append("text").attr("class","legend-label")
-      .attr("x", 540).attr("y", numY).attr("text-anchor","end").text(hiLabel);
-  }
+	function tooltipHtml(info, regionKey) {
+		const mid = currentMetric.id;
+		const val = info[mid];
+		// Show "(national)" when Canada is in national fallback mode
+		let displayName = info.name;
+		if (regionKey === 'canada' && isCanadaNational(mid) &&
+			DATA.canada && info === DATA.canada.national) {
+			displayName = 'Canada (national)';
+		}
+		let lines = '<div class="chart-tooltip-header">' + displayName + '</div>';
+		lines += '<div style="margin-bottom:3px"><span class="cc-tooltip-value">' +
+			fmtVal(val, currentMetric) + '</span></div>';
+		if (mid === 'gdp_per_child_0_5' && val != null) {
+			lines += '<div style="font-size:10px;opacity:0.8">' +
+				(val / WORLD_AVG_GDP).toFixed(1) + 'x world average</div>';
+		}
+		if (mid === 'wage_ratio_cc_pct' && info.cc_wage_annual != null) {
+			lines += '<div style="font-size:10px;opacity:0.8">Wage: $' +
+				d3.format(',')(info.cc_wage_annual) +
+				' / $' + d3.format(',')(info.all_median_wage_annual) + '</div>';
+		} else if (mid === 'wage_ratio_pt_pct' && info.pt_wage_annual != null) {
+			lines += '<div style="font-size:10px;opacity:0.8">Wage: $' +
+				d3.format(',')(info.pt_wage_annual) +
+				' / $' + d3.format(',')(info.all_median_wage_annual) + '</div>';
+		} else if (mid === 'wage_ratio_cacomp_pct' && info.cc_wage_annual != null && info.pt_wage_annual != null) {
+			const blended = Math.round(0.63 * info.pt_wage_annual + 0.37 * info.cc_wage_annual);
+			lines += '<div style="font-size:10px;opacity:0.8">Wage: $' +
+				d3.format(',')(blended) +
+				' / $' + d3.format(',')(info.all_median_wage_annual) + '</div>';
+		} else if (val != null && isWageMetric(currentMetric) && info.wage_local_fmt) {
+			const wLocal = mid === 'wage_ratio_cc_pct' ? info.wage_local_cc :
+				mid === 'wage_ratio_pt_pct' ? info.wage_local_pt : info.wage_local_comp;
+			if (wLocal != null && info.wage_local_all != null) {
+				const fmtW = function(v) {
+					const s = v >= 100 ? d3.format(',')(Math.round(v)) : v.toFixed(2);
+					return info.wage_local_fmt.replace('%s', s);
+				};
+				lines += '<div style="font-size:10px;opacity:0.8">Wage: ' +
+					fmtW(wLocal) + ' / ' + fmtW(info.wage_local_all) + '</div>';
+			}
+		}
+		const natData = DATA[regionKey] && DATA[regionKey].national;
+		// Skip national comparison when showing national-level data
+		if (natData && natData[mid] != null && val != null && info !== natData) {
+			const natVal = natData[mid];
+			const diff = val - natVal;
+			const sign = diff >= 0 ? '+' : '';
+			const label = regionKey === 'us' ? 'US average' :
+				regionKey === 'canada' ? 'CA average' : 'Average';
+			lines += '<div style="font-size:10px;opacity:0.7;margin-top:2px">' + label + ': ' +
+				fmtVal(natVal, currentMetric) +
+				' (' + sign + diff.toFixed(currentMetric.decimals) + ')</div>';
+		}
+		return lines;
+	}
 
-  // Semantic qualitative labels at far left/right, BELOW the markers row.
-  // Extra breathing room so the labels don't sit right against the codes.
-  const semanticY = barY + barH + (showMarkers ? 38 : 14);
-  svg.append("text").attr("class","legend-semantic")
-    .attr("x", 0).attr("y", semanticY).text(leftSem);
-  svg.append("text").attr("class","legend-semantic")
-    .attr("x", 540).attr("y", semanticY).attr("text-anchor","end").text(rightSem);
+	// --- Load TopoJSON with cache ---
+	function loadTopo(key) {
+		if (topoCache[key]) return Promise.resolve(topoCache[key]);
+		return d3.json(TOPO[key].url).then(function(t) { topoCache[key] = t; return t; });
+	}
 
-  if (showMarkers && markers && markers.length) {
-    // Merge near-duplicates into combined labels (e.g. "DK/NO")
-    const mergePx = 8;
-    const positioned = markers.slice().sort((a,b) => a.value - b.value).map(m => {
-      const t = Math.max(0, Math.min(1, colorScale.pos(m.value)));
-      return { label: m.label, value: m.value, x: barX + t * barW };
-    });
-    const merged = [];
-    positioned.forEach(m => {
-      const last = merged[merged.length - 1];
-      if (last && Math.abs(m.x - last.x) <= mergePx) {
-        last.label = last.label + "/" + m.label;
-        last.x = (last.x + m.x) / 2;
-      } else {
-        merged.push({...m});
-      }
-    });
+	// --- Check if Canada has only national-level data for the current metric ---
+	function isCanadaNational(metricId) {
+		const regions = DATA.canada && DATA.canada.regions;
+		const nat = DATA.canada && DATA.canada.national;
+		if (!regions || !nat) return true;
+		const natVal = nat[metricId];
+		if (natVal == null) return true;
+		const vals = Object.values(regions).map(function(d) { return d[metricId]; });
+		const unique = vals.filter(function(v, i, a) { return v != null && a.indexOf(v) === i; });
+		// National-only if every province has the same value or null
+		return unique.length <= 1;
+	}
 
-    // Greedy above/below with per-label width, respecting horizontal extents
-    // so labels don't spill past the legend's bounds (0..540).
-    let edgeAbove = -Infinity, edgeBelow = -Infinity;
-    merged.forEach(m => {
-      const w = approxW(m.label);
-      const leftEdge = m.x - w/2;
-      let above;
-      if (leftEdge >= edgeAbove) above = true;
-      else if (leftEdge >= edgeBelow) above = false;
-      else above = (leftEdge - edgeAbove) >= (leftEdge - edgeBelow);
-      if (above) edgeAbove = leftEdge + w + 2;
-      else       edgeBelow = leftEdge + w + 2;
+	// --- Draw features into a group ---
+	function drawFeatures(g, features, mesh, regionData, regionKey, colorInfo, path) {
+		const mid = currentMetric.id;
+		const hasData = Object.values(regionData).some(function(d) { return d[mid] != null; });
 
-      svg.append("line").attr("class","legend-tick")
-        .attr("x1", m.x).attr("x2", m.x)
-        .attr("y1", above ? barY - 6 : barY + barH + 6)
-        .attr("y2", above ? barY : barY + barH);
-      svg.append("text").attr("class","legend-code")
-        .attr("x", m.x).attr("y", above ? barY - 9 : barY + barH + 20)
-        .attr("text-anchor","middle")
-        .text(m.label);
-    });
-  }
-}
+		g.selectAll('.region')
+			.data(features)
+			.enter().append('path')
+			.attr('class', 'region')
+			.attr('d', path)
+			.attr('data-id', function(d) { return d.id; })
+			.attr('fill', '#ddd')
+			.on('mousemove', function(event, d) {
+				if (pinnedRegion) return;
+				// Raise to top so stroke isn't clipped by neighbors
+				this.parentNode.appendChild(this);
+				const info = lookupRegion(regionData, d.id);
+				if (info) showTooltip(event, tooltipHtml(info, regionKey));
+			})
+			.on('mouseleave', function() {
+				if (pinnedRegion !== this) hideTooltip();
+			})
+			.on('click', function(event, d) {
+				event.stopPropagation();
+				if (pinnedRegion === this) {
+					clearPin();
+					return;
+				}
+				clearPin();
+				pinnedRegion = this;
+				d3.select(this).classed('active', true);
+				this.parentNode.appendChild(this);
+				const info = lookupRegion(regionData, d.id);
+				if (info) showTooltip(event, tooltipHtml(info, regionKey));
+			})
+			.transition().duration(400)
+			.attr('fill', function(d) {
+				const info = lookupRegion(regionData, d.id);
+				const val = info ? info[mid] : null;
+				if (!hasData || val == null || !colorInfo) return '#ddd';
+				return colorInfo.scale(val);
+			});
 
-// ═══════════════════════════════════════════════════════════════════════
-// App state
-// ═══════════════════════════════════════════════════════════════════════
-const APP = {
-  data: null, usFC: null, noTopo: null,
-  stateBounds: null, pathFn: d3.geoPath(),
-  currentMetric: null,     // null = Level 0; string = Level 1 metric id
-  currentDivision: null,   // null = Level 1 default; string = drilled division name
-  level1US: { gRef: null, defaultTransform: "" },
-};
+		if (mesh) {
+			g.append('path').datum(mesh)
+				.attr('class', 'region-border').attr('d', path);
+		}
+	}
 
-// ═══════════════════════════════════════════════════════════════════════
-// Load + kick off at Level 0
-// ═══════════════════════════════════════════════════════════════════════
-Promise.all([
-  d3.json(DATA_URL), d3.json(US_TOPO_URL), d3.json(NORDIC_TOPO_URL)
-]).then(([data, usTopo, noTopo]) => {
-  const usFC = topojson.feature(usTopo, usTopo.objects.states);
-  trimAlaskaAndShift(usFC);
-  const stateBounds = {};
-  usFC.features.forEach(f => {
-    stateBounds[String(f.id).padStart(2,"0")] = APP.pathFn.bounds(f);
-  });
-  Object.assign(APP, { data, usFC, noTopo, stateBounds });
+	// --- Draw inset box ---
+	function drawInset(parent, info, regionKey, colorInfo, x, y, size, label, fs) {
+		if (!info) return;
+		const val = info[currentMetric.id];
+		const fill = (val != null && colorInfo) ? colorInfo.scale(val) : '#ddd';
+		const g = parent.append('g').attr('class', 'inset-box');
+		g.append('rect')
+			.attr('x', x).attr('y', y)
+			.attr('width', size).attr('height', size)
+			.attr('fill', fill).attr('rx', 1);
+		const labelLines = label.split('\n');
+		const lx = x + size + 4;
+		const ly = labelLines.length > 1 ? y + size / 2 - 4 : y + size / 2 + 4;
+		const txt = g.append('text')
+			.attr('x', lx)
+			.attr('y', ly)
+			.attr('text-anchor', 'start')
+			.attr('font-size', fs ? fs(12) : 12);
+		if (labelLines.length === 1) {
+			txt.text(label);
+		} else {
+			labelLines.forEach(function(line, i) {
+				txt.append('tspan')
+					.attr('x', lx)
+					.attr('dy', i === 0 ? 0 : '1.1em')
+					.text(line);
+			});
+		}
+		g.on('mousemove', function(event) {
+			if (pinnedRegion) return;
+			showTooltip(event, tooltipHtml(info, regionKey));
+		}).on('mouseleave', function() {
+			if (pinnedRegion !== this) hideTooltip();
+		}).on('click', function(event) {
+			event.stopPropagation();
+			if (pinnedRegion === this) { clearPin(); return; }
+			clearPin();
+			pinnedRegion = this;
+			showTooltip(event, tooltipHtml(info, regionKey));
+		});
+	}
 
-  renderLevel0();
-  wireLevel1Controls();
+	// --- Map a value to 0-1 position on the legend bar ---
+	function legendPos(v, colorInfo) {
+		const lo = colorInfo.lo, hi = colorInfo.hi;
+		if (colorInfo.type === 'log') {
+			const logLo = Math.log(lo), logHi = Math.log(hi);
+			return Math.max(0, Math.min(1, (Math.log(Math.max(v, lo)) - logLo) / (logHi - logLo)));
+		}
+		return Math.max(0, Math.min(1, (v - lo) / (hi - lo)));
+	}
 
-  // Mobile: skip Level 0 and go straight to Level 1 (Funding) with tabs.
-  if (window.matchMedia && window.matchMedia("(max-width: 560px)").matches) {
-    showLevel1("spending_pct_gdp_narrow");
-    document.getElementById("level0-grid").style.display = "none";
-  }
-});
+	// --- Legend semantic labels (low/high end descriptors) ---
+	const LEGEND_LABELS = {
+		'enrollment_pct': ['Low enrollment', 'High enrollment'],
+		'wage_ratio_cc_pct': ['Poverty wage', 'Livable wage'],
+		'wage_ratio_pt_pct': ['Lower wage', 'Higher wage'],
+		'wage_ratio_cacomp_pct': ['Lower wage', 'Higher wage'],
+		'workforce_share_pct': ['Small workforce', 'Full workforce'],
+		'spending_pct_gdp_narrow': ['Family burden', 'Public funded'],
+		'spending_pct_gdp_broad': ['Family burden', 'Public funded'],
+		'gdp_per_child_0_5': ['4x world average', '9x world average+']
+	};
 
-// ═══════════════════════════════════════════════════════════════════════
-// LEVEL 0: 4 small-multiple tile-cards
-// ═══════════════════════════════════════════════════════════════════════
-function renderLevel0() {
-  const { usFC, noTopo, data } = APP;
-  const states = data.us.regions, nordics = data.nordics.regions;
-  const METRICS = Object.keys(METRIC_LABELS);
-  const grid = d3.select("#level0-grid");
-  grid.selectAll("*").remove();
+	// --- Draw legend inside SVG ---
+	function drawLegend(parent, colorInfo, metric, fs) {
+		const lx = LEG.x, ly = LEG.y, lw = LEG.w, lh = LEG.h;
+		const lg = parent.append('g').attr('class', 'legend-group');
+		if (!colorInfo) return;
 
-  const [[x0,y0],[x1,y1]] = APP.pathFn.bounds(usFC);
-  const US_W = 255, US_H = 160;
-  const kUS = Math.min(US_W/(x1-x0), US_H/(y1-y0)) * 0.96;
-  const txUS = (US_W - kUS*(x0+x1))/2, tyUS = (US_H - kUS*(y0+y1))/2;
+		const gradId = 'lg-' + Date.now();
+		const defs = lg.append('defs');
+		const grad = defs.append('linearGradient').attr('id', gradId);
+		// Generate gradient stops that match the scale type
+		for (let i = 0; i <= 20; i++) {
+			const t = i / 20;
+			let v;
+			if (colorInfo.type === 'log') {
+				// Log-spaced stops so gradient visually matches the scale
+				const logLo = Math.log(colorInfo.lo), logHi = Math.log(colorInfo.hi);
+				v = Math.exp(logLo + t * (logHi - logLo));
+			} else {
+				v = colorInfo.lo + t * (colorInfo.hi - colorInfo.lo);
+			}
+			grad.append('stop')
+				.attr('offset', (t * 100) + '%')
+				.attr('stop-color', colorInfo.scale(v));
+		}
 
-  const noFC = topojson.feature(noTopo, noTopo.objects.data);
-  const NO_W = 60, NO_H = 90;
-  const noProj = d3.geoMercator().fitSize([NO_W, NO_H], noFC);
-  const noPath = d3.geoPath(noProj);
+		const isResources = metric.id === 'gdp_per_child_0_5';
+		const barX = isResources ? lx - 30 : lx;
+		const barW = isResources ? lw + 60 : lw;
 
-  METRICS.forEach(metric => {
-    const cs = getColorScale(metric, states, nordics, data.us.national);
+		lg.append('rect')
+			.attr('x', barX).attr('y', ly)
+			.attr('width', barW).attr('height', lh)
+			.attr('fill', 'url(#' + gradId + ')')
+			.attr('rx', 1);
 
-    const tile = grid.append("figure").attr("class","l0-tile report-figure")
-      .attr("data-metric", metric);
-    tile.on("click", () => showLevel1(metric));
-    const card = tile.append("div").attr("class","card card-compact card-chart");
-    const body = card.append("div").attr("class","card-body");
-    body.append("h4").text(METRIC_LABELS[metric].name);
-    // L0 subtitle: prefer an explicit short form if the metric supplies one,
-    // otherwise fall back to "title (unit)". Unit parens are skipped when
-    // the metric has no separate unit string.
-    const m = METRIC_LABELS[metric];
-    const subtitle = m.subtitleL0
-      ? m.subtitleL0
-      : (m.unit ? `${m.title} (${m.unit})` : m.title);
-    body.append("p").attr("class","chart-subtitle").text(subtitle);
+		// Min/max labels
+		const hiLabel = colorInfo.trueHi
+			? fmtVal(colorInfo.hi, metric) + '+'
+			: fmtVal(colorInfo.hi, metric);
+		if (isResources) {
+			// Resources: labels above endpoints of the wider bar
+			const aboveY = ly - 6;
+			lg.append('text').attr('class', 'legend-label legend-label-end')
+				.attr('x', barX).attr('y', aboveY)
+				.attr('text-anchor', 'start')
+				.attr('font-size', fs(14))
+				.text(fmtVal(colorInfo.lo, metric));
+			lg.append('text').attr('class', 'legend-label legend-label-end')
+				.attr('x', barX + barW).attr('y', aboveY)
+				.attr('text-anchor', 'end')
+				.attr('font-size', fs(14))
+				.text(hiLabel);
+		} else {
+			// Default: labels outside the bar, vertically centered
+			const labelY = ly + lh / 2 + 7.5;
+			lg.append('text').attr('class', 'legend-label legend-label-end')
+				.attr('x', lx - 6).attr('y', labelY)
+				.attr('text-anchor', 'end')
+				.attr('font-size', fs(14))
+				.text(fmtVal(colorInfo.lo, metric));
+			lg.append('text').attr('class', 'legend-label legend-label-end')
+				.attr('x', lx + lw + 6).attr('y', labelY)
+				.attr('text-anchor', 'start')
+				.attr('font-size', fs(14))
+				.text(hiLabel);
+		}
 
-    const maps = body.append("div").attr("class","l0-maps");
-    const usSvg = maps.append("svg").attr("class","l0-us-map")
-      .attr("viewBox",`0 0 ${US_W} ${US_H + 12}`).attr("preserveAspectRatio","xMidYMid meet");
-    usSvg.append("text").attr("class","map-region-label").attr("x", 2).attr("y", 9).text("US");
-    usSvg.append("g").attr("transform", `translate(${txUS},${tyUS + 12}) scale(${kUS})`)
-      .selectAll("path.region").data(usFC.features)
-      .join("path").attr("class","region").attr("d", APP.pathFn)
-      .attr("fill", d => cs.scale((states[String(d.id).padStart(2,"0")] || {})[metric]));
+		// Semantic legend labels (e.g. "Low enrollment" / "High enrollment")
+		const semLabels = LEGEND_LABELS[metric.id];
+		if (semLabels) {
+			const semY = SEP_TOP_Y + 22;
+			const semOff = container.clientWidth < 500 ? 8 : 2;
+			lg.append('text').attr('class', 'legend-semantic')
+				.attr('x', lx - 32).attr('y', semY + semOff)
+				.attr('text-anchor', 'start')
+				.attr('font-size', fs(13))
+				.text(semLabels[0]);
+			lg.append('text').attr('class', 'legend-semantic')
+				.attr('x', lx + lw + 32).attr('y', semY + semOff)
+				.attr('text-anchor', 'end')
+				.attr('font-size', fs(13))
+				.text(semLabels[1]);
+		}
 
-    const noSvg = maps.append("svg").attr("class","l0-nordic-map")
-      .attr("viewBox",`0 0 ${NO_W} ${NO_H + 12}`).attr("preserveAspectRatio","xMidYMid meet");
-    noSvg.append("text").attr("class","map-region-label").attr("x", 2).attr("y", 9).text("Nordics");
-    noSvg.append("g").attr("transform",`translate(0,12)`).selectAll("path.region").data(noFC.features)
-      .join("path").attr("class","region").attr("d", noPath)
-      .attr("fill", d => cs.scale((nordics[String(d.id)] || {})[metric]));
+		// National average ticks with flags (alternating above/below)
+		const fw = fs(18), fh = fs(13);
+		const legendMarkers = [];
 
-    // ViewBox tall enough for the bar (y=18..28) plus semantic labels below (y~42)
-    body.append("svg").attr("class","l0-legend")
-      .attr("viewBox","0 0 540 50").attr("preserveAspectRatio","xMidYMid meet")
-      .attr("id", `l0-legend-${metric}`);
-    renderLegend(`#l0-legend-${metric}`, cs, metric, [], {showNumeric:false, showMarkers:false});
-  });
-}
+		// US and Canada national averages
+		['us', 'canada'].forEach(function(rk) {
+			const nat = DATA[rk] && DATA[rk].national;
+			if (!nat || nat[metric.id] == null) return;
+			legendMarkers.push({ code: rk === 'us' ? 'US' : 'CA', val: nat[metric.id] });
+		});
 
-// ═══════════════════════════════════════════════════════════════════════
-// LEVEL 1: single expanded map for one metric
-// ═══════════════════════════════════════════════════════════════════════
-function showLevel1(metric) {
-  // Preserve the drill state across tab changes. If the user is currently
-  // at L2 for some division, switching tabs should land them at L2 for the
-  // same division on the new metric — not bounce them back to L1 default.
-  const preserveDiv = APP.currentDivision;
-  APP.currentMetric = metric;
-  APP.currentDivision = null;
-  document.getElementById("level0-grid").style.display = "none";
-  const lv1 = document.getElementById("level1-view");
-  lv1.classList.add("visible");
-  const grid = document.querySelector(".l1-grid");
-  if (grid) grid.classList.remove("drilled");
-  renderLevel1(metric);
-  if (preserveDiv) drillIntoDivision(preserveDiv);
-}
+		// Nordic countries (each is its own nation)
+		const nordicMap = { '208': 'DK', '246': 'FI', '578': 'NO', '752': 'SE' };
+		if (DATA.nordics && DATA.nordics.regions) {
+			Object.keys(nordicMap).forEach(function(id) {
+				const r = DATA.nordics.regions[id];
+				if (r && r[metric.id] != null) {
+					legendMarkers.push({ code: nordicMap[id], val: r[metric.id] });
+				}
+			});
+		}
 
-function showLevel0() {
-  APP.currentMetric = null;
-  APP.currentDivision = null;
-  document.getElementById("level0-grid").style.display = "";
-  document.getElementById("level1-view").classList.remove("visible");
-}
+		// Sort by value (left to right on legend bar)
+		legendMarkers.sort(function(a, b) { return a.val - b.val; });
 
-function wireLevel1Controls() {
-  // Single back button: at L2 returns to L1 (same metric); at L1 returns to L0.
-  document.getElementById("l1-back").onclick = () => {
-    if (APP.currentDivision) undrillDivision();
-    else showLevel0();
-  };
-  document.querySelectorAll("#l1-tabs .tab").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const m = btn.getAttribute("data-metric");
-      if (m) showLevel1(m);
-    });
-  });
-  wireSwipeNavigation();
-}
+		// Greedy collision avoidance: assign each flag to above or below,
+		// picking whichever level has room (rightmost edge is clear)
+		let edgeAbove = -Infinity, edgeBelow = -Infinity;
+		const minGap = fw + 3; // minimum horizontal space between flags on same level
 
-// Swipe left/right on the map view changes tabs (mobile convenience).
-// Only fires on predominantly-horizontal swipes above threshold distance.
-function wireSwipeNavigation() {
-  const view = document.getElementById("mapview");
-  if (!view) return;
-  const MIN_DIST = 50;          // px — below this counts as a tap, not a swipe
-  const MAX_VERTICAL = 40;      // px — vertical drift allowed; more = ignore
-  let startX = null, startY = null;
+		// Name map for legend tooltip headers
+		const legendNames = { US: 'United States', CA: 'Canada', DK: 'Denmark', FI: 'Finland', NO: 'Norway', SE: 'Sweden' };
 
-  view.addEventListener("touchstart", (e) => {
-    if (e.touches.length !== 1) { startX = null; return; }
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
-  }, { passive: true });
+		legendMarkers.forEach(function(m) {
+			const tPos = legendPos(m.val, colorInfo);
+			const xp = barX + tPos * barW;
+			const flagLeft = xp - fw / 2;
 
-  view.addEventListener("touchend", (e) => {
-    if (startX === null) return;
-    const endX = e.changedTouches[0].clientX;
-    const endY = e.changedTouches[0].clientY;
-    const dx = endX - startX;
-    const dy = endY - startY;
-    startX = null;
-    if (Math.abs(dx) < MIN_DIST) return;
-    if (Math.abs(dy) > MAX_VERTICAL) return;  // treat as scroll, not swipe
-    // Only at Level 1 or 2 (skip when we're at L0 overview).
-    if (!APP.currentMetric) return;
-    const metrics = Object.keys(METRIC_LABELS);
-    const idx = metrics.indexOf(APP.currentMetric);
-    const nextIdx = dx < 0 ? idx + 1 : idx - 1;  // swipe left → next tab
-    if (nextIdx >= 0 && nextIdx < metrics.length) {
-      showLevel1(metrics[nextIdx]);
-    }
-  }, { passive: true });
-}
+			// Pick the level with more clearance
+			let above;
+			if (flagLeft >= edgeAbove && flagLeft >= edgeBelow) {
+				above = true; // both clear, default to above
+			} else if (flagLeft >= edgeAbove) {
+				above = true;
+			} else if (flagLeft >= edgeBelow) {
+				above = false;
+			} else {
+				// both overlap -- pick whichever has less overlap
+				above = (flagLeft - edgeAbove) > (flagLeft - edgeBelow);
+			}
 
-function setBackLabel() {
-  const btn = document.getElementById("l1-back");
-  if (!btn) return;
-  const isMobile = window.matchMedia &&
-    window.matchMedia("(max-width: 560px)").matches;
-  btn.textContent = APP.currentDivision ? "← All states" : "← Overview";
-  // On mobile, there's no Level 0 to return to — hide the button at L1
-  // default. Show it at L2 so users can un-drill back to the all-states view.
-  btn.style.display = (isMobile && !APP.currentDivision) ? "none" : "";
-}
+			if (above) {
+				edgeAbove = flagLeft + minGap;
+			} else {
+				edgeBelow = flagLeft + minGap;
+			}
 
-function renderLevel1(metric) {
-  const { usFC, noTopo, data, stateBounds } = APP;
-  const states = data.us.regions, nordics = data.nordics.regions, national = data.us.national;
-  const cs = getColorScale(metric, states, nordics, national);
-  APP.level1US.colorScale = cs;
+			const mg = lg.append('g').attr('class', 'legend-marker').style('cursor', 'pointer');
 
-  // Active tab
-  document.querySelectorAll("#l1-tabs .tab").forEach(b => {
-    b.classList.toggle("active", b.getAttribute("data-metric") === metric);
-  });
+			mg.append('line')
+				.attr('x1', xp).attr('x2', xp)
+				.attr('y1', above ? ly - fh : ly)
+				.attr('y2', above ? ly + lh : ly + lh + fh)
+				.attr('stroke', 'var(--color-text-strong)')
+				.attr('stroke-width', 0.8);
+			const fy = above ? ly - fh - 3 : ly + lh + 3;
+			drawFlag(mg, m.code, xp - fw/2, fy, fw, fh);
+			// Invisible hit area over flag + tick
+			mg.append('rect')
+				.attr('x', xp - fw/2 - 2).attr('y', Math.min(ly - fh - 4, fy) - 2)
+				.attr('width', fw + 4)
+				.attr('height', (above ? lh + fh + 7 : lh + fh + 7) + 4)
+				.attr('fill', 'transparent');
 
-  // Title (bold main phrase + muted indicator). When a metric has no unit
-  // (e.g. workforce, where "per 100 children" is already in the title), hide
-  // the indicator span entirely so no orphan "(unit)" appears.
-  document.getElementById("l1-title-main").textContent = METRIC_LABELS[metric].title;
-  const indSpan = document.getElementById("l1-title-indicator");
-  indSpan.textContent = METRIC_LABELS[metric].unit;
-  indSpan.style.display = METRIC_LABELS[metric].unit ? "" : "none";
-  document.getElementById("l1-caveat").textContent = "Author, see notes";
+			// Tooltip on hover
+			const ttLabel = (legendNames[m.code] || m.code) + ' (national)';
+			const ttVal = fmtVal(m.val, metric);
+			mg.on('mouseenter', function(event) {
+				const html = '<div class="chart-tooltip-header">' + ttLabel + '</div>' +
+					'<div><span class="cc-tooltip-value">' + ttVal + '</span></div>';
+				showTooltip(event, html);
+			}).on('mousemove', function(event) {
+				showTooltip(event, tooltip.innerHTML);
+			}).on('mouseleave', hideTooltip);
+		});
+	}
 
-  // US map (default view, no drill)
-  const svgUS = d3.select("#l1-us");
-  svgUS.selectAll("*").remove();
-  svgUS.append("text").attr("class","map-region-label region-us")
-    .attr("x", 2).attr("y", 12).text("United States");
-  const [[x0,y0],[x1,y1]] = APP.pathFn.bounds(usFC);
-  // viewBox 540×420. Leave 18 for the "UNITED STATES" region label at top.
-  const W = 540, H = 402, topPad = 18;
-  const k = Math.min(W/(x1-x0), H/(y1-y0)) * 0.96;
-  const tx = (W - k*(x0+x1))/2, ty = (H - k*(y0+y1))/2 + topPad;
-  APP.level1US.defaultTransform = `translate(${tx},${ty}) scale(${k})`;
-  APP.level1US.defaultK  = k;
-  APP.level1US.defaultTx = tx;
-  APP.level1US.defaultTy = ty;
+	// --- SVG flag drawing helper ---
+	function drawFlag(parent, code, x, y, w, h) {
+		parent.append('image')
+			.attr('href', 'files/childcare-images/flags/' + code.toLowerCase() + '.png')
+			.attr('x', x).attr('y', y).attr('width', w).attr('height', h);
+		parent.append('rect')
+			.attr('x', x).attr('y', y).attr('width', w).attr('height', h)
+			.attr('fill', 'none').attr('stroke', 'rgba(0,0,0,0.15)').attr('stroke-width', 0.5)
+			.attr('rx', 0.5);
+	}
 
-  const g = svgUS.append("g").attr("transform", APP.level1US.defaultTransform);
-  APP.level1US.gRef = g;
+	// --- Composite render ---
+	// Resolve current spending metric based on toggle state
+	function resolveSpendingMetric() {
+		const id = spendingTier === 'broad' ? 'spending_pct_gdp_broad' : 'spending_pct_gdp_narrow';
+		return METRICS.find(function(m) { return m.id === id; });
+	}
 
-  g.selectAll("path.region").data(usFC.features).join("path")
-    .attr("class","region").attr("d", APP.pathFn)
-    .attr("fill", d => cs.scale((states[String(d.id).padStart(2,"0")] || {})[metric]))
-    .on("click", (_, d) => {
-      const div = FIPS_TO_DIVISION[String(d.id).padStart(2,"0")];
-      // Ignore clicks that target the division already on screen.
-      if (!div || div === APP.currentDivision) return;
-      drillIntoDivision(div);
-    });
+	function isSpendingMetric(metric) {
+		return metric && (metric.id === 'spending_pct_gdp_narrow' || metric.id === 'spending_pct_gdp_broad');
+	}
 
-  Object.entries(DIVISIONS).forEach(([divName, fipsList]) => {
-    const divFeats = usFC.features.filter(f => fipsList.includes(String(f.id).padStart(2,"0")));
-    g.append("path").attr("class","division-outline").attr("data-div", divName)
-      .attr("d", APP.pathFn({type:"FeatureCollection", features: divFeats}));
-  });
+	// Resolve current wage metric based on occupation toggle state
+	function resolveWageMetric() {
+		const id = wageOccupation === 'cc_only' ? 'wage_ratio_cc_pct' :
+			wageOccupation === 'preschool' ? 'wage_ratio_pt_pct' : 'wage_ratio_cacomp_pct';
+		return METRICS.find(function(m) { return m.id === id; });
+	}
 
-  // ── City callouts: invisible anchor at real city, short SE leader to
-  // colored box, label stacked UNDER the box. Re-rendered when drilling so
-  // anchors follow the transform. Offset differs between L1 and L2 because
-  // the map zoom changes where "below Long Island" ends up in viewBox space.
-  // At L2 we also append the value as a label line (two-line: code + value)
-  // matching the state-label pattern.
-  APP.level1US.renderCityCallouts = (kArg, txArg, tyArg, drilledDiv) => {
-    const dcFeat = usFC.features.find(f => f.id === "11");
-    const dcRaw = dcFeat ? APP.pathFn.centroid(dcFeat) : null;
-    const nycProj = d3.geoAlbersUsa().scale(1300).translate([487.5, 305]);
-    const nycRaw = nycProj([-73.9857, 40.7484]);
-    const nycLines = METRIC_LABELS[metric].nycLines || ["NYC"];
+	function isWageMetric(metric) {
+		return metric && (metric.id === 'wage_ratio_cc_pct' || metric.id === 'wage_ratio_pt_pct' || metric.id === 'wage_ratio_cacomp_pct');
+	}
 
-    const CALLOUTS = [
-      {
-        stateKey: "NYC", division: "Mid Atlantic", anchor: nycRaw,
-        leaderOffsetL1: [22, 20],  // L1: up and right of NYC
-        leaderOffsetL2: [48, 30],  // L2 Mid Atlantic: under Long Island
-        lines: nycLines,
-        value: (states["NYC"]||{})[metric],
-      },
-      {
-        stateKey: "11", division: "South Atlantic", anchor: dcRaw,
-        leaderOffsetL1: [32, 26],  // L1: right into Chesapeake
-        leaderOffsetL2: [54, 26],  // L2: further right (zoomed, more room)
-        lines: ["DC"],
-        value: (states["11"]||{})[metric],
-      },
-    ];
+	function render() {
+		clearPin();
+		svg.selectAll('*').remove();
+		if (!DATA || !currentMetric) return;
 
-    svgUS.selectAll(".insets").remove();
-    const ig = svgUS.append("g").attr("class","insets");
-    const BOX_SIZE = 12;
-    const TEXT_GAP = 4;
-    const TEXT_LINE_HEIGHT = 11;
-    const proj = (rx, ry) => [rx * kArg + txArg, ry * kArg + tyArg];
+		// Mobile detection: scale up fonts when viewBox (680) is wider than container
+		const mobile = container.clientWidth < 500;
+		const fs = mobile ? function(base) { return Math.round(base * 1.6); } : function(base) { return base; };
 
-    CALLOUTS.forEach(c => {
-      if (!c.anchor) return;
-      const [ax, ay] = proj(c.anchor[0], c.anchor[1]);
-      const isDrilledHere = (drilledDiv === c.division);
-      const [ldx, ldy] = isDrilledHere ? c.leaderOffsetL2 : c.leaderOffsetL1;
-      const cx = ax + ldx, cy = ay + ldy;
-      const bx = cx - BOX_SIZE/2, by = cy - BOX_SIZE/2;
-      const unit = ig.append("g").attr("class","inset-unit")
-        .attr("data-division", c.division);
-      unit.append("line").attr("class","inset-leader")
-        .attr("x1", ax).attr("y1", ay)
-        .attr("x2", bx).attr("y2", by);
-      const box = unit.append("g").attr("class","inset-box");
-      box.append("rect")
-        .attr("x", bx).attr("y", by)
-        .attr("width", BOX_SIZE).attr("height", BOX_SIZE).attr("rx", 1)
-        .attr("fill", cs.scale(c.value));
-      // Label lines: first is the code (state-label = bold, 14px),
-      // subsequent are sublabel/value (state-label-value = lighter, 11px).
-      // At L2 we append the value so the callout mirrors the state labels.
-      const lines = [...c.lines];
-      if (isDrilledHere && c.value != null) lines.push(fmtVal(c.value, metric));
-      lines.forEach((line, i) => {
-        box.append("text")
-          .attr("class", i === 0 ? "state-label" : "state-label-value")
-          .attr("x", cx)
-          .attr("y", by + BOX_SIZE + TEXT_GAP + 8 + i * TEXT_LINE_HEIGHT)
-          .text(line);
-      });
-    });
-  };
-  APP.level1US.renderCityCallouts(k, tx, ty, null);
+		// Desktop/mobile layout overrides (outer vars are shared defaults)
+		if (!mobile) {
+			SEP_TOP_Y = US_BOTTOM + 10;
+			LEGEND_Y = US_BOTTOM + 62;
+			SEP_BOT_Y = US_BOTTOM + 96;
+			LEG.y = LEGEND_Y;
+			ROW2_LABELS_Y = US_BOTTOM + 138;
+			ROW2_MAP_Y = US_BOTTOM + 138;
+			ROW2_H = 304; // match mobile projection zoom so northern Canada clips
+			CA.y = ROW2_LABELS_Y; CA.h = ROW2_H;
+			NO.y = ROW2_LABELS_Y; NO.h = ROW2_H;
+		} else {
+			SEP_TOP_Y = US_BOTTOM + 20;
+			LEGEND_Y = US_BOTTOM + 88;
+			SEP_BOT_Y = US_BOTTOM + 130;
+			LEG.y = LEGEND_Y;
+			ROW2_LABELS_Y = US_BOTTOM + 176;
+			ROW2_MAP_Y = US_BOTTOM + 180;
+			ROW2_H = VB_H - ROW2_MAP_Y - 6;
+			CA.y = ROW2_LABELS_Y; CA.h = ROW2_H;
+			NO.y = ROW2_LABELS_Y; NO.h = ROW2_H;
+		}
 
-  // Nordic
-  const svgN = d3.select("#l1-nordic");
-  svgN.selectAll("*").remove();
-  svgN.append("text").attr("class","map-region-label region-nordic")
-    .attr("x", 2).attr("y", 10).text("Nordics");
-  const noFC = topojson.feature(noTopo, noTopo.objects.data);
-  // viewBox height 230; leave 15px top padding for the label
-  const noProj = d3.geoMercator().fitSize([150, 215], noFC);
-  const noPath = d3.geoPath(noProj);
-  const noG = svgN.append("g").attr("transform","translate(0,15)");
-  noG.selectAll("path.region").data(noFC.features)
-    .join("path").attr("class","region").attr("d", noPath)
-    .attr("fill", d => cs.scale((nordics[String(d.id)] || {})[metric]));
-  // Country-code labels + value labels (value only visible at L2 via CSS).
-  // Offsets tuned manually because Nordic centroids often sit in the sea
-  // (Norway's arc, Sweden's length, Denmark's two landmasses). Nordic
-  // viewBox is 150 wide × ~230 tall, so moves of 10–30 vbU are significant.
-  const NORDIC_LABEL_OFFSETS = {
-    "208": [-22, 2],   // Denmark — further left onto Jutland
-    "246": [0, 22],    // Finland — further south
-    "578": [-42, 10],  // Norway  — near top of body
-    "752": [4, -18],   // Sweden  — up into central Sweden
-  };
-  noFC.features.forEach(f => {
-    const id = String(f.id);
-    const [cx, cy] = noPath.centroid(f);
-    const off = NORDIC_LABEL_OFFSETS[id] || [0,0];
-    const lx = cx + off[0], ly = cy + off[1];
-    noG.append("text").attr("class","nordic-label")
-      .attr("x", lx).attr("y", ly)
-      .text(NORDIC_NUM_TO_CODE[id] || "");
-    const val = (nordics[id] || {})[metric];
-    noG.append("text").attr("class","nordic-label-value")
-      .attr("x", lx).attr("y", ly + 7)
-      .text(fmtVal(val, metric));
-  });
+		// Set viewBox based on desktop/mobile
+		const vbH = mobile ? 900 : 858;
+		svg.attr('viewBox', '0 0 ' + VB_W + ' ' + vbH);
 
-  // Legend markers: USA + top state + bottom state + 4 Nordics
-  //   For Resources, we also add a "World avg" marker for context (~$0.2M per
-  //   child globally, from IMF WEO world GDP / UN WPP pop 0-5, as used in the
-  //   live report's resources chart).
-  const stateVals = Object.entries(states)
-    .filter(([fips, g]) => g[metric] != null && fips !== "NYC")
-    .map(([fips, g]) => [fips, g[metric]])
-    .sort((a,b) => b[1] - a[1]);
-  const topFips = stateVals[0][0], botFips = stateVals[stateVals.length-1][0];
-  const uspsFor = f => FIPS_TO_USPS[f] || f;
-  const legendMarkers = [
-    { label: "USA", value: national[metric] },
-    { label: uspsFor(topFips), value: stateVals[0][1] },
-    { label: uspsFor(botFips), value: stateVals[stateVals.length-1][1] },
-    ...Object.entries(nordics).map(([num, g]) => ({
-      label: NORDIC_NUM_TO_CODE[num] || "?", value: g[metric],
-    })),
-  ];
-  renderLegend("#l1-legend", cs, metric, legendMarkers);
+		// Show/hide spending toggle
+		if (spendingToggle) spendingToggle.classList.toggle('visible', isSpendingMetric(currentMetric));
+		// Show/hide wage occupation toggle
+		if (wageToggle) wageToggle.classList.toggle('visible', isWageMetric(currentMetric));
 
-  // Stats
-  setNationalStats(states, nordics, national, metric);
-  setBackLabel();
-}
+		const colorInfo = getColorScale(currentMetric.id);
+		mapIndicator.textContent = currentMetric.name;
+		mapSource.textContent = 'Source: ' + currentMetric.source;
+		mapCaveat.textContent = currentMetric.caveat || '';
+		mapCaveat.style.display = currentMetric.caveat ? '' : 'none';
 
-function drillIntoDivision(divName) {
-  APP.currentDivision = divName;
-  const fipsList = DIVISIONS[divName];
-  const g = APP.level1US.gRef;
-  const { stateBounds, data } = APP;
-  const states = data.us.regions;
-  const metric = APP.currentMetric;
-  // Match the US SVG viewBox (540×420) for drill zoom calc.
-  const W = 540, H = 400;
+		Promise.all([
+			loadTopo('us'),
+			loadTopo('canada'),
+			loadTopo('nordics')
+		]).then(function(topos) {
+			const usTopo = topos[0], caTopo = topos[1], noTopo = topos[2];
 
-  let minX=Infinity,minY=Infinity,maxX=-Infinity,maxY=-Infinity;
-  fipsList.forEach(f => {
-    const b = stateBounds[f]; if (!b) return;
-    if (b[0][0]<minX) minX=b[0][0]; if (b[0][1]<minY) minY=b[0][1];
-    if (b[1][0]>maxX) maxX=b[1][0]; if (b[1][1]>maxY) maxY=b[1][1];
-  });
-  const dk = Math.min(W/(maxX-minX), H/(maxY-minY)) * 0.85;
-  const dtx = (W - dk*(minX+maxX))/2, dty = (H - dk*(minY+maxY))/2;
-  g.transition().duration(600).attr("transform", `translate(${dtx},${dty}) scale(${dk})`);
-  g.selectAll("path.region").classed("faded",
-    d => !fipsList.includes(String(d.id).padStart(2,"0")));
-  g.selectAll(".division-outline").classed("active",
-    function() { return d3.select(this).attr("data-div") === divName; });
-  // Re-render insets using the drill transform. Pass the current division
-  // so the L2 leaderOffset variant kicks in (and value-line appends).
-  if (APP.level1US.renderCityCallouts) {
-    APP.level1US.renderCityCallouts(dk, dtx, dty, divName);
-  }
-  // Then hide the callout that doesn't belong to the current division.
-  d3.selectAll("#l1-us .inset-unit").each(function() {
-    const unitDiv = this.getAttribute("data-division");
-    this.style.display = (unitDiv === divName) ? "" : "none";
-  });
-  // Widen right column + enlarge Nordic map via .drilled class
-  document.querySelector(".l1-grid").classList.add("drilled");
+			// =======================
+			// US MAP (pre-projected AlbersUsa)
+			// =======================
+			// states-albers-10m.json is already projected to ~960x600.
+			// We need a null-projection path generator and scale to fit our area.
+			const usFC = topojson.feature(usTopo, usTopo.objects.states);
 
-  // On-map labels at Level 2. IMPORTANT: labels are rendered in the US SVG
-  // ROOT (not inside the drill-scaled <g>) so their font-size renders at
-  // consistent screen pixels regardless of the zoom factor. We project each
-  // state's centroid through the drill transform manually.
-  // Only remove the state-label-layer group (its child labels go with it).
-  // Must NOT broadly select ".state-label" — that class is also used on the
-  // NYC/DC inset callout texts, which we don't want to nuke here.
-  const svgUS = d3.select("#l1-us");
-  svgUS.selectAll(".state-label-layer").remove();
-  const labelLayer = svgUS.append("g").attr("class","state-label-layer");
+			// Compute bounding box of the pre-projected coordinates
+			// Clamp left edge to X=50 to exclude far-west Aleutian Islands from sizing
+			const usBounds = d3.geoPath(null).bounds(usFC);
+			const bx = Math.max(usBounds[0][0], 50), by = usBounds[0][1];
+			const bw = usBounds[1][0] - bx, bh = usBounds[1][1] - by;
 
-  setTimeout(() => {
-    // Offsets are in VIEWBOX units (540 wide). Entries serve two purposes:
-    //   (1) small states: nudge label off-coast + draw leader line
-    //   (2) irregular shapes (MI with UP, LA with delta, etc.): move label
-    //       to the landmass center without a leader.
-    // `leader: false` means the offset applies but no leader line is drawn.
-    const STATE_OFFSETS = {
-      // Small states — leader lines to off-coast positions
-      "11": {dx: 22, dy: 20, leader: true},   // DC
-      "10": {dx: 20, dy: 8,  leader: true},   // DE
-      "44": {dx: 16, dy: 0,  leader: true},   // RI
-      "09": {dx: -18, dy: 0, leader: true},   // CT
-      "25": {dx: 18, dy: -8, leader: true},   // MA
-      "33": {dx: 6,  dy: -14, leader: true},  // NH
-      "50": {dx: -10, dy: -14, leader: true}, // VT
-      "34": {dx: 18, dy: 0,  leader: true},   // NJ
-      "24": {dx: -12, dy: -8, leader: true},  // MD — up and west off-coast
-      "54": {dx: -12, dy: 0,  leader: false}, // WV — shift left (bounds center sits too far east)
-      // Irregular shapes — centroid in water, nudge onto landmass (no leader)
-      "26": {dx: 40, dy: 18, leader: false},  // MI — shift south onto mitten (away from UP)
-      "22": {dx: -16, dy: -4, leader: false}, // LA — nudge further left off delta
-      "51": {dx: 16, dy: 0,  leader: false},  // VA — shift right (DC inset crowds west edge)
-      "40": {dx: 10, dy: 0,  leader: false},  // OK — shift right (panhandle pulls centroid west)
-    };
-    const smallThresholdPx = 26;
-    // DC (FIPS 11) is labeled via its own callout inset — skip it here to
-    // avoid a duplicate "DC / value" on top of the state.
-    const SKIP_STATE_LABEL = new Set(["11"]);
-    fipsList.forEach(f => {
-      if (SKIP_STATE_LABEL.has(f)) return;
-      const [[ax,ay],[bx,by]] = stateBounds[f];
-      // Raw centroid in path space (pre-drill-transform)
-      const cx = (ax+bx)/2, cy = (ay+by)/2;
-      // Rendered pixel width after drill transform
-      const widthPx  = (bx - ax) * dk;
-      const heightPx = (by - ay) * dk;
-      const isSmall = widthPx < smallThresholdPx || heightPx < smallThresholdPx;
-      const off = STATE_OFFSETS[f];
+			// Scale and translate to fit our US area
+			const usScale = Math.min(US.w / bw, US.h / bh);
+			const usTx = US.x + (US.w - bw * usScale) / 2 - bx * usScale;
+			const usTy = US.y + (US.h - bh * usScale) / 2 - by * usScale;
 
-      // Project BOTH centroid and label position through the drill transform
-      // into SVG root viewBox coordinates.
-      const px = cx * dk + dtx;
-      const py = cy * dk + dty;
-      const lx = off ? px + off.dx : px;
-      const ly = off ? py + off.dy : py;
+			const usPath = d3.geoPath(
+				d3.geoTransform({
+					point: function(x, y) {
+						this.stream.point(x * usScale + usTx, y * usScale + usTy);
+					}
+				})
+			);
 
-      if (off && off.leader) {
-        labelLayer.append("line").attr("class","state-leader")
-          .attr("x1", px).attr("y1", py).attr("x2", lx).attr("y2", ly);
-      }
-      // Two-line label: state code on top, value below (no tooltip needed).
-      const stateVal = (states[f] || {})[metric];
-      labelLayer.append("text").attr("class","state-label")
-        .attr("x", lx).attr("y", ly + 0)
-        .text(FIPS_TO_USPS[f]);
-      labelLayer.append("text").attr("class","state-label-value")
-        .attr("x", lx).attr("y", ly + 11)
-        .text(fmtVal(stateVal, metric));
-    });
-  }, 100);
+			// All US features (AlbersUsa already excludes territories,
+			// and repositions AK + HI)
+			const usMesh = topojson.mesh(usTopo, usTopo.objects.states,
+				function(a, b) { return a !== b; });
 
-  // Title stays the same between L1 and L2 — the zoomed map + back button
-  // make clear the user has drilled in; no need to surface the division name.
-  setDivisionStats(divName, fipsList, states, data.us.national, data.nordics.regions, metric);
-  setBackLabel();
-}
+			const usG = svg.append('g');
+			drawFeatures(usG, usFC.features, usMesh,
+				DATA.us.regions, 'us', colorInfo, usPath);
 
-function undrillDivision() {
-  const g = APP.level1US.gRef;
-  if (!g) return;
-  const metric = APP.currentMetric;
-  APP.currentDivision = null;
-  g.transition().duration(500).attr("transform", APP.level1US.defaultTransform);
-  g.selectAll("path.region").classed("faded", false);
-  g.selectAll(".division-outline").classed("active", false);
-  d3.select("#l1-us .state-label-layer").remove();
-  // Re-render insets at L1 default transform so both callouts show correctly
-  // at their un-zoomed city positions.
-  if (APP.level1US.renderCityCallouts) {
-    APP.level1US.renderCityCallouts(
-      APP.level1US.defaultK, APP.level1US.defaultTx, APP.level1US.defaultTy, null
-    );
-  }
-  document.querySelector(".l1-grid").classList.remove("drilled");
-  const textPanel = document.getElementById("l1-text");
-  if (textPanel) textPanel.style.display = "";
-  setNationalStats(APP.data.us.regions, APP.data.nordics.regions, APP.data.us.national, metric);
-  setBackLabel();
-}
+			// US label with flag on new line below
+			svg.append('text').attr('class', 'group-label')
+				.attr('x', US_LABEL_X + 4).attr('y', US_LABEL_Y - 7)
+				.attr('font-size', fs(16))
+				.text('United States');
+			drawFlag(svg, 'US', US_LABEL_X + 4, US_LABEL_Y + 1, mobile ? 28 : 18, mobile ? 20 : 13);
 
-// Short name: turn full state name into a compact label that fits (e.g. "New Hampshire" → "NH")
-function compactStateLabel(fullName) {
-  const inv = Object.fromEntries(Object.entries(FIPS_TO_USPS).map(([f,u]) => [f, u]));
-  // If fullName matches a state (via name lookup), use its USPS code. Otherwise return as-is.
-  // Build name → usps map once.
-  return fullName;  // fallback; we'll use USPS codes computed externally
-}
+			// DC and NYC inset positions
+			const dcSize = 14, nycSize = 14;
 
-// Lean 2-row stats: just US vs Nordic composite.
-function setNationalStats(states, nordics, national, metric) {
-  const dl = document.getElementById("l1-stats");
-  const nordicAvg = d3.mean(Object.values(nordics).map(g => g[metric]));
-  const natVal = national[metric];
-  const rows = [
-    ["United States", fmtVal(natVal, metric)],
-    ["Nordics",       fmtVal(nordicAvg, metric)],
-  ];
-  dl.innerHTML = rows.map(([k,v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("");
-  const panelH4 = document.querySelector("#l1-text h4");
-  if (panelH4) panelH4.textContent = "At a glance";
-  const textPanel = document.getElementById("l1-text");
-  if (textPanel) textPanel.style.display = "";
-}
+			const dcFeature = usFC.features.find(function(f) {
+				return String(f.id) === '11' || String(f.id).padStart(2, '0') === '11';
+			});
+			const dcCentroid = dcFeature ? usPath.centroid(dcFeature) : [0, 0];
+			const dcX = dcCentroid[0] + 40;
+			const dcY = dcCentroid[1] + 15;
 
-// L2 has no right panel — values live in the on-map labels and the legend.
-function setDivisionStats() {
-  const textPanel = document.getElementById("l1-text");
-  if (textPanel) textPanel.style.display = "none";
-}
+			const nyFeature = usFC.features.find(function(f) {
+				return String(f.id) === '36' || String(f.id).padStart(2, '0') === '36';
+			});
+			// NYC — exact pre-projected coordinates from the TopoJSON geometry
+			// (southern tip of NY state polygon, ~Manhattan area)
+			const nycOriginX = 869 * usScale + usTx;
+			const nycOriginY = 219 * usScale + usTy;
+			const nycX = nycOriginX + 25;
+			const nycY = nycOriginY + 10;
+
+			// Draw leader lines first (below boxes in z-order)
+			if (dcFeature) {
+				svg.append('line')
+					.attr('x1', dcCentroid[0]).attr('y1', dcCentroid[1])
+					.attr('x2', dcX + dcSize / 2).attr('y2', dcY + dcSize / 2)
+					.attr('stroke', 'var(--color-text-muted)')
+					.attr('stroke-width', 0.7)
+					.attr('stroke-dasharray', '2,2')
+					.attr('pointer-events', 'none');
+			}
+			if (nyFeature) {
+				svg.append('line')
+					.attr('x1', nycOriginX).attr('y1', nycOriginY)
+					.attr('x2', nycX + nycSize / 2).attr('y2', nycY + nycSize / 2)
+					.attr('stroke', 'var(--color-text-muted)')
+					.attr('stroke-width', 0.7)
+					.attr('stroke-dasharray', '2,2')
+					.attr('pointer-events', 'none');
+			}
+
+			// Draw inset boxes on top of lines
+			drawInset(svg, lookupRegion(DATA.us.regions, 11), 'us', colorInfo,
+				dcX, dcY, mobile ? 20 : dcSize, 'DC', fs);
+			const nycMetroMetrics = {'wage_ratio_cc_pct': 1, 'wage_ratio_pt_pct': 1, 'wage_ratio_cacomp_pct': 1, 'workforce_share_pct': 1};
+			const nycLabel = nycMetroMetrics[currentMetric.id] ? 'NYC\nMetro' : 'NYC';
+			drawInset(svg, DATA.us.regions['NYC'], 'us', colorInfo,
+				nycX, nycY, mobile ? 20 : nycSize, nycLabel, fs);
+
+			// =======================
+			// SEPARATOR LINES + LEGEND (full width, between US and row 2)
+			// =======================
+			svg.append('rect')
+				.attr('class', 'map-divider')
+				.attr('x', 6).attr('y', SEP_TOP_Y)
+				.attr('width', VB_W - 12).attr('height', 3)
+				.attr('rx', 1.5);
+
+			drawLegend(svg, colorInfo, currentMetric, fs);
+
+			svg.append('rect')
+				.attr('class', 'map-divider')
+				.attr('x', 6).attr('y', SEP_BOT_Y)
+				.attr('width', VB_W - 12).attr('height', 3)
+				.attr('rx', 1.5);
+
+			// =======================
+			// CANADA (conic equal-area, own projection)
+			// =======================
+			const caFC = topojson.feature(caTopo, caTopo.objects.data);
+
+			// Fit to Canada excluding Nunavut's arctic islands (same
+			// approach as Svalbard for Norway — NU is still rendered
+			// but doesn't drive the zoom level)
+			const caFitFC = {
+				type: 'FeatureCollection',
+				features: caFC.features.filter(function(f) {
+					return f.id !== 'NU';
+				})
+			};
+			const caProj = d3.geoConicEqualArea()
+				.rotate([96, 0])
+				.parallels([49, 63])
+				.fitExtent([[CA.x - 6, ROW2_MAP_Y], [CA.x + CA.w - 6, ROW2_MAP_Y + CA.h]], caFitFC);
+			const caPath = d3.geoPath(caProj);
+
+			// Clip Canada to its area
+			svg.append('defs').append('clipPath').attr('id', 'ca-clip')
+				.append('rect')
+				.attr('x', CA.x - 6).attr('y', ROW2_MAP_Y)
+				.attr('width', CA.w + 6).attr('height', CA.h);
+
+			const caG = svg.append('g')
+				.attr('clip-path', 'url(#ca-clip)');
+
+			const caNatMode = isCanadaNational(currentMetric.id);
+
+			if (caNatMode) {
+				// National fallback: draw one merged shape
+				const caMerged = topojson.merge(caTopo, caTopo.objects.data.geometries);
+				const natData = DATA.canada.national;
+				const natVal = natData ? natData[currentMetric.id] : null;
+				const fill = (natVal != null && colorInfo) ? colorInfo.scale(natVal) : '#ddd';
+				caG.append('path')
+					.datum(caMerged)
+					.attr('class', 'region')
+					.attr('d', caPath)
+					.attr('fill', fill)
+					.on('mousemove', function(event) {
+						if (pinnedRegion) return;
+						if (natData) showTooltip(event, tooltipHtml(natData, 'canada'));
+					})
+					.on('mouseleave', function() {
+						if (pinnedRegion !== this) hideTooltip();
+					})
+					.on('click', function(event) {
+						event.stopPropagation();
+						if (pinnedRegion === this) { clearPin(); return; }
+						clearPin();
+						pinnedRegion = this;
+						d3.select(this).classed('active', true);
+						if (natData) showTooltip(event, tooltipHtml(natData, 'canada'));
+					});
+			} else {
+				// Province mode: individual features + internal borders
+				const caMesh = topojson.mesh(caTopo, caTopo.objects.data,
+					function(a, b) { return a !== b; });
+				drawFeatures(caG, caFC.features, caMesh,
+					DATA.canada.regions, 'canada', colorInfo, caPath);
+			}
+
+			// Canada label with flag on new line below
+			svg.append('text').attr('class', 'group-label')
+				.attr('x', CA.x - 8).attr('y', CA.y - 6)
+				.attr('font-size', fs(16))
+				.text('Canada');
+			drawFlag(svg, 'CA', CA.x - 8, CA.y + 2, mobile ? 28 : 18, mobile ? 20 : 13);
+
+			// =======================
+			// NORDICS (conformal, own projection)
+			// =======================
+			const noFC = topojson.feature(noTopo, noTopo.objects.data);
+			const noMesh = topojson.mesh(noTopo, noTopo.objects.data,
+				function(a, b) { return a !== b; });
+			const noProj = d3.geoConicConformal()
+				.parallels([57, 68])
+				.rotate([-15, 0])
+				.fitExtent([[NO.x, ROW2_MAP_Y], [NO.x + NO.w, ROW2_MAP_Y + NO.h]], noFC);
+			const noPath = d3.geoPath(noProj);
+
+			const noG = svg.append('g');
+			drawFeatures(noG, noFC.features, noMesh,
+				DATA.nordics.regions, 'nordics', colorInfo, noPath);
+
+			// Nordics label with flags on second line, spaced
+			svg.append('text').attr('class', 'group-label')
+				.attr('x', NO.x - 18).attr('y', NO.y - 8)
+				.attr('font-size', fs(16))
+				.text('Nordic Countries');
+			const nfx = NO.x - 18, nfy = NO.y + 1;
+			const nfw = mobile ? 26 : 17, nfh = mobile ? 18 : 12, nfg = mobile ? 5 : 4;
+			drawFlag(svg, 'DK', nfx, nfy, nfw, nfh);
+			drawFlag(svg, 'FI', nfx + nfw + nfg, nfy, nfw, nfh);
+			drawFlag(svg, 'NO', nfx + 2*(nfw + nfg), nfy, nfw, nfh);
+			drawFlag(svg, 'SE', nfx + 3*(nfw + nfg), nfy, nfw, nfh);
+		});
+	}
+
+	// --- Tab clicks ---
+	metricTabs.addEventListener('click', function(e) {
+		const btn = e.target.closest('.cc-tab');
+		if (!btn) return;
+		const metricId = btn.getAttribute('data-metric');
+		if (metricId === 'spending_pct_gdp') {
+			// Spending meta-tab: resolve to current tier
+			currentMetric = resolveSpendingMetric();
+		} else if (metricId === 'wage_ratio_pct') {
+			// Wage meta-tab: resolve to current occupation toggle
+			currentMetric = resolveWageMetric();
+		} else {
+			currentMetric = METRICS.find(function(m) { return m.id === metricId; });
+		}
+		metricTabs.querySelectorAll('.cc-tab').forEach(function(t) { t.classList.remove('active'); });
+		btn.classList.add('active');
+		render();
+	});
+
+	// --- Spending toggle clicks ---
+	if (spendingToggle) {
+		spendingToggle.addEventListener('click', function(e) {
+			const btn = e.target.closest('.spending-toggle-btn');
+			if (!btn) return;
+			spendingTier = btn.getAttribute('data-tier');
+			spendingToggle.querySelectorAll('.spending-toggle-btn').forEach(function(b) { b.classList.remove('active'); });
+			btn.classList.add('active');
+			currentMetric = resolveSpendingMetric();
+			render();
+		});
+	}
+
+	// --- Wage occupation toggle clicks ---
+	if (wageToggle) {
+		wageToggle.addEventListener('click', function(e) {
+			const btn = e.target.closest('.wage-toggle-btn');
+			if (!btn) return;
+			wageOccupation = btn.getAttribute('data-occ');
+			wageToggle.querySelectorAll('.wage-toggle-btn').forEach(function(b) { b.classList.remove('active'); });
+			btn.classList.add('active');
+			currentMetric = resolveWageMetric();
+			render();
+		});
+	}
+
+	// --- Load data & render ---
+	d3.json('files/childcare_us.json').then(function(data) {
+		DATA = data;
+		METRICS = data.metrics;
+		// Default to enrollment (the "Enrollment" tab is active by default)
+		currentMetric = METRICS.find(function(m) { return m.id === 'enrollment_pct'; });
+		render();
+	}).catch(function(err) {
+		console.error('Failed to load data:', err);
+		svg.append('text')
+			.attr('x', VB_W / 2).attr('y', VB_H / 2)
+			.attr('text-anchor', 'middle')
+			.attr('font-size', 14)
+			.attr('fill', 'var(--color-text-muted)')
+			.text('Failed to load data');
+	});
 
 })();
 

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-04-21",
+  "generated": "2026-04-23",
   "releases": [
     {
       "name": "Employment Situation",
@@ -111,9 +111,9 @@
     },
     {
       "name": "State Unemployment",
-      "period": "Jan 2026",
+      "period": "Feb 2026",
       "freq": "monthly",
-      "last_changed": "2026-04-08"
+      "last_changed": "2026-04-23"
     },
     {
       "name": "Metro Unemployment",
@@ -286,6 +286,12 @@
   ],
   "recent": [
     {
+      "name": "State Unemployment",
+      "period": "Feb 2026",
+      "freq": "monthly",
+      "last_changed": "2026-04-23"
+    },
+    {
       "name": "Industrial Production",
       "period": "Mar 2026",
       "freq": "monthly",
@@ -338,12 +344,6 @@
       "period": "Mar 2026",
       "freq": "monthly",
       "last_changed": "2026-04-11"
-    },
-    {
-      "name": "Consumer Price Index",
-      "period": "Mar 2026",
-      "freq": "monthly",
-      "last_changed": "2026-04-10"
     }
   ],
   "st_series": [

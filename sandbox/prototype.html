@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Map redesign sandbox — childcare report</title>
+<link href="../style.css" rel="stylesheet">
+<link href="../childcare.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+<style>
+/* ─── Sandbox wrapper ────────────────────────────────────────── */
+.sandbox-wrap { max-width: var(--width-lg); margin: 0 auto; padding: var(--space-6) var(--space-3); }
+.sandbox-note { font-size: 12px; color: var(--color-text-muted); margin: 0 0 var(--space-4) 0; }
+
+/* ─── Shared ─────────────────────────────────────────────────── */
+/* Region separator strokes match the card surface so they read as "gaps"
+   in both light and dark mode (white hardcode broke dark mode badly). */
+.region { stroke: var(--color-surface); stroke-width: 0.5; cursor: pointer; transition: opacity 0.15s; }
+/* Faded states stay clickable — click one to jump directly to its division. */
+.region.faded { opacity: 0.18; }
+/* Division outlines stay invisible — the white state strokes alone
+   communicate the region boundaries at L2. */
+.division-outline {
+  fill: none; stroke: none; stroke-width: 1.5;
+  pointer-events: none;
+}
+/* State labels live in the US SVG root (NOT inside the drill-scaled group),
+   so font-size here is in US-viewBox units (540 wide). Sizes calibrated so
+   state + Nordic labels at L2 render at ~matching screen size — state code
+   ≈ nordic code, state value ≈ nordic value.
+   Halo uses the card surface color so it works in both light and dark modes. */
+.state-label {
+  font-size: 16px;
+  fill: var(--color-text-strong);
+  text-anchor: middle; pointer-events: none;
+  font-weight: 700;
+  paint-order: stroke; stroke: var(--color-surface); stroke-width: 3.5px; stroke-linejoin: round;
+}
+.state-label-value {
+  font-size: 13px;
+  font-weight: 500;
+  fill: var(--color-text);
+  text-anchor: middle; pointer-events: none;
+  paint-order: stroke; stroke: var(--color-surface); stroke-width: 3px; stroke-linejoin: round;
+}
+.state-leader { stroke: var(--color-text-muted); stroke-width: 0.6; pointer-events: none; }
+.legend-bar { rx: 1.5; }
+.legend-tick { stroke: var(--color-text-strong); stroke-width: 0.9; }
+.legend-label { font-size: 13px; fill: var(--color-text); }
+.legend-code  { font-size: 12px; fill: var(--color-text-strong); font-weight: 600; }
+.legend-semantic { font-size: 13px; fill: var(--color-text-muted); }
+
+/* ─── Level 0: 4 small-multiple tile-cards ───────────────────── */
+#level0-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+.l0-tile { cursor: pointer; transition: box-shadow 0.15s; }
+.l0-tile:hover { box-shadow: 0 0 0 1px var(--accent, #2fb47c); }
+.l0-tile .card-body { padding: var(--space-2) var(--space-3); }
+.l0-tile h4 { font-size: 16px; font-weight: 600; margin: 0 0 2px 0; color: var(--color-text-strong); }
+.l0-tile .chart-subtitle { font-size: 12px; margin: 0 0 var(--space-2) 0; }
+.l0-maps { display: grid; grid-template-columns: 1fr 60px; gap: 6px; align-items: start; }
+.l0-us-map, .l0-nordic-map, .l0-legend { width: 100%; display: block; }
+.l0-legend { margin-top: 4px; }
+
+/* ─── Level 1: single expanded map ───────────────────────────── */
+#level1-view { display: none; }
+#level1-view.visible { display: block; }
+.l1-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: var(--space-2); margin-bottom: var(--space-2);
+}
+/* Tabs — minimal, chromeless. No full-width underline; the active-tab
+   indicator alone is enough to identify the current view. Also override
+   site .tab-bar's overflow-x:auto so no spurious scrollbar appears. */
+#l1-tabs.tab-bar {
+  gap: 0;
+  border-bottom: none;
+  background: none;
+  overflow-x: visible;
+  overflow-y: visible;
+  flex-wrap: wrap;
+}
+#l1-tabs .tab {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm, 14px);
+  font-family: var(--font-accent, var(--font-body));
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+}
+#l1-tabs .tab::after {
+  content: ""; position: absolute; bottom: 0; left: var(--space-4); right: var(--space-4);
+  height: 2px; background: transparent;
+}
+#l1-tabs .tab.active {
+  color: var(--accent, var(--color-card-teal));
+  background: none;
+}
+#l1-tabs .tab.active::after { background: var(--accent, var(--color-card-teal)); }
+#l1-tabs .tab:hover:not(.active) { color: var(--color-text); background: none; }
+.l1-back-btn {
+  font-family: inherit; font-size: 12px;
+  background: var(--color-surface); border: 1px solid var(--color-border-light);
+  border-radius: 3px; padding: 4px 10px; cursor: pointer; color: var(--color-text);
+  white-space: nowrap;
+}
+.l1-back-btn:hover { background: var(--color-background); }
+
+/* Inset boxes for DC / NYC — small colored square + label line(s).
+   Labels use the same .state-label / .state-label-value classes as
+   on-map state labels so typography is unified across the chart. */
+.inset-leader { stroke: var(--color-text-muted); stroke-dasharray: 2,2; stroke-width: 0.8; pointer-events: none; }
+.inset-box rect { stroke: var(--color-surface); stroke-width: 0.5; }
+#map-figure.report-figure { max-width: 100%; margin: 0; }
+/* Map title: bold main phrase + muted indicator inline.
+   Matches the imfweo.html pattern (card-title strong + chart-header-indicator). */
+#l1-title {
+  margin: 0 0 var(--space-3) 0;
+  font-size: var(--text-lg);
+  font-weight: 400;
+  color: var(--color-text-strong);
+  font-style: normal;
+  line-height: 1.3;
+}
+#l1-title strong { font-weight: 700; }
+#l1-title-indicator {
+  margin-left: 6px;
+  color: var(--color-text-muted);
+  font-weight: 400;
+  font-size: inherit;
+}
+.l1-grid {
+  display: grid; grid-template-columns: 1fr 180px; gap: var(--space-3); align-items: start;
+}
+/* When drilled: wider right column gives the Nordic map room to grow */
+.l1-grid.drilled { grid-template-columns: 1fr 220px; }
+.l1-grid.drilled .l1-nordic-map { /* natural scaling by column width */ }
+/* Drilled Nordic: column is wider (220px), so the Nordic SVG renders at
+   a bigger visual scale than at L1 default. Shrink the in-SVG font-sizes
+   one step each so Nordic labels match the US state labels on screen. */
+.l1-grid.drilled .map-region-label.region-nordic { font-size: 8px; }
+.l1-grid.drilled .nordic-label { font-size: 9px; stroke-width: 3px; }
+.l1-grid.drilled .nordic-label-value { font-size: 7px; }
+/* Let Nordic label text extend slightly beyond the SVG's 150px viewBox so
+   the DNK label can sit just off Jutland's west coast without being
+   clipped at the left edge. */
+.l1-nordic-map { overflow: visible; }
+.l1-text {
+  font-size: 13px; line-height: 1.5;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  padding: 10px 12px 12px;
+  border-radius: 4px;
+  margin-top: var(--space-4);
+}
+.l1-text h4 {
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  margin: 0 0 6px 0;
+}
+.l1-text dl { margin: 0; display: grid; grid-template-columns: 1fr auto; gap: 5px 12px; }
+.l1-text dt { color: var(--color-text); font-weight: 500; }
+.l1-text dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; color: var(--color-text-strong); }
+/* Drilled-state per-state ranked list (replaces on-map labels) */
+.l1-state-list { margin-top: var(--space-2); }
+.l1-state-list-head { font-size: 12px; font-weight: 600; color: var(--color-text-strong); margin-bottom: 3px; }
+.l1-state-list ul { list-style: none; margin: 0; padding: 0; font-size: 12px; }
+.l1-state-list li {
+  display: grid; grid-template-columns: 14px auto 1fr auto; gap: 6px;
+  align-items: center; padding: 2px 0;
+}
+.l1-state-list .swatch { width: 10px; height: 10px; border-radius: 1px; }
+.l1-state-list .code { font-weight: 600; font-family: var(--font-mono, monospace); }
+.l1-state-list .val  { font-variant-numeric: tabular-nums; }
+
+/* Map region labels ("US" / "Nordics" on top of each mini-map).
+   Because the two SVGs have different viewBox widths (US 540, Nordic 150),
+   the same font-size in viewBox units renders at different screen sizes.
+   Subclass per SVG to calibrate both to ~11 screen px. */
+.map-region-label {
+  font-weight: 600;
+  fill: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-anchor: start;
+}
+.map-region-label { font-size: 10px; }            /* L0 mini (both maps ~1:1 render) */
+.map-region-label.region-us { font-size: 14px; }  /* L1 US SVG (540 wide vb → ~0.9× screen) */
+.map-region-label.region-nordic { font-size: 11px; } /* L1 Nordic SVG (150 wide vb → ~1.2× screen) */
+
+/* Small country-code labels inside each Nordic country on Level 1.
+   Nordic SVG viewBox is 150 wide. Sizes calibrated to match state labels
+   at L2 (see .state-label). Halo uses card surface for dark-mode safety. */
+.nordic-label {
+  font-size: 10px;
+  font-weight: 700;
+  fill: var(--color-text-strong);
+  text-anchor: middle;
+  pointer-events: none;
+  paint-order: stroke;
+  stroke: var(--color-surface);
+  stroke-width: 2.5px;
+  stroke-linejoin: round;
+}
+/* Value labels on Nordic map — only visible when drilled into a division,
+   matches the two-line "code + value" pattern used for states at L2. */
+.nordic-label-value {
+  font-size: 8px;
+  font-weight: 500;
+  fill: var(--color-text);
+  text-anchor: middle;
+  pointer-events: none;
+  paint-order: stroke;
+  stroke: var(--color-surface);
+  stroke-width: 2px;
+  stroke-linejoin: round;
+  display: none;
+}
+.l1-grid.drilled .nordic-label-value { display: block; }
+
+/* ─── Mobile: start at Level 1 with tabs (skip the 4-up overview) ──── */
+@media (max-width: 560px) {
+  .sandbox-wrap { padding: var(--space-4) var(--space-2); }
+  /* Single-column stacking in BOTH L1 default and L2 drilled — the drilled
+     two-column rule would otherwise squeeze the US map to ~90px wide and
+     make state labels unreadable on a phone. */
+  .l1-grid,
+  .l1-grid.drilled {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+  /* Tabs on their own row, back button (if visible) on a second row below.
+     Extra gap between rows so the back button doesn't touch the active-tab
+     indicator. */
+  .l1-nav { flex-direction: column; align-items: stretch; gap: var(--space-3); }
+  #l1-tabs.tab-bar { flex-wrap: nowrap; width: 100%; justify-content: space-between; }
+  #l1-tabs .tab { padding: var(--space-2) var(--space-1); font-size: 13px; }
+  .l1-back-btn { align-self: flex-end; }
+  /* Cap the Nordic map smaller on mobile so it doesn't dwarf the US map
+     visually, and shrink the label font-sizes so the Nordic codes don't
+     read disproportionately huge. Target ~matching screen sizes with the
+     mobile-rendered state labels. */
+  .l1-nordic-map { max-width: 220px; margin: 0 auto; }
+  .nordic-label { font-size: 8px; }
+  .nordic-label-value { font-size: 6px; }
+  .l1-grid.drilled .nordic-label { font-size: 7px; }
+  .l1-grid.drilled .nordic-label-value { font-size: 5px; }
+  /* Map region labels: make both slightly larger on mobile. Nordic SVG
+     renders at ~1.5× vb→px while US renders at ~0.66×, so Nordic needs
+     a smaller viewBox font to reach the same screen size. */
+  .map-region-label.region-us { font-size: 18px; }      /* ~12 screen px */
+  .map-region-label.region-nordic { font-size: 8px; }   /* ~12 screen px */
+  .l1-grid.drilled .map-region-label.region-nordic { font-size: 7px; }
+  /* Legend element text: bigger on mobile so the numeric + code + semantic
+     labels stay readable when the whole legend shrinks to phone width. */
+  .legend-label,
+  .legend-semantic { font-size: 16px; }
+  .legend-code     { font-size: 15px; }
+}
+</style>
+</head>
+<body class="page-childcare accent-teal">
+<div class="sandbox-wrap">
+
+<p class="sandbox-note">
+  Map prototype sandbox. Default shows 4-up overview (Level 0). Click any tile → full map for that metric (Level 1). Click a state in the full map → zoom to its Census Division.
+</p>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div id="mapview">
+
+  <!-- Level 0: 4 separate tile cards -->
+  <div id="level0-grid"></div>
+
+  <!-- Level 1: single expanded map (hidden until a tile is clicked) -->
+  <div id="level1-view">
+    <div class="l1-nav">
+      <div class="tab-bar tab-bar-filled accent-teal" id="l1-tabs">
+        <button class="tab cc-tab" data-metric="gdp_per_child_0_5">Resources</button>
+        <button class="tab cc-tab" data-metric="spending_pct_gdp_narrow">Funding</button>
+        <button class="tab cc-tab" data-metric="enrollment_pct">Enrollment</button>
+        <button class="tab cc-tab" data-metric="workforce_per_100_kids">Workforce</button>
+      </div>
+      <button class="l1-back-btn" id="l1-back" type="button">← Overview</button>
+    </div>
+    <figure class="report-figure" id="map-figure">
+      <div class="card card-compact card-chart">
+      <div class="card-body">
+        <h3 id="l1-title" class="card-title">
+          <strong id="l1-title-main"></strong>
+          <span id="l1-title-indicator" class="chart-header-indicator"></span>
+        </h3>
+        <div class="l1-grid">
+          <div>
+            <svg class="l1-us-map" id="l1-us" viewBox="0 0 540 420" preserveAspectRatio="xMidYMid meet" style="width:100%; display:block;"></svg>
+            <svg class="l1-legend" id="l1-legend" viewBox="0 0 540 80" preserveAspectRatio="xMidYMid meet" style="width:100%; display:block; margin-top: 4px;"></svg>
+          </div>
+          <div>
+            <svg class="l1-nordic-map" id="l1-nordic" viewBox="0 0 150 230" preserveAspectRatio="xMidYMid meet" style="width:100%; display:block;"></svg>
+            <div class="l1-text" id="l1-text">
+              <h4>Figures</h4>
+              <dl id="l1-stats"></dl>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer card-footer-col">
+        <span class="chart-source" id="l1-caveat">Author, see notes</span>
+        <svg class="card-logo" viewBox="0 0 9 5" width="18" height="10" aria-hidden="true">
+          <title>BD Economics</title>
+          <rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/>
+          <rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/>
+          <rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/>
+          <rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/>
+        </svg>
+      </div>
+      </div>
+    </figure>
+  </div>
+
+</div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════
+// Constants
+// ═══════════════════════════════════════════════════════════════════════
+const DATA_URL = "../files/childcare_us_new.json";
+const US_TOPO_URL = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-albers-10m.json";
+const NORDIC_TOPO_URL = "../files/nordic_countries.json";
+
+const DIVISIONS = {
+  "New England":          ["09","23","25","33","44","50"],
+  "Mid Atlantic":         ["34","36","42"],
+  "East North Central":   ["17","18","26","39","55"],
+  "West North Central":   ["19","20","27","29","31","38","46"],
+  "South Atlantic":       ["10","11","12","13","24","37","45","51","54"],
+  "East South Central":   ["01","21","28","47"],
+  "West South Central":   ["05","22","40","48"],
+  "Mountain":             ["04","08","16","30","32","35","49","56"],
+  "Pacific":              ["02","06","15","41","53"],
+};
+const FIPS_TO_DIVISION = {};
+for (const [div, fips] of Object.entries(DIVISIONS)) {
+  for (const f of fips) FIPS_TO_DIVISION[f] = div;
+}
+const FIPS_TO_USPS = {
+  "01":"AL","02":"AK","04":"AZ","05":"AR","06":"CA","08":"CO","09":"CT","10":"DE","11":"DC","12":"FL",
+  "13":"GA","15":"HI","16":"ID","17":"IL","18":"IN","19":"IA","20":"KS","21":"KY","22":"LA","23":"ME",
+  "24":"MD","25":"MA","26":"MI","27":"MN","28":"MS","29":"MO","30":"MT","31":"NE","32":"NV","33":"NH",
+  "34":"NJ","35":"NM","36":"NY","37":"NC","38":"ND","39":"OH","40":"OK","41":"OR","42":"PA","44":"RI",
+  "45":"SC","46":"SD","47":"TN","48":"TX","49":"UT","50":"VT","51":"VA","53":"WA","54":"WV","55":"WI","56":"WY"
+};
+const NORDIC_NUM_TO_ISO = {"208":"DNK","246":"FIN","578":"NOR","752":"SWE"};
+// Use ISO3 everywhere (map labels + legend markers) so users can't confuse
+// "FI" with Florida, "NO" with a USPS code, etc. States stay 2-letter USPS.
+const NORDIC_NUM_TO_CODE = {"208":"DNK","246":"FIN","578":"NOR","752":"SWE"};
+
+const METRIC_LABELS = {
+  // `name`  = tab label + L0 tile title.
+  // `title` = bold part of the chart title (shown at L1/L2 alongside `unit`).
+  // `unit`  = non-bold unit string that sits next to `title`.
+  // `short`/`high`  = Level 1 legend semantic endpoints (with context embedded).
+  // `shortMini`/`highMini` = Level 0 mini-legend terse endpoints.
+  // `nycLines` = callout label lines for NYC. Most metrics use 5-borough NYC;
+  //              workforce uses the broader NYC Metro (MSA 35620).
+  gdp_per_child_0_5:        { name: "Resources",  title: "GDP per child, age 0-5",                      unit: "Millions USD",    short: "4× world avg",    high: "9× world avg+",    shortMini:"Low", highMini:"High", nycLines: ["NYC"],          caveat: "Author, see notes" },
+  spending_pct_gdp_narrow:  { name: "Funding",    title: "Public childcare and pre-K funding",          unit: "% of GDP",        short: "Family burden",   high: "Publicly funded",  shortMini:"Low", highMini:"High", nycLines: ["NYC"],          caveat: "Author, see notes" },
+  enrollment_pct:           { name: "Enrollment", title: "Public childcare and pre-K enrollment",       unit: "% of children",   short: "Few enrolled",    high: "Most enrolled",    shortMini:"Low", highMini:"High", nycLines: ["NYC"],          caveat: "Author, see notes", subtitleL0: "Public childcare and pre-K enrollment rate" },
+  workforce_per_100_kids:   { name: "Workforce",  title: "Childcare and ECE workers per 100 children age 0-5",  unit: "",          short: "Small workforce", high: "Full workforce",   shortMini:"Low", highMini:"High", nycLines: ["NYC", "Metro"], caveat: "Author, see notes", subtitleL0: "ECEC workers per 100 children age 0-5" },
+};
+
+// AK trim (keep mainland, drop far-west Aleutians)
+const AK_TRIM_PAD = 0, AK_SHIFT_X = 0, HI_SHIFT_X = 0;
+
+// ═══════════════════════════════════════════════════════════════════════
+// Helpers
+// ═══════════════════════════════════════════════════════════════════════
+
+// Per-metric color scale:
+//   funding, workforce   → log (compresses Nordic high end, expands US variation)
+//   gdp_per_child_0_5    → winsorized at 95th pct (caps DC outlier)
+//   enrollment           → linear
+// Returns { scale(v) → color, pos(v) → 0..1 on bar, domain, trueHi, type }.
+function getColorScale(metricId, states, nordics, national) {
+  const vals = [];
+  Object.values(states).forEach(g => { const v = g[metricId]; if (v != null) vals.push(v); });
+  Object.values(nordics).forEach(g => { const v = g[metricId]; if (v != null) vals.push(v); });
+  if (national && national[metricId] != null) vals.push(national[metricId]);
+  vals.sort(d3.ascending);
+  let lo = vals[0], hi = vals[vals.length-1];
+  if (lo === hi) { lo -= 0.01; hi += 0.01; }
+
+  const viridis = t => d3.interpolateViridis(1 - t);  // dark = high
+
+  if (metricId === "spending_pct_gdp_narrow" || metricId === "workforce_per_100_kids") {
+    const logLo = Math.max(lo, 0.01);
+    const raw = d3.scaleSequentialLog(viridis).domain([logLo, hi]);
+    const logSpan = Math.log(hi) - Math.log(logLo);
+    return {
+      scale: v => (v == null ? "var(--color-surface, #eee)" : raw(Math.max(v, logLo))),
+      pos: v => (Math.log(Math.max(v, logLo)) - Math.log(logLo)) / logSpan,
+      domain: [logLo, hi], trueHi: hi, type: "log",
+    };
+  }
+  if (metricId === "gdp_per_child_0_5") {
+    const p95 = d3.quantile(vals, 0.95) ?? hi;
+    const raw = d3.scaleSequential(viridis).domain([lo, p95]);
+    return {
+      scale: v => (v == null ? "var(--color-surface, #eee)" : raw(Math.min(v, p95))),
+      pos: v => Math.min(1, (v - lo) / (p95 - lo)),
+      domain: [lo, p95], trueHi: hi, type: "winsorized",
+    };
+  }
+  // Linear
+  const raw = d3.scaleSequential(viridis).domain([lo, hi]);
+  return {
+    scale: v => (v == null ? "var(--color-surface, #eee)" : raw(v)),
+    pos:   v => (v - lo) / (hi - lo),
+    domain: [lo, hi], trueHi: hi, type: "linear",
+  };
+}
+function fmtVal(v, metric) {
+  if (v == null) return "—";
+  if (metric === "gdp_per_child_0_5") return "$" + v.toFixed(2) + "M";
+  if (metric === "workforce_per_100_kids") return v.toFixed(1);
+  return v.toFixed(metric === "spending_pct_gdp_narrow" ? 2 : 1) + "%";
+}
+
+function trimAlaskaAndShift(usFC) {
+  const ak = usFC.features.find(f => f.id === "02");
+  const hi = usFC.features.find(f => f.id === "15");
+  if (ak && ak.geometry.type === "MultiPolygon") {
+    let mainlandIdx = 0, maxPts = 0;
+    ak.geometry.coordinates.forEach((poly, i) => {
+      if (poly[0].length > maxPts) { maxPts = poly[0].length; mainlandIdx = i; }
+    });
+    const mainland = ak.geometry.coordinates[mainlandIdx][0];
+    const cutoff = d3.min(mainland, p => p[0]) + AK_TRIM_PAD;
+    ak.geometry.coordinates = ak.geometry.coordinates.filter(poly => d3.max(poly[0], p => p[0]) >= cutoff);
+    if (AK_SHIFT_X) {
+      ak.geometry.coordinates = ak.geometry.coordinates.map(poly =>
+        poly.map(ring => ring.map(([x,y]) => [x + AK_SHIFT_X, y])));
+    }
+  }
+  if (hi && hi.geometry.type === "MultiPolygon" && HI_SHIFT_X) {
+    hi.geometry.coordinates = hi.geometry.coordinates.map(poly =>
+      poly.map(ring => ring.map(([x,y]) => [x + HI_SHIFT_X, y])));
+  }
+}
+
+// Legend layout (viewBox 540 wide):
+//   Row: numerics inline at bar ends (left/right of bar, vertically centered on bar)
+//   Row: above-bar marker codes (ticks from bar top)
+//   Row: the gradient bar
+//   Row: below-bar marker codes (ticks from bar bottom)
+//   Row: semantic qualitative labels at far left/right, below the markers
+//
+// This avoids crowding: numerics and markers used to collide on the same
+// below-bar y-position. Numerics inline solves that cleanly and mirrors
+// the pattern from the live map.
+function renderLegend(svgSel, colorScale, metric, markers, opts) {
+  const { showNumeric = true, showMarkers = true } = opts || {};
+  const svg = d3.select(svgSel);
+  svg.selectAll("*").remove();
+
+  const lab = METRIC_LABELS[metric] || {short:"Low", high:"High", shortMini:"Low", highMini:"High"};
+  const useMini = !showNumeric && !showMarkers;
+  const leftSem  = useMini ? (lab.shortMini || "Low")  : lab.short;
+  const rightSem = useMini ? (lab.highMini  || "High") : lab.high;
+
+  // Numeric end-values (only shown at L1).
+  const loLabel = showNumeric ? fmtVal(colorScale.domain[0], metric) : "";
+  const hiLabel = showNumeric
+    ? fmtVal(colorScale.domain[1], metric) + (colorScale.trueHi > colorScale.domain[1] ? "+" : "")
+    : "";
+
+  // Approximate widths @ 13px; 7px per char keeps this close enough for layout.
+  const approxW = s => s.length * 7 + 6;
+  const loW = showNumeric ? approxW(loLabel) : 0;
+  const hiW = showNumeric ? approxW(hiLabel) : 0;
+  const barX = showNumeric ? loW + 6 : 0;
+  const barW = showNumeric ? (540 - loW - hiW - 12) : 540;
+  const barY = showMarkers ? 28 : 18;
+  const barH = 10;
+
+  // Gradient
+  const defs = svg.append("defs");
+  const gid = "lg-" + svgSel.replace(/\W/g,"") + "-" + Math.floor(Math.random()*1e6);
+  const grad = defs.append("linearGradient").attr("id", gid);
+  const [lo, hi] = colorScale.domain;
+  for (let i = 0; i <= 20; i++) {
+    const t = i/20;
+    let v;
+    if (colorScale.type === "log") {
+      const ll = Math.log(lo), lh = Math.log(hi);
+      v = Math.exp(ll + t * (lh - ll));
+    } else {
+      v = lo + t * (hi - lo);
+    }
+    grad.append("stop").attr("offset", (i*5) + "%").attr("stop-color", colorScale.scale(v));
+  }
+  svg.append("rect").attr("class","legend-bar")
+    .attr("x", barX).attr("y", barY).attr("width", barW).attr("height", barH)
+    .attr("fill", `url(#${gid})`);
+
+  // Inline numeric end-values at bar mid-height (baseline tuned for 13px font)
+  if (showNumeric) {
+    const numY = barY + barH/2 + 4;
+    svg.append("text").attr("class","legend-label")
+      .attr("x", 0).attr("y", numY).attr("text-anchor","start").text(loLabel);
+    svg.append("text").attr("class","legend-label")
+      .attr("x", 540).attr("y", numY).attr("text-anchor","end").text(hiLabel);
+  }
+
+  // Semantic qualitative labels at far left/right, BELOW the markers row.
+  // Extra breathing room so the labels don't sit right against the codes.
+  const semanticY = barY + barH + (showMarkers ? 38 : 14);
+  svg.append("text").attr("class","legend-semantic")
+    .attr("x", 0).attr("y", semanticY).text(leftSem);
+  svg.append("text").attr("class","legend-semantic")
+    .attr("x", 540).attr("y", semanticY).attr("text-anchor","end").text(rightSem);
+
+  if (showMarkers && markers && markers.length) {
+    // Merge near-duplicates into combined labels (e.g. "DK/NO")
+    const mergePx = 8;
+    const positioned = markers.slice().sort((a,b) => a.value - b.value).map(m => {
+      const t = Math.max(0, Math.min(1, colorScale.pos(m.value)));
+      return { label: m.label, value: m.value, x: barX + t * barW };
+    });
+    const merged = [];
+    positioned.forEach(m => {
+      const last = merged[merged.length - 1];
+      if (last && Math.abs(m.x - last.x) <= mergePx) {
+        last.label = last.label + "/" + m.label;
+        last.x = (last.x + m.x) / 2;
+      } else {
+        merged.push({...m});
+      }
+    });
+
+    // Greedy above/below with per-label width, respecting horizontal extents
+    // so labels don't spill past the legend's bounds (0..540).
+    let edgeAbove = -Infinity, edgeBelow = -Infinity;
+    merged.forEach(m => {
+      const w = approxW(m.label);
+      const leftEdge = m.x - w/2;
+      let above;
+      if (leftEdge >= edgeAbove) above = true;
+      else if (leftEdge >= edgeBelow) above = false;
+      else above = (leftEdge - edgeAbove) >= (leftEdge - edgeBelow);
+      if (above) edgeAbove = leftEdge + w + 2;
+      else       edgeBelow = leftEdge + w + 2;
+
+      svg.append("line").attr("class","legend-tick")
+        .attr("x1", m.x).attr("x2", m.x)
+        .attr("y1", above ? barY - 6 : barY + barH + 6)
+        .attr("y2", above ? barY : barY + barH);
+      svg.append("text").attr("class","legend-code")
+        .attr("x", m.x).attr("y", above ? barY - 9 : barY + barH + 20)
+        .attr("text-anchor","middle")
+        .text(m.label);
+    });
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// App state
+// ═══════════════════════════════════════════════════════════════════════
+const APP = {
+  data: null, usFC: null, noTopo: null,
+  stateBounds: null, pathFn: d3.geoPath(),
+  currentMetric: null,     // null = Level 0; string = Level 1 metric id
+  currentDivision: null,   // null = Level 1 default; string = drilled division name
+  level1US: { gRef: null, defaultTransform: "" },
+};
+
+// ═══════════════════════════════════════════════════════════════════════
+// Load + kick off at Level 0
+// ═══════════════════════════════════════════════════════════════════════
+Promise.all([
+  d3.json(DATA_URL), d3.json(US_TOPO_URL), d3.json(NORDIC_TOPO_URL)
+]).then(([data, usTopo, noTopo]) => {
+  const usFC = topojson.feature(usTopo, usTopo.objects.states);
+  trimAlaskaAndShift(usFC);
+  const stateBounds = {};
+  usFC.features.forEach(f => {
+    stateBounds[String(f.id).padStart(2,"0")] = APP.pathFn.bounds(f);
+  });
+  Object.assign(APP, { data, usFC, noTopo, stateBounds });
+
+  renderLevel0();
+  wireLevel1Controls();
+
+  // Mobile: skip Level 0 and go straight to Level 1 (Funding) with tabs.
+  if (window.matchMedia && window.matchMedia("(max-width: 560px)").matches) {
+    showLevel1("spending_pct_gdp_narrow");
+    document.getElementById("level0-grid").style.display = "none";
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════════════
+// LEVEL 0: 4 small-multiple tile-cards
+// ═══════════════════════════════════════════════════════════════════════
+function renderLevel0() {
+  const { usFC, noTopo, data } = APP;
+  const states = data.us.regions, nordics = data.nordics.regions;
+  const METRICS = Object.keys(METRIC_LABELS);
+  const grid = d3.select("#level0-grid");
+  grid.selectAll("*").remove();
+
+  const [[x0,y0],[x1,y1]] = APP.pathFn.bounds(usFC);
+  const US_W = 255, US_H = 160;
+  const kUS = Math.min(US_W/(x1-x0), US_H/(y1-y0)) * 0.96;
+  const txUS = (US_W - kUS*(x0+x1))/2, tyUS = (US_H - kUS*(y0+y1))/2;
+
+  const noFC = topojson.feature(noTopo, noTopo.objects.data);
+  const NO_W = 60, NO_H = 90;
+  const noProj = d3.geoMercator().fitSize([NO_W, NO_H], noFC);
+  const noPath = d3.geoPath(noProj);
+
+  METRICS.forEach(metric => {
+    const cs = getColorScale(metric, states, nordics, data.us.national);
+
+    const tile = grid.append("figure").attr("class","l0-tile report-figure")
+      .style("max-width","100%").style("margin","0")
+      .attr("data-metric", metric);
+    tile.on("click", () => showLevel1(metric));
+    const card = tile.append("div").attr("class","card card-compact card-chart");
+    const body = card.append("div").attr("class","card-body");
+    body.append("h4").text(METRIC_LABELS[metric].name);
+    // L0 subtitle: prefer an explicit short form if the metric supplies one,
+    // otherwise fall back to "title (unit)". Unit parens are skipped when
+    // the metric has no separate unit string.
+    const m = METRIC_LABELS[metric];
+    const subtitle = m.subtitleL0
+      ? m.subtitleL0
+      : (m.unit ? `${m.title} (${m.unit})` : m.title);
+    body.append("p").attr("class","chart-subtitle").text(subtitle);
+
+    const maps = body.append("div").attr("class","l0-maps");
+    const usSvg = maps.append("svg").attr("class","l0-us-map")
+      .attr("viewBox",`0 0 ${US_W} ${US_H + 12}`).attr("preserveAspectRatio","xMidYMid meet");
+    usSvg.append("text").attr("class","map-region-label").attr("x", 2).attr("y", 9).text("US");
+    usSvg.append("g").attr("transform", `translate(${txUS},${tyUS + 12}) scale(${kUS})`)
+      .selectAll("path.region").data(usFC.features)
+      .join("path").attr("class","region").attr("d", APP.pathFn)
+      .attr("fill", d => cs.scale((states[String(d.id).padStart(2,"0")] || {})[metric]));
+
+    const noSvg = maps.append("svg").attr("class","l0-nordic-map")
+      .attr("viewBox",`0 0 ${NO_W} ${NO_H + 12}`).attr("preserveAspectRatio","xMidYMid meet");
+    noSvg.append("text").attr("class","map-region-label").attr("x", 2).attr("y", 9).text("Nordics");
+    noSvg.append("g").attr("transform",`translate(0,12)`).selectAll("path.region").data(noFC.features)
+      .join("path").attr("class","region").attr("d", noPath)
+      .attr("fill", d => cs.scale((nordics[String(d.id)] || {})[metric]));
+
+    // ViewBox tall enough for the bar (y=18..28) plus semantic labels below (y~42)
+    body.append("svg").attr("class","l0-legend")
+      .attr("viewBox","0 0 540 50").attr("preserveAspectRatio","xMidYMid meet")
+      .attr("id", `l0-legend-${metric}`);
+    renderLegend(`#l0-legend-${metric}`, cs, metric, [], {showNumeric:false, showMarkers:false});
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// LEVEL 1: single expanded map for one metric
+// ═══════════════════════════════════════════════════════════════════════
+function showLevel1(metric) {
+  // Preserve the drill state across tab changes. If the user is currently
+  // at L2 for some division, switching tabs should land them at L2 for the
+  // same division on the new metric — not bounce them back to L1 default.
+  const preserveDiv = APP.currentDivision;
+  APP.currentMetric = metric;
+  APP.currentDivision = null;
+  document.getElementById("level0-grid").style.display = "none";
+  const lv1 = document.getElementById("level1-view");
+  lv1.classList.add("visible");
+  const grid = document.querySelector(".l1-grid");
+  if (grid) grid.classList.remove("drilled");
+  renderLevel1(metric);
+  if (preserveDiv) drillIntoDivision(preserveDiv);
+}
+
+function showLevel0() {
+  APP.currentMetric = null;
+  APP.currentDivision = null;
+  document.getElementById("level0-grid").style.display = "";
+  document.getElementById("level1-view").classList.remove("visible");
+}
+
+function wireLevel1Controls() {
+  // Single back button: at L2 returns to L1 (same metric); at L1 returns to L0.
+  document.getElementById("l1-back").onclick = () => {
+    if (APP.currentDivision) undrillDivision();
+    else showLevel0();
+  };
+  document.querySelectorAll("#l1-tabs .tab").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const m = btn.getAttribute("data-metric");
+      if (m) showLevel1(m);
+    });
+  });
+  wireSwipeNavigation();
+}
+
+// Swipe left/right on the map view changes tabs (mobile convenience).
+// Only fires on predominantly-horizontal swipes above threshold distance.
+function wireSwipeNavigation() {
+  const view = document.getElementById("mapview");
+  if (!view) return;
+  const MIN_DIST = 50;          // px — below this counts as a tap, not a swipe
+  const MAX_VERTICAL = 40;      // px — vertical drift allowed; more = ignore
+  let startX = null, startY = null;
+
+  view.addEventListener("touchstart", (e) => {
+    if (e.touches.length !== 1) { startX = null; return; }
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+  }, { passive: true });
+
+  view.addEventListener("touchend", (e) => {
+    if (startX === null) return;
+    const endX = e.changedTouches[0].clientX;
+    const endY = e.changedTouches[0].clientY;
+    const dx = endX - startX;
+    const dy = endY - startY;
+    startX = null;
+    if (Math.abs(dx) < MIN_DIST) return;
+    if (Math.abs(dy) > MAX_VERTICAL) return;  // treat as scroll, not swipe
+    // Only at Level 1 or 2 (skip when we're at L0 overview).
+    if (!APP.currentMetric) return;
+    const metrics = Object.keys(METRIC_LABELS);
+    const idx = metrics.indexOf(APP.currentMetric);
+    const nextIdx = dx < 0 ? idx + 1 : idx - 1;  // swipe left → next tab
+    if (nextIdx >= 0 && nextIdx < metrics.length) {
+      showLevel1(metrics[nextIdx]);
+    }
+  }, { passive: true });
+}
+
+function setBackLabel() {
+  const btn = document.getElementById("l1-back");
+  if (!btn) return;
+  const isMobile = window.matchMedia &&
+    window.matchMedia("(max-width: 560px)").matches;
+  btn.textContent = APP.currentDivision ? "← All states" : "← Overview";
+  // On mobile, there's no Level 0 to return to — hide the button at L1
+  // default. Show it at L2 so users can un-drill back to the all-states view.
+  btn.style.display = (isMobile && !APP.currentDivision) ? "none" : "";
+}
+
+function renderLevel1(metric) {
+  const { usFC, noTopo, data, stateBounds } = APP;
+  const states = data.us.regions, nordics = data.nordics.regions, national = data.us.national;
+  const cs = getColorScale(metric, states, nordics, national);
+  APP.level1US.colorScale = cs;
+
+  // Active tab
+  document.querySelectorAll("#l1-tabs .tab").forEach(b => {
+    b.classList.toggle("active", b.getAttribute("data-metric") === metric);
+  });
+
+  // Title (bold main phrase + muted indicator). When a metric has no unit
+  // (e.g. workforce, where "per 100 children" is already in the title), hide
+  // the indicator span entirely so no orphan "(unit)" appears.
+  document.getElementById("l1-title-main").textContent = METRIC_LABELS[metric].title;
+  const indSpan = document.getElementById("l1-title-indicator");
+  indSpan.textContent = METRIC_LABELS[metric].unit;
+  indSpan.style.display = METRIC_LABELS[metric].unit ? "" : "none";
+  document.getElementById("l1-caveat").textContent = "Author, see notes";
+
+  // US map (default view, no drill)
+  const svgUS = d3.select("#l1-us");
+  svgUS.selectAll("*").remove();
+  svgUS.append("text").attr("class","map-region-label region-us")
+    .attr("x", 2).attr("y", 12).text("United States");
+  const [[x0,y0],[x1,y1]] = APP.pathFn.bounds(usFC);
+  // viewBox 540×420. Leave 18 for the "UNITED STATES" region label at top.
+  const W = 540, H = 402, topPad = 18;
+  const k = Math.min(W/(x1-x0), H/(y1-y0)) * 0.96;
+  const tx = (W - k*(x0+x1))/2, ty = (H - k*(y0+y1))/2 + topPad;
+  APP.level1US.defaultTransform = `translate(${tx},${ty}) scale(${k})`;
+  APP.level1US.defaultK  = k;
+  APP.level1US.defaultTx = tx;
+  APP.level1US.defaultTy = ty;
+
+  const g = svgUS.append("g").attr("transform", APP.level1US.defaultTransform);
+  APP.level1US.gRef = g;
+
+  g.selectAll("path.region").data(usFC.features).join("path")
+    .attr("class","region").attr("d", APP.pathFn)
+    .attr("fill", d => cs.scale((states[String(d.id).padStart(2,"0")] || {})[metric]))
+    .on("click", (_, d) => {
+      const div = FIPS_TO_DIVISION[String(d.id).padStart(2,"0")];
+      // Ignore clicks that target the division already on screen.
+      if (!div || div === APP.currentDivision) return;
+      drillIntoDivision(div);
+    });
+
+  Object.entries(DIVISIONS).forEach(([divName, fipsList]) => {
+    const divFeats = usFC.features.filter(f => fipsList.includes(String(f.id).padStart(2,"0")));
+    g.append("path").attr("class","division-outline").attr("data-div", divName)
+      .attr("d", APP.pathFn({type:"FeatureCollection", features: divFeats}));
+  });
+
+  // ── City callouts: invisible anchor at real city, short SE leader to
+  // colored box, label stacked UNDER the box. Re-rendered when drilling so
+  // anchors follow the transform. Offset differs between L1 and L2 because
+  // the map zoom changes where "below Long Island" ends up in viewBox space.
+  // At L2 we also append the value as a label line (two-line: code + value)
+  // matching the state-label pattern.
+  APP.level1US.renderCityCallouts = (kArg, txArg, tyArg, drilledDiv) => {
+    const dcFeat = usFC.features.find(f => f.id === "11");
+    const dcRaw = dcFeat ? APP.pathFn.centroid(dcFeat) : null;
+    const nycProj = d3.geoAlbersUsa().scale(1300).translate([487.5, 305]);
+    const nycRaw = nycProj([-73.9857, 40.7484]);
+    const nycLines = METRIC_LABELS[metric].nycLines || ["NYC"];
+
+    const CALLOUTS = [
+      {
+        stateKey: "NYC", division: "Mid Atlantic", anchor: nycRaw,
+        leaderOffsetL1: [22, 20],  // L1: up and right of NYC
+        leaderOffsetL2: [48, 30],  // L2 Mid Atlantic: under Long Island
+        lines: nycLines,
+        value: (states["NYC"]||{})[metric],
+      },
+      {
+        stateKey: "11", division: "South Atlantic", anchor: dcRaw,
+        leaderOffsetL1: [32, 26],  // L1: right into Chesapeake
+        leaderOffsetL2: [54, 26],  // L2: further right (zoomed, more room)
+        lines: ["DC"],
+        value: (states["11"]||{})[metric],
+      },
+    ];
+
+    svgUS.selectAll(".insets").remove();
+    const ig = svgUS.append("g").attr("class","insets");
+    const BOX_SIZE = 12;
+    const TEXT_GAP = 4;
+    const TEXT_LINE_HEIGHT = 11;
+    const proj = (rx, ry) => [rx * kArg + txArg, ry * kArg + tyArg];
+
+    CALLOUTS.forEach(c => {
+      if (!c.anchor) return;
+      const [ax, ay] = proj(c.anchor[0], c.anchor[1]);
+      const isDrilledHere = (drilledDiv === c.division);
+      const [ldx, ldy] = isDrilledHere ? c.leaderOffsetL2 : c.leaderOffsetL1;
+      const cx = ax + ldx, cy = ay + ldy;
+      const bx = cx - BOX_SIZE/2, by = cy - BOX_SIZE/2;
+      const unit = ig.append("g").attr("class","inset-unit")
+        .attr("data-division", c.division);
+      unit.append("line").attr("class","inset-leader")
+        .attr("x1", ax).attr("y1", ay)
+        .attr("x2", bx).attr("y2", by);
+      const box = unit.append("g").attr("class","inset-box");
+      box.append("rect")
+        .attr("x", bx).attr("y", by)
+        .attr("width", BOX_SIZE).attr("height", BOX_SIZE).attr("rx", 1)
+        .attr("fill", cs.scale(c.value));
+      // Label lines: first is the code (state-label = bold, 14px),
+      // subsequent are sublabel/value (state-label-value = lighter, 11px).
+      // At L2 we append the value so the callout mirrors the state labels.
+      const lines = [...c.lines];
+      if (isDrilledHere && c.value != null) lines.push(fmtVal(c.value, metric));
+      lines.forEach((line, i) => {
+        box.append("text")
+          .attr("class", i === 0 ? "state-label" : "state-label-value")
+          .attr("x", cx)
+          .attr("y", by + BOX_SIZE + TEXT_GAP + 8 + i * TEXT_LINE_HEIGHT)
+          .text(line);
+      });
+    });
+  };
+  APP.level1US.renderCityCallouts(k, tx, ty, null);
+
+  // Nordic
+  const svgN = d3.select("#l1-nordic");
+  svgN.selectAll("*").remove();
+  svgN.append("text").attr("class","map-region-label region-nordic")
+    .attr("x", 2).attr("y", 10).text("Nordics");
+  const noFC = topojson.feature(noTopo, noTopo.objects.data);
+  // viewBox height 230; leave 15px top padding for the label
+  const noProj = d3.geoMercator().fitSize([150, 215], noFC);
+  const noPath = d3.geoPath(noProj);
+  const noG = svgN.append("g").attr("transform","translate(0,15)");
+  noG.selectAll("path.region").data(noFC.features)
+    .join("path").attr("class","region").attr("d", noPath)
+    .attr("fill", d => cs.scale((nordics[String(d.id)] || {})[metric]));
+  // Country-code labels + value labels (value only visible at L2 via CSS).
+  // Offsets tuned manually because Nordic centroids often sit in the sea
+  // (Norway's arc, Sweden's length, Denmark's two landmasses). Nordic
+  // viewBox is 150 wide × ~230 tall, so moves of 10–30 vbU are significant.
+  const NORDIC_LABEL_OFFSETS = {
+    "208": [-22, 2],   // Denmark — further left onto Jutland
+    "246": [0, 22],    // Finland — further south
+    "578": [-42, 10],  // Norway  — near top of body
+    "752": [4, -18],   // Sweden  — up into central Sweden
+  };
+  noFC.features.forEach(f => {
+    const id = String(f.id);
+    const [cx, cy] = noPath.centroid(f);
+    const off = NORDIC_LABEL_OFFSETS[id] || [0,0];
+    const lx = cx + off[0], ly = cy + off[1];
+    noG.append("text").attr("class","nordic-label")
+      .attr("x", lx).attr("y", ly)
+      .text(NORDIC_NUM_TO_CODE[id] || "");
+    const val = (nordics[id] || {})[metric];
+    noG.append("text").attr("class","nordic-label-value")
+      .attr("x", lx).attr("y", ly + 7)
+      .text(fmtVal(val, metric));
+  });
+
+  // Legend markers: USA + top state + bottom state + 4 Nordics
+  //   For Resources, we also add a "World avg" marker for context (~$0.2M per
+  //   child globally, from IMF WEO world GDP / UN WPP pop 0-5, as used in the
+  //   live report's resources chart).
+  const stateVals = Object.entries(states)
+    .filter(([fips, g]) => g[metric] != null && fips !== "NYC")
+    .map(([fips, g]) => [fips, g[metric]])
+    .sort((a,b) => b[1] - a[1]);
+  const topFips = stateVals[0][0], botFips = stateVals[stateVals.length-1][0];
+  const uspsFor = f => FIPS_TO_USPS[f] || f;
+  const legendMarkers = [
+    { label: "USA", value: national[metric] },
+    { label: uspsFor(topFips), value: stateVals[0][1] },
+    { label: uspsFor(botFips), value: stateVals[stateVals.length-1][1] },
+    ...Object.entries(nordics).map(([num, g]) => ({
+      label: NORDIC_NUM_TO_CODE[num] || "?", value: g[metric],
+    })),
+  ];
+  renderLegend("#l1-legend", cs, metric, legendMarkers);
+
+  // Stats
+  setNationalStats(states, nordics, national, metric);
+  setBackLabel();
+}
+
+function drillIntoDivision(divName) {
+  APP.currentDivision = divName;
+  const fipsList = DIVISIONS[divName];
+  const g = APP.level1US.gRef;
+  const { stateBounds, data } = APP;
+  const states = data.us.regions;
+  const metric = APP.currentMetric;
+  // Match the US SVG viewBox (540×420) for drill zoom calc.
+  const W = 540, H = 400;
+
+  let minX=Infinity,minY=Infinity,maxX=-Infinity,maxY=-Infinity;
+  fipsList.forEach(f => {
+    const b = stateBounds[f]; if (!b) return;
+    if (b[0][0]<minX) minX=b[0][0]; if (b[0][1]<minY) minY=b[0][1];
+    if (b[1][0]>maxX) maxX=b[1][0]; if (b[1][1]>maxY) maxY=b[1][1];
+  });
+  const dk = Math.min(W/(maxX-minX), H/(maxY-minY)) * 0.85;
+  const dtx = (W - dk*(minX+maxX))/2, dty = (H - dk*(minY+maxY))/2;
+  g.transition().duration(600).attr("transform", `translate(${dtx},${dty}) scale(${dk})`);
+  g.selectAll("path.region").classed("faded",
+    d => !fipsList.includes(String(d.id).padStart(2,"0")));
+  g.selectAll(".division-outline").classed("active",
+    function() { return d3.select(this).attr("data-div") === divName; });
+  // Re-render insets using the drill transform. Pass the current division
+  // so the L2 leaderOffset variant kicks in (and value-line appends).
+  if (APP.level1US.renderCityCallouts) {
+    APP.level1US.renderCityCallouts(dk, dtx, dty, divName);
+  }
+  // Then hide the callout that doesn't belong to the current division.
+  d3.selectAll("#l1-us .inset-unit").each(function() {
+    const unitDiv = this.getAttribute("data-division");
+    this.style.display = (unitDiv === divName) ? "" : "none";
+  });
+  // Widen right column + enlarge Nordic map via .drilled class
+  document.querySelector(".l1-grid").classList.add("drilled");
+
+  // On-map labels at Level 2. IMPORTANT: labels are rendered in the US SVG
+  // ROOT (not inside the drill-scaled <g>) so their font-size renders at
+  // consistent screen pixels regardless of the zoom factor. We project each
+  // state's centroid through the drill transform manually.
+  // Only remove the state-label-layer group (its child labels go with it).
+  // Must NOT broadly select ".state-label" — that class is also used on the
+  // NYC/DC inset callout texts, which we don't want to nuke here.
+  const svgUS = d3.select("#l1-us");
+  svgUS.selectAll(".state-label-layer").remove();
+  const labelLayer = svgUS.append("g").attr("class","state-label-layer");
+
+  setTimeout(() => {
+    // Offsets are in VIEWBOX units (540 wide). Entries serve two purposes:
+    //   (1) small states: nudge label off-coast + draw leader line
+    //   (2) irregular shapes (MI with UP, LA with delta, etc.): move label
+    //       to the landmass center without a leader.
+    // `leader: false` means the offset applies but no leader line is drawn.
+    const STATE_OFFSETS = {
+      // Small states — leader lines to off-coast positions
+      "11": {dx: 22, dy: 20, leader: true},   // DC
+      "10": {dx: 20, dy: 8,  leader: true},   // DE
+      "44": {dx: 16, dy: 0,  leader: true},   // RI
+      "09": {dx: -18, dy: 0, leader: true},   // CT
+      "25": {dx: 18, dy: -8, leader: true},   // MA
+      "33": {dx: 6,  dy: -14, leader: true},  // NH
+      "50": {dx: -10, dy: -14, leader: true}, // VT
+      "34": {dx: 18, dy: 0,  leader: true},   // NJ
+      "24": {dx: -12, dy: -8, leader: true},  // MD — up and west off-coast
+      "54": {dx: -12, dy: 0,  leader: false}, // WV — shift left (bounds center sits too far east)
+      // Irregular shapes — centroid in water, nudge onto landmass (no leader)
+      "26": {dx: 40, dy: 18, leader: false},  // MI — shift south onto mitten (away from UP)
+      "22": {dx: -16, dy: -4, leader: false}, // LA — nudge further left off delta
+      "51": {dx: 16, dy: 0,  leader: false},  // VA — shift right (DC inset crowds west edge)
+      "40": {dx: 10, dy: 0,  leader: false},  // OK — shift right (panhandle pulls centroid west)
+    };
+    const smallThresholdPx = 26;
+    // DC (FIPS 11) is labeled via its own callout inset — skip it here to
+    // avoid a duplicate "DC / value" on top of the state.
+    const SKIP_STATE_LABEL = new Set(["11"]);
+    fipsList.forEach(f => {
+      if (SKIP_STATE_LABEL.has(f)) return;
+      const [[ax,ay],[bx,by]] = stateBounds[f];
+      // Raw centroid in path space (pre-drill-transform)
+      const cx = (ax+bx)/2, cy = (ay+by)/2;
+      // Rendered pixel width after drill transform
+      const widthPx  = (bx - ax) * dk;
+      const heightPx = (by - ay) * dk;
+      const isSmall = widthPx < smallThresholdPx || heightPx < smallThresholdPx;
+      const off = STATE_OFFSETS[f];
+
+      // Project BOTH centroid and label position through the drill transform
+      // into SVG root viewBox coordinates.
+      const px = cx * dk + dtx;
+      const py = cy * dk + dty;
+      const lx = off ? px + off.dx : px;
+      const ly = off ? py + off.dy : py;
+
+      if (off && off.leader) {
+        labelLayer.append("line").attr("class","state-leader")
+          .attr("x1", px).attr("y1", py).attr("x2", lx).attr("y2", ly);
+      }
+      // Two-line label: state code on top, value below (no tooltip needed).
+      const stateVal = (states[f] || {})[metric];
+      labelLayer.append("text").attr("class","state-label")
+        .attr("x", lx).attr("y", ly + 0)
+        .text(FIPS_TO_USPS[f]);
+      labelLayer.append("text").attr("class","state-label-value")
+        .attr("x", lx).attr("y", ly + 11)
+        .text(fmtVal(stateVal, metric));
+    });
+  }, 100);
+
+  // Title stays the same between L1 and L2 — the zoomed map + back button
+  // make clear the user has drilled in; no need to surface the division name.
+  setDivisionStats(divName, fipsList, states, data.us.national, data.nordics.regions, metric);
+  setBackLabel();
+}
+
+function undrillDivision() {
+  const g = APP.level1US.gRef;
+  if (!g) return;
+  const metric = APP.currentMetric;
+  APP.currentDivision = null;
+  g.transition().duration(500).attr("transform", APP.level1US.defaultTransform);
+  g.selectAll("path.region").classed("faded", false);
+  g.selectAll(".division-outline").classed("active", false);
+  d3.select("#l1-us .state-label-layer").remove();
+  // Re-render insets at L1 default transform so both callouts show correctly
+  // at their un-zoomed city positions.
+  if (APP.level1US.renderCityCallouts) {
+    APP.level1US.renderCityCallouts(
+      APP.level1US.defaultK, APP.level1US.defaultTx, APP.level1US.defaultTy, null
+    );
+  }
+  document.querySelector(".l1-grid").classList.remove("drilled");
+  const textPanel = document.getElementById("l1-text");
+  if (textPanel) textPanel.style.display = "";
+  setNationalStats(APP.data.us.regions, APP.data.nordics.regions, APP.data.us.national, metric);
+  setBackLabel();
+}
+
+// Short name: turn full state name into a compact label that fits (e.g. "New Hampshire" → "NH")
+function compactStateLabel(fullName) {
+  const inv = Object.fromEntries(Object.entries(FIPS_TO_USPS).map(([f,u]) => [f, u]));
+  // If fullName matches a state (via name lookup), use its USPS code. Otherwise return as-is.
+  // Build name → usps map once.
+  return fullName;  // fallback; we'll use USPS codes computed externally
+}
+
+// Lean 2-row stats: just US vs Nordic composite.
+function setNationalStats(states, nordics, national, metric) {
+  const dl = document.getElementById("l1-stats");
+  const nordicAvg = d3.mean(Object.values(nordics).map(g => g[metric]));
+  const natVal = national[metric];
+  const rows = [
+    ["United States", fmtVal(natVal, metric)],
+    ["Nordics",       fmtVal(nordicAvg, metric)],
+  ];
+  dl.innerHTML = rows.map(([k,v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("");
+  const panelH4 = document.querySelector("#l1-text h4");
+  if (panelH4) panelH4.textContent = "At a glance";
+  const textPanel = document.getElementById("l1-text");
+  if (textPanel) textPanel.style.display = "";
+}
+
+// L2 has no right panel — values live in the on-map labels and the legend.
+function setDivisionStats() {
+  const textPanel = document.getElementById("l1-text");
+  if (textPanel) textPanel.style.display = "none";
+}
+</script>
+</body>
+</html>
