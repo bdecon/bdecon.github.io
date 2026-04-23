@@ -51,7 +51,7 @@ const METRIC_LABELS = {
   // `shortMini`/`highMini` = Level 0 mini-legend terse endpoints.
   // `nycLines` = callout label lines for NYC. Most metrics use 5-borough NYC;
   //              workforce uses the broader NYC Metro (MSA 35620).
-  gdp_per_child_0_5:        { name: "Resources",  title: "GDP per child, age 0-5",                      unit: "Millions USD",    short: "4× world avg",    high: "9× world avg+",    shortMini:"Low", highMini:"High", nycLines: ["NYC"],          caveat: "Author, see notes" },
+  gdp_per_child_0_5:        { name: "Resources",  title: "GDP per child, age 0-5",                      unit: "Millions USD",    short: "4× world avg",    high: "9× world avg+",    shortMini:"Modest", highMini:"Very high", nycLines: ["NYC"],          caveat: "Author, see notes" },
   spending_pct_gdp_narrow:  { name: "Funding",    title: "Public childcare and pre-K funding",          unit: "% of GDP",        short: "Family burden",   high: "Publicly funded",  shortMini:"Low", highMini:"High", nycLines: ["NYC"],          caveat: "Author, see notes" },
   enrollment_pct:           { name: "Enrollment", title: "Public childcare and pre-K enrollment",       unit: "% of children",   short: "Few enrolled",    high: "Most enrolled",    shortMini:"Low", highMini:"High", nycLines: ["NYC"],          caveat: "Author, see notes", subtitleL0: "Public childcare and pre-K enrollment rate" },
   workforce_per_100_kids:   { name: "Workforce",  title: "Childcare and ECE workers per 100 children age 0-5",  unit: "",          short: "Small workforce", high: "Full workforce",   shortMini:"Low", highMini:"High", nycLines: ["NYC", "Metro"], caveat: "Author, see notes", subtitleL0: "ECEC workers per 100 children age 0-5" },
