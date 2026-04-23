@@ -78,7 +78,13 @@ function getColorScale(metricId, states, nordics, national) {
   let lo = vals[0], hi = vals[vals.length-1];
   if (lo === hi) { lo -= 0.01; hi += 0.01; }
 
-  const viridis = t => d3.interpolateViridis(1 - t);  // dark = high
+  // Page-aware colorscale. Default is viridis inverted (dark = high). The
+  // PPP-styled variant (`childcare_ppp.html`) swaps in d3.interpolateReds so
+  // the choropleth sits in the PPP red palette.
+  const isPPP = document.body.classList.contains("page-childcare-ppp");
+  const viridis = isPPP
+    ? t => d3.interpolateReds(0.15 + 0.8 * t)  // avoid pure white at low end
+    : t => d3.interpolateViridis(1 - t);       // original: dark = high
 
   if (metricId === "spending_pct_gdp_narrow" || metricId === "workforce_per_100_kids") {
     const logLo = Math.max(lo, 0.01);

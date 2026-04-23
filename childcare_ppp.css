@@ -1,0 +1,119 @@
+/* ----- Childcare Report — PPP-styled variant -----
+   Overrides for childcare_ppp.html. Loads AFTER childcare.css so rules here win.
+   Visual inspiration: peoplespolicyproject.org — serif body (freight-text-pro →
+   Lora substitute), sans headings (GTAmerica → Inter substitute), red accent
+   (#B5181A), higher body font-size. All scoped to .page-childcare-ppp so the
+   main childcare.html is untouched.
+*/
+
+.page-childcare-ppp {
+	/* Accent — replaces teal with 3P red. --accent cascades through all
+	   .report-*, .accent-* components to recolor pills, rules, underlines,
+	   dashes, and figure teal strokes. */
+	--accent: #B5181A;
+	--color-card-teal: #B5181A;
+	--color-card-teal-weak: #f6dcdd;
+	--color-accent-dark: #881214;
+
+	/* Typography — serif body, sans headings */
+	font-family: 'Lora', Garamond, Georgia, serif;
+	font-size: 1.125rem;
+	line-height: 1.65;
+	color: #111;
+
+	& .prose,
+	& .prose-report,
+	& p,
+	& li,
+	& blockquote,
+	& dd,
+	& dt {
+		font-family: 'Lora', Garamond, Georgia, serif;
+	}
+
+	& h1,
+	& h2,
+	& h3,
+	& h4,
+	& h5,
+	& h6,
+	& .report-hero-title,
+	& .report-hero-deck,
+	& .report-hero-byline,
+	& .report-hero-meta,
+	& .report-hero-kicker,
+	& .report-toc-label,
+	& .card-title,
+	& .chart-subtitle,
+	& .chart-source,
+	& figcaption,
+	& .cc-table-title,
+	& .cc-tab,
+	& #l1-title {
+		font-family: 'Inter', Helvetica, Arial, sans-serif;
+	}
+
+	/* Hero title — bigger, serif-y like PPP. Use Lora bold to echo their
+	   freight-text-pro hero. */
+	& .report-hero-title h1,
+	& #cc-page-title {
+		font-family: 'Lora', Garamond, Georgia, serif;
+		font-weight: 700;
+		letter-spacing: -0.005em;
+	}
+
+	/* Abstract italic lede — Lora italic */
+	& .report-abstract {
+		font-family: 'Lora', Garamond, Georgia, serif;
+		font-style: italic;
+	}
+
+	/* H2 section eyebrow — PPP uses uppercase spaced labels in sans */
+	& .prose-report > h2::before {
+		color: var(--accent);
+		font-family: 'Inter', Helvetica, Arial, sans-serif;
+	}
+
+	/* H3 underline accent color already picks up --accent */
+
+	/* Links — 3P red */
+	& .prose a,
+	& .prose-report a,
+	& .report-toc a {
+		color: var(--accent);
+	}
+	& .prose a:hover,
+	& .prose-report a:hover {
+		color: var(--color-accent-dark);
+	}
+
+	/* Blockquote accent bar picks up --accent automatically */
+
+	/* Tables — match the serif feel */
+	& .cc-table {
+		font-family: 'Lora', Garamond, Georgia, serif;
+	}
+
+	/* Methodology details — keep sans for reference material */
+	& #methodology h4,
+	& #methodology p,
+	& #methodology li,
+	& #methodology code,
+	& #methodology summary {
+		font-family: 'Inter', Helvetica, Arial, sans-serif;
+	}
+}
+
+/* Accent variable — parallel to the site's .accent-teal token system */
+.accent-ppp { --accent: #B5181A; }
+
+/* 3P logo at full strength. Site-wide .card-logo rule sets opacity: 0.5; we
+   undo it here so the red square reads as a brand mark, not a faded glyph. */
+.page-childcare-ppp .card-logo { opacity: 1; }
+
+/* Decision tree Finland branch — swap the light-teal card background/border
+   for a light-red set so the whole diagram sits in the PPP palette. */
+.page-childcare-ppp .dt-tree {
+	--dt-fi-bg: #fbecec;
+	--dt-fi-border: #d8a0a0;
+}
