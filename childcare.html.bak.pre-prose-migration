@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Childcare as Infrastructure | BD Economics</title>
+<link crossorigin="" href="https://cdn.jsdelivr.net" rel="preconnect"/>
+<link href="style.css" rel="stylesheet"/>
+<link href="childcare.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+<meta content="The US came within reach of public childcare. Twice. An interactive comparison of 71 geographies." name="description"/>
+<meta content="Brian Dew" name="author"/>
+<link href="https://www.bd-econ.com/childcare.html" rel="canonical"/>
+<link href="favicon/apple-icon-180x180.png" rel="apple-touch-icon" sizes="180x180"/>
+<link href="favicon/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="favicon/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"/>
+<link href="favicon/manifest.json" rel="manifest"/>
+<meta content="#ffffff" name="theme-color"/>
+<script>
+(function() {
+	const saved = localStorage.getItem('theme');
+	if (saved) {
+		document.documentElement.setAttribute('data-theme', saved);
+	} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+		document.documentElement.setAttribute('data-theme', 'dark');
+	}
+})();
+</script>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-PGVF5S620Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PGVF5S620Y');
+</script>
+</head>
+<body class="page-childcare accent-teal">
+<a class="skip-link" href="#main">Skip to main content</a>
+<header>
+<nav aria-label="Main navigation">
+<ul class="site-nav" id="menu">
+<li class="nav-main"> <a href="index.html"><svg aria-label="BD Economics" class="brand-logo" fill="currentColor" role="img" viewbox="0 0 139 17" xmlns="http://www.w3.org/2000/svg"> <g transform="translate(0,1.5) scale(2.64,2.59)"> <rect height="5" width="1" x="0" y="0"></rect> <rect height="1" width="4" x="0" y="4"></rect> <rect height="1" width="2" x="2" y="2"></rect> <rect height="2" width="1" x="3" y="2"></rect> <rect height="5" width="1" x="8" y="0"></rect> <rect height="1" width="4" x="5" y="4"></rect> <rect height="1" width="2" x="5" y="2"></rect> <rect height="2" width="1" x="5" y="2"></rect> </g> <g transform="translate(27.7,15) scale(0.01857,-0.01857)"> <path d="M94 0V700H518V622H178V390H512V312H178V78H524V0Z" transform="translate(0,0)"></path> <path d="M310 -14Q195 -14 129.5 59.5Q64 133 64 272V428Q64 563 129.5 638.5Q195 714 310 714Q390 714 445.0 680.0Q500 646 528.0 588.5Q556 531 556 460V448H472V460Q471 506 454.5 546.0Q438 586 402.5 611.0Q367 636 310 636Q229 636 188.5 577.0Q148 518 148 422V278Q148 176 188.5 120.0Q229 64 310 64Q367 64 403.0 89.0Q439 114 455.5 154.0Q472 194 472 240V252H556V240Q556 169 528.0 111.5Q500 54 445.0 20.0Q390 -14 310 -14Z" transform="translate(672,0)"></path> <path d="M306 -14Q191 -14 125.5 59.5Q60 133 60 272V428Q60 563 125.5 638.5Q191 714 306 714Q422 714 487.0 638.5Q552 563 552 428V272Q552 133 487.0 59.5Q422 -14 306 -14ZM306 64Q387 64 427.5 120.0Q468 176 468 278V422Q468 518 427.5 577.0Q387 636 306 636Q225 636 184.5 577.0Q144 518 144 422V278Q144 176 184.5 120.0Q225 64 306 64Z" transform="translate(1344,0)"></path> <path d="M73 0V700H241L443 36H455V700H539V0H371L169 664H157V0Z" transform="translate(2016,0)"></path> <path d="M306 -14Q191 -14 125.5 59.5Q60 133 60 272V428Q60 563 125.5 638.5Q191 714 306 714Q422 714 487.0 638.5Q552 563 552 428V272Q552 133 487.0 59.5Q422 -14 306 -14ZM306 64Q387 64 427.5 120.0Q468 176 468 278V422Q468 518 427.5 577.0Q387 636 306 636Q225 636 184.5 577.0Q144 518 144 422V278Q144 176 184.5 120.0Q225 64 306 64Z" transform="translate(2688,0)"></path> <path d="M46 0V700H206L300 36H312L406 700H566V0H488V664H476L382 0H230L136 664H124V0Z" transform="translate(3360,0)"></path> <path d="M84 0V78H264V622H84V700H528V622H348V78H528V0Z" transform="translate(4032,0)"></path> <path d="M310 -14Q195 -14 129.5 59.5Q64 133 64 272V428Q64 563 129.5 638.5Q195 714 310 714Q390 714 445.0 680.0Q500 646 528.0 588.5Q556 531 556 460V448H472V460Q471 506 454.5 546.0Q438 586 402.5 611.0Q367 636 310 636Q229 636 188.5 577.0Q148 518 148 422V278Q148 176 188.5 120.0Q229 64 310 64Q367 64 403.0 89.0Q439 114 455.5 154.0Q472 194 472 240V252H556V240Q556 169 528.0 111.5Q500 54 445.0 20.0Q390 -14 310 -14Z" transform="translate(4704,0)"></path> <path d="M320 -14Q230 -14 169.0 19.5Q108 53 76.5 111.0Q45 169 45 242V272H129V248Q129 157 180.0 110.5Q231 64 320 64Q398 64 437.5 99.0Q477 134 477 190V196Q477 251 436.5 280.0Q396 309 305 322Q200 337 137.5 381.5Q75 426 75 516V528Q75 583 104.5 624.5Q134 666 186.0 690.0Q238 714 306 714Q385 714 440.5 685.0Q496 656 525.5 608.5Q555 561 555 504V462H471V498Q471 544 448.0 574.5Q425 605 387.0 620.5Q349 636 305 636Q267 636 233.5 623.0Q200 610 179.5 585.5Q159 561 159 525V519Q159 461 206.0 434.5Q253 408 347 394Q457 378 509.0 330.0Q561 282 561 202V190Q561 99 499.5 42.5Q438 -14 320 -14Z" transform="translate(5376,0)"></path> </g> </svg></a> </li>
+<li><a href="about.html">About</a> </li>
+<li><a href="https://briandew.wordpress.com" rel="noopener" target="_blank">Blog <svg aria-hidden="true" class="icon icon-external" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M15 3h6v6M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg><span class="sr-only"> (opens in new tab)</span></a> </li>
+<li><a href="python.html">Guides <span class="nav-arrow">↓</span></a>
+<ul class="hidden">
+<li><a href="getstarted.html">Setup</a></li>
+<li><a href="imfapi1.html">IMF API</a></li>
+<li><a href="blsapi.html">BLS API</a></li>
+<li><a href="beaapi.html">BEA API</a></li>
+<li><a href="censusapi.html">Census API</a></li>
+<li><a href="treasuryapi.html">Treasury API</a></li>
+<li><a href="cps.html">CPS Microdata</a></li>
+</ul>
+</li>
+<li>
+<a href="reports.html">Reports <span class="nav-arrow">↓</span></a>
+<ul class="hidden">
+<li><a href="chartbook.html">US Chartbook</a></li>
+<li><a href="indicators.html">Economic Indicators</a></li>
+<li><a href="gdpm.html">Monthly GDP</a></li>
+<li><a href="imfweo.html">IMF WEO</a></li>
+<li><a href="calendar.html">Release Calendar</a></li>
+</ul>
+</li>
+<li><button aria-label="Toggle dark mode" class="theme-toggle" onclick="toggleTheme()"><span id="theme-icon"><svg aria-hidden="true" class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg></span></button></li>
+<li class="icon">
+<button aria-expanded="false" aria-label="Toggle navigation menu" onclick="responsiveNav()" type="button">☰</button>
+</li>
+</ul>
+</nav>
+</header>
+<div class="report-hero">
+<figure class="report-hero-photo">
+<img alt="" aria-hidden="true" decoding="async" fetchpriority="high" height="771" src="images/childcare_hero.jpg" width="1024"/>
+</figure>
+<p class="report-hero-kicker">A BD Economics Report · April 2026</p>
+<div class="report-hero-title">
+<h1 id="cc-page-title">Childcare as Infrastructure</h1>
+<p class="report-hero-deck">A cross-country look at public childcare, the US gap, and what it would take to close it.</p>
+<p class="report-hero-byline">Brian Dew</p>
+</div>
+<p class="report-hero-meta">~18 min read</p>
+</div>
+<main id="main">
+<section>
+<article class="prose prose-report cc-page">
+
+<p class="report-abstract">A public childcare system is infrastructure. It removes a cost from families and boosts parental employment. Public childcare also unlocks the professional childcare workforce needed to meet demand and maintain high quality. This report compares childcare systems between the US and Nordic countries, at the national and state level.</p>
+
+<nav class="report-toc" aria-label="In this report">
+<p class="report-toc-label">In this report</p>
+<ol>
+<li><a href="#s1">The US-Nordic Childcare Gap</a></li>
+<li><a href="#s2">Resources and Systems</a></li>
+<li><a href="#s3">Across Every State</a></li>
+<li><a href="#s4">What the Gap Costs</a></li>
+<li><a href="#s5">Why Public Childcare Works</a></li>
+<li><a href="#s6">Closing the Gap</a></li>
+<li><a href="#s7">Building Public Childcare</a></li>
+</ol>
+</nav>
+
+<h2 id="s1">The US-Nordic Childcare Gap</h2>
+<h3>US Path</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<h3>Nordic Path</h3>
+<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+<blockquote class="blockquote-accent">
+"The subsidies passed, but the wages did not."
+<cite>Claire Hunter, on Vermont Act 76</cite>
+</blockquote>
+<p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+<table class="dash-table cc-table">
+<caption class="cc-table-title">At a Glance</caption>
+<thead>
+<tr><th></th><th>United States<br/><img alt="US flag" class="cc-flag" decoding="async" height="80" loading="lazy" src="files/childcare-images/flags/us.png" width="120"/></th><th>Nordics<br/><span class="cc-flag-row"><img alt="Denmark flag" class="cc-flag" height="80" src="files/childcare-images/flags/dk.png" width="120"/> <img alt="Finland flag" class="cc-flag" height="80" src="files/childcare-images/flags/fi.png" width="120"/> <img alt="Norway flag" class="cc-flag" height="80" src="files/childcare-images/flags/no.png" width="120"/> <img alt="Sweden flag" class="cc-flag" height="80" src="files/childcare-images/flags/se.png" width="120"/></span></th></tr>
+</thead>
+<tbody>
+<tr><td>Childcare cost to families</td><td>$15K/yr</td><td>$0-4K/yr</td></tr>
+<tr><td>Public childcare and pre-K enrollment</td><td>14%</td><td>73%</td></tr>
+<tr><td>Childcare worker pay</td><td>Near poverty</td><td>Livable</td></tr>
+<tr><td>Public childcare and pre-K spending</td><td>&lt;0.3% of GDP</td><td>1.3% of GDP</td></tr>
+<tr><td>Adults out of work for childcare</td><td>3.8%</td><td>~0.5%</td></tr>
+</tbody>
+</table>
+
+<h2 id="s2">Resources and Systems</h2>
+<h3>Resources and Need</h3>
+</article>
+<!-- Break-out: intro prose + Chart 1 side-by-side -->
+<div class="report-split">
+<div class="report-split-text">
+<p>A common defense of the US childcare gap is that the US is unable to afford public daycare, either by lacking the resources or having too many kids. This claim fails against the data. The US has roughly the same financial resources per young child as the Nordic countries. And these resources are nearly seven times the world average.</p>
+</div>
+<figure class="report-figure" id="resources-figure">
+<div class="card card-compact card-chart accent-teal" id="resources-container">
+<div class="card-body">
+<h3>The US and Nordic countries have similar per child resources</h3>
+<p class="chart-subtitle">GDP per 0–5 year old, USD millions, 2023</p>
+<svg id="resources-svg" class="chart-svg" viewBox="0 15 400 260" preserveAspectRatio="xMidYMid meet"><rect x="75" y="72.5" width="45" height="157.5" fill="#2A8A8A" opacity="0.85"></rect><text x="97.5" y="67" text-anchor="middle" font-size="17" fill="#333">$1.2M</text><text x="97.5" y="250" text-anchor="middle" font-size="16" fill="#111"><tspan x="97.5" dy="0">United</tspan><tspan x="97.5" dy="1.1em">States</tspan></text><rect x="140" y="85.625" width="45" height="144.375" fill="#2A8A8A" opacity="0.85"></rect><text x="162.5" y="80" text-anchor="middle" font-size="17" fill="#333">$1.1M</text><text x="162.5" y="250" text-anchor="middle" font-size="16" fill="#111">Denmark</text><rect x="205" y="98.75" width="45" height="131.25" fill="#2A8A8A" opacity="0.85"></rect><text x="227.5" y="93" text-anchor="middle" font-size="17" fill="#333">$1.0M</text><text x="227.5" y="250" text-anchor="middle" font-size="16" fill="#111">Finland</text><rect x="270" y="33.125" width="45" height="196.875" fill="#2A8A8A" opacity="0.85"></rect><text x="292.5" y="28" text-anchor="middle" font-size="17" fill="#333">$1.5M</text><text x="292.5" y="250" text-anchor="middle" font-size="16" fill="#111">Norway</text><rect x="335" y="111.875" width="45" height="118.125" fill="#2A8A8A" opacity="0.85"></rect><text x="357.5" y="106" text-anchor="middle" font-size="17" fill="#333">$0.9M</text><text x="357.5" y="250" text-anchor="middle" font-size="16" fill="#111">Sweden</text><line x1="65" x2="395" y1="230" y2="230" stroke="#333" stroke-width="1.5"></line><line x1="65" x2="395" y1="203.75" y2="203.75" stroke="#1B2A4A" stroke-width="4" stroke-dasharray="5,3"></line><text x="57" y="190" text-anchor="end" font-size="16" fill="#666">$0.2M</text><text x="57" y="209" text-anchor="end" font-size="16" fill="#666" font-style="italic">World</text><text x="57" y="228" text-anchor="end" font-size="16" fill="#666" font-style="italic">Avg.</text></svg>
+</div>
+<div class="card-footer card-footer-col">
+<span class="chart-source">Author, see notes</span>
+<svg class="card-logo" viewBox="0 0 9 5" width="18" height="10" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+</div>
+</div>
+<figcaption>Chart 1. National financial resources per young child</figcaption>
+</figure>
+</div>
+<article class="prose prose-report cc-page">
+<!-- Chart 2 (placeholder: duplicate of Chart 1) -->
+<figure class="report-figure" id="chart2-figure">
+<div class="card card-compact card-chart accent-teal" id="chart2-container">
+<div class="card-body">
+<h3>The US funds almost no public daycare</h3>
+<p class="chart-subtitle">ECEC funding, share of GDP, latest year</p>
+<svg id="chart2-svg" class="chart-svg" viewBox="0 15 400 260" preserveAspectRatio="xMidYMid meet"><rect x="75" y="194.5625" width="45" height="11.8125" fill="#2A8A8A" opacity="0.85"></rect><rect x="75" y="206.375" width="45" height="23.625" fill="#5DC863" opacity="0.85" stroke="#fff" stroke-width="0.5"></rect><text x="97.5" y="189.5625" text-anchor="middle" font-size="17" fill="#333">0.27%</text><line x1="62" x2="75" y1="214" y2="214" stroke="#2E8B3E" stroke-width="1.5"></line><text x="60" y="207" text-anchor="end" font-size="16" fill="#2E8B3E" font-weight="700">67%</text><text x="60" y="228" text-anchor="end" font-size="16" fill="#2E8B3E" font-style="italic">kinder-</text><text x="60" y="246" text-anchor="end" font-size="16" fill="#2E8B3E" font-style="italic">garten</text><text x="97.5" y="250" text-anchor="middle" font-size="16" fill="#111"><tspan x="97.5" dy="0">United</tspan><tspan x="97.5" dy="1.1em">States</tspan></text><rect x="140" y="73.8125" width="45" height="156.1875" fill="#2A8A8A" opacity="0.85"></rect><text x="162.5" y="68.8125" text-anchor="middle" font-size="17" fill="#333">1.19%</text><text x="162.5" y="250" text-anchor="middle" font-size="16" fill="#111">Denmark</text><rect x="205" y="62" width="45" height="168" fill="#2A8A8A" opacity="0.85"></rect><text x="227.5" y="57" text-anchor="middle" font-size="17" fill="#333">1.28%</text><text x="227.5" y="250" text-anchor="middle" font-size="16" fill="#111">Finland</text><rect x="270" y="73.8125" width="45" height="156.1875" fill="#2A8A8A" opacity="0.85"></rect><text x="292.5" y="68.8125" text-anchor="middle" font-size="17" fill="#333">1.19%</text><text x="292.5" y="250" text-anchor="middle" font-size="16" fill="#111">Norway</text><rect x="335" y="34.4375" width="45" height="195.5625" fill="#2A8A8A" opacity="0.85"></rect><text x="357.5" y="29.4375" text-anchor="middle" font-size="17" fill="#333">1.49%</text><text x="357.5" y="250" text-anchor="middle" font-size="16" fill="#111">Sweden</text><line x1="65" x2="395" y1="230" y2="230" stroke="#333" stroke-width="1.5"></line></svg>
+</div>
+<div class="card-footer card-footer-col">
+<span class="chart-source">OECD, see notes</span>
+<svg class="card-logo" viewBox="0 0 9 5" width="18" height="10" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+</div>
+</div>
+<figcaption>Chart 2. Public preschool and childcare funding</figcaption>
+</figure>
+<!-- Enrollment by age chart -->
+<figure class="report-figure" id="enrollment-age-figure">
+<div class="card card-compact card-chart accent-teal" id="enrollment-age-container">
+<div class="card-body"><h3>Nordic children enter public care at age 1. US children wait until age 5.</h3>
+<p class="chart-subtitle">Enrollment in public ECEC programs, by age, percent, 2023-2024</p>
+<svg class="chart-svg" id="enrollment-age-svg" preserveAspectRatio="xMidYMid meet" viewBox="20 90 660 550"><text fill="#666" font-size="22" font-style="italic" text-anchor="middle" x="345" y="625">Age of child, in years</text><line stroke="#ccc" stroke-width="1" x1="45" x2="656" y1="561" y2="561"></line><line stroke="#bbb" stroke-width="0.7" x1="45" x2="656" y1="451.25" y2="451.25"></line><line stroke="#bbb" stroke-width="0.7" x1="45" x2="656" y1="341.5" y2="341.5"></line><line stroke="#bbb" stroke-width="0.7" x1="45" x2="656" y1="231.75" y2="231.75"></line><line stroke="#bbb" stroke-width="0.7" x1="45" x2="656" y1="122" y2="122"></line><g fill="none" font-family="sans-serif" font-size="10" text-anchor="end" transform="translate(45,0)"><g class="tick" opacity="1" transform="translate(0,561.5)"><line stroke="#ddd" x2="-6"></line></g><g class="tick" opacity="1" transform="translate(0,451.75)"><line stroke="#ddd" x2="-6"></line></g><g class="tick" opacity="1" transform="translate(0,342)"><line stroke="#ddd" x2="-6"></line></g><g class="tick" opacity="1" transform="translate(0,232.25)"><line stroke="#ddd" x2="-6"></line></g><g class="tick" opacity="1" transform="translate(0,122.5)"><line stroke="#ddd" x2="-6"></line></g></g><g fill="none" font-family="sans-serif" font-size="10" text-anchor="middle" transform="translate(0,561)"><g class="tick" opacity="1" transform="translate(45.5,0)"><text dy="0.71em" fill="#333" font-size="22" y="9">0</text></g><g class="tick" opacity="1" transform="translate(167.70000000000002,0)"><text dy="0.71em" fill="#333" font-size="22" y="9">1</text></g><g class="tick" opacity="1" transform="translate(289.90000000000003,0)"><text dy="0.71em" fill="#333" font-size="22" y="9">2</text></g><g class="tick" opacity="1" transform="translate(412.09999999999997,0)"><text dy="0.71em" fill="#333" font-size="22" y="9">3</text></g><g class="tick" opacity="1" transform="translate(534.3000000000001,0)"><text dy="0.71em" fill="#333" font-size="22" y="9">4</text></g><g class="tick" opacity="1" transform="translate(656.5,0)"><text dy="0.71em" fill="#333" font-size="22" y="9">5</text></g></g><rect fill="#f5f5f5" height="439" opacity="0.5" width="122.20000000000002" x="45" y="122"></rect><text fill="#888" font-size="21" font-style="italic" text-anchor="middle" x="106.10000000000001" y="154">Parental</text><text fill="#888" font-size="21" font-style="italic" text-anchor="middle" x="106.10000000000001" y="178">leave</text><text x="49" y="442" text-anchor="start" fill="#333" font-size="18">25</text><text x="49" y="332" text-anchor="start" fill="#333" font-size="18">50</text><text x="49" y="222" text-anchor="start" fill="#333" font-size="18">75</text><text x="49" y="113" text-anchor="start" fill="#333" font-size="18">100%</text><path d="M45,547.83L167.2,181.704L289.4,145.267L411.6,136.048L533.8,134.292L656,133.414" fill="none" opacity="0.8" stroke="#5DC863" stroke-width="3.5"></path><circle cx="45" cy="547.8299999999999" fill="#5DC863" opacity="0.8" r="4"></circle><circle cx="167.20000000000002" cy="181.70399999999995" fill="#5DC863" opacity="0.8" r="4"></circle><circle cx="289.40000000000003" cy="145.26699999999997" fill="#5DC863" opacity="0.8" r="4"></circle><circle cx="411.59999999999997" cy="136.04800000000003" fill="#5DC863" opacity="0.8" r="4"></circle><circle cx="533.8000000000001" cy="134.29200000000003" fill="#5DC863" opacity="0.8" r="4"></circle><circle cx="656" cy="133.41399999999996" fill="#5DC863" opacity="0.8" r="4"></circle><path d="M45,547.83L167.2,226.482L289.4,180.826L411.6,145.267L533.8,138.682L656,142.194" fill="none" opacity="0.8" stroke="#777" stroke-width="3.5"></path><circle cx="45" cy="547.8299999999999" fill="#777" opacity="0.8" r="4"></circle><circle cx="167.20000000000002" cy="226.482" fill="#777" opacity="0.8" r="4"></circle><circle cx="289.40000000000003" cy="180.82600000000002" fill="#777" opacity="0.8" r="4"></circle><circle cx="411.59999999999997" cy="145.26699999999997" fill="#777" opacity="0.8" r="4"></circle><circle cx="533.8000000000001" cy="138.68199999999996" fill="#777" opacity="0.8" r="4"></circle><circle cx="656" cy="142.19399999999996" fill="#777" opacity="0.8" r="4"></circle><path d="M45,547.83L167.2,339.744L289.4,160.632L411.6,146.584L533.8,141.755L656,139.999" fill="none" opacity="0.8" stroke="#443983" stroke-width="3.5"></path><circle cx="45" cy="547.8299999999999" fill="#443983" opacity="0.8" r="4"></circle><circle cx="167.20000000000002" cy="339.74399999999997" fill="#443983" opacity="0.8" r="4"></circle><circle cx="289.40000000000003" cy="160.632" fill="#443983" opacity="0.8" r="4"></circle><circle cx="411.59999999999997" cy="146.58399999999997" fill="#443983" opacity="0.8" r="4"></circle><circle cx="533.8000000000001" cy="141.75500000000002" fill="#443983" opacity="0.8" r="4"></circle><circle cx="656" cy="139.99899999999997" fill="#443983" opacity="0.8" r="4"></circle><path d="M45,547.83L167.2,373.986L289.4,236.579L411.6,183.021L533.8,165.9L656,161.071" fill="none" opacity="0.8" stroke="#31688E" stroke-width="3.5"></path><circle cx="45" cy="547.8299999999999" fill="#31688E" opacity="0.8" r="4"></circle><circle cx="167.20000000000002" cy="373.986" fill="#31688E" opacity="0.8" r="4"></circle><circle cx="289.40000000000003" cy="236.57899999999995" fill="#31688E" opacity="0.8" r="4"></circle><circle cx="411.59999999999997" cy="183.02100000000002" fill="#31688E" opacity="0.8" r="4"></circle><circle cx="533.8000000000001" cy="165.89999999999998" fill="#31688E" opacity="0.8" r="4"></circle><circle cx="656" cy="161.07100000000003" fill="#31688E" opacity="0.8" r="4"></circle><path d="M45,548.27L167.2,539.49L289.4,531.59L411.6,498.662L533.8,374.864L656,168.534" fill="none" opacity="1" stroke="#2A8A8A" stroke-width="5"></path><circle cx="45" cy="548.27" fill="#2A8A8A" opacity="1" r="5"></circle><circle cx="167.20000000000002" cy="539.49" fill="#2A8A8A" opacity="1" r="5"></circle><circle cx="289.40000000000003" cy="531.59" fill="#2A8A8A" opacity="1" r="5"></circle><circle cx="411.59999999999997" cy="498.662" fill="#2A8A8A" opacity="1" r="5"></circle><circle cx="533.8000000000001" cy="374.86400000000003" fill="#2A8A8A" opacity="1" r="5"></circle><circle cx="656" cy="168.534" fill="#2A8A8A" opacity="1" r="5"></circle><text fill="#5DC863" font-size="24" font-weight="600" paint-order="stroke" stroke="#fff" stroke-width="2" text-anchor="middle" x="289.40000000000003" y="138.26699999999997">Norway</text><text fill="#777" font-size="24" font-weight="600" paint-order="stroke" stroke="#fff" stroke-width="2" text-anchor="middle" x="208.74800000000002" y="206.95896">Denmark</text><text fill="#443983" font-size="24" font-weight="600" paint-order="stroke" stroke="#fff" stroke-width="2" text-anchor="middle" x="185.53" y="306.8772">Sweden</text><text fill="#31688E" font-size="24" font-weight="600" paint-order="stroke" stroke="#fff" stroke-width="2" text-anchor="middle" x="289.40000000000003" y="250.57899999999995">Finland</text><text fill="#2A8A8A" font-size="25" font-weight="700" paint-order="stroke" stroke="#fff" stroke-width="2" text-anchor="middle" x="289.4" y="486.66">United</text><text fill="#2A8A8A" font-size="25" font-weight="700" paint-order="stroke" stroke="#fff" stroke-width="2" text-anchor="middle" x="289.4" y="510.66">States</text><text fill="rgba(0,0,0,0.7)" font-size="27" font-weight="600" text-anchor="middle" x="346.06" y="340">Public</text><text fill="rgba(0,0,0,0.7)" font-size="27" font-weight="600" text-anchor="middle" x="346.06" y="366">childcare</text><text fill="rgba(0,0,0,0.7)" font-size="27" font-weight="600" text-anchor="middle" x="346.06" y="392">gap</text><rect cursor="pointer" fill="transparent" height="439" width="122.2" x="45" y="122"></rect><rect cursor="pointer" fill="transparent" height="439" width="122.2" x="106.10000000000002" y="122"></rect><rect cursor="pointer" fill="transparent" height="439" width="122.2" x="228.30000000000004" y="122"></rect><rect cursor="pointer" fill="transparent" height="439" width="122.2" x="350.49999999999994" y="122"></rect><rect cursor="pointer" fill="transparent" height="439" width="122.2" x="472.70000000000005" y="122"></rect><rect cursor="pointer" fill="transparent" height="439" width="122.2" x="594.9" y="122"></rect></svg>
+</div>
+<div class="card-footer card-footer-col">
+<span class="chart-source">Author, see notes</span>
+<svg class="card-logo" viewBox="0 0 9 5" width="18" height="10" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+</div>
+</div>
+<figcaption>Chart 3. Public childcare enrollment by age</figcaption>
+</figure>
+<!-- Chart 4 (placeholder: fresh copy of Chart 2) -->
+<figure class="report-figure" id="chart4-figure">
+<div class="card card-compact card-chart accent-teal" id="chart4-container">
+<div class="card-body">
+<h3>Nordic children have four times as many childcare workers</h3>
+<p class="chart-subtitle">Formal ECEC workers per 100 children (age 0-5), 2024</p>
+<svg id="chart4-svg" class="chart-svg" viewBox="0 15 400 260" preserveAspectRatio="xMidYMid meet"><rect x="30" y="190" width="50" height="40" fill="#2A8A8A" opacity="0.85"></rect><text x="55" y="185" text-anchor="middle" font-size="17" fill="#333">5.5</text><text x="55" y="250" text-anchor="middle" font-size="16" fill="#111"><tspan x="55" dy="0">United</tspan><tspan x="55" dy="1.1em">States</tspan></text><rect x="102.5" y="68" width="50" height="162" fill="#2A8A8A" opacity="0.85"></rect><text x="127.5" y="63" text-anchor="middle" font-size="17" fill="#333">22.1</text><text x="127.5" y="250" text-anchor="middle" font-size="16" fill="#111">Denmark</text><rect x="175" y="64" width="50" height="166" fill="#2A8A8A" opacity="0.85"></rect><text x="200" y="59" text-anchor="middle" font-size="17" fill="#333">22.7</text><text x="200" y="250" text-anchor="middle" font-size="16" fill="#111">Finland</text><rect x="247.5" y="35" width="50" height="195" fill="#2A8A8A" opacity="0.85"></rect><text x="272.5" y="30" text-anchor="middle" font-size="17" fill="#333">26.6</text><text x="272.5" y="250" text-anchor="middle" font-size="16" fill="#111">Norway</text><rect x="320" y="94" width="50" height="136" fill="#2A8A8A" opacity="0.85"></rect><text x="345" y="89" text-anchor="middle" font-size="17" fill="#333">18.5</text><text x="345" y="250" text-anchor="middle" font-size="16" fill="#111">Sweden</text><line x1="20" x2="385" y1="230" y2="230" stroke="#333" stroke-width="1.5"></line></svg>
+</div>
+<div class="card-footer card-footer-col">
+<span class="chart-source">Author, see notes</span>
+<svg class="card-logo" viewBox="0 0 9 5" width="18" height="10" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+</div>
+</div>
+<figcaption>Chart 4. Childcare workforce ratio</figcaption>
+</figure>
+<!-- Charts 5 & 6 side by side -->
+<div class="split-row">
+<figure class="report-figure" id="chart5-figure">
+<div class="card card-compact card-chart accent-teal" id="chart5-container">
+<div class="card-body">
+<h3>US parents leave work for childcare at ten times the Nordic rate</h3>
+<p class="chart-subtitle">Age 20-64, out of work for childcare, 2022</p>
+<svg id="chart5-svg" class="chart-svg" viewBox="0 10 400 265" preserveAspectRatio="xMidYMid meet"><rect x="30" y="30.5" width="50" height="199.5" fill="#2A8A8A" opacity="0.85"></rect><text x="55" y="25.5" text-anchor="middle" font-size="17" fill="#333">3.8%</text><text x="55" y="250" text-anchor="middle" font-size="16" fill="#111"><tspan x="55" dy="0">United</tspan><tspan x="55" dy="1.1em">States</tspan></text><rect x="102.5" y="198.5" width="50" height="31.5" fill="#2A8A8A" opacity="0.85"></rect><text x="127.5" y="193.5" text-anchor="middle" font-size="17" fill="#333">0.6%</text><text x="127.5" y="250" text-anchor="middle" font-size="16" fill="#111">Denmark</text><rect x="175" y="214.25" width="50" height="15.75" fill="#2A8A8A" opacity="0.85"></rect><text x="200" y="209.25" text-anchor="middle" font-size="17" fill="#333">0.3%</text><text x="200" y="250" text-anchor="middle" font-size="16" fill="#111">Finland</text><rect x="247.5" y="214.25" width="50" height="15.75" fill="#2A8A8A" opacity="0.85"></rect><text x="272.5" y="209.25" text-anchor="middle" font-size="17" fill="#333">0.3%</text><text x="272.5" y="250" text-anchor="middle" font-size="16" fill="#111">Norway</text><rect x="320" y="209" width="50" height="21" fill="#2A8A8A" opacity="0.85"></rect><text x="345" y="204" text-anchor="middle" font-size="17" fill="#333">0.4%</text><text x="345" y="250" text-anchor="middle" font-size="16" fill="#111">Sweden</text><line x1="20" x2="385" y1="230" y2="230" stroke="#333" stroke-width="1.5"></line></svg>
+</div>
+<div class="card-footer card-footer-col">
+<span class="chart-source">Author, see notes</span>
+<svg class="card-logo" viewBox="0 0 9 5" width="18" height="10" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+</div>
+</div>
+<figcaption>Chart 5. Adults out of work for childcare</figcaption>
+</figure>
+<!-- Chart 6: child poverty -->
+<figure class="report-figure" id="chart6-figure">
+<div class="card card-compact card-chart accent-teal" id="chart6-container">
+<div class="card-body">
+<h3>US child poverty runs three to five times the Nordic rate</h3>
+<p class="chart-subtitle">Child poverty rate, 2022</p>
+<svg id="chart6-svg" class="chart-svg" viewBox="0 10 400 265" preserveAspectRatio="xMidYMid meet"><rect x="30" y="31.45" width="50" height="198.55" fill="#2A8A8A" opacity="0.85"></rect><text x="55" y="26.45" text-anchor="middle" font-size="17" fill="#333">20.8%</text><text x="55" y="250" text-anchor="middle" font-size="16" fill="#111"><tspan x="55" dy="0">United</tspan><tspan x="55" dy="1.1em">States</tspan></text><rect x="102.5" y="189.91" width="50" height="40.09" fill="#2A8A8A" opacity="0.85"></rect><text x="127.5" y="184.91" text-anchor="middle" font-size="17" fill="#333">4.2%</text><text x="127.5" y="250" text-anchor="middle" font-size="16" fill="#111">Denmark</text><rect x="175" y="186.09" width="50" height="43.91" fill="#2A8A8A" opacity="0.85"></rect><text x="200" y="181.09" text-anchor="middle" font-size="17" fill="#333">4.6%</text><text x="200" y="250" text-anchor="middle" font-size="16" fill="#111">Finland</text><rect x="247.5" y="163.18" width="50" height="66.82" fill="#2A8A8A" opacity="0.85"></rect><text x="272.5" y="158.18" text-anchor="middle" font-size="17" fill="#333">7.0%</text><text x="272.5" y="250" text-anchor="middle" font-size="16" fill="#111">Norway</text><rect x="320" y="149.82" width="50" height="80.18" fill="#2A8A8A" opacity="0.85"></rect><text x="345" y="144.82" text-anchor="middle" font-size="17" fill="#333">8.4%</text><text x="345" y="250" text-anchor="middle" font-size="16" fill="#111">Sweden</text><line x1="20" x2="385" y1="230" y2="230" stroke="#333" stroke-width="1.5"></line></svg>
+</div>
+<div class="card-footer card-footer-col">
+<span class="chart-source">OECD, see notes</span>
+<svg class="card-logo" viewBox="0 0 9 5" width="18" height="10" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+</div>
+</div>
+<figcaption>Chart 6. Child poverty rate</figcaption>
+</figure>
+</div>
+<!-- Chart 7: Nordic-style childcare cost as % of GDP, 1989-2025 -->
+<figure class="report-figure" id="chart7-figure">
+<div class="card card-compact card-chart accent-teal" id="chart7-container">
+<div class="card-body">
+<h3>Building a Nordic-style system is a lighter lift than in 1990</h3>
+<p class="chart-subtitle">Bottom-up estimate, percent of GDP</p>
+<svg id="chart7-svg" class="chart-svg" viewBox="0 25 400 250" preserveAspectRatio="xMidYMid meet"><rect x="64" y="30" width="6" height="220" fill="#000" opacity="0.06"></rect><rect x="149" y="30" width="5" height="220" fill="#000" opacity="0.06"></rect><rect x="203" y="30" width="13" height="220" fill="#000" opacity="0.06"></rect><rect x="301" y="30" width="2" height="220" fill="#000" opacity="0.06"></rect><text x="60" y="270" text-anchor="middle" font-size="13" fill="#333">1990</text><text x="100" y="270" text-anchor="middle" font-size="13" fill="#333">1995</text><text x="140" y="270" text-anchor="middle" font-size="13" fill="#333">2000</text><text x="180" y="270" text-anchor="middle" font-size="13" fill="#333">2005</text><text x="220" y="270" text-anchor="middle" font-size="13" fill="#333">2010</text><text x="260" y="270" text-anchor="middle" font-size="13" fill="#333">2015</text><text x="300" y="270" text-anchor="middle" font-size="13" fill="#333">2020</text><text x="340" y="270" text-anchor="middle" font-size="13" fill="#333">2025</text><path d="M60.0,63.5 L68.0,55.4 L76.0,63.8 L84.0,70.0 L92.0,84.0 L100.0,95.7 L108.0,108.7 L116.0,123.1 L124.0,125.2 L132.0,129.3 L140.0,140.8 L148.0,135.8 L156.0,134.3 L164.0,137.8 L172.0,148.5 L180.0,155.9 L188.0,160.9 L196.0,159.9 L204.0,148.2 L212.0,135.3 L220.0,142.3 L228.0,151.2 L236.0,173.9 L244.0,182.2 L252.0,188.6 L260.0,194.4 L268.0,191.6 L276.0,188.9 L284.0,194.4 L292.0,197.8 L300.0,182.7 L308.0,204.3 L316.0,217.4 L324.0,220.8 L332.0,223.0 L340.0,224.6" fill="none" stroke="#2A8A8A" stroke-width="3" stroke-linejoin="round"></path><circle cx="60" cy="63.5" r="4" fill="#2A8A8A"></circle><circle cx="340" cy="224.6" r="4" fill="#2A8A8A"></circle><text x="54" y="67.5" text-anchor="end" font-size="16" fill="#2A8A8A" font-weight="700">2.14%</text><text x="346" y="228.6" text-anchor="start" font-size="16" fill="#2A8A8A" font-weight="700">1.16%</text><line x1="60" x2="340" y1="250" y2="250" stroke="#333" stroke-width="1"></line></svg>
+</div>
+<div class="card-footer card-footer-col">
+<span class="chart-source">Author, see notes</span>
+<svg class="card-logo" viewBox="0 0 9 5" width="18" height="10" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+</div>
+</div>
+<figcaption>Chart 7. Cost of Nordic-style childcare, percent of GDP</figcaption>
+</figure>
+<!-- Diagram 1: US childcare worker wage comparators -->
+<figure class="report-figure" id="wage-diagram-figure">
+<div class="card card-compact card-chart" id="wage-diagram-container">
+<div class="card-body">
+<h3>Who else is paid $15 an hour?</h3>
+<p class="chart-subtitle">Occupations paid closest to childcare workers in the US, 2024</p>
+<svg aria-label="Dot spectrum showing occupations with wages closest to US childcare workers" class="chart-svg" id="wage-diagram-svg" preserveAspectRatio="xMidYMid meet" role="img" viewBox="0 40 680 250"><defs><marker id="wage-axis-arrow" markerHeight="18" markerWidth="18" orient="auto" refX="8" refY="4" viewBox="0 0 8 8"><path d="M 0 1 L 8 4 L 0 7 z" fill="#666"></path></marker></defs><line marker-end="url(#wage-axis-arrow)" stroke="#666" stroke-width="0.5" x1="32" x2="680" y1="170" y2="170"></line><line stroke="#666" stroke-dasharray="2,2" stroke-width="0.4" x1="32" x2="32" y1="174" y2="180"></line><circle cx="32" cy="170" fill="#aaa" r="3.5"></circle><text fill="#1e1e1e" font-size="14" text-anchor="middle" x="32" y="190"><tspan dy="0" x="32">Fast Food</tspan><tspan dy="12" x="32">Cooks</tspan></text><text fill="#1e1e1e" font-size="14" opacity="0.75" text-anchor="middle" x="32" y="214">$14.50</text><line stroke="#666" stroke-dasharray="2,2" stroke-width="0.4" x1="73.65680473372757" x2="73.65680473372757" y1="166" y2="153"></line><circle cx="73.65680473372757" cy="170" fill="#aaa" r="3.5"></circle><text fill="#1e1e1e" font-size="14" text-anchor="middle" x="73.65680473372757" y="124"><tspan dy="0" x="73.65680473372757">Restaurant</tspan><tspan dy="12" x="73.65680473372757">Hosts</tspan></text><text fill="#1e1e1e" font-size="14" opacity="0.75" text-anchor="middle" x="73.65680473372757" y="148">$14.61</text><line stroke="#666" stroke-dasharray="2,2" stroke-width="0.4" x1="88.80473372781074" x2="88.80473372781074" y1="174" y2="205"></line><circle cx="88.80473372781074" cy="170" fill="#aaa" r="3.5"></circle><text fill="#1e1e1e" font-size="14" text-anchor="middle" x="88.80473372781074" y="210"><tspan dy="0" x="88.80473372781074">Fast Food</tspan><tspan dy="12" x="88.80473372781074">Workers</tspan></text><text fill="#1e1e1e" font-size="14" opacity="0.75" text-anchor="middle" x="88.80473372781074" y="234">$14.65</text><line stroke="#666" stroke-dasharray="2,2" stroke-width="0.4" x1="88.80473372781074" x2="88.80473372781074" y1="174" y2="252"></line><circle cx="88.80473372781074" cy="170" fill="#aaa" r="3.5"></circle><text fill="#1e1e1e" font-size="14" text-anchor="middle" x="88.80473372781074" y="262"><tspan dy="0" x="88.80473372781074">Sports Book</tspan><tspan dy="12" x="88.80473372781074">Writers</tspan></text><text fill="#1e1e1e" font-size="14" opacity="0.75" text-anchor="middle" x="88.80473372781074" y="286">$14.65</text><line stroke="#666" stroke-dasharray="2,2" stroke-width="0.4" x1="92.59171597633136" x2="92.59171597633136" y1="166" y2="85"></line><circle cx="92.59171597633136" cy="170" fill="#aaa" r="3.5"></circle><text fill="#1e1e1e" font-size="14" text-anchor="middle" x="92.59171597633136" y="56"><tspan dy="0" x="92.59171597633136">Recreation</tspan><tspan dy="12" x="92.59171597633136">Workers</tspan></text><text fill="#1e1e1e" font-size="14" opacity="0.75" text-anchor="middle" x="92.59171597633136" y="80">$14.66</text><line stroke="#666" stroke-dasharray="2,2" stroke-width="0.4" x1="213.7751479289941" x2="213.7751479289941" y1="174" y2="216"></line><circle cx="213.7751479289941" cy="170" fill="#aaa" r="3.5"></circle><text fill="#1e1e1e" font-size="14" text-anchor="middle" x="213.7751479289941" y="226"><tspan dy="0" x="213.7751479289941">Ushers &amp;</tspan><tspan dy="12" x="213.7751479289941">Attendants</tspan></text><text fill="#1e1e1e" font-size="14" opacity="0.75" text-anchor="middle" x="213.7751479289941" y="250">$14.98</text><line stroke="#666" stroke-dasharray="2,2" stroke-width="0.4" x1="217.56213017751475" x2="217.56213017751475" y1="166" y2="153"></line><circle cx="217.56213017751475" cy="170" fill="#aaa" r="3.5"></circle><text fill="#1e1e1e" font-size="14" text-anchor="middle" x="217.56213017751475" y="136"><tspan dy="0" x="217.56213017751475">Cashiers</tspan></text><text fill="#1e1e1e" font-size="14" opacity="0.75" text-anchor="middle" x="217.56213017751475" y="148">$14.99</text><line stroke="#666" stroke-dasharray="2,2" stroke-width="0.4" x1="270.57988165680484" x2="270.57988165680484" y1="174" y2="180"></line><circle cx="270.57988165680484" cy="170" fill="#aaa" r="3.5"></circle><text fill="#1e1e1e" font-size="14" text-anchor="middle" x="270.57988165680484" y="190"><tspan dy="0" x="270.57988165680484">Shampooers</tspan></text><text fill="#1e1e1e" font-size="14" opacity="0.75" text-anchor="middle" x="270.57988165680484" y="202">$15.13</text><line stroke="#666" stroke-dasharray="2,2" stroke-width="0.4" x1="490.2248520710059" x2="490.2248520710059" y1="166" y2="153"></line><circle cx="490.2248520710059" cy="170" fill="#aaa" r="3.5"></circle><text fill="#1e1e1e" font-size="14" text-anchor="middle" x="490.2248520710059" y="124"><tspan dy="0" x="490.2248520710059">Dining</tspan><tspan dy="12" x="490.2248520710059">Attendants</tspan></text><text fill="#1e1e1e" font-size="14" opacity="0.75" text-anchor="middle" x="490.2248520710059" y="148">$15.71</text><line stroke="#666" stroke-dasharray="2,2" stroke-width="0.4" x1="600.047337278106" x2="600.047337278106" y1="174" y2="180"></line><circle cx="600.047337278106" cy="170" fill="#aaa" r="3.5"></circle><text fill="#1e1e1e" font-size="14" text-anchor="middle" x="600.047337278106" y="190"><tspan dy="0" x="600.047337278106">Gambling</tspan><tspan dy="12" x="600.047337278106">Dealers</tspan></text><text fill="#1e1e1e" font-size="14" opacity="0.75" text-anchor="middle" x="600.047337278106" y="214">$16.00</text><line stroke="#666" stroke-dasharray="2,2" stroke-width="0.4" x1="634.1301775147924" x2="634.1301775147924" y1="166" y2="153"></line><circle cx="634.1301775147924" cy="170" fill="#aaa" r="3.5"></circle><text fill="#1e1e1e" font-size="14" text-anchor="middle" x="634.1301775147924" y="124"><tspan dy="0" x="634.1301775147924">Animal</tspan><tspan dy="12" x="634.1301775147924">Caretakers</tspan></text><text fill="#1e1e1e" font-size="14" opacity="0.75" text-anchor="middle" x="634.1301775147924" y="148">$16.09</text><line stroke="#666" stroke-dasharray="2,2" stroke-width="0.4" x1="645.491124260355" x2="645.491124260355" y1="174" y2="252"></line><circle cx="645.491124260355" cy="170" fill="#aaa" r="3.5"></circle><text fill="#1e1e1e" font-size="14" text-anchor="middle" x="645.491124260355" y="262"><tspan dy="0" x="645.491124260355">Bartenders</tspan></text><text fill="#1e1e1e" font-size="14" opacity="0.75" text-anchor="middle" x="645.491124260355" y="274">$16.12</text><circle cx="376.61538461538436" cy="170" fill="#2A8A8A" r="6"></circle><text fill="#2A8A8A" font-size="17" font-weight="700" text-anchor="middle" x="376.61538461538436" y="124"><tspan x="376.61538461538436">Childcare</tspan><tspan dy="1.1em" x="376.61538461538436">Workers</tspan></text><text fill="#2A8A8A" font-size="15" font-weight="600" text-anchor="middle" x="376.61538461538436" y="159">$15.41/hr</text><text fill="#2A8A8A" font-size="13" font-weight="600" text-anchor="middle" x="32" y="228"><tspan x="32">Lowest</tspan><tspan dy="1.0em" x="32">paid</tspan><tspan dy="1.0em" x="32">occ.</tspan></text><text fill="#2A8A8A" font-size="17" font-weight="600" text-anchor="end" x="664" y="80"><tspan x="664">742 occupations</tspan><tspan dy="1.2em" x="664">paid more →</tspan></text></svg>
+</div>
+<div class="card-footer card-footer-col">
+<span class="chart-source">Author, see notes</span>
+<svg class="card-logo" viewBox="0 0 9 5" width="18" height="10" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+</div>
+</div>
+<figcaption>Diagram 1. US childcare worker wage comparators</figcaption>
+</figure>
+
+
+<!-- Map — multi-level choropleth (L0 2×2 tiles, L1 full map, L2 drill) -->
+<div id="mapview">
+
+  <!-- Level 0: 4 small-multiple tile cards, rendered dynamically -->
+  <div id="level0-grid"></div>
+
+  <!-- Level 1: single expanded map (hidden until a tile is clicked) -->
+  <div id="level1-view">
+    <div class="l1-nav">
+      <div class="tab-bar tab-bar-filled accent-teal" id="l1-tabs">
+        <button class="tab cc-tab" data-metric="gdp_per_child_0_5">Resources</button>
+        <button class="tab cc-tab" data-metric="spending_pct_gdp_narrow">Funding</button>
+        <button class="tab cc-tab" data-metric="enrollment_pct">Enrollment</button>
+        <button class="tab cc-tab" data-metric="workforce_per_100_kids">Workforce</button>
+      </div>
+      <button class="l1-back-btn" id="l1-back" type="button">← Overview</button>
+    </div>
+    <figure class="report-figure" id="map-figure">
+      <div class="card card-compact card-chart">
+        <div class="card-body">
+          <h3 id="l1-title" class="card-title">
+            <strong id="l1-title-main"></strong>
+            <span id="l1-title-indicator" class="chart-header-indicator"></span>
+          </h3>
+          <div class="l1-grid">
+            <div>
+              <svg class="l1-us-map" id="l1-us" viewBox="0 0 540 420" preserveAspectRatio="xMidYMid meet"></svg>
+              <svg class="l1-legend" id="l1-legend" viewBox="0 0 540 80" preserveAspectRatio="xMidYMid meet"></svg>
+            </div>
+            <div>
+              <svg class="l1-nordic-map" id="l1-nordic" viewBox="0 0 150 230" preserveAspectRatio="xMidYMid meet"></svg>
+              <div class="l1-text" id="l1-text">
+                <h4>Figures</h4>
+                <dl id="l1-stats"></dl>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer card-footer-col">
+          <span class="chart-source" id="l1-caveat">Author, see notes</span>
+          <svg class="card-logo" viewBox="0 0 9 5" width="18" height="10" aria-hidden="true">
+            <title>BD Economics</title>
+            <rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/>
+            <rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/>
+            <rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/>
+            <rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/>
+          </svg>
+        </div>
+      </div>
+    </figure>
+  </div>
+
+</div>
+<!-- ================================================================ -->
+<!-- SECTION 2: A system designed to fail                                -->
+<!-- ================================================================ -->
+<!-- Diagram 2: Finland vs US decision tree -->
+<figure class="report-figure" id="decision-tree-figure">
+<div class="card" id="decision-tree-container">
+<div class="card-body">
+<section class="dt-tree">
+<h3 class="dt-question-main">You have a child under 5.</h3>
+<p class="dt-question-sub">What are your options?</p>
+<div class="dt-stem"></div>
+<div class="dt-branches">
+<div class="dt-branch dt-branch-us">
+<h4 class="dt-country">United States</h4>
+<div class="dt-cards">
+<div class="dt-card dt-card-us">
+<h4 class="dt-card-title">Private childcare</h4>
+<span class="key-stat dt-card-amount">$14,760</span>
+<span class="dt-card-unit">per year</span>
+<p class="dt-card-ctx">More than in-state college tuition in 38 states</p>
+</div>
+<span class="dt-or">or</span>
+<div class="dt-card dt-card-us">
+<h4 class="dt-card-title">Leave the workforce</h4>
+<span class="key-stat dt-card-amount">$0</span>
+<span class="dt-card-unit">income</span>
+<p class="dt-card-ctx">3.8% of US adults are out of work for childcare reasons</p>
+</div>
+</div>
+<p class="dt-tagline">Both options cost the family.</p>
+</div>
+<div class="dt-divider"></div>
+<div class="dt-branch dt-branch-fi">
+<h4 class="dt-country">Finland</h4>
+<div class="dt-cards">
+<div class="dt-card dt-card-fi">
+<h4 class="dt-card-title">Public childcare</h4>
+<span class="key-stat dt-card-amount">$0–4,080</span>
+<span class="dt-card-unit">per year</span>
+<p class="dt-card-ctx">Income-scaled fees. Legal right from infancy.</p>
+</div>
+<span class="dt-or">or</span>
+<div class="dt-card dt-card-fi">
+<h4 class="dt-card-title">Home care allowance</h4>
+<span class="key-stat dt-card-amount">~$5,000</span>
+<span class="dt-card-unit">per year</span>
+<p class="dt-card-ctx">Paid to the parent. A real choice, not a last resort.</p>
+</div>
+</div>
+<p class="dt-tagline">Both options help the family.</p>
+</div>
+</div>
+</section>
+</div>
+</div>
+<figcaption>Diagram 2. Finland and US comparison</figcaption>
+</figure>
+
+<figure class="report-figure report-figure-photo" id="ww2-photo-figure">
+<div class="card card-compact card-chart accent-teal">
+<div class="card-body">
+<img decoding="async" src="files/childcare-images/storytime_cropped.jpg" alt="Teacher reading to children at a federally funded childcare center, 1943" width="780" height="600">
+</div>
+</div>
+<figcaption>Federally funded childcare center. New Britain, CT, 1943. Photo: Gordon Parks</figcaption>
+</figure>
+
+<figure class="report-figure report-figure-photo report-figure-md" id="sweden-photo-figure">
+<div class="card card-compact card-chart accent-teal">
+<div class="card-body">
+<img decoding="async" src="files/childcare-images/raa_preschool.jpg" alt="Children playing outside Råå Day Care Center in Helsingborg, Sweden" width="1100" height="702">
+</div>
+</div>
+<figcaption>Råå Day Care Center, Helsingborg (Sweden). Photo: Adam Mørk</figcaption>
+</figure>
+
+<figure class="report-figure report-figure-photo report-figure-md" id="norway-photo-figure">
+<div class="card card-compact card-chart accent-teal">
+<div class="card-body">
+<img decoding="async" src="files/childcare-images/barnehage.jpg" alt="Bamsebo barnehage, Norwegian childcare center" width="614" height="450">
+</div>
+</div>
+<figcaption>Bamsebo barnehage (Norway), ages 1-5</figcaption>
+</figure>
+
+<figure class="report-figure report-figure-photo report-figure-md" id="finland-photo-figure">
+<div class="card card-compact card-chart accent-teal">
+<div class="card-body">
+<img decoding="async" src="files/childcare-images/nuotti.jpg" alt="Nuotti daycare centre in winter, with children playing in the snow" width="940" height="627">
+</div>
+</div>
+<figcaption>Nuotti daycare centre (Finland). Architects: Verstas Arkkitehdit</figcaption>
+</figure>
+
+<figure class="report-figure report-figure-photo report-figure-md" id="emptylot-photo-figure">
+<div class="card card-compact card-chart accent-teal">
+<div class="card-body">
+<img decoding="async" src="files/childcare-images/empty_lot.jpg" alt="Vacant urban lot in a US residential neighborhood" width="1023" height="614">
+</div>
+</div>
+<figcaption>Empty lot (United States)</figcaption>
+</figure>
+
+
+<!-- ================================================================ -->
+<!-- BACKMATTER                                                        -->
+<!-- ================================================================ -->
+
+<details class="details-section" id="methodology">
+<summary>Methodology</summary>
+
+<h4>Chart 1. National financial resources per young child</h4>
+<p>Per-child figure is national GDP divided by population age 0-5.</p>
+<ul>
+<li>GDP: <a href="https://www.imf.org/en/Publications/WEO">IMF World Economic Outlook</a>, <code>NGDPD</code> indicator, April 2026 vintage, 2023 values.</li>
+<li>US population age 0-5: <a href="https://www.census.gov/programs-surveys/acs">Census ACS 5-year 2023</a>, custom age aggregate.</li>
+<li>Nordic population age 0-5: <a href="https://www.dst.dk/en">Statistics Denmark</a>, <a href="https://www.stat.fi/en">Statistics Finland</a>, <a href="https://www.ssb.no/en">Statistics Norway</a>, <a href="https://www.scb.se/en/">Statistics Sweden</a>, 2023 (sum of under-3 and 3-to-5 age bands).</li>
+<li>World reference line: IMF WEO October 2025 for global GDP, <a href="https://population.un.org/wpp/">UN World Population Prospects 2024</a> for population age 0-5.</li>
+</ul>
+
+<h4>Chart 2. Public preschool and childcare funding</h4>
+<p><a href="https://www.oecd.org/social/expenditure.htm">OECD Social Expenditure Database (SOCX)</a>, Transactions detail, category <code>TP521</code> "Early childhood education and care," as a share of GDP. Values use each country's latest available year: US 2023, Nordic countries 2021.</p>
+<p>US <code>TP521</code> is composed of:</p>
+<ul>
+<li>State pre-K (<a href="https://nieer.org/state-of-preschool">NIEER State of Preschool</a>)</li>
+<li><a href="https://www.acf.hhs.gov/ohs/about">Head Start</a></li>
+<li>Age-5 kindergarten, with the OECD "less 6-year-olds" adjustment applied at roughly 10 percent</li>
+<li><a href="https://www.acf.hhs.gov/occ">CCDF</a></li>
+</ul>
+<p>The 67 percent annotation on the US bar is kindergarten spending as a share of US <code>TP521</code>.</p>
+
+<h4>Chart 3. Public childcare enrollment by age</h4>
+<p>Nordic rates from <a href="https://ec.europa.eu/eurostat/web/education-and-training/data/database">Eurostat UOE joint data collection</a> and Eurostat <code>demo_pjan</code> population, 2023. Age 0-1 uses the UOE under-2 band; age 0 near 3 percent reflects the parental-leave year.</p>
+<p>US rates by single-year age:</p>
+<ul>
+<li><strong>Ages 0-2</strong>: <a href="https://www.acf.hhs.gov/ohs/about">Early Head Start</a> cumulative enrollment (61K, 78K, 119K) plus <a href="https://www.acf.hhs.gov/occ">CCDF</a> voucher monthly average (72K, 144K, 187K), discounted 20 percent for overlap, divided by ~3.65M per single-year age. IDEA Part C excluded as therapy rather than childcare. Yields 2.9, 4.9, and 6.7 percent.</li>
+<li><strong>Ages 3-4</strong>: <a href="https://nieer.org/state-of-preschool">NIEER State of Preschool 2024</a> plus <a href="https://www.acf.hhs.gov/ohs/data/hspps">Head Start Program Facts 2024</a>.</li>
+<li><strong>Age 5</strong>: <a href="https://www.census.gov/data/datasets/time-series/demo/cps/cps-asec.html">CPS October 2024</a> kindergarten enrollment.</li>
+</ul>
+
+<h4>Chart 4. Childcare workforce ratio</h4>
+<p>Formal childcare workforce divided by population age 0-5. US uses <a href="https://www.bls.gov/oes/">BLS OEWS</a> May 2024 establishment-based employment counts. Nordic countries use <a href="https://sdmx.oecd.org/">OECD Education at a Glance SDMX</a> (<code>DSD_EAG_UOE_NON_FIN_PERS</code>, ISCED 0 teachers + aides, 2023), with Finland's aide count backfilled from <a href="https://pxdata.stat.fi/PxWeb/pxweb/en/StatFin/">StatFin <code>tyokay_115q</code></a> (<code>AML 53111 + 53112</code>) because Finland does not submit aide personnel to OECD. The Nordic composite ratio cited in the prose is built by summing workers and summing children across the four countries, then dividing.</p>
+<p>US total of 1,221,410 workers ÷ 22.1M kids 0-5 (<a href="https://www.census.gov/programs-surveys/acs">Census ACS 2023</a>) = 5.5 per 100:</p>
+<ul>
+<li>Childcare Workers (<code>SOC 39-9011</code>): 520,180</li>
+<li>Preschool Teachers (<code>SOC 25-2011</code>): 445,100</li>
+<li>Teaching Assistants in Child Care Services (<code>SOC 25-9045</code>): 141,720</li>
+<li>Kindergarten Teachers (<code>SOC 25-2012</code>): 114,410</li>
+</ul>
+<p>Nordic totals ÷ population age 0-5:</p>
+<ul>
+<li>Denmark: 81,532 (teachers 41,725 + aides 39,807) ÷ 369,598 = 22.1 per 100</li>
+<li>Finland: 64,217 (StatFin <code>AML 2342 + 53111 + 53112</code>) ÷ 282,456 = 22.7 per 100. Finland's unitary varhaiskasvatus system is reported to OECD as consolidated ISCED 02.</li>
+<li>Norway: 88,608 (teachers 32,674 + aides 55,934) ÷ 332,511 = 26.6 per 100</li>
+<li>Sweden: 121,485 (teachers 52,368 + aides 69,117) ÷ 657,790 = 18.5 per 100. Sweden's ISCED 02 includes förskoleklass (age 6) per OECD convention.</li>
+<li><strong>Composite</strong>: 355,842 ÷ 1,642,355 = 21.7 per 100</li>
+</ul>
+<p>Informal childcare workers are counted separately. US informal is ~442,000, from <a href="https://github.com/bdecon/econ_data">bd CPS</a> pooled 2022-04 → 2026-03 (<code>OCC 4600</code> × informal <code>COW1DT</code>: self-employed, private household, unpaid). Nordic informal is small because public coverage is near-universal: Denmark ~2,000 privat pasningsordning (<a href="https://www.statbank.dk/DAGTIL4">DST DAGTIL4</a>), Norway ~3,000 dagmammaer (<a href="https://www.ssb.no/sosiale-forhold-og-kriminalitet/artikler-og-publikasjoner/de-fleste-kjenner-dagmammaen-fra-for">SSB 2004</a>, scaled for post-2004 barnehage expansion), Sweden ~1,200 pedagogisk omsorg (<a href="https://www.skolverket.se/skolutveckling/statistik/fler-statistiknyheter/statistik/2024-04-16-statistik-over-annan-pedagogisk-verksamhet-2023">Skolverket 2023</a>), Finland ~1,000 outside the Varda registry.</p>
+<p>Butcher et al. (<a href="https://www.chicagofed.org/publications/chicago-fed-insights/2024/childcare-workers">Chicago Fed Insights, May 2024</a>) defines the US childcare workforce as <code>OCC 4600</code> + <code>OCC 2300</code>×<code>IND 8470</code> + <code>OCC 2545</code>×<code>IND 8470</code>. bd CPS replication on 2019 data yields 1,708,591, matching Butcher's published 1.7M benchmark within 0.5%.</p>
+
+<h4>State map. Four indicators by US state with NYC inset</h4>
+<p>State-level and NYC values for the four indicators shown in the interactive map. Denominators use <a href="https://www.census.gov/programs-surveys/acs">Census ACS 5-year 2023</a> state population by single year of age.</p>
+<p><strong>Resources per child, 2024.</strong> State gross product (<a href="https://apps.bea.gov/regional/downloadzip.cfm">BEA SAGDP1</a>, current dollars) divided by state population age 0-5. NYC uses the 5-borough sum of county GDP (<a href="https://apps.bea.gov/regional/downloadzip.cfm">BEA CAGDP1</a>). Color scale is winsorized at the 95th percentile.</p>
+<p><strong>Public childcare and pre-K funding, 2023 (% of GDP).</strong> OECD SOCX <code>TP521</code>-comparable four-layer build. National state-sum (0.260 percent of GDP) matches OECD's published US <code>TP521</code> (0.268 percent) within 1 percent.</p>
+<ul>
+<li><strong>Head Start</strong>: state-sum from <a href="https://www.acf.hhs.gov/ohs/data/hspps">HS Program Facts</a>. FY2019 state-sum matches OECD's published US HS exactly at $8.9 billion.</li>
+<li><strong>CCDF</strong>: <a href="https://www.acf.hhs.gov/occ/data">ACF CCDF Table 3A</a> total expenditures, scaled 0.842 so the national sum matches OECD's $13.39 billion.</li>
+<li><strong>State pre-K</strong>: <a href="https://nieer.org/state-of-preschool">NIEER State of Preschool 2024</a>, deflated 2024 → 2023 dollars.</li>
+<li><strong>Kindergarten × 0.90</strong>: per-pupil expenditure × age-5 population × 0.894 × 0.90 × 0.708. Only the kindergarten layer is estimated; OECD itself estimates it per the <a href="https://www.oecd.org/en/publications/education-at-a-glance-2025-sources-methodologies-and-technical-notes_e3c1fa49-en.html">EAG 2025 Sources & Methodologies annex</a>.</li>
+</ul>
+<p>NYC uses a 5-borough Comptroller-based method (0.37 percent of GDP). State range: Nevada 0.16 percent (low), Vermont 0.49 percent (high). Color scale is log.</p>
+<p><strong>Public childcare and pre-K enrollment, 2023 (% of children 0-4).</strong> Four-layer build: Early Head Start cumulative enrollment (<a href="https://www.acf.hhs.gov/ohs/data/hspps">HS Program Facts FY2024</a> Tables 1+2, scaled 1.39 to cumulative), plus <a href="https://www.acf.hhs.gov/occ/data">CCDF vouchers 0-2</a> (Table 1 × Table 9 age shares, with a 20 percent EHS-CCDF overlap discount), plus NIEER state pre-K and Head Start ages 3-4. Age-5 kindergarten is excluded. NYC uses DOE 3-K and Pre-K, non-DOE Head Start, and NYC-share estimates of NY-state totals. State range: 3.0 percent (NH) to 39.3 percent (DC). National state-sum 14.8 percent. Color scale is linear.</p>
+<p><strong>Childcare and ECE workforce per 100 children 0-5, 2024.</strong> <a href="https://www.bls.gov/oes/">BLS OEWS May 2024 state file</a>, occupation roll-up matching Chart 4:</p>
+<ul>
+<li>Childcare Workers (<code>SOC 39-9011</code>)</li>
+<li>Preschool Teachers (<code>SOC 25-2011</code>)</li>
+<li>Teaching Assistants in Child Care Services (<code>SOC 25-9045</code> × 0.103, the CCS industry slice)</li>
+<li>Kindergarten Teachers (<code>SOC 25-2012</code>)</li>
+</ul>
+<p>NYC uses OEWS MSA 35620 (NYC Metro) rather than the 5-borough count, because OEWS does not publish borough-level occupation employment; the Metro footprint is broader than the other three map indicators. Color scale is log.</p>
+
+<h4>Chart 5. Adults out of work for childcare</h4>
+<p>Working-age adults (20-64) not in the labor force for family or care reasons, 2022.</p>
+<ul>
+<li>Nordic: <a href="https://ec.europa.eu/eurostat/databrowser/view/lfsa_igar/default/table">Eurostat LFS indicator <code>lfsa_igar</code></a>, inactivity reason <code>FAM_CARE</code>.</li>
+<li>US (3.8 percent): <a href="https://www.census.gov/programs-surveys/cps.html">CPS Basic Monthly</a> 2022, NILF with "family/home responsibilities" and at least one own child under 18.</li>
+</ul>
+<p>Eurostat <code>FAM_CARE</code> and CPS NILF-family align approximately. Excludes adults 65+ and adults who reduced hours while staying in the labor force.</p>
+
+<h4>Chart 6. Child poverty rate</h4>
+<p>Share of children under 18 in households with equivalized disposable income below 50 percent of the national median (square-root equivalence scale), 2022. Source: <a href="https://webfs.oecd.org/els-com/Family_Database/CO_2_2_Child_Poverty.pdf">OECD Family Database, indicator <code>CO2.2</code> "Child poverty"</a>, equivalent to the <a href="https://www.oecd.org/social/income-distribution-database.htm">OECD Income Distribution Database (IDD)</a> child poverty rate at the 50-percent threshold.</p>
+
+<h4>Mother poverty rates by work status</h4>
+<p>Inline statistics in §"Cost to Families". <a href="https://www.census.gov/programs-surveys/cps/about/supplemental-surveys.html">CPS ASEC 2025</a> (tax year 2024) person-level microdata. Universe: women age 18-64 with at least one own child under 5 in the household. Poverty metric is the Official Poverty Measure (<code>PERLIS == 1</code>), weighted by <code>MARSUPWT</code>.</p>
+<ul>
+<li><strong>Left work for caregiving</strong>: not in the labor force (<code>A_LFSR</code> in {6, 7}) with "taking care of home/family" as the stated reason (<code>RSNNOTW == 3</code> or <code>PYRSN == 2</code>). Roughly 33 percent in OPM poverty.</li>
+<li><strong>Full-time, full-year employed</strong>: employed (<code>A_LFSR == 1</code>) with usual hours ≥ 35 and weeks worked ≥ 50. Under 10 percent.</li>
+<li><strong>Single mothers</strong>: female household head with no spouse present (family type 3), at least one own child under 5. Roughly 40 percent.</li>
+</ul>
+
+<h4>Chart 7. Cost of Nordic-style childcare, percent of GDP</h4>
+<p>Bottom-up estimate of a Nordic-style universal system covering US children ages 0-4, annually from 1990 to 2025. Age 5 is excluded because public kindergarten covers it.</p>
+<ul>
+<li><code>workers</code> = population age 0-4 ÷ 4 (Nordic composite ratio of one worker per four children).</li>
+<li><code>labor</code> = workers × P25 weekly wage × 52 × 1.30 (benefits margin).</li>
+<li><code>total</code> = labor × 1.40 (overhead for buildings, training, administration).</li>
+<li><code>share</code> = total ÷ nominal GDP.</li>
+</ul>
+<p>Population age 0-4 and P25 weekly wage from <a href="https://github.com/bdecon/econ_data">bd CPS</a>, a CPS microdata processing pipeline. Nominal GDP monthly from <a href="https://www.bea.gov/data/gdp/gross-domestic-product">BEA</a>, averaged to annual.</p>
+
+<h4>Diagram 1. US childcare worker wage comparators</h4>
+<p>Hourly median wages from <a href="https://www.bls.gov/oes/">BLS Occupational Employment and Wage Statistics (OEWS)</a>, May 2024 national file, cross-industry detailed occupations. Childcare Workers (<code>SOC 39-9011</code>) at $15.41 per hour.</p>
+
+<h4>Diagram 2. Finland and US comparison</h4>
+<p>US inputs:</p>
+<ul>
+<li>Annual childcare cost of $14,760: <a href="https://www.childcareaware.org/price-landscape24/">Child Care Aware, "Price of Care" 2024</a> national average.</li>
+<li>Workforce-exit share (3.8 percent): CPS 2022 (see Chart 5).</li>
+</ul>
+<p>Finland inputs:</p>
+<ul>
+<li>Public childcare fee ($0-4,080/yr): <a href="https://okm.fi/en/-/index-adjustments-to-client-fees-for-early-childhood-education-and-care-confirmed">maxtaxa client fee</a>, capped at €311/month for the first child as of August 2024, income-scaled below the cap, no fee below €30/month.</li>
+<li>Home care allowance: <a href="https://www.kela.fi/child-home-care-allowance">kotihoidon tuki</a>, approximately €370/month (~$5,000/yr) for parents caring at home.</li>
+</ul>
+
+</details>
+
+</article>
+</section>
+</main>
+<footer>
+<div class="footer-sitemap">
+<div>
+<h4><a href="reports.html">Data</a></h4>
+<ul>
+<li><a href="chartbook.html">US Chartbook</a></li>
+<li><a href="indicators.html">Economic Indicators</a></li>
+<li><a href="gdpm.html">Monthly GDP</a></li>
+<li><a href="imfweo.html">WEO Forecasts</a></li>
+</ul>
+</div>
+<div>
+<h4><a href="python.html">Guides</a></h4>
+<ul>
+<li><a href="getstarted.html">Setup</a></li>
+<li><a href="imfapi1.html">IMF API</a></li>
+<li><a href="blsapi.html">BLS API</a></li>
+<li><a href="censusapi.html">Census API</a></li>
+</ul>
+</div>
+<div>
+<h4><a href="about.html">About</a></h4>
+<ul>
+<li><a href="about.html">About BD Economics</a></li>
+<li><a href="https://briandew.wordpress.com" rel="noopener" target="_blank">Blog</a></li>
+<li><a href="https://github.com/bdecon/" rel="noopener" target="_blank">GitHub</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<div class="footer-left">
+<p><time datetime="2026">2026</time>, by Brian Dew</p>
+</div>
+<nav aria-label="Social links" class="footer-right">
+<a aria-label="GitHub" href="https://github.com/bdecon/"><svg aria-hidden="true" class="icon" fill="currentColor" viewbox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a>
+<a aria-label="LinkedIn" href="https://www.linkedin.com/in/brian-dew-5788a386/"><svg aria-hidden="true" class="icon" fill="currentColor" viewbox="0 0 16 16"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.016-.709-.52-1.248-1.342-1.248S1.4 3.226 1.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a.3.3 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"></path></svg></a>
+<a aria-label="Twitter" href="https://twitter.com/bd_econ"><svg aria-hidden="true" class="icon" fill="currentColor" viewbox="0 0 16 16"><path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334q.002-.211-.006-.422A6.7 6.7 0 0 0 16 3.542a6.7 6.7 0 0 1-1.889.518 3.3 3.3 0 0 0 1.447-1.817 6.5 6.5 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.32 9.32 0 0 1-6.767-3.429 3.29 3.29 0 0 0 1.018 4.382A3.3 3.3 0 0 1 .64 6.575v.045a3.29 3.29 0 0 0 2.632 3.218 3.2 3.2 0 0 1-.865.115 3 3 0 0 1-.614-.057 3.28 3.28 0 0 0 3.067 2.277A6.6 6.6 0 0 1 .78 13.58a6 6 0 0 1-.78-.045A9.34 9.34 0 0 0 5.026 15"></path></svg></a>
+<a aria-label="WordPress Blog" href="https://briandew.wordpress.com/" rel="noopener" target="_blank"><svg aria-hidden="true" class="icon" fill="currentColor" viewbox="0 0 24 24"><path d="M21.469 6.825c.84 1.537 1.318 3.3 1.318 5.175 0 3.979-2.156 7.456-5.363 9.325l3.295-9.527c.615-1.54.82-2.771.82-3.864 0-.405-.026-.78-.07-1.11m-7.981.105c.647-.03 1.232-.105 1.232-.105.582-.075.514-.93-.067-.899 0 0-1.755.135-2.88.135-1.064 0-2.85-.15-2.85-.15-.585-.03-.661.855-.075.885 0 0 .54.061 1.125.09l1.68 4.605-2.37 7.08L5.354 6.9c.649-.03 1.234-.1 1.234-.1.585-.075.516-.93-.065-.896 0 0-1.746.138-2.874.138-.2 0-.438-.008-.69-.015C4.911 3.15 8.235 1.215 12 1.215c2.809 0 5.365 1.072 7.286 2.833-.046-.003-.091-.009-.141-.009-1.06 0-1.812.923-1.812 1.914 0 .89.513 1.643 1.06 2.531.411.72.89 1.643.89 2.977 0 .915-.354 1.994-.821 3.479l-1.075 3.585-3.9-11.61.001.014zM12 22.784c-1.059 0-2.081-.153-3.048-.437l3.237-9.406 3.315 9.087c.024.053.05.101.078.149-1.12.393-2.325.609-3.582.609M1.211 12c0-1.564.336-3.05.935-4.39L7.29 21.709C3.694 19.96 1.212 16.271 1.211 12M12 0C5.385 0 0 5.385 0 12s5.385 12 12 12 12-5.385 12-12S18.615 0 12 0"></path></svg></a>
+</nav>
+</div>
+</footer>
+<script src="scripts/nav.js"></script>
+<script src="scripts/childcare.js"></script>
+</body>
+</html>

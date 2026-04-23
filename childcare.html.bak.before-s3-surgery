@@ -97,10 +97,10 @@
 <ol>
 <li><a href="#s1">The US-Nordic Childcare Gap</a></li>
 <li><a href="#s2">Resources and Systems</a></li>
-<li><a href="#s3">What the Gap Costs</a></li>
-<li><a href="#s4">Why Public Childcare Works</a></li>
-<li><a href="#s5">Closing the Gap</a></li>
-<li><a href="#s6">Building Public Childcare</a></li>
+<li><a href="#s4">What the Gap Costs</a></li>
+<li><a href="#s5">Why Public Childcare Works</a></li>
+<li><a href="#s6">Closing the Gap</a></li>
+<li><a href="#s7">Building Public Childcare</a></li>
 </ol>
 </nav>
 
@@ -273,7 +273,7 @@
 
 <p>The United States has the same resources and needs as Nordic countries but leaves childcare to the private market. Without public funding, the workforce stays small and slots stay scarce. Families who can afford care often cannot find it; much of the country is a childcare desert.</p>
 
-<h3 id="across-every-state">Across Every State</h3>
+<h3 id="s3">Across Every State</h3>
 
 <p>Pat Buchanan, who drafted Nixon's veto message, admitted later on <a href="https://www.npr.org/transcripts/497850292">NPR</a> what the veto was about: "If we hadn't stopped it, I think you'd have an entitlement program now of enormous size with these federal day care centers, and they would be growing and growing and growing once you got it on the books."</p>
 
@@ -342,8 +342,53 @@
   </div>
 
 </div>
+<!-- Chart 7: Nordic-style childcare cost as % of GDP, 1989-2025 -->
+<figure class="report-figure" id="chart7-figure">
+<div class="card card-compact card-chart accent-teal" id="chart7-container">
+<div class="card-body">
+<h3>Building a Nordic-style system is a lighter lift than in 1990</h3>
+<p class="chart-subtitle">Bottom-up estimate, percent of GDP</p>
+<svg id="chart7-svg" class="chart-svg" viewBox="0 25 400 250" preserveAspectRatio="xMidYMid meet"><rect x="64" y="30" width="6" height="220" fill="#000" opacity="0.06"></rect><rect x="149" y="30" width="5" height="220" fill="#000" opacity="0.06"></rect><rect x="203" y="30" width="13" height="220" fill="#000" opacity="0.06"></rect><rect x="301" y="30" width="2" height="220" fill="#000" opacity="0.06"></rect><text x="60" y="270" text-anchor="middle" font-size="13" fill="#333">1990</text><text x="100" y="270" text-anchor="middle" font-size="13" fill="#333">1995</text><text x="140" y="270" text-anchor="middle" font-size="13" fill="#333">2000</text><text x="180" y="270" text-anchor="middle" font-size="13" fill="#333">2005</text><text x="220" y="270" text-anchor="middle" font-size="13" fill="#333">2010</text><text x="260" y="270" text-anchor="middle" font-size="13" fill="#333">2015</text><text x="300" y="270" text-anchor="middle" font-size="13" fill="#333">2020</text><text x="340" y="270" text-anchor="middle" font-size="13" fill="#333">2025</text><path d="M60.0,63.5 L68.0,55.4 L76.0,63.8 L84.0,70.0 L92.0,84.0 L100.0,95.7 L108.0,108.7 L116.0,123.1 L124.0,125.2 L132.0,129.3 L140.0,140.8 L148.0,135.8 L156.0,134.3 L164.0,137.8 L172.0,148.5 L180.0,155.9 L188.0,160.9 L196.0,159.9 L204.0,148.2 L212.0,135.3 L220.0,142.3 L228.0,151.2 L236.0,173.9 L244.0,182.2 L252.0,188.6 L260.0,194.4 L268.0,191.6 L276.0,188.9 L284.0,194.4 L292.0,197.8 L300.0,182.7 L308.0,204.3 L316.0,217.4 L324.0,220.8 L332.0,223.0 L340.0,224.6" fill="none" stroke="#2A8A8A" stroke-width="3" stroke-linejoin="round"></path><circle cx="60" cy="63.5" r="4" fill="#2A8A8A"></circle><circle cx="340" cy="224.6" r="4" fill="#2A8A8A"></circle><text x="54" y="67.5" text-anchor="end" font-size="16" fill="#2A8A8A" font-weight="700">2.14%</text><text x="346" y="228.6" text-anchor="start" font-size="16" fill="#2A8A8A" font-weight="700">1.16%</text><line x1="60" x2="340" y1="250" y2="250" stroke="#333" stroke-width="1"></line></svg>
+</div>
+<div class="card-footer card-footer-col">
+<span class="chart-source">Author, see notes</span>
+<svg class="card-logo" viewBox="0 0 9 5" width="18" height="10" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+</div>
+</div>
+<figcaption>Chart 7. Cost of Nordic-style childcare, percent of GDP</figcaption>
+</figure>
 
-<h2 id="s3">What the Gap Costs</h2>
+<!-- ================================================================ -->
+<!-- SECTION 2: A system designed to fail                                -->
+<!-- ================================================================ -->
+<!-- Diagram 2: Finland vs US decision tree -->
+<figure class="report-figure" id="decision-tree-figure">
+<div class="card" id="decision-tree-container">
+<div class="card-body">
+<section class="dt-tree">
+<h3 class="dt-question-main">You have a child under 5.</h3>
+<p class="dt-question-sub">What are your options?</p>
+<div class="dt-stem"></div>
+<div class="dt-branches">
+<div class="dt-branch dt-branch-us">
+<h4 class="dt-country">United States</h4>
+<div class="dt-cards">
+<div class="dt-card dt-card-us">
+<h4 class="dt-card-title">Private childcare</h4>
+<span class="key-stat dt-card-amount">$14,760</span>
+<span class="dt-card-unit">per year</span>
+<p class="dt-card-ctx">More than in-state college tuition in 38 states</p>
+</div>
+<span class="dt-or">or</span>
+<div class="dt-card dt-card-us">
+<h4 class="dt-card-title">Leave the workforce</h4>
+<span class="key-stat dt-card-amount">$0</span>
+<span class="dt-card-unit">income</span>
+<p class="dt-card-ctx">3.8% of US adults are out of work for childcare reasons</p>
+</div>
+</div>
+
+<h2 id="s4">What the Gap Costs</h2>
 
 <h3>Cost to Families</h3>
 <p>In the US, private full-time childcare costs <a href="https://www.childcareaware.org/price-landscape24/">about $15,000 per child</a> per year. At a household income of $200,000, that is steep but manageable. At an income of $40,000, it is more than a third of everything the family makes before taxes. For a family with two children, that is $30,000 a year, close to the full take-home pay of a worker paid $20 an hour.</p>
@@ -434,78 +479,7 @@
 <figcaption>Bamsebo barnehage (Norway), ages 1-5</figcaption>
 </figure>
 
-<h2 id="s4">Why Public Childcare Works</h2>
 
-<h3>The Wage-Cost Trap</h3>
-<p>The previous sections traced what the childcare gap costs families, employers, and workers. Each group absorbs the damage individually. The <a href="https://rooseveltinstitute.org/blog/we-cant-deregulate-our-way-out-of-childcare-market-failures/">market cannot fix that</a>.</p>
-
-<p>Closing the enrollment gap means building a much larger workforce. The US employs <a href="https://www.bls.gov/oes/current/oes399011.htm">less than 1 percent</a> of its workers in childcare. Nordic countries employ between 2 and 5 percent. Matching Nordic enrollment would mean tripling or quadrupling the childcare workforce, recruiting millions of additional workers that the current wage of <a href="https://www.bls.gov/oes/current/oes399011.htm">$15.41 an hour</a> cannot attract. To build the slots, the US needs the workers. To get the workers, it needs professional wages.</p>
-
-<p>But higher wages raise the cost of care. In childcare, the price falls directly on families, because there is no public payer to absorb the difference. <a href="https://docs.iza.org/dp16257.pdf">Brown and Herbst</a> documented that a 10 percent minimum wage increase raises childcare prices 4–8 percent, compared to 0.4 percent at grocery stores. <a href="https://home.treasury.gov/system/files/136/The-Economics-of-Childcare-Supply-09-14-final.pdf">Labor is roughly 70 percent of childcare costs</a>, and margins are too thin to absorb it. Raising childcare worker wages makes care unaffordable for parents. And those parents are at the earliest stage of their careers, facing the highest costs at the point in life when their incomes are lowest.</p>
-
-<p>Care violates what markets usually need to function. Parents have limited ability to judge the quality of care their infant receives. Power between caregivers and recipients is unequal. Relationships are sticky: replacing a trusted worker imposes real costs on the child. And unlike manufacturing, care resists the automation that lets wages rise without raising prices. These are <a href="https://nyupress.org/9780814782781/caring-democracy/">structural features of the thing being sold</a>, rather than market failures to be patched.</p>
-
-<p>Every country that solved this problem solved it the same way: the government became the primary funder, set professional wages, and charged families a fraction of the cost. Every private-market path from $15 an hour to a professional wage runs through higher prices that families cannot pay. The only question is whether the public sector steps in.</p>
-
-<h3>The Means-Testing Trap</h3>
-<p>The last time the US tried to break this trap, the design of the fix revealed a <a href="https://www.russellsage.org/publications/book/love-and-money">built-in flaw of income-restricted programs</a>. Raise quality, and the families just above the cutoff pay the most.</p>
-
-<p>The <a href="https://www.congress.gov/bill/117th-congress/house-bill/5376">Build Back Better Act</a> of 2021 showed how. It proposed improvements to the childcare system, including wage standards. The wage standards would have raised costs across the entire market, but subsidies were limited to lower-income families, so families just above the cutoff faced a <a href="https://www.peoplespolicyproject.org/2021/10/20/democratic-child-care-plan-will-spike-prices-for-the-middle-class-by-13000">$13,000 price increase</a>. They would pay higher prices from the quality mandate, receive no subsidy, and pay taxes to fund the program for families below the line. Those families turn against the program.</p>
-
-<p>Means-tested programs also fail at reach. The main federal childcare subsidy reaches only about <a href="https://www.gao.gov/products/gao-21-245r">14 percent</a> of the children eligible for it. Funding is capped by Congressional appropriation, not by the number of eligible families. States ration the rest by waitlist.</p>
-
-<p>Even if the existing programs were fully funded, they would still miss people. <a href="https://www.russellsage.org/publications/administrative-burden">Means-testing inherently imposes administrative burden</a>: determining eligibility requires tax filings, income verification, and ongoing paperwork that low-income families with volatile incomes often cannot reliably produce. Subsidize-the-poor has been the US approach for decades, and most of the poor go unserved.</p>
-
-<h3>The Universal Answer</h3>
-<p>In Nordic countries, public investment creates a professional workforce, which produces quality care, which builds public trust, which sustains the investment. Conservative, liberal, and socialist parents send their kids to the same daycares. Even Finland's current right-wing government has kept childcare intact, because dismantling it would mean taking care away from its own base. The system is <a href="https://scholar.harvard.edu/thedaskocpol/publications/universal-appeal-politically-viable-policies-combat-poverty">politically untouchable</a> because every family depends on it.</p>
-
-<p>In the United States, the feedback runs the other direction. Parents pay a lot. Workers are paid little. Both sides of the market are broken at the same time. Underfunding produces low wages, which cause turnover, which erodes quality, which erodes trust, which becomes the argument against investment.</p>
-
-<p>Universal programs break this trap. The cost of childcare is small relative to the whole economy but enormous relative to a young family's budget. One percent of GDP, spread across the tax base, is a small share of what the public sector already spends. The same cost, concentrated on the families who need care right now, is $15,000 a child. The Nordic countries chose to spread it. The US chose to concentrate it. Spreading the cost is one reason universal works. There are two more.</p>
-
-<p>First, universal programs <a href="https://www.jstor.org/stable/2657333">deliver more to poor families</a> than means-tested programs do. Means-tested programs stay small because only the poor benefit. Universal programs fund higher benefits because the middle class uses them and defends them. Second, universal care <a href="https://ideas.repec.org/p/ces/ceswps/_4359.html">insures families against uneven needs</a>. The cost of childcare varies with how many children a family has, whether those children have disabilities, and how long care is needed. Universal systems spread that variation across everyone.</p>
-
-<figure class="report-figure report-figure-photo report-figure-md" id="finland-photo-figure">
-<div class="card card-compact card-chart accent-teal">
-<div class="card-body">
-<img decoding="async" src="files/childcare-images/nuotti.jpg" alt="Nuotti daycare centre in winter, with children playing in the snow" width="940" height="627">
-</div>
-</div>
-<figcaption>Nuotti daycare centre (Finland). Architects: Verstas Arkkitehdit</figcaption>
-</figure>
-
-<h2 id="s5">Closing the Gap</h2>
-<p>A final objection to universal public childcare is that it restricts choice. The opposite is true. A private market offers the appearance of choice; a public system funds the choices families actually want to make. Finland makes this clear.</p>
-
-<h3>A tale of two systems</h3>
-<p>You have a child under 5. If you live in the United States, you choose between private childcare at about $15,000 per year and having one parent leave the workforce. If you live in Finland, you choose between public childcare at $0-4,080 per year and a <a href="https://www.kela.fi/child-home-care-allowance">home care allowance</a> of roughly $5,000 per year paid to the parent (see Diagram 2). Same situation. Radically different options.</p>
-
-<!-- Diagram 2: Finland vs US decision tree -->
-<figure class="report-figure" id="decision-tree-figure">
-<div class="card" id="decision-tree-container">
-<div class="card-body">
-<section class="dt-tree">
-<h3 class="dt-question-main">You have a child under 5.</h3>
-<p class="dt-question-sub">What are your options?</p>
-<div class="dt-stem"></div>
-<div class="dt-branches">
-<div class="dt-branch dt-branch-us">
-<h4 class="dt-country">United States</h4>
-<div class="dt-cards">
-<div class="dt-card dt-card-us">
-<h4 class="dt-card-title">Private childcare</h4>
-<span class="key-stat dt-card-amount">$14,760</span>
-<span class="dt-card-unit">per year</span>
-<p class="dt-card-ctx">More than in-state college tuition in 38 states</p>
-</div>
-<span class="dt-or">or</span>
-<div class="dt-card dt-card-us">
-<h4 class="dt-card-title">Leave the workforce</h4>
-<span class="key-stat dt-card-amount">$0</span>
-<span class="dt-card-unit">income</span>
-<p class="dt-card-ctx">3.8% of US adults are out of work for childcare reasons</p>
-</div>
-</div>
 
 <p class="dt-tagline">Both options cost the family.</p>
 </div>
@@ -536,69 +510,14 @@
 <figcaption>Diagram 2. Finland and US comparison</figcaption>
 </figure>
 
-<p>Finland grants every child a <a href="https://okm.fi/en/legislation-ecec">legal right</a> to public childcare from infancy. The home care allowance is an option layered on top of a complete public system. Both options are funded. Both options are real. In any society, some parents prefer to care for their children at home. Finland gives them the freedom to do so, and lets them move between home care and public daycare as needs change. Staying home means lost income, so the allowance replaces part of it, preventing poverty. The allowance might delay some mothers' return to paid work. But every country has people who won't use the public childcare system. Policy determines whether those families end up in poverty. Finland accepts their choice and reduces their poverty.</p>
-
-<p>The apparent freedom of the US private market is a constraint in disguise. Families pay rates that can total $150,000 for two children before kindergarten, if they can afford it at all. Lower-income families piece together informal arrangements, or a parent, usually the mother, leaves paid work. This is the daily emergency created when viable choices are never presented.</p>
-
-<h3>Finland (A Complete System)</h3>
-<p>Finland shows what a complete system looks like. Public childcare runs from the end of parental leave, around nine months, through the year before school starts at age seven. Fees are income-based, capped at roughly $340 per month for the first child, and free for the year before school. <a href="https://eurydice.eacea.ec.europa.eu/eurypedia/finland/organisation-centre-based-ecec">Staff ratios for children under three are one adult per four children</a>.</p>
-
-<p>The system was <a href="https://jacobin.com/2021/10/finland-public-universal-childcare-day-care-early-education">built over a century</a>: first kindergarten in 1888, the Day Care Act in 1973, a universal legal right in 1996. Childcare workers are public employees with union-negotiated wages, pensions, and job security. Preschool teachers are paid roughly the same as elementary school teachers. The workforce is stable because the jobs are professional.</p>
-
-<h3>New York City</h3>
-<p>New York City is building a public system age by age. Four-year-olds have free, full-day <a href="https://www.schools.nyc.gov/enrollment/enroll-grade-by-grade/pre-k">Pre-K</a>, with roughly two-thirds of the age group enrolled. Three-year-olds have 3-K, with about half enrolled, though seats are <a href="https://www.chalkbeat.org/newyork/2025/05/20/preschool-offers-long-commutes-empty-seats/">unevenly distributed</a> across the city. Below age three, the city is just getting started: a <a href="https://www.nyc.gov/mayors-office/news/2025/12/mayor-adams--chancellor-aviles-ramos-announce-open-enrollment-fo">Birth-to-2 pilot</a> launched in January 2026 with 200 free seats for infants and toddlers, and a <a href="https://www.chalkbeat.org/newyork/2026/04/09/2k-will-run-10-hours-a-day-year-round-mamdani-says/">2-K program</a> launching in September will offer 2,000 free full-day, full-year seats, with plans to reach 12,000 by fall 2027. Public childcare funding in New York City is 0.37 percent of GDP, above the national average of 0.26 percent but still well below Nordic levels.</p>
-
-<p>Mayor Mamdani's goal is universal care from six weeks to five years. But the expansion is built on a private workforce. The typical childcare worker in New York City gets <a href="https://www.bls.gov/oes/current/oes399011.htm">about $36,500 a year</a>, while an elementary school teacher in the same city makes <a href="https://www.bls.gov/oes/current/oes252021.htm">$95,000</a>. Closing that gap has no mechanism in the current structure, and the wage gap will follow the program into every new age group it reaches.</p>
-
-<h3>Vermont</h3>
-<p>Vermont funds childcare at 0.49 percent of GDP with 33.1 percent enrollment, both the highest of any US state. Three- and four-year-olds get 10 hours a week of <a href="https://education.vermont.gov/student-support/early-education/universal-prekindergarten-act-166">free universal pre-K</a>. 76 percent of four-year-olds are enrolled. For younger children, the state offers a <a href="https://dcf.vermont.gov/benefits/ccfap">subsidy</a>: in 2023, <a href="https://letsgrowkids.org/vermont-child-care-bill-act-76-educators-families-kids">Act 76</a> created a dedicated 0.44 percent employer-side payroll tax as part of roughly $125 million a year in new funding. The governor vetoed it. The legislature overrode the veto. The subsidy pays private providers on a sliding scale, with no copay for lower-income families. But for children under three, the only option is the subsidy.</p>
-
-<p>Vermont is the closest any US state has come to Nordic levels on the metrics in this report. But it is a subsidy in a private market, not a public system. Since Act 76, <a href="https://www.childtrends.org/publications/vermont-policy-changes-increase-supply-child-care">the number of providers has grown</a> for the first time in a decade, and the number of families receiving subsidies has grown 48 percent. Families still find their own provider, and the state still needs <a href="https://vtdigger.org/2024/07/17/vermonts-child-care-providers-have-new-hope-after-act-76-but-worries-remain/">thousands of additional slots</a>. And the subsidies passed, but the <a href="https://cscce.berkeley.edu/workforce-index-2024/states/vermont/">wages did not fully follow</a>: childcare workers went from about $13 an hour to roughly $18, real progress but not professional pay.</p>
-
-<h3>New Mexico</h3>
-<p>New Mexico is the first US state to make <a href="https://www.nmececd.org/universal/">universal childcare</a> an entitlement, free from infancy, open to every family regardless of income. In 2022, <a href="https://ballotpedia.org/New_Mexico_Constitutional_Amendment_1,_Land_Grant_Permanent_Fund_Distribution_for_Early_Childhood_Education_Amendment_(2022)">70 percent of voters</a> approved a constitutional amendment directing 1.25 percent of the <a href="https://www.sic.state.nm.us/land-grant-permanent-fund/">Land Grant Permanent Fund</a>, the state's mineral-revenue endowment, to early childhood education. In 2026, the legislature <a href="https://www.nmlegis.gov/Legislation/Legislation?Chamber=S&LegType=B&LegNo=241&year=26">passed SB 241</a> to codify the universal program in state law. About half of four-year-olds and a fifth of three-year-olds are enrolled in state pre-K.</p>
-
-<p>The entitlement is universal. The infrastructure is not. Of <a href="https://www.nmececd.org/wp-content/uploads/2026/02/UCC-Brief_1-20-26.pdf">194,000 eligible children, about 40,000 are served</a>, roughly one in five. Fourteen of the state's 33 counties are <a href="https://sourcenm.com/2025/10/26/capacity-issues-may-limit-new-mexicos-universal-child-care-program/">childcare deserts</a>, and there are only 32 licensed slots for every 100 children under two. The childcare workforce has <a href="https://www.nmececd.org/wp-content/uploads/2026/02/UCC-Brief_1-20-26.pdf">grown 64 percent</a> since 2019, against a 7 percent national decline, but from a base too small to meet the need. Poverty among childcare workers in the state has fallen from 27.4 percent in 2020 to <a href="https://www.theguardian.com/us-news/2025/apr/11/childcare-new-mexico-poverty">16 percent in 2024</a>. New Mexico has the funding and the legal architecture. What it still lacks are the facilities and workers to turn the right into a reality.</p>
-
-<h3>Other efforts</h3>
-<p>Other US cities and institutions have built pieces of public childcare without a full system. San Antonio funds <a href="https://prek4sa.com/">four municipal pre-K centers</a> through a voter-approved 1/8-cent sales tax, now reauthorized with a wider margin than the original 2012 vote. Washington, DC's 2022 <a href="https://equitablegrowth.org/research-paper/a-review-of-the-state-of-child-care-in-the-united-states/">Pay Equity Fund</a> uses city revenue to lift early-childhood educator wages directly; it added hundreds of educators in its first year but was cut back in early 2026 and remains unfunded past FY 2027. The <a href="https://www.gao.gov/products/gao-23-105518">US military</a> runs the largest employer-sponsored childcare system in the country: 97 percent of its child development centers are nationally accredited, versus 9 percent in the civilian sector. It works through enforcement of quality standards, funded training, and direct program subsidies, with force readiness as the rationale.</p>
-
-<p>Getting universal right means more than access at the right age. It means full-day coverage so both parents can work, and full-year coverage that matches a working calendar. The <a href="https://rooseveltinstitute.org/publications/whole-child-whole-day-whole-year/">US private market fails on all three</a>. Where public pre-K exists, it usually ends at 3pm and stops for the summer. Working parents stitch the gaps themselves. In addition to expanding care, states have room to increase the hours of operation.</p>
-
-<p>The case studies above show different approaches to the same problem, at different stages of progress. The cases closest to a public system (Finland's complete system, New Mexico's universal entitlement) are the ones built on universal principles.</p>
-
-<h3>The cost of a complete US system</h3>
-<p>A bottom-up calculation of what a complete US system would cost solidifies the principles drawn from cross-country comparison.</p>
-
-<p>Specifically, a complete US childcare system, with high enrollment, would require roughly one trained worker for every four young children. And to recruit and retain these workers, the childcare worker wage, one of the lowest in the country, would need to rise toward a living wage, comparable with preschool teachers. Using these figures we can estimate the cost needed to provide care in a high-enrollment US system that pays the wages needed to attract and retain the workforce.</p>
-
-</article>
-
-<!-- Break-out: cost paragraph + Chart 7 side-by-side -->
-<div class="report-split">
-<div class="report-split-text">
-<p>For kids age 0-4, a new universal Nordic-style public childcare system, with high enrollment and trained public sector workers, would require around 3 million new workers. Paying these workers a 25th percentile wage and public-sector benefits, along with 40 percent overhead for buildings, equipment, supplies, etc., is equivalent to 1.16 percent of GDP in 2025. Some of this is already funded by state systems covering preschool or by Head Start.</p>
-</div>
-<!-- Chart 7: Nordic-style childcare cost as % of GDP, 1989-2025 -->
-<figure class="report-figure" id="chart7-figure">
-<div class="card card-compact card-chart accent-teal" id="chart7-container">
+<figure class="report-figure report-figure-photo report-figure-md" id="finland-photo-figure">
+<div class="card card-compact card-chart accent-teal">
 <div class="card-body">
-<h3>Building a Nordic-style system is a lighter lift than in 1990</h3>
-<p class="chart-subtitle">Bottom-up estimate, percent of GDP</p>
-<svg id="chart7-svg" class="chart-svg" viewBox="0 25 400 250" preserveAspectRatio="xMidYMid meet"><rect x="64" y="30" width="6" height="220" fill="#000" opacity="0.06"></rect><rect x="149" y="30" width="5" height="220" fill="#000" opacity="0.06"></rect><rect x="203" y="30" width="13" height="220" fill="#000" opacity="0.06"></rect><rect x="301" y="30" width="2" height="220" fill="#000" opacity="0.06"></rect><text x="60" y="270" text-anchor="middle" font-size="13" fill="#333">1990</text><text x="100" y="270" text-anchor="middle" font-size="13" fill="#333">1995</text><text x="140" y="270" text-anchor="middle" font-size="13" fill="#333">2000</text><text x="180" y="270" text-anchor="middle" font-size="13" fill="#333">2005</text><text x="220" y="270" text-anchor="middle" font-size="13" fill="#333">2010</text><text x="260" y="270" text-anchor="middle" font-size="13" fill="#333">2015</text><text x="300" y="270" text-anchor="middle" font-size="13" fill="#333">2020</text><text x="340" y="270" text-anchor="middle" font-size="13" fill="#333">2025</text><path d="M60.0,63.5 L68.0,55.4 L76.0,63.8 L84.0,70.0 L92.0,84.0 L100.0,95.7 L108.0,108.7 L116.0,123.1 L124.0,125.2 L132.0,129.3 L140.0,140.8 L148.0,135.8 L156.0,134.3 L164.0,137.8 L172.0,148.5 L180.0,155.9 L188.0,160.9 L196.0,159.9 L204.0,148.2 L212.0,135.3 L220.0,142.3 L228.0,151.2 L236.0,173.9 L244.0,182.2 L252.0,188.6 L260.0,194.4 L268.0,191.6 L276.0,188.9 L284.0,194.4 L292.0,197.8 L300.0,182.7 L308.0,204.3 L316.0,217.4 L324.0,220.8 L332.0,223.0 L340.0,224.6" fill="none" stroke="#2A8A8A" stroke-width="3" stroke-linejoin="round"></path><circle cx="60" cy="63.5" r="4" fill="#2A8A8A"></circle><circle cx="340" cy="224.6" r="4" fill="#2A8A8A"></circle><text x="54" y="67.5" text-anchor="end" font-size="16" fill="#2A8A8A" font-weight="700">2.14%</text><text x="346" y="228.6" text-anchor="start" font-size="16" fill="#2A8A8A" font-weight="700">1.16%</text><line x1="60" x2="340" y1="250" y2="250" stroke="#333" stroke-width="1"></line></svg>
-</div>
-<div class="card-footer card-footer-col">
-<span class="chart-source">Author, see notes</span>
-<svg class="card-logo" viewBox="0 0 9 5" width="18" height="10" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+<img decoding="async" src="files/childcare-images/nuotti.jpg" alt="Nuotti daycare centre in winter, with children playing in the snow" width="940" height="627">
 </div>
 </div>
-<figcaption>Chart 7. Cost of Nordic-style childcare, percent of GDP</figcaption>
+<figcaption>Nuotti daycare centre (Finland). Architects: Verstas Arkkitehdit</figcaption>
 </figure>
-</div>
-
-<article class="prose prose-report cc-page">
-
-<p>The US economy has grown much faster than typical wages for lower-wage jobs, while birth rates have fallen. As a result, childcare is a smaller lift today than in the past. The same system would have cost 2.14 percent of GDP in 1990, nearly double the 2025 figure (see chart 7).</p>
 
 <figure class="report-figure report-figure-photo report-figure-md" id="emptylot-photo-figure">
 <div class="card card-compact card-chart accent-teal">
@@ -608,25 +527,6 @@
 </div>
 <figcaption>Empty lot (United States)</figcaption>
 </figure>
-
-<h2 id="s6">Building Public Childcare</h2>
-
-<p>Every argument in this report rests on a prior choice about how to see young children. That the US has the resources, that the need is the same, that the funding gap is one percent of GDP, that the workforce collapses without professional wages, that the market cannot fix it and means-testing cannot reach it, that universal design can. All of it follows from a framing question: is raising young children a private family matter or a shared public responsibility?</p>
-
-<p>In the US, <a href="https://www.ucpress.edu/book/9780520968516/making-motherhood-work">57 percent</a> of people say family members should primarily provide childcare for pre-school children. In Sweden, 5 percent agree. Three-quarters of Americans say families should cover the cost themselves; in Sweden, one-quarter. The gap is not an opinion difference at the margins. It is two societies answering the same question in opposite directions. <strong>Every Nordic public childcare system was built the moment the answer shifted.</strong></p>
-
-<p>The United States has <a href="https://prospect.org/health/will-federal-child-care-support-vanish-again">come within reach of public childcare twice</a>. Federal funding for the Lanham Act centers ended in 1946. In Cleveland, a court <a href="https://www.richmondfed.org/publications/research/econ_focus/2024/q4_economic_history">ruled</a> that public childcare was "public funds for a private purpose," that caring for children who were not destitute was not a legitimate function of government. The 1971 bill died on Nixon's desk. Both times, the system was dismantled or blocked before families could depend on it.</p>
-
-<p>Now public childcare is being built again, from the states and cities. New Mexico wrote universal childcare into its constitution. Vermont overrode a governor's veto to fund it. New York City's mayor won office on a promise of free care from six weeks to five years, and in his first months began delivering it. None happened easily. All happened because people organized and fought for them.</p>
-
-<blockquote class="blockquote-accent">
-<p>"It's not a matter of my children and your children, but our children — all children."</p>
-<cite><a href="https://olofpalme.arbark.se/amne/barn/">Olof Palme</a>, Prime Minister of Sweden</cite>
-</blockquote>
-
-<p>Palme's argument is a political one, not a sentimental one. Universal systems work because they align everyone's interests. When every family uses the same system, the constituency to defend it is the entire electorate.</p>
-
-<p>Buchanan understood this in 1971: once families have public childcare, they will never give it up. He meant it as a warning. It is the reason to build it.</p>
 
 
 <!-- ================================================================ -->

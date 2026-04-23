@@ -165,9 +165,9 @@
     },
     {
       "name": "Initial Jobless Claims",
-      "period": "Apr 11, 2026",
+      "period": "Apr 18, 2026",
       "freq": "weekly",
-      "last_changed": "2026-04-16"
+      "last_changed": "2026-04-23"
     },
     {
       "name": "Fed Balance Sheet",
@@ -292,6 +292,12 @@
       "last_changed": "2026-04-23"
     },
     {
+      "name": "Initial Jobless Claims",
+      "period": "Apr 18, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-04-23"
+    },
+    {
       "name": "Industrial Production",
       "period": "Mar 2026",
       "freq": "monthly",
@@ -306,12 +312,6 @@
     {
       "name": "Mortgage Rates",
       "period": "Apr 16, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-04-16"
-    },
-    {
-      "name": "Initial Jobless Claims",
-      "period": "Apr 11, 2026",
       "freq": "weekly",
       "last_changed": "2026-04-16"
     },

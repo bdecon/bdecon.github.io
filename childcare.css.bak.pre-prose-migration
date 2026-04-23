@@ -2,8 +2,7 @@
 
 .page-childcare {
 	& .card-footer-col { flex-direction: column; align-items: flex-start; }
-	& main { padding-top: var(--space-6); counter-reset: h2-counter; }
-	& .prose-report { counter-reset: none; }
+	& main { padding-top: var(--space-6); }
 	& .cc-tooltip-narrow { max-width: 200px; }
 	& .cc-inherit-link, & .cc-inherit-link:link, & .cc-inherit-link:visited { color: inherit; }
 	& .cc-card-body-tight { padding: var(--space-2) var(--space-3) var(--space-1); &.cc-card-body-chart { padding-top: var(--space-4); } }
