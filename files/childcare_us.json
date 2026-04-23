@@ -137,7 +137,7 @@
       "pt_wage_annual": 37120.0,
       "elem_wage_annual": 62340.0,
       "enrollment_pct": 14.8,
-      "gdp_per_child_0_5": 1.2753,
+      "gdp_per_child_0_5": 1.28,
       "workforce_share_pct": 0.63,
       "workforce_per_100_kids": 5.3
     },
@@ -1421,7 +1421,7 @@
         "wage_local_all": 378.89,
         "wage_local_fmt": "%s DKK/hr",
         "enrollment_pct": 71.3,
-        "gdp_per_child_0_5": 1.2306,
+        "gdp_per_child_0_5": 1.23,
         "workforce_share_pct": 2.44,
         "workforce_per_100_kids": 21.8
       },
@@ -1442,7 +1442,7 @@
         "wage_local_all": 4064.08,
         "wage_local_fmt": "\u20ac%s/mo",
         "enrollment_pct": 59.1,
-        "gdp_per_child_0_5": 1.2295,
+        "gdp_per_child_0_5": 1.23,
         "workforce_share_pct": 3.21,
         "workforce_per_100_kids": 22.5
       },
@@ -1463,7 +1463,7 @@
         "wage_local_all": 60078.25,
         "wage_local_fmt": "%s NOK/mo",
         "enrollment_pct": 75.6,
-        "gdp_per_child_0_5": 1.306,
+        "gdp_per_child_0_5": 1.31,
         "workforce_share_pct": 5.02,
         "workforce_per_100_kids": 26.3
       },
@@ -1484,7 +1484,7 @@
         "wage_local_all": 38169.9,
         "wage_local_fmt": "%s SEK/mo",
         "enrollment_pct": 66.9,
-        "gdp_per_child_0_5": 1.0789,
+        "gdp_per_child_0_5": 1.08,
         "workforce_share_pct": 2.19,
         "workforce_per_100_kids": 17.9
       }

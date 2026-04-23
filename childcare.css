@@ -250,6 +250,13 @@
 	.legend-code  { font-size: 12px; fill: var(--color-text-strong); font-weight: 600; }
 	.legend-semantic { font-size: 13px; font-weight: 600; fill: var(--color-card-teal); }
 
+	/* mapview wrapper — <figure> element for the multi-level map with a figcaption */
+	#mapview { margin: 0; padding: 0; }
+	#mapview > figcaption {
+		margin-top: var(--space-3);
+		font-size: var(--text-sm);
+	}
+
 	/* Level 0 — 2×2 grid of small-multiple tiles */
 	#level0-grid {
 		display: grid;

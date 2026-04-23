@@ -233,7 +233,7 @@
 <div class="card-body">
 <h3>The US and Nordic countries have similar per child resources</h3>
 <p class="chart-subtitle">GDP per 0–5 year old, PPP int'l $ millions, 2023</p>
-<svg id="resources-svg" class="chart-svg" viewBox="0 15 400 260" preserveAspectRatio="xMidYMid meet"><rect x="75" y="70.23" width="45" height="159.77" fill="#2A8A8A" opacity="0.85"></rect><text x="97.5" y="65.23" text-anchor="middle" font-size="17" fill="#333">$1.2M</text><text x="97.5" y="250" text-anchor="middle" font-size="16" fill="#111"><tspan x="97.5" dy="0">United</tspan><tspan x="97.5" dy="1.1em">States</tspan></text><rect x="140" y="68.49" width="45" height="161.51" fill="#2A8A8A" opacity="0.85"></rect><text x="162.5" y="63.49" text-anchor="middle" font-size="17" fill="#333">$1.2M</text><text x="162.5" y="250" text-anchor="middle" font-size="16" fill="#111">Denmark</text><rect x="205" y="68.63" width="45" height="161.37" fill="#2A8A8A" opacity="0.85"></rect><text x="227.5" y="63.63" text-anchor="middle" font-size="17" fill="#333">$1.2M</text><text x="227.5" y="250" text-anchor="middle" font-size="16" fill="#111">Finland</text><rect x="270" y="58.59" width="45" height="171.41" fill="#2A8A8A" opacity="0.85"></rect><text x="292.5" y="53.59" text-anchor="middle" font-size="17" fill="#333">$1.3M</text><text x="292.5" y="250" text-anchor="middle" font-size="16" fill="#111">Norway</text><rect x="335" y="88.40" width="45" height="141.60" fill="#2A8A8A" opacity="0.85"></rect><text x="357.5" y="83.40" text-anchor="middle" font-size="17" fill="#333">$1.1M</text><text x="357.5" y="250" text-anchor="middle" font-size="16" fill="#111">Sweden</text><line x1="65" x2="395" y1="230" y2="230" stroke="#333" stroke-width="1.5"></line><line x1="65" x2="395" y1="191.92" y2="191.92" stroke="#1B2A4A" stroke-width="4" stroke-dasharray="5,3"></line><text x="57" y="178" text-anchor="end" font-size="16" fill="#666">$0.3M</text><text x="57" y="197" text-anchor="end" font-size="16" fill="#666" font-style="italic">World</text><text x="57" y="216" text-anchor="end" font-size="16" fill="#666" font-style="italic">Avg.</text></svg>
+<svg id="resources-svg" class="chart-svg" viewBox="0 15 400 260" preserveAspectRatio="xMidYMid meet"><rect x="75" y="69.88" width="45" height="160.12" fill="#2A8A8A" opacity="0.85"></rect><text x="97.5" y="64.88" text-anchor="middle" font-size="17" fill="#333">$1.2M</text><text x="97.5" y="250" text-anchor="middle" font-size="16" fill="#111"><tspan x="97.5" dy="0">United</tspan><tspan x="97.5" dy="1.1em">States</tspan></text><rect x="140" y="68.56" width="45" height="161.44" fill="#2A8A8A" opacity="0.85"></rect><text x="162.5" y="63.56" text-anchor="middle" font-size="17" fill="#333">$1.2M</text><text x="162.5" y="250" text-anchor="middle" font-size="16" fill="#111">Denmark</text><rect x="205" y="68.56" width="45" height="161.44" fill="#2A8A8A" opacity="0.85"></rect><text x="227.5" y="63.56" text-anchor="middle" font-size="17" fill="#333">$1.2M</text><text x="227.5" y="250" text-anchor="middle" font-size="16" fill="#111">Finland</text><rect x="270" y="58.06" width="45" height="171.94" fill="#2A8A8A" opacity="0.85"></rect><text x="292.5" y="53.06" text-anchor="middle" font-size="17" fill="#333">$1.3M</text><text x="292.5" y="250" text-anchor="middle" font-size="16" fill="#111">Norway</text><rect x="335" y="88.25" width="45" height="141.75" fill="#2A8A8A" opacity="0.85"></rect><text x="357.5" y="83.25" text-anchor="middle" font-size="17" fill="#333">$1.1M</text><text x="357.5" y="250" text-anchor="middle" font-size="16" fill="#111">Sweden</text><line x1="65" x2="395" y1="230" y2="230" stroke="#333" stroke-width="1.5"></line><line x1="65" x2="395" y1="191.94" y2="191.94" stroke="#1B2A4A" stroke-width="4" stroke-dasharray="5,3"></line><text x="57" y="178" text-anchor="end" font-size="16" fill="#666">$0.3M</text><text x="57" y="197" text-anchor="end" font-size="16" fill="#666" font-style="italic">World</text><text x="57" y="216" text-anchor="end" font-size="16" fill="#666" font-style="italic">Avg.</text></svg>
 </div>
 <div class="card-footer card-footer-col">
 <span class="chart-source">Author, see notes</span>
@@ -346,7 +346,7 @@
 <p>The maps below show four metrics at the state level: resources per young child, public funding, enrollment in public care, and childcare workforce share. On resources, US states often match or exceed Nordic countries. On public funding, enrollment, and workforce share, they fall behind.</p>
 
 <!-- Map — multi-level choropleth (L0 2×2 tiles, L1 full map, L2 drill) -->
-<div id="mapview">
+<figure id="mapview">
 
   <!-- Level 0: 4 small-multiple tile cards, rendered dynamically -->
   <div id="level0-grid"></div>
@@ -396,8 +396,9 @@
       </div>
     </figure>
   </div>
+  <figcaption>Maps A-D. State-level comparison</figcaption>
 
-</div>
+</figure>
 
 <h2 id="s3">What the Gap Costs</h2>
 
