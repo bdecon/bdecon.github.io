@@ -1,6 +1,10 @@
 /* ----- Childcare Report ----- */
 
 .page-childcare {
+	/* Link colors — teal for PPP-branded page (overrides bd-econ default red) */
+	--color-link: #2A8A8A;
+	--color-link-visited: #1f6868;
+	--color-link-hover: #1a5454;
 	& .report-brand {
 		display: block;
 		position: relative;
