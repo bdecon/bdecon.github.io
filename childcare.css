@@ -12,6 +12,9 @@
 		text-align: center;
 		margin: var(--space-6) 0 0;
 	}
+	/* 3P logo at full strength. Site-wide .card-logo rule sets opacity: 0.5;
+	   undo it here so the teal square reads as a brand mark, not a faded glyph. */
+	& .card-logo { opacity: 1; }
 	& .card-footer-col { flex-direction: column; align-items: flex-start; }
 	& main { padding-top: var(--space-6); counter-reset: h2-counter; }
 	& .prose-report { counter-reset: none; }
