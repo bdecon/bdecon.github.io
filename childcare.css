@@ -2,9 +2,13 @@
 
 .page-childcare {
 	& .report-brand {
+		display: block;
+		position: relative;
+		z-index: 2;
 		max-width: var(--width-xl);
 		margin: 0 auto;
 		padding: var(--space-5) var(--space-4);
+		background: var(--color-bg, #fff);
 	}
 	& .report-brand a { display: inline-block; line-height: 0; }
 	& .report-brand-logo { display: block; height: 60px; width: auto; }

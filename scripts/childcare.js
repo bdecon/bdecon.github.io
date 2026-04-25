@@ -1915,6 +1915,7 @@ function setDivisionStats() {
 
 (function() {
 	'use strict';
+	return; // Enrollment-age D3 module disabled — page uses inline static SVG
 
 	function getColors() {
 		const dk = document.documentElement.getAttribute('data-theme') === 'dark';
