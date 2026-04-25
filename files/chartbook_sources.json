@@ -1,5 +1,5 @@
 {
-  "generated": "2026-04-23",
+  "generated": "2026-04-24",
   "releases": [
     {
       "name": "Employment Situation",
@@ -81,9 +81,9 @@
     },
     {
       "name": "Consumer Sentiment",
-      "period": "Mar 2026",
+      "period": "Apr 2026",
       "freq": "monthly",
-      "last_changed": "2026-03-27"
+      "last_changed": "2026-04-24"
     },
     {
       "name": "Capital Goods Orders",
@@ -159,9 +159,9 @@
     },
     {
       "name": "Mortgage Rates",
-      "period": "Apr 16, 2026",
+      "period": "Apr 23, 2026",
       "freq": "weekly",
-      "last_changed": "2026-04-16"
+      "last_changed": "2026-04-24"
     },
     {
       "name": "Initial Jobless Claims",
@@ -286,6 +286,18 @@
   ],
   "recent": [
     {
+      "name": "Consumer Sentiment",
+      "period": "Apr 2026",
+      "freq": "monthly",
+      "last_changed": "2026-04-24"
+    },
+    {
+      "name": "Mortgage Rates",
+      "period": "Apr 23, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-04-24"
+    },
+    {
       "name": "State Unemployment",
       "period": "Feb 2026",
       "freq": "monthly",
@@ -328,20 +340,8 @@
       "last_changed": "2026-04-16"
     },
     {
-      "name": "Mortgage Rates",
-      "period": "Apr 16, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-04-16"
-    },
-    {
       "name": "Import/Export Prices",
       "period": "Mar 2026",
-      "freq": "monthly",
-      "last_changed": "2026-04-15"
-    },
-    {
-      "name": "TIC Capital Flows",
-      "period": "Feb 2026",
       "freq": "monthly",
       "last_changed": "2026-04-15"
     }

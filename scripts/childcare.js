@@ -53,8 +53,8 @@ const METRIC_LABELS = {
   //              workforce uses the broader NYC Metro (MSA 35620).
   gdp_per_child_0_5:        { name: "Resources",  title: "GDP per child, age 0-5",                      unit: "Millions USD",    short: "4× world avg",    high: "9× world avg+",    shortMini:"Modest", highMini:"Very high", nycLines: ["NYC"],          caveat: "Author, see notes" },
   spending_pct_gdp_narrow:  { name: "Funding",    title: "Public childcare and pre-K funding",          unit: "% of GDP",        short: "Family burden",   high: "Publicly funded",  shortMini:"Low", highMini:"High", nycLines: ["NYC"],          caveat: "Author, see notes" },
-  enrollment_pct:           { name: "Enrollment", title: "Public childcare and pre-K enrollment",       unit: "% of children",   short: "Few enrolled",    high: "Most enrolled",    shortMini:"Low", highMini:"High", nycLines: ["NYC"],          caveat: "Author, see notes", subtitleL0: "Public childcare and pre-K enrollment rate" },
-  workforce_per_100_kids:   { name: "Workforce",  title: "Childcare and ECE workers per 100 children age 0-5",  unit: "",          short: "Small workforce", high: "Full workforce",   shortMini:"Low", highMini:"High", nycLines: ["NYC", "Metro"], caveat: "Author, see notes", subtitleL0: "ECEC workers per 100 children age 0-5" },
+  enrollment_pct:           { name: "Enrollment", title: "Public childcare and pre-K enrollment",       unit: "% of children",   short: "Few enrolled",    high: "Most enrolled",    shortMini:"Low", highMini:"High", nycLines: ["NYC"],          caveat: "Age 0-4 enrollment. Author, see notes", subtitleL0: "Public childcare and pre-K enrollment rate" },
+  workforce_per_100_kids:   { name: "Workforce",  title: "Childcare and ECE workers per 100 children age 0-5",  unit: "",          short: "Small workforce", high: "Full workforce",   shortMini:"Low", highMini:"High", nycLines: ["NYC", "Metro"], caveat: "Formal workers only. Author, see notes", subtitleL0: "ECEC workers per 100 children age 0-5" },
 };
 
 // AK trim (keep mainland, drop far-west Aleutians)
@@ -459,7 +459,7 @@ function renderLevel1(metric) {
   const indSpan = document.getElementById("l1-title-indicator");
   indSpan.textContent = METRIC_LABELS[metric].unit;
   indSpan.style.display = METRIC_LABELS[metric].unit ? "" : "none";
-  document.getElementById("l1-caveat").textContent = "Author, see notes";
+  document.getElementById("l1-caveat").textContent = METRIC_LABELS[metric].caveat || "Author, see notes";
 
   // US map (default view, no drill)
   const svgUS = d3.select("#l1-us");
