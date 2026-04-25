@@ -1,6 +1,17 @@
 /* ----- Childcare Report ----- */
 
 .page-childcare {
+	& .report-brand {
+		max-width: var(--width-xl);
+		margin: 0 auto;
+		padding: var(--space-5) var(--space-4) 0;
+	}
+	& .report-brand a { display: inline-block; line-height: 0; }
+	& .report-brand-logo { display: block; }
+	& .report-end-mark {
+		text-align: center;
+		margin: var(--space-6) 0 0;
+	}
 	& .card-footer-col { flex-direction: column; align-items: flex-start; }
 	& main { padding-top: var(--space-6); counter-reset: h2-counter; }
 	& .prose-report { counter-reset: none; }

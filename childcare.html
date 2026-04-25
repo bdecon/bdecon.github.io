@@ -4,68 +4,14 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Childcare as Infrastructure | BD Economics</title>
+<title>Childcare as Infrastructure</title>
+<meta content="A comparison of US and Nordic childcare systems. The US funds public childcare at one-fifth the Nordic level and leaves the rest to families. What it would take to close the gap." name="description"/>
+<meta content="Brian Dew" name="author"/>
 <link crossorigin="" href="https://cdn.jsdelivr.net" rel="preconnect"/>
 <link href="style.css" rel="stylesheet"/>
 <link href="childcare.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
-<meta content="A comparison of US and Nordic childcare systems. The US funds public childcare at one-fifth the Nordic level and leaves the rest to families. What it would take to close the gap." name="description"/>
-<meta content="Brian Dew" name="author"/>
-<link href="https://bd-econ.com/childcare.html" rel="canonical"/>
-<!-- Open Graph -->
-<meta content="Childcare as Infrastructure | BD Economics" property="og:title"/>
-<meta content="A comparison of US and Nordic childcare systems. The US funds public childcare at one-fifth the Nordic level and leaves the rest to families. What it would take to close the gap." property="og:description"/>
-<meta content="https://bd-econ.com/childcare.html" property="og:url"/>
-<meta content="article" property="og:type"/>
-<meta content="BD Economics" property="og:site_name"/>
-<meta content="https://bd-econ.com/images/childcare_og.jpg" property="og:image"/>
-<meta content="1200" property="og:image:width"/>
-<meta content="630" property="og:image:height"/>
-<meta content="Childcare as Infrastructure, a BD Economics report by Brian Dew" property="og:image:alt"/>
-<meta content="Brian Dew" property="article:author"/>
-<meta content="2026-04-23" property="article:published_time"/>
-<!-- Twitter Card -->
-<meta content="summary_large_image" name="twitter:card"/>
-<meta content="Childcare as Infrastructure | BD Economics" name="twitter:title"/>
-<meta content="A comparison of US and Nordic childcare systems. The US funds public childcare at one-fifth the Nordic level and leaves the rest to families. What it would take to close the gap." name="twitter:description"/>
-<meta content="https://bd-econ.com/images/childcare_og.jpg" name="twitter:image"/>
-<meta content="Childcare as Infrastructure, a BD Economics report by Brian Dew" name="twitter:image:alt"/>
-<!-- JSON-LD -->
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "Report",
-    "name": "Childcare as Infrastructure",
-    "headline": "Childcare as Infrastructure",
-    "description": "A comparison of US and Nordic childcare systems. The US funds public childcare at one-fifth the Nordic level and leaves the rest to families. What it would take to close the gap.",
-    "url": "https://bd-econ.com/childcare.html",
-    "datePublished": "2026-04-23",
-    "author": {
-        "@type": "Person",
-        "name": "Brian Dew",
-        "url": "https://bd-econ.com"
-    },
-    "publisher": {
-        "@type": "Organization",
-        "name": "BD Economics",
-        "url": "https://bd-econ.com"
-    },
-    "image": "https://bd-econ.com/images/childcare_og.jpg",
-    "inLanguage": "en",
-    "isAccessibleForFree": true,
-    "about": [
-        {"@type": "Thing", "name": "Childcare"},
-        {"@type": "Thing", "name": "Early childhood education and care"},
-        {"@type": "Thing", "name": "US-Nordic comparison"}
-    ],
-    "spatialCoverage": ["United States", "Denmark", "Finland", "Norway", "Sweden"]
-}
-</script>
-<link href="favicon/apple-icon-180x180.png" rel="apple-touch-icon" sizes="180x180"/>
-<link href="favicon/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"/>
-<link href="favicon/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"/>
-<link href="favicon/manifest.json" rel="manifest"/>
 <meta content="#ffffff" name="theme-color"/>
 <script>
 (function() {
@@ -77,57 +23,21 @@
 	}
 })();
 </script>
-<!-- Google tag (gtag.js) -->
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-PGVF5S620Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-PGVF5S620Y');
-</script>
 </head>
 <body class="page-childcare accent-teal">
 <a class="skip-link" href="#main">Skip to main content</a>
-<header>
-<nav aria-label="Main navigation">
-<ul class="site-nav" id="menu">
-<li class="nav-main"> <a href="index.html"><svg aria-label="BD Economics" class="brand-logo" fill="currentColor" role="img" viewbox="0 0 139 17" xmlns="http://www.w3.org/2000/svg"> <g transform="translate(0,1.5) scale(2.64,2.59)"> <rect height="5" width="1" x="0" y="0"></rect> <rect height="1" width="4" x="0" y="4"></rect> <rect height="1" width="2" x="2" y="2"></rect> <rect height="2" width="1" x="3" y="2"></rect> <rect height="5" width="1" x="8" y="0"></rect> <rect height="1" width="4" x="5" y="4"></rect> <rect height="1" width="2" x="5" y="2"></rect> <rect height="2" width="1" x="5" y="2"></rect> </g> <g transform="translate(27.7,15) scale(0.01857,-0.01857)"> <path d="M94 0V700H518V622H178V390H512V312H178V78H524V0Z" transform="translate(0,0)"></path> <path d="M310 -14Q195 -14 129.5 59.5Q64 133 64 272V428Q64 563 129.5 638.5Q195 714 310 714Q390 714 445.0 680.0Q500 646 528.0 588.5Q556 531 556 460V448H472V460Q471 506 454.5 546.0Q438 586 402.5 611.0Q367 636 310 636Q229 636 188.5 577.0Q148 518 148 422V278Q148 176 188.5 120.0Q229 64 310 64Q367 64 403.0 89.0Q439 114 455.5 154.0Q472 194 472 240V252H556V240Q556 169 528.0 111.5Q500 54 445.0 20.0Q390 -14 310 -14Z" transform="translate(672,0)"></path> <path d="M306 -14Q191 -14 125.5 59.5Q60 133 60 272V428Q60 563 125.5 638.5Q191 714 306 714Q422 714 487.0 638.5Q552 563 552 428V272Q552 133 487.0 59.5Q422 -14 306 -14ZM306 64Q387 64 427.5 120.0Q468 176 468 278V422Q468 518 427.5 577.0Q387 636 306 636Q225 636 184.5 577.0Q144 518 144 422V278Q144 176 184.5 120.0Q225 64 306 64Z" transform="translate(1344,0)"></path> <path d="M73 0V700H241L443 36H455V700H539V0H371L169 664H157V0Z" transform="translate(2016,0)"></path> <path d="M306 -14Q191 -14 125.5 59.5Q60 133 60 272V428Q60 563 125.5 638.5Q191 714 306 714Q422 714 487.0 638.5Q552 563 552 428V272Q552 133 487.0 59.5Q422 -14 306 -14ZM306 64Q387 64 427.5 120.0Q468 176 468 278V422Q468 518 427.5 577.0Q387 636 306 636Q225 636 184.5 577.0Q144 518 144 422V278Q144 176 184.5 120.0Q225 64 306 64Z" transform="translate(2688,0)"></path> <path d="M46 0V700H206L300 36H312L406 700H566V0H488V664H476L382 0H230L136 664H124V0Z" transform="translate(3360,0)"></path> <path d="M84 0V78H264V622H84V700H528V622H348V78H528V0Z" transform="translate(4032,0)"></path> <path d="M310 -14Q195 -14 129.5 59.5Q64 133 64 272V428Q64 563 129.5 638.5Q195 714 310 714Q390 714 445.0 680.0Q500 646 528.0 588.5Q556 531 556 460V448H472V460Q471 506 454.5 546.0Q438 586 402.5 611.0Q367 636 310 636Q229 636 188.5 577.0Q148 518 148 422V278Q148 176 188.5 120.0Q229 64 310 64Q367 64 403.0 89.0Q439 114 455.5 154.0Q472 194 472 240V252H556V240Q556 169 528.0 111.5Q500 54 445.0 20.0Q390 -14 310 -14Z" transform="translate(4704,0)"></path> <path d="M320 -14Q230 -14 169.0 19.5Q108 53 76.5 111.0Q45 169 45 242V272H129V248Q129 157 180.0 110.5Q231 64 320 64Q398 64 437.5 99.0Q477 134 477 190V196Q477 251 436.5 280.0Q396 309 305 322Q200 337 137.5 381.5Q75 426 75 516V528Q75 583 104.5 624.5Q134 666 186.0 690.0Q238 714 306 714Q385 714 440.5 685.0Q496 656 525.5 608.5Q555 561 555 504V462H471V498Q471 544 448.0 574.5Q425 605 387.0 620.5Q349 636 305 636Q267 636 233.5 623.0Q200 610 179.5 585.5Q159 561 159 525V519Q159 461 206.0 434.5Q253 408 347 394Q457 378 509.0 330.0Q561 282 561 202V190Q561 99 499.5 42.5Q438 -14 320 -14Z" transform="translate(5376,0)"></path> </g> </svg></a> </li>
-<li><a href="about.html">About</a> </li>
-<li><a href="https://briandew.wordpress.com" rel="noopener" target="_blank">Blog <svg aria-hidden="true" class="icon icon-external" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M15 3h6v6M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg><span class="sr-only"> (opens in new tab)</span></a> </li>
-<li><a href="python.html">Guides <span class="nav-arrow">↓</span></a>
-<ul class="hidden">
-<li><a href="getstarted.html">Setup</a></li>
-<li><a href="imfapi1.html">IMF API</a></li>
-<li><a href="blsapi.html">BLS API</a></li>
-<li><a href="beaapi.html">BEA API</a></li>
-<li><a href="censusapi.html">Census API</a></li>
-<li><a href="treasuryapi.html">Treasury API</a></li>
-<li><a href="cps.html">CPS Microdata</a></li>
-</ul>
-</li>
-<li>
-<a href="reports.html">Reports <span class="nav-arrow">↓</span></a>
-<ul class="hidden">
-<li><a href="chartbook.html">US Chartbook</a></li>
-<li><a href="indicators.html">Economic Indicators</a></li>
-<li><a href="gdpm.html">Monthly GDP</a></li>
-<li><a href="imfweo.html">IMF WEO</a></li>
-<li><a href="calendar.html">Release Calendar</a></li>
-</ul>
-</li>
-<li><button aria-label="Toggle dark mode" class="theme-toggle" onclick="toggleTheme()"><span id="theme-icon"><svg aria-hidden="true" class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg></span></button></li>
-<li class="icon">
-<button aria-expanded="false" aria-label="Toggle navigation menu" onclick="responsiveNav()" type="button">☰</button>
-</li>
-</ul>
-</nav>
+
+<header class="report-brand">
+<a href="https://www.peoplespolicyproject.org" rel="noopener">
+<svg class="report-brand-logo" viewBox="0 0 200 84" width="160" height="67" role="img" aria-label="People's Policy Project"><text x="0" y="34" font-family="Lora, Georgia, serif" font-size="32" font-weight="700" fill="#2A8A8A">People&#8217;s</text><text x="0" y="74" font-family="Lora, Georgia, serif" font-size="32" font-weight="700" fill="#2A8A8A">Policy Project</text></svg>
+</a>
 </header>
+
 <div class="report-hero">
 <figure class="report-hero-photo">
 <img alt="" aria-hidden="true" decoding="async" fetchpriority="high" height="771" src="images/childcare_hero.jpg" width="1024"/>
 </figure>
-<p class="report-hero-kicker">A BD Economics Report · April 2026</p>
+<p class="report-hero-kicker">April 2026</p>
 <div class="report-hero-title">
 <h1 id="cc-page-title">Childcare as Infrastructure</h1>
 <p class="report-hero-deck">A cross-country look at public childcare, the US gap, and what it would take to close it.</p>
@@ -238,7 +148,7 @@
 </div>
 <div class="card-footer card-footer-col">
 <span class="chart-source">Author, see notes</span>
-<svg class="card-logo" viewBox="0 0 9 5" width="18" height="10" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+<svg class="card-logo" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><title>People's Policy Project</title><rect width="20" height="20" fill="#2A8A8A"/><text x="10" y="14.8" text-anchor="middle" font-family="Lora, Georgia, serif" font-size="11.5" font-weight="700" fill="#fff">3P</text></svg>
 </div>
 </div>
 <figcaption>Chart 1. National financial resources per young child</figcaption>
@@ -271,7 +181,7 @@
 </div>
 <div class="card-footer card-footer-col">
 <span class="chart-source">OECD, see notes</span>
-<svg class="card-logo" viewBox="0 0 9 5" width="18" height="10" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+<svg class="card-logo" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><title>People's Policy Project</title><rect width="20" height="20" fill="#2A8A8A"/><text x="10" y="14.8" text-anchor="middle" font-family="Lora, Georgia, serif" font-size="11.5" font-weight="700" fill="#fff">3P</text></svg>
 </div>
 </div>
 <figcaption>Chart 2. Public childcare and early education funding</figcaption>
@@ -297,7 +207,7 @@
 </div>
 <div class="card-footer card-footer-col">
 <span class="chart-source">Author, see notes</span>
-<svg class="card-logo" viewBox="0 0 9 5" width="18" height="10" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+<svg class="card-logo" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><title>People's Policy Project</title><rect width="20" height="20" fill="#2A8A8A"/><text x="10" y="14.8" text-anchor="middle" font-family="Lora, Georgia, serif" font-size="11.5" font-weight="700" fill="#fff">3P</text></svg>
 </div>
 </div>
 <figcaption>Chart 3. Public childcare enrollment by age</figcaption>
@@ -322,7 +232,7 @@
 </div>
 <div class="card-footer card-footer-col">
 <span class="chart-source">Author, see notes</span>
-<svg class="card-logo" viewBox="0 0 9 5" width="18" height="10" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+<svg class="card-logo" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><title>People's Policy Project</title><rect width="20" height="20" fill="#2A8A8A"/><text x="10" y="14.8" text-anchor="middle" font-family="Lora, Georgia, serif" font-size="11.5" font-weight="700" fill="#fff">3P</text></svg>
 </div>
 </div>
 <figcaption>Chart 4. Childcare workforce ratio</figcaption>
@@ -386,13 +296,7 @@
         </div>
         <div class="card-footer card-footer-col">
           <span class="chart-source" id="l1-caveat">Author, see notes</span>
-          <svg class="card-logo" viewBox="0 0 9 5" width="18" height="10" aria-hidden="true">
-            <title>BD Economics</title>
-            <rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/>
-            <rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/>
-            <rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/>
-            <rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/>
-          </svg>
+          <svg class="card-logo" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><title>People's Policy Project</title><rect width="20" height="20" fill="#2A8A8A"/><text x="10" y="14.8" text-anchor="middle" font-family="Lora, Georgia, serif" font-size="11.5" font-weight="700" fill="#fff">3P</text></svg>
         </div>
       </div>
     </figure>
@@ -423,7 +327,7 @@
 </div>
 <div class="card-footer card-footer-col">
 <span class="chart-source">Author, see notes</span>
-<svg class="card-logo" viewBox="0 0 9 5" width="18" height="10" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+<svg class="card-logo" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><title>People's Policy Project</title><rect width="20" height="20" fill="#2A8A8A"/><text x="10" y="14.8" text-anchor="middle" font-family="Lora, Georgia, serif" font-size="11.5" font-weight="700" fill="#fff">3P</text></svg>
 </div>
 </div>
 <figcaption>Chart 5. Adults out of work for childcare</figcaption>
@@ -438,7 +342,7 @@
 </div>
 <div class="card-footer card-footer-col">
 <span class="chart-source">OECD, see notes</span>
-<svg class="card-logo" viewBox="0 0 9 5" width="18" height="10" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+<svg class="card-logo" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><title>People's Policy Project</title><rect width="20" height="20" fill="#2A8A8A"/><text x="10" y="14.8" text-anchor="middle" font-family="Lora, Georgia, serif" font-size="11.5" font-weight="700" fill="#fff">3P</text></svg>
 </div>
 </div>
 <figcaption>Chart 6. Child poverty rate</figcaption>
@@ -473,7 +377,7 @@
 </div>
 <div class="card-footer card-footer-col">
 <span class="chart-source">Author, see notes</span>
-<svg class="card-logo" viewBox="0 0 9 5" width="18" height="10" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+<svg class="card-logo" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><title>People's Policy Project</title><rect width="20" height="20" fill="#2A8A8A"/><text x="10" y="14.8" text-anchor="middle" font-family="Lora, Georgia, serif" font-size="11.5" font-weight="700" fill="#fff">3P</text></svg>
 </div>
 </div>
 <figcaption>Diagram 1. US childcare worker wage comparators</figcaption>
@@ -643,11 +547,11 @@
 <div class="card-body">
 <h3>Building a Nordic-style system is a lighter lift than in the 1970s</h3>
 <p class="chart-subtitle">Bottom-up estimate, percent of GDP</p>
-<svg id="chart7-svg" class="chart-svg" viewBox="0 25 400 250" preserveAspectRatio="xMidYMid meet"><rect x="54.6" y="30" width="7.9" height="220" fill="#000" opacity="0.06"></rect><rect x="89.0" y="30" width="3.2" height="220" fill="#000" opacity="0.06"></rect><rect x="97.4" y="30" width="7.9" height="220" fill="#000" opacity="0.06"></rect><rect x="147.6" y="30" width="4.2" height="220" fill="#000" opacity="0.06"></rect><rect x="207.1" y="30" width="4.2" height="220" fill="#000" opacity="0.06"></rect><rect x="244.7" y="30" width="8.8" height="220" fill="#000" opacity="0.06"></rect><rect x="312.6" y="30" width="1.4" height="220" fill="#000" opacity="0.06"></rect><line x1="50" x2="340" y1="250" y2="250" stroke="#333" stroke-width="1"></line><path d="M50.0,38.6 L55.6,38.7 L61.2,56.2 L66.7,74.8 L72.3,95.2 L77.9,108.8 L83.5,108.8 L89.0,98.6 L94.6,96.2 L100.2,94.0 L105.8,95.4 L111.3,107.0 L116.9,114.7 L122.5,115.8 L128.1,119.8 L133.7,134.4 L139.2,130.1 L144.8,124.8 L150.4,117.7 L156.0,121.9 L161.5,131.1 L167.1,139.5 L172.7,141.6 L178.3,155.3 L183.8,161.0 L189.4,164.6 L195.0,168.6 L200.6,175.7 L206.2,171.3 L211.7,175.2 L217.3,174.5 L222.9,181.4 L228.5,183.2 L234.0,188.2 L239.6,190.6 L245.2,184.1 L250.8,170.9 L256.3,176.0 L261.9,184.3 L267.5,199.6 L273.1,203.7 L278.7,208.3 L284.2,208.6 L289.8,206.6 L295.4,208.1 L301.0,210.2 L306.5,215.5 L312.1,205.3 L317.7,218.8 L323.3,227.9 L328.8,228.3 L334.4,229.4 L340.0,232.2" fill="none" stroke="#2A8A8A" stroke-width="3" stroke-linejoin="round"></path><circle cx="50.0" cy="38.6" r="4" fill="#2A8A8A"></circle><text x="44.0" y="43.6" text-anchor="end" font-size="16" fill="#2A8A8A" font-weight="700">2.97%</text><circle cx="340.0" cy="232.2" r="4" fill="#2A8A8A"></circle><text x="346.0" y="237.2" text-anchor="start" font-size="16" fill="#2A8A8A" font-weight="700">1.17%</text><text x="50.0" y="270" text-anchor="middle" font-size="13" fill="#333">1973</text><text x="89.0" y="270" text-anchor="middle" font-size="13" fill="#333">1980</text><text x="144.8" y="270" text-anchor="middle" font-size="13" fill="#333">1990</text><text x="200.6" y="270" text-anchor="middle" font-size="13" fill="#333">2000</text><text x="256.3" y="270" text-anchor="middle" font-size="13" fill="#333">2010</text><text x="312.1" y="270" text-anchor="middle" font-size="13" fill="#333">2020</text></svg>
+<svg id="chart7-svg" class="chart-svg" viewBox="0 25 400 250" preserveAspectRatio="xMidYMid meet"><rect x="54.6" y="30" width="7.9" height="220" fill="#000" opacity="0.06"></rect><rect x="89.0" y="30" width="3.2" height="220" fill="#000" opacity="0.06"></rect><rect x="97.4" y="30" width="7.9" height="220" fill="#000" opacity="0.06"></rect><rect x="147.6" y="30" width="4.2" height="220" fill="#000" opacity="0.06"></rect><rect x="207.1" y="30" width="4.2" height="220" fill="#000" opacity="0.06"></rect><rect x="244.7" y="30" width="8.8" height="220" fill="#000" opacity="0.06"></rect><rect x="312.6" y="30" width="1.4" height="220" fill="#000" opacity="0.06"></rect><line x1="50" x2="340" y1="250" y2="250" stroke="#333" stroke-width="1"></line><path d="M50.0,38.0 L55.6,40.2 L61.2,60.7 L66.7,81.6 L72.3,96.7 L77.9,107.3 L83.5,106.1 L89.0,96.1 L94.6,94.9 L100.2,101.0 L105.8,105.0 L111.3,117.0 L116.9,121.5 L122.5,122.6 L128.1,125.5 L133.7,140.4 L139.2,137.0 L144.8,136.1 L150.4,129.4 L156.0,133.0 L161.5,141.8 L167.1,150.3 L172.7,151.7 L178.3,164.6 L183.8,168.4 L189.4,171.9 L195.0,175.1 L200.6,178.0 L206.2,174.3 L211.7,178.8 L217.3,179.1 L222.9,185.1 L228.5,188.3 L234.0,193.8 L239.6,195.6 L245.2,191.5 L250.8,181.8 L256.3,188.6 L261.9,194.9 L267.5,201.6 L273.1,204.9 L278.7,209.0 L284.2,209.1 L289.8,207.3 L295.4,209.4 L301.0,211.9 L306.5,216.8 L312.1,206.8 L317.7,220.4 L323.3,226.1 L328.8,227.2 L334.4,228.3 L340.0,232.0" fill="none" stroke="#2A8A8A" stroke-width="3" stroke-linejoin="round"></path><circle cx="50.0" cy="38.0" r="4" fill="#2A8A8A"></circle><text x="44.0" y="43.0" text-anchor="end" font-size="16" fill="#2A8A8A" font-weight="700">3.05%</text><circle cx="340.0" cy="232.2" r="4" fill="#2A8A8A"></circle><text x="346.0" y="237.2" text-anchor="start" font-size="16" fill="#2A8A8A" font-weight="700">1.17%</text><text x="50.0" y="270" text-anchor="middle" font-size="13" fill="#333">1973</text><text x="89.0" y="270" text-anchor="middle" font-size="13" fill="#333">1980</text><text x="144.8" y="270" text-anchor="middle" font-size="13" fill="#333">1990</text><text x="200.6" y="270" text-anchor="middle" font-size="13" fill="#333">2000</text><text x="256.3" y="270" text-anchor="middle" font-size="13" fill="#333">2010</text><text x="312.1" y="270" text-anchor="middle" font-size="13" fill="#333">2020</text></svg>
 </div>
 <div class="card-footer card-footer-col">
 <span class="chart-source">Author, see notes</span>
-<svg class="card-logo" viewBox="0 0 9 5" width="18" height="10" aria-hidden="true"><title>BD Economics</title><rect x="0" y="0" width="1" height="5"/><rect x="0" y="4" width="4" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="2" width="1" height="2"/><rect x="8" y="0" width="1" height="5"/><rect x="5" y="4" width="4" height="1"/><rect x="5" y="2" width="2" height="1"/><rect x="5" y="2" width="1" height="2"/></svg>
+<svg class="card-logo" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><title>People's Policy Project</title><rect width="20" height="20" fill="#2A8A8A"/><text x="10" y="14.8" text-anchor="middle" font-family="Lora, Georgia, serif" font-size="11.5" font-weight="700" fill="#fff">3P</text></svg>
 </div>
 </div>
 <figcaption>Chart 7. Cost of Nordic-style childcare for US</figcaption>
@@ -685,6 +589,7 @@
 <p>Palme's argument is a political one, not a sentimental one. Universal systems work because they align everyone's interests. When every family uses the same system, the constituency to defend it is the entire electorate.</p>
 
 <p>Buchanan understood this in 1971: once families have public childcare, they will never give it up. He meant it as a warning. It is the reason to build it.</p>
+<p class="report-end-mark" aria-hidden="true"><svg class="card-logo" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><title>People's Policy Project</title><rect width="20" height="20" fill="#2A8A8A"/><text x="10" y="14.8" text-anchor="middle" font-family="Lora, Georgia, serif" font-size="11.5" font-weight="700" fill="#fff">3P</text></svg></p>
 
 
 <!-- ================================================================ -->
@@ -820,7 +725,7 @@
 <li><code>share</code> = total ÷ nominal GDP.</li>
 </ul>
 <p><strong>P25 weekly wage</strong>: 25th-percentile usual weekly earnings of full-time wage workers age 16+. Computed from <a href="https://microdata.epi.org/">EPI CPS microdata extracts</a> using <code>weekpay_noadj</code> with <code>orgwgt</code> from the basic monthly file (1982 onward) and the May supplement (1973–1981). 1980 is interpolated linearly between 1979 and 1981 because EPI's 1980 May extract has no wage data.</p>
-<p><strong>Population age 0–4</strong>: 1979–2025 from CPS basic monthly <code>finalwgt</code> (consistent with <a href="https://github.com/bdecon/econ_data">bd CPS</a>). 1973–1978 back-cast from <a href="https://www.childstats.gov/americaschildren/tables/pop1.asp">childstats POP1</a> ages 0–5 multiplied by 0.84 (the CPS-observed 0-4/0-5 ratio for 1979–1986) and rescaled by 0.965 to anchor at the 1979 CPS value, which preserves continuity at the 1978/1979 source seam.</p>
+<p><strong>Population age 0–4</strong>: <a href="https://seer.cancer.gov/popdata/">SEER U.S. Population Data</a> (single ages, adjusted, national file) for 1973–2024, summed across single-year ages 0–4. 2025 from <a href="https://www.census.gov/programs-surveys/popest/data/data-sets.html">Census Bureau Population Estimates Program</a>, Vintage 2025, since SEER's release covering 2025 has not yet been published. SEER and PEP agree to within 1 percent on overlap years (2020–2024).</p>
 <p><strong>Nominal GDP</strong>: monthly from <a href="https://www.bea.gov/data/gdp/gross-domestic-product">BEA</a>, averaged to annual.</p>
 <p><strong>"3 million new workers" derivation</strong>: the formula above gives the <em>total</em> staffing required for the system, not net additions. For 2025, population age 0–4 of 18.5M ÷ 4 = <strong>4.6M total workers</strong>. The US childcare workforce today is about 1.64M (1.22M formal from OEWS plus 0.42M informal from bd CPS, both documented under Chart 4). The "new" figure is the difference: 4.6M − 1.64M ≈ <strong>3 million net additions</strong>. The 1.17 percent of GDP cost is calculated on the full 4.6M, not on net additions.</p>
 </details>
@@ -854,53 +759,19 @@
 </ul>
 </details>
 
+<h4>About People&#8217;s Policy Project</h4>
+<p><a href="https://www.peoplespolicyproject.org">People&#8217;s Policy Project</a> (3P) is a think tank founded in 2017 to develop an economic system that serves the many, not the few.</p>
+
+<h4>About the author</h4>
+<p>Brian Dew is an economic researcher living in Washington, DC.</p>
+
 </details>
 
 </article>
 </section>
 </main>
-<footer>
-<div class="footer-sitemap">
-<div>
-<h4><a href="reports.html">Data</a></h4>
-<ul>
-<li><a href="chartbook.html">US Chartbook</a></li>
-<li><a href="indicators.html">Economic Indicators</a></li>
-<li><a href="gdpm.html">Monthly GDP</a></li>
-<li><a href="imfweo.html">WEO Forecasts</a></li>
-</ul>
-</div>
-<div>
-<h4><a href="python.html">Guides</a></h4>
-<ul>
-<li><a href="getstarted.html">Setup</a></li>
-<li><a href="imfapi1.html">IMF API</a></li>
-<li><a href="blsapi.html">BLS API</a></li>
-<li><a href="censusapi.html">Census API</a></li>
-</ul>
-</div>
-<div>
-<h4><a href="about.html">About</a></h4>
-<ul>
-<li><a href="about.html">About BD Economics</a></li>
-<li><a href="https://briandew.wordpress.com" rel="noopener" target="_blank">Blog</a></li>
-<li><a href="https://github.com/bdecon/" rel="noopener" target="_blank">GitHub</a></li>
-</ul>
-</div>
-</div>
-<div class="footer-bottom">
-<div class="footer-left">
-<p><time datetime="2026">2026</time>, by Brian Dew</p>
-</div>
-<nav aria-label="Social links" class="footer-right">
-<a aria-label="GitHub" href="https://github.com/bdecon/"><svg aria-hidden="true" class="icon" fill="currentColor" viewbox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a>
-<a aria-label="LinkedIn" href="https://www.linkedin.com/in/brian-dew-5788a386/"><svg aria-hidden="true" class="icon" fill="currentColor" viewbox="0 0 16 16"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.016-.709-.52-1.248-1.342-1.248S1.4 3.226 1.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a.3.3 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"></path></svg></a>
-<a aria-label="Twitter" href="https://twitter.com/bd_econ"><svg aria-hidden="true" class="icon" fill="currentColor" viewbox="0 0 16 16"><path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334q.002-.211-.006-.422A6.7 6.7 0 0 0 16 3.542a6.7 6.7 0 0 1-1.889.518 3.3 3.3 0 0 0 1.447-1.817 6.5 6.5 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.32 9.32 0 0 1-6.767-3.429 3.29 3.29 0 0 0 1.018 4.382A3.3 3.3 0 0 1 .64 6.575v.045a3.29 3.29 0 0 0 2.632 3.218 3.2 3.2 0 0 1-.865.115 3 3 0 0 1-.614-.057 3.28 3.28 0 0 0 3.067 2.277A6.6 6.6 0 0 1 .78 13.58a6 6 0 0 1-.78-.045A9.34 9.34 0 0 0 5.026 15"></path></svg></a>
-<a aria-label="WordPress Blog" href="https://briandew.wordpress.com/" rel="noopener" target="_blank"><svg aria-hidden="true" class="icon" fill="currentColor" viewbox="0 0 24 24"><path d="M21.469 6.825c.84 1.537 1.318 3.3 1.318 5.175 0 3.979-2.156 7.456-5.363 9.325l3.295-9.527c.615-1.54.82-2.771.82-3.864 0-.405-.026-.78-.07-1.11m-7.981.105c.647-.03 1.232-.105 1.232-.105.582-.075.514-.93-.067-.899 0 0-1.755.135-2.88.135-1.064 0-2.85-.15-2.85-.15-.585-.03-.661.855-.075.885 0 0 .54.061 1.125.09l1.68 4.605-2.37 7.08L5.354 6.9c.649-.03 1.234-.1 1.234-.1.585-.075.516-.93-.065-.896 0 0-1.746.138-2.874.138-.2 0-.438-.008-.69-.015C4.911 3.15 8.235 1.215 12 1.215c2.809 0 5.365 1.072 7.286 2.833-.046-.003-.091-.009-.141-.009-1.06 0-1.812.923-1.812 1.914 0 .89.513 1.643 1.06 2.531.411.72.89 1.643.89 2.977 0 .915-.354 1.994-.821 3.479l-1.075 3.585-3.9-11.61.001.014zM12 22.784c-1.059 0-2.081-.153-3.048-.437l3.237-9.406 3.315 9.087c.024.053.05.101.078.149-1.12.393-2.325.609-3.582.609M1.211 12c0-1.564.336-3.05.935-4.39L7.29 21.709C3.694 19.96 1.212 16.271 1.211 12M12 0C5.385 0 0 5.385 0 12s5.385 12 12 12 12-5.385 12-12S18.615 0 12 0"></path></svg></a>
-</nav>
-</div>
-</footer>
-<script src="scripts/nav.js"></script>
+
+
 <script src="scripts/childcare.js"></script>
 </body>
 </html>
