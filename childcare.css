@@ -4,7 +4,7 @@
 	& .report-brand {
 		max-width: var(--width-xl);
 		margin: 0 auto;
-		padding: var(--space-5) var(--space-4) 0;
+		padding: var(--space-5) var(--space-4);
 	}
 	& .report-brand a { display: inline-block; line-height: 0; }
 	& .report-brand-logo { display: block; }

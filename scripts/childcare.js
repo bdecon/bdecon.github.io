@@ -1372,6 +1372,7 @@ function setDivisionStats() {
 })();
 
 (function() {
+	return; // Resources chart D3 module disabled — page uses inline static SVG
 	'use strict';
 
 	const DATA = [
