@@ -724,7 +724,7 @@
 <ul>
 <li><strong>Kindergarten ≈ $58 billion (2024)</strong>: gross K spending from <a href="https://nces.ed.gov/ccd/f33agency.asp">NCES F-33</a> per-pupil expenditure (latest available state-level data) × age-5 kindergarten enrollment from <a href="https://www.census.gov/data/datasets/time-series/demo/cps/cps-asec.html">CPS October 2024</a>. Note: this is the gross figure before OECD's "less 6 y o" 0.90 adjustment that strips the age-6 portion of US K out of <code>TP521</code>.</li>
 <li><strong>Preschool ≈ $24 billion (2024)</strong>: <a href="https://www.acf.hhs.gov/ohs/data/hspps">Head Start Program Facts FY2024</a> federal appropriation (~$11.5 billion) plus <a href="https://nieer.org/state-of-preschool">NIEER State of Preschool 2024</a> total state pre-K funding (~$13 billion).</li>
-<li><strong>Other smaller programs</strong> (SSBG day care, IDEA Part B §619, MIECHV home visiting): individually less than $1 billion each, so the prose treats them as background. SSBG day care from <a href="https://www.acf.hhs.gov/ocs/programs/ssbg">ACF SSBG</a>, IDEA from <a href="https://sites.ed.gov/idea/">US Dept of Ed</a>, MIECHV from <a href="https://mchb.hrsa.gov/programs-impact/programs/home-visiting/maternal-infant-early-childhood-home-visiting-miechv-program">HRSA MCHB</a>.</li>
+<li><strong>Other smaller programs</strong> (SSBG day care, IDEA Part B §619, MIECHV home visiting): individually less than $1 billion each, treated as background context. SSBG day care from <a href="https://www.acf.hhs.gov/ocs/programs/ssbg">ACF SSBG</a>, IDEA from <a href="https://sites.ed.gov/idea/">US Dept of Ed</a>, MIECHV from <a href="https://mchb.hrsa.gov/programs-impact/programs/home-visiting/maternal-infant-early-childhood-home-visiting-miechv-program">HRSA MCHB</a>.</li>
 </ul>
 </details>
 
@@ -741,7 +741,7 @@
 
 <details class="methodology-entry">
 <summary>Chart 4. Childcare workforce ratio</summary>
-<p>Formal childcare workforce divided by population age 0–5. US uses <a href="https://www.bls.gov/oes/">BLS OEWS</a> May 2024 establishment-based employment counts. Nordic countries use <a href="https://sdmx.oecd.org/">OECD Education at a Glance SDMX</a> (<code>DSD_EAG_UOE_NON_FIN_PERS</code>, ISCED 0 teachers + aides, 2023), with Finland's aide count backfilled from <a href="https://pxdata.stat.fi/PxWeb/pxweb/en/StatFin/">StatFin <code>tyokay_115q</code></a> (<code>AML 53111 + 53112</code>) because Finland does not submit aide personnel to OECD. The Nordic composite ratio cited in the prose is built by summing workers and summing children across the four countries, then dividing.</p>
+<p>Formal childcare workforce divided by population age 0–5. US uses <a href="https://www.bls.gov/oes/">BLS OEWS</a> May 2024 establishment-based employment counts. Nordic countries use <a href="https://sdmx.oecd.org/">OECD Education at a Glance SDMX</a> (<code>DSD_EAG_UOE_NON_FIN_PERS</code>, ISCED 0 teachers + aides, 2023), with Finland's aide count backfilled from <a href="https://pxdata.stat.fi/PxWeb/pxweb/en/StatFin/">StatFin <code>tyokay_115q</code></a> (<code>AML 53111 + 53112</code>) because Finland does not submit aide personnel to OECD. The Nordic composite ratio is built by summing workers and summing children across the four countries, then dividing.</p>
 <p>US total of 1,221,410 workers ÷ 22.1M kids 0–5 (<a href="https://www.census.gov/programs-surveys/acs">Census ACS 2023</a>) = 5.5 per 100:</p>
 <ul>
 <li>Childcare Workers (<code>SOC 39-9011</code>): 520,180</li>
@@ -768,9 +768,9 @@
 <p><strong>Public childcare and pre-K funding, 2023 (% of GDP).</strong> OECD SOCX <code>TP521</code>-comparable four-layer build. National state-sum (0.260 percent of GDP) matches OECD's published US <code>TP521</code> (0.268 percent) within 1 percent.</p>
 <ul>
 <li><strong>Head Start</strong>: state-sum from <a href="https://www.acf.hhs.gov/ohs/data/hspps">HS Program Facts</a>. FY2019 state-sum matches OECD's published US HS exactly at $8.9 billion.</li>
-<li><strong>CCDF</strong>: <a href="https://www.acf.hhs.gov/occ/data">ACF CCDF Table 3A</a> total expenditures, scaled 0.842 so the national sum matches OECD's $13.39 billion.</li>
+<li><strong>CCDF</strong>: <a href="https://www.acf.hhs.gov/occ/data">ACF CCDF Table 3A</a> total expenditures, calibrated to OECD's published US CCDF total ($13.39 billion).</li>
 <li><strong>State pre-K</strong>: <a href="https://nieer.org/state-of-preschool">NIEER State of Preschool 2024</a>, deflated 2024 → 2023 dollars.</li>
-<li><strong>Kindergarten × 0.90</strong>: per-pupil expenditure × age-5 population × 0.894 × 0.90 × 0.708. Only the kindergarten layer is estimated; OECD itself estimates it per the <a href="https://www.oecd.org/en/publications/education-at-a-glance-2025-sources-methodologies-and-technical-notes_e3c1fa49-en.html">EAG 2025 Sources & Methodologies annex</a>.</li>
+<li><strong>Kindergarten × 0.90</strong>: state per-pupil expenditure × age-5 population × CPS national kindergarten enrollment rate × OECD's "less 6-year-olds" adjustment, calibrated to OECD's published US kindergarten ECEC total. Only the kindergarten layer is estimated; OECD itself estimates it per the <a href="https://www.oecd.org/en/publications/education-at-a-glance-2025-sources-methodologies-and-technical-notes_e3c1fa49-en.html">EAG 2025 Sources & Methodologies annex</a>.</li>
 </ul>
 <p>NYC uses a 5-borough Comptroller-based method (0.37 percent of GDP). State range: Nevada 0.16 percent (low), Vermont 0.49 percent (high). Color scale is log.</p>
 <p><strong>Public childcare and pre-K enrollment, 2023 (% of children 0–4).</strong> Four-layer build: Early Head Start cumulative enrollment (<a href="https://www.acf.hhs.gov/ohs/data/hspps">HS Program Facts FY2024</a> Tables 1+2, scaled 1.39 to cumulative), plus <a href="https://www.acf.hhs.gov/occ/data">CCDF vouchers 0–2</a> (Table 1 × Table 9 age shares, with a 20 percent EHS-CCDF overlap discount), plus NIEER state pre-K and Head Start ages 3–4. Age-5 kindergarten is excluded. NYC uses DOE 3-K and Pre-K, non-DOE Head Start, and NYC-share estimates of NY-state totals. State range: 3.0 percent (NH) to 39.3 percent (DC). National state-sum 14.8 percent. Color scale is linear.</p>
@@ -789,10 +789,10 @@
 <p>Working-age adults (20–64) whose stated main reason for not being in the labor force is family or home responsibilities, 2022.</p>
 <ul>
 <li>Nordic: <a href="https://ec.europa.eu/eurostat/databrowser/view/lfsa_igar/default/table">Eurostat LFS indicator <code>lfsa_igar</code></a>, inactivity reason <code>FAM_CARE</code>.</li>
-<li>US (3.8 percent): <a href="https://www.census.gov/programs-surveys/cps.html">CPS Basic Monthly</a> 2022, civilian noninstitutional adults age 20–64. The numerator counts respondents not in the labor force whose stated main reason is family or home responsibilities (<a href="https://github.com/bdecon/econ_data">bd CPS</a> <code>NILFREASON == "Family"</code>), restricted to those with at least one own child under 18 in the household (<code>PRNMCHLD &gt; 0</code>) so the reason is child-related caregiving rather than elder-care. All twelve months are pooled and weighted by <code>BASICWGT</code>; the denominator is the full age 20–64 civilian noninstitutional population over the same pooled months. Pipeline: <code>scripts/build_nilf_childcare_share.py</code>.</li>
+<li>US (3.8 percent): <a href="https://www.census.gov/programs-surveys/cps.html">CPS Basic Monthly</a> 2022, civilian noninstitutional adults age 20–64. The numerator counts respondents not in the labor force whose stated main reason is family or home responsibilities (<a href="https://github.com/bdecon/econ_data">bd CPS</a> <code>NILFREASON == "Family"</code>), restricted to those with at least one own child under 18 in the household (<code>PRNMCHLD &gt; 0</code>) so the reason is child-related caregiving rather than elder-care. All twelve months are pooled and weighted by <code>BASICWGT</code>; the denominator is the full age 20–64 civilian noninstitutional population over the same pooled months.</li>
 </ul>
 <p>Eurostat <code>FAM_CARE</code> and the CPS NILF-for-family-with-children measure align approximately. Both exclude adults 65+ and adults who reduced hours while remaining in the labor force.</p>
-<p><strong>Absolute count cited in §3 ("7.3 million working-age adults … 2.2 million with a bachelor's degree or higher")</strong>: the same filter, expressed in unique persons rather than the share. <code>BASICWGT</code> is a monthly weight, so summing across all 12 months of 2022 gives person-months. Dividing by 12 recovers the implied unique-person count. For 2022: 87.3M person-months ÷ 12 = <strong>7.28M unique adults</strong>. Restricting further to <code>EDUC ∈ {COLL, ADV}</code> (bachelor's, master's, professional, or doctorate) gives 26.9M person-months ÷ 12 = <strong>2.24M unique adults</strong>. Both numbers come from the same canonical pipeline as the Chart 5 share.</p>
+<p><strong>Absolute counts of 7.3 million and 2.2 million (bachelor's+)</strong>: same filter as the share, expressed as a weighted 12-month average for 2022. <strong>7.28 million</strong> total; <strong>2.24 million</strong> further restricting to <code>EDUC ∈ {COLL, ADV}</code> (bachelor's, master's, professional, or doctorate).</p>
 </details>
 
 <details class="methodology-entry">
@@ -802,7 +802,7 @@
 
 <details class="methodology-entry">
 <summary>Mother poverty rates by work status</summary>
-<p>Inline statistics in §"Cost to Families". <a href="https://www.census.gov/programs-surveys/cps/about/supplemental-surveys.html">CPS ASEC 2025</a> (tax year 2024) person-level microdata. Universe: women age 18–64 with at least one own child under 5 in the household. Poverty metric is the Official Poverty Measure (<code>PERLIS == 1</code>), weighted by <code>MARSUPWT</code>.</p>
+<p><a href="https://www.census.gov/programs-surveys/cps/about/supplemental-surveys.html">CPS ASEC 2025</a> (calendar year 2024) person-level microdata. Universe: women age 18–64 with at least one own child under 5 in the household. Poverty metric is the Official Poverty Measure (<code>PERLIS == 1</code>), weighted by <code>MARSUPWT</code>.</p>
 <ul>
 <li><strong>Left work for caregiving</strong>: not in the labor force (<code>A_LFSR</code> in {6, 7}) with "taking care of home/family" as the stated reason (<code>RSNNOTW == 3</code> or <code>PYRSN == 2</code>). Roughly 33 percent in OPM poverty.</li>
 <li><strong>Full-time, full-year employed</strong>: employed (<code>A_LFSR == 1</code>) with usual hours ≥ 35 and weeks worked ≥ 50. Under 10 percent.</li>
@@ -812,7 +812,7 @@
 
 <details class="methodology-entry">
 <summary>Chart 7. Cost of Nordic-style childcare for US</summary>
-<p>Bottom-up estimate of a Nordic-style universal system covering US children ages 0–4, annually from 1973 to 2025. Age 5 is excluded because public kindergarten covers it. The dashed vertical reference at <strong>1971</strong> marks Nixon's veto of the Comprehensive Child Development Act, the closest the US has come to a federal childcare bill.</p>
+<p>Bottom-up estimate of a Nordic-style universal system covering US children ages 0–4, annually from 1973 to 2025. Age 5 is excluded because public kindergarten covers it.</p>
 <ul>
 <li><code>workers</code> = population age 0–4 ÷ 4 (Nordic composite ratio of one worker per four children).</li>
 <li><code>labor</code> = workers × P25 weekly wage × 52 × 1.30 (benefits margin).</li>
@@ -822,7 +822,7 @@
 <p><strong>P25 weekly wage</strong>: 25th-percentile usual weekly earnings of full-time wage workers age 16+. Computed from <a href="https://microdata.epi.org/">EPI CPS microdata extracts</a> using <code>weekpay_noadj</code> with <code>orgwgt</code> from the basic monthly file (1982 onward) and the May supplement (1973–1981). 1980 is interpolated linearly between 1979 and 1981 because EPI's 1980 May extract has no wage data.</p>
 <p><strong>Population age 0–4</strong>: 1979–2025 from CPS basic monthly <code>finalwgt</code> (consistent with <a href="https://github.com/bdecon/econ_data">bd CPS</a>). 1973–1978 back-cast from <a href="https://www.childstats.gov/americaschildren/tables/pop1.asp">childstats POP1</a> ages 0–5 multiplied by 0.84 (the CPS-observed 0-4/0-5 ratio for 1979–1986) and rescaled by 0.965 to anchor at the 1979 CPS value, which preserves continuity at the 1978/1979 source seam.</p>
 <p><strong>Nominal GDP</strong>: monthly from <a href="https://www.bea.gov/data/gdp/gross-domestic-product">BEA</a>, averaged to annual.</p>
-<p><strong>"3 million new workers" derivation</strong> (cited in the prose lead-in to Chart 7): the formula above gives the <em>total</em> staffing required for the system, not net additions. For 2025, population age 0–4 of 18.5M ÷ 4 = <strong>4.6M total workers</strong>. The US childcare workforce today is about 1.64M (1.22M formal from OEWS plus 0.42M informal from bd CPS, both documented under Chart 4). The "new" figure is the difference: 4.6M − 1.64M ≈ <strong>3 million net additions</strong>. The 1.17 percent of GDP cost is calculated on the full 4.6M, not on net additions.</p>
+<p><strong>"3 million new workers" derivation</strong>: the formula above gives the <em>total</em> staffing required for the system, not net additions. For 2025, population age 0–4 of 18.5M ÷ 4 = <strong>4.6M total workers</strong>. The US childcare workforce today is about 1.64M (1.22M formal from OEWS plus 0.42M informal from bd CPS, both documented under Chart 4). The "new" figure is the difference: 4.6M − 1.64M ≈ <strong>3 million net additions</strong>. The 1.17 percent of GDP cost is calculated on the full 4.6M, not on net additions.</p>
 </details>
 
 <details class="methodology-entry">
