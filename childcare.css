@@ -7,7 +7,7 @@
 		padding: var(--space-5) var(--space-4);
 	}
 	& .report-brand a { display: inline-block; line-height: 0; }
-	& .report-brand-logo { display: block; }
+	& .report-brand-logo { display: block; height: 60px; width: auto; }
 	& .report-end-mark {
 		text-align: center;
 		margin: var(--space-6) 0 0;
