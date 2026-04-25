@@ -25,6 +25,16 @@
 	/* 3P logo at full strength. Site-wide .card-logo rule sets opacity: 0.5;
 	   undo it here so the teal square reads as a brand mark, not a faded glyph. */
 	& .card-logo { opacity: 1; }
+	/* Tighten mobile spacing in side-by-side layouts when they stack vertically.
+	   Site-wide .split-row gives inner figures big var(--space-6/7) margins (fine
+	   on desktop), but on mobile that produces obvious bulges between stacked
+	   figures. .report-split's 60px desktop gap also reads as wonky empty space
+	   above the figure on mobile. Scoped overrides here. */
+	@media (max-width: 760px) {
+		& .split-row { gap: var(--space-3); }
+		& .split-row > .report-figure { margin: var(--space-3) 0; }
+		& .report-split { gap: var(--space-3); }
+	}
 	& .card-footer-col { flex-direction: column; align-items: flex-start; }
 	& main { padding-top: var(--space-6); counter-reset: h2-counter; }
 	& .prose-report { counter-reset: none; }
