@@ -75,9 +75,9 @@
     },
     {
       "name": "House Prices",
-      "period": "Jan 2026",
+      "period": "Feb 2026",
       "freq": "monthly",
-      "last_changed": "2026-03-31"
+      "last_changed": "2026-04-28"
     },
     {
       "name": "Consumer Sentiment",
@@ -135,9 +135,9 @@
     },
     {
       "name": "Money Stock (M2)",
-      "period": "Feb 2026",
+      "period": "Mar 2026",
       "freq": "monthly",
-      "last_changed": "2026-03-26"
+      "last_changed": "2026-04-28"
     },
     {
       "name": "Exchange Rate (REER)",
@@ -237,9 +237,9 @@
     },
     {
       "name": "Homeownership",
-      "period": "Q4 2025",
+      "period": "Q1 2026",
       "freq": "quarterly",
-      "last_changed": "2026-02-17"
+      "last_changed": "2026-04-28"
     },
     {
       "name": "FOMC Projections",
@@ -286,6 +286,24 @@
   ],
   "recent": [
     {
+      "name": "House Prices",
+      "period": "Feb 2026",
+      "freq": "monthly",
+      "last_changed": "2026-04-28"
+    },
+    {
+      "name": "Money Stock (M2)",
+      "period": "Mar 2026",
+      "freq": "monthly",
+      "last_changed": "2026-04-28"
+    },
+    {
+      "name": "Homeownership",
+      "period": "Q1 2026",
+      "freq": "quarterly",
+      "last_changed": "2026-04-28"
+    },
+    {
       "name": "Consumer Sentiment",
       "period": "Apr 2026",
       "freq": "monthly",
@@ -326,24 +344,6 @@
       "period": "Apr 22, 2026",
       "freq": "weekly",
       "last_changed": "2026-04-23"
-    },
-    {
-      "name": "Industrial Production",
-      "period": "Mar 2026",
-      "freq": "monthly",
-      "last_changed": "2026-04-16"
-    },
-    {
-      "name": "Metro Unemployment",
-      "period": "Jan 2026",
-      "freq": "monthly",
-      "last_changed": "2026-04-16"
-    },
-    {
-      "name": "Import/Export Prices",
-      "period": "Mar 2026",
-      "freq": "monthly",
-      "last_changed": "2026-04-15"
     }
   ],
   "st_series": [
