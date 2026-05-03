@@ -1,94 +1,10 @@
 {
-  "generated": "2026-04-26T22:35:11",
+  "generated": "2026-05-03T22:37:16",
   "range": {
-    "start": "2026-04-26",
-    "end": "2026-07-25"
+    "start": "2026-05-03",
+    "end": "2026-08-01"
   },
   "entries": [
-    {
-      "name": "House Prices",
-      "date": "2026-04-28",
-      "time": "9:00 AM ET",
-      "frequency": "monthly",
-      "agency": "S&P/Case-Shiller"
-    },
-    {
-      "name": "Homeownership",
-      "date": "2026-04-28",
-      "time": "10:00 AM ET",
-      "frequency": "quarterly",
-      "agency": "Census"
-    },
-    {
-      "name": "Money Stock (M2)",
-      "date": "2026-04-28",
-      "time": "1:00 PM ET",
-      "frequency": "monthly",
-      "agency": "Fed"
-    },
-    {
-      "name": "Durable Goods Orders",
-      "date": "2026-04-29",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "Census"
-    },
-    {
-      "name": "Housing Starts",
-      "date": "2026-04-29",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "Census"
-    },
-    {
-      "name": "Metro Unemployment",
-      "date": "2026-04-29",
-      "time": "10:00 AM ET",
-      "frequency": "monthly",
-      "agency": "BLS"
-    },
-    {
-      "name": "GDP",
-      "date": "2026-04-30",
-      "time": "8:30 AM ET",
-      "frequency": "quarterly",
-      "agency": "BEA"
-    },
-    {
-      "name": "Personal Income & Outlays",
-      "date": "2026-04-30",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "BEA"
-    },
-    {
-      "name": "Jobless Claims",
-      "date": "2026-04-30",
-      "time": "8:30 AM ET",
-      "frequency": "weekly",
-      "agency": "DOL"
-    },
-    {
-      "name": "Employment Cost Index",
-      "date": "2026-04-30",
-      "time": "8:30 AM ET",
-      "frequency": "quarterly",
-      "agency": "BLS"
-    },
-    {
-      "name": "Mortgage Rates",
-      "date": "2026-04-30",
-      "time": "12:00 PM ET",
-      "frequency": "weekly",
-      "agency": "Freddie Mac"
-    },
-    {
-      "name": "Fed Balance Sheet",
-      "date": "2026-04-30",
-      "time": "4:30 PM ET",
-      "frequency": "weekly",
-      "agency": "Fed"
-    },
     {
       "name": "International Trade",
       "date": "2026-05-05",
@@ -907,6 +823,90 @@
       "time": "10:00 AM ET",
       "frequency": "monthly",
       "agency": "Census"
+    },
+    {
+      "name": "Durable Goods Orders",
+      "date": "2026-07-27",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "Census"
+    },
+    {
+      "name": "House Prices",
+      "date": "2026-07-28",
+      "time": "9:00 AM ET",
+      "frequency": "monthly",
+      "agency": "S&P/Case-Shiller"
+    },
+    {
+      "name": "Homeownership",
+      "date": "2026-07-28",
+      "time": "10:00 AM ET",
+      "frequency": "quarterly",
+      "agency": "Census"
+    },
+    {
+      "name": "Money Stock (M2)",
+      "date": "2026-07-28",
+      "time": "1:00 PM ET",
+      "frequency": "monthly",
+      "agency": "Fed"
+    },
+    {
+      "name": "Metro Unemployment",
+      "date": "2026-07-29",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS"
+    },
+    {
+      "name": "GDP",
+      "date": "2026-07-30",
+      "time": "8:30 AM ET",
+      "frequency": "quarterly",
+      "agency": "BEA"
+    },
+    {
+      "name": "Personal Income & Outlays",
+      "date": "2026-07-30",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BEA"
+    },
+    {
+      "name": "Jobless Claims",
+      "date": "2026-07-30",
+      "time": "8:30 AM ET",
+      "frequency": "weekly",
+      "agency": "DOL"
+    },
+    {
+      "name": "Mortgage Rates",
+      "date": "2026-07-30",
+      "time": "12:00 PM ET",
+      "frequency": "weekly",
+      "agency": "Freddie Mac"
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "date": "2026-07-30",
+      "time": "4:30 PM ET",
+      "frequency": "weekly",
+      "agency": "Fed"
+    },
+    {
+      "name": "Employment Cost Index",
+      "date": "2026-07-31",
+      "time": "8:30 AM ET",
+      "frequency": "quarterly",
+      "agency": "BLS"
+    },
+    {
+      "name": "Consumer Sentiment",
+      "date": "2026-07-31",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "U of Michigan"
     }
   ]
 }
