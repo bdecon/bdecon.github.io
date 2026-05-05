@@ -48,6 +48,7 @@
         "url": "https://bd-econ.com"
     },
     "hasPart": [
+        {"@type": "Report", "name": "US-Nordic Childcare Gap", "url": "https://bd-econ.com/childcare.html", "description": "Nordic countries fund a public childcare system. The US, with similar resources, leaves childcare to families. What the gap costs, who absorbs it, and what closing it would take."},
         {"@type": "Report", "name": "US Chartbook", "url": "https://bd-econ.com/chartbook.html", "description": "250+ charts on the US economy covering labor markets, inflation, GDP, trade, and more."},
         {"@type": "WebApplication", "name": "Economic Indicators", "url": "https://bd-econ.com/indicators.html", "description": "Interactive charts for selected US economic indicators."},
         {"@type": "WebApplication", "name": "Monthly GDP", "url": "https://bd-econ.com/gdpm.html", "description": "Monthly estimates of US nominal and real GDP, combining quarterly BEA data with Fed nowcasts."},
@@ -88,6 +89,7 @@
 		<li>
 			<a href="reports.html" class="active" aria-current="page">Reports <span class="nav-arrow">&darr;</span></a>
 			<ul class="hidden">
+				<li><a href="childcare.html">Childcare Gap</a></li>
 				<li><a href="chartbook.html">US Chartbook</a></li>
 				<li><a href="indicators.html">Economic Indicators</a></li>
 				<li><a href="gdpm.html">Monthly GDP</a></li>
@@ -111,10 +113,24 @@
 	<main id="main">
 	<section>
 	<article class="prose">
-	<p>Interactive data visualizations and reports covering the US and global economy. The Chartbook provides a comprehensive PDF reference, the Indicators page offers interactive charts, and the WEO Forecast Tracker reveals how accurate the IMF's economic forecasts have been since 1990.</p>
+	<p>Reports, dashboards, and data references covering the US and global economy.</p>
 	</article>
 	<section class="card-grid">
 	<h2 class="heading-accent">Available Reports</h2>
+	<a href="childcare.html">
+	<div class="card card-nav accent-teal">
+
+		<div class="card-banner">
+			<picture><source srcset="images/childcare_strip.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/childcare_strip.jpg" alt="Childcare Gap" width="512" height="64"></picture>
+		</div>
+		<div class="card-header">
+			<h3>Childcare Gap</h3>
+		</div>
+		<div class="card-body card-body-fill">
+			<p>Nordic countries fund a public childcare system. The US, with similar resources, leaves childcare to families. What the gap costs, who absorbs it, and what closing it would take.</p>
+		</div>
+	</div>
+	</a>
 	<a href="chartbook.html">
 	<div class="card card-nav accent-green">
 
@@ -194,6 +210,7 @@
 			<div>
 				<h4><a href="reports.html">Data</a></h4>
 				<ul>
+					<li><a href="childcare.html">Childcare Gap</a></li>
 					<li><a href="chartbook.html">US Chartbook</a></li>
 					<li><a href="indicators.html">Economic Indicators</a></li>
 					<li><a href="gdpm.html">Monthly GDP</a></li>

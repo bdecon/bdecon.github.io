@@ -95,6 +95,7 @@
 		<li>
 			<a href="reports.html">Reports <span class="nav-arrow">&darr;</span></a>
 			<ul class="hidden">
+				<li><a href="childcare.html">Childcare Gap</a></li>
 				<li><a href="chartbook.html">US Chartbook</a></li>
 				<li><a href="indicators.html">Economic Indicators</a></li>
 				<li><a href="gdpm.html">Monthly GDP</a></li>
@@ -111,12 +112,13 @@
 	</header>
 	<div class="announcement">
 		<button class="announce-arrow" aria-label="Previous announcement">&#8249;</button>
-		<span class="announce-text"><a href="imfweo.html" id="announce-link"><span class="announce-label">New:</span> April 2026 WEO forecasts now live in the IMF WEO Forecast Tracker &rarr;</a></span>
+		<span class="announce-text"><a href="childcare.html" id="announce-link"><span class="announce-label">New:</span> The US-Nordic Childcare Gap &rarr;</a></span>
 		<button class="announce-arrow" aria-label="Next announcement">&#8250;</button>
 	</div>
 	<script>
 	(function() {
 		const msgs = [
+			{text: "<span class='announce-label'>New:</span> The US-Nordic Childcare Gap \u2192", href: "childcare.html"},
 			{text: "<span class='announce-label'>New:</span> April 2026 WEO forecasts now live in the IMF WEO Forecast Tracker \u2192", href: "imfweo.html"},
 			{text: "Key indicators tracking the US economy \u2014 interactive charts \u2192", href: "indicators.html"},
 			{text: "<span class='announce-label'>Guide:</span> Access US Treasury fiscal data with Python \u2192", href: "treasuryapi.html"}
@@ -197,7 +199,7 @@
 			</div>
 		</div>
 		<section class="card-grid">
-		<h2 class="heading-accent">Tutorials and Reports</h2>
+		<h2 class="heading-accent">Tutorials, Reports, and Dashboards</h2>
 			<a href="imfapi1.html">
 			<div class="card card-nav accent-blue">
 
@@ -209,6 +211,34 @@
 				</div>
 				<div class="card-body card-body-fill">
 					<p>Access international economic data from the International Monetary Fund (IMF) using Python. Covers GDP, trade, prices, and more for 190+ countries.</p>
+				</div>
+			</div>
+			</a>
+			<a href="childcare.html">
+			<div class="card card-nav accent-teal">
+
+				<div class="card-banner">
+					<picture><source srcset="images/childcare_strip.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/childcare_strip.jpg" alt="Childcare Gap" width="512" height="64"></picture>
+				</div>
+				<div class="card-header">
+					<h3>Childcare Gap</h3>
+				</div>
+				<div class="card-body card-body-fill">
+					<p>Nordic countries fund a public childcare system. The US, with similar resources, leaves childcare to families. What the gap costs, who absorbs it, and what closing it would take.</p>
+				</div>
+			</div>
+			</a>
+			<a href="chartbook.pdf" onclick="gtag('event', 'chartbook_download', {link_url: 'chartbook.pdf', link_text: 'Chartbook'});">
+			<div class="card card-nav accent-green">
+
+				<div class="card-banner">
+					<picture><source srcset="images/chartbook_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/chartbook_banner.png" alt="US Economic Chartbook" width="293" height="68"></picture>
+				</div>
+				<div class="card-header">
+					<h3>Chartbook <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg></h3>
+				</div>
+				<div class="card-body card-body-fill">
+					<p>250+ charts on the US economy: labor markets, inflation, GDP, trade, and more. Includes data sources and code.</p><p><strong>PDF</strong> · Updated: <span class="cb-update"><noscript>regularly</noscript></span></p>
 				</div>
 			</div>
 			</a>
@@ -226,17 +256,31 @@
 				</div>
 			</div>
 			</a>
-			<a href="chartbook.pdf" onclick="gtag('event', 'chartbook_download', {link_url: 'chartbook.pdf', link_text: 'Chartbook'});">
-			<div class="card card-nav accent-green">
+			<a href="indicators.html">
+			<div class="card card-nav accent-ltblue">
 
 				<div class="card-banner">
-					<picture><source srcset="images/chartbook_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/chartbook_banner.png" alt="US Economic Chartbook" width="293" height="68"></picture>
+					<picture><source srcset="images/indicators_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/indicators_banner.png" alt="Economic indicators dashboard" width="512" height="68"></picture>
 				</div>
 				<div class="card-header">
-					<h3>Chartbook <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg></h3>
+					<h3>Indicators</h3>
 				</div>
 				<div class="card-body card-body-fill">
-					<p>250+ charts on the US economy: labor markets, inflation, GDP, trade, and more. Includes data sources and code.</p><p><strong>PDF</strong> · Updated: <span class="cb-update"><noscript>regularly</noscript></span></p>
+					<p>Interactive charts for selected US economic indicators. Browse measures of output, employment, prices, and trade with customizable time ranges.</p>
+				</div>
+			</div>
+			</a>
+			<a href="imfweo.html">
+			<div class="card card-nav accent-blue">
+
+				<div class="card-banner">
+					<picture><source srcset="images/imfweo_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/imfweo_banner.png" alt="IMF WEO Forecast Tracker" width="462" height="98"></picture>
+				</div>
+				<div class="card-header">
+					<h3>WEO Forecasts</h3>
+				</div>
+				<div class="card-body card-body-fill">
+					<p>How accurate are the IMF's forecasts? See where they converged, where they missed, and how estimates were revised across 196 countries since 1990.</p>
 				</div>
 			</div>
 			</a>
@@ -471,6 +515,7 @@
 			<div>
 				<h4><a href="reports.html">Data</a></h4>
 				<ul>
+					<li><a href="childcare.html">Childcare Gap</a></li>
 					<li><a href="chartbook.html">US Chartbook</a></li>
 					<li><a href="indicators.html">Economic Indicators</a></li>
 					<li><a href="gdpm.html">Monthly GDP</a></li>

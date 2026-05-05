@@ -1,45 +1,13 @@
 /* ----- Childcare Report ----- */
 
 .page-childcare {
-	/* Drop the top body padding compensating for the (now-stripped) fixed nav */
-	padding-top: 0;
-	/* Link colors — teal for PPP-branded page (overrides bd-econ default red) */
-	--color-link: #2A8A8A;
-	--color-link-visited: #1f6868;
-	--color-link-hover: #1a5454;
-	& .report-brand {
-		display: block;
-		position: relative;
-		z-index: 2;
-		max-width: var(--width-xl);
-		margin: 0 auto;
-		padding: var(--space-5) var(--space-4);
-		background: var(--color-bg, #fff);
-	}
-	& .report-brand a { display: inline-block; line-height: 0; }
-	& .report-brand-logo { display: block; height: 60px; width: auto; }
-	& .report-end-mark {
-		text-align: center;
-		margin: var(--space-6) 0 0;
-	}
-	/* 3P logo at full strength. Site-wide .card-logo rule sets opacity: 0.5;
-	   undo it here so the teal square reads as a brand mark, not a faded glyph. */
-	& .card-logo { opacity: 1; }
-	/* Tighten mobile spacing in side-by-side layouts when they stack vertically.
-	   Site-wide .split-row gives inner figures big var(--space-6/7) margins (fine
-	   on desktop), but on mobile that produces obvious bulges between stacked
-	   figures. .report-split's 60px desktop gap also reads as wonky empty space
-	   above the figure on mobile. Scoped overrides here. */
-	@media (max-width: 760px) {
-		& .split-row { gap: var(--space-3); }
-		& .split-row > .report-figure { margin: var(--space-3) 0; }
-		& .report-split { gap: var(--space-3); }
-	}
 	& .card-footer-col { flex-direction: column; align-items: flex-start; }
 	& main { padding-top: var(--space-6); counter-reset: h2-counter; }
 	& .prose-report { counter-reset: none; }
 	& .cc-tooltip-narrow { max-width: 200px; }
 	& .cc-inherit-link, & .cc-inherit-link:link, & .cc-inherit-link:visited { color: inherit; }
+	& .report-byline-link, & .report-byline-link:link, & .report-byline-link:visited { color: inherit; text-decoration: none; }
+	& .report-byline-link:hover { text-decoration: underline; }
 	& .cc-card-body-tight { padding: var(--space-2) var(--space-3) var(--space-1); &.cc-card-body-chart { padding-top: var(--space-4); } }
 	& #wage-diagram-figure { max-width: var(--width-md); }
 	& #enrollment-age-figure { max-width: var(--width-chart); }
