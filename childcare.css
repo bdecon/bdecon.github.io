@@ -8,6 +8,16 @@
 	& .cc-inherit-link, & .cc-inherit-link:link, & .cc-inherit-link:visited { color: inherit; }
 	& .report-byline-link, & .report-byline-link:link, & .report-byline-link:visited { color: inherit; text-decoration: none; }
 	& .report-byline-link:hover { text-decoration: underline; }
+	& .pdf-download, & .pdf-download:link, & .pdf-download:visited {
+		display: inline-flex;
+		align-items: center;
+		gap: 4px;
+		color: var(--accent, var(--color-text-muted));
+		text-decoration: none;
+		font-weight: 600;
+	}
+	& .pdf-download .icon { width: 14px; height: 14px; }
+	& .pdf-download:hover { text-decoration: underline; }
 	& .cc-card-body-tight { padding: var(--space-2) var(--space-3) var(--space-1); &.cc-card-body-chart { padding-top: var(--space-4); } }
 	& #wage-diagram-figure { max-width: var(--width-md); }
 	& #enrollment-age-figure { max-width: var(--width-chart); }
@@ -472,3 +482,186 @@
 [data-theme="dark"] .page-childcare .chart-svg [stroke="#ccc"] { stroke: #555; }
 [data-theme="dark"] .page-childcare .chart-svg [stroke="#eee"] { stroke: #333; }
 [data-theme="dark"] .page-childcare .chart-svg [fill="rgba(0,0,0,0.7)"] { fill: rgba(255,255,255,0.7); }
+
+/* ============================================================
+   Print / PDF rules — childcare report
+   Used both for browser print (Ctrl+P) and Playwright PDF build
+   (scripts/build_pdf.py loads the page and calls page.pdf()).
+   ============================================================ */
+
+/* Hide cover by default; only the PDF/print path shows it */
+.pdf-cover { display: none; }
+
+@media print {
+	/* Page boxes: counter at bottom-center, suppressed on the cover. */
+	@page {
+		margin: 0.6in 0.6in 0.7in 0.6in;
+		@bottom-center {
+			content: counter(page);
+			font-family: 'Lato', sans-serif;
+			font-size: 9pt;
+			color: #888;
+		}
+	}
+	@page :first {
+		margin: 0;
+		@bottom-center { content: ""; }
+	}
+
+	/* Cover page — full-bleed photo on top half, text below. The photo
+	   reaches the page edges because @page :first has margin 0; the text
+	   block adds its own padding. */
+	.pdf-cover {
+		display: grid !important;
+		grid-template-rows: 5.5in 1fr;
+		page-break-after: always;
+		break-after: page;
+	}
+	.pdf-cover-photo { margin: 0; overflow: hidden; }
+	.pdf-cover-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+	.pdf-cover-text { padding: 0.6in 0.7in 0; }
+	.pdf-cover-kicker {
+		font-size: 11pt; font-weight: 700; letter-spacing: 0.12em;
+		text-transform: uppercase; color: #2A8A8A; margin: 0 0 0.3in;
+	}
+	.pdf-cover-title {
+		font-size: 36pt; font-weight: 800; line-height: 1.05;
+		color: #000; margin: 0 0 0.25in;
+	}
+	.pdf-cover-deck {
+		font-size: 16pt; line-height: 1.4; color: #222;
+		margin: 0 0 0.4in; font-weight: 400;
+	}
+	.pdf-cover-byline {
+		font-size: 13pt; font-weight: 700; color: #000; margin: 0;
+	}
+
+	.page-childcare {
+		/* Hide the screen hero (cover page replaces it) */
+		& .report-hero { display: none !important; }
+
+		/* Hide map controls + L1/L2 view; force L0 small-multiples grid visible */
+		& #l1-back, & .l1-tabs, & .l1-search, & #level1-view { display: none !important; }
+		& #level0-grid { display: grid !important; }
+		& .l0-tile { break-inside: avoid; page-break-inside: avoid; }
+
+		/* Expand all collapsible sections (also forced via JS in build_pdf.py) */
+		& details { display: block !important; }
+		& details > *:not(summary) { display: revert !important; }
+		& details summary {
+			list-style: none;
+			cursor: default;
+			margin-bottom: 0.5em;
+		}
+		& details summary::-webkit-details-marker { display: none; }
+		& .details-section { margin-top: 1em; }
+
+		/* Page break safety — keep figures intact */
+		& .report-figure, & figure, & blockquote, & .cc-table {
+			break-inside: avoid;
+			page-break-inside: avoid;
+		}
+		& h2, & h3, & h4 { break-after: avoid !important; page-break-after: avoid !important; }
+		& h2 { break-before: auto; }
+		/* Pin the element after a heading to the heading. */
+		& h2 + *, & h3 + *, & h4 + * {
+			break-before: avoid !important;
+			page-break-before: avoid !important;
+		}
+		/* When an <article> ends with only a heading (the next paragraph
+		   lives in a sibling article after a .report-split break-out),
+		   pull the article forward so the heading isn't orphaned. */
+		& article:has(> h2:last-child),
+		& article:has(> h3:last-child),
+		& article:has(> h4:last-child) {
+			break-after: avoid !important;
+			page-break-after: avoid !important;
+		}
+
+		/* "At a Glance" comparison table — start on its own page so the
+		   side-by-side US/Nordic table sits as the section centerpiece. */
+		& #at-a-glance { break-before: page; page-break-before: always; }
+
+		/* Orphan/widow control — prevents single-line stragglers at page edges */
+		& p, & li { orphans: 3; widows: 3; }
+
+		/* Force the .report-split break-out layout to stack vertically and
+		   fill the print page width. On screen this is a 340px text column
+		   beside a 360px figure inside a 1030px wrapper; in print at Letter
+		   width (~7.3in) the side-by-side never fits, and the @media
+		   (max-width: 760px) collapse doesn't fire because Chromium's PDF
+		   uses screen viewport width, not page width. */
+		& .report-split {
+			display: block !important;
+			max-width: 100% !important;
+			padding: 0 !important;
+			margin: var(--space-4) 0 var(--space-5) !important;
+		}
+		& .report-split > .report-split-text,
+		& .report-split-text {
+			flex: none !important;
+			max-width: 100% !important;
+			min-width: 0 !important;
+		}
+		& .report-split > figure,
+		& .report-split > .report-figure {
+			margin: var(--space-3) auto !important;
+		}
+
+		/* The .prose article column constrains to var(--width-lg) (~720px)
+		   on screen for reading width. In print that's roughly the page
+		   width — let it fill. */
+		& .prose, & .prose-report { max-width: 100% !important; }
+
+		/* Tighten figure margins so a forced-to-next-page figure leaves
+		   less empty space at the bottom of the previous page. */
+		& .report-figure { margin: var(--space-3) auto !important; }
+
+		/* Tighten spacing for print density */
+		& main { padding: 0; border: none; }
+		& .report-toc { font-size: 10pt; }
+
+		/* Links: keep clickable, drop the colored treatment */
+		& a, & a:link, & a:visited { color: #000; text-decoration: underline; }
+
+		/* build_pdf.py wraps each heading + its first body element in a
+		   <div class="keep-with-next"> so they stay together across pages.
+		   That breaks the .prose-report > h2 / > h3 direct-child selectors
+		   in style.css. Re-apply the section-eyebrow + h3 underline rules
+		   for wrapped headings so the visual style is preserved. */
+		& .prose-report > .keep-with-next > h2 {
+			margin: var(--space-8) 0 var(--space-4);
+			padding-top: var(--space-5);
+			border-top: 1px solid var(--color-border-light);
+			font-size: clamp(28px, 2vw + 14px, 40px);
+			font-weight: 800;
+			letter-spacing: -0.01em;
+			line-height: 1.1;
+		}
+		& .prose-report > .keep-with-next > h2::before {
+			content: 'Section ' counter(h2-counter, decimal-leading-zero);
+			counter-increment: h2-counter;
+			display: block;
+			margin-bottom: var(--space-2);
+			font-family: var(--font-accent);
+			font-size: var(--text-xs);
+			font-weight: 700;
+			letter-spacing: 0.22em;
+			text-transform: uppercase;
+			color: var(--accent, var(--color-text-muted));
+		}
+		& .prose-report > .keep-with-next > h3 {
+			margin: var(--space-6) 0 var(--space-3);
+			font-size: var(--text-3xl);
+			font-weight: 700;
+			color: var(--color-text-strong);
+		}
+		& .prose-report > .keep-with-next > h3::after {
+			content: '';
+			display: block;
+			width: 32px; height: 2px;
+			background: var(--accent, var(--color-text-muted));
+			margin-top: var(--space-2);
+		}
+	}
+}

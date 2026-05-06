@@ -112,39 +112,45 @@
 	</div><!-- .page-title -->
 	<main id="main">
 	<section>
-	<article class="prose">
-	<p>Reports, dashboards, and data references covering the US and global economy.</p>
-	</article>
+
+	<!-- ============================================================ -->
+	<!-- REPORTS — featured hero (latest) + list of past reports.      -->
+	<!-- No h2 here: the page <h1> already says "Reports"; the         -->
+	<!-- featured-report panel below carries the section visually.     -->
+	<!-- ============================================================ -->
+	<section class="reports-section">
+	<a href="childcare.html" class="featured-report accent-teal">
+		<figure class="featured-report-photo">
+			<img src="images/childcare_hero.jpg" alt="" width="1024" height="771" loading="eager" decoding="async">
+		</figure>
+		<div class="featured-report-text">
+			<p class="featured-report-kicker">Featured · May 2026</p>
+			<h3 class="featured-report-title">The US-Nordic Childcare Gap</h3>
+			<p class="featured-report-deck">Why the US has a childcare gap, who absorbs it, and what a public system would cost.</p>
+			<span class="featured-report-cta">Read the report &rarr;</span>
+		</div>
+	</a>
+
+	<!-- Past reports go here as <ul class="reports-list"> rows once more reports ship.
+	     Row pattern:
+	     <li class="reports-list-item">
+	       <a href="...">
+	         <span class="reports-list-date">Mon YYYY</span>
+	         <span class="reports-list-content">
+	           <span class="reports-list-title">Title</span>
+	           <span class="reports-list-deck">One-line deck.</span>
+	         </span>
+	         <span class="reports-list-meta">N min &rarr;</span>
+	       </a>
+	     </li>
+	-->
+	</section>
+
+	<!-- ============================================================ -->
+	<!-- DASHBOARDS — interactive data tools                           -->
+	<!-- ============================================================ -->
 	<section class="card-grid">
-	<h2 class="heading-accent">Available Reports</h2>
-	<a href="childcare.html">
-	<div class="card card-nav accent-teal">
-
-		<div class="card-banner">
-			<picture><source srcset="images/childcare_strip.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/childcare_strip.jpg" alt="Childcare Gap" width="512" height="64"></picture>
-		</div>
-		<div class="card-header">
-			<h3>Childcare Gap</h3>
-		</div>
-		<div class="card-body card-body-fill">
-			<p>Nordic countries fund a public childcare system. The US, with similar resources, leaves childcare to families. What the gap costs, who absorbs it, and what closing it would take.</p>
-		</div>
-	</div>
-	</a>
-	<a href="chartbook.html">
-	<div class="card card-nav accent-green">
-
-		<div class="card-banner">
-			<picture><source srcset="images/chartbook_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/chartbook_banner.png" alt="US Economic Chartbook" width="293" height="68"></picture>
-		</div>
-		<div class="card-header">
-			<h3>US Chartbook</h3>
-		</div>
-		<div class="card-body card-body-fill">
-			<p>250+ charts on the US economy: labor markets, inflation, GDP, trade, and more. Includes data sources and code.</p><p><strong>PDF</strong> · Updated: <span class="cb-update"><noscript>regularly</noscript></span></p>
-		</div>
-	</div>
-	</a>
+	<h2 class="heading-accent">Dashboards</h2>
 	<a href="indicators.html">
 	<div class="card card-nav accent-ltblue">
 
@@ -187,6 +193,27 @@
 		</div>
 	</div>
 	</a>
+	</section>
+
+	<!-- ============================================================ -->
+	<!-- REFERENCES — Chartbook PDF + release schedule                 -->
+	<!-- ============================================================ -->
+	<section class="card-grid">
+	<h2 class="heading-accent">References</h2>
+	<a href="chartbook.html">
+	<div class="card card-nav accent-green">
+
+		<div class="card-banner">
+			<picture><source srcset="images/chartbook_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/chartbook_banner.png" alt="US Economic Chartbook" width="293" height="68"></picture>
+		</div>
+		<div class="card-header">
+			<h3>US Chartbook</h3>
+		</div>
+		<div class="card-body card-body-fill">
+			<p>250+ charts on the US economy: labor markets, inflation, GDP, trade, and more. Includes data sources and code.</p><p><strong>PDF</strong> · Updated: <span class="cb-update"><noscript>regularly</noscript></span></p>
+		</div>
+	</div>
+	</a>
 	<a href="calendar.html">
 	<div class="card card-nav accent-brown">
 
@@ -202,6 +229,7 @@
 	</div>
 	</a>
 	</section>
+
 	</section>
 	</main>
 

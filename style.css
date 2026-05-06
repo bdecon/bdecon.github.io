@@ -857,6 +857,142 @@ article:not(.prose) > :first-child { margin-top: 0; }
 	@media (max-width: 680px) { grid-template-columns: 1fr; max-width: 300px; margin: 0 auto; }
 }
 
+/* ===== Reports section: featured hero + list of past reports ===== */
+
+.reports-section {
+	max-width: var(--width-xl);
+	margin: 0 auto var(--space-6);
+	padding: var(--space-3) 0;
+}
+
+/* Featured report — split panel: photo on the left, text on the right */
+.featured-report,
+.featured-report:link,
+.featured-report:visited,
+.featured-report:hover {
+	color: inherit;
+	text-decoration: none;
+}
+.featured-report {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	border: var(--elevation-border);
+	border-top: 4px solid var(--accent);
+	background: var(--color-card-bg);
+	overflow: hidden;
+	transition: none;
+	& .featured-report-photo {
+		margin: 0;
+		min-height: 320px;
+		overflow: hidden;
+		background: #000;
+		& img { width: 100%; height: 100%; object-fit: cover; display: block; }
+	}
+	& .featured-report-text {
+		padding: var(--space-5) var(--space-6);
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: var(--space-3);
+	}
+	& .featured-report-kicker {
+		margin: 0;
+		font-size: var(--text-sm);
+		font-weight: 700;
+		color: var(--accent);
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+	}
+	& .featured-report-title {
+		margin: 0;
+		font-size: var(--text-3xl);
+		font-weight: 800;
+		color: var(--color-text-strong);
+		line-height: 1.15;
+	}
+	& .featured-report-deck {
+		margin: 0;
+		font-size: var(--text-base);
+		line-height: 1.55;
+		color: var(--color-text);
+	}
+	& .featured-report-cta {
+		font-weight: 700;
+		color: var(--accent);
+		margin-top: var(--space-2);
+	}
+	&:hover {
+		background: color-mix(in srgb, var(--accent) 4%, var(--color-card-bg));
+	}
+}
+@media (max-width: 760px) {
+	.featured-report { grid-template-columns: 1fr; }
+	.featured-report .featured-report-photo { min-height: 200px; }
+	.featured-report .featured-report-text { padding: var(--space-4); }
+}
+
+/* List of past reports — date | title+deck | meta. Used for any reports
+   beyond the featured one. Currently empty until a second report ships. */
+.reports-list {
+	list-style: none;
+	margin: var(--space-5) 0 0;
+	padding: 0;
+}
+.reports-list-item {
+	border-top: 1px solid var(--color-border-light);
+	&:last-child { border-bottom: 1px solid var(--color-border-light); }
+	& a,
+	& a:link,
+	& a:visited,
+	& a:hover {
+		color: inherit;
+		text-decoration: none;
+	}
+	& a {
+		display: grid;
+		grid-template-columns: 130px 1fr auto;
+		gap: var(--space-4);
+		align-items: baseline;
+		padding: var(--space-4) var(--space-3);
+	}
+	& a:hover {
+		background: color-mix(in srgb, var(--color-text-muted) 6%, transparent);
+	}
+}
+.reports-list-date {
+	color: var(--color-text-muted);
+	font-size: var(--text-sm);
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+.reports-list-content {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-1);
+}
+.reports-list-title {
+	font-size: var(--text-lg);
+	font-weight: 700;
+	color: var(--color-text-strong);
+}
+.reports-list-deck {
+	font-size: var(--text-sm);
+	color: var(--color-text);
+	line-height: 1.5;
+}
+.reports-list-meta {
+	font-size: var(--text-sm);
+	color: var(--color-text-muted);
+	white-space: nowrap;
+}
+@media (max-width: 760px) {
+	.reports-list-item a {
+		grid-template-columns: 1fr;
+		gap: var(--space-1);
+	}
+}
+
 /* Trail difficulty badges */
 .trail-badge {
 	display: inline-flex;
