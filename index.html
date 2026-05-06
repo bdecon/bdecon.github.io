@@ -158,10 +158,19 @@
 	</script>
 	<main id="main">
 	<section>
-		<h1 class="sr-only">BD Economics</h1>
-		<article class="prose">
-			<p class="callout accent-red">Macroeconomic data tools, tutorials, and visualizations</p>
-		</article>
+		<!-- Featured report — magazine-cover hero. Visible H1 lives here. -->
+		<a href="childcare.html" class="featured-report featured-report-hero accent-teal">
+			<figure class="featured-report-photo">
+				<img src="images/childcare_hero.jpg" alt="" width="1024" height="771" loading="eager" decoding="async">
+			</figure>
+			<div class="featured-report-text">
+				<p class="featured-report-kicker">Featured Report &middot; May 2026</p>
+				<h1 class="featured-report-title">The US-Nordic Childcare Gap</h1>
+				<p class="featured-report-deck">Why the US has a childcare gap, who absorbs it, and what a public system would cost.</p>
+				<span class="featured-report-cta">Read the report &rarr;</span>
+			</div>
+		</a>
+
 		<div class="split-row home-intro">
 			<div>
 				<div class="card accent-red">
@@ -173,9 +182,9 @@
 					</div>
 				</div>
 				<div class="info-box home-sparkline accent-ltblue" id="sparkline-box">
-					<span class="info-box-tab">US Economic Indicators</span>
+					<a href="indicators.html" class="info-box-tab">US Economic Indicators</a>
 					<div class="sparkline-header">
-						<span class="sparkline-label"><img id="sparkline-icon" class="sparkline-icon" src="data:," alt="" width="58" height="58"><span class="label" id="sparkline-title">Unemployment Rate</span></span>
+						<span class="sparkline-label"><img id="sparkline-icon" class="sparkline-icon" src="data:," alt="" width="58" height="58"><a id="sparkline-title" class="label" href="indicators.html">Unemployment Rate</a></span>
 						<span class="sparkline-stat"><span class="label" id="sparkline-period"></span><span class="key-stat" id="sparkline-value">—</span></span>
 					</div>
 					<div class="sparkline-wrap"><canvas id="sparkline-chart"></canvas></div>
@@ -198,33 +207,22 @@
 			</div>
 			</div>
 		</div>
+		<!-- Curated 3 — most-distinctive things. Indicators isn't here
+		     because the sparkline widget above already covers it; CPS data
+		     isn't here because IMF API represents the tutorials. -->
 		<section class="card-grid">
-		<h2 class="heading-accent">Tutorials, Reports, and Dashboards</h2>
-			<a href="imfapi1.html">
+		<h2 class="heading-accent">More from BD Economics</h2>
+			<a href="imfweo.html">
 			<div class="card card-nav accent-blue">
 
 				<div class="card-banner">
-					<picture><source srcset="images/imf_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/imf_banner.png" alt="IMF API tutorials" width="293" height="68"></picture>
+					<picture><source srcset="images/imfweo_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/imfweo_banner.png" alt="IMF WEO Forecast Tracker" width="462" height="98"></picture>
 				</div>
 				<div class="card-header">
-					<h3>IMF API</h3>
+					<h3>WEO Forecasts</h3>
 				</div>
 				<div class="card-body card-body-fill">
-					<p>Access international economic data from the International Monetary Fund (IMF) using Python. Covers GDP, trade, prices, and more for 190+ countries.</p>
-				</div>
-			</div>
-			</a>
-			<a href="childcare.html">
-			<div class="card card-nav accent-teal">
-
-				<div class="card-banner">
-					<picture><source srcset="images/childcare_strip.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/childcare_strip.jpg" alt="Childcare Gap" width="512" height="64"></picture>
-				</div>
-				<div class="card-header">
-					<h3>Childcare Gap</h3>
-				</div>
-				<div class="card-body card-body-fill">
-					<p>Nordic countries fund a public childcare system. The US, with similar resources, leaves childcare to families. What the gap costs, who absorbs it, and what closing it would take.</p>
+					<p>How accurate are the IMF's forecasts? See where they converged, where they missed, and how estimates were revised across 196 countries since 1990.</p>
 				</div>
 			</div>
 			</a>
@@ -242,45 +240,17 @@
 				</div>
 			</div>
 			</a>
-			<a href="cps.html">
-			<div class="card card-nav accent-teal">
-
-				<div class="card-banner">
-					<picture><source srcset="images/cps_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/cps_banner.png" alt="CPS microdata tutorials" width="542" height="130"></picture>
-				</div>
-				<div class="card-header">
-					<h3>CPS data</h3>
-				</div>
-				<div class="card-body card-body-fill">
-					<p>Read and analyze Current Population Survey microdata with Python. Build custom labor market statistics from household-level data.</p>
-				</div>
-			</div>
-			</a>
-			<a href="indicators.html">
-			<div class="card card-nav accent-ltblue">
-
-				<div class="card-banner">
-					<picture><source srcset="images/indicators_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/indicators_banner.png" alt="Economic indicators dashboard" width="512" height="68"></picture>
-				</div>
-				<div class="card-header">
-					<h3>Indicators</h3>
-				</div>
-				<div class="card-body card-body-fill">
-					<p>Interactive charts for selected US economic indicators. Browse measures of output, employment, prices, and trade with customizable time ranges.</p>
-				</div>
-			</div>
-			</a>
-			<a href="imfweo.html">
+			<a href="imfapi1.html">
 			<div class="card card-nav accent-blue">
 
 				<div class="card-banner">
-					<picture><source srcset="images/imfweo_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/imfweo_banner.png" alt="IMF WEO Forecast Tracker" width="462" height="98"></picture>
+					<picture><source srcset="images/imf_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/imf_banner.png" alt="IMF API tutorials" width="293" height="68"></picture>
 				</div>
 				<div class="card-header">
-					<h3>WEO Forecasts</h3>
+					<h3>IMF API Guide</h3>
 				</div>
 				<div class="card-body card-body-fill">
-					<p>How accurate are the IMF's forecasts? See where they converged, where they missed, and how estimates were revised across 196 countries since 1990.</p>
+					<p>Access international economic data from the International Monetary Fund (IMF) using Python. Covers GDP, trade, prices, and more for 190+ countries.</p>
 				</div>
 			</div>
 			</a>
@@ -418,7 +388,9 @@
 					const pfx = config.valuePrefix || '';
 					const dec = config.decimals ?? 1;
 
-					document.getElementById('sparkline-title').textContent = sp.label || config.title;
+					const titleEl = document.getElementById('sparkline-title');
+					titleEl.textContent = sp.label || config.title;
+					titleEl.href = 'indicators.html#' + sp.id;
 					document.getElementById('sparkline-value').textContent = pfx + latest.toFixed(dec) + sfx;
 					document.getElementById('sparkline-period').textContent = formatDateCompact(labels[labels.length - 1]);
 					document.getElementById('sparkline-box').style.setProperty('--accent', color);

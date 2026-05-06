@@ -114,15 +114,21 @@
   --syn-deletion-bg: #fdd;
   --syn-addition-bg: #dfd;
 
-  /* Card Header Colors */
-  --color-card-blue: #3d5a8a;
-  --color-card-green: #3a7a5a;
-  --color-card-red: #E04040;
-  --color-card-orange: #9a6830;
-  --color-card-purple: #5a4a70;
-  --color-card-ltblue: #4a7a96;
-  --color-card-teal: #3a7878;
-  --color-card-brown: #7a6a3a;
+  /* Card Header / Accent Colors
+     Tuned 2026-05 for distinguishability: spread on hue + lightness so
+     dots remain readable at small sizes against the gray surface.
+     Used for card accent dots, section accents, AND chart line colors
+     on indicators.html (via CATEGORY_CSS_VARS in scripts/indicators.js
+     and the homepage sparkline). Changing these values changes those
+     chart colors too. */
+  --color-card-blue:   #2c4a85;  /* Monetary  — deep navy */
+  --color-card-green:  #3d8550;  /* Government */
+  --color-card-red:    #d63b3b;  /* Prices */
+  --color-card-orange: #d97f2c;  /* Labor     — true orange */
+  --color-card-purple: #7e4ea7;  /* Trade     — saturated violet */
+  --color-card-ltblue: #5497c4;  /* Output    — clearly lighter than blue */
+  --color-card-teal:   #2e9aa0;  /* Businesses — bright cyan, distinct from green */
+  --color-card-brown:  #a89043;  /* (was muddy; now olive / mustard) */
 }
 
 /* Dark theme
@@ -178,14 +184,15 @@
   --syn-deletion-bg: none;
   --syn-addition-bg: none;
 
-  --color-card-blue: #5a7aaa;
-  --color-card-green: #5a9a7a;
-  --color-card-red: #e85a5a;
-  --color-card-orange: #b08050;
-  --color-card-purple: #7a6a90;
-  --color-card-ltblue: #6a9ab0;
-  --color-card-teal: #4a8a8a;
-  --color-card-brown: #9a8a5a;
+  /* Dark-mode accents — lighter variants so they read on dark surfaces. */
+  --color-card-blue:   #6e90c8;
+  --color-card-green:  #5fa872;
+  --color-card-red:    #ec5d5d;
+  --color-card-orange: #f0a05c;
+  --color-card-purple: #a578d0;
+  --color-card-ltblue: #7fb5dc;
+  --color-card-teal:   #4dbcc4;
+  --color-card-brown:  #c8b06b;
 }
 /* ===== Accent Colors ===== */
 .accent-blue   { --accent: var(--color-card-blue); }
@@ -860,7 +867,7 @@ article:not(.prose) > :first-child { margin-top: 0; }
 /* ===== Reports section: featured hero + list of past reports ===== */
 
 .reports-section {
-	max-width: var(--width-xl);
+	max-width: 948px;        /* match card-grid: 3 × 300 + 2 × space-5 */
 	margin: 0 auto var(--space-6);
 	padding: var(--space-3) 0;
 }
@@ -1895,10 +1902,39 @@ figure {
 	& .announce-arrow { color: var(--color-text-muted); padding: var(--space-1); line-height: 1; flex-shrink: 0; }
 	& .announce-arrow:hover { color: var(--color-text); }
 	& .card-grid { padding-top: var(--space-6); }
-	& .home-intro { max-width: var(--width-lg); margin: 0 auto; align-items: stretch; }
-	& .home-intro > * { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-5); }
+	/* Featured-report hero — magazine-cover treatment of the latest
+	   report. Same structure as the .featured-report on reports.html
+	   but with a bigger title and a larger photo panel. */
+	& .featured-report-hero {
+		max-width: 948px;        /* align with .home-intro and card-grid */
+		margin: var(--space-3) auto var(--space-6);
+	}
+	& .featured-report-hero .featured-report-photo { min-height: 380px; }
+	& .featured-report-hero .featured-report-title {
+		font-size: clamp(36px, 3vw + 16px, 56px);
+		font-weight: 800;
+		letter-spacing: -0.015em;
+		line-height: 1.05;
+	}
+	& .featured-report-hero .featured-report-deck { font-size: var(--text-lg); }
+
+	& .home-intro {
+		max-width: 948px;        /* match card-grid: 3 × 300 + 2 × space-5 */
+		margin: 0 auto;
+		align-items: stretch;
+	}
+	/* Asymmetric 2:3 — blog (right, more content) gets 60%, BD intro
+	   (left, description + sparkline) gets 40%. */
+	& .home-intro > * { min-width: 0; display: flex; flex-direction: column; gap: var(--space-5); }
+	& .home-intro > *:first-child  { flex: 2 1 0; }
+	& .home-intro > *:last-child   { flex: 3 1 0; }
 	& .home-sparkline {
 		padding-top: var(--space-2);
+		& a, & a:link, & a:visited { text-decoration: none; color: inherit; }
+		& a:hover { text-decoration: underline; }
+		& a.info-box-tab, & a.info-box-tab:link, & a.info-box-tab:visited { color: #fff; }
+		& #sparkline-title { color: var(--color-text-strong); cursor: pointer; }
+		& .sparkline-nav .note { color: var(--accent, var(--color-text-muted)); }
 		& .sparkline-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0; }
 		& .sparkline-stat { display: flex; flex-direction: column; align-items: flex-end; gap: 0; }
 		& .sparkline-stat .label { font-size: 11px; color: var(--color-text-muted); }
@@ -1912,14 +1948,24 @@ figure {
 		& .sparkline-wrap { position: relative; height: 128px; }
 		& canvas { display: block; }
 	}
-	& .home-blog { list-style: none; padding: 0; margin: 0; & li { padding: var(--space-2) 0; } & a { font-size: var(--text-sm); } & .note { display: inline; margin-left: var(--space-2); white-space: nowrap; } }
+	/* Blog list: dividers + room to breathe; titles read as colored
+	   text rather than a wall of underlines (hover restores underline). */
+	& .home-blog {
+		list-style: none; padding: 0; margin: 0;
+		& li { padding: var(--space-3) 0; border-top: 1px solid var(--color-border-light); }
+		& li:first-child { border-top: none; }
+		& a { font-size: var(--text-sm); text-decoration: none; }
+		& a:hover { text-decoration: underline; }
+		& .note { display: inline; margin-left: var(--space-2); white-space: nowrap; color: var(--color-text-muted); }
+	}
 	& .blog-featured {
 		padding: 0 var(--card-ph) var(--space-2) !important; margin: calc(-1 * var(--space-2)) calc(-1 * var(--card-ph)) 0;
 		& > a:first-child { display: block; margin: 0 calc(-1 * var(--card-ph)); }
-		& > a:first-child img { width: 100%; height: 160px; object-fit: cover; display: block; opacity: 0.85; mix-blend-mode: multiply; background: var(--color-bg-highlight); border-bottom: 1px solid var(--color-border-light); margin-bottom: var(--space-1); }
+		& > a:first-child img { width: 100%; height: 220px; object-fit: cover; display: block; opacity: 0.85; mix-blend-mode: multiply; background: var(--color-bg-highlight); border-bottom: 1px solid var(--color-border-light); margin-bottom: var(--space-4); }
 		[data-theme="dark"] & > a:first-child img { mix-blend-mode: normal; opacity: 0.9; }
 	}
-	& .blog-featured + li { padding-top: var(--space-2); }
+	/* (was overriding .blog-featured + li padding-top to var(--space-2),
+	   which made the second link tighter than the rest. Removed.) */
 }
 
 /* ----- Python Guides ----- */

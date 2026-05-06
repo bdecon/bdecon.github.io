@@ -379,6 +379,75 @@ print(df.tail())</code></pre>
 </section>
 
 <!-- ============================================================
+     7b. REPORT PATTERNS
+     Components used by long-form reports (childcare.html) and the
+     reports.html directory page. Added 2026-05.
+     ============================================================ -->
+<section class="ks-section" id="report-patterns">
+<h2>Report Patterns</h2>
+
+<span class="ks-label">.featured-report — split-panel hero (photo left, text right). Used on reports.html for the latest report.</span>
+<a href="#" class="featured-report accent-teal" style="max-width: var(--width-xl); display: grid; margin-bottom: var(--space-5);">
+  <figure class="featured-report-photo">
+    <img src="images/childcare_hero.jpg" alt="" width="1024" height="771">
+  </figure>
+  <div class="featured-report-text">
+    <p class="featured-report-kicker">Featured &middot; May 2026</p>
+    <h3 class="featured-report-title">Report Title Goes Here</h3>
+    <p class="featured-report-deck">Short deck describing what the report is about and why a reader should click through.</p>
+    <span class="featured-report-cta">Read the report &rarr;</span>
+  </div>
+</a>
+
+<span class="ks-label">.featured-report.featured-report-hero — homepage magazine-cover variant. Bigger title, taller photo. Title takes h1.</span>
+<a href="#" class="featured-report featured-report-hero accent-teal" style="max-width: var(--width-xl); display: grid; margin-bottom: var(--space-5);">
+  <figure class="featured-report-photo">
+    <img src="images/childcare_hero.jpg" alt="" width="1024" height="771">
+  </figure>
+  <div class="featured-report-text">
+    <p class="featured-report-kicker">Featured Report &middot; May 2026</p>
+    <h1 class="featured-report-title" style="font-size: clamp(36px, 3vw + 16px, 56px);">Report Title</h1>
+    <p class="featured-report-deck">Same structure as .featured-report but bigger and serves as the page H1.</p>
+    <span class="featured-report-cta">Read the report &rarr;</span>
+  </div>
+</a>
+
+<span class="ks-label">.reports-list — date | title + deck | meta. For past reports below the featured one.</span>
+<ul class="reports-list" style="max-width: var(--width-xl); margin-bottom: var(--space-5);">
+  <li class="reports-list-item">
+    <a href="#">
+      <span class="reports-list-date">Mon YYYY</span>
+      <span class="reports-list-content">
+        <span class="reports-list-title">An Earlier Report Title</span>
+        <span class="reports-list-deck">One-line summary of the past report goes here.</span>
+      </span>
+      <span class="reports-list-meta">~12 min read &rarr;</span>
+    </a>
+  </li>
+  <li class="reports-list-item">
+    <a href="#">
+      <span class="reports-list-date">Mon YYYY</span>
+      <span class="reports-list-content">
+        <span class="reports-list-title">Another Earlier Report</span>
+        <span class="reports-list-deck">Another one-line summary.</span>
+      </span>
+      <span class="reports-list-meta">~8 min read &rarr;</span>
+    </a>
+  </li>
+</ul>
+
+<span class="ks-label">.pdf-download — download icon + "Download PDF" inline link. Defined in childcare.css under .page-childcare.</span>
+<p class="page-childcare" style="margin-bottom: var(--space-5);">
+  <a href="#" class="pdf-download" download><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download PDF</a>
+</p>
+
+<span class="ks-label">.report-byline-link — color-inherit link, no underline (only on hover). Used to link the author byline. Defined in childcare.css under .page-childcare.</span>
+<p class="page-childcare" style="margin-bottom: var(--space-5); font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; font-size: var(--text-sm);">
+  <a class="report-byline-link" href="#">Brian Dew</a>
+</p>
+</section>
+
+<!-- ============================================================
      8. INFO BOXES
      ============================================================ -->
 <section class="ks-section" id="info-boxes">
