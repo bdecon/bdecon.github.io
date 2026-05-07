@@ -68,7 +68,7 @@
   gtag('config', 'G-PGVF5S620Y');
 </script>
 </head>
-<body class="page-python">
+<body class="page-python accent-blue">
 	<a href="#main" class="skip-link">Skip to main content</a>
 	<header>
 	<nav aria-label="Main navigation">
@@ -117,7 +117,6 @@
 		<div class="py-intro">
 			<p>Each tutorial below walks through a real example&mdash;from API request to finished chart&mdash;using pandas, requests, and Jupyter notebooks. They cover six major data sources for macroeconomic research.</p>
 			<p>New to Python? The <a href="getstarted.html">Setup</a> guide covers installation, essential pandas and numpy operations for economists, and your first API call.</p>
-			<p class="py-arrow">New to Python? <span class="py-arrow-right">→</span><span class="py-arrow-down">↓</span></p>
 		</div>
 		<a href="getstarted.html">
 		<div class="card card-nav accent-ltblue">
@@ -134,8 +133,25 @@
 		</div>
 		</a>
 	</article>
+	<!-- Order: most-popular first (IMF API), then by difficulty within
+	     the rest (beginners → intermediate → advanced). -->
 	<section class="card-grid">
 	<h2 class="heading-accent">Tutorials</h2>
+	<a href="imfapi1.html">
+	<div class="card card-nav accent-blue">
+
+		<div class="card-banner">
+			<picture><source srcset="images/imf_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/imf_banner.png" alt="IMF API tutorial" width="293" height="68"></picture>
+		</div>
+		<div class="card-header">
+			<h3>IMF API</h3>
+		</div>
+		<div class="card-body card-body-fill">
+			<p>Access international economic data from the International Monetary Fund (IMF). Covers GDP, trade, prices, and more for 190+ countries.</p>
+			<span class="trail-badge trail-intermediate">◆ Intermediate</span>
+		</div>
+	</div>
+	</a>
 	<a href="treasuryapi.html">
 	<div class="card card-nav accent-red">
 
@@ -182,7 +198,7 @@
 	</div>
 	</a>
 	<a href="blsapi.html">
-	<div class="card card-nav accent-teal">
+	<div class="card card-nav accent-purple">
 
 		<div class="card-banner">
 			<picture><source srcset="images/bls_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/bls_banner.png" alt="BLS API tutorial" width="257" height="68"></picture>
@@ -194,21 +210,6 @@
 			<p>Retrieve US labor statistics&mdash;employment, wages, prices&mdash;directly from the Bureau of Labor Statistics (BLS) API.</p>
 			<span class="trail-badge trail-intermediate">◆ Intermediate</span>
 		</div>
-	</div>
-	</a>
-	<a href="imfapi1.html">
-	<div class="card card-nav accent-blue">
-
-		<div class="card-banner">
-		<picture><source srcset="images/imf_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/imf_banner.png" alt="IMF API tutorial" width="293" height="68"></picture>
-	  </div>
-	  <div class="card-header">
-		<h3>IMF API</h3>
-	  </div>
-	  <div class="card-body card-body-fill">
-		<p>Access international economic data from the International Monetary Fund (IMF). Covers GDP, trade, prices, and more for 190+ countries.</p>
-		<span class="trail-badge trail-intermediate">◆ Intermediate</span>
-	  </div>
 	</div>
 	</a>
 	<a href="cps.html">

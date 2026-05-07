@@ -311,22 +311,50 @@ function refreshChartColors() {
 
 init();
 
-// Fetch and display last updated date
-fetch('files/gdpm_updated.txt')
-	.then(r => r.text())
-	.then(t => {
-		const dateStr = t.trim().split(' ')[0];
-		const date = new Date(dateStr + 'T12:00:00Z');
-		const longFormatted = date.toLocaleDateString('en-US', {
-			year: 'numeric',
-			month: 'long',
-			day: 'numeric'
-		});
-		document.getElementById('estimate-asof').textContent = longFormatted;
-	})
-	.catch(() => {
-		document.getElementById('estimate-asof').textContent = 'recently';
+// Live freshness — read Last-Modified from gdpm.csv via HEAD, format
+// as "Updated X hours ago" with a status dot. Same pattern as
+// chartbook.html. Falls back to gdpm_updated.txt if the header is
+// missing for any reason.
+(function() {
+	const asof = document.getElementById('estimate-asof');
+	const dot  = document.getElementById('gdpm-status');
+	if (!asof) return;
+	const fmt = (ms) => {
+		const hours = Math.max(0, Math.floor(ms / 3600000));
+		const days = Math.floor(hours / 24);
+		if (hours < 1)        return 'just now';
+		if (hours < 24)       return hours + (hours === 1 ? ' hour ago' : ' hours ago');
+		if (days === 1)       return 'yesterday';
+		if (days < 7)         return days + ' days ago';
+		const weeks = Math.floor(days / 7);
+		return weeks === 1 ? '1 week ago' : weeks + ' weeks ago';
+	};
+	const apply = (date) => {
+		const ms = Date.now() - date.getTime();
+		const hours = Math.max(0, Math.floor(ms / 3600000));
+		const days  = Math.floor(hours / 24);
+		const status = hours < 36 ? 'fresh' : (days < 7 ? 'stale' : 'old');
+		asof.textContent = 'Updated ' + fmt(ms);
+		if (dot) dot.dataset.status = status;
+	};
+	fetch('files/gdpm.csv', {method: 'HEAD'}).then(r => {
+		const lm = r.headers.get('Last-Modified');
+		if (!lm) throw new Error('no Last-Modified');
+		apply(new Date(lm));
+	}).catch(() => {
+		fetch('files/gdpm_updated.txt').then(r => r.text()).then(t => {
+			// Format like "2026-05-06 19:53 ET" — best-effort parse.
+			const parts = t.trim().split(/\s+/);
+			const isoish = parts.slice(0, 2).join('T') + ':00';
+			const d = new Date(isoish);
+			if (isNaN(d)) {
+				asof.textContent = t.trim();
+				return;
+			}
+			apply(d);
+		}).catch(() => { asof.textContent = 'recently'; });
 	});
+})();
 
 // Nowcast region plugin for comparison chart
 const nowcastPlugin = {

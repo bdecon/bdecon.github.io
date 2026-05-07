@@ -141,9 +141,12 @@
   --color-nav-text: #e0e0e0;
   --color-nav-hover: #4a4a4a;
 
-  --color-text-strong: #efefef;
-  --color-text: #c8c8c8;
-  --color-text-muted: #999;
+  /* Body text bumped from #c8c8c8 → #dcdcdc for prose readability.
+     Muted bumped from #999 → #a8a8a8 to keep secondary text legible.
+     Both still under pure white so we don't get the "shimmer" effect. */
+  --color-text-strong: #f0f0f0;
+  --color-text: #dcdcdc;
+  --color-text-muted: #a8a8a8;
 
   --color-canvas: #121212;
   --color-surface: #1e1e1e;
@@ -151,12 +154,15 @@
   --color-bg-alt: #1a1a1a;
   --color-bg-highlight: #383838;
 
-  --color-link: #ff6b8a;
-  --color-link-visited: #e0527a;
-  --color-link-hover: #ffb347;
+  /* Links: softer red aligned with brand (was pink #ff6b8a + orange hover). */
+  --color-link: #ec7878;
+  --color-link-visited: #d06262;
+  --color-link-hover: #f49a9a;
 
-  --color-border: #444444;
-  --color-border-light: #555555;
+  /* Borders bumped #444 → #565656 so card edges read clearly against
+     #282828 cards on #1a1a1a body. Also see card top-highlight rule. */
+  --color-border: #565656;
+  --color-border-light: #6a6a6a;
 
   --color-code-bg: #2a2a2a;
 
@@ -1003,6 +1009,7 @@ article:not(.prose) > :first-child { margin-top: 0; }
 /* Trail difficulty badges */
 .trail-badge {
 	display: inline-flex;
+	align-self: flex-start;       /* don't stretch in card-body flex column */
 	align-items: center;
 	gap: var(--space-1);
 	font-size: var(--text-xs);
@@ -1025,6 +1032,18 @@ article:not(.prose) > :first-child { margin-top: 0; }
 	border: var(--elevation-border);
 	background: var(--color-card-bg);
 	transition: none;
+	/* Dark mode: subtle top-edge highlight so cards lift off the surface.
+	   Replaces the bottom-shadow technique that's invisible on dark. */
+	[data-theme="dark"] & { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06); }
+}
+
+/* Dark mode: dim PDF previews / sample-page images so they don't read as
+   bright white rectangles against the dark UI. Applies to the chartbook
+   feature panel preview and any image used as a document thumbnail. */
+[data-theme="dark"] .cb-feature-photo img,
+[data-theme="dark"] .cb-previews img {
+	opacity: 0.85;
+	filter: brightness(0.92);
 }
 .info-box {
 	--card-ph: var(--space-4);
@@ -1998,6 +2017,23 @@ figure {
 
 /* ----- Chartbook ----- */
 
+/* Live freshness status dot. Reusable across pages — used wherever a
+   "Updated X ago" / "Latest data X ago" signal is shown. JS sets the
+   [data-status] attribute (fresh / stale / old) based on age. */
+.status-dot, .cb-status-dot {
+	display: inline-block;
+	width: 8px; height: 8px;
+	border-radius: 50%;
+	background: var(--color-text-muted);
+	margin-right: 6px;
+	vertical-align: 1px;
+}
+.status-dot[data-status="fresh"], .cb-status-dot[data-status="fresh"] { background: #2eaa6c; }
+.status-dot[data-status="stale"], .cb-status-dot[data-status="stale"] { background: #d9a02c; }
+.status-dot[data-status="old"],   .cb-status-dot[data-status="old"]   { background: #b04a4a; }
+[data-theme="dark"] .status-dot[data-status="fresh"],
+[data-theme="dark"] .cb-status-dot[data-status="fresh"] { background: #4dc78a; }
+
 .page-chartbook {
 	& .cb-previews { display: flex; gap: var(--space-3); flex-wrap: wrap; justify-content: center; margin: var(--space-4) 0 var(--space-2); }
 	& .cb-previews img {
@@ -2031,19 +2067,9 @@ figure {
 		font-size: var(--text-sm);
 	}
 
-	/* Live freshness dot — colors itself via [data-status] set by JS. */
-	& .cb-status-dot {
-		display: inline-block;
-		width: 8px; height: 8px;
-		border-radius: 50%;
-		background: var(--color-text-muted);
-		margin-right: 6px;
-		vertical-align: 1px;
-	}
-	& .cb-status-dot[data-status="fresh"] { background: #2eaa6c; }
-	& .cb-status-dot[data-status="stale"] { background: #d9a02c; }
-	& .cb-status-dot[data-status="old"]   { background: #b04a4a; }
-	[data-theme="dark"] & .cb-status-dot[data-status="fresh"] { background: #4dc78a; }
+	/* .status-dot rules are global (defined below the .page-chartbook
+	   block). The .cb-status-dot class on existing chartbook markup gets
+	   the same styles via that global rule. */
 
 	/* Data sources card — own row below the feature panel. */
 	& .cb-sources {
