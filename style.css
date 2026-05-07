@@ -1999,32 +1999,67 @@ figure {
 /* ----- Chartbook ----- */
 
 .page-chartbook {
-	& .cb-free { text-align: center; margin: var(--space-2) 0 var(--space-1); }
 	& .cb-previews { display: flex; gap: var(--space-3); flex-wrap: wrap; justify-content: center; margin: var(--space-4) 0 var(--space-2); }
 	& .cb-previews img {
 		width: 220px; height: auto; border: 1px solid var(--color-grid); cursor: pointer; transition: opacity var(--transition-fast);
 		&:hover { opacity: 0.85; }
 	}
-	& .cb-row { align-items: stretch; }
-	& .cb-download, & .cb-sources {
-		display: flex; flex-direction: column;
+
+	/* Download feature panel — split layout (preview image + text + CTA).
+	   Uses .featured-report (defined under "Reports section" above) plus
+	   chartbook-specific overrides here. */
+	& .cb-feature { margin: var(--space-5) 0 var(--space-6); }
+	& .cb-feature .featured-report-photo { background: var(--color-bg-highlight); padding: var(--space-3); }
+	& .cb-feature .featured-report-photo img {
+		object-fit: contain;        /* preview pages are tall portraits — don't crop */
+		object-position: center top;
+		max-height: 420px;
+		box-shadow: 0 1px 8px color-mix(in srgb, black 12%, transparent);
 	}
-	& .cb-download {
-		flex: 1 1 320px; min-height: 420px;
-		& > .card-body { gap: var(--space-3); }
-		& a { text-decoration: none; flex: 1; display: flex; }
-		& .card-nav { margin: 0 var(--space-4); flex: 1; }
-		& .card-nav .card-body .cb-updated-label { margin: var(--space-4) 0 0; }
-		& .card-nav .card-body .cb-updated-date { font-size: var(--text-2xl); margin: var(--space-2) 0 0; }
-		& .cb-free { margin: 0; }
+	& .cb-feature .featured-report-cta {
+		display: inline-flex; align-items: center; gap: 6px;
 	}
+	& .cb-feature .featured-report-cta .icon { width: 18px; height: 18px; }
+	& .cb-feature-meta {
+		font-size: var(--text-sm);
+		color: var(--color-text-muted);
+		margin: 0;
+	}
+	& .cb-source-link {
+		text-align: center;
+		margin: calc(-1 * var(--space-3)) 0 var(--space-5);
+		font-size: var(--text-sm);
+	}
+
+	/* Live freshness dot — colors itself via [data-status] set by JS. */
+	& .cb-status-dot {
+		display: inline-block;
+		width: 8px; height: 8px;
+		border-radius: 50%;
+		background: var(--color-text-muted);
+		margin-right: 6px;
+		vertical-align: 1px;
+	}
+	& .cb-status-dot[data-status="fresh"] { background: #2eaa6c; }
+	& .cb-status-dot[data-status="stale"] { background: #d9a02c; }
+	& .cb-status-dot[data-status="old"]   { background: #b04a4a; }
+	[data-theme="dark"] & .cb-status-dot[data-status="fresh"] { background: #4dc78a; }
+
+	/* Data sources card — own row below the feature panel. */
 	& .cb-sources {
-		flex: 1 1 320px; min-width: 0;
-		& table { flex: 1; }
-		& td:last-child { text-align: right; color: var(--color-text-muted); white-space: nowrap; }
+		max-width: var(--width-xl);
+		margin: 0 auto var(--space-5);
+		& th { color: var(--color-text-muted); font-weight: 600; font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.05em; }
+		& th.cb-src-updated, & td.cb-src-updated { text-align: right; white-space: nowrap; }
+		& td.cb-src-updated { color: var(--color-text-muted); }
+		& td.cb-src-updated .cb-status-dot { margin-right: 6px; }
+		& td:nth-child(2) { text-align: right; color: var(--color-text-muted); white-space: nowrap; }  /* Latest data */
 		& .cb-st { margin: var(--space-3) 0 0; }
 		& .cb-more td { color: var(--color-text-muted); border: none; padding-top: 2px; }
 	}
+
+	/* "What's Inside" + "Related" — open prose sections (formerly <details>). */
+	& .cb-inside, & .cb-related { max-width: var(--width-lg); margin: var(--space-5) auto; }
 	& .cb-lightbox {
 		border: none; background: transparent; padding: 0;
 		max-width: 90vw; max-height: 90vh;

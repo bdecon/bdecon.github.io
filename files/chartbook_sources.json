@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-05",
+  "generated": "2026-05-06",
   "releases": [
     {
       "name": "Employment Situation",
@@ -111,9 +111,9 @@
     },
     {
       "name": "State Unemployment",
-      "period": "Feb 2026",
+      "period": "Mar 2026",
       "freq": "monthly",
-      "last_changed": "2026-04-23"
+      "last_changed": "2026-05-06"
     },
     {
       "name": "Metro Unemployment",
@@ -286,6 +286,12 @@
   ],
   "recent": [
     {
+      "name": "State Unemployment",
+      "period": "Mar 2026",
+      "freq": "monthly",
+      "last_changed": "2026-05-06"
+    },
+    {
       "name": "JOLTS",
       "period": "Mar 2026",
       "freq": "monthly",
@@ -336,12 +342,6 @@
     {
       "name": "Mortgage Rates",
       "period": "Apr 30, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-04-30"
-    },
-    {
-      "name": "Initial Jobless Claims",
-      "period": "Apr 25, 2026",
       "freq": "weekly",
       "last_changed": "2026-04-30"
     }

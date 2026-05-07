@@ -102,7 +102,7 @@
   gtag('config', 'G-PGVF5S620Y');
 </script>
 </head>
-<body class="page-chartbook">
+<body class="page-chartbook accent-green">
 	<a href="#main" class="skip-link">Skip to main content</a>
 	<header>
 	<nav aria-label="Main navigation">
@@ -149,49 +149,46 @@
 	<section>
 		<article class="prose">
 		<p class="callout accent-green">A deep dive into the US economy — 250+ charts, regularly updated.</p>
-		<p>The US Chartbook covers nine areas of the US economy in detail, with charts, tables, commentary, and links to public data sources. It connects to BEA, BLS, Census, the Federal Reserve, and Treasury APIs to stay current.</p>
-		<div class="split-row cb-row prose">
-		<article class="card cb-download accent-green">
-			<div class="card-header">
-				<span class="card-title">Read the latest edition</span>
+
+		<!-- Single download panel — uses the .featured-report split layout
+		     (photo + text), with chartbook-specific freshness kicker and
+		     download CTA. Replaces the previous nested .card > .card-nav. -->
+		<a href="chartbook.pdf" target="_blank" rel="noopener" class="featured-report accent-green cb-feature" onclick="gtag('event', 'chartbook_download', {link_url: 'chartbook.pdf', link_text: 'Chartbook'});">
+			<figure class="featured-report-photo cb-feature-photo">
+				<picture><source srcset="images/cb_preview_wealth.webp" type="image/webp"><img loading="eager" decoding="async" src="images/cb_preview_wealth.png" alt="Sample chartbook page (Household Wealth section)" width="600" height="776"></picture>
+			</figure>
+			<div class="featured-report-text">
+				<p class="featured-report-kicker"><span class="cb-status-dot" aria-hidden="true"></span><span class="cb-freshness cb-update">Loading…</span></p>
+				<h2 class="featured-report-title">Latest Edition</h2>
+				<p class="featured-report-deck">250+ charts on the US economy: labor markets, inflation, GDP, trade, and more. Connects to BEA, BLS, Census, Federal Reserve, and Treasury APIs.</p>
+				<p class="cb-feature-meta cb-pdf-size">PDF</p>
+				<span class="featured-report-cta"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download PDF</span>
 			</div>
-			<div class="card-body card-body-fill">
-			<p>Click below to open the latest version of the US Chartbook.</p>
-			<a href="chartbook.pdf" target="_blank" rel="noopener" onclick="gtag('event', 'chartbook_download', {link_url: 'chartbook.pdf', link_text: 'Chartbook'});">
-			<div class="card card-nav accent-green">
-				<div class="card-banner">
-					<picture><source srcset="images/chartbook_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/chartbook_banner.png" alt="US Economic Chartbook" width="293" height="68"></picture>
-				</div>
-				<div class="card-header">
-					<h3>Chartbook <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg></h3>
-				</div>
-				<div class="card-body">
-					<p>250+ charts on the US economy: labor markets, inflation, GDP, trade, and more. Includes data sources and code.</p>
-					<p class="label step-label accent-green cb-updated-label"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg> Updated:</p>
-					<p class="key-stat cb-updated-date cb-update"><noscript>regularly</noscript></p>
-				</div>
-			</div>
-			</a>
-			<p class="note cb-free"><a href="https://github.com/bdecon/US-chartbook">Source code on GitHub</a></p>
-			</div>
-		</article>
+		</a>
+		<p class="note cb-source-link"><a href="https://github.com/bdecon/US-chartbook">Source code on GitHub</a></p>
+
+		<!-- Data sources — own row below the download panel. -->
 		<div class="card cb-sources accent-green" id="cb-sources">
 			<div class="card-header">
 				<span class="card-title">Data Sources</span>
 			</div>
 			<div class="card-body card-body-fill">
-			<table class="dash-table"><tbody id="cb-sources-table">
-			</tbody></table>
+			<table class="dash-table cb-sources-table">
+				<thead><tr><th>Source</th><th>Latest data</th><th class="cb-src-updated">Updated</th></tr></thead>
+				<tbody id="cb-sources-table"></tbody>
+			</table>
 			<p class="note cb-st" id="cb-st"></p>
 			<noscript><p class="note">Enable JavaScript to see the latest data sources.</p></noscript>
 			</div>
 		</div>
-		</div>
+
 		<hr class="section-bar accent-green">
 
-		<details class="details-section">
-			<summary>What's Inside</summary>
-			<p>The chartbook tracks economic and social developments in the United States since 1989. Each section contains charts, tables, descriptive text, and links to relevant materials. It bridges the gap between raw data resources like FRED and professional analysis like the IMF Article IV&mdash;more curated than databases, fresher than traditional analysis.</p>
+		<!-- "What's inside" — open by default. The 9-chapter list IS the
+		     answer to "what's covered," so it shouldn't hide behind a click. -->
+		<section class="cb-inside">
+			<h2 class="heading-accent">What's Inside</h2>
+			<p>Each section combines charts, data tables, and brief commentary on one sector of the US economy. Time series go back to 1989.</p>
 			<ol>
 				<li><strong>Overall Economic Activity</strong> — GDP, national income, economic growth, and business cycles</li>
 				<li><strong>Financial Accounts</strong> — Wealth, liabilities, sectoral balances, and investment</li>
@@ -203,21 +200,12 @@
 				<li><strong>Financial Markets</strong> — Equity markets, interest rates, monetary policy, and yield curves</li>
 				<li><strong>Prices</strong> — Consumer prices, producer prices, PCE inflation, inflation expectations, and commodities</li>
 			</ol>
-		</details>
+		</section>
 
-		<details class="details-section">
-			<summary>Sample Pages</summary>
-			<div class="cb-previews">
-				<picture><source srcset="images/cb_preview_toc.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/cb_preview_toc.png" alt="Chartbook table of contents" width="600" height="776" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}"></picture>
-				<picture><source srcset="images/cb_preview_wealth.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/cb_preview_wealth.png" alt="Household Wealth section sample" width="600" height="776" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}"></picture>
-				<picture><source srcset="images/cb_preview_prices.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/cb_preview_prices.png" alt="PCE Price Index section sample" width="600" height="776" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(this)}"></picture>
-			</div>
-		</details>
-
-		<details class="details-section">
-			<summary>Related</summary>
+		<section class="cb-related">
+			<h2 class="heading-accent">Related</h2>
 			<p>For interactive versions of key indicators, see the <a href="indicators.html">Economic Indicators</a> page. For international economic data and forecasts, see the <a href="imfweo.html">IMF World Economic Outlook</a> page. The <a href="calendar.html">Release Calendar</a> shows when the next update is expected for each data source tracked by the Chartbook. Contributions and corrections are welcome via <a href="https://github.com/bdecon/US-chartbook">GitHub</a>.</p>
-		</details>
+		</section>
 
 		</article>
 	<div class="subfooter" data-hub="reports" data-current="chartbook.html" style="--accent-color: var(--color-card-green)"></div>
@@ -271,20 +259,62 @@
 	</dialog>
 	<script src="scripts/nav.js"></script>
 	<script>
-		fetch('date.txt').then(r => r.text()).then(t => {
-			document.querySelectorAll('.cb-update').forEach(el => el.textContent = t.trim());
+		// Live freshness: read Last-Modified from chartbook.pdf via HEAD,
+		// format as "Updated 4 hours ago" / "Updated yesterday" / etc.,
+		// and color the status dot (green <48h, yellow <7d, red older).
+		fetch('chartbook.pdf', {method: 'HEAD'}).then(r => {
+			const lastMod = r.headers.get('Last-Modified');
+			if (!lastMod) throw new Error('no Last-Modified');
+			const ms = Date.now() - new Date(lastMod).getTime();
+			const hours = Math.max(0, Math.floor(ms / 3600000));
+			const days = Math.floor(hours / 24);
+			let phrase;
+			if (hours < 1)        phrase = 'just now';
+			else if (hours < 24)  phrase = hours + (hours === 1 ? ' hour ago' : ' hours ago');
+			else if (days === 1)  phrase = 'yesterday';
+			else if (days < 7)    phrase = days + ' days ago';
+			else                  phrase = new Date(lastMod).toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric'});
+			const status = hours < 48 ? 'fresh' : (days < 7 ? 'stale' : 'old');
+			document.querySelectorAll('.cb-freshness').forEach(el => el.textContent = 'Updated ' + phrase);
+			document.querySelectorAll('.cb-status-dot').forEach(el => el.dataset.status = status);
+			document.querySelectorAll('.cb-update').forEach(el => { if (!el.classList.contains('cb-freshness')) el.textContent = phrase; });
+			// File size — populate the .cb-pdf-size meta line.
+			const bytes = parseInt(r.headers.get('Content-Length') || '0', 10);
+			if (bytes > 0) {
+				const mb = (bytes / (1024 * 1024)).toFixed(1);
+				document.querySelectorAll('.cb-pdf-size').forEach(el => el.textContent = 'PDF · ' + mb + ' MB');
+			}
+		}).catch(() => {
+			// Fallback to date.txt if HEAD fails (older browser, CDN issues).
+			fetch('date.txt').then(r => r.text()).then(t => {
+				document.querySelectorAll('.cb-update').forEach(el => el.textContent = t.trim());
+				document.querySelectorAll('.cb-freshness').forEach(el => el.textContent = 'Updated ' + t.trim());
+			});
 		});
 
 		fetch('files/chartbook_sources.json').then(r => r.json()).then(d => {
 			const tbody = document.getElementById('cb-sources-table');
+			const fmtAgo = (days) => {
+				if (days < 1)   return 'today';
+				if (days < 2)   return 'yesterday';
+				if (days < 7)   return days + ' days ago';
+				if (days < 31)  { const w = Math.floor(days / 7); return w === 1 ? '1 week ago' : w + ' weeks ago'; }
+				const m = Math.floor(days / 30);
+				return m === 1 ? '1 month ago' : m + ' months ago';
+			};
 			for (const r of d.recent) {
+				const days = Math.max(0, Math.floor((Date.now() - new Date(r.last_changed).getTime()) / 86400000));
+				const status = days < 14 ? 'fresh' : (days < 60 ? 'stale' : 'old');
 				const tr = document.createElement('tr');
-				tr.innerHTML = `<td>${r.name}</td><td>${r.period}</td>`;
+				tr.innerHTML =
+					`<td>${r.name}</td>` +
+					`<td>${r.period}</td>` +
+					`<td class="cb-src-updated"><span class="cb-status-dot" data-status="${status}" aria-hidden="true"></span>${fmtAgo(days)}</td>`;
 				tbody.appendChild(tr);
 			}
 			const more = document.createElement('tr');
 			more.className = 'cb-more';
-			more.innerHTML = `<td>…</td><td></td>`;
+			more.innerHTML = `<td>…</td><td></td><td></td>`;
 			tbody.appendChild(more);
 			document.getElementById('cb-st').textContent =
 				'Also tracks interest rates, equities, commodities, exchange rates, and more.';
