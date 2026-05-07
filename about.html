@@ -36,17 +36,39 @@
 })();
 </script>
 <script type="application/ld+json">
-{
+[{
     "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "About",
+    "@type": "AboutPage",
+    "name": "About BD Economics",
     "description": "About Brian Dew and BD Economics. Open-source macroeconomic research, data tools, and API guides.",
     "url": "https://bd-econ.com/about.html",
-    "author": {
-        "@type": "Person",
-        "name": "Brian Dew"
-    }
-}
+    "mainEntity": {"@id": "https://bd-econ.com/about.html#brian"}
+},
+{
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://bd-econ.com/about.html#brian",
+    "name": "Brian Dew",
+    "url": "https://bd-econ.com/about.html",
+    "jobTitle": "Economist",
+    "image": "https://bd-econ.com/images/brian.jpg",
+    "knowsAbout": ["macroeconomics", "labor economics", "data analysis", "Python", "open-source economic research"],
+    "alumniOf": [
+        {"@type": "CollegeOrUniversity", "name": "George Washington University"},
+        {"@type": "CollegeOrUniversity", "name": "American University"}
+    ],
+    "worksFor": {
+        "@type": "Organization",
+        "name": "BD Economics",
+        "url": "https://bd-econ.com"
+    },
+    "sameAs": [
+        "https://github.com/bdecon",
+        "https://twitter.com/bd_econ",
+        "https://www.linkedin.com/in/brian-dew-5788a386/",
+        "https://briandew.wordpress.com"
+    ]
+}]
 </script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PGVF5S620Y"></script>

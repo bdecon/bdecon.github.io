@@ -305,11 +305,18 @@
 			'Businesses': 'icon-store.svg'
 		};
 
+		// Chart strokes use -strong variants for the 4 accents that fall
+		// short of WCAG 1.4.11 (3:1 graphical-component contrast) on
+		// white. Blue/red/green/purple already pass and use base.
+		// In dark mode -strong falls back to base via the .accent class.
 		const CATEGORY_CSS_VARS = {
-			'Monetary': '--color-card-blue', 'Output': '--color-card-ltblue',
-			'Prices': '--color-card-red', 'Trade': '--color-card-purple',
-			'Labor': '--color-card-orange', 'Government': '--color-card-green',
-			'Businesses': '--color-card-teal'
+			'Monetary': '--color-card-blue',
+			'Output': '--color-card-ltblue-strong',
+			'Prices': '--color-card-red',
+			'Trade': '--color-card-purple',
+			'Labor': '--color-card-orange-strong',
+			'Government': '--color-card-green',
+			'Businesses': '--color-card-teal-strong'
 		};
 
 		let chart = null;

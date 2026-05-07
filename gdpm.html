@@ -43,25 +43,44 @@
     "@context": "https://schema.org",
     "@type": "Dataset",
     "name": "Monthly US GDP Estimates",
+    "alternateName": "Monthly GDP",
     "description": "Monthly estimates of US nominal and real GDP in billions of USD, seasonally adjusted annual rate. Constructed by interpolating quarterly BEA data with Atlanta Fed GDPNow and Cleveland Fed inflation nowcasts. Updated daily.",
+    "keywords": ["GDP", "gross domestic product", "monthly GDP", "nowcast", "United States", "macroeconomics", "BEA", "Atlanta Fed"],
     "url": "https://bd-econ.com/gdpm.html",
+    "identifier": "https://bd-econ.com/gdpm.html",
     "creator": {
         "@type": "Person",
         "name": "Brian Dew",
+        "url": "https://bd-econ.com/about.html",
+        "sameAs": ["https://github.com/bdecon", "https://twitter.com/bd_econ", "https://www.linkedin.com/in/brian-dew-5788a386/"]
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "BD Economics",
         "url": "https://bd-econ.com"
     },
     "license": "https://creativecommons.org/publicdomain/zero/1.0/",
     "isAccessibleForFree": true,
-    "temporalCoverage": "1947/..",
-    "spatialCoverage": "United States",
-    "distribution": {
-        "@type": "DataDownload",
-        "encodingFormat": "text/csv",
-        "contentUrl": "https://bd-econ.com/files/gdpm.csv"
+    "temporalCoverage": "1947-01-01/..",
+    "spatialCoverage": {
+        "@type": "Place",
+        "name": "United States",
+        "geo": {
+            "@type": "GeoShape",
+            "box": "24.396308 -125.000000 49.384358 -66.934570"
+        }
     },
+    "distribution": [
+        {
+            "@type": "DataDownload",
+            "encodingFormat": "text/csv",
+            "contentUrl": "https://bd-econ.com/files/gdpm.csv",
+            "name": "Monthly GDP estimates (CSV)"
+        }
+    ],
     "variableMeasured": [
-        {"@type": "PropertyValue", "name": "Nominal GDP", "unitText": "Billions of USD, SAAR"},
-        {"@type": "PropertyValue", "name": "Real GDP", "unitText": "Billions of chained 2017 USD, SAAR"}
+        {"@type": "PropertyValue", "name": "Nominal GDP", "unitText": "Billions of USD, seasonally adjusted annual rate"},
+        {"@type": "PropertyValue", "name": "Real GDP", "unitText": "Billions of chained 2017 USD, seasonally adjusted annual rate"}
     ],
     "isBasedOn": [
         {"@type": "Dataset", "name": "Gross Domestic Product (GDP)", "url": "https://fred.stlouisfed.org/series/GDP"},
@@ -250,7 +269,8 @@
 	</ul>
 
 	<hr class="section-bar accent-red">
-	<h2 class="heading-accent accent-red">Updates</h2>
+	<h2 class="heading-accent accent-red">Related</h2>
+	<p>For interactive charts of US <a href="indicators.html">economic indicators</a>, see the indicators page. For a comprehensive 250+ chart view of the US economy, see the <a href="chartbook.html">US Chartbook</a>. Upcoming release dates for the underlying GDP data are tracked in the <a href="calendar.html">Release Calendar</a>.</p>
 	<p>The data file is updated daily. Source code is available on <a href="https://github.com/bdecon/bdecon.github.io">GitHub</a>.</p>
 
 	</article>

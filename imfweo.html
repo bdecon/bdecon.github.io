@@ -42,17 +42,27 @@
 	"@context": "https://schema.org",
 	"@type": "Dataset",
 	"name": "IMF WEO Forecast Tracker",
+	"alternateName": "World Economic Outlook Forecast Tracker",
 	"description": "How accurate are the IMF's economic forecasts? This tracker overlays every World Economic Outlook edition since 1990 for 196 countries across 10 macroeconomic indicators, revealing where forecasts converged, where they missed, and how estimates were revised.",
+	"keywords": ["IMF", "World Economic Outlook", "WEO", "forecasts", "GDP", "inflation", "international economics", "macroeconomics"],
 	"url": "https://bd-econ.com/imfweo.html",
+	"identifier": "https://bd-econ.com/imfweo.html",
 	"creator": {
 		"@type": "Person",
 		"name": "Brian Dew",
+		"url": "https://bd-econ.com/about.html",
+		"sameAs": ["https://github.com/bdecon", "https://twitter.com/bd_econ", "https://www.linkedin.com/in/brian-dew-5788a386/"]
+	},
+	"publisher": {
+		"@type": "Organization",
+		"name": "BD Economics",
 		"url": "https://bd-econ.com"
 	},
-	"temporalCoverage": "1990/2025",
+	"isAccessibleForFree": true,
+	"temporalCoverage": "1990-01-01/2025-12-31",
 	"spatialCoverage": {
 		"@type": "Place",
-		"name": "World (196 countries)"
+		"name": "World"
 	},
 	"variableMeasured": [
 		{"@type": "PropertyValue", "name": "Real GDP Growth", "unitText": "Annual percent change"},
@@ -161,6 +171,7 @@
 	<div class="weo-intro">
 	<p class="callout accent-blue">The world economy as seen by the IMF.</p>
 	<p>The <a href="https://www.imf.org/en/Publications/WEO">World Economic Outlook</a> is the International Monetary Fund's flagship forecast publication, covering nearly 200 countries. This tracker compiles past editions, showing how the IMF's forecasts evolved over time — where they converged, where they missed, and how estimates were revised as new data arrived.</p>
+	<p>For US-only data with higher frequency, see <a href="indicators.html">Economic Indicators</a> and the <a href="chartbook.html">US Chartbook</a>.</p>
 	</div>
 
 	<div class="dash-column">

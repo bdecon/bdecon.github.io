@@ -41,13 +41,28 @@
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
-    "@type": "WebPage",
+    "@type": "DataCatalog",
     "name": "US Economic Indicators",
+    "alternateName": "BD Economics Indicators",
     "description": "Key indicators tracking the US economy — GDP, jobs, inflation, trade, interest rates, oil prices, exchange rates, and more. Interactive charts with downloadable data.",
+    "keywords": ["US economy", "economic indicators", "GDP", "inflation", "unemployment", "interactive charts"],
     "url": "https://bd-econ.com/indicators.html",
-    "author": {
+    "identifier": "https://bd-econ.com/indicators.html",
+    "isAccessibleForFree": true,
+    "creator": {
         "@type": "Person",
-        "name": "Brian Dew"
+        "name": "Brian Dew",
+        "url": "https://bd-econ.com/about.html",
+        "sameAs": ["https://github.com/bdecon", "https://twitter.com/bd_econ", "https://www.linkedin.com/in/brian-dew-5788a386/"]
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "BD Economics",
+        "url": "https://bd-econ.com"
+    },
+    "spatialCoverage": {
+        "@type": "Place",
+        "name": "United States"
     },
     "mainEntity": {
         "@type": "ItemList",
@@ -162,7 +177,7 @@
 	<noscript><p class="noscript-warning">This page requires JavaScript to display interactive charts.</p></noscript>
 	<p class="callout accent-ltblue">Key indicators tracking the US economy.</p>
 	<p>Browse interactive charts across seven categories: output, labor, prices, trade, monetary policy, government, and business. Tap the <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></svg> button on each chart for descriptions, data, and a downloadable CSV.</p>
-	<p>For a broader view, see the <a href="chartbook.html">US Chartbook</a> with 250+ charts.</p>
+	<p>For a broader view, see the <a href="chartbook.html">US Chartbook</a> with 250+ charts. Daily <a href="gdpm.html">Monthly GDP</a> estimates are useful for putting nominal data in context.</p>
 	</article>
 
 	<article class="ind-chart">

@@ -168,14 +168,17 @@ function updateColorMap() {
 	const aStrong = isDark ? 0.35 : 0.3;
 	const mix = isDark ? 0.25 : 0;
 
+	// Chart strokes use -strong variants for the 4 accents that fail
+	// WCAG 1.4.11 (3:1 graphical-component contrast) on white.
+	// Blue/red/green/purple already pass and use base.
 	const colorDefs = {
-		blue:   ['--color-card-blue',   '#3450B2'],
-		green:  ['--color-card-green',  '#229a54'],
-		red:    ['--color-card-red',    '#E04040'],
-		orange: ['--color-card-orange', '#ca5c00'],
-		purple: ['--color-card-purple', '#553581'],
-		teal:   ['--color-card-teal',   '#2A8A8A'],
-		ltblue: ['--color-card-ltblue', '#4A90C4']
+		blue:   ['--color-card-blue',          '#3450B2'],
+		green:  ['--color-card-green',         '#229a54'],
+		red:    ['--color-card-red',           '#E04040'],
+		orange: ['--color-card-orange-strong', '#a05d20'],
+		purple: ['--color-card-purple',        '#553581'],
+		teal:   ['--color-card-teal-strong',   '#1a6e72'],
+		ltblue: ['--color-card-ltblue-strong', '#2e6c95']
 	};
 
 	colorMap = {};

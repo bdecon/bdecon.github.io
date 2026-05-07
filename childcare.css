@@ -485,8 +485,20 @@
 
 /* ============================================================
    Print / PDF rules — childcare report
-   Used both for browser print (Ctrl+P) and Playwright PDF build
-   (scripts/build_pdf.py loads the page and calls page.pdf()).
+   Used both for browser print (Ctrl+P) and Playwright PDF build.
+   PAIRED with: ~/Documents/Reports/Childcare/scripts/build_pdf.py
+   That script ALSO mutates the DOM at PDF time — wraps each heading
+   with its first body element in <div class="keep-with-next"> so the
+   two stay together across page breaks, and forces orphan-prone
+   article-ending headings to break-before page. This file's print
+   rules and that script depend on each other; keep them in sync.
+
+   Known duplication to watch: the styles for .prose-report > h2 / h3
+   (Section eyebrow, accent underline) live in style.css. When the JS
+   wraps a heading in .keep-with-next, the > direct-child selector
+   stops matching, so we re-apply the styles below at
+   .prose-report > .keep-with-next > h2 / h3. If you change the
+   originals in style.css, change the wrapped variants here too.
    ============================================================ */
 
 /* Hide cover by default; only the PDF/print path shows it */
