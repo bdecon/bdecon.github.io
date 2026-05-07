@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-06",
+  "generated": "2026-05-07",
   "releases": [
     {
       "name": "Employment Situation",
@@ -57,9 +57,9 @@
     },
     {
       "name": "Construction Spending",
-      "period": "Jan 2026",
+      "period": "Mar 2026",
       "freq": "monthly",
-      "last_changed": "2026-03-23"
+      "last_changed": "2026-05-07"
     },
     {
       "name": "Housing Starts",
@@ -165,9 +165,9 @@
     },
     {
       "name": "Initial Jobless Claims",
-      "period": "Apr 25, 2026",
+      "period": "May 2, 2026",
       "freq": "weekly",
-      "last_changed": "2026-04-30"
+      "last_changed": "2026-05-07"
     },
     {
       "name": "Fed Balance Sheet",
@@ -231,9 +231,9 @@
     },
     {
       "name": "Labor Productivity",
-      "period": "Q1 2025",
+      "period": "Q1 2026",
       "freq": "quarterly",
-      "last_changed": "2025-09-25"
+      "last_changed": "2026-05-07"
     },
     {
       "name": "Homeownership",
@@ -286,6 +286,24 @@
   ],
   "recent": [
     {
+      "name": "Construction Spending",
+      "period": "Mar 2026",
+      "freq": "monthly",
+      "last_changed": "2026-05-07"
+    },
+    {
+      "name": "Initial Jobless Claims",
+      "period": "May 2, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-05-07"
+    },
+    {
+      "name": "Labor Productivity",
+      "period": "Q1 2026",
+      "freq": "quarterly",
+      "last_changed": "2026-05-07"
+    },
+    {
       "name": "State Unemployment",
       "period": "Mar 2026",
       "freq": "monthly",
@@ -325,24 +343,6 @@
       "name": "Capital Goods Orders",
       "period": "Jan 2026",
       "freq": "monthly",
-      "last_changed": "2026-04-30"
-    },
-    {
-      "name": "Metro Unemployment",
-      "period": "Feb 2026",
-      "freq": "monthly",
-      "last_changed": "2026-04-30"
-    },
-    {
-      "name": "Oil Production",
-      "period": "Feb 2026",
-      "freq": "monthly",
-      "last_changed": "2026-04-30"
-    },
-    {
-      "name": "Mortgage Rates",
-      "period": "Apr 30, 2026",
-      "freq": "weekly",
       "last_changed": "2026-04-30"
     }
   ],

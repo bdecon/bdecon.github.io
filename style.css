@@ -879,6 +879,53 @@ article:not(.prose) > :first-child { margin-top: 0; }
 .page-strip-img { height: 100%; }
 .page-strip-compact { height: 80px; }
 
+/* Page head — accent rule + big H1 + deck (V5 pattern, currently only gdpm.html) */
+/* Lives as first child inside <main>; bleeds to main's edges so the 6px accent rule
+   becomes the top edge of the page card. */
+/* header.page-head specificity bumps over global `header { position: fixed }` site nav rule. */
+header.page-head {
+	position: static;
+	width: auto;
+	border-top: 6px solid var(--accent);
+	background: var(--color-surface);
+	padding: var(--space-5) 0 var(--space-4);
+	margin: 0 calc(var(--space-5) * -1) var(--space-3);
+}
+/* Remove main's top border when a page-head is its first child — the page-head's
+   accent rule replaces it. */
+main:has(> header.page-head:first-child) { border-top: none; padding-top: 0; }
+.page-head-inner {
+	max-width: var(--width-lg);
+	margin: 0 auto;
+	padding: 0 var(--space-3);
+}
+.page-head h1 {
+	font-size: clamp(28px, 3vw + 16px, 40px);
+	font-weight: 900;
+	line-height: 1.1;
+	letter-spacing: -0.01em;
+	margin: 0 0 var(--space-1);
+	color: var(--color-text);
+}
+.page-head-kicker {
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--accent-strong, var(--accent));
+	margin: 0 0 var(--space-2);
+}
+.page-head-deck {
+	font-size: 16px;
+	line-height: 1.5;
+	color: var(--color-text-muted);
+	max-width: 620px;
+	margin: 0;
+}
+@media (max-width: 760px) {
+	.page-head { padding: var(--space-4) 0 var(--space-3); }
+}
+
 /* Card grid */
 .card-grid {
 	display: grid;
