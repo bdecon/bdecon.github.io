@@ -184,10 +184,18 @@
 				<div class="info-box home-sparkline accent-ltblue" id="sparkline-box">
 					<a href="indicators.html" class="info-box-tab">US Economic Indicators</a>
 					<div class="sparkline-header">
-						<span class="sparkline-label"><img id="sparkline-icon" class="sparkline-icon" src="data:," alt="" width="58" height="58"><a id="sparkline-title" class="label" href="indicators.html">Unemployment Rate</a></span>
-						<span class="sparkline-stat"><span class="label" id="sparkline-period"></span><span class="key-stat" id="sparkline-value">—</span></span>
+						<span class="sparkline-label"><img id="sparkline-icon" class="sparkline-icon" src="data:," alt="" width="36" height="36"><a id="sparkline-title" class="label" href="indicators.html">Unemployment Rate</a></span>
 					</div>
-					<div class="sparkline-wrap"><canvas id="sparkline-chart"></canvas></div>
+					<div class="sparkline-stat">
+						<span class="key-stat" id="sparkline-value">—</span>
+						<span class="sparkline-delta" id="sparkline-delta"></span>
+						<span class="label sparkline-period" id="sparkline-period"></span>
+					</div>
+					<div class="sparkline-wrap">
+						<canvas id="sparkline-chart"></canvas>
+						<span class="sparkline-minmax sparkline-min" id="sparkline-min"></span>
+						<span class="sparkline-minmax sparkline-max" id="sparkline-max"></span>
+					</div>
 					<div class="sparkline-nav">
 						<a href="indicators.html" class="note">See all →</a>
 					</div>
@@ -390,6 +398,8 @@
 
 					const { labels, values } = data;
 					const latest = values[values.length - 1];
+					const prev = values.length > 1 ? values[values.length - 2] : null;
+					const delta = prev !== null ? latest - prev : null;
 					const color = getCategoryColor(config.category);
 					const sfx = config.valueSuffix || '';
 					const pfx = config.valuePrefix || '';
@@ -400,7 +410,21 @@
 					titleEl.href = 'indicators.html#' + sp.id;
 					document.getElementById('sparkline-value').textContent = pfx + latest.toFixed(dec) + sfx;
 					document.getElementById('sparkline-period').textContent = formatDateCompact(labels[labels.length - 1]);
-					document.getElementById('sparkline-box').style.setProperty('--accent', color);
+					/* Chart line uses indicator-specific category color; box's --accent
+					   stays as accent-ltblue (set on the element class) for tab, buttons,
+					   and "See all" link — separating box identity from chart hue. */
+					document.getElementById('sparkline-box').style.setProperty('--chart-color', color);
+
+					const deltaEl = document.getElementById('sparkline-delta');
+					if (delta !== null && Math.abs(delta) >= Math.pow(10, -dec) / 2) {
+						const arrow = delta > 0 ? '▲' : '▼';
+						const sign = delta > 0 ? '+' : '−';
+						deltaEl.textContent = arrow + ' ' + sign + Math.abs(delta).toFixed(dec) + sfx;
+						deltaEl.dataset.dir = delta > 0 ? 'up' : 'down';
+						deltaEl.style.display = '';
+					} else {
+						deltaEl.style.display = 'none';
+					}
 
 					const iconEl = document.getElementById('sparkline-icon');
 					const iconFile = CATEGORY_ICONS[config.category];
@@ -415,6 +439,56 @@
 					const min = Math.min(...values);
 					const max = Math.max(...values);
 					const pad = (max - min) * 0.10 || 0.5;
+					const minIdx = values.indexOf(min);
+					const maxIdx = values.indexOf(max);
+
+					const minLabel = pfx + min.toFixed(dec) + sfx + ' · ' + formatDateCompact(labels[minIdx]);
+					const maxLabel = pfx + max.toFixed(dec) + sfx + ' · ' + formatDateCompact(labels[maxIdx]);
+					document.getElementById('sparkline-min').textContent = minLabel;
+					document.getElementById('sparkline-max').textContent = maxLabel;
+
+					/* Markers — large color dot at latest, smaller muted dots at min/max
+					   anchors. Latest is duplicated if it equals min or max (color wins). */
+					const lastIdx = values.length - 1;
+					const isMarker = i => i === lastIdx || i === minIdx || i === maxIdx;
+					const pointRadii = values.map((_, i) => i === lastIdx ? 4.5 : (isMarker(i) ? 3 : 0));
+					const muted = 'rgba(0,0,0,0.45)';
+					const pointBg = values.map((_, i) => i === lastIdx ? color : (isMarker(i) ? muted : 'transparent'));
+					const pointBorder = values.map((_, i) => isMarker(i) ? '#fff' : 'transparent');
+
+					/* Position min/max DOM labels next to their points. Called after
+					   the chart calculates pixel coordinates (synchronously available
+					   immediately after construction; also re-run on resize). */
+					const positionMinMax = () => {
+						if (!chart) return;
+						const meta = chart.getDatasetMeta(0).data;
+						if (!meta || !meta[minIdx] || !meta[maxIdx]) return;
+						const wrap = document.querySelector('.sparkline-wrap');
+						const wrapW = wrap.clientWidth;
+						const place = (el, idx, isMax) => {
+							const pt = meta[idx];
+							el.style.transform = '';
+							/* Horizontal: if point is in right third, anchor by right edge;
+							   if in left third, by left edge; otherwise center on point. */
+							const xFrac = pt.x / wrapW;
+							let left, right;
+							if (xFrac > 0.66) {
+								right = (wrapW - pt.x) + 'px'; left = '';
+							} else if (xFrac < 0.34) {
+								left = pt.x + 'px'; right = '';
+							} else {
+								left = pt.x + 'px'; right = '';
+								el.style.transform = 'translateX(-50%)';
+							}
+							el.style.left = left; el.style.right = right;
+							/* Vertical: max sits above its point, min sits below. */
+							const offset = 8;
+							if (isMax) { el.style.top = (pt.y - offset) + 'px'; el.style.transform += ' translateY(-100%)'; el.style.bottom = ''; }
+							else       { el.style.top = (pt.y + offset) + 'px'; el.style.bottom = ''; }
+						};
+						place(document.getElementById('sparkline-max'), maxIdx, true);
+						place(document.getElementById('sparkline-min'), minIdx, false);
+					};
 
 					if (chart) chart.destroy();
 					chart = new Chart(ctx, {
@@ -425,17 +499,22 @@
 								data: values,
 								borderColor: color,
 								borderWidth: 2.5,
-								pointRadius: 0,
+								pointRadius: pointRadii,
+								pointBackgroundColor: pointBg,
+								pointBorderColor: pointBorder,
+								pointBorderWidth: 1.5,
 								pointHitRadius: 8,
-								pointHoverRadius: 3,
+								pointHoverRadius: 5,
 								pointHoverBackgroundColor: color,
 								tension: 0.3,
-								fill: false
+								fill: false,
+								clip: false
 							}]
 						},
 						options: {
 							responsive: true,
 							maintainAspectRatio: false,
+							layout: { padding: { left: 6, right: 16, top: 14, bottom: 14 } },
 							plugins: {
 								legend: { display: false },
 								tooltip: {
@@ -452,9 +531,12 @@
 								x: { display: false },
 								y: { display: false, min: min - pad, max: max + pad }
 							},
-							animation: { duration: 300 }
+							animation: { duration: 300, onComplete: positionMinMax },
+							onResize: positionMinMax
 						}
 					});
+					/* Run once now in case animation is suppressed (reduced motion etc). */
+					requestAnimationFrame(positionMinMax);
 				})
 				.catch(() => {});
 		}

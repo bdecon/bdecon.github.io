@@ -1214,7 +1214,7 @@ main:has(> header.page-head:first-child) { border-top: none; padding-top: 0; }
 			content: ''; width: 10px; height: 10px; flex-shrink: 0;
 			background: var(--accent);
 		}
-		& h3 { font-size: var(--text-xl); font-weight: bold; margin: 0; text-transform: uppercase; letter-spacing: 0.04em; }
+		& h3 { font-size: var(--text-2xl); font-weight: bold; margin: 0; text-transform: uppercase; letter-spacing: 0.04em; }
 	}
 	& .card-body {
 		padding: var(--space-1) var(--space-3) var(--space-3); min-height: 125px;
@@ -1235,6 +1235,10 @@ main:has(> header.page-head:first-child) { border-top: none; padding-top: 0; }
 	[data-theme="dark"] & { opacity: 0.5; mix-blend-mode: screen; }
 }
 .card-banner img { height: 30px; }
+[data-theme="dark"] :is(.page-reports, .page-python) {
+	& .page-strip { background-color: white; }
+	& .page-strip-img { opacity: 0.8; mix-blend-mode: multiply; }
+}
 
 /* ===== Tables ===== */
 
@@ -2018,7 +2022,7 @@ figure {
 	& .home-intro > *:first-child  { flex: 2 1 0; }
 	& .home-intro > *:last-child   { flex: 3 1 0; }
 	& .home-sparkline {
-		padding-top: var(--space-2);
+		padding-top: var(--space-5);
 		& a, & a:link, & a:visited { text-decoration: none; color: inherit; }
 		& a:hover { text-decoration: underline; }
 		& a.info-box-tab, & a.info-box-tab:link, & a.info-box-tab:visited { color: #fff; }
@@ -2028,20 +2032,37 @@ figure {
 		& .sparkline-nav .note,
 		& .sparkline-nav .note:link,
 		& .sparkline-nav .note:visited { color: var(--color-text-muted); }
-		& #sparkline-title { color: var(--color-text-strong); cursor: pointer; }
+		& #sparkline-title { color: var(--color-text-strong); cursor: pointer; font-weight: 700; letter-spacing: 0.02em; }
 		& .sparkline-nav .note { color: var(--accent, var(--color-text-muted)); }
-		& .sparkline-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0; }
-		& .sparkline-stat { display: flex; flex-direction: column; align-items: flex-end; gap: 0; }
-		& .sparkline-stat .label { font-size: 11px; color: var(--color-text-muted); }
-		& .sparkline-header .key-stat { font-size: var(--text-2xl); margin: 0; }
-		& .sparkline-label { display: flex; align-items: center; gap: var(--space-2); }
-		& .sparkline-label .label { margin: 0; color: var(--color-text-strong); font-size: var(--text-sm); }
-		& .sparkline-icon { width: 58px; height: 58px; object-fit: contain; flex-shrink: 0; }
-		& .sparkline-nav { display: flex; align-items: center; gap: var(--space-1); margin-top: var(--space-2); flex-wrap: wrap; }
-		& .sparkline-nav .btn { white-space: nowrap; font-size: 11px; padding: var(--space-1) var(--space-2); }
+		& .sparkline-header { display: flex; align-items: center; gap: var(--space-3); margin-bottom: 0; }
+		& .sparkline-stat { display: flex; align-items: baseline; gap: var(--space-2); margin-top: var(--space-1); flex-wrap: wrap; }
+		& .sparkline-stat .label { font-size: var(--text-sm); color: var(--color-text-muted); }
+		& .sparkline-stat .sparkline-period::before { content: '· '; color: var(--color-text-muted); margin-right: 2px; }
+		& .sparkline-stat .key-stat { font-size: var(--text-2xl); margin: 0; line-height: 1.1; }
+		/* Delta chip — colored ▲/▼ + signed magnitude, indicates direction
+		   of change since previous reading. Uses semantic up/down colors,
+		   not the chart color, since direction (good/bad) ≠ category. */
+		& .sparkline-delta { font-size: var(--text-sm); font-weight: 700; white-space: nowrap;
+			&[data-dir="up"]   { color: var(--color-card-red); }
+			&[data-dir="down"] { color: var(--color-card-green); }
+		}
+		& .sparkline-label { display: flex; align-items: center; gap: var(--space-2); min-width: 0; flex: 1; }
+		& .sparkline-label .label { margin: 0; color: var(--color-text-strong); font-size: var(--text-base); }
+		& .sparkline-icon { width: 36px; height: 36px; object-fit: contain; flex-shrink: 0; }
+		& .sparkline-nav { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-3); flex-wrap: wrap; }
+		& .sparkline-nav .btn { white-space: nowrap; padding: var(--space-1) var(--space-3); border-radius: 20px; }
 		& .sparkline-nav .note { margin-left: auto; white-space: nowrap; }
-		& .sparkline-wrap { position: relative; height: 128px; }
+		& .sparkline-wrap { position: relative; height: 168px; margin-top: var(--space-2); }
 		& canvas { display: block; }
+		/* Min/max labels — JS positions these next to the actual min/max
+		   points on the chart. Pill-style backdrop so the text stays
+		   readable when it sits near the line. */
+		& .sparkline-minmax {
+			position: absolute; font-size: var(--text-xs); color: var(--color-text-muted);
+			pointer-events: none; line-height: 1; white-space: nowrap;
+			background: color-mix(in srgb, var(--color-bg-alt) 80%, transparent);
+			padding: 2px 6px; border-radius: 3px;
+		}
 	}
 	/* Blog list: dividers + room to breathe; titles read as colored
 	   text rather than a wall of underlines (hover restores underline). */
@@ -2049,18 +2070,33 @@ figure {
 		list-style: none; padding: 0; margin: 0;
 		& li { padding: var(--space-3) 0; border-top: 1px solid var(--color-border-light); }
 		& li:first-child { border-top: none; }
-		& a { font-size: var(--text-sm); text-decoration: none; }
+		& a { font-size: var(--text-xl); font-weight: 600; color: var(--color-text-strong); text-decoration: none; }
 		& a:hover { text-decoration: underline; }
-		& .note { display: inline; margin-left: var(--space-2); white-space: nowrap; color: var(--color-text-muted); }
+		& .note { display: inline; margin-left: var(--space-2); white-space: nowrap; font-size: var(--text-sm); font-weight: 400; color: var(--color-text-muted); }
 	}
 	& .blog-featured {
 		padding: 0 var(--card-ph) var(--space-2) !important; margin: calc(-1 * var(--space-2)) calc(-1 * var(--card-ph)) 0;
 		& > a:first-child { display: block; margin: 0 calc(-1 * var(--card-ph)); }
 		& > a:first-child img { width: 100%; height: 220px; object-fit: cover; display: block; opacity: 0.85; mix-blend-mode: multiply; background: var(--color-bg-highlight); border-bottom: 1px solid var(--color-border-light); margin-bottom: var(--space-4); }
 		[data-theme="dark"] & > a:first-child img { mix-blend-mode: normal; opacity: 0.9; }
+		& > a:not(:first-child) { font-size: var(--text-2xl); font-weight: 700; line-height: 1.25; }
 	}
 	/* (was overriding .blog-featured + li padding-top to var(--space-2),
 	   which made the second link tighter than the rest. Removed.) */
+
+	/* Mobile reorder: hero → intro card → blog → curated grid → sparkline.
+	   Flatten .home-intro and its wrappers via display:contents so all
+	   leaf cards become direct flex children of <section>, then assign order. */
+	@media (max-width: 760px) {
+		& main > section { display: flex; flex-direction: column; gap: var(--space-5); }
+		& .home-intro { display: contents; }
+		& .home-intro > * { display: contents; }
+		& .featured-report-hero { order: 1; }
+		& .home-intro > *:first-child > .card { order: 2; }
+		& .home-intro > *:last-child > .card { order: 3; }
+		& .card-grid { order: 4; }
+		& .home-sparkline { order: 5; }
+	}
 }
 
 /* ----- Python Guides ----- */
@@ -2069,6 +2105,8 @@ figure {
 	& .py-row { align-items: center; }
 	& .py-intro { flex: 1; min-width: 0; }
 	& .py-row a { text-decoration: none; flex: 0 0 300px; }
+	& .py-row .card-nav .card-body { display: flex; flex-direction: column; }
+	& .py-row .card-nav .trail-badge { margin-top: auto; }
 	& .py-arrow { text-align: right; font-size: var(--text-sm); font-weight: 600; color: var(--color-text-muted); margin: 0; }
 	& .py-arrow-down { display: none; }
 	@media (max-width: 760px) {
