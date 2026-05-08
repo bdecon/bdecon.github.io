@@ -191,12 +191,12 @@
 						<span class="sparkline-delta" id="sparkline-delta"></span>
 						<span class="label sparkline-period" id="sparkline-period"></span>
 					</div>
-					<div class="sparkline-wrap">
+					<div class="sparkline-wrap" role="tabpanel" id="sparkline-panel" aria-labelledby="sparkline-tab-0">
 						<canvas id="sparkline-chart"></canvas>
 						<span class="sparkline-minmax sparkline-min" id="sparkline-min"></span>
 						<span class="sparkline-minmax sparkline-max" id="sparkline-max"></span>
 					</div>
-					<div class="sparkline-nav">
+					<div class="sparkline-nav" role="tablist" aria-label="Indicator">
 						<a href="indicators.html" class="note">See all →</a>
 					</div>
 				</div>
@@ -302,9 +302,39 @@
 	(function() {
 		const SPARKLINES = [
 			{ id: 'unrate', btn: 'Unemployment' },
-			{ id: 'cpi', btn: 'Inflation' },
+			{ id: 'cpi', btn: 'Inflation', refLine: { value: 2.0, label: 'Target' } },
 			{ id: 'ffrate', btn: 'Fed Funds' }
 		];
+
+		/* Reference-line plugin — draws a dashed horizontal line at a fixed
+		   y-value with a small label, useful for thresholds (Fed inflation
+		   target, NAIRU, etc.). Configured per-chart via plugins.refline. */
+		const refLinePlugin = {
+			id: 'refline',
+			afterDatasetsDraw(chart, args, opts) {
+				if (!opts || opts.value == null) return;
+				const { ctx, chartArea: { left, right }, scales: { y } } = chart;
+				const yPx = y.getPixelForValue(opts.value);
+				if (yPx < chart.chartArea.top || yPx > chart.chartArea.bottom) return;
+				ctx.save();
+				ctx.strokeStyle = 'rgba(0,0,0,0.30)';
+				ctx.setLineDash([4, 4]);
+				ctx.lineWidth = 1;
+				ctx.beginPath();
+				ctx.moveTo(left, yPx);
+				ctx.lineTo(right, yPx);
+				ctx.stroke();
+				if (opts.label) {
+					ctx.setLineDash([]);
+					ctx.fillStyle = 'rgba(0,0,0,0.55)';
+					ctx.font = '11px ' + (opts.font || 'sans-serif');
+					ctx.textAlign = 'right';
+					ctx.textBaseline = 'bottom';
+					ctx.fillText(opts.label, right - 4, yPx - 3);
+				}
+				ctx.restore();
+			}
+		};
 
 		const CATEGORY_ICONS = {
 			'Output': 'icon-factory.svg', 'Labor': 'icon-construction.svg',
@@ -438,9 +468,15 @@
 
 					const min = Math.min(...values);
 					const max = Math.max(...values);
-					const pad = (max - min) * 0.10 || 0.5;
 					const minIdx = values.indexOf(min);
 					const maxIdx = values.indexOf(max);
+					/* Extend y range to include reference-line value if set, so a
+					   2% target on inflation stays visible even when all values
+					   are above (or below) it. */
+					const refV = sp.refLine && sp.refLine.value;
+					const yLo = refV != null ? Math.min(min, refV) : min;
+					const yHi = refV != null ? Math.max(max, refV) : max;
+					const pad = (yHi - yLo) * 0.10 || 0.5;
 
 					const minLabel = pfx + min.toFixed(dec) + sfx + ' · ' + formatDateCompact(labels[minIdx]);
 					const maxLabel = pfx + max.toFixed(dec) + sfx + ' · ' + formatDateCompact(labels[maxIdx]);
@@ -511,6 +547,7 @@
 								clip: false
 							}]
 						},
+						plugins: [refLinePlugin],
 						options: {
 							responsive: true,
 							maintainAspectRatio: false,
@@ -525,11 +562,14 @@
 										title: items => formatDate(items[0].label),
 										label: item => pfx + parseFloat(item.raw).toFixed(dec) + sfx
 									}
-								}
+								},
+								refline: sp.refLine
+									? { value: sp.refLine.value, label: sp.refLine.label, font: FONT }
+									: { value: null }
 							},
 							scales: {
 								x: { display: false },
-								y: { display: false, min: min - pad, max: max + pad }
+								y: { display: false, min: yLo - pad, max: yHi + pad }
 							},
 							animation: { duration: 300, onComplete: positionMinMax },
 							onResize: positionMinMax
@@ -537,6 +577,16 @@
 					});
 					/* Run once now in case animation is suppressed (reduced motion etc). */
 					requestAnimationFrame(positionMinMax);
+
+					/* Hide min/max labels while pointer hovers the chart so the
+					   Chart.js tooltip (rendered on canvas) doesn't sit behind
+					   the floating DOM labels. */
+					const wrapEl = document.querySelector('.sparkline-wrap');
+					if (wrapEl && !wrapEl.dataset.hoverWired) {
+						wrapEl.addEventListener('mouseenter', () => wrapEl.classList.add('is-hovered'));
+						wrapEl.addEventListener('mouseleave', () => wrapEl.classList.remove('is-hovered'));
+						wrapEl.dataset.hoverWired = '1';
+					}
 				})
 				.catch(() => {});
 		}
@@ -549,19 +599,49 @@
 				const nav = document.querySelector('.sparkline-nav');
 				const seeAll = nav.querySelector('a');
 
+				const panel = document.getElementById('sparkline-panel');
+				const tabs = [];
+
+				const activate = (idx) => {
+					tabs.forEach((t, j) => {
+						const sel = j === idx;
+						t.classList.toggle('active', sel);
+						t.setAttribute('aria-selected', sel ? 'true' : 'false');
+						t.tabIndex = sel ? 0 : -1;
+					});
+					if (panel) panel.setAttribute('aria-labelledby', 'sparkline-tab-' + idx);
+					render(SPARKLINES[idx], manifest[SPARKLINES[idx].id]);
+				};
+
 				SPARKLINES.forEach((sp, i) => {
 					const config = manifest[sp.id];
 					if (!config) return;
 					const btn = document.createElement('button');
 					btn.className = 'btn' + (i === 0 ? ' active' : '');
+					btn.id = 'sparkline-tab-' + i;
+					btn.type = 'button';
+					btn.setAttribute('role', 'tab');
+					btn.setAttribute('aria-controls', 'sparkline-panel');
+					btn.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+					btn.tabIndex = i === 0 ? 0 : -1;
 					btn.dataset.sparkIdx = i;
 					btn.textContent = sp.btn || sp.label || config.title;
-					btn.addEventListener('click', () => {
-						nav.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
-						btn.classList.add('active');
-						render(sp, config);
+					btn.addEventListener('click', () => activate(i));
+					btn.addEventListener('keydown', (e) => {
+						if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+							e.preventDefault();
+							const dir = e.key === 'ArrowRight' ? 1 : -1;
+							const next = (i + dir + tabs.length) % tabs.length;
+							activate(next);
+							tabs[next].focus();
+						} else if (e.key === 'Home') {
+							e.preventDefault(); activate(0); tabs[0].focus();
+						} else if (e.key === 'End') {
+							e.preventDefault(); activate(tabs.length - 1); tabs[tabs.length - 1].focus();
+						}
 					});
 					nav.insertBefore(btn, seeAll);
+					tabs.push(btn);
 				});
 
 				// Initial render

@@ -2049,8 +2049,22 @@ figure {
 		& .sparkline-label { display: flex; align-items: center; gap: var(--space-2); min-width: 0; flex: 1; }
 		& .sparkline-label .label { margin: 0; color: var(--color-text-strong); font-size: var(--text-base); }
 		& .sparkline-icon { width: 36px; height: 36px; object-fit: contain; flex-shrink: 0; }
-		& .sparkline-nav { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-3); flex-wrap: wrap; }
-		& .sparkline-nav .btn { white-space: nowrap; padding: var(--space-1) var(--space-3); border-radius: 20px; }
+		& .sparkline-nav { display: flex; align-items: baseline; gap: var(--space-3); margin-top: var(--space-3); flex-wrap: wrap; }
+		/* Indicator tabs — plain text, no pill, no border. Active gets accent
+		   color + underline; inactive is muted. Compact so "See all →" stays
+		   on the same line at typical widths. */
+		& .sparkline-nav .btn {
+			background: transparent; border: none; padding: 0;
+			font-size: var(--text-sm); font-weight: 600;
+			color: var(--color-text-muted); white-space: nowrap;
+			border-bottom: 2px solid transparent;
+			padding-bottom: 2px; line-height: 1.2;
+			&:hover { background: transparent; color: var(--color-text-strong); }
+			&.active {
+				background: transparent; color: var(--color-text-strong);
+				border-bottom-color: var(--accent-strong, var(--accent));
+			}
+		}
 		& .sparkline-nav .note { margin-left: auto; white-space: nowrap; }
 		& .sparkline-wrap { position: relative; height: 168px; margin-top: var(--space-2); }
 		& canvas { display: block; }
@@ -2062,7 +2076,11 @@ figure {
 			pointer-events: none; line-height: 1; white-space: nowrap;
 			background: color-mix(in srgb, var(--color-bg-alt) 80%, transparent);
 			padding: 2px 6px; border-radius: 3px;
+			transition: opacity var(--transition-fast);
 		}
+		/* Hide min/max labels while user hovers the chart — Chart.js draws its
+		   tooltip on the canvas, which would otherwise sit behind these. */
+		& .sparkline-wrap.is-hovered .sparkline-minmax { opacity: 0; }
 	}
 	/* Blog list: dividers + room to breathe; titles read as colored
 	   text rather than a wall of underlines (hover restores underline). */
@@ -2083,6 +2101,12 @@ figure {
 	}
 	/* (was overriding .blog-featured + li padding-top to var(--space-2),
 	   which made the second link tighter than the rest. Removed.) */
+
+	/* Blog card "All posts →" link picks up the card's red accent so it
+	   reads as a link instead of muted auxiliary text. Scoped to home so
+	   download-icon links etc. on other pages stay neutral. */
+	& .home-intro .card-header a { color: var(--accent); font-weight: 600; }
+	& .home-intro .card-header a:hover { color: var(--accent-strong, var(--accent)); text-decoration: underline; }
 
 	/* Mobile reorder: hero → intro card → blog → curated grid → sparkline.
 	   Flatten .home-intro and its wrappers via display:contents so all
