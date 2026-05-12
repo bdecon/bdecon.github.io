@@ -111,12 +111,13 @@
 	</header>
 	<div class="announcement">
 		<button class="announce-arrow" aria-label="Previous announcement">&#8249;</button>
-		<span class="announce-text"><a href="imfweo.html" id="announce-link"><span class="announce-label">New:</span> April 2026 WEO forecasts now live in the IMF WEO Forecast Tracker &rarr;</a></span>
+		<span class="announce-text"><a href="https://www.peoplespolicyproject.org/project/us-nordic-childcare-gap/" id="announce-link" target="_blank" rel="noopener"><span class="announce-label">New:</span> The US-Nordic Childcare Gap &rarr;</a></span>
 		<button class="announce-arrow" aria-label="Next announcement">&#8250;</button>
 	</div>
 	<script>
 	(function() {
 		const msgs = [
+			{text: "<span class='announce-label'>New:</span> The US-Nordic Childcare Gap \u2192", href: "https://www.peoplespolicyproject.org/project/us-nordic-childcare-gap/"},
 			{text: "<span class='announce-label'>New:</span> April 2026 WEO forecasts now live in the IMF WEO Forecast Tracker \u2192", href: "imfweo.html"},
 			{text: "Key indicators tracking the US economy \u2014 interactive charts \u2192", href: "indicators.html"},
 			{text: "<span class='announce-label'>Guide:</span> Access US Treasury fiscal data with Python \u2192", href: "treasuryapi.html"}
@@ -130,6 +131,13 @@
 		const show = (i) => {
 			link.innerHTML = msgs[i].text;
 			link.href = msgs[i].href;
+			if (msgs[i].href.startsWith("http")) {
+				link.target = "_blank";
+				link.rel = "noopener";
+			} else {
+				link.removeAttribute("target");
+				link.removeAttribute("rel");
+			}
 		};
 		const fadeTo = (i) => {
 			span.classList.add("fade-out");
