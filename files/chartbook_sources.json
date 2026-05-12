@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-08",
+  "generated": "2026-05-11",
   "releases": [
     {
       "name": "Employment Situation",
@@ -171,9 +171,9 @@
     },
     {
       "name": "Fed Balance Sheet",
-      "period": "Apr 29, 2026",
+      "period": "May 6, 2026",
       "freq": "weekly",
-      "last_changed": "2026-04-30"
+      "last_changed": "2026-05-11"
     },
     {
       "name": "GDP (Advance)",
@@ -286,6 +286,12 @@
   ],
   "recent": [
     {
+      "name": "Fed Balance Sheet",
+      "period": "May 6, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-05-11"
+    },
+    {
       "name": "Construction Spending",
       "period": "Mar 2026",
       "freq": "monthly",
@@ -338,12 +344,6 @@
       "period": "Mar 2026",
       "freq": "monthly",
       "last_changed": "2026-05-05"
-    },
-    {
-      "name": "Personal Income & Outlays",
-      "period": "Mar 2026",
-      "freq": "monthly",
-      "last_changed": "2026-04-30"
     }
   ],
   "st_series": [
