@@ -129,9 +129,9 @@
     },
     {
       "name": "Treasury Statement",
-      "period": "Mar 2026",
+      "period": "Apr 2026",
       "freq": "monthly",
-      "last_changed": "2026-04-10"
+      "last_changed": "2026-05-12"
     },
     {
       "name": "Money Stock (M2)",
@@ -292,6 +292,12 @@
       "last_changed": "2026-05-12"
     },
     {
+      "name": "Treasury Statement",
+      "period": "Apr 2026",
+      "freq": "monthly",
+      "last_changed": "2026-05-12"
+    },
+    {
       "name": "Fed Balance Sheet",
       "period": "May 6, 2026",
       "freq": "weekly",
@@ -335,12 +341,6 @@
     },
     {
       "name": "JOLTS",
-      "period": "Mar 2026",
-      "freq": "monthly",
-      "last_changed": "2026-05-05"
-    },
-    {
-      "name": "International Trade",
       "period": "Mar 2026",
       "freq": "monthly",
       "last_changed": "2026-05-05"
