@@ -1,49 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kitchen Sink — BD Economics Design System</title>
-<link rel="stylesheet" href="style.css">
-<style>
-  /* Kitchen sink page-specific: labels and section dividers */
-  .ks-section { padding: var(--space-7) 0 var(--space-4); border-bottom: 3px solid var(--color-border-light); }
-  .ks-section:first-of-type { padding-top: var(--space-5); }
-  .ks-label {
-    font-family: var(--font-mono); font-size: 11px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.1em;
-    color: var(--color-text-muted); background: var(--color-bg-highlight);
-    padding: 2px var(--space-2); display: inline-block; margin-bottom: var(--space-3);
-  }
-  .ks-row { display: flex; gap: var(--space-4); flex-wrap: wrap; align-items: flex-start; margin-bottom: var(--space-5); }
-  .ks-col { flex: 1; min-width: 250px; }
-  .ks-swatch { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-2); }
-  .ks-swatch-box { width: 40px; height: 40px; border: 1px solid var(--color-border-light); flex-shrink: 0; }
-  .ks-swatch-label { font-size: var(--text-xs); color: var(--color-text-muted); }
-  .ks-spacer { margin-bottom: var(--space-5); }
-  .ks-grid-demo { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: var(--space-2); margin-bottom: var(--space-4); }
-  .ks-grid-demo > div { background: var(--color-bg-highlight); padding: var(--space-3); text-align: center; font-size: var(--text-xs); color: var(--color-text-muted); border: 1px solid var(--color-border-light); }
-  .ks-toc { columns: 3; column-gap: var(--space-5); }
-  .ks-toc a { display: block; font-size: var(--text-sm); padding: var(--space-1) 0; }
-  @media (max-width: 760px) { .ks-toc { columns: 1; } .ks-row { flex-direction: column; } }
-</style>
-<script>
-  /* Theme toggle */
-  const t = localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
-  document.documentElement.setAttribute('data-theme', t);
-</script>
-</head>
-<body class="page-kitchen-sink">
-<header>
-  <nav aria-label="Main navigation">
-    <ul class="site-nav" id="topnav">
-      <li><a href="index.html"><svg class="brand-logo" viewBox="0 0 200 18" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-label="BD Economics home"><rect x="0" y="0" width="4" height="4"/><rect x="0" y="5" width="4" height="4"/><rect x="0" y="10" width="4" height="4"/><rect x="5" y="0" width="4" height="4"/><rect x="5" y="10" width="4" height="4"/><rect x="10" y="5" width="4" height="4"/></svg></a></li>
-      <li><button class="theme-toggle" onclick="const d=document.documentElement;const n=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',n);localStorage.setItem('theme',n);" aria-label="Toggle theme">◑</button></li>
-    </ul>
-  </nav>
-</header>
-
-<main>
+---
+layout: default
+title: "Kitchen Sink — BD Economics Design System"
+description: "Internal design system reference: every shared component on bd-econ.com with labels and cascade tests."
+canonical: "https://bd-econ.com/kitchen-sink.html"
+body_class: "page-kitchen-sink"
+extra_head: |
+  <style>
+    /* Kitchen sink page-specific: labels and section dividers */
+    .ks-section { padding: var(--space-7) 0 var(--space-4); border-bottom: 3px solid var(--color-border-light); }
+    .ks-section:first-of-type { padding-top: var(--space-5); }
+    .ks-label {
+      font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--color-text-muted); background: var(--color-bg-highlight);
+      padding: 2px var(--space-2); display: inline-block; margin-bottom: var(--space-3);
+    }
+    .ks-row { display: flex; gap: var(--space-4); flex-wrap: wrap; align-items: flex-start; margin-bottom: var(--space-5); }
+    .ks-col { flex: 1; min-width: 250px; }
+    .ks-swatch { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-2); }
+    .ks-swatch-box { width: 40px; height: 40px; border: 1px solid var(--color-border-light); flex-shrink: 0; }
+    .ks-swatch-label { font-size: var(--text-xs); color: var(--color-text-muted); }
+    .ks-spacer { margin-bottom: var(--space-5); }
+    .ks-grid-demo { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: var(--space-2); margin-bottom: var(--space-4); }
+    .ks-grid-demo > div { background: var(--color-bg-highlight); padding: var(--space-3); text-align: center; font-size: var(--text-xs); color: var(--color-text-muted); border: 1px solid var(--color-border-light); }
+    .ks-toc { columns: 3; column-gap: var(--space-5); }
+    .ks-toc a { display: block; font-size: var(--text-sm); padding: var(--space-1) 0; }
+    @media (max-width: 760px) { .ks-toc { columns: 1; } .ks-row { flex-direction: column; } }
+  </style>
+---
 
 <!-- ============================================================
      TABLE OF CONTENTS
@@ -2211,13 +2195,3 @@ data = json.dumps({
 </section>
 
 </article>
-</main>
-
-<footer>
-  <div class="footer-bottom">
-    <div class="footer-left"><p>Kitchen Sink &mdash; Design System Reference</p></div>
-  </div>
-</footer>
-
-</body>
-</html>
