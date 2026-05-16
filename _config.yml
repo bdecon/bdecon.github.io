@@ -5,6 +5,7 @@ url: https://bd-econ.com
 exclude:
   - Gemfile
   - Gemfile.lock
+  - Makefile
   - vendor
   - CLAUDE.md
   - DESIGN.md

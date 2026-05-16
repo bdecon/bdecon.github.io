@@ -8,3 +8,7 @@ gem "csv"
 gem "logger"
 gem "base64"
 gem "ostruct"
+
+group :development do
+  gem "html-proofer"
+end
