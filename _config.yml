@@ -1,0 +1,27 @@
+title: BD Economics
+url: https://bd-econ.com
+
+# Dirs/files Jekyll should NOT copy to _site
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - CLAUDE.md
+  - DESIGN.md
+  - README.md
+  - notebooks
+  - sandbox
+  - test-results
+  - docs
+  - "scripts/__pycache__"
+  - "scripts/*.py"
+  - "scripts/sync.sh"
+  - "scripts/reorder_head.py"
+
+# Files Jekyll should treat as static (no Liquid processing) even if they look like includes
+keep_files:
+  - .git
+
+# Output files at their source path (e.g., about.html → /about.html).
+# Do NOT use "pretty" permalinks here — it would output about/index.html
+# and break existing inbound links.
