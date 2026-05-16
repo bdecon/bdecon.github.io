@@ -1,8 +1,13 @@
 {%- comment -%}
   Pagination controls — shown on the blog index and category archive pages.
   Uses paginator.* variables from jekyll-paginate-v2.
+
+  Note: paginator.page_path is the CURRENT page's URL, not a template, so
+  we build numbered links by appending page<N>/ to paginator.first_page_path
+  (the page-1 base, e.g. "/blog/" or "/blog/category/<slug>/").
 {%- endcomment -%}
-{%- if paginator.total_pages > 1 %}
+{%- if paginator.total_pages > 1 -%}
+{%- assign _base = paginator.first_page_path -%}
 <nav class="blog-pagination" aria-label="Pagination">
 	{%- if paginator.previous_page %}
 	<a class="blog-pagination-link blog-pagination-prev" href="{{ paginator.previous_page_path | replace: '//', '/' }}">&larr; Newer</a>
@@ -15,9 +20,9 @@
 		{%- if page_num == paginator.page %}
 		<span class="blog-pagination-current" aria-current="page">{{ page_num }}</span>
 		{%- elsif page_num == 1 %}
-		<a href="{{ paginator.first_page_path | replace: '//', '/' }}">{{ page_num }}</a>
+		<a href="{{ _base }}">{{ page_num }}</a>
 		{%- else %}
-		<a href="{{ paginator.page_path | replace: ':num', page_num | replace: '//', '/' }}">{{ page_num }}</a>
+		<a href="{{ _base }}page{{ page_num }}/">{{ page_num }}</a>
 		{%- endif %}
 	{%- endfor -%}
 	</span>
