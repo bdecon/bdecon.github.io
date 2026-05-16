@@ -4,9 +4,20 @@ url: https://bd-econ.com
 plugins:
   - jekyll-sitemap
 
-# Exclude specific files from sitemap.xml (jekyll-sitemap respects sitemap: false).
-# These remain publicly accessible — just not advertised to search engines.
+# Tutorial pages live in _tutorials/ and render at /<name>.html.
+# Each file has front matter — see CLAUDE.md "Tutorials collection" section
+# for the schema (order, listed, featured, difficulty, accent, banner, deck...).
+collections:
+  tutorials:
+    output: true
+    permalink: /:name.html
+
+# Defaults applied by `scope`.
+# - Tutorials get layout: default automatically.
+# - Specific files/dirs excluded from sitemap (remain publicly accessible).
 defaults:
+  - scope: { path: "", type: "tutorials" }
+    values: { layout: default }
   - scope: { path: "CV.pdf" }
     values: { sitemap: false }
   - scope: { path: "MacroDash.pdf" }

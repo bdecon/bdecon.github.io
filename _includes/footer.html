@@ -12,10 +12,10 @@
 			<div>
 				<h4><a href="/python.html">Guides</a></h4>
 				<ul>
-					<li><a href="/getstarted.html">Setup</a></li>
-					<li><a href="/imfapi1.html">IMF API</a></li>
-					<li><a href="/blsapi.html">BLS API</a></li>
-					<li><a href="/censusapi.html">Census API</a></li>
+				{%- assign featured_tutorials = site.tutorials | where: "featured", true | sort: "order" -%}
+				{%- for t in featured_tutorials %}
+					<li><a href="{{ t.url }}">{{ t.short_title }}</a></li>
+				{%- endfor %}
 				</ul>
 			</div>
 			<div>

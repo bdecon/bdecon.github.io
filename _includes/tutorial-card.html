@@ -1,0 +1,29 @@
+{%- comment -%}
+  Tutorial card — used on python.html (Guides index) and anywhere else
+  we render a tutorial preview. Pass via: {% include tutorial-card.html t=tutorial %}
+  where `tutorial` is one item from site.tutorials.
+{%- endcomment -%}
+	<a href="{{ include.t.url }}">
+	<div class="card card-nav accent-{{ include.t.accent }}">
+
+		<div class="card-banner">
+			<picture><source srcset="/images/{{ include.t.banner }}_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="/images/{{ include.t.banner }}_banner.png" alt="{{ include.t.short_title }}" width="{{ include.t.banner_width }}" height="{{ include.t.banner_height }}"></picture>
+		</div>
+		<div class="card-header">
+			<h3>{{ include.t.short_title }}</h3>
+		</div>
+		<div class="card-body card-body-fill">
+			<p>{{ include.t.deck }}</p>
+			{%- case include.t.difficulty -%}
+			{%- when 'introductory' -%}
+			<span class="trail-badge trail-intro">● Introductory</span>
+			{%- when 'beginner' -%}
+			<span class="trail-badge trail-beginner">■ Beginner</span>
+			{%- when 'intermediate' -%}
+			<span class="trail-badge trail-intermediate">◆ Intermediate</span>
+			{%- when 'advanced' -%}
+			<span class="trail-badge trail-advanced">◆◆ Advanced</span>
+			{%- endcase %}
+		</div>
+	</div>
+	</a>

@@ -33,121 +33,23 @@ jsonld: |
       ]
   }
 ---
+	{% assign setup = site.tutorials | where: "difficulty", "introductory" | first %}
+	{% assign main_tutorials = site.tutorials | where_exp: "t", "t.listed and t.difficulty != 'introductory'" | sort: "order" %}
 	<section>
 	<article class="split-row py-row prose">
 		<div class="py-intro">
 			<p>Each tutorial below walks through a real example&mdash;from API request to finished chart&mdash;using pandas, requests, and Jupyter notebooks. They cover six major data sources for macroeconomic research.</p>
-			<p>New to Python? The <a href="getstarted.html">Setup</a> guide covers installation, essential pandas and numpy operations for economists, and your first API call.</p>
+			<p>New to Python? The <a href="{{ setup.url }}">{{ setup.short_title }}</a> guide covers installation, essential pandas and numpy operations for economists, and your first API call.</p>
 		</div>
-		<a href="getstarted.html">
-		<div class="card card-nav accent-ltblue">
-			<div class="card-banner">
-				<picture><source srcset="images/getstarted_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/getstarted_banner.png" alt="Setup with Python" width="400" height="68"></picture>
-			</div>
-			<div class="card-header">
-				<h3>Setup</h3>
-			</div>
-			<div class="card-body card-body-fill">
-				<p>Install Python, learn key economics calculations, and make your first API request.</p>
-				<span class="trail-badge trail-intro">● Introductory</span>
-			</div>
-		</div>
-		</a>
+		{% include tutorial-card.html t=setup %}
 	</article>
 	<!-- Order: most-popular first (IMF API), then by difficulty within
-	     the rest (beginners → intermediate → advanced). -->
+	     the rest (beginners → intermediate → advanced). Controlled by
+	     `order:` in each tutorial's front matter (_tutorials/*.html). -->
 	<section class="card-grid">
 	<h2 class="heading-accent">Tutorials</h2>
-	<a href="imfapi1.html">
-	<div class="card card-nav accent-blue">
-
-		<div class="card-banner">
-			<picture><source srcset="images/imf_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/imf_banner.png" alt="IMF API tutorial" width="293" height="68"></picture>
-		</div>
-		<div class="card-header">
-			<h3>IMF API</h3>
-		</div>
-		<div class="card-body card-body-fill">
-			<p>Access international economic data from the International Monetary Fund (IMF). Covers GDP, trade, prices, and more for 190+ countries.</p>
-			<span class="trail-badge trail-intermediate">◆ Intermediate</span>
-		</div>
-	</div>
-	</a>
-	<a href="treasuryapi.html">
-	<div class="card card-nav accent-red">
-
-		<div class="card-banner">
-			<picture><source srcset="images/treasury_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/treasury_banner.png" alt="Treasury API tutorial" width="391" height="68"></picture>
-		</div>
-		<div class="card-header">
-			<h3>Treasury API</h3>
-		</div>
-		<div class="card-body card-body-fill">
-			<p>Access federal finance data including revenue, spending, and debt from the US Treasury Fiscal Data API. No API key required.</p>
-			<span class="trail-badge trail-beginner">■ Beginner</span>
-		</div>
-	</div>
-	</a>
-	<a href="censusapi.html">
-	<div class="card card-nav accent-green">
-
-		<div class="card-banner">
-			<picture><source srcset="images/census_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/census_banner.png" alt="Census API tutorial" width="207" height="68"></picture>
-		</div>
-		<div class="card-header">
-			<h3>Census API</h3>
-		</div>
-		<div class="card-body card-body-fill">
-			<p>Retrieve US economic indicators from the Census Bureau, including manufacturing, international trade, and construction data.</p>
-			<span class="trail-badge trail-beginner">■ Beginner</span>
-		</div>
-	</div>
-	</a>
-	<a href="beaapi.html">
-	<div class="card card-nav accent-orange">
-
-		<div class="card-banner">
-			<picture><source srcset="images/bea_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/bea_banner.png" alt="BEA API tutorial" width="542" height="130"></picture>
-		</div>
-		<div class="card-header">
-			<h3>BEA API</h3>
-		</div>
-		<div class="card-body card-body-fill">
-			<p>Retrieve national accounts data from the Bureau of Economic Analysis including GDP, consumer spending, and industry statistics.</p>
-			<span class="trail-badge trail-intermediate">◆ Intermediate</span>
-		</div>
-	</div>
-	</a>
-	<a href="blsapi.html">
-	<div class="card card-nav accent-purple">
-
-		<div class="card-banner">
-			<picture><source srcset="images/bls_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/bls_banner.png" alt="BLS API tutorial" width="257" height="68"></picture>
-		</div>
-		<div class="card-header">
-			<h3>BLS API</h3>
-		</div>
-		<div class="card-body card-body-fill">
-			<p>Retrieve US labor statistics&mdash;employment, wages, prices&mdash;directly from the Bureau of Labor Statistics (BLS) API.</p>
-			<span class="trail-badge trail-intermediate">◆ Intermediate</span>
-		</div>
-	</div>
-	</a>
-	<a href="cps.html">
-	<div class="card card-nav accent-teal">
-
-		<div class="card-banner">
-			<picture><source srcset="images/cps_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/cps_banner.png" alt="CPS microdata tutorial" width="542" height="130"></picture>
-		</div>
-		<div class="card-header">
-			<h3>CPS Microdata</h3>
-		</div>
-		<div class="card-body card-body-fill">
-			<p>Read and analyze Current Population Survey microdata with Python. Build custom labor market statistics from household-level data.</p>
-			<span class="trail-badge trail-advanced">◆◆ Advanced</span>
-		</div>
-	</div>
-	</a>
-
+	{% for t in main_tutorials %}
+		{% include tutorial-card.html t=t %}
+	{% endfor %}
 	</section>
 	</section>
