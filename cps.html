@@ -1,135 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>CPS Microdata Guide | BD Economics</title>
-	<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-	<link rel="stylesheet" href="style.css">
-	<meta name="description" content="Python tutorial: Working with Current Population Survey microdata for labor market analysis.">
-	<meta name="keywords" content="Current Population Survey, CPS, CPS microdata, CPS python, Current Population Survey Python, IMF API, Economics Dashboard, Trade Network, Trade Networks, Macroeconomics Dashboard, Macroeconomic Dashboard, Markets Dashboard, Market Dashboard, U.S. Economy, U.S. Economy Dashboard, US economy, US economy dashboard, US economy charts, US economy charts pdf, NetworkX trade, international trade networks, network analysis of trade, Census Bureau CPS Python, Census Bureau CPS Pandas, BLS CPS Pandas, BLS CPS Python">
-	<meta name="author" content="Brian Dew">
-	<link rel="canonical" href="https://bd-econ.com/cps.html">
-	<!-- Open Graph -->
-	<meta property="og:title" content="CPS Microdata Guide | BD Economics">
-	<meta property="og:description" content="Python tutorial: Working with Current Population Survey microdata for labor market analysis.">
-	<meta property="og:url" content="https://bd-econ.com/cps.html">
-	<meta property="og:type" content="article">
-	<meta property="og:image" content="https://bd-econ.com/images/01_bdlogo.png">
-	<!-- Twitter Card -->
-	<meta name="twitter:card" content="summary">
-	<meta name="twitter:title" content="CPS Microdata Guide | BD Economics">
-	<meta name="twitter:description" content="Python tutorial: Working with Current Population Survey microdata for labor market analysis.">
-	<meta name="twitter:image" content="https://bd-econ.com/images/01_bdlogo.png">
-	<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-	<link rel="manifest" href="favicon/manifest.json">
-	<meta name="theme-color" content="#ffffff">
-<script>
-(function() {
-	const saved = localStorage.getItem('theme');
-	if (saved) {
-		document.documentElement.setAttribute('data-theme', saved);
-	} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-		document.documentElement.setAttribute('data-theme', 'dark');
-	}
-})();
-</script>
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "headline": "CPS Microdata Python Tutorial",
-    "description": "Python tutorial: Working with Current Population Survey microdata for labor market analysis.",
-    "author": {
-        "@type": "Person",
-        "name": "Brian Dew"
-    },
-    "publisher": {
-        "@type": "Organization",
-        "name": "BD Economics",
-        "url": "https://bd-econ.com"
-    },
-    "mainEntityOfPage": "https://bd-econ.com/cps.html",
-    "datePublished": "2018-03-10",
-    "dateModified": "2026-01-17"
-}
-</script>
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-        {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Guides",
-            "item": "https://bd-econ.com/python.html"
-        },
-        {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "CPS Microdata",
-            "item": "https://bd-econ.com/cps.html"
-        }
-    ]
-}
-</script>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-PGVF5S620Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-PGVF5S620Y');
-</script>
-</head>
-<body class="page-cps accent-teal">
-	<a href="#main" class="skip-link">Skip to main content</a>
-	<header>
-	<nav aria-label="Main navigation">
-		<ul class="site-nav" id="menu">
-			<li class="nav-main"> <a href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 139 17" fill="currentColor" class="brand-logo" role="img" aria-label="BD Economics"> <g transform="translate(0,1.5) scale(2.64,2.59)"> <rect x="0" y="0" width="1" height="5"/> <rect x="0" y="4" width="4" height="1"/> <rect x="2" y="2" width="2" height="1"/> <rect x="3" y="2" width="1" height="2"/> <rect x="8" y="0" width="1" height="5"/> <rect x="5" y="4" width="4" height="1"/> <rect x="5" y="2" width="2" height="1"/> <rect x="5" y="2" width="1" height="2"/> </g> <g transform="translate(27.7,15) scale(0.01857,-0.01857)"> <path transform="translate(0,0)" d="M94 0V700H518V622H178V390H512V312H178V78H524V0Z"/> <path transform="translate(672,0)" d="M310 -14Q195 -14 129.5 59.5Q64 133 64 272V428Q64 563 129.5 638.5Q195 714 310 714Q390 714 445.0 680.0Q500 646 528.0 588.5Q556 531 556 460V448H472V460Q471 506 454.5 546.0Q438 586 402.5 611.0Q367 636 310 636Q229 636 188.5 577.0Q148 518 148 422V278Q148 176 188.5 120.0Q229 64 310 64Q367 64 403.0 89.0Q439 114 455.5 154.0Q472 194 472 240V252H556V240Q556 169 528.0 111.5Q500 54 445.0 20.0Q390 -14 310 -14Z"/> <path transform="translate(1344,0)" d="M306 -14Q191 -14 125.5 59.5Q60 133 60 272V428Q60 563 125.5 638.5Q191 714 306 714Q422 714 487.0 638.5Q552 563 552 428V272Q552 133 487.0 59.5Q422 -14 306 -14ZM306 64Q387 64 427.5 120.0Q468 176 468 278V422Q468 518 427.5 577.0Q387 636 306 636Q225 636 184.5 577.0Q144 518 144 422V278Q144 176 184.5 120.0Q225 64 306 64Z"/> <path transform="translate(2016,0)" d="M73 0V700H241L443 36H455V700H539V0H371L169 664H157V0Z"/> <path transform="translate(2688,0)" d="M306 -14Q191 -14 125.5 59.5Q60 133 60 272V428Q60 563 125.5 638.5Q191 714 306 714Q422 714 487.0 638.5Q552 563 552 428V272Q552 133 487.0 59.5Q422 -14 306 -14ZM306 64Q387 64 427.5 120.0Q468 176 468 278V422Q468 518 427.5 577.0Q387 636 306 636Q225 636 184.5 577.0Q144 518 144 422V278Q144 176 184.5 120.0Q225 64 306 64Z"/> <path transform="translate(3360,0)" d="M46 0V700H206L300 36H312L406 700H566V0H488V664H476L382 0H230L136 664H124V0Z"/> <path transform="translate(4032,0)" d="M84 0V78H264V622H84V700H528V622H348V78H528V0Z"/> <path transform="translate(4704,0)" d="M310 -14Q195 -14 129.5 59.5Q64 133 64 272V428Q64 563 129.5 638.5Q195 714 310 714Q390 714 445.0 680.0Q500 646 528.0 588.5Q556 531 556 460V448H472V460Q471 506 454.5 546.0Q438 586 402.5 611.0Q367 636 310 636Q229 636 188.5 577.0Q148 518 148 422V278Q148 176 188.5 120.0Q229 64 310 64Q367 64 403.0 89.0Q439 114 455.5 154.0Q472 194 472 240V252H556V240Q556 169 528.0 111.5Q500 54 445.0 20.0Q390 -14 310 -14Z"/> <path transform="translate(5376,0)" d="M320 -14Q230 -14 169.0 19.5Q108 53 76.5 111.0Q45 169 45 242V272H129V248Q129 157 180.0 110.5Q231 64 320 64Q398 64 437.5 99.0Q477 134 477 190V196Q477 251 436.5 280.0Q396 309 305 322Q200 337 137.5 381.5Q75 426 75 516V528Q75 583 104.5 624.5Q134 666 186.0 690.0Q238 714 306 714Q385 714 440.5 685.0Q496 656 525.5 608.5Q555 561 555 504V462H471V498Q471 544 448.0 574.5Q425 605 387.0 620.5Q349 636 305 636Q267 636 233.5 623.0Q200 610 179.5 585.5Q159 561 159 525V519Q159 461 206.0 434.5Q253 408 347 394Q457 378 509.0 330.0Q561 282 561 202V190Q561 99 499.5 42.5Q438 -14 320 -14Z"/> </g> </svg></a> </li>
-			<li><a href="about.html">About</a> </li>
-			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <svg class="icon icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg><span class="sr-only"> (opens in new tab)</span></a> </li>
-			<li><a href="python.html" class="active" aria-current="page">Guides <span class="nav-arrow">&darr;</span></a>
-				<ul class="hidden">
-					<li><a href="getstarted.html">Setup</a></li>
-					<li><a href="imfapi1.html">IMF API</a></li>
-					<li><a href="blsapi.html">BLS API</a></li>
-					<li><a href="beaapi.html">BEA API</a></li>
-					<li><a href="censusapi.html">Census API</a></li>
-					<li><a href="treasuryapi.html">Treasury API</a></li>
-					<li><a href="cps.html">CPS Microdata</a></li>
-			</ul>
-			</li>
-		<li>
-			<a href="reports.html">Reports <span class="nav-arrow">&darr;</span></a>
-			<ul class="hidden">
-				<li><a href="chartbook.html">US Chartbook</a></li>
-				<li><a href="indicators.html">Economic Indicators</a></li>
-				<li><a href="gdpm.html">Monthly GDP</a></li>
-				<li><a href="imfweo.html">IMF WEO</a></li>
-				<li><a href="calendar.html">Release Calendar</a></li>
-			</ul>
-			</li>
-			<li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span></button></li>
-			<li class="icon">
-				<button type="button" onclick="responsiveNav()" aria-label="Toggle navigation menu" aria-expanded="false">&#9776;</button>
-			</li>
-		</ul>
-	</nav>
-	</header>
-
-	<div class="page-strip accent-teal">
-		<picture><source srcset="images/cps_strip.webp" type="image/webp"><img decoding="async" fetchpriority="high" src="images/cps_strip.jpg" alt="" aria-hidden="true" class="page-strip-img" width="1600" height="200"></picture>
-	</div>
-	<div class="page-title">
-	<h1>CPS Microdata</h1>
-	</div><!-- .page-title -->
-	<main id="main">
+---
+layout: default
+title: "CPS Microdata Guide | BD Economics"
+description: "Python tutorial: Working with Current Population Survey microdata for labor market analysis."
+keywords: "Current Population Survey, CPS, CPS microdata, CPS python, Current Population Survey Python, IMF API, Economics Dashboard, Trade Network, Trade Networks, Macroeconomics Dashboard, Macroeconomic Dashboard, Markets Dashboard, Market Dashboard, U.S. Economy, U.S. Economy Dashboard, US economy, US economy dashboard, US economy charts, US economy charts pdf, NetworkX trade, international trade networks, network analysis of trade, Census Bureau CPS Python, Census Bureau CPS Pandas, BLS CPS Pandas, BLS CPS Python"
+canonical: "https://bd-econ.com/cps.html"
+og_type: "article"
+body_class: "page-cps accent-teal"
+nav_active: "guides"
+page_strip: "cps"
+page_strip_class: "accent-teal"
+h1: "CPS Microdata"
+extra_head: |
+      <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+jsonld: |
+  {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "CPS Microdata Python Tutorial",
+      "description": "Python tutorial: Working with Current Population Survey microdata for labor market analysis.",
+      "author": {
+          "@type": "Person",
+          "name": "Brian Dew"
+      },
+      "publisher": {
+          "@type": "Organization",
+          "name": "BD Economics",
+          "url": "https://bd-econ.com"
+      },
+      "mainEntityOfPage": "https://bd-econ.com/cps.html",
+      "datePublished": "2018-03-10",
+      "dateModified": "2026-01-17"
+  }
+jsonld_extra: |
+  {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+          {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Guides",
+              "item": "https://bd-econ.com/python.html"
+          },
+          {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "CPS Microdata",
+              "item": "https://bd-econ.com/cps.html"
+          }
+      ]
+  }
+extra_scripts: |
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script>
+---
 	<section>
 	<article class="prose">
 	<div class="tutorial-meta">
@@ -339,51 +263,3 @@ print(f'April 2017: {epop*100:.1f}%')</code></pre>
 	</article>
 	<div class="subfooter" data-hub="guides" data-current="cps.html" style="--accent-color: var(--color-card-teal)"></div>
 	</section>
-	</main>
-
-		<footer>
-		<div class="footer-sitemap">
-			<div>
-				<h4><a href="reports.html">Data</a></h4>
-				<ul>
-					<li><a href="chartbook.html">US Chartbook</a></li>
-					<li><a href="indicators.html">Economic Indicators</a></li>
-					<li><a href="gdpm.html">Monthly GDP</a></li>
-					<li><a href="imfweo.html">WEO Forecasts</a></li>
-				</ul>
-			</div>
-			<div>
-				<h4><a href="python.html">Guides</a></h4>
-				<ul>
-					<li><a href="getstarted.html">Setup</a></li>
-					<li><a href="imfapi1.html">IMF API</a></li>
-					<li><a href="blsapi.html">BLS API</a></li>
-					<li><a href="censusapi.html">Census API</a></li>
-				</ul>
-			</div>
-			<div>
-				<h4><a href="about.html">About</a></h4>
-				<ul>
-					<li><a href="about.html">About BD Economics</a></li>
-					<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog</a></li>
-					<li><a href="https://github.com/bdecon/" target="_blank" rel="noopener">GitHub</a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="footer-bottom">
-		<div class="footer-left">
-			<p><time datetime="2026">2026</time>, by Brian Dew</p>
-		</div>
-		<nav class="footer-right" aria-label="Social links">
-			<a href="https://github.com/bdecon/" aria-label="GitHub"><svg class="icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
-			<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><svg class="icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.016-.709-.52-1.248-1.342-1.248S1.4 3.226 1.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a.3.3 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/></svg></a>
-			<a href="https://twitter.com/bd_econ" aria-label="Twitter"><svg class="icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334q.002-.211-.006-.422A6.7 6.7 0 0 0 16 3.542a6.7 6.7 0 0 1-1.889.518 3.3 3.3 0 0 0 1.447-1.817 6.5 6.5 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.32 9.32 0 0 1-6.767-3.429 3.29 3.29 0 0 0 1.018 4.382A3.3 3.3 0 0 1 .64 6.575v.045a3.29 3.29 0 0 0 2.632 3.218 3.2 3.2 0 0 1-.865.115 3 3 0 0 1-.614-.057 3.28 3.28 0 0 0 3.067 2.277A6.6 6.6 0 0 1 .78 13.58a6 6 0 0 1-.78-.045A9.34 9.34 0 0 0 5.026 15"/></svg></a>
-			<a href="https://briandew.wordpress.com/" target="_blank" rel="noopener" aria-label="WordPress Blog"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.469 6.825c.84 1.537 1.318 3.3 1.318 5.175 0 3.979-2.156 7.456-5.363 9.325l3.295-9.527c.615-1.54.82-2.771.82-3.864 0-.405-.026-.78-.07-1.11m-7.981.105c.647-.03 1.232-.105 1.232-.105.582-.075.514-.93-.067-.899 0 0-1.755.135-2.88.135-1.064 0-2.85-.15-2.85-.15-.585-.03-.661.855-.075.885 0 0 .54.061 1.125.09l1.68 4.605-2.37 7.08L5.354 6.9c.649-.03 1.234-.1 1.234-.1.585-.075.516-.93-.065-.896 0 0-1.746.138-2.874.138-.2 0-.438-.008-.69-.015C4.911 3.15 8.235 1.215 12 1.215c2.809 0 5.365 1.072 7.286 2.833-.046-.003-.091-.009-.141-.009-1.06 0-1.812.923-1.812 1.914 0 .89.513 1.643 1.06 2.531.411.72.89 1.643.89 2.977 0 .915-.354 1.994-.821 3.479l-1.075 3.585-3.9-11.61.001.014zM12 22.784c-1.059 0-2.081-.153-3.048-.437l3.237-9.406 3.315 9.087c.024.053.05.101.078.149-1.12.393-2.325.609-3.582.609M1.211 12c0-1.564.336-3.05.935-4.39L7.29 21.709C3.694 19.96 1.212 16.271 1.211 12M12 0C5.385 0 0 5.385 0 12s5.385 12 12 12 12-5.385 12-12S18.615 0 12 0"/></svg></a>
-		</nav>
-		</div>
-		</footer>
-	<script src="scripts/nav.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-	<script>hljs.highlightAll();</script>
-</body>
-</html>
