@@ -8,6 +8,9 @@
 	<header>
 {% include nav.html %}
 	</header>
+{% if page.after_header_html %}
+{{ page.after_header_html }}
+{% endif %}
 {% if page.page_strip_html %}
 {{ page.page_strip_html }}
 {% elsif page.page_strip %}
