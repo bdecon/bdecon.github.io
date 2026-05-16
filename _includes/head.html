@@ -3,19 +3,20 @@
 	<title>{{ page.title }}</title>
 {% if page.extra_head %}{{ page.extra_head }}
 {% endif %}	<link rel="stylesheet" href="style.css">
-	<meta name="description" content="{{ page.description }}">
+{% if page.head_scripts %}{{ page.head_scripts }}
+{% endif %}	<meta name="description" content="{{ page.description }}">
 {% if page.keywords %}	<meta name="keywords" content="{{ page.keywords }}">
 {% endif %}	<meta name="author" content="Brian Dew">
 	<link rel="canonical" href="{{ page.canonical }}">
 	<!-- Open Graph -->
-	<meta property="og:title" content="{{ page.title }}">
+	<meta property="og:title" content="{{ page.og_title | default: page.title }}">
 	<meta property="og:description" content="{{ page.og_description | default: page.description }}">
 	<meta property="og:url" content="{{ page.canonical }}">
 	<meta property="og:type" content="{{ page.og_type | default: 'website' }}">
 	<meta property="og:image" content="{{ page.og_image | default: 'https://bd-econ.com/images/01_bdlogo.png' }}">
 	<!-- Twitter Card -->
 	<meta name="twitter:card" content="{{ page.twitter_card | default: 'summary' }}">
-	<meta name="twitter:title" content="{{ page.title }}">
+	<meta name="twitter:title" content="{{ page.og_title | default: page.title }}">
 	<meta name="twitter:description" content="{{ page.og_description | default: page.description }}">
 	<meta name="twitter:image" content="{{ page.og_image | default: 'https://bd-econ.com/images/01_bdlogo.png' }}">
 	<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">

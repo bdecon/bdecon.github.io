@@ -8,12 +8,16 @@
 	<header>
 {% include nav.html %}
 	</header>
-{% if page.page_strip %}
+{% if page.page_strip_html %}
+{{ page.page_strip_html }}
+{% elsif page.page_strip %}
 	<div class="page-strip{% if page.page_strip_class %} {{ page.page_strip_class }}{% endif %}">
 		<picture><source srcset="images/{{ page.page_strip }}_strip.webp" type="image/webp"><img decoding="async" fetchpriority="high" src="images/{{ page.page_strip }}_strip.jpg" alt="" aria-hidden="true" class="page-strip-img" width="1600" height="200"></picture>
 	</div>
 {% endif %}
-{% if page.h1 %}
+{% if page.page_title_html %}
+{{ page.page_title_html }}
+{% elsif page.h1 %}
 	<div class="page-title">
 	<h1>{{ page.h1 }}</h1>
 	</div><!-- .page-title -->

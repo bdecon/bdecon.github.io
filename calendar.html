@@ -1,129 +1,459 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Release Calendar | BD Economics</title>
-	<link rel="stylesheet" href="style.css">
-	<meta name="description" content="Upcoming US economic data releases: Employment Situation, CPI, GDP, and 40+ indicators. Scheduled dates from the FRED API, updated weekly.">
-	<meta name="keywords" content="economic data release calendar, BLS release dates, BEA release dates, CPI release date, jobs report date, GDP release date, economic indicators schedule">
-	<meta name="author" content="Brian Dew">
-	<link rel="canonical" href="https://bd-econ.com/calendar.html">
-	<!-- Open Graph -->
-	<meta property="og:title" content="Release Calendar | BD Economics">
-	<meta property="og:description" content="Upcoming US economic data releases: Employment Situation, CPI, GDP, and 40+ indicators. Dates from FRED.">
-	<meta property="og:url" content="https://bd-econ.com/calendar.html">
-	<meta property="og:type" content="website">
-	<meta property="og:image" content="https://bd-econ.com/images/01_bdlogo.png">
-	<!-- Twitter Card -->
-	<meta name="twitter:card" content="summary">
-	<meta name="twitter:title" content="Release Calendar | BD Economics">
-	<meta name="twitter:description" content="Upcoming US economic data releases: Employment Situation, CPI, GDP, and 40+ indicators. Dates from FRED.">
-	<meta name="twitter:image" content="https://bd-econ.com/images/01_bdlogo.png">
-	<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-	<link rel="manifest" href="favicon/manifest.json">
-	<meta name="theme-color" content="#ffffff">
-<script>
-(function() {
-	const saved = localStorage.getItem('theme');
-	if (saved) {
-		document.documentElement.setAttribute('data-theme', saved);
-	} else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-		document.documentElement.setAttribute('data-theme', 'dark');
-	}
-})();
-</script>
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "US Economic Release Calendar",
-    "description": "Upcoming release dates for 45 US economic data series from BLS, BEA, Census, the Federal Reserve, and Treasury. Updated weekly from the FRED API.",
-    "url": "https://bd-econ.com/calendar.html",
-    "applicationCategory": "Reference",
-    "author": {
-        "@type": "Person",
-        "name": "Brian Dew",
-        "url": "https://bd-econ.com"
-    },
-    "isAccessibleForFree": true
-}
-</script>
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-        {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Reports",
-            "item": "https://bd-econ.com/reports.html"
-        },
-        {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Release Calendar",
-            "item": "https://bd-econ.com/calendar.html"
-        }
-    ]
-}
-</script>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-PGVF5S620Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+---
+layout: default
+title: "Release Calendar | BD Economics"
+description: "Upcoming US economic data releases: Employment Situation, CPI, GDP, and 40+ indicators. Scheduled dates from the FRED API, updated weekly."
+keywords: "economic data release calendar, BLS release dates, BEA release dates, CPI release date, jobs report date, GDP release date, economic indicators schedule"
+og_description: "Upcoming US economic data releases: Employment Situation, CPI, GDP, and 40+ indicators. Dates from FRED."
+canonical: "https://bd-econ.com/calendar.html"
+body_class: "page-calendar accent-brown"
+nav_active: "reports"
+page_strip: "calendar"
+page_strip_class: "page-strip-compact accent-brown"
+h1: "Release Calendar"
+jsonld: |
+  {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "US Economic Release Calendar",
+      "description": "Upcoming release dates for 45 US economic data series from BLS, BEA, Census, the Federal Reserve, and Treasury. Updated weekly from the FRED API.",
+      "url": "https://bd-econ.com/calendar.html",
+      "applicationCategory": "Reference",
+      "author": {
+          "@type": "Person",
+          "name": "Brian Dew",
+          "url": "https://bd-econ.com"
+      },
+      "isAccessibleForFree": true
+  }
+jsonld_extra: |
+  {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+          {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Reports",
+              "item": "https://bd-econ.com/reports.html"
+          },
+          {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Release Calendar",
+              "item": "https://bd-econ.com/calendar.html"
+          }
+      ]
+  }
+extra_scripts: |
+      <script>
+      (function() {
+              const MAJOR = new Set([
+                      'Employment Situation', 'Consumer Price Index', 'GDP',
+                      'Personal Income & Outlays', 'Retail Sales', 'JOLTS',
+                      'Producer Price Index', 'Industrial Production',
+                      'International Trade', 'Housing Starts',
+                      'Employment Cost Index', 'FOMC Projections',
+                      'Durable Goods Orders', 'Consumer Sentiment',
+              ]);
+              const MONTH_NAMES = ['January','February','March','April','May','June',
+                      'July','August','September','October','November','December'];
+              const DAY_ABBR = ['Mon','Tue','Wed','Thu','Fri'];
 
-  gtag('config', 'G-PGVF5S620Y');
-</script>
-</head>
-<body class="page-calendar accent-brown">
-	<a href="#main" class="skip-link">Skip to main content</a>
-	<header>
-	<nav aria-label="Main navigation">
-		<ul class="site-nav" id="menu">
-			<li class="nav-main"> <a href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 139 17" fill="currentColor" class="brand-logo" role="img" aria-label="BD Economics"> <g transform="translate(0,1.5) scale(2.64,2.59)"> <rect x="0" y="0" width="1" height="5"/> <rect x="0" y="4" width="4" height="1"/> <rect x="2" y="2" width="2" height="1"/> <rect x="3" y="2" width="1" height="2"/> <rect x="8" y="0" width="1" height="5"/> <rect x="5" y="4" width="4" height="1"/> <rect x="5" y="2" width="2" height="1"/> <rect x="5" y="2" width="1" height="2"/> </g> <g transform="translate(27.7,15) scale(0.01857,-0.01857)"> <path transform="translate(0,0)" d="M94 0V700H518V622H178V390H512V312H178V78H524V0Z"/> <path transform="translate(672,0)" d="M310 -14Q195 -14 129.5 59.5Q64 133 64 272V428Q64 563 129.5 638.5Q195 714 310 714Q390 714 445.0 680.0Q500 646 528.0 588.5Q556 531 556 460V448H472V460Q471 506 454.5 546.0Q438 586 402.5 611.0Q367 636 310 636Q229 636 188.5 577.0Q148 518 148 422V278Q148 176 188.5 120.0Q229 64 310 64Q367 64 403.0 89.0Q439 114 455.5 154.0Q472 194 472 240V252H556V240Q556 169 528.0 111.5Q500 54 445.0 20.0Q390 -14 310 -14Z"/> <path transform="translate(1344,0)" d="M306 -14Q191 -14 125.5 59.5Q60 133 60 272V428Q60 563 125.5 638.5Q191 714 306 714Q422 714 487.0 638.5Q552 563 552 428V272Q552 133 487.0 59.5Q422 -14 306 -14ZM306 64Q387 64 427.5 120.0Q468 176 468 278V422Q468 518 427.5 577.0Q387 636 306 636Q225 636 184.5 577.0Q144 518 144 422V278Q144 176 184.5 120.0Q225 64 306 64Z"/> <path transform="translate(2016,0)" d="M73 0V700H241L443 36H455V700H539V0H371L169 664H157V0Z"/> <path transform="translate(2688,0)" d="M306 -14Q191 -14 125.5 59.5Q60 133 60 272V428Q60 563 125.5 638.5Q191 714 306 714Q422 714 487.0 638.5Q552 563 552 428V272Q552 133 487.0 59.5Q422 -14 306 -14ZM306 64Q387 64 427.5 120.0Q468 176 468 278V422Q468 518 427.5 577.0Q387 636 306 636Q225 636 184.5 577.0Q144 518 144 422V278Q144 176 184.5 120.0Q225 64 306 64Z"/> <path transform="translate(3360,0)" d="M46 0V700H206L300 36H312L406 700H566V0H488V664H476L382 0H230L136 664H124V0Z"/> <path transform="translate(4032,0)" d="M84 0V78H264V622H84V700H528V622H348V78H528V0Z"/> <path transform="translate(4704,0)" d="M310 -14Q195 -14 129.5 59.5Q64 133 64 272V428Q64 563 129.5 638.5Q195 714 310 714Q390 714 445.0 680.0Q500 646 528.0 588.5Q556 531 556 460V448H472V460Q471 506 454.5 546.0Q438 586 402.5 611.0Q367 636 310 636Q229 636 188.5 577.0Q148 518 148 422V278Q148 176 188.5 120.0Q229 64 310 64Q367 64 403.0 89.0Q439 114 455.5 154.0Q472 194 472 240V252H556V240Q556 169 528.0 111.5Q500 54 445.0 20.0Q390 -14 310 -14Z"/> <path transform="translate(5376,0)" d="M320 -14Q230 -14 169.0 19.5Q108 53 76.5 111.0Q45 169 45 242V272H129V248Q129 157 180.0 110.5Q231 64 320 64Q398 64 437.5 99.0Q477 134 477 190V196Q477 251 436.5 280.0Q396 309 305 322Q200 337 137.5 381.5Q75 426 75 516V528Q75 583 104.5 624.5Q134 666 186.0 690.0Q238 714 306 714Q385 714 440.5 685.0Q496 656 525.5 608.5Q555 561 555 504V462H471V498Q471 544 448.0 574.5Q425 605 387.0 620.5Q349 636 305 636Q267 636 233.5 623.0Q200 610 179.5 585.5Q159 561 159 525V519Q159 461 206.0 434.5Q253 408 347 394Q457 378 509.0 330.0Q561 282 561 202V190Q561 99 499.5 42.5Q438 -14 320 -14Z"/> </g> </svg></a> </li>
-			<li><a href="about.html">About</a> </li>
-			<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog <svg class="icon icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg><span class="sr-only"> (opens in new tab)</span></a> </li>
-			<li><a href="python.html">Guides <span class="nav-arrow">&darr;</span></a>
-				<ul class="hidden">
-					<li><a href="getstarted.html">Setup</a></li>
-					<li><a href="imfapi1.html">IMF API</a></li>
-					<li><a href="blsapi.html">BLS API</a></li>
-					<li><a href="beaapi.html">BEA API</a></li>
-					<li><a href="censusapi.html">Census API</a></li>
-					<li><a href="treasuryapi.html">Treasury API</a></li>
-					<li><a href="cps.html">CPS Microdata</a></li>
-			</ul>
-			</li>
-		<li>
-			<a href="reports.html" class="active" aria-current="page">Reports <span class="nav-arrow">&darr;</span></a>
-			<ul class="hidden">
-				<li><a href="chartbook.html">US Chartbook</a></li>
-				<li><a href="indicators.html">Economic Indicators</a></li>
-				<li><a href="gdpm.html">Monthly GDP</a></li>
-				<li><a href="imfweo.html">IMF WEO</a></li>
-				<li><a href="calendar.html">Release Calendar</a></li>
-			</ul>
-			</li>
-			<li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span></button></li>
-			<li class="icon">
-				<button type="button" onclick="responsiveNav()" aria-label="Toggle navigation menu" aria-expanded="false">&#9776;</button>
-			</li>
-		</ul>
-	</nav>
-	</header>
-	<div class="page-strip page-strip-compact accent-brown">
-		<picture><source srcset="images/calendar_strip.webp" type="image/webp"><img decoding="async" fetchpriority="high" src="images/calendar_strip.jpg" alt="" aria-hidden="true" class="page-strip-img" width="1600" height="200"></picture>
-	</div>
-	<div class="page-title">
-		<h1>Release Calendar</h1>
-	</div><!-- .page-title -->
-	<main id="main">
+              let calData = null;
+              let currentFilter = 'all';  // 'all' or 'major'
+              let weekView = false;
+              let weekOffset = 0; // 0 = current week, -1 = last week, +1 = next week
+              let currentMonth = null; // {year, month} (0-indexed month)
+              let availableMonths = [];
+
+              function parseDate(s) {
+                      const [y,m,d] = s.split('-').map(Number);
+                      return new Date(y, m-1, d);
+              }
+              function todayStr() {
+                      const n = new Date();
+                      return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
+              }
+              function isPast(dateStr) { return dateStr < todayStr(); }
+              function isToday(dateStr) { return dateStr === todayStr(); }
+
+              function filterEntries(entries) {
+                      if (currentFilter === 'major') return entries.filter(e => MAJOR.has(e.name));
+                      return entries;
+              }
+
+              // Build a lookup: dateStr -> [entries]
+              function buildDayMap(entries) {
+                      const map = {};
+                      for (const e of entries) {
+                              (map[e.date] ||= []).push(e);
+                      }
+                      return map;
+              }
+
+              function getMonthWeeks(year, month) {
+                      // Returns array of weeks, each week = array of 5 days (Mon-Fri)
+                      // Each day = {date, dateStr, inMonth}
+                      const first = new Date(year, month, 1);
+                      const last = new Date(year, month + 1, 0);
+
+                      // Find the Monday on or before the 1st
+                      let start = new Date(first);
+                      let dow = start.getDay(); // 0=Sun
+                      let offset = (dow === 0) ? -6 : 1 - dow; // days to get to Monday
+                      start.setDate(start.getDate() + offset);
+
+                      const weeks = [];
+                      let d = new Date(start);
+                      while (d <= last || d.getDay() !== 1) {
+                              const week = [];
+                              for (let i = 0; i < 5; i++) { // Mon-Fri
+                                      const ds = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+                                      week.push({
+                                              date: d.getDate(),
+                                              dateStr: ds,
+                                              inMonth: d.getMonth() === month,
+                                      });
+                                      d.setDate(d.getDate() + 1);
+                              }
+                              d.setDate(d.getDate() + 2); // skip Sat-Sun
+                              weeks.push(week);
+                              if (d > last && d.getDay() === 1) break;
+                      }
+                      return weeks;
+              }
+
+              // Short time: "8:30 AM ET" -> "8:30a"
+              function shortTime(t) {
+                      if (!t) return '';
+                      const m = t.match(/^(\d+:\d+)\s*(AM|PM)/i);
+                      if (!m) return '';
+                      return m[1] + (m[2].toUpperCase() === 'AM' ? 'a' : 'p');
+              }
+
+              // Agency badge
+              const AGENCY_MAP = {
+                      'BLS': ['bls', 'BLS'],
+                      'BEA': ['bea', 'BEA'],
+                      'BEA/Census': ['bea', 'BEA'],
+                      'Fed': ['fed', 'FED'],
+                      'NY Fed': ['fed', 'FED'],
+                      'Atlanta Fed': ['fed', 'FED'],
+                      'Census': ['census', 'CEN'],
+                      'Treasury': ['treasury', 'TRES'],
+                      'DOL': ['bls', 'DOL'],
+                      'EIA': ['other', 'EIA'],
+                      'BIS': ['other', 'BIS'],
+                      'Freddie Mac': ['other', 'FMAC'],
+                      'S&P/Case-Shiller': ['other', 'S&P'],
+                      'U of Michigan': ['other', 'MICH'],
+              };
+              function agencyBadge(agency) {
+                      const [cls, label] = AGENCY_MAP[agency] || ['other', agency.slice(0,4).toUpperCase()];
+                      return `<span class="badge-solid cal-agency-${cls}">${label}</span>`;
+              }
+
+              function renderEntry(e) {
+                      const major = MAJOR.has(e.name) ? ' major' : '';
+                      const title = `${e.time || 'TBD'} · ${e.agency}`;
+                      const time = shortTime(e.time);
+                      const timeHtml = time ? `<span class="cal-t">${time}</span> ` : '';
+                      const badge = agencyBadge(e.agency);
+                      const inner = `${timeHtml}${badge}${e.name}`;
+                      return `<span class="cal-rel${major}" title="${title}">${inner}</span>`;
+              }
+
+              // This week summary
+              function renderWeekSummary() {
+                      const container = document.getElementById('cal-week-summary');
+                      if (!calData) { container.innerHTML = ''; return; }
+
+                      const now = new Date();
+                      // Find Monday of current/upcoming week (Sun looks forward)
+                      const dow = now.getDay(); // 0=Sun
+                      const mondayOffset = dow === 0 ? 1 : 1 - dow;
+                      const monday = new Date(now);
+                      monday.setDate(monday.getDate() + mondayOffset);
+                      const friday = new Date(monday);
+                      friday.setDate(friday.getDate() + 4);
+
+                      const pad2 = n => String(n).padStart(2, '0');
+                      const monStr = `${monday.getFullYear()}-${pad2(monday.getMonth()+1)}-${pad2(monday.getDate())}`;
+                      const friStr = `${friday.getFullYear()}-${pad2(friday.getMonth()+1)}-${pad2(friday.getDate())}`;
+
+                      // Get entries for this week (Mon-Fri; on Sun show upcoming week)
+                      const weekEntries = calData.entries.filter(e =>
+                              e.date >= monStr && e.date <= friStr
+                      );
+
+                      if (weekEntries.length === 0) {
+                              container.innerHTML = '';
+                              return;
+                      }
+
+                      // Group by day
+                      const byDay = {};
+                      for (const e of weekEntries) {
+                              (byDay[e.date] ||= []).push(e);
+                      }
+
+                      const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+                      let html = '<div class="info-box accent-brown cal-week-summary"><h3>This week</h3> ';
+                      const dayParts = [];
+                      for (const [dateStr, entries] of Object.entries(byDay).sort()) {
+                              const d = parseDate(dateStr);
+                              const dayName = dayNames[d.getDay()];
+                              const names = entries
+                                      .filter(e => MAJOR.has(e.name))
+                                      .map(e => `${agencyBadge(e.agency)}${e.name}`)
+                                      .join(', ');
+                              if (names) dayParts.push(`<strong>${dayName}</strong> ${names}`);
+                      }
+                      if (dayParts.length === 0) {
+                              // No major releases — show count
+                              html += `${weekEntries.length} release${weekEntries.length > 1 ? 's' : ''} remaining this week (no major)`;
+                      } else {
+                              html += dayParts.join(' &ensp;·&ensp; ');
+                      }
+                      html += '</div>';
+                      container.innerHTML = html;
+              }
+
+              // Get current week as Mon-Fri array of day objects
+              function getCurrentWeek() {
+                      const now = new Date();
+                      const dow = now.getDay();
+                      const mondayOffset = dow === 0 ? 1 : 1 - dow;
+                      const monday = new Date(now);
+                      monday.setDate(monday.getDate() + mondayOffset + (weekOffset * 7));
+                      const pad2 = n => String(n).padStart(2, '0');
+                      const days = [];
+                      const d = new Date(monday);
+                      for (let i = 0; i < 5; i++) {
+                              days.push({
+                                      date: d.getDate(),
+                                      dateStr: `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`,
+                                      inMonth: true,
+                                      month: d.getMonth(),
+                                      year: d.getFullYear()
+                              });
+                              d.setDate(d.getDate() + 1);
+                      }
+                      return days;
+              }
+
+              function renderGrid(weeks, dayMap, viewClass, caption) {
+                      let grid = `<table class="cal-grid${viewClass}"><caption class="sr-only">${caption}</caption><thead><tr>`;
+                      for (const d of DAY_ABBR) grid += `<th scope="col">${d}</th>`;
+                      grid += `</tr></thead><tbody>`;
+                      for (const week of weeks) {
+                              grid += '<tr>';
+                              for (const day of week) {
+                                      const entries = dayMap[day.dateStr] || [];
+                                      const today = isToday(day.dateStr);
+                                      const past = isPast(day.dateStr);
+                                      let cls = [];
+                                      if (!day.inMonth) cls.push('cal-outside');
+                                      if (today) cls.push('cal-today');
+                                      else if (past && day.inMonth) cls.push('cal-past');
+                                      grid += `<td class="${cls.join(' ')}">`;
+                                      if (day.inMonth) {
+                                              grid += `<span class="cal-day-num">${day.date}</span>`;
+                                              for (const e of entries) grid += renderEntry(e);
+                                      }
+                                      grid += '</td>';
+                              }
+                              grid += '</tr>';
+                      }
+                      grid += '</tbody></table>';
+                      return grid;
+              }
+
+              function renderMobileList(weeks, dayMap) {
+                      let mobile = '<ol class="cal-mobile" aria-label="Releases by day">';
+                      const monthDays = [];
+                      for (const week of weeks) {
+                              for (const day of week) {
+                                      if (!day.inMonth) continue;
+                                      const entries = dayMap[day.dateStr] || [];
+                                      if (entries.length === 0) continue;
+                                      monthDays.push({day, entries});
+                              }
+                      }
+                      if (monthDays.length === 0) {
+                              mobile += '<li><p class="cal-empty">No releases for this filter.</p></li>';
+                      }
+                      const DAY_SHORT = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+                      let insertedDivider = false;
+                      for (const {day, entries} of monthDays) {
+                              const today = isToday(day.dateStr);
+                              const past = isPast(day.dateStr);
+                              const d = parseDate(day.dateStr);
+                              if (!insertedDivider && !past) {
+                                      const hasPast = monthDays.some(md => isPast(md.day.dateStr));
+                                      if (hasPast) {
+                                              mobile += '<li class="label cal-m-divider" role="separator">Upcoming</li>';
+                                      }
+                                      insertedDivider = true;
+                              }
+                              let cls = 'cal-m-day';
+                              if (today) cls += ' cal-today';
+                              else if (past) cls += ' cal-past';
+                              mobile += `<li class="${cls}">`;
+                              mobile += `<div class="cal-m-date">${DAY_SHORT[d.getDay()]} ${day.date}</div>`;
+                              mobile += '<ul class="cal-m-releases">';
+                              for (const e of entries) {
+                                      const major = MAJOR.has(e.name) ? ' major' : '';
+                                      const time = shortTime(e.time);
+                                      const timeHtml = time ? `<span class="cal-t">${time}</span> ` : '';
+                                      const badge = agencyBadge(e.agency);
+                                      const inner = e.name;
+                                      mobile += `<li class="cal-m-rel${major}">${timeHtml}${badge}${inner}</li>`;
+                              }
+                              mobile += '</ul></li>';
+                      }
+                      mobile += '</ol>';
+                      return mobile;
+              }
+
+              function announce(msg) {
+                      const el = document.getElementById('cal-announcer');
+                      el.textContent = '';
+                      requestAnimationFrame(() => { el.textContent = msg; });
+              }
+
+              function updatePressed() {
+                      document.querySelectorAll('.cal-filter').forEach(b => {
+                              b.setAttribute('aria-pressed', b.classList.contains('active'));
+                      });
+              }
+
+              function render() {
+                      if (!calData) return;
+                      const container = document.getElementById('cal-body');
+                      const filtered = filterEntries(calData.entries);
+                      const dayMap = buildDayMap(filtered);
+
+                      // Hide week summary when in week view (redundant)
+                      document.getElementById('cal-week-summary').style.display = weekView ? 'none' : '';
+
+                      if (weekView) {
+                              const weekDays = getCurrentWeek();
+                              const mon = weekDays[0];
+                              const fri = weekDays[4];
+                              const label = mon.month === fri.month
+                                      ? `${MONTH_NAMES[mon.month].slice(0,3)} ${mon.date}–${fri.date}`
+                                      : `${MONTH_NAMES[mon.month].slice(0,3)} ${mon.date} – ${MONTH_NAMES[fri.month].slice(0,3)} ${fri.date}`;
+                              document.getElementById('cal-month-label').textContent = label;
+                              document.getElementById('cal-prev').disabled = false;
+                              document.getElementById('cal-next').disabled = false;
+                              document.getElementById('cal-prev').setAttribute('aria-label', 'Previous week');
+                              document.getElementById('cal-next').setAttribute('aria-label', 'Next week');
+
+                              const caption = `Releases for ${label}`;
+                              const grid = renderGrid([weekDays], dayMap, ' cal-week-view', caption);
+                              const mobile = renderMobileList([weekDays], dayMap);
+                              container.innerHTML = grid + mobile;
+                              announce(caption);
+                      } else {
+                              const {year, month} = currentMonth;
+                              const weeks = getMonthWeeks(year, month);
+                              const monthLabel = `${MONTH_NAMES[month].slice(0,3)} ${year}`;
+                              document.getElementById('cal-month-label').textContent = monthLabel;
+                              document.getElementById('cal-prev').setAttribute('aria-label', 'Previous month');
+                              document.getElementById('cal-next').setAttribute('aria-label', 'Next month');
+                              const mi = availableMonths.findIndex(m => m.year === year && m.month === month);
+                              document.getElementById('cal-prev').disabled = mi <= 0;
+                              document.getElementById('cal-next').disabled = mi >= availableMonths.length - 1;
+
+                              const filterLabel = currentFilter === 'major' ? 'major ' : '';
+                              const caption = `${filterLabel}Releases for ${monthLabel}`;
+                              const grid = renderGrid(weeks, dayMap, '', caption);
+                              const mobile = renderMobileList(weeks, dayMap);
+                              container.innerHTML = grid + mobile;
+                              announce(caption);
+                      }
+                      updatePressed();
+              }
+
+              // Navigation — month arrows or week arrows depending on view
+              document.getElementById('cal-prev').addEventListener('click', () => {
+                      if (weekView) { weekOffset--; render(); return; }
+                      const mi = availableMonths.findIndex(m => m.year === currentMonth.year && m.month === currentMonth.month);
+                      if (mi > 0) { currentMonth = availableMonths[mi - 1]; render(); }
+              });
+              document.getElementById('cal-next').addEventListener('click', () => {
+                      if (weekView) { weekOffset++; render(); return; }
+                      const mi = availableMonths.findIndex(m => m.year === currentMonth.year && m.month === currentMonth.month);
+                      if (mi < availableMonths.length - 1) { currentMonth = availableMonths[mi + 1]; render(); }
+              });
+
+              // Filter buttons (All / Major)
+              document.querySelectorAll('.cal-filter[data-filter]').forEach(btn => {
+                      btn.addEventListener('click', function() {
+                              document.querySelectorAll('.cal-filter.active, .cal-filter[data-view].active').forEach(b => b.classList.remove('active'));
+                              this.classList.add('active');
+                              currentFilter = this.dataset.filter;
+                              weekView = false;
+                              weekOffset = 0;
+                              render();
+                      });
+              });
+
+              // This Week button
+              document.querySelector('.cal-filter[data-view="week"]').addEventListener('click', function() {
+                      if (weekView) {
+                              // Toggle off — go back to month
+                              weekView = false;
+                              weekOffset = 0;
+                              this.classList.remove('active');
+                              document.querySelector('.cal-filter[data-filter="' + currentFilter + '"]').classList.add('active');
+                      } else {
+                              weekView = true;
+                              document.querySelectorAll('.cal-filter.active').forEach(b => b.classList.remove('active'));
+                              this.classList.add('active');
+                      }
+                      render();
+              });
+
+              // Keyboard navigation (← → arrow keys)
+              document.addEventListener('keydown', (e) => {
+                      if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+                      if (e.key === 'ArrowLeft') { document.getElementById('cal-prev').click(); }
+                      if (e.key === 'ArrowRight') { document.getElementById('cal-next').click(); }
+              });
+
+              // Load data
+              fetch('files/calendar.json')
+                      .then(r => r.json())
+                      .then(data => {
+                              calData = data;
+
+                              // Determine available months from data
+                              const months = new Set();
+                              for (const e of data.entries) {
+                                      const [y,m] = e.date.split('-').map(Number);
+                                      months.add(`${y}-${m}`);
+                              }
+                              availableMonths = [...months].sort().map(s => {
+                                      const [y,m] = s.split('-').map(Number);
+                                      return {year: y, month: m - 1};
+                              });
+
+                              // Start on current month if available, else first
+                              const now = new Date();
+                              currentMonth = availableMonths.find(m => m.year === now.getFullYear() && m.month === now.getMonth())
+                                      || availableMonths[0];
+                              renderWeekSummary();
+                              render();
+                      })
+                      .catch(() => {
+                              document.getElementById('cal-body').innerHTML =
+                                      '<p class="cal-empty">Unable to load calendar data.</p>';
+                      });
+      })();
+      </script>
+---
 	<section>
 		<article class="prose">
 			<p class="callout accent-brown">Upcoming US economic data releases tracked by the <a href="chartbook.html">Chartbook</a>.</p>
@@ -151,457 +481,3 @@
 
 		<div class="subfooter" data-hub="reports" data-current="calendar.html" style="--accent-color: var(--color-card-brown)"></div>
 	</section>
-	</main>
-
-		<footer>
-		<div class="footer-sitemap">
-			<div>
-				<h4><a href="reports.html">Data</a></h4>
-				<ul>
-					<li><a href="chartbook.html">US Chartbook</a></li>
-					<li><a href="indicators.html">Economic Indicators</a></li>
-					<li><a href="gdpm.html">Monthly GDP</a></li>
-					<li><a href="imfweo.html">WEO Forecasts</a></li>
-				</ul>
-			</div>
-			<div>
-				<h4><a href="python.html">Guides</a></h4>
-				<ul>
-					<li><a href="getstarted.html">Setup</a></li>
-					<li><a href="imfapi1.html">IMF API</a></li>
-					<li><a href="blsapi.html">BLS API</a></li>
-					<li><a href="censusapi.html">Census API</a></li>
-				</ul>
-			</div>
-			<div>
-				<h4><a href="about.html">About</a></h4>
-				<ul>
-					<li><a href="about.html">About BD Economics</a></li>
-					<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Blog</a></li>
-					<li><a href="https://github.com/bdecon/" target="_blank" rel="noopener">GitHub</a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="footer-bottom">
-		<div class="footer-left">
-			<p><time datetime="2026">2026</time>, by Brian Dew</p>
-		</div>
-		<nav class="footer-right" aria-label="Social links">
-			<a href="https://github.com/bdecon/" aria-label="GitHub"><svg class="icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
-			<a href="https://www.linkedin.com/in/brian-dew-5788a386/" aria-label="LinkedIn"><svg class="icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.016-.709-.52-1.248-1.342-1.248S1.4 3.226 1.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a.3.3 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/></svg></a>
-			<a href="https://twitter.com/bd_econ" aria-label="Twitter"><svg class="icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334q.002-.211-.006-.422A6.7 6.7 0 0 0 16 3.542a6.7 6.7 0 0 1-1.889.518 3.3 3.3 0 0 0 1.447-1.817 6.5 6.5 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.32 9.32 0 0 1-6.767-3.429 3.29 3.29 0 0 0 1.018 4.382A3.3 3.3 0 0 1 .64 6.575v.045a3.29 3.29 0 0 0 2.632 3.218 3.2 3.2 0 0 1-.865.115 3 3 0 0 1-.614-.057 3.28 3.28 0 0 0 3.067 2.277A6.6 6.6 0 0 1 .78 13.58a6 6 0 0 1-.78-.045A9.34 9.34 0 0 0 5.026 15"/></svg></a>
-			<a href="https://briandew.wordpress.com/" target="_blank" rel="noopener" aria-label="WordPress Blog"><svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.469 6.825c.84 1.537 1.318 3.3 1.318 5.175 0 3.979-2.156 7.456-5.363 9.325l3.295-9.527c.615-1.54.82-2.771.82-3.864 0-.405-.026-.78-.07-1.11m-7.981.105c.647-.03 1.232-.105 1.232-.105.582-.075.514-.93-.067-.899 0 0-1.755.135-2.88.135-1.064 0-2.85-.15-2.85-.15-.585-.03-.661.855-.075.885 0 0 .54.061 1.125.09l1.68 4.605-2.37 7.08L5.354 6.9c.649-.03 1.234-.1 1.234-.1.585-.075.516-.93-.065-.896 0 0-1.746.138-2.874.138-.2 0-.438-.008-.69-.015C4.911 3.15 8.235 1.215 12 1.215c2.809 0 5.365 1.072 7.286 2.833-.046-.003-.091-.009-.141-.009-1.06 0-1.812.923-1.812 1.914 0 .89.513 1.643 1.06 2.531.411.72.89 1.643.89 2.977 0 .915-.354 1.994-.821 3.479l-1.075 3.585-3.9-11.61.001.014zM12 22.784c-1.059 0-2.081-.153-3.048-.437l3.237-9.406 3.315 9.087c.024.053.05.101.078.149-1.12.393-2.325.609-3.582.609M1.211 12c0-1.564.336-3.05.935-4.39L7.29 21.709C3.694 19.96 1.212 16.271 1.211 12M12 0C5.385 0 0 5.385 0 12s5.385 12 12 12 12-5.385 12-12S18.615 0 12 0"/></svg></a>
-		</nav>
-		</div>
-		</footer>
-	<script src="scripts/nav.js"></script>
-	<script>
-	(function() {
-		const MAJOR = new Set([
-			'Employment Situation', 'Consumer Price Index', 'GDP',
-			'Personal Income & Outlays', 'Retail Sales', 'JOLTS',
-			'Producer Price Index', 'Industrial Production',
-			'International Trade', 'Housing Starts',
-			'Employment Cost Index', 'FOMC Projections',
-			'Durable Goods Orders', 'Consumer Sentiment',
-		]);
-		const MONTH_NAMES = ['January','February','March','April','May','June',
-			'July','August','September','October','November','December'];
-		const DAY_ABBR = ['Mon','Tue','Wed','Thu','Fri'];
-
-		let calData = null;
-		let currentFilter = 'all';  // 'all' or 'major'
-		let weekView = false;
-		let weekOffset = 0; // 0 = current week, -1 = last week, +1 = next week
-		let currentMonth = null; // {year, month} (0-indexed month)
-		let availableMonths = [];
-
-		function parseDate(s) {
-			const [y,m,d] = s.split('-').map(Number);
-			return new Date(y, m-1, d);
-		}
-		function todayStr() {
-			const n = new Date();
-			return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
-		}
-		function isPast(dateStr) { return dateStr < todayStr(); }
-		function isToday(dateStr) { return dateStr === todayStr(); }
-
-		function filterEntries(entries) {
-			if (currentFilter === 'major') return entries.filter(e => MAJOR.has(e.name));
-			return entries;
-		}
-
-		// Build a lookup: dateStr -> [entries]
-		function buildDayMap(entries) {
-			const map = {};
-			for (const e of entries) {
-				(map[e.date] ||= []).push(e);
-			}
-			return map;
-		}
-
-		function getMonthWeeks(year, month) {
-			// Returns array of weeks, each week = array of 5 days (Mon-Fri)
-			// Each day = {date, dateStr, inMonth}
-			const first = new Date(year, month, 1);
-			const last = new Date(year, month + 1, 0);
-
-			// Find the Monday on or before the 1st
-			let start = new Date(first);
-			let dow = start.getDay(); // 0=Sun
-			let offset = (dow === 0) ? -6 : 1 - dow; // days to get to Monday
-			start.setDate(start.getDate() + offset);
-
-			const weeks = [];
-			let d = new Date(start);
-			while (d <= last || d.getDay() !== 1) {
-				const week = [];
-				for (let i = 0; i < 5; i++) { // Mon-Fri
-					const ds = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-					week.push({
-						date: d.getDate(),
-						dateStr: ds,
-						inMonth: d.getMonth() === month,
-					});
-					d.setDate(d.getDate() + 1);
-				}
-				d.setDate(d.getDate() + 2); // skip Sat-Sun
-				weeks.push(week);
-				if (d > last && d.getDay() === 1) break;
-			}
-			return weeks;
-		}
-
-		// Short time: "8:30 AM ET" -> "8:30a"
-		function shortTime(t) {
-			if (!t) return '';
-			const m = t.match(/^(\d+:\d+)\s*(AM|PM)/i);
-			if (!m) return '';
-			return m[1] + (m[2].toUpperCase() === 'AM' ? 'a' : 'p');
-		}
-
-		// Agency badge
-		const AGENCY_MAP = {
-			'BLS': ['bls', 'BLS'],
-			'BEA': ['bea', 'BEA'],
-			'BEA/Census': ['bea', 'BEA'],
-			'Fed': ['fed', 'FED'],
-			'NY Fed': ['fed', 'FED'],
-			'Atlanta Fed': ['fed', 'FED'],
-			'Census': ['census', 'CEN'],
-			'Treasury': ['treasury', 'TRES'],
-			'DOL': ['bls', 'DOL'],
-			'EIA': ['other', 'EIA'],
-			'BIS': ['other', 'BIS'],
-			'Freddie Mac': ['other', 'FMAC'],
-			'S&P/Case-Shiller': ['other', 'S&P'],
-			'U of Michigan': ['other', 'MICH'],
-		};
-		function agencyBadge(agency) {
-			const [cls, label] = AGENCY_MAP[agency] || ['other', agency.slice(0,4).toUpperCase()];
-			return `<span class="badge-solid cal-agency-${cls}">${label}</span>`;
-		}
-
-		function renderEntry(e) {
-			const major = MAJOR.has(e.name) ? ' major' : '';
-			const title = `${e.time || 'TBD'} · ${e.agency}`;
-			const time = shortTime(e.time);
-			const timeHtml = time ? `<span class="cal-t">${time}</span> ` : '';
-			const badge = agencyBadge(e.agency);
-			const inner = `${timeHtml}${badge}${e.name}`;
-			return `<span class="cal-rel${major}" title="${title}">${inner}</span>`;
-		}
-
-		// This week summary
-		function renderWeekSummary() {
-			const container = document.getElementById('cal-week-summary');
-			if (!calData) { container.innerHTML = ''; return; }
-
-			const now = new Date();
-			// Find Monday of current/upcoming week (Sun looks forward)
-			const dow = now.getDay(); // 0=Sun
-			const mondayOffset = dow === 0 ? 1 : 1 - dow;
-			const monday = new Date(now);
-			monday.setDate(monday.getDate() + mondayOffset);
-			const friday = new Date(monday);
-			friday.setDate(friday.getDate() + 4);
-
-			const pad2 = n => String(n).padStart(2, '0');
-			const monStr = `${monday.getFullYear()}-${pad2(monday.getMonth()+1)}-${pad2(monday.getDate())}`;
-			const friStr = `${friday.getFullYear()}-${pad2(friday.getMonth()+1)}-${pad2(friday.getDate())}`;
-
-			// Get entries for this week (Mon-Fri; on Sun show upcoming week)
-			const weekEntries = calData.entries.filter(e =>
-				e.date >= monStr && e.date <= friStr
-			);
-
-			if (weekEntries.length === 0) {
-				container.innerHTML = '';
-				return;
-			}
-
-			// Group by day
-			const byDay = {};
-			for (const e of weekEntries) {
-				(byDay[e.date] ||= []).push(e);
-			}
-
-			const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-			let html = '<div class="info-box accent-brown cal-week-summary"><h3>This week</h3> ';
-			const dayParts = [];
-			for (const [dateStr, entries] of Object.entries(byDay).sort()) {
-				const d = parseDate(dateStr);
-				const dayName = dayNames[d.getDay()];
-				const names = entries
-					.filter(e => MAJOR.has(e.name))
-					.map(e => `${agencyBadge(e.agency)}${e.name}`)
-					.join(', ');
-				if (names) dayParts.push(`<strong>${dayName}</strong> ${names}`);
-			}
-			if (dayParts.length === 0) {
-				// No major releases — show count
-				html += `${weekEntries.length} release${weekEntries.length > 1 ? 's' : ''} remaining this week (no major)`;
-			} else {
-				html += dayParts.join(' &ensp;·&ensp; ');
-			}
-			html += '</div>';
-			container.innerHTML = html;
-		}
-
-		// Get current week as Mon-Fri array of day objects
-		function getCurrentWeek() {
-			const now = new Date();
-			const dow = now.getDay();
-			const mondayOffset = dow === 0 ? 1 : 1 - dow;
-			const monday = new Date(now);
-			monday.setDate(monday.getDate() + mondayOffset + (weekOffset * 7));
-			const pad2 = n => String(n).padStart(2, '0');
-			const days = [];
-			const d = new Date(monday);
-			for (let i = 0; i < 5; i++) {
-				days.push({
-					date: d.getDate(),
-					dateStr: `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`,
-					inMonth: true,
-					month: d.getMonth(),
-					year: d.getFullYear()
-				});
-				d.setDate(d.getDate() + 1);
-			}
-			return days;
-		}
-
-		function renderGrid(weeks, dayMap, viewClass, caption) {
-			let grid = `<table class="cal-grid${viewClass}"><caption class="sr-only">${caption}</caption><thead><tr>`;
-			for (const d of DAY_ABBR) grid += `<th scope="col">${d}</th>`;
-			grid += `</tr></thead><tbody>`;
-			for (const week of weeks) {
-				grid += '<tr>';
-				for (const day of week) {
-					const entries = dayMap[day.dateStr] || [];
-					const today = isToday(day.dateStr);
-					const past = isPast(day.dateStr);
-					let cls = [];
-					if (!day.inMonth) cls.push('cal-outside');
-					if (today) cls.push('cal-today');
-					else if (past && day.inMonth) cls.push('cal-past');
-					grid += `<td class="${cls.join(' ')}">`;
-					if (day.inMonth) {
-						grid += `<span class="cal-day-num">${day.date}</span>`;
-						for (const e of entries) grid += renderEntry(e);
-					}
-					grid += '</td>';
-				}
-				grid += '</tr>';
-			}
-			grid += '</tbody></table>';
-			return grid;
-		}
-
-		function renderMobileList(weeks, dayMap) {
-			let mobile = '<ol class="cal-mobile" aria-label="Releases by day">';
-			const monthDays = [];
-			for (const week of weeks) {
-				for (const day of week) {
-					if (!day.inMonth) continue;
-					const entries = dayMap[day.dateStr] || [];
-					if (entries.length === 0) continue;
-					monthDays.push({day, entries});
-				}
-			}
-			if (monthDays.length === 0) {
-				mobile += '<li><p class="cal-empty">No releases for this filter.</p></li>';
-			}
-			const DAY_SHORT = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-			let insertedDivider = false;
-			for (const {day, entries} of monthDays) {
-				const today = isToday(day.dateStr);
-				const past = isPast(day.dateStr);
-				const d = parseDate(day.dateStr);
-				if (!insertedDivider && !past) {
-					const hasPast = monthDays.some(md => isPast(md.day.dateStr));
-					if (hasPast) {
-						mobile += '<li class="label cal-m-divider" role="separator">Upcoming</li>';
-					}
-					insertedDivider = true;
-				}
-				let cls = 'cal-m-day';
-				if (today) cls += ' cal-today';
-				else if (past) cls += ' cal-past';
-				mobile += `<li class="${cls}">`;
-				mobile += `<div class="cal-m-date">${DAY_SHORT[d.getDay()]} ${day.date}</div>`;
-				mobile += '<ul class="cal-m-releases">';
-				for (const e of entries) {
-					const major = MAJOR.has(e.name) ? ' major' : '';
-					const time = shortTime(e.time);
-					const timeHtml = time ? `<span class="cal-t">${time}</span> ` : '';
-					const badge = agencyBadge(e.agency);
-					const inner = e.name;
-					mobile += `<li class="cal-m-rel${major}">${timeHtml}${badge}${inner}</li>`;
-				}
-				mobile += '</ul></li>';
-			}
-			mobile += '</ol>';
-			return mobile;
-		}
-
-		function announce(msg) {
-			const el = document.getElementById('cal-announcer');
-			el.textContent = '';
-			requestAnimationFrame(() => { el.textContent = msg; });
-		}
-
-		function updatePressed() {
-			document.querySelectorAll('.cal-filter').forEach(b => {
-				b.setAttribute('aria-pressed', b.classList.contains('active'));
-			});
-		}
-
-		function render() {
-			if (!calData) return;
-			const container = document.getElementById('cal-body');
-			const filtered = filterEntries(calData.entries);
-			const dayMap = buildDayMap(filtered);
-
-			// Hide week summary when in week view (redundant)
-			document.getElementById('cal-week-summary').style.display = weekView ? 'none' : '';
-
-			if (weekView) {
-				const weekDays = getCurrentWeek();
-				const mon = weekDays[0];
-				const fri = weekDays[4];
-				const label = mon.month === fri.month
-					? `${MONTH_NAMES[mon.month].slice(0,3)} ${mon.date}–${fri.date}`
-					: `${MONTH_NAMES[mon.month].slice(0,3)} ${mon.date} – ${MONTH_NAMES[fri.month].slice(0,3)} ${fri.date}`;
-				document.getElementById('cal-month-label').textContent = label;
-				document.getElementById('cal-prev').disabled = false;
-				document.getElementById('cal-next').disabled = false;
-				document.getElementById('cal-prev').setAttribute('aria-label', 'Previous week');
-				document.getElementById('cal-next').setAttribute('aria-label', 'Next week');
-
-				const caption = `Releases for ${label}`;
-				const grid = renderGrid([weekDays], dayMap, ' cal-week-view', caption);
-				const mobile = renderMobileList([weekDays], dayMap);
-				container.innerHTML = grid + mobile;
-				announce(caption);
-			} else {
-				const {year, month} = currentMonth;
-				const weeks = getMonthWeeks(year, month);
-				const monthLabel = `${MONTH_NAMES[month].slice(0,3)} ${year}`;
-				document.getElementById('cal-month-label').textContent = monthLabel;
-				document.getElementById('cal-prev').setAttribute('aria-label', 'Previous month');
-				document.getElementById('cal-next').setAttribute('aria-label', 'Next month');
-				const mi = availableMonths.findIndex(m => m.year === year && m.month === month);
-				document.getElementById('cal-prev').disabled = mi <= 0;
-				document.getElementById('cal-next').disabled = mi >= availableMonths.length - 1;
-
-				const filterLabel = currentFilter === 'major' ? 'major ' : '';
-				const caption = `${filterLabel}Releases for ${monthLabel}`;
-				const grid = renderGrid(weeks, dayMap, '', caption);
-				const mobile = renderMobileList(weeks, dayMap);
-				container.innerHTML = grid + mobile;
-				announce(caption);
-			}
-			updatePressed();
-		}
-
-		// Navigation — month arrows or week arrows depending on view
-		document.getElementById('cal-prev').addEventListener('click', () => {
-			if (weekView) { weekOffset--; render(); return; }
-			const mi = availableMonths.findIndex(m => m.year === currentMonth.year && m.month === currentMonth.month);
-			if (mi > 0) { currentMonth = availableMonths[mi - 1]; render(); }
-		});
-		document.getElementById('cal-next').addEventListener('click', () => {
-			if (weekView) { weekOffset++; render(); return; }
-			const mi = availableMonths.findIndex(m => m.year === currentMonth.year && m.month === currentMonth.month);
-			if (mi < availableMonths.length - 1) { currentMonth = availableMonths[mi + 1]; render(); }
-		});
-
-		// Filter buttons (All / Major)
-		document.querySelectorAll('.cal-filter[data-filter]').forEach(btn => {
-			btn.addEventListener('click', function() {
-				document.querySelectorAll('.cal-filter.active, .cal-filter[data-view].active').forEach(b => b.classList.remove('active'));
-				this.classList.add('active');
-				currentFilter = this.dataset.filter;
-				weekView = false;
-				weekOffset = 0;
-				render();
-			});
-		});
-
-		// This Week button
-		document.querySelector('.cal-filter[data-view="week"]').addEventListener('click', function() {
-			if (weekView) {
-				// Toggle off — go back to month
-				weekView = false;
-				weekOffset = 0;
-				this.classList.remove('active');
-				document.querySelector('.cal-filter[data-filter="' + currentFilter + '"]').classList.add('active');
-			} else {
-				weekView = true;
-				document.querySelectorAll('.cal-filter.active').forEach(b => b.classList.remove('active'));
-				this.classList.add('active');
-			}
-			render();
-		});
-
-		// Keyboard navigation (← → arrow keys)
-		document.addEventListener('keydown', (e) => {
-			if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
-			if (e.key === 'ArrowLeft') { document.getElementById('cal-prev').click(); }
-			if (e.key === 'ArrowRight') { document.getElementById('cal-next').click(); }
-		});
-
-		// Load data
-		fetch('files/calendar.json')
-			.then(r => r.json())
-			.then(data => {
-				calData = data;
-
-				// Determine available months from data
-				const months = new Set();
-				for (const e of data.entries) {
-					const [y,m] = e.date.split('-').map(Number);
-					months.add(`${y}-${m}`);
-				}
-				availableMonths = [...months].sort().map(s => {
-					const [y,m] = s.split('-').map(Number);
-					return {year: y, month: m - 1};
-				});
-
-				// Start on current month if available, else first
-				const now = new Date();
-				currentMonth = availableMonths.find(m => m.year === now.getFullYear() && m.month === now.getMonth())
-					|| availableMonths[0];
-				renderWeekSummary();
-				render();
-			})
-			.catch(() => {
-				document.getElementById('cal-body').innerHTML =
-					'<p class="cal-empty">Unable to load calendar data.</p>';
-			});
-	})();
-	</script>
-</body>
-</html>
