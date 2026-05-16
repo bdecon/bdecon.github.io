@@ -12,19 +12,19 @@ redirect_from:
   - /2026/03/21/the-wrong-gift/
 ---
 
-Two Democratic senators recently introduced competing proposals to cut taxes for working Americans. Sen. Van Hollen’s [Working Americans’ Tax Cut Act](https://budgetmodel.wharton.upenn.edu/p/2026-03-16-working-americans-tax-cut-act-revenue-and-distributional-effects) would eliminate federal income taxes for individuals earning under \$46,000 and couples under \$92,000. Sen. Booker’s [Keep Your Pay Act](https://budgetmodel.wharton.upenn.edu/p/2026-03-11-the-keep-your-pay-act-budgetary-and-distributional-effects) goes further, making the first \$75,000 in household income tax-free. Both offset part of the cost with higher taxes on the wealthy.
+Two Democratic senators recently introduced competing proposals to cut taxes for working Americans. Sen. Van Hollen’s [Working Americans’ Tax Cut Act](https://budgetmodel.wharton.upenn.edu/p/2026-03-16-working-americans-tax-cut-act-revenue-and-distributional-effects) would eliminate federal income taxes for individuals earning under $46,000 and couples under $92,000. Sen. Booker’s [Keep Your Pay Act](https://budgetmodel.wharton.upenn.edu/p/2026-03-11-the-keep-your-pay-act-budgetary-and-distributional-effects) goes further, making the first $75,000 in household income tax-free. Both offset part of the cost with higher taxes on the wealthy.
 
 Mike Konczal has [described](https://newsletter.mikekonczal.com/p/the-tax-trap-democrats-built-for) how Democrats arrived here. Bush’s 2001 tax cuts came with expiration dates. When the deadline hit in 2010, Obama — boxed in by a no-tax pledge and 9.8 percent unemployment — extended them. What began as a Republican tax policy became a bipartisan commitment. Eric Levitz [pointed out](https://www.vox.com/politics/482551/democrats-tax-cuts-middle-class-booker-van-hollen) the arithmetic: both senators officially support universal childcare, paid leave, and expanded healthcare. Taxing billionaires cannot fund that agenda and trillions in new tax cuts.
 
-The deeper issue, though, goes beyond fiscal math. It’s what the tax cuts are actually worth. According to the [Penn Wharton Budget Model](https://budgetmodel.wharton.upenn.edu/), a family earning \$80,000 saves about \$1,500 a year under Van Hollen’s plan and roughly \$3,700 under Booker’s.
+The deeper issue, though, goes beyond fiscal math. It’s what the tax cuts are actually worth. According to the [Penn Wharton Budget Model](https://budgetmodel.wharton.upenn.edu/), a family earning $80,000 saves about $1,500 a year under Van Hollen’s plan and roughly $3,700 under Booker’s.
 
 ## What families are already paying
 
-That same family, with employer-sponsored health insurance, pays on average [\$6,850 per year](https://www.kff.org/health-costs/2025-employer-health-benefits-survey/) in premiums for family coverage. Add deductibles and out-of-pocket costs and the total runs \$9,000 to \$12,000.
+That same family, with employer-sponsored health insurance, pays on average [$6,850 per year](https://www.kff.org/health-costs/2025-employer-health-benefits-survey/) in premiums for family coverage. Add deductibles and out-of-pocket costs and the total runs $9,000 to $12,000.
 
-If they have a child under five in center-based care, they face an average annual cost of [\$13,128](https://www.childcareaware.org/price-landscape24/). And if a parent needs time off for a new child or a family illness, no federal paid leave program exists.
+If they have a child under five in center-based care, they face an average annual cost of [$13,128](https://www.childcareaware.org/price-landscape24/). And if a parent needs time off for a new child or a family illness, no federal paid leave program exists.
 
-These costs are unavoidable. They are the private price of services that other wealthy countries fund through the tax system. For a middle-income family with a young child, they add up to \$20,000 to \$25,000 per year.
+These costs are unavoidable. They are the private price of services that other wealthy countries fund through the tax system. For a middle-income family with a young child, they add up to $20,000 to $25,000 per year.
 
 And yet the United States spends more on these things than other countries, not less. Families just pay out of pocket instead of through taxes.
 
@@ -38,11 +38,11 @@ Among wealthy democracies, the U.S. ranks first in total social spending as a sh
 
 What would it cost this family to fund these services through the tax system instead?
 
-**Healthcare.** Under Sen. Sanders’ [Medicare for All financing](https://www.sanders.senate.gov/wp-content/uploads/options-to-finance-medicare-for-all.pdf), a 4 percent tax on earnings above \$29,000 would cost this family about \$2,040 per year. Current premiums and out-of-pocket costs — \$9,000 to \$12,000 — would be eliminated.
+**Healthcare.** Under Sen. Sanders’ [Medicare for All financing](https://www.sanders.senate.gov/wp-content/uploads/options-to-finance-medicare-for-all.pdf), a 4 percent tax on earnings above $29,000 would cost this family about $2,040 per year. Current premiums and out-of-pocket costs — $9,000 to $12,000 — would be eliminated.
 
-**Childcare.** The [Child Care for Working Families Act](https://www.congress.gov/bill/117th-congress/senate-bill/1360) would cap costs at 7 percent of family income — a maximum of \$5,600, saving about \$7,500 compared to the current average. No new household-level tax.
+**Childcare.** The [Child Care for Working Families Act](https://www.congress.gov/bill/117th-congress/senate-bill/1360) would cap costs at 7 percent of family income — a maximum of $5,600, saving about $7,500 compared to the current average. No new household-level tax.
 
-**Paid leave.** The [FAMILY Act](https://www.gillibrand.senate.gov/news/press/release/gillibrand-delauro-introduce-new-and-improved-family-act-in-fight-for-universal-paid-leave/) would create a social insurance program funded by a 0.4 percent payroll tax split between employer and employee. The worker’s share at \$80,000: \$160 per year, for 12 weeks of paid leave at 66 percent of wages.
+**Paid leave.** The [FAMILY Act](https://www.gillibrand.senate.gov/news/press/release/gillibrand-delauro-introduce-new-and-improved-family-act-in-fight-for-universal-paid-leave/) would create a social insurance program funded by a 0.4 percent payroll tax split between employer and employee. The worker’s share at $80,000: $160 per year, for 12 weeks of paid leave at 66 percent of wages.
 
 <figure class="wp-block-table is-style-stripes">
 <table>
@@ -83,7 +83,7 @@ What would it cost this family to fund these services through the tax system ins
 </table>
 </figure>
 
-The new taxes total about \$42 a week. The private costs they replace total \$350 to \$400.
+The new taxes total about $42 a week. The private costs they replace total $350 to $400.
 
 <figure class="wp-block-image size-large">
 <img src="/assets/blog/2026/03/comparison-1.png" class="wp-image-4525" loading="lazy" width="1024" height="734" alt="Bar chart of annual savings for a family earning $80,000 with a child under 5 under three proposals: Van Hollen tax cut $1,500, Booker tax cut $3,700, and universal programs (healthcare, childcare, paid leave; net of new taxes) $14,500. Sources: Penn Wharton Budget Model, KFF, Child Care Aware, CBO." />

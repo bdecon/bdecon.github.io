@@ -19,7 +19,7 @@ The cycle begins with a deliberate fiscal choice. Tax cuts reduce revenue. The r
 
 This is not a secret. Reagan’s budget director David Stockman [told](https://www.theatlantic.com/magazine/archive/1981/12/the-education-of-david-stockman/305760/) Senator Daniel Patrick Moynihan that “the plan was to have a strategic deficit that would give you an argument for cutting back the programs that weren’t desired.” One of Reagan’s advisers explained to Friedrich Hayek that the president permitted large deficits because they made “absolutely everyone convinced that no more money can be spent.” Grover Norquist put it more plainly: the goal was to shrink government “down to the size where we can drown it in the bathtub.”
 
-The reconciliation bill signed in July 2025 increases the federal deficit by \$3 trillion. It also cuts over \$1 trillion from Medicaid and SNAP.
+The reconciliation bill signed in July 2025 increases the federal deficit by $3 trillion. It also cuts over $1 trillion from Medicaid and SNAP.
 
 ## Stage 2: Cite the crisis (jeopardy)
 
@@ -27,7 +27,7 @@ With the deficit in place, the jeopardy thesis follows. Programs that were affor
 
 Hayek warned in 1944 that the welfare state would lead to totalitarianism, though he also endorsed a minimum of food, shelter, and clothing for all. Reagan declared in 1981 that “government is not the solution to our problem; government is the problem.” At an Easter lunch in April 2026, President Trump [said](https://www.washingtonpost.com/politics/2026/04/02/trump-backs-off-campaign-promises-protect-medicare-help-with-child-care/): “We’re fighting wars. We can’t take care of day care.” The video was posted to and then removed from the White House website. During his 2024 campaign, Trump had [promised](https://www.washingtonpost.com/politics/2026/04/02/trump-backs-off-campaign-promises-protect-medicare-help-with-child-care/) that tariff revenue would easily cover childcare.
 
-The FY2027 budget [requests](https://www.whitehouse.gov/omb/budget/fy2027) \$1.5 trillion for defense, a 44 percent increase, while cutting domestic programs by 10 percent. Medicaid is put on “a more sustainable path.”
+The FY2027 budget [requests](https://www.whitehouse.gov/omb/budget/fy2027) $1.5 trillion for defense, a 44 percent increase, while cutting domestic programs by 10 percent. Medicaid is put on “a more sustainable path.”
 
 ## Stage 3: Defund, then declare failure (futility)
 
@@ -55,8 +55,8 @@ These are opposite claims about how the world works, used to justify the same ac
 
 The arguments are chosen for what they justify, not for whether they are true.
 
-[Estimates](https://www.commonwealthfund.org/publications/issue-briefs/2025/jun/how-medicaid-snap-cutbacks-one-big-beautiful-bill-trigger-job-losses-states) of last year’s reconciliation bill’s Medicaid and SNAP cuts project a \$154 billion reduction in state GDPs, 18 percent more than the \$131 billion in federal savings they generate. Households in the bottom 10 percent lose an average of \$1,600. Households in the top 10 percent gain \$12,000. The arguments rotate. The direction of the transfer stays the same.
+[Estimates](https://www.commonwealthfund.org/publications/issue-briefs/2025/jun/how-medicaid-snap-cutbacks-one-big-beautiful-bill-trigger-job-losses-states) of last year’s reconciliation bill’s Medicaid and SNAP cuts project a $154 billion reduction in state GDPs, 18 percent more than the $131 billion in federal savings they generate. Households in the bottom 10 percent lose an average of $1,600. Households in the top 10 percent gain $12,000. The arguments rotate. The direction of the transfer stays the same.
 
-The FY2027 budget proposal follows the same pattern. It runs a \$2.2 trillion deficit while framing \$73 billion in domestic cuts as fiscal necessity. The cuts amount to about 3 percent of the deficit they sit inside.
+The FY2027 budget proposal follows the same pattern. It runs a $2.2 trillion deficit while framing $73 billion in domestic cuts as fiscal necessity. The cuts amount to about 3 percent of the deficit they sit inside.
 
 The next time someone tells you a program costs too much, accomplishes nothing, and hurts the people it serves, all at once, the pattern is worth recognizing. Hirschman’s framework makes it easier to see, and harder to take seriously.

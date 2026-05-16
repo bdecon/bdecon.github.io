@@ -1,0 +1,18 @@
+{%- comment -%}
+  Render a row of social icons sourced from _data/social.yml.
+  Pass `keys` as a comma-separated list, e.g.
+
+      {% include social-icons.html keys="github,linkedin,twitter,rss" %}
+
+  Entries with `stroke: true` (e.g. email, rss) use a Lucide-style outlined
+  SVG; the rest are Simple Icons-style filled brand glyphs.
+{%- endcomment -%}
+{%- assign _keys = include.keys | split: "," -%}
+{%- for _key in _keys -%}
+	{%- assign _k = _key | strip -%}
+	{%- assign _s = site.data.social[_k] -%}
+	{%- if _s -%}
+		{%- assign _vb = _s.viewbox | default: "0 0 16 16" -%}
+		<a href="{{ _s.url }}"{% if _s.url contains '://' %} target="_blank" rel="noopener"{% endif %} aria-label="{{ _s.label }}"><svg class="icon" viewBox="{{ _vb }}"{% if _s.stroke %} fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"{% else %} fill="currentColor"{% endif %} aria-hidden="true">{% unless _s.stroke %}<path d="{{ _s.icon_path }}"/>{% else %}{{ _s.icon_path }}{% endunless %}</svg></a>
+	{%- endif -%}
+{%- endfor -%}

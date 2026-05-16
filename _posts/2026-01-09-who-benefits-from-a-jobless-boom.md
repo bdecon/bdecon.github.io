@@ -21,7 +21,7 @@ Labor productivity growth of five percent is rare. Productivity growth averages 
 
 **A more-productive workforce can be paid higher wages without causing inflation.** This is an incredibly important point. Indeed, when workers are in a strong bargaining position and productivity is booming, workers have historically benefited.
 
-The [latest data](https://data.bls.gov/timeseries/LEU0252911200), however, shows low-wage workers falling rapidly behind. In 2025 Q3, the first decile worker is paid \$616 per week, an increase of \$1 from Q2, but a decrease of \$3 from Q1. [Consumer prices](https://fred.stlouisfed.org/series/PCECTPI) increased much faster than pay for these workers. Inflation-adjusted wages *fell* at an annual rate of 2.1 percent in Q3 (chart 1), following an astounding annualized drop of 4.6 percent in Q2. 
+The [latest data](https://data.bls.gov/timeseries/LEU0252911200), however, shows low-wage workers falling rapidly behind. In 2025 Q3, the first decile worker is paid $616 per week, an increase of $1 from Q2, but a decrease of $3 from Q1. [Consumer prices](https://fred.stlouisfed.org/series/PCECTPI) increased much faster than pay for these workers. Inflation-adjusted wages *fell* at an annual rate of 2.1 percent in Q3 (chart 1), following an astounding annualized drop of 4.6 percent in Q2. 
 
 <figure class="wp-block-image size-large">
 <img src="/assets/blog/2026/01/joblessboom.png" class="wp-image-4232" loading="lazy" width="365" height="407" alt="Bar chart comparing two 2025 Q3 growth rates: labor productivity growth +5.0%, real wage growth for the first wage decile -2.1%. Source: BLS, BEA (PRS84006092, LEU0252911200, DPCERG)." />

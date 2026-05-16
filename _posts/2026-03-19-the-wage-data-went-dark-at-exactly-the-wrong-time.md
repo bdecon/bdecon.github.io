@@ -17,7 +17,7 @@ redirect_from:
 
 The government shutdown meant no October CPS was collected. Without it, the BLS couldn’t publish its [Usual Weekly Earnings](https://www.bls.gov/news.release/wkyeng.toc.htm) series for the fourth quarter of 2025. That’s a six-month hole in the official wage data.
 
-Using the same CPS microdata the BLS relies on, we can fill the gap. The [BD Economics](https://bd-econ.com/chartbook.html) measure tracks the official series closely when both are available (Chart 1). What it shows for the missing period: real median weekly earnings growth fell to -1.0% year-over-year by February 2026.
+Using the same CPS microdata the BLS relies on, we can fill the gap. The [BD Economics](/chartbook.html) measure tracks the official series closely when both are available (Chart 1). What it shows for the missing period: real median weekly earnings growth fell to -1.0% year-over-year by February 2026.
 
 <figure class="wp-block-image size-large">
 <img src="/assets/blog/2026/03/chart1-2.png" class="wp-image-4505" loading="lazy" width="822" height="551" alt="Line chart of real median weekly earnings growth year-over-year, 3-month average, 2015 to 2026. BD Economics' CPS-microdata series and the BLS Usual Weekly Earnings quarterly series track each other closely. A shaded 'BLS data gap' covers late 2025; the BD series fills the gap and ends at -1.0% in February 2026. Source: BD Economics, CPS microdata, BLS Usual Weekly Earnings." />
@@ -73,7 +73,7 @@ average</th>
 </table>
 </figure>
 
-The share of wage workers still reporting pay twelve months later fell to 60%, matching COVID-era lows. The median wage of the people who left jumped to \$1,146 per week, roughly \$75 above baseline. Federal workers who left were paid \$1,716 per week. The people leaving the wage sample are not marginal workers. They sit above the median.
+The share of wage workers still reporting pay twelve months later fell to 60%, matching COVID-era lows. The median wage of the people who left jumped to $1,146 per week, roughly $75 above baseline. Federal workers who left were paid $1,716 per week. The people leaving the wage sample are not marginal workers. They sit above the median.
 
 The composition effect in wage data usually runs one direction: in a downturn, lower-paid workers lose hours or jobs first, and the remaining sample looks artificially richer. This time it is running the other way. Higher-paid workers are leaving, pulling the cross-sectional median down while individual wage growth holds steady. The wage data looks worse than individual experience because of who is being cut.
 

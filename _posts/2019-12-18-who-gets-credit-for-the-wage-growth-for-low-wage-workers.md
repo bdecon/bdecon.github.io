@@ -18,13 +18,13 @@ A test of my claim comes from comparing total hours worked in different wage gro
 
 <img src="/assets/blog/2019/12/result2016-2.png" class="alignnone size-full wp-image-3499" loading="lazy" width="511" height="612" alt="result2016" />
 
-Notably, the share of hours that are paid the federal minimum wage or less is low; several times as many hours of work were paid between \$7.26 and \$12.00.
+Notably, the share of hours that are paid the federal minimum wage or less is low; several times as many hours of work were paid between $7.26 and $12.00.
 
 In the latest year of data, which ends November 2019, the story has changed:
 
 <img src="/assets/blog/2019/12/resultlatest-2.png" class="alignnone size-full wp-image-3500" loading="lazy" width="511" height="612" alt="resultlatest" />
 
-The share of work hours paid less than \$12 has fallen substantially since 2016. The effect is more pronounced in states that increased the minimum wage but also apparent in those that didn’t. As a result, states that didn’t raise the minimum wage now disproportionately have low wage work relative to the states that did.
+The share of work hours paid less than $12 has fallen substantially since 2016. The effect is more pronounced in states that increased the minimum wage but also apparent in those that didn’t. As a result, states that didn’t raise the minimum wage now disproportionately have low wage work relative to the states that did.
 
 It’s worth noting that total hours of work increased by five percent over the period. The concern that raising the minimum wage will cause job losses doesn’t show up in the data. The states that raised their minimum wage maintained a fairly constant share of total hours of work, claiming 55.2% of total hours over the past year.
 

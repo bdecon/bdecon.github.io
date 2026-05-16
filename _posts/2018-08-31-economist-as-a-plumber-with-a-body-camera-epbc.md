@@ -30,8 +30,8 @@ The EPBC therefore has two goals: 1) encouraging the showing of how results were
 
 ### Here are the first three EPBC notebooks (python 3.6):
 
-<a href="https://www.bd-econ.com/nbs/amazon_profit.html" target="_blank" rel="noopener">Is Amazon killing Walmart?</a>
+<a href="/nbs/amazon_profit.html" target="_blank" rel="noopener">Is Amazon killing Walmart?</a>
 
-<a href="https://www.bd-econ.com/nbs/census_api_us_exports.html" target="_blank" rel="noopener">US exports by trading partner</a>
+<a href="/nbs/census_api_us_exports.html" target="_blank" rel="noopener">US exports by trading partner</a>
 
-<a href="https://www.bd-econ.com/nbs/cps_read_basic.html" target="_blank" rel="noopener">Efficiently reading fixed-width files like the CPS public use microdata</a>
+<a href="/nbs/cps_read_basic.html" target="_blank" rel="noopener">Efficiently reading fixed-width files like the CPS public use microdata</a>

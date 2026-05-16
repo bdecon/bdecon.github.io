@@ -90,18 +90,9 @@ after_header_html: |
       </script>
 ---
 	<section>
-		<!-- Featured report — magazine-cover hero. Visible H1 lives here. -->
-		<a href="https://www.peoplespolicyproject.org/project/us-nordic-childcare-gap/" class="featured-report featured-report-hero accent-teal" target="_blank" rel="noopener">
-			<figure class="featured-report-photo">
-				<img src="images/childcare_hero.jpg" alt="" width="1024" height="771" loading="eager" decoding="async">
-			</figure>
-			<div class="featured-report-text">
-				<p class="featured-report-kicker">People's Policy Project &middot; May 2026</p>
-				<h1 class="featured-report-title">The US-Nordic Childcare Gap</h1>
-				<p class="featured-report-deck">Why the US has a childcare gap, who absorbs it, and what a public system would cost.</p>
-				<span class="featured-report-cta">Read the report &rarr;</span>
-			</div>
-		</a>
+		<!-- Featured report — magazine-cover hero. Visible H1 lives here.
+		     Content driven by _data/featured_report.yml. -->
+		{% include featured-report.html hero=true %}
 
 		<div class="split-row home-intro">
 			<div>

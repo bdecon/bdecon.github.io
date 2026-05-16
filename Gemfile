@@ -21,6 +21,6 @@ gem "jekyll-redirect-from"
 # in .github/workflows/jekyll.yml.
 gem "jekyll-paginate-v2"
 
-group :development do
-  gem "html-proofer"
-end
+# Used by `make check` locally and by the CI workflow's check step.
+# Not in :development group so `bundler-cache: true` in CI installs it.
+gem "html-proofer"

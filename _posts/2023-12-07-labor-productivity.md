@@ -17,7 +17,7 @@ The Bureau of Labor Statistics [report](https://www.bls.gov/news.release/prod2.t
 
 As Jason Furman [points out](https://twitter.com/jasonfurman/status/1732480933440405843), from 2018 until COVID annualized productivity growth was 1.8 percent, and from 2019 onward growth is 1.5 percent, which suggests that we are now catching up to the pre-COVID trend. These calculations, however, are sensitive to the reference dates. For example, the pre-COVID trend measured from 2014 to 2019 Q4 is 1.6 percent productivity growth.
 
-Additionally, while the official measure of labor productivity is based on nonfarm businesses, we can [estimate](https://www.bd-econ.com/chartbook.html) total economy labor productivity, including everything in GDP. Specifically, total economy labor productivity is real GDP divided by total hours worked by US households, calculated from the Current Population Survey microdata.
+Additionally, while the official measure of labor productivity is based on nonfarm businesses, we can [estimate](/chartbook.html) total economy labor productivity, including everything in GDP. Specifically, total economy labor productivity is real GDP divided by total hours worked by US households, calculated from the Current Population Survey microdata.
 
 The following chart combines nonfarm business labor productivity (blue) with total economy labor productivity (orange), and includes growth projections based on the 2014 to 2019 Q4 period. While nonfarm business labor productivity growth usually outpaces growth in the total economy measure, the cumulative growth of the two is virtually identical from 2018 to 2023 Q3. The total economy measure is currently well above its pre-COVID trend.
 

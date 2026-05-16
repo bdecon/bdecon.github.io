@@ -19,7 +19,7 @@ The gender wage gap widened in 2025. Women working full-time now earn about 82 c
 
 ## The Official Number
 
-One standard way to measure the gender wage gap compares median weekly earnings of full-time wage and salary workers. Using the same methodology as the Bureau of Labor Statistics on 2025 data, I estimate that men now earn \$1,323 per week while women earn \$1,081—a gap of about 18 percent.
+One standard way to measure the gender wage gap compares median weekly earnings of full-time wage and salary workers. Using the same methodology as the Bureau of Labor Statistics on 2025 data, I estimate that men now earn $1,323 per week while women earn $1,081—a gap of about 18 percent.
 
 But this headline number understates the problem. The chart below shows four different ways to measure the gap—and each adjustment reveals a larger disparity.
 
@@ -95,7 +95,7 @@ Putting it all together:
 </table>
 </figure>
 
-What does this mean in dollars? At 2025 median wages, the official 18% gap costs women about \$12,600 per year. Over a 30-year career, that’s roughly \$380,000. If the true gap is closer to 36%, the annual cost doubles to \$25,000—and the lifetime total approaches \$750,000.
+What does this mean in dollars? At 2025 median wages, the official 18% gap costs women about $12,600 per year. Over a 30-year career, that’s roughly $380,000. If the true gap is closer to 36%, the annual cost doubles to $25,000—and the lifetime total approaches $750,000.
 
 Look again at the chart. All four lines tell the same story: progress through 2023, then reversal in 2024-2025. But they tell that story at very different levels.
 

@@ -44,7 +44,7 @@ Additionally, if we look at aggregate personal income data for the US in 2019, t
 
 I wouldn’t say that wealth is a *[permanent](https://pfd.alaska.gov/Division-Info/About-Us)* source of income but neither is labor. We can see this in the above chart from the change in the number of recipients of earnings (labor income). The chart shows that aggregate personal income went up 1.1 percentage points because more people were employed in 2019 than 2018. In other words, a (disproportionately black) portion of the population was still re-entering the labor force a decade after the great recession had ended. And as we’ve seen recently, people lose jobs all the time and sometimes these job losses last for many years, so what is a permanent source of income?
 
-Perhaps a better question is whether wealth is consequential and *reliable* as a source of income. I’d argue that it is. Various forms of ownership income are equivalent to annualized income of [more than \$16,000](https://www.bea.gov/sites/default/files/2020-10/pi0820.pdf) per person in August, despite the very severe ongoing recession.
+Perhaps a better question is whether wealth is consequential and *reliable* as a source of income. I’d argue that it is. Various forms of ownership income are equivalent to annualized income of [more than $16,000](https://www.bea.gov/sites/default/files/2020-10/pi0820.pdf) per person in August, despite the very severe ongoing recession.
 
 ##### *Common argument \#3: The concentration of wealth is a life cycle story*
 

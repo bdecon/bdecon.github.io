@@ -25,7 +25,7 @@ But there’s a catch. BLS uses the same sample to report nominal median wage gr
 
 Leaning on unemployment to fully explain wage growth is clearly not working. An alternative measure of whether a labor market is tight is the employment rate for people age 25-54. This measure is currently at it’s highest level since 2007 but is still the equivalent of more than a million jobs away from its late 1990s and early 2000s level. In other words, there’s evidence that the labor market is still over a million jobs away from full employment.
 
-Maybe it’s better to ask instead why wages are growing so rapidly at the first decile and whether it means anything for wage growth more broadly. The data show that the number of full-time workers earning \$400 per week or less has fallen to 7.5 million in the latest three months from 14.7 million in the same three months of 2014. The story here seems to be higher local and state minimum wages and higher company minimum wages at large employers. Several areas and employers moved the minimum wage to above \$10 per hour (\$400 for a 40-hour week) during the past five years.
+Maybe it’s better to ask instead why wages are growing so rapidly at the first decile and whether it means anything for wage growth more broadly. The data show that the number of full-time workers earning $400 per week or less has fallen to 7.5 million in the latest three months from 14.7 million in the same three months of 2014. The story here seems to be higher local and state minimum wages and higher company minimum wages at large employers. Several areas and employers moved the minimum wage to above $10 per hour ($400 for a 40-hour week) during the past five years.
 
 Higher minimum wages could eventually translate into higher median wages. For example, the first decile and median wage tend to move together:
 
@@ -39,4 +39,4 @@ But the current period is not the late 1990s. Business fixed investment and labo
 
 Unlike the first two charts, I use some additional steps to smooth out the third chart comparing median and first decile wage growth. I calculate the wage in each month as the wage in the previous three months combined, so October 2019 is based on combined microdata from August, September, and October 2019. Additionally, I use the Census X13as program to seasonally adjust the results. The growth rate is based on this resultant seasonally-adjusted nominal wage.
 
-In both sets of charts, I replicate the BLS process of taking a “binned median” to reduce how much the data reflect breaks around certain round numbers (like \$400 per month).
+In both sets of charts, I replicate the BLS process of taking a “binned median” to reduce how much the data reflect breaks around certain round numbers (like $400 per month).

@@ -1,0 +1,23 @@
+{%- comment -%}
+  Featured-report panel. Source: _data/featured_report.yml.
+
+  Pass `hero: true` to use the magazine-cover hero treatment (visible H1).
+  Otherwise renders the standard variant with H3 — used by reports.html
+  inside its narrative flow.
+
+      {% include featured-report.html hero=true %}        # index.html
+      {% include featured-report.html %}                  # reports.html
+{%- endcomment -%}
+{%- assign _r = site.data.featured_report -%}
+{%- assign _is_external = _r.url contains '://' -%}
+<a href="{{ _r.url }}" class="featured-report{% if include.hero %} featured-report-hero{% endif %} accent-{{ _r.accent }}"{% if _is_external %} target="_blank" rel="noopener"{% endif %}>
+	<figure class="featured-report-photo">
+		<img src="{{ _r.image.src }}" alt="" width="{{ _r.image.width }}" height="{{ _r.image.height }}" loading="eager" decoding="async">
+	</figure>
+	<div class="featured-report-text">
+		<p class="featured-report-kicker">{{ _r.kicker }}</p>
+		{% if include.hero %}<h1 class="featured-report-title">{{ _r.title }}</h1>{% else %}<h3 class="featured-report-title">{{ _r.title }}</h3>{% endif %}
+		<p class="featured-report-deck">{{ _r.deck }}</p>
+		<span class="featured-report-cta">{{ _r.cta }}</span>
+	</div>
+</a>

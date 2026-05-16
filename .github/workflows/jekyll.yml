@@ -41,6 +41,8 @@ jobs:
         env:
           JEKYLL_ENV: production
         run: bundle exec jekyll build
+      - name: Check links and HTML (html-proofer)
+        run: bundle exec htmlproofer _site --disable-external --allow-missing-href --ignore-urls '/^data:/'
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

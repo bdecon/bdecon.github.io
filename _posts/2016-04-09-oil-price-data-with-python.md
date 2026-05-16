@@ -11,39 +11,9 @@ redirect_from:
 
 This example shows how Python can be used to take a look at oil prices. The script gathers daily oil price data from [Quandl](https://www.quandl.com/) and plots how the price has changed over the past few months.
 
-<div id="notebook-container" class="container">
-
-<div class="cell border-box-sizing text_cell rendered">
-
-<div class="inner_cell">
-
 ### Gathering data
 
 First, we import pandas, numpy, and matplotlib and give them conventional short names.
-
-</div>
-
-<div class="inner_cell">
-
-</div>
-
-<div class="inner_cell">
-
-In \[1\]:
-
-</div>
-
-</div>
-
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="input">
-
-<div class="inner_cell">
-
-<div class="input_area">
-
-<div class="highlight hl-ipython2">
 
     # Import libraries
     import pandas as pd
@@ -52,37 +22,7 @@ In \[1\]:
     import matplotlib.pyplot as plt
     %matplotlib inline
 
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
 Next, we identify the url for our data. In this case, the data is provided by Quandl and the url can be obtained by clicking ‘csv’ under the API for any series on the right-hand side of the page. We read the CHRIS CME_CL1 csv file provided by Quandl into a pandas dataframe.
-
-<div id="notebook-container" class="container">
-
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="input">
-
-<div class="prompt input_prompt">
-
-In \[2\]:
-
-</div>
-
-<div class="inner_cell">
-
-<div class="input_area">
-
-<div class="highlight hl-ipython2">
 
     # Import from Quandl WTI crude oil price data
     url = "https://www.quandl.com/api/v3/datasets/CHRIS/CME_CL1.csv"
@@ -91,51 +31,9 @@ In \[2\]:
     wticl1_last = wticl1['Last']
     wticl1['PctCh'] = wticl1.Last.pct_change()
 
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="cell border-box-sizing text_cell rendered">
-
-<div class="prompt input_prompt">
-
-</div>
-
-<div class="inner_cell">
-
-<div class="text_cell_render border-box-sizing rendered_html">
-
 ### Line plot of oil price
 
-Lastly, we can use matplotlib to generate a line plot showing the most recent 68 days worth of closing prices for WTI crude front month contracts. The past week has seen this measure of oil prices reach nearly \$40 per barrel.
-
-</div>
-
-</div>
-
-</div>
-
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="input">
-
-<div class="prompt input_prompt">
-
-In \[3\]:
-
-</div>
-
-<div class="inner_cell">
-
-<div class="input_area">
-
-<div class="highlight hl-ipython2">
+Lastly, we can use matplotlib to generate a line plot showing the most recent 68 days worth of closing prices for WTI crude front month contracts. The past week has seen this measure of oil prices reach nearly $40 per barrel.
 
     fig = plt.figure(figsize=[7,5])
     ax1 = plt.subplot(111)
@@ -157,39 +55,7 @@ In \[3\]:
              + str((np.round((wticl1.PctCh[-1] * 100), \
              decimals=2))) + '%')
     fig.text(0.1, 0.06, 'Source: ' + url)
-    fig.text(0.1, 0.02, 'briandew.wordpress.com')
+    fig.text(0.1, 0.02, 'bd-econ.com')
     plt.savefig('oil.png', dpi=1000)
 
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="output_wrapper">
-
-<div class="output">
-
-<div class="output_area">
-
-<div class="prompt">
-
-</div>
-
-<div class="output_png output_subarea">
-
 <img src="/assets/blog/2016/04/oil.png" class="alignnone size-full wp-image-1050" loading="lazy" width="7000" height="5000" alt="oil" />
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>

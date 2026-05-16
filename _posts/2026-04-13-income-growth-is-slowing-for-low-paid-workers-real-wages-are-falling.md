@@ -13,9 +13,9 @@ redirect_from:
   - /2026/04/13/income-growth-is-slowing-for-low-paid-workers-real-wages-are-falling/
 ---
 
-[March inflation](https://www.bls.gov/cpi/) jumped to 3.3% year over year, up from 2.4% in February. The main driver was gasoline as the [Iran war pushed pump prices](https://apnews.com/article/inflation-prices-gas-federal-reserve-trump-bf00c3105d5da88a0b01d9107ed4ecee) from \$2.98 to \$4.15 a gallon. Core inflation held at 2.6%, for now.
+[March inflation](https://www.bls.gov/cpi/) jumped to 3.3% year over year, up from 2.4% in February. The main driver was gasoline as the [Iran war pushed pump prices](https://apnews.com/article/inflation-prices-gas-federal-reserve-trump-bf00c3105d5da88a0b01d9107ed4ecee) from $2.98 to $4.15 a gallon. Core inflation held at 2.6%, for now.
 
-The price spike hit already-soft wage growth. [Average hourly pay](https://www.bls.gov/ces/) for production and non-supervisory workers rose 3.4% over the year ending March, down from 3.7% in January and February. Adjusted for inflation, real hourly pay grew 0.1% in March, after 1.2% in February. Workers at the bottom, where nominal growth has been slowing the longest, went negative. The 12-month average of real weekly pay [at the first decile](https://bd-econ.com/chartbook.html) is down 0.8% over the past year.
+The price spike hit already-soft wage growth. [Average hourly pay](https://www.bls.gov/ces/) for production and non-supervisory workers rose 3.4% over the year ending March, down from 3.7% in January and February. Adjusted for inflation, real hourly pay grew 0.1% in March, after 1.2% in February. Workers at the bottom, where nominal growth has been slowing the longest, went negative. The 12-month average of real weekly pay [at the first decile](/chartbook.html) is down 0.8% over the past year.
 
 <figure class="wp-block-image size-large">
 <img src="/assets/blog/2026/04/chart.png" class="wp-image-4575" loading="lazy" width="900" height="600" alt="Line chart of one-year real wage growth from April 2025 to March 2026, CPI-U adjusted. Average hourly earnings fell from about +1.8% to +0.1%. Low-wage weekly pay (first-decile 12-month average) fell from about +0.9% to -0.8%, crossing into negative territory in early 2026. Source: BLS CES0500000008 and CPS microdata." />

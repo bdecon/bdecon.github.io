@@ -31,7 +31,7 @@ The US reports imports from China, and China also [reports](https://english.cust
 </figure>
 
 Economists at the Federal Reserve have [found](https://www.federalreserve.gov/econres/notes/feds-notes/did-the-us-bilateral-goods-deficit-with-china-increase-or-decrease-during-the-us-china-trade-conflict-20210621.html) that the change in the US-China  
-reporting gap is primarily due to decreased reporting by US importers. Examples of this include invoice avoidance or the [*de minimus* loophole](https://www.reuters.com/business/retail-consumer/key-trade-loophole-keeps-cheap-chinese-products-flowing-us-2023-08-04/). Packages valued under \$800 avoid tariffs, leading to a rise in direct-to-US-consumer retail brands in China, among other effects.
+reporting gap is primarily due to decreased reporting by US importers. Examples of this include invoice avoidance or the [*de minimus* loophole](https://www.reuters.com/business/retail-consumer/key-trade-loophole-keeps-cheap-chinese-products-flowing-us-2023-08-04/). Packages valued under $800 avoid tariffs, leading to a rise in direct-to-US-consumer retail brands in China, among other effects.
 
 In the above chart, the dashed blue line represents what US-reported imports from China would have been if the pre-tariff reporting gap had continued. The “decoupling” that appears in US-reported data in 2021 disappears completely after this simple adjustment. Indeed, US imports from China were at an all-time high, relative to GDP, in late 2021, after this adjustment.
 

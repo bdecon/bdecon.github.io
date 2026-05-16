@@ -12,7 +12,7 @@ redirect_from:
   - /2023/11/20/us-chartbook-version-0-1/
 ---
 
-Check out the [US Chartbook](https://www.bd-econ.com/chartbook.html), version 0.1, released today. The chartbook is a big PDF collection of notes on US economic and social indicators that I’ve put together with python code to keep it updated.
+Check out the [US Chartbook](/chartbook.html), version 0.1, released today. The chartbook is a big PDF collection of notes on US economic and social indicators that I’ve put together with python code to keep it updated.
 
 Version 0.1, the first official release version, is the culmination of work over the past few months to review and edit the draft into a format that others might find useful.
 

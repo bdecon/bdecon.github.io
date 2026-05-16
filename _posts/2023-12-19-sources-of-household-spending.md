@@ -56,7 +56,7 @@ c = y – s
 
 The idea here is that we have some ideal level of consumption, c, and we meet it by either 1) having exactly enough income (y = c, s = 0), 2) having more than enough income and saving the balance (y \> c, s \> 0), or 3) not having enough income and dis-saving or borrowing the balance (y \< c, s \< 0). 
 
-Perhaps this is trivial, but the simple rearrangement of these variables gives interesting results when applied to the macroeconomic national accounts data or to microeconomic data on consumer expenditures. The results from the national accounts are captured in the [US Chartbook](https://www.bd-econ.com/chartbook.html) section called *Sources of Consumer Spending Growth.* The consumer expenditures data is used in the chart above. 
+Perhaps this is trivial, but the simple rearrangement of these variables gives interesting results when applied to the macroeconomic national accounts data or to microeconomic data on consumer expenditures. The results from the national accounts are captured in the [US Chartbook](/chartbook.html) section called *Sources of Consumer Spending Growth.* The consumer expenditures data is used in the chart above. 
 
 **Data Notes **
 

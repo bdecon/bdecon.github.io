@@ -34,7 +34,7 @@ When wages adjust to match prices, both paychecks rise in a two-earner household
 
 ## Changes in participation: three illustrative groups
 
-Since 2022, fewer women in the US have been out of the workforce for family or caregiving reasons. The count fell from 12.3 million in March 2022 to 11.3 million in March 2026. That move is part of a broader rise: when [adjusted for age](https://bd-econ.com/chartbook.html), women are participating in the labor force more now than at any point in the past.
+Since 2022, fewer women in the US have been out of the workforce for family or caregiving reasons. The count fell from 12.3 million in March 2022 to 11.3 million in March 2026. That move is part of a broader rise: when [adjusted for age](/chartbook.html), women are participating in the labor force more now than at any point in the past.
 
 While progress on women entering the labor force largely stalled from 2000 to 2015, it has recently accelerated. The long arc points to higher workforce participation. About 70% of middle-class kids grew up with a stay-at-home mom in 1960; the share has fallen to about 20% in 2024.
 

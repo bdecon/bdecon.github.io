@@ -12,7 +12,7 @@ redirect_from:
   - /2026/04/02/what-interest-rates-tell-you-about-the-oil-shock/
 ---
 
-Since the Strait of Hormuz closed at the end of February, WTI crude oil has risen from \$63 to \$105 a barrel. Interest rates across the economy have responded. The bond market is pricing the oil shock as temporary. But the uncertainty it introduced has a longer-term cost.
+Since the Strait of Hormuz closed at the end of February, WTI crude oil has risen from $63 to $105 a barrel. Interest rates across the economy have responded. The bond market is pricing the oil shock as temporary. But the uncertainty it introduced has a longer-term cost.
 
 ## A temporary shock with a long tail
 
@@ -20,7 +20,7 @@ You can read market expectations for future inflation directly from Treasury bon
 
 Since February 27, the five-year breakeven has risen 15 basis points (hundredths of a percentage point) to 2.55%. The market expects somewhat higher inflation over the next five years, which makes sense given an oil price that nearly doubled. But the five-year, five-year forward rate — a measure of expected inflation in years five through ten — actually *fell* 3 basis points to 2.07%.
 
-In short: near-term inflation expectations rise; long-term expectations stay anchored. Oil futures tell the same story. The August WTI contract is trading around \$79, [well below the \$105 spot price](https://theovershoot.co/p/markets-are-still-sanguine-about), meaning the market expects the disruption to fade. That said, the IEA has noted that more than [40 energy sites across nine countries](https://www.barchart.com/story/news/1098354/crude-prices-fall-on-hopes-for-de-escalation-of-hostilities-in-the-middle-east) have sustained severe damage, which could extend the disruption beyond what futures currently price.
+In short: near-term inflation expectations rise; long-term expectations stay anchored. Oil futures tell the same story. The August WTI contract is trading around $79, [well below the $105 spot price](https://theovershoot.co/p/markets-are-still-sanguine-about), meaning the market expects the disruption to fade. That said, the IEA has noted that more than [40 energy sites across nine countries](https://www.barchart.com/story/news/1098354/crude-prices-fall-on-hopes-for-de-escalation-of-hostilities-in-the-middle-east) have sustained severe damage, which could extend the disruption beyond what futures currently price.
 
 ## The cost shows up in the term premium
 

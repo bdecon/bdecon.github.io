@@ -37,7 +37,7 @@ It’s worth reiterating the Fed point with another labor market example. From t
 
 </div>
 
-But women with a college degree in this age group did not see the more recent increase. Instead, their earnings are nearly \$50 per week below the 2003 peak, after adjusting for inflation.
+But women with a college degree in this age group did not see the more recent increase. Instead, their earnings are nearly $50 per week below the 2003 peak, after adjusting for inflation.
 
 <div>
 

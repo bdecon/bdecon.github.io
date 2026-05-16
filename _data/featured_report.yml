@@ -1,0 +1,16 @@
+# Source of truth for the featured-report panel, rendered on index.html
+# (hero mode, with H1) and reports.html (standard mode, with H3) via
+# _includes/featured-report.html.
+#
+# To swap the featured report, edit the values below.
+
+url: "https://www.peoplespolicyproject.org/project/us-nordic-childcare-gap/"
+kicker: "People's Policy Project &middot; May 2026"
+title: "The US-Nordic Childcare Gap"
+deck: "Why the US has a childcare gap, who absorbs it, and what a public system would cost."
+cta: "Read the report &rarr;"
+accent: "teal"
+image:
+  src: "/images/childcare_hero.jpg"
+  width: 1024
+  height: 771

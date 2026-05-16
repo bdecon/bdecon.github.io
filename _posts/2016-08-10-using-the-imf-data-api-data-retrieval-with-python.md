@@ -84,58 +84,42 @@ If you have old code that referenced IFS series, there’s no direct lookup from
 1.  **Identify the category** — Determine what type of data you need (prices, interest rates, GDP, etc.) and find the corresponding dataset from the table above.
 2.  **Explore the new dataset** — Use the [IMF Data Portal](https://data.imf.org/) to browse interactively, or explore codelists programmatically:
 
-<div class="is-style-default wp-block-code">
+```python
+import sdmx
 
-<div class="cm-editor">
+IMF_DATA = sdmx.Client('IMF_DATA')
 
-<div class="cm-scroller">
-
-
-    import sdmxIMF_DATA = sdmx.Client('IMF_DATA')# Example: Find interest rate indicators in MFS_IRir_flow = IMF_DATA.dataflow('MFS_IR')indicators = sdmx.to_pandas(ir_flow.codelist['CL_MFS_IR_INDICATOR'])print(indicators)
-
-</div>
-
-</div>
-
-</div>
+# Example: Find interest rate indicators in MFS_IR
+ir_flow = IMF_DATA.dataflow('MFS_IR')
+indicators = sdmx.to_pandas(ir_flow.codelist['CL_MFS_IR_INDICATOR'])
+print(indicators)
+```
 
 3.  **Verify with IFS_FLAG** — Once you’ve found the data, you can confirm it was part of the original IFS by checking the `IFS_FLAG` attribute in the returned data:
 
-<div class="wp-block-code">
-
-<div class="cm-editor">
-
-<div class="cm-scroller">
-
-
-    data_msg = IMF_DATA.data('MFS_IR', key='USA.MFS135_RT_PT_A_PT.M')df = sdmx.to_pandas(data_msg).reset_index()print(df['IFS_FLAG'].unique())  # ['true'] confirms this was in IFS
-
-</div>
-
-</div>
-
-</div>
+```python
+data_msg = IMF_DATA.data('MFS_IR', key='USA.MFS135_RT_PT_A_PT.M')
+df = sdmx.to_pandas(data_msg).reset_index()
+print(df['IFS_FLAG'].unique())  # ['true'] confirms this was in IFS
+```
 
 ## Quick Reference: Retrieving Data
 
-If you already know the dataset and key you need (see the [BD Economics IMF API Guide](https://bd-econ.com/imfapi1.html) for finding keys), retrieval is straightforward:
+If you already know the dataset and key you need (see the [BD Economics IMF API Guide](/imfapi1.html) for finding keys), retrieval is straightforward:
 
-<div class="wp-block-code">
+```python
+import sdmx
+import pandas as pd
 
-<div class="cm-editor">
+IMF_DATA = sdmx.Client('IMF_DATA')
 
-<div class="cm-scroller">
+# Fetch data
+data_msg = IMF_DATA.data('DATASET', key='YOUR.KEY.HERE')
+df = sdmx.to_pandas(data_msg).reset_index()
+df = df.set_index('TIME_PERIOD')['value']
+```
 
-
-    import sdmximport pandas as pdIMF_DATA = sdmx.Client('IMF_DATA')# Fetch datadata_msg = IMF_DATA.data('DATASET', key='YOUR.KEY.HERE')df = sdmx.to_pandas(data_msg).reset_index()df = df.set_index('TIME_PERIOD')['value']
-
-</div>
-
-</div>
-
-</div>
-
-The `sdmx.to_pandas()` function returns a Series with a MultiIndex (one level per dimension). Calling `.reset_index()` converts this to a flat DataFrame with dimensions as columns, which is easier to filter and reshape. The key format varies by dataset—check dimension order with `dataflow('DATASET').structure['DSD_...'].dimensions.components`. For details on exploring datasets and finding codes, see [Part 2 of the BD Economics guide](https://bd-econ.com/imfapi2.html).
+The `sdmx.to_pandas()` function returns a Series with a MultiIndex (one level per dimension). Calling `.reset_index()` converts this to a flat DataFrame with dimensions as columns, which is easier to filter and reshape. The key format varies by dataset—check dimension order with `dataflow('DATASET').structure['DSD_...'].dimensions.components`. For details on exploring datasets and finding codes, see [Part 2 of the BD Economics guide](/imfapi2.html).
 
 ## Example 1: Banking Spreads Across 80+ Countries
 
@@ -149,20 +133,39 @@ A few syntax notes for the code below:
 - Use `+` to request multiple codes in one dimension (e.g., two indicators in a single call)
 - The `params` dictionary filters by time period
 
-<div class="wp-block-code">
+```python
+import pandas as pd
+import sdmx
+import matplotlib.pyplot as plt
 
-<div class="cm-editor">
+IMF_DATA = sdmx.Client('IMF_DATA')
 
-<div class="cm-scroller">
+msg = IMF_DATA.data('MFS_IR', key='.MFS135_RT_PT_A_PT+MFS162_RT_PT_A_PT.M',
+                    params={'startPeriod': '2023-12', 'endPeriod': '2023-12'})
+df = sdmx.to_pandas(msg).reset_index()
 
+# Pivot to wide format: one row per country, indicators as columns
+rates = df.pivot(index='COUNTRY', columns='INDICATOR', values='value')
+rates.columns = ['deposit_rate', 'lending_rate']
+rates = rates.dropna()
 
-    import pandas as pdimport sdmximport matplotlib.pyplot as pltIMF_DATA = sdmx.Client('IMF_DATA')msg = IMF_DATA.data('MFS_IR', key='.MFS135_RT_PT_A_PT+MFS162_RT_PT_A_PT.M',                    params={'startPeriod': '2023-12', 'endPeriod': '2023-12'})df = sdmx.to_pandas(msg).reset_index()# Pivot to wide format: one row per country, indicators as columnsrates = df.pivot(index='COUNTRY', columns='INDICATOR', values='value')rates.columns = ['deposit_rate', 'lending_rate']rates = rates.dropna()# Plot (excluding extreme outliers)df_plot = rates[(rates['deposit_rate'] < 50) & (rates['lending_rate'] < 60)]plt.figure(figsize=(7, 5))plt.scatter(df_plot['deposit_rate'], df_plot['lending_rate'],            s=50, alpha=0.6, c='steelblue')# Add 45° line (points on this line have zero spread)max_val = max(df_plot['deposit_rate'].max(), df_plot['lending_rate'].max())plt.plot([0, max_val], [0, max_val], 'k--', alpha=0.3, linewidth=1)plt.xlabel('Deposit Rate (%)')plt.ylabel('Lending Rate (%)')plt.title(f'Bank Deposit vs Lending Rates ({len(df_plot)} Economies, Dec 2023)')plt.grid(True, alpha=0.3)plt.show()
+# Plot (excluding extreme outliers)
+df_plot = rates[(rates['deposit_rate'] < 50) & (rates['lending_rate'] < 60)]
 
-</div>
+plt.figure(figsize=(7, 5))
+plt.scatter(df_plot['deposit_rate'], df_plot['lending_rate'],
+            s=50, alpha=0.6, c='steelblue')
 
-</div>
+# Add 45° line (points on this line have zero spread)
+max_val = max(df_plot['deposit_rate'].max(), df_plot['lending_rate'].max())
+plt.plot([0, max_val], [0, max_val], 'k--', alpha=0.3, linewidth=1)
 
-</div>
+plt.xlabel('Deposit Rate (%)')
+plt.ylabel('Lending Rate (%)')
+plt.title(f'Bank Deposit vs Lending Rates ({len(df_plot)} Economies, Dec 2023)')
+plt.grid(True, alpha=0.3)
+plt.show()
+```
 
 <figure class="wp-block-image size-large">
 <img src="/assets/blog/2016/08/deposit_lending_scatter.png" class="wp-image-4274" loading="lazy" width="1024" height="727" alt="Scatter plot of bank deposit rate vs lending rate for 83 economies in December 2023, with a dashed 45° reference line. Most points sit above the line — lending rates exceed deposit rates by the spread (a few percentage points in developed economies, up to ~30 percentage points in outliers like Brazil)." />
@@ -191,20 +194,39 @@ The key format for QNEA is `COUNTRY.INDICATOR.PRICE_TYPE.S_ADJUSTMENT.TYPE_OF_TR
 - `XDC` — domestic currency
 - `Q` — quarterly frequency
 
-<div class="is-style-default wp-block-code">
+```python
+import pandas as pd
+import sdmx
+import matplotlib.pyplot as plt
 
-<div class="cm-editor">
+IMF_DATA = sdmx.Client('IMF_DATA')
 
-<div class="cm-scroller">
+msg = IMF_DATA.data('QNEA', key='IND+CHN+BRA+MEX.B1GQ.Q..XDC.Q',
+                    params={'startPeriod': '2020'})
+df = sdmx.to_pandas(msg).reset_index()
+df = df[df['S_ADJUSTMENT'] == 'NSA']  # Use NSA for consistency
 
+# Convert quarters to dates and pivot to wide format
+df['date'] = pd.PeriodIndex(df['TIME_PERIOD'], freq='Q').to_timestamp()
+pivot = df.pivot(index='date', columns='COUNTRY', values='value')
 
-    import pandas as pdimport sdmximport matplotlib.pyplot as pltIMF_DATA = sdmx.Client('IMF_DATA')msg = IMF_DATA.data('QNEA', key='IND+CHN+BRA+MEX.B1GQ.Q..XDC.Q',                    params={'startPeriod': '2020'})df = sdmx.to_pandas(msg).reset_index()df = df[df['S_ADJUSTMENT'] == 'NSA']  # Use NSA for consistency# Convert quarters to dates and pivot to wide formatdf['date'] = pd.PeriodIndex(df['TIME_PERIOD'], freq='Q').to_timestamp()pivot = df.pivot(index='date', columns='COUNTRY', values='value')# Calculate year-over-year growth (4 quarters back)growth = pivot.pct_change(periods=4, fill_method=None) * 100growth = growth[growth.index >= '2022-07-01']# Plotgrowth.rename(columns={'IND': 'India', 'CHN': 'China', 'BRA': 'Brazil', 'MEX': 'Mexico'}).plot(    figsize=(5, 5), linewidth=2)plt.axhline(y=0, color='black', linewidth=0.5)plt.ylabel('Year-over-Year Growth (%)')plt.title('Quarterly Real GDP Growth')plt.grid(True, alpha=0.3)# Add padding to y-axis so legend doesn't overlap dataymin, ymax = plt.ylim()plt.ylim(ymin - (ymax - ymin) * 0.1, ymax + (ymax - ymin) * 0.2)plt.show()
+# Calculate year-over-year growth (4 quarters back)
+growth = pivot.pct_change(periods=4, fill_method=None) * 100
+growth = growth[growth.index >= '2022-07-01']
 
-</div>
+# Plot
+growth.rename(columns={'IND': 'India', 'CHN': 'China', 'BRA': 'Brazil', 'MEX': 'Mexico'}).plot(
+    figsize=(5, 5), linewidth=2)
+plt.axhline(y=0, color='black', linewidth=0.5)
+plt.ylabel('Year-over-Year Growth (%)')
+plt.title('Quarterly Real GDP Growth')
+plt.grid(True, alpha=0.3)
 
-</div>
-
-</div>
+# Add padding to y-axis so legend doesn't overlap data
+ymin, ymax = plt.ylim()
+plt.ylim(ymin - (ymax - ymin) * 0.1, ymax + (ymax - ymin) * 0.2)
+plt.show()
+```
 
 <figure class="wp-block-image size-large">
 <img src="/assets/blog/2016/08/gdp_growth_comparison.png" class="wp-image-4275" loading="lazy" width="733" height="732" alt="Line chart of quarterly year-over-year real GDP growth for India, China, Brazil, and Mexico, Q3 2022 through Q3 2025. India runs the highest (5-10%); China sits in the 5% range; Brazil drifts from 4% down to about 2%; Mexico slows from ~4.5% to near 0%." />
@@ -236,8 +258,8 @@ The IFS restructuring means:
 
 For detailed guidance on exploring datasets and finding codes, see:
 
-- [BD Economics IMF API Guide Part 1](https://bd-econ.com/imfapi1.html) — Data retrieval basics
-- [BD Economics IMF API Guide Part 2](https://bd-econ.com/imfapi2.html) — Finding datasets and codes
+- [BD Economics IMF API Guide Part 1](/imfapi1.html) — Data retrieval basics
+- [BD Economics IMF API Guide Part 2](/imfapi2.html) — Finding datasets and codes
 
 ## Resources
 

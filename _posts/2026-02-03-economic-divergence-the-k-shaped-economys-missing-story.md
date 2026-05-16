@@ -20,7 +20,7 @@ Some economists have been highlighting a divergence in consumer spending. **But 
 
 ## The Gap
 
-Here’s the puzzle: labor income growth has collapsed. Real median weekly earnings, which I [calculate](https://bd-econ.com/chartbook.pdf) from the monthly CPS microdata (BLS did not release Q4 2025 data) turned negative in late 2025. Workers at the middle of the distribution are earning less in inflation-adjusted terms than they were a year ago.
+Here’s the puzzle: labor income growth has collapsed. Real median weekly earnings, which I [calculate](/chartbook.pdf) from the monthly CPS microdata (BLS did not release Q4 2025 data) turned negative in late 2025. Workers at the middle of the distribution are earning less in inflation-adjusted terms than they were a year ago.
 
 Market income tells the same story. Real personal income excluding transfers, what households earn from wages, investments, and business income before government payments, turned negative in November 2025. This is the first time since the pandemic that market income has contracted year-over-year.
 
@@ -34,7 +34,7 @@ Dean Baker at CEPR recently [noted](https://cepr.net/publications/the-ai-bubble-
 <img src="/assets/blog/2026/02/chart7_final.png" class="wp-image-4311" loading="lazy" width="1024" height="556" alt="Line chart of US labor income as share of consumption, percent, 2016 to Q3 2025. The series sits near 78% before the pandemic, spikes above 83% in 2020 with stimulus, then falls steadily after 2021 to 74.6% by Q3 2025 — 4.3 percentage points below the 2018-19 baseline of 79%, a gap of $915 billion per year." />
 </figure>
 
-In 2018-2019, a period with a strong labor market before the pandemic distortions, this ratio averaged about 79 percent. By Q3 2025, it had fallen to 74.6 percent. That 4.4 percentage point drop represents a gap of over **\$900 billion annually**. That’s consumption that wages alone cannot explain.
+In 2018-2019, a period with a strong labor market before the pandemic distortions, this ratio averaged about 79 percent. By Q3 2025, it had fallen to 74.6 percent. That 4.4 percentage point drop represents a gap of over **$900 billion annually**. That’s consumption that wages alone cannot explain.
 
 Recent survey evidence suggests where the gap is coming from. The Philadelphia Fed [found](https://www.philadelphiafed.org/consumer-finance/evidence-of-diverging-spending-behavior-by-income) that lower-income households are cutting back on spending while higher-income households are not.
 
