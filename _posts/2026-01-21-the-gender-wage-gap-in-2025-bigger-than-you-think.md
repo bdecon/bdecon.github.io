@@ -24,7 +24,7 @@ One standard way to measure the gender wage gap compares median weekly earnings 
 But this headline number understates the problem. The chart below shows four different ways to measure the gap—and each adjustment reveals a larger disparity.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/01/gwg_blog_chart_v3.png" class="wp-image-4299" loading="lazy" width="512" height="440"  alt="" />
+<img src="/assets/blog/2026/01/gwg_blog_chart_v3.png" class="wp-image-4299" loading="lazy" width="512" height="440" alt="Line chart of four measures of the US gender wage gap from 2016 to 2025. Official BLS measure (full-time wage and salary, 16+): 18% in 2025. Workers aged 25-54: 23%. Inclusive (25-54, non-workers counted as zero): 32%. Education-adjusted (25-54): 36%. All four measures rose modestly from 2023 to 2025. Source: Current Population Survey microdata." />
 </figure>
 
 The dark blue line is the official measure. The maroon line includes all adults aged 25 to 54, treating non-workers as earning zero. The gray dashed line adjusts for education. By the top line, the gap has doubled from 18 percent to 36 percent.

@@ -22,7 +22,7 @@ Additionally, while the official measure of labor productivity is based on nonfa
 The following chart combines nonfarm business labor productivity (blue) with total economy labor productivity (orange), and includes growth projections based on the 2014 to 2019 Q4 period. While nonfarm business labor productivity growth usually outpaces growth in the total economy measure, the cumulative growth of the two is virtually identical from 2018 to 2023 Q3. The total economy measure is currently well above its pre-COVID trend.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2023/12/chart1-1.png" class="wp-image-3926" loading="lazy" width="488" height="454"  alt="" />
+<img src="/assets/blog/2023/12/chart1-1.png" class="wp-image-3926" loading="lazy" width="488" height="454" alt="Line chart of labor productivity indexed to 2018 Q1 = 1, from 2014 to 2023 Q3. Nonfarm business (BLS) is at ~1.09; total economy (author) is at ~1.09 as well, having outrun its pre-COVID trend. Dashed lines project the 2014-2019 Q4 trend forward. Source: Bureau of Labor Statistics; author's calculations." />
 </figure>
 
 For context, over the longer-term, since 1989, nonfarm business labor productivity has grown at an annual rate of 1.9 percent, while total economy productivity has grown at a rate of 1.5 percent. More recently, growth has been slower; from 2014 to 2019 Q4, nonfarm business sector growth is 1.6 percent and total economy growth is a meager 1.0 percent. These 2014 to 2019 growth rates are projected forward as the dashed lines in the chart above.

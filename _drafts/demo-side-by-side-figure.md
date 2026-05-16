@@ -22,30 +22,30 @@ caption beneath.
 
 The text continues normally below.
 
-## Side-by-side (image right, text left)
+## Side-by-side figure
 
-Wrap a paragraph plus a figure in `<div class="post-split">` to put them
-side by side. The image gets pushed into the right margin, the text stays
-left at prose width. On mobile this stacks vertically.
+Wrap a paragraph plus a figure in `<div class="post-split">`. The text keeps
+its prose-column left alignment; the figure bumps out past the right edge of
+the prose column into the right margin. Source order is always **text first,
+figure second**. Below 880px viewport it stacks vertically (text above,
+figure below).
 
 <div class="post-split">
 <p>When wages adjust to match prices, both paychecks rise in a two-earner household. In a one-earner household with four dependents, only one paycheck rises, and that paycheck still has to feed five mouths. Each person in the household has consumption needs whose prices have risen.</p>
 <figure>
 <img src="/assets/blog/2026/05/chart_1.png" alt="">
-<figcaption>The chart spills into the margin.</figcaption>
+<figcaption>The chart spills into the right margin.</figcaption>
 </figure>
 </div>
 
-## Side-by-side (image left, text right)
+A second one to confirm rhythm with the surrounding prose:
 
-Same pattern, with `.post-split--reverse` flips the columns.
-
-<div class="post-split post-split--reverse">
+<div class="post-split">
+<p>The text sits in its usual prose column position so the reading rhythm doesn't break when the layout shifts. The chart simply takes advantage of the empty space to its right.</p>
 <figure>
 <img src="/assets/blog/2026/05/chart_2.png" alt="">
-<figcaption>Image on the left.</figcaption>
+<figcaption>Same pattern, different figure.</figcaption>
 </figure>
-<p>The text sits to the right of the image. Useful when you want the chart to set the visual hook and the explanation flows from it. Both layouts collapse to a single column on small screens so mobile readers see image-then-text in natural order.</p>
 </div>
 
 ## Pull quote

@@ -68,13 +68,13 @@ The most affected group is people looking for their first job. Unemployment amon
 The [Sahm rule](https://fred.stlouisfed.org/series/SAHMREALTIME), a widely watched recession signal based on rising unemployment, triggered in mid-2024 and has since receded. A slow rise in unemployment captures only part of what is happening. The number of people unemployed 15 weeks or longer has risen [45% since 2023](https://fred.stlouisfed.org/series/UEMP15T26). Another 6 million people want a job but have stopped actively searching — a population entirely outside the unemployment rate.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/03/chart_deviation_smooth.png" class="wp-image-4521" loading="lazy" width="784" height="554"  alt="" />
+<img src="/assets/blog/2026/03/chart_deviation_smooth.png" class="wp-image-4521" loading="lazy" width="784" height="554" alt="Stacked bar chart of labor market slack as deviation in percentage points from the 2023 average, 12-month moving average, 2023-2026. Three stacked components — short-term unemployed, unemployed 15+ weeks, and want-a-job not searching — together rise from roughly 0 in 2024 to about +0.65 percentage points by 2026, with the long-term unemployed (15+ weeks) growing the most. Source: BD Economics, CPS microdata." />
 </figure>
 
 Using the [Current Population Survey](https://github.com/bdecon/econ_data/tree/master/bd_CPS), I counted everyone who wants work — whether they are actively searching (and counted as unemployed) or have given up searching (and are not counted). As a share of the population, this group has grown steadily since 2023, and totals about 13 million people over the last 12 months of data.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/03/chart_two_bars.png" class="wp-image-4523" loading="lazy" width="529" height="612"  alt="" />
+<img src="/assets/blog/2026/03/chart_two_bars.png" class="wp-image-4523" loading="lazy" width="529" height="612" alt="Two stacked bars comparing the composition of the first +0.66 percentage-point rise in labor market slack from cycle low. Past episodes average: 56% short-term unemployed, 22% unemployed 15+ weeks, 22% want-a-job not in labor force. 2023-now: only 25% short-term unemployed, 48% unemployed 15+ weeks, 27% want-a-job not in labor force. Source: BD Economics, CPS microdata." />
 </figure>
 
 What makes this episode different is where the increase is coming from. In the dot-com recession, the Great Recession, and COVID, the increase was driven mainly by a wave of people losing jobs — newly unemployed workers who had been searching for less than 15 weeks. In the current episode, that group accounts for just 25% of the increase. Nearly half comes from people who have been unemployed 15 weeks or longer, and over a quarter from people who have stopped searching entirely.
@@ -85,7 +85,7 @@ Employers treat nine months without work as [equivalent to four years](https://w
 
 This pattern — where time out of work makes it harder to find work — is well-documented among the unemployed. Survey data shows it operates among people outside the labor force too: the longer someone has been wanting work without finding it, the lower their already dismal chances of getting back in — and those chances have been falling.<sup>1</sup> This is a population of millions that the unemployment rate does not track.
 
-The labor market entered 2026 with less cushion than it had in 2022. The surplus of job openings that supported the labor market in 2022-2023 has [closed](https://fred.stlouisfed.org/graph/?g=1JIGt), and the pandemic-era savings buffer has been [depleted](https://briandew.wordpress.com/2026/03/09/after-the-thrill-is-gone/). If hiring remains frozen, people stuck in long job searches and people who have stopped searching have fewer paths back in than they would have had two years ago.
+The labor market entered 2026 with less cushion than it had in 2022. The surplus of job openings that supported the labor market in 2022-2023 has [closed](https://fred.stlouisfed.org/graph/?g=1JIGt), and the pandemic-era savings buffer has been [depleted](/blog/2026/03/09/after-the-thrill-is-gone/). If hiring remains frozen, people stuck in long job searches and people who have stopped searching have fewer paths back in than they would have had two years ago.
 
 ## Policy for a freeze, not a crash
 

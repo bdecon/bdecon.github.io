@@ -2,12 +2,21 @@
 layout: default
 ---
 {%- assign _accent = site.data.blog_categories[page.category] | default: 'blue' -%}
+{%- assign _cat_posts = site.categories[page.category] -%}
+{%- assign _cat_total = _cat_posts | size -%}
 <div class="page-title">
 	<h1>{{ page.category }}</h1>
 </div>
+<div class="section-bar accent-{{ _accent }}"></div>
 	<section class="accent-{{ _accent }}">
 		<p class="blog-intro">
-			Posts in <strong>{{ page.category }}</strong>.
+			{%- if _cat_total == 0 -%}
+				No posts in <strong>{{ page.category }}</strong> yet.
+			{%- elsif _cat_total == 1 -%}
+				1 post in <strong>{{ page.category }}</strong>.
+			{%- else -%}
+				{{ _cat_total }} posts in <strong>{{ page.category }}</strong>{%- if paginator.total_pages > 1 %} &middot; page {{ paginator.page }} of {{ paginator.total_pages }}{%- endif -%}.
+			{%- endif %}
 			<a href="/blog/">&larr; All posts</a>
 		</p>
 

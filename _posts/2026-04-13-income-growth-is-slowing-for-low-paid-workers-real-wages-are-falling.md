@@ -18,13 +18,13 @@ redirect_from:
 The price spike hit already-soft wage growth. [Average hourly pay](https://www.bls.gov/ces/) for production and non-supervisory workers rose 3.4% over the year ending March, down from 3.7% in January and February. Adjusted for inflation, real hourly pay grew 0.1% in March, after 1.2% in February. Workers at the bottom, where nominal growth has been slowing the longest, went negative. The 12-month average of real weekly pay [at the first decile](https://bd-econ.com/chartbook.html) is down 0.8% over the past year.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/04/chart.png" class="wp-image-4575" loading="lazy" width="900" height="600"  alt="" />
+<img src="/assets/blog/2026/04/chart.png" class="wp-image-4575" loading="lazy" width="900" height="600" alt="Line chart of one-year real wage growth from April 2025 to March 2026, CPI-U adjusted. Average hourly earnings fell from about +1.8% to +0.1%. Low-wage weekly pay (first-decile 12-month average) fell from about +0.9% to -0.8%, crossing into negative territory in early 2026. Source: BLS CES0500000008 and CPS microdata." />
 </figure>
 
 Aggregate income tells the same story. Gross labor income, total pay across the workforce, rose 3.7% nominal in March, down from 4.8% a year earlier. Deflated by the CPI, real labor income is growing 0.4%. Real [market income](https://www.bea.gov/data/income-saving/personal-income), personal income excluding taxes and transfers, is flat, and likely turned slightly negative in March once the CPI spike is reflected.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/04/chart2-3.png" class="wp-image-4581" loading="lazy" width="840" height="560"  alt="" />
+<img src="/assets/blog/2026/04/chart2-3.png" class="wp-image-4581" loading="lazy" width="840" height="560" alt="Line chart of real aggregate income growth, year over year, from April 2024 to March 2026. Labor income slowed from about +2.0% to +0.4%. Market income (personal income excluding taxes and transfers) slowed from +2.2% to -0.2%, turning negative in March 2026. Source: BEA, BLS." />
 </figure>
 
 Three forces are pushing this lower.

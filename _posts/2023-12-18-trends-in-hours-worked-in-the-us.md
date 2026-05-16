@@ -22,7 +22,7 @@ The question of “how many hours are people working?” requires a little bit o
 If you ask businesses about their payroll hours, you’ll get an answer that is far lower than if you ask people how many hours they work (see chart below). Researchers can [explain](https://docs.iza.org/dp4704.pdf) this gap in mechanical ways. For example, a person with one 40 hour per week job and a second 10 hour per week job averages 50 hours per week in the [household survey](https://www.bls.gov/cps/) (CPS) and 25 hours per week in the [payroll survey](https://www.bls.gov/ces/) (CES). But rather than focusing on the gap between measures, let’s look at the *trends* in hours worked, across measures, which are isolated in the two smaller charts.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2023/12/chart1-9.png" class="wp-image-4044" loading="lazy" width="679" height="749"  alt="" />
+<img src="/assets/blog/2023/12/chart1-9.png" class="wp-image-4044" loading="lazy" width="679" height="749" alt="Three-panel chart of US hours worked per week by measure, 1949-2024 (top) and zoomed-in indexed views (bottom). CPS household survey (including multiple jobholders) hovers around 38-39 hours. CES payroll survey for production/non-supervisory jobs falls from 38 in the 1960s to 34. OPT (total hours / total jobs) follows a similar downward path. All three measures fall ~1-2% from 2021 Q2 to late 2023. Source: BLS." />
 </figure>
 
 **The average hours worked per job [fell gradually](https://www.bls.gov/productivity/tables/) after World War II and again during the 1960s and 1970s, but the pace has slowed considerably since the 1980s.** Since 1989, hours worked have fallen between 2 and 4 percent in total, depending on the measure. Much of the pattern in hours worked, particularly since the 1980s, is cyclical; people work less during recessions and more during expansions.
@@ -36,7 +36,7 @@ Importantly, **since mid 2021, the trends all point to a relatively sharp drop i
 Of the measures discussed in the previous section, the household survey (CPS) shows the smallest reduction in hours worked since 2021. This should be expected, as the number of multiple jobholders [increased](https://fred.stlouisfed.org/series/LNS12026620), driving up the CPS measure and driving down the other measures. Using the CPS, let’s look at hours worked among self-employed people and among those employed in the public and private sectors (see next chart).
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2023/12/chart4-3.png" class="wp-image-4008" loading="lazy" width="477" height="462"  alt="" />
+<img src="/assets/blog/2023/12/chart4-3.png" class="wp-image-4008" loading="lazy" width="477" height="462" alt="Line chart of US average actual hours worked per week by sector, 1994-2024. Self-employed (pink) fall from 42-43 in the 1990s and 2000s to about 37 in 2024. Private sector (blue) sits near 39 throughout. Public sector (light blue) rose from ~37.5 in the 1990s to ~39, now above the private sector. Source: CPS microdata." />
 </figure>
 
 **Trends in hours worked diverge by sector.** The public sector worked fewer hours per week than the other groups during the 1990s, but now works more than other groups. To the extent that we expect the public sector to lead the charge in reducing average workweeks, it has not been the case. Since 1994, hours worked have fallen in the private sector and risen in the public sector. The increase in hours may stem from restrictions on hiring in the sector.
@@ -62,7 +62,7 @@ In other words, the workweek’s stagnation reflects a halt in reducing work hou
 Moreover, these changes did not just appear; other countries intentionally reduced their work hours through labor market reforms. Sweden offers an early example, followed by Norway. Germany is also a well-known case. Hours worked fell 30 percent below the US level in each of the these countries.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2023/12/chart2-3.png" class="wp-image-4011" loading="lazy" width="479" height="450"  alt="" />
+<img src="/assets/blog/2023/12/chart2-3.png" class="wp-image-4011" loading="lazy" width="479" height="450" alt="Line chart of average hours worked per worker per week, 1950-2022, for the United States, Germany, Norway, and Sweden. The US (red) ends near 35, having fallen only modestly from 38-39 in the 1950s. Germany, Norway, and Sweden all fell sharply through the 1960s-1980s and now sit near 26-28 — roughly 30% below the US. Source: OECD." />
 </figure>
 
 In the case of Sweden, the Social Democratic Party (SAP) was in government from the 1930s through the 1970s, and achieved major labor market reforms during this period. As examples, in 1938 Sweden implemented a 4-week national vacation system, and in the 1970s Sweden lowered its retirement age, created a part-time work option for those age 60 to 65, introduced parental leave and training study leave, and added a fifth week of vacation leave. By 1980, workers in Sweden had nearly 10 additional hours of leisure time per week compared to Americans.
@@ -88,7 +88,7 @@ In the US, the standard workweek has been 40 hours since the Fair Labor Standard
 Among the group of people who work full time during the CPS reference week working hours have steadily declined. This trend seems to have accelerated in recent data. In 2019, people at work full time averaged 43.1 hours of work at their main job; in the latest data, the average is 42.4 hours, a reduction of nearly two percent (see chart below).
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2023/12/chart3-3.png" class="wp-image-4013" loading="lazy" width="588" height="450"  alt="" />
+<img src="/assets/blog/2023/12/chart3-3.png" class="wp-image-4013" loading="lazy" width="588" height="450" alt="Line chart of US average actual hours per week at the main job among full-time workers (35+ hours), 1994-2024. Falls steadily from 44.5 in 1994 to a 2019 average of 43.1, then accelerates downward to 42.4 by November 2023. Source: Current Population Survey microdata." />
 </figure>
 
 The average hours worked in a full week are falling sharply in recent data, though it’s less clear why. **A decrease of 0.7 hours per week for 120 million people is a far cry from the Swedish model, but does matter; it translates to roughly two million fewer unemployed people.**
@@ -104,7 +104,7 @@ A trope in cartoons and TV shows a “gone fishing” sign on a storefront to re
 And while the US has 11 [federal holidays](https://www.opm.gov/policy-data-oversight/pay-leave/federal-holidays/#url=2023) per year, workers are not guaranteed time off or extra pay in the US. President Biden added Juneteenth to the list of federal holidays, which will slightly reduce hours worked, but not everyone will get to enjoy it. **Many people work on holidays, and the trend in this regard is going in the wrong direction.** The overall trend for “non-economic”<sup>1</sup> work absences, and the trends for several individual categories, are shown in the following chart.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2023/12/chart5-1.png" class="wp-image-4015" loading="lazy" width="515" height="757"  alt="" />
+<img src="/assets/blog/2023/12/chart5-1.png" class="wp-image-4015" loading="lazy" width="515" height="757" alt="Multi-panel chart of the share of US workers who worked less than 35 hours during the survey week, by reason, 1994-2024. Total non-economic reasons (left panel, green) drift down from ~25% in the late 1990s to ~22% by 2024, with brief spikes during Labor Day survey weeks. Right panel breaks out individual reasons (holiday, vacation, family/medical, school/training, sub-35 workweek, weather) — each showing distinct seasonality. Source: CPS microdata." />
 </figure>
 
 **While the standard workweek seems to be falling gradually, the trend around non-economic work absences shows the opposite–fewer workers are taking time off from work.** This unfortunate and surprising result suggests that a long period with a weak labor market meant lost progress on several fronts. In practice, no vacation nation has gotten worse.

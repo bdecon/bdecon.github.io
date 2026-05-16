@@ -23,7 +23,7 @@ Who absorbs that cut?
 For the poorest retirees, Social Security is nearly everything — 82% of income. Earnings, pensions, and asset income together account for just 8%. For the highest-income retirees, the picture is reversed: earnings make up 41%, pensions and asset income another 41%, and Social Security just 15%. This pattern is clear in the SSA’s [Income of the Aged Chartbook](https://www.ssa.gov/policy/docs/chartbooks/income_aged/2014/iac14.pdf), and the chart below shows it holds with 2024 data.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/03/chart1_iota.png" class="wp-image-4485" loading="lazy" width="1024" height="831"  alt="" />
+<img src="/assets/blog/2026/03/chart1_iota.png" class="wp-image-4485" loading="lazy" width="1024" height="831" alt="Two side-by-side horizontal bar charts of income shares for retirees 65+, 2024. Lowest quintile (income up to $17,942): Social Security 82%, earnings 2%, pensions 4%, asset income 2%, public assistance 8%, other 1%. Highest quintile (above $106,225): Social Security 15%, earnings 41%, pensions 22%, asset income 19%, public assistance 0%, other 2%. Source: CPS ASEC microdata; methodology SSA Income of the Aged Chartbook." />
 </figure>
 
 The workers who depend most on Social Security in retirement are the same workers who had the hardest jobs while they were working. And those jobs do not get easier with age.
@@ -31,7 +31,7 @@ The workers who depend most on Social Security in retirement are the same worker
 In 2025, the lowest-paid older workers are three times as likely to have physically demanding jobs or difficult working conditions as the highest-paid. In the bottom fifth by wages, 61% of workers 58 and older are in these jobs. That is six in ten. In the top fifth, it is 20%. The most common occupations for these workers are janitors, personal care aides, cashiers, truck drivers, and maids.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/03/chart2_dwc.png" class="wp-image-4486" loading="lazy" width="1024" height="768"  alt="" />
+<img src="/assets/blog/2026/03/chart2_dwc.png" class="wp-image-4486" loading="lazy" width="1024" height="768" alt="Bar chart of the share of workers age 58 and over in physically demanding jobs or difficult working conditions in 2025, by weekly earnings quintile. Bottom 61%, second 59%, middle 46%, fourth 37%, top 20%. Source: CPS microdata, ONET; methodology Rho, CEPR (2010)." />
 </figure>
 
 These are not jobs you can do forever. The physical toll accumulates, and for many workers the question is not when to retire but whether they will be healthy enough to make it there. Life expectancy at birth for Black men is [70.3 years](https://www.cdc.gov/nchs/data/nvsr/nvsr74/nvsr74-06.pdf). Many will pay into Social Security for decades and never collect a check. Raising the retirement age to 70 increases the share of workers who pay in and get nothing back.

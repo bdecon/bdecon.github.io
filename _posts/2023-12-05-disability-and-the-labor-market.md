@@ -31,7 +31,7 @@ Interestingly, the number of SSDI beneficiaries starts to fall in 2014, and has 
 Each argument has different policy implications. And while efforts from the right to cut off benefits for persons with disabilities never go away, these efforts have also been bubbling more than normal, recently. As such, it is worth looking at trends around disability and the labor market.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2023/12/chart1.png" class="wp-image-3860" loading="lazy" width="491" height="454"  alt="" />
+<img src="/assets/blog/2023/12/chart1.png" class="wp-image-3860" loading="lazy" width="491" height="454" alt="Line chart of disability and the labor force, below federal retirement age, millions of people, 1994-2024. The CPS proxy (not in labor force due to disability or illness) climbs from ~7M to a 2014 peak of ~13.5M then falls to ~12M. SSDI beneficiaries rise from ~5.5M to peak ~10.8M in 2014 then fall to ~8.8M. Sources: CPS, SSA." />
 </figure>
 
 The chart above shows SSDI beneficiaries alongside a proxy from Current Population Survey microdata. The proxy shows individuals who are not in the labor force due to disability or illness. Specifically, they are neither employed nor actively seeking employment, and cite disability or illness as the reason. The proxy group is larger than the number of actual SSDI beneficiaries; individuals in the proxy group do not necessarily receive any disability benefits and in some cases are temporarily disabled or ill. The CPS proxy group tops out at over 13 million at around the same time as the peak in SSDI beneficiaries, and has fallen, though less rapidly, to under 12 million in October 2023. We can use the CPS proxy to examine demographic effects and labor market effects.
@@ -41,7 +41,7 @@ The chart above shows SSDI beneficiaries alongside a proxy from Current Populati
 Since the population is rising and demographics are changing, we can get a better sense of trends by looking at the *rate* at which people report being out of the labor force due to disability or illness. We can also factor in demographic shifts, such as the aging of the population and the larger birth cohort after World War II.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2023/12/chart2-1.png" class="wp-image-3863" loading="lazy" width="490" height="466"  alt="" />
+<img src="/assets/blog/2023/12/chart2-1.png" class="wp-image-3863" loading="lazy" width="490" height="466" alt="Line chart of share of age group not in labor force due to disability or illness, percent, seasonally adjusted, 1994-2024. Age 16+: actual rate peaks ~6% in 2014, ends Oct 2023 at 5.1%; demographics-adjusted ends at 4.7%. Age 16-35: rises gradually to 2.9% in 2023, with the demographic adjustment making little difference. Source: CPS." />
 </figure>
 
 The rate at which people age 16 and older report being out of the labor force due to disability has returned to its mid-2000s level, from its high in 2015 (see chart above). The demographically-adjusted rate has fallen even further, nearly returning to its 1990s level. This development is encouraging.
@@ -55,7 +55,7 @@ To answer the “demographics versus tight labor market” question, we can look
 Indeed, the age 16 and older jobfinding rate improved substantially since 2019 (see next chart). Further, adjusted for demographics, the jobfinding rate is far above its 1990s and 2000s rate. Importantly, this confirms that the tight labor market is helping people to find jobs and driving down the rate at which people are out of the labor force for disability or illness.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2023/12/chart3-1.png" class="wp-image-3882" loading="lazy" width="490" height="477"  alt="" />
+<img src="/assets/blog/2023/12/chart3-1.png" class="wp-image-3882" loading="lazy" width="490" height="477" alt="Line chart of the jobfinding rate for age 16+ adults who were out of the labor force due to disability or illness one year prior, 12-month moving average, 1999-2024. The rate dipped to about 4% during the early 2010s, then climbed past 6% post-pandemic — Oct 2023: 6.1% actual, 6.9% demographics-adjusted. Source: CPS." />
 </figure>
 
 To further gauge the labor market effect, we can look at employment rates for persons with disabilities. Since 2008, the CPS has included direct questions about disability, which can be used to calculate these rates (also reported by BLS, [here](https://data.bls.gov/timeseries/LNU02374597)).
@@ -63,7 +63,7 @@ To further gauge the labor market effect, we can look at employment rates for pe
 While employment rates for persons with disabilities are far lower than for the general population, these rates are currently well above their pre-pandemic levels (see next chart). Since 2013, the employment rate for people age 16 to 35 with at least one disability has improved by more than 15 percentage points.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2023/12/chart4-1.png" class="wp-image-3883" loading="lazy" width="477" height="462"  alt="" />
+<img src="/assets/blog/2023/12/chart4-1.png" class="wp-image-3883" loading="lazy" width="477" height="462" alt="Line chart of the employment rate for people with at least one disability, by age group, 2008-2024. Age 16-35 (3-month moving average) climbs from ~30% in 2013 to 45.5% in Oct 2023 — a 15-point jump. Age 16+ moves from ~17% to 22.4% (25.9% demographics-adjusted). Source: CPS." />
 </figure>
 
 The labor market effect is evident. The improvement in jobfinding and employment rates are encouraging. The increase in employment rates for the younger group is a particularly large change, and is at odds with the finding that a higher percentage of young people are currently out of the labor force due to disability or illness than in 2013. For both to be true, the rate of disability must have increased substantially for young people but not for older people. And indeed, to my surprise, this is exactly what the data show.
@@ -73,7 +73,7 @@ The labor market effect is evident. The improvement in jobfinding and employment
 Since 2013, the age 16 to 35 disability rate surged by 40 percent, equal to nearly 2 percent of the age group. While labor market conditions for young people with disabilities have improved, far more young people report disabilities. Meanwhile, disability rates for older groups decreased 10 percent since the great recession. My search for coverage of this interesting result, which is mostly a development since 2019, did not come up with anything.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2023/12/chart5.png" class="wp-image-3870" loading="lazy" width="484" height="462"  alt="" />
+<img src="/assets/blog/2023/12/chart5.png" class="wp-image-3870" loading="lazy" width="484" height="462" alt="Line chart of disability rate change since 2008 by age group, 12-month moving average indexed to 2008=100. Age 16-35 surges to ~140 by 2024 (a 40% increase in disability prevalence). Age 36-54 and age 55+ both drift down to ~90. Source: CPS." />
 </figure>
 
 ##### The Need for Income Support Is Not Going Away

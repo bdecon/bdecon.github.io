@@ -62,7 +62,6 @@ defaults:
       og_type: "article"
       nav_active: "blog"
       body_class: "page-blog-post"
-      sitemap: false               # remove this when blog goes live
       extra_head: |
             <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
       extra_scripts: |

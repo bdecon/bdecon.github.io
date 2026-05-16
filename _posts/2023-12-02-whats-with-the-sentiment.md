@@ -23,7 +23,7 @@ In addition to fighting the pandemic, these packages sent money directly to fami
 The economic relief packages are credited with the strong economic recovery, and with overcoming various headwinds that emerged during the post-COVID years. The charts below show the COVID recession recovery in real GDP per capita (left) and unemployment (right) compared with the previous five recessions. 
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2023/12/image-1.png" class="wp-image-3837" loading="lazy" width="658" height="455"  alt="" />
+<img src="/assets/blog/2023/12/image-1.png" class="wp-image-3837" loading="lazy" width="658" height="455" alt="Two line charts comparing the COVID recession to the previous five US recessions. Left: real GDP per capita indexed to pre-recession peak = 100 — the COVID line drops to 92 then recovers to ~108 by year four, well above the five gray comparison lines. Right: change in unemployment from pre-recession low — COVID spikes to +11 percentage points then falls back near 0 by year two, faster than any past recession. Sources: BEA, BLS." />
 </figure>
 
 Beyond the initial recovery, the US has so far avoided the recession that was commonly forecast for 2022. Economists generally expected higher interest rates and other economic woes to result in higher unemployment and cause a recession. As of November 2023, the consensus has shifted from “imminent recession” to “soft landing”. 
@@ -41,7 +41,7 @@ In August, Twitter user @quantian1 [put forth](https://twitter.com/quantian1/sta
 The next chart shows predictions from a similar model of consumer sentiment based on inflation, unemployment, housing prices, wages, stock prices, and interest rates. The model explains consumer sentiment well from 1979 to 2019. The model also fits the earlier out of sample quarterly data, going back to 1965. The model does not, however, fit the data from 2020 onward. 
 
 <figure class="wp-block-image">
-<img src="/assets/blog/2023/12/image.png" class="wp-image-3836"  alt="" />
+<img src="/assets/blog/2023/12/image.png" class="wp-image-3836" alt="Line chart comparing the University of Michigan Consumer Sentiment index (UMCSENT) with a model's predicted values, 1965-2023. Inputs: inflation, unemployment, housing prices, wages, stock prices, interest rates. In-sample fit (1979-2019) R² = 0.80. The model fits well through 2019 but, in the out-of-sample period after 2020, the predicted line stays near 95 while actual sentiment falls to ~67 — a large unexplained gap." />
 </figure>
 
 The model incorrectly predicts record low consumer sentiment in 2020 in response to the massive increase in unemployment. If survey respondents put the same weight on unemployment in 2020 as they did in 2019, they would have been far more pessimistic, based on the model. 
@@ -52,7 +52,7 @@ More importantly, the model that fits consumer sentiment before COVID suggests t
 
 The endless “what about adjusted for inflation” or “what about housing prices” replies to already inflation-adjusted data on social media has become something of a joke among economists. The CPI includes housing, gasoline, childcare, and everything else consumers buy, and is weighted by how much people actually buy these things. Further, real wages already adjust for prices. When an economist presents real wages or adjusts data using the CPI, they have already addressed the concern that people raise over and over again. Hence the frustration.
 
-But at an individual level, people experience all sorts of things and economists are keenly aware that the map is not the territory. For example, I am [not convinced](https://briandew.wordpress.com/2023/09/04/real-wages-inflation-and-consumer-sentiment/) that real wages fully address the median person’s concern about prices. All people experience periods without wages, and many wage earners cannot cover the cost of starting a family or buying a first home. These are real concerns that show up in cross-sections of the data.
+But at an individual level, people experience all sorts of things and economists are keenly aware that the map is not the territory. For example, I am [not convinced](/blog/2023/09/04/real-wages-inflation-and-consumer-sentiment/) that real wages fully address the median person’s concern about prices. All people experience periods without wages, and many wage earners cannot cover the cost of starting a family or buying a first home. These are real concerns that show up in cross-sections of the data.
 
 Additionally, people may have psychological reasons for not liking inflation even when they experience real wage growth. People may [associate](https://twitter.com/john_voorheis/status/1729545853168152696) nominal wage gains with their own meritorious efforts while attributing price increases to unrelated external forces. 
 
@@ -61,7 +61,7 @@ To dig into some of these questions, an adjusted version of the previous model g
 The next chart applies this adjusted model and finds a much better fit to the out-of-sample data from 2020 onward. Over the three months ending October 2023, the actual consumer sentiment index averaged 67. The first model predicts an index value of 95 and the second model predicts a much closer value of 78. The adjusted model also fits the actual data very well during 2021 and 2022.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2023/12/model2.png" class="wp-image-3838" loading="lazy" width="690" height="330"  alt="" />
+<img src="/assets/blog/2023/12/model2.png" class="wp-image-3838" loading="lazy" width="690" height="330" alt="Line chart of the adjusted consumer sentiment model (1988-2019) vs actual UMCSENT. Adjustments: new home prices, energy prices, deviation from past 10-year average. In-sample fit R² = 0.83. In the out-of-sample period after 2020, predicted values now fall closer to actual sentiment — closing most of the gap left by the basic model." />
 </figure>
 
 The gap between the two models’ predictions for October 2023 comes from the following factors: excluding 1979 to 1987 (-4.5 percentage points), including the deviation from the previous 10-year average for unemployment, inflation, and interest rates (-8.5 percentage points), and replacing the CPI based housing index with the average new home price and adding energy prices (-4.3 percentage points). 

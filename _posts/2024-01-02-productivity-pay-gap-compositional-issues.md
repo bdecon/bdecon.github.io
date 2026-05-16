@@ -18,10 +18,10 @@ The issue is that the businesses that were closed during the pandemic (for examp
 
 Of course, **we know that our society did not become more productive or higher paid when millions of people were laid off; collectively we became *less* productive and *lower* paid**. There were major supply shortages and unprecedented needs for government support. The data gives the opposite picture because the sample used to calculate the result was reduced and the composition of the people in the sample changed. The bumps come from excluding a large number of people from the measure during the pandemic.
 
-So how do we get around the composition issues? One technique is to [keep the full sample over time](https://briandew.wordpress.com/2023/12/20/real-wage-measures/). For example, if someone loses their job, rather than remove them from the sample used to measure wages, keep them in the sample and count their wage as zero. Likewise, rather than measure productivity per hour of work, measure it per person, whether the person is working or not.
+So how do we get around the composition issues? One technique is to [keep the full sample over time](/blog/2023/12/20/real-wage-measures/). For example, if someone loses their job, rather than remove them from the sample used to measure wages, keep them in the sample and count their wage as zero. Likewise, rather than measure productivity per hour of work, measure it per person, whether the person is working or not.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2024/01/chart-1.png" class="wp-image-4168" loading="lazy" width="510" height="527"  alt="" />
+<img src="/assets/blog/2024/01/chart-1.png" class="wp-image-4168" loading="lazy" width="510" height="527" alt="Line chart of the productivity-pay gap for all persons age 25-54 regardless of job status, indexed to 1994 Q1 = 1. Productivity (net domestic product divided by age 25-54 population) climbs from 1.0 to 1.7 by 2024. Pay (real median weekly earnings with non-workers set to zero) climbs from 1.0 to ~1.25 — a much smaller increase, with a visible dip during the 2008-2014 period. Presidential terms marked. Source: CPS microdata, BLS, BEA." />
 </figure>
 
 That’s what I’ve done with the above chart, which shows productivity and pay for the 25 to 54 year old population. The age 25 to 54 group is sometimes called the “prime age group” in labor economics as they are employed at the highest rate. The pay line shows median inflation-adjusted usual weekly earnings, regardless of job status. The productivity line divides net domestic product (GDP excluding depreciation expenses) by the age 25 to 54 population.
@@ -31,7 +31,7 @@ These techniques aren’t perfect<sup>1</sup>, but they are useful for showing w
 To show this effect, here’s the annual growth rates from the chart above, grouped by presidential term. **If we take out the labor composition effect, Biden’s results look pretty good.** Productivity and real wages are both growing at an above-average rate *and* the gap between the two is closing.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2024/01/table-1.png" class="wp-image-4164" loading="lazy" width="356" height="484"  alt="" />
+<img src="/assets/blog/2024/01/table-1.png" class="wp-image-4164" loading="lazy" width="356" height="484" alt="Table of annualized productivity and pay growth for the age 25-54 population by presidential term. Clinton T1: 1.9 / 1.4. Clinton T2: 2.8 / 2.8. Bush T1: 1.9 / -0.6. Bush T2: 0.1 / -0.2. Obama T1: 2.1 / -1.4. Obama T2: 1.9 / 2.3. Trump: 1.4 / 1.8. Biden through 2023: 2.0 / 2.4 — both growing above average and pay outpacing productivity. Source: CPS microdata, BLS, BEA." />
 </figure>
 
 ------------------------------------------------------------------------

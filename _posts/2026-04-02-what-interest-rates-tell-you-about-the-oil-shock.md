@@ -31,7 +31,7 @@ The explanation lies in the term premium. When investors buy a 10-year bond, the
 Since the war began, the Kim-Wright 10-year term premium has risen 25 basis points. That accounts for most of the rise in the 10-year yield. Investors are pricing in a more uncertain world. Oil supply disruptions and geopolitical conflict make long-term bonds riskier to hold.
 
 <figure class="wp-block-image size-full">
-<img src="/assets/blog/2026/04/chart_breakevens.png" class="wp-image-4530"  alt="" />
+<img src="/assets/blog/2026/04/chart_breakevens.png" class="wp-image-4530" alt="Line chart of changes in basis points since February 27, 2026, plotted from Feb 18 through April 1. After the US & Israel strike on Iran, the 10-year term premium rises +25 bp; the 5-year breakeven (2026-2030 inflation expectations) rises +15 bp; the 5-year, 5-year forward (2031-2035 inflation expectations) falls -3 bp. Source: FRED (T5YIE, T5YIFR, THREEFYTP10)." />
 </figure>
 
 ## The yield curve steepened
@@ -39,7 +39,7 @@ Since the war began, the Kim-Wright 10-year term premium has risen 25 basis poin
 The yield curve plots Treasury yields from the shortest maturities to the longest. Since February 27, it shifted upward across the board, but not evenly. The two-year yield jumped 41 basis points, exceeding the Fed’s overnight rate target of 3.50-3.75%. The 10-year rose 33. The 30-year rose 24.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/04/chart_yield_curve.png" class="wp-image-4531" loading="lazy" width="639" height="699"  alt="" />
+<img src="/assets/blog/2026/04/chart_yield_curve.png" class="wp-image-4531" loading="lazy" width="639" height="699" alt="US Treasury yield curve on Feb 27 vs Mar 31, 2026, plotted from 1-month to 30-year maturities. The whole curve shifted up but unevenly: the 2-year rose +41 bp (the biggest move, crossing above the 3.50-3.75% overnight rate target), the 10-year rose +33 bp, and the 30-year rose +24 bp. Source: Federal Reserve H.15." />
 </figure>
 
 The short end of the curve reflects expectations about what the Fed will do in the near term. When the two-year yield rises above the overnight rate, it means markets expect the Fed to hold rates where they are. Before the oil shock, core PCE inflation — which strips out food and energy — had already climbed to 3.1% in January, stalling the disinflationary trend from 2023–2024. The oil shock eliminated any remaining room the Fed had to cut.

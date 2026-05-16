@@ -24,7 +24,7 @@ Discrepancies between even the broad index and the way the dollar is actually tr
 
 <img src="/assets/blog/2016/04/dtwexm_apr152016.png" class="alignnone size-full wp-image-1363" aria-describedby="caption-attachment-1363" loading="lazy" width="538" height="475" alt="dtwexm_apr152016" />
 
-The major currencies index contains fewer currencies than the broad index, and has fallen to a 22-month low. (plot from [dashboard](https://briandew.wordpress.com/dashboard_usa/))
+The major currencies index contains fewer currencies than the broad index, and has fallen to a 22-month low. (plot from [dashboard](/chartbook.html))
 
 </div>
 

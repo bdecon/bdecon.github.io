@@ -29,7 +29,7 @@ These costs are unavoidable. They are the private price of services that other w
 And yet the United States spends more on these things than other countries, not less. Families just pay out of pocket instead of through taxes.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/03/oecd_spending.png" class="wp-image-4513" loading="lazy" width="1024" height="629"  alt="" />
+<img src="/assets/blog/2026/03/oecd_spending.png" class="wp-image-4513" loading="lazy" width="1024" height="629" alt="Stacked bar chart of public and private social spending as share of GDP in 2021, across ten wealthy democracies. The United States has the highest total (~33%), but private spending (dark blue) accounts for ~12 points of that — the largest private share by far. France and Finland total ~31-33%, almost entirely public. Source: OECD Social Expenditure Database (SOCX)." />
 </figure>
 
 Among wealthy democracies, the U.S. ranks first in total social spending as a share of GDP. Most of that spending is private — employer health premiums, daycare tuition, out-of-pocket costs. In France, Germany, or Denmark, the same needs are covered publicly. The total cost to society is similar. The difference is who gets the bill.
@@ -86,7 +86,7 @@ What would it cost this family to fund these services through the tax system ins
 The new taxes total about \$42 a week. The private costs they replace total \$350 to \$400.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/03/comparison-1.png" class="wp-image-4525" loading="lazy" width="1024" height="734"  alt="" />
+<img src="/assets/blog/2026/03/comparison-1.png" class="wp-image-4525" loading="lazy" width="1024" height="734" alt="Bar chart of annual savings for a family earning $80,000 with a child under 5 under three proposals: Van Hollen tax cut $1,500, Booker tax cut $3,700, and universal programs (healthcare, childcare, paid leave; net of new taxes) $14,500. Sources: Penn Wharton Budget Model, KFF, Child Care Aware, CBO." />
 </figure>
 
 There is another gap. The tax cuts leave out the poorest twenty percent of families, who already owe no federal income tax. Universal programs cover them by design. And because middle-class families use the same programs, they stay funded.

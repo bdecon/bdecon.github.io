@@ -20,13 +20,13 @@ The government shutdown meant no October CPS was collected. Without it, the BLS 
 Using the same CPS microdata the BLS relies on, we can fill the gap. The [BD Economics](https://bd-econ.com/chartbook.html) measure tracks the official series closely when both are available (Chart 1). What it shows for the missing period: real median weekly earnings growth fell to -1.0% year-over-year by February 2026.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/03/chart1-2.png" class="wp-image-4505" loading="lazy" width="822" height="551"  alt="" />
+<img src="/assets/blog/2026/03/chart1-2.png" class="wp-image-4505" loading="lazy" width="822" height="551" alt="Line chart of real median weekly earnings growth year-over-year, 3-month average, 2015 to 2026. BD Economics' CPS-microdata series and the BLS Usual Weekly Earnings quarterly series track each other closely. A shaded 'BLS data gap' covers late 2025; the BD series fills the gap and ends at -1.0% in February 2026. Source: BD Economics, CPS microdata, BLS Usual Weekly Earnings." />
 </figure>
 
 But here is where it gets interesting. The Atlanta Fed’s [Wage Growth Tracker](https://www.atlantafed.org/chcs/wage-growth-tracker), which follows the same individuals over time rather than taking a snapshot of whoever happens to be working, shows real wage growth of +1.3% over the same period (Chart 2). Workers who kept their jobs are doing fine. The 2.2 percentage point gap between the two measures is not a contradiction. It is a composition effect: the mix of who is working changed.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/03/chart2.png" class="wp-image-4506" loading="lazy" width="762" height="551"  alt="" />
+<img src="/assets/blog/2026/03/chart2.png" class="wp-image-4506" loading="lazy" width="762" height="551" alt="Line chart of two real wage growth measures, year-over-year 3-month average, 2022 to 2026. The Atlanta Fed Wage Growth Tracker (which follows matched individuals over time) ends at +1.3%; the cross-sectional median (which takes a snapshot of whoever is working) ends at -1.0%, a 2.3 percentage-point gap reflecting composition change. Source: BD Economics, CPS microdata, Atlanta Fed Wage Growth Tracker." />
 </figure>
 
 The Wage Growth Tracker only captures people who report wages in both of their CPS rotation appearances, twelve months apart — and the [CPS response rate is now lower than during the pandemic](https://stayathomemacro.substack.com/p/trust-in-numbers), making that matched sample increasingly selective. If you lose your job between measurements, you disappear from the tracker. That is the point of the design. It filters out composition. But it also means the tracker has nothing to say about the people who left.

@@ -22,13 +22,13 @@ Other wealthy countries avoid this entirely by setting the line relative to medi
 The poverty *rate* is the share of people whose household income falls below the poverty line. So where you draw the line determines how many people are in poverty. The [federal poverty guidelines](https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines) draw it at \$33,000 for a family of four in 2026, about \$690 per person per month. A relative poverty line draws it at 50% of median income — about \$60,000 for the same family.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/03/chart3-2.png" class="wp-image-4461" loading="lazy" width="400" height="579"  alt="" />
+<img src="/assets/blog/2026/03/chart3-2.png" class="wp-image-4461" loading="lazy" width="400" height="579" alt="Line chart of two US poverty measures, percent of population, 2014-2024. Official poverty rate fell from ~15% to ~10.5%. Relative poverty rate (post-taxes and transfers, 50% of median income) hovered around 17-18%, dipped briefly to 15% in 2021 when pandemic benefits expanded, then snapped back to 18.5% by 2024. Source: Current Population Survey, HHS Poverty Guidelines." />
 </figure>
 
 The official US poverty rate fell from 15% to 11% over the past decade, as incomes at the bottom improved. But incomes in the middle and at the top improved faster. The relative poverty rate, calculated from income after taxes and government benefits, increased over the same period. In 2021, expanded pandemic benefits briefly pushed the relative measure down to 15%. It snapped back when those programs expired.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/03/chart1-1.png" class="wp-image-4463" loading="lazy" width="550" height="409"  alt="" />
+<img src="/assets/blog/2026/03/chart1-1.png" class="wp-image-4463" loading="lazy" width="550" height="409" alt="Line chart of US poverty thresholds for the average household in thousands of 2024 dollars, 1988-2024. Relative poverty line (pre-tax, 50% of median income) rises from $37,000 to $45,000. Official poverty line stays flat at around $23,000 throughout, falling slightly as average household size shrinks. Source: Current Population Survey, HHS Poverty Guidelines, BLS." />
 </figure>
 
 In 2024, the official poverty line for the average US household (household size of 2.4 people) is \$23,000. This figure is adjusted each year by the CPI, so it changes very little, in real terms, over time. The small decrease comes from average household size shrinking over the period. The relative poverty line, when calculated as 50% of median *pre-tax* income, is about \$45,000 for the average US household in 2024. Since 1988, the official line has fallen from two-thirds of the relative line to half.

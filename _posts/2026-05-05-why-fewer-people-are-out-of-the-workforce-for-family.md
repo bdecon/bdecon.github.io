@@ -23,7 +23,7 @@ As prices rise again, the question is which households suffer.
 One standard answer points to low-income households. A larger share of their income goes to essentials, so price increases hit them harder. This is true, but it is a partial explanation. Households also differ in how many household members work for pay and how many depend on them, and the ratio between these groups matters even when wages outpace inflation.
 
 <figure class="wp-block-image size-full">
-<img src="/assets/blog/2026/05/chart_1.png" class="wp-image-4596" loading="lazy" width="800" height="880"  alt="" />
+<img src="/assets/blog/2026/05/chart_1.png" class="wp-image-4596" loading="lazy" width="800" height="880" alt="Stacked bar titled 'The US as one household': of every 2.5 people, 1.0 is a full-time worker, 0.2 part-time, 0.1 unpaid caregiver, 0.4 retired or 65+, 0.1 disabled, 0.6 a child or student, and 0.1 looking for work. Source: CPS microdata, March 2026." />
 </figure>
 
 When scaled to a single 2.5-person household, the US population looks like this: about one full-time worker, two-tenths of a part-time worker, and the rest a mix of children or students, retirees, unpaid caregivers, people with disabilities, and people looking for work (see chart 1). Those are population averages. No household actually contains 0.6 of a child or 0.4 of a retiree.
@@ -39,7 +39,7 @@ Since 2022, fewer women in the US have been out of the workforce for family or c
 While progress on women entering the labor force largely stalled from 2000 to 2015, it has recently accelerated. The long arc points to higher workforce participation. About 70% of middle-class kids grew up with a stay-at-home mom in 1960; the share has fallen to about 20% in 2024.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/05/chart_2.png" class="wp-image-4597" loading="lazy" width="840" height="672"  alt="" />
+<img src="/assets/blog/2026/05/chart_2.png" class="wp-image-4597" loading="lazy" width="840" height="672" alt="Line chart of change in labor-force non-participation since the March 2001 peak for adults 25-54, by reason. The Family/Care line dropped sharply from a 2022 peak near +0.5 percentage points to about -0.6 by 2026, indicating unpaid caregivers entering the workforce, while Retired, School, Discouraged, and Disabled/Ill lines all end near +0.2. Source: CPS microdata, demographics adjusted." />
 </figure>
 
 Among adults age 25 to 54, the main reasons for labor force non-participation are as follows: family or caregiving, disability or illness, school, early retirement, or no longer looking for work. In March 2001, US labor force participation was near its all-time high, and since then the reasons for increased non-participation have varied (see chart 2). By 2022, the share out of the workforce for family or caregiving reasons was back at the same level as in 2001. But the share has fallen sharply since.
@@ -74,7 +74,7 @@ When prices rise, households with more dependents shoulder more of the increase.
 
 In households where the adults all work and there are no children, poverty stayed at 5.4% across the 2019-2024 period. In households with one dependent (a child or non-working adult under 65), the poverty rate climbed from 12% to 14%. With three or more dependents, poverty climbed from 18% to 20%, about one in five. Where someone wasn’t earning, poverty rose about two percentage points across the period.
 
-Households have consolidated, too. As one example, [the share of Americans aged 18 to 29 living with family](https://briandew.wordpress.com/2026/02/19/53-percent-of-young-adults-live-with-their-parents/) was 48% before the pandemic; it crossed 50% in 2023 and reached 53% by March 2026. When the cost of forming a new household increases, more adult children stay home or move back in, a shift in living arrangements that spreads costs.
+Households have consolidated, too. As one example, [the share of Americans aged 18 to 29 living with family](/blog/2026/02/19/53-percent-of-young-adults-live-with-their-parents/) was 48% before the pandemic; it crossed 50% in 2023 and reached 53% by March 2026. When the cost of forming a new household increases, more adult children stay home or move back in, a shift in living arrangements that spreads costs.
 
 Other rich countries let fewer prices land entirely on households. They offer public services that absorb private costs (for example childcare and healthcare) and also provide direct cash transfers such as child allowances. Both tools achieve the same goal: fewer households where prices outpace income. The US uses neither of these tools at the same scale.
 

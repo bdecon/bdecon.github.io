@@ -13,7 +13,7 @@ redirect_from:
 Labor markets can deteriorate very rapidly, resulting in an economic recession. As such, economists monitor conditions closely. Currently, the US labor market is reasonably strong, though conditions have worsened over the past few years. The impulse of the labor market, based on recent changes, suggests further weakening. The Federal Reserve should tread cautiously.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2025/09/us_lms-2.jpg" class="wp-image-4219" loading="lazy" width="679" height="601"  alt="" />
+<img src="/assets/blog/2025/09/us_lms-2.jpg" class="wp-image-4219" loading="lazy" width="679" height="601" alt="Quadrant scatter plot of US labor market status, plotting conditions (weak-strong) on the x-axis and impulse (getting worse-getting better) on the y-axis. Four annual dots from 2022 to 2025: 2022 in the strong/improving quadrant, drifting down to 2024 just above neutral impulse, and the latest dot (Sept 20, 2025) sitting in the strong-but-deteriorating zone — strong conditions but slightly negative impulse." />
 </figure>
 
 Labor market conditions–our collective ability to find work and bargain for income–are cyclical. Sometimes labor markets are strong and sometimes they are weak. Once conditions start deteriorating, the economy is in trouble, as the process snowballs<sup>1</sup>. Every rapid deterioration in US labor market conditions has coincided with a recession.

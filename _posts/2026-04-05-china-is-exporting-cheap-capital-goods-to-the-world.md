@@ -28,7 +28,7 @@ World merchandise trade as a share of global GDP has stagnated since the 2008 fi
 China is the top import source for [81 countries](https://ourworldindata.org/data-insights/china-is-the-top-import-partner-for-most-countries-in-the-world). The United States is the top source for 29. Germany for 18.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/04/post_bar_chart.png" class="wp-image-4538" loading="lazy" width="927" height="535"  alt="" />
+<img src="/assets/blog/2026/04/post_bar_chart.png" class="wp-image-4538" loading="lazy" width="927" height="535" alt="Bar chart showing the number of countries where China is the #1 import source, 1995-2025. The count rises from 1 in 1995 to 10 by 2005, 51 by 2014, 73 by 2019, and 81 by 2025. Source: IMF IMTS bilateral merchandise trade." />
 </figure>
 
 In 1995, China held this position for one country. By 2005, ten. By 2015, fifty-one. China is in the top three import sources for 164 of 207 countries. Only three have China outside their top ten: the Falkland Islands, Gibraltar, and Mauritius.
@@ -46,7 +46,7 @@ The conventional image of Chinese exports, cheap consumer goods and textiles, is
 The scale of this shift becomes clearer when measured in physical output rather than dollar values. Chinese factories produced [370.9 gigawatts](https://www.stats.gov.cn/english/PressRelease/202601/t20260120_1962350.html) of power generation equipment in 2025, 3.4 times the 2018 level. Motor vehicle production reached 34.8 million units, up from 27.8 million. And output of industrial robots hit 773,000 sets, 5.2 times the 2018 figure. China now [installs more industrial robots annually](https://chinapower.csis.org/china-industrial-robots/) than the rest of the world combined.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/04/post_nbs_output.png" class="wp-image-4539" loading="lazy" width="801" height="639"  alt="" />
+<img src="/assets/blog/2026/04/post_nbs_output.png" class="wp-image-4539" loading="lazy" width="801" height="639" alt="Paired bars comparing Chinese industrial output in 2018 and 2025: motor vehicles 27.8M to 34.8M units (1.2x), power generation equipment 109.0 GW to 370.9 GW (3.4x), and industrial robots 148K to 773K sets (5.2x). Source: China National Bureau of Statistics." />
 </figure>
 
 These categories reinforce each other. Robots automate the factories that produce vehicles and power equipment. Power equipment runs the factories that produce the robots. The result is a manufacturing system that scales up output while pushing unit costs down, [a virtuous cycle](https://drafts.interfluidity.com/2024/09/17/abundance-is-overcapacity/index.html) that resembles what the Gutenberg press did for books: transforming expensive, labor-intensive goods into mass-market commodities.
@@ -56,7 +56,7 @@ These categories reinforce each other. Robots automate the factories that produc
 When the price of an exported good falls dramatically, each dollar buys more. For the countries importing Chinese capital goods, falling prices amount to a [transfer of value](https://geoeconomic.substack.com/p/the-china-solar-dominance-panic) from Chinese producers to foreign buyers. Solar panels are a striking example. Using data from [Ember](https://ember-energy.org/data/china-solar-exports/), which tracks Chinese customs records on solar exports by destination, we can measure the same trade flow in megawatts of generating capacity, in nominal dollars, and as a share of world GDP.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/04/post_solar_index-1.png" class="wp-image-4544" loading="lazy" width="813" height="606"  alt="" />
+<img src="/assets/blog/2026/04/post_solar_index-1.png" class="wp-image-4544" loading="lazy" width="813" height="606" alt="Line chart of China's solar exports, percent change from 2018 (12-month moving average), 2019 through 2026. Physical capacity in megawatts is up 739%; nominal USD value is up 116%; share of world GDP is up 59%; cost per megawatt is down 74%. Source: Ember (GACC customs data), IMF WEO." />
 </figure>
 
 Since 2018, the physical capacity of Chinese solar exports has increased by more than 700 percent. In nominal dollar terms, exports only doubled. And as a share of world GDP, Chinese solar exports grew by just 59 percent.
@@ -68,7 +68,7 @@ This price collapse is transforming energy access in the developing world. In Af
 And the price gap is widening beyond solar panels. China’s [real effective exchange rate](https://fred.stlouisfed.org/series/RBCNBIS) measures, in a single number, how expensive Chinese goods are relative to those of its trading partners, adjusted for inflation. It has fallen 15 percent since early 2022, reaching its [weakest level since 2012](https://www.bofit.fi/en/monitoring/weekly/2025/vw202550_1/).
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/04/post_reer.png" class="wp-image-4541" loading="lazy" width="822" height="606"  alt="" />
+<img src="/assets/blog/2026/04/post_reer.png" class="wp-image-4541" loading="lazy" width="822" height="606" alt="Line chart of China's broad effective exchange rate, indexed to 2020 = 100, from 1996 to 2025. The nominal yuan rate (blue) ends near 108. The real, inflation-adjusted rate (red) ends near 90, having diverged sharply downward from the nominal line since 2022. Annotation: Chinese prices are declining relative to trading partners even as the yuan is steady in nominal terms. Source: Bank for International Settlements via FRED." />
 </figure>
 
 The chart above shows why this matters. The blue line is the nominal exchange rate of the yuan, trade-weighted against China’s partners. It has been roughly stable since 2020. The red line adjusts for relative price levels: it falls when Chinese goods get cheaper relative to the rest of the world. The shaded gap between them has been widening since 2020, driven by diverging price trends. Producer prices in Europe [rose 35 percent](https://www.nytimes.com/2025/12/07/business/china-rmb-currency.html) over the past five years, and 26 percent in the United States. Chinese producer prices over the same period were flat or falling. The same nominal exchange rate now buys considerably more Chinese output than it did five years ago.

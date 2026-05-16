@@ -28,7 +28,7 @@ In October 2022, the Current Population Survey added questions about telework, a
 These data show around 10 percent of workers are full-time remote, a rate that has been fairly steady since 2022. In addition, a growing number of workers are in hybrid arrangements, working remotely for part of the workweek. Hybrid workers increased from around 8 percent of the workforce in late 2022 to about 12 percent in 2025.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/02/chart_remote_potential.png" class="wp-image-4325" loading="lazy" width="461" height="597"  alt="" />
+<img src="/assets/blog/2026/02/chart_remote_potential.png" class="wp-image-4325" loading="lazy" width="461" height="597" alt="Stacked-area chart of share of US employed workers by remote-work status, monthly Oct 2022 to Dec 2025. Fully remote (all hours teleworked) is steady near 10%; hybrid (some hours teleworked) grew from ~8% to ~12%. The total 'any telework' line rose from ~20% to 22.5%. An upper line marks the share whose occupation could potentially work remotely (O*NET) at about 35-36%, leaving substantial 'untapped potential'. Source: monthly CPS microdata." />
 </figure>
 
 Altogether, about 22.5 percent of workers are at least partially working remotely in 2025. Based on the tasks typical for their occupations, an additional 13 percent of the workforce could potentially adopt some remote work. These trends are summarized in the chart above.
@@ -38,7 +38,7 @@ Altogether, about 22.5 percent of workers are at least partially working remotel
 How is remote work distributed across the country, and how has that changed? To answer this, I split the US into 70 [geographic zones](https://github.com/bdecon/econ_data/tree/master/bd_CPS/bd_CPS_ZONE) (major metro areas and state-level regions) and calculated remote work intensity in each, measured as the share of total hours worked remotely.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/02/chart_zone_tw_maps.png" class="wp-image-4327" loading="lazy" width="723" height="1024"  alt="" />
+<img src="/assets/blog/2026/02/chart_zone_tw_maps.png" class="wp-image-4327" loading="lazy" width="723" height="1024" alt="Two US maps shading remote work intensity (share of total hours worked remotely) by CPS geographic zone, with NYC region inset. Top: Nov 2022 – Sep 2023 — heavy concentration in coastal tech metros (DC, Seattle, Bay Area, Denver, Portland) at 25-28%, with much lighter shading across the South and rural states. Bottom: 2025 — coastal tech metros have cooled (Bay Area drops 5.6 ppt) while Sun Belt metros (Tampa, Atlanta, Dallas) and rural states (Wyoming, Mississippi) gained — pattern converges. Source: monthly CPS microdata." />
 </figure>
 
 In the early period (November 2022 through September 2023), remote work was heavily concentrated in a handful of tech-heavy metros. Washington, DC led at 28 percent, followed by Seattle (27.9%), the Bay Area (27.7%), Denver (26.2%), and Portland (25.0%). At the other end, Mississippi (3.5%), Alabama (5.8%), and Arkansas (6.3%) had the lowest remote work intensity.
@@ -46,7 +46,7 @@ In the early period (November 2022 through September 2023), remote work was heav
 By 2025, the picture had shifted notably. The most remote-intensive metros saw significant declines. The Bay Area dropped 5.6 percentage points, Seattle and Denver each fell 4.5 points, and DC dipped 2.1 points. Meanwhile, growth metros like Tampa (+3.7 points), Atlanta (+2.7 points), and Dallas (+2.0 points) saw meaningful increases. Even many rural states gained ground: Wyoming (+2.6 points), Mississippi (+2.4 points), and several others moved up by more than 2 points.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/02/chart_zone_tw_table.png" class="wp-image-4328" loading="lazy" width="855" height="1024"  alt="" />
+<img src="/assets/blog/2026/02/chart_zone_tw_table.png" class="wp-image-4328" loading="lazy" width="855" height="1024" alt="Two-column table ranking 70 US geographic zones by 2023 remote work intensity, with 2025 values and the change in percentage points. Washington DC metro tops the list at 28.0% (2023) falling to 25.9% (2025); Bay Area falls from 27.7% to 22.2% (-5.5); Mississippi rises from 3.5% to 5.8% (+2.4). Coastal tech metros lost ground while Sun Belt metros and rural states gained. Source: monthly CPS microdata, author's calculations." />
 </figure>
 
 The result is convergence. Remote work is spreading outward from the early-adoption tech hubs into a broader set of metro areas and, to a lesser extent, rural regions. Some of this reflects return-to-office mandates at large tech firms, and some likely reflects remote workers relocating to lower-cost metros. But the broad pattern suggests remote work is becoming a more normal feature of employment across the economy rather than a quirk of a few coastal cities.
@@ -70,7 +70,7 @@ There’s also a funny side effect: remote work is something of a return to cott
 While the full productivity effects are years away, we can look at early industry-level evidence. One approach is to compare how efficiently industries use intermediate inputs and whether this relates to remote work intensity. A [BLS analysis](https://www.bls.gov/opub/btn/volume-13/the-rise-in-remote-work-since-the-pandemic-and-its-impact-on-productivity.htm) found that industries with larger increases in remote work saw slower growth in nonlabor costs per unit of output, especially costs tied to office buildings.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/02/chart_scatter_tw_vago_v2.png" class="wp-image-4329" loading="lazy" width="572" height="734"  alt="" />
+<img src="/assets/blog/2026/02/chart_scatter_tw_vago_v2.png" class="wp-image-4329" loading="lazy" width="572" height="734" alt="Bubble scatter plot of remote work hours intensity (x-axis, %) vs change in value added / gross output ratio (y-axis, pp) since pre-pandemic, by US industry. Bubble size = industry employment. The trend line slopes slightly upward — industries with more remote work tend to show small gains in input efficiency — but the relationship is weak. Notable points: Chemicals, Misc. mfg, and Social assistance above +8 pp; Publishing and Data processing at high remote intensity (40-50%); Food services and Electrical equip near the bottom. Source: BEA GDP by Industry; monthly CPS 2025." />
 </figure>
 
 The chart above plots each industry’s remote work hours intensity (horizontal axis) against the change in its ratio of value added to gross output since 2017-2019 (vertical axis). A rising ratio means an industry is using fewer intermediate inputs per dollar of output. Bubble sizes reflect employment share.

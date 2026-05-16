@@ -20,7 +20,7 @@ redirect_from:
 By the number of barrels produced, the current oil boom in New Mexico, adjusted for population, is larger than the oil boom that propelled Norway’s national wealth. In September 2023, New Mexico [produced](https://www.eia.gov/dnav/pet/pet_crd_crpdn_adc_mbblpd_m.htm) 1.8 million barrels of oil per day, equivalent to 0.86 barrels per person per day. At the height of oil production in Norway in 2001, the equivalent rate was 0.76 barrels per person per day (see chart).
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2023/12/chart1-11.png" class="wp-image-4091" loading="lazy" width="481" height="450"  alt="" />
+<img src="/assets/blog/2023/12/chart1-11.png" class="wp-image-4091" loading="lazy" width="481" height="450" alt="Line chart of crude oil production in barrels per person per day, 1981-2024. Norway (gray) peaks above 0.7 around 2001 and falls to ~0.3 by 2024. New Mexico (blue) stays under 0.15 until 2014, then surges to 0.86 by 2023 — surpassing Norway's all-time peak on a per-capita basis. Source: EIA, Census, NPD, SSB." />
 </figure>
 
 It looks like 2023 will be a record year for oil production in New Mexico, or very close to it. In some ways, the stars aligned for New Mexico’s oil and gas industry. The Permian basin has been very productive, oil prices were high, and geopolitical developments put pressure on the US to produce more oil.
@@ -28,7 +28,7 @@ It looks like 2023 will be a record year for oil production in New Mexico, or ve
 In a matter of a few years, crude oil production quadrupled in New Mexico and the state became the second largest producer in the US. The largest producer, Texas, has 30 million residents compared to 2.1 million in New Mexico. New Mexico has fewer residents than Queens.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2023/12/chart2-4.png" class="wp-image-4092" loading="lazy" width="745" height="448"  alt="" />
+<img src="/assets/blog/2023/12/chart2-4.png" class="wp-image-4092" loading="lazy" width="745" height="448" alt="Two side-by-side bar charts. Left: median family income for family of 3 in USD, ranked by lowest, with New Mexico second lowest at $71,283 (after Mississippi at $70,950). Right: barrels of crude oil produced in 2022 (millions), with Texas first at 1,847M and New Mexico second at 580M. Bar colors indicate state governor party (blue=Democratic, red=Republican). Source: Census, EIA." />
 </figure>
 
 While the boom in oil production is a relatively new development, New Mexico has been [one of the poorest states](https://www.justice.gov/ust/eo/bapcpa/20230515/bci_data/median_income_table.htm) in the US for many decades. And, there’s no guarantee in the US that nearby residents benefit from increased mineral extraction. Air and noise pollution and spills all increase. Crucially, however, among the poorest states in the US, New Mexico is the only one where the Democratic party is able to enact laws<sup>1</sup>. The combination of the oil boom with these factors presents a fascinating set of possibilities for the future.

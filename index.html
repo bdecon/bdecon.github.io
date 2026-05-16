@@ -31,8 +31,7 @@ jsonld_extra: |
       "sameAs": [
           "https://github.com/bdecon/",
           "https://www.linkedin.com/in/brian-dew-5788a386/",
-          "https://twitter.com/bd_econ",
-          "https://briandew.wordpress.com/"
+          "https://twitter.com/bd_econ"
       ]
   }
 after_header_html: |
@@ -138,11 +137,27 @@ after_header_html: |
 			<div class="card accent-red">
 				<div class="card-header">
 					<span class="card-title">From the blog</span>
-					<a href="https://briandew.wordpress.com" target="_blank" rel="noopener">All posts →</a>
+					<a href="/blog/">All posts →</a>
 				</div>
 				<div class="card-body card-body-fill">
-					<ul id="blog-posts" class="home-blog">
-						<li>Loading…</li>
+					<ul class="home-blog">
+					{%- assign home_posts = site.posts | slice: 0, 5 -%}
+					{%- assign home_first = home_posts | first -%}
+					{%- assign home_rest = home_posts | slice: 1, 4 -%}
+					{%- if home_first.featured_image %}
+						<li class="blog-featured">
+							<a href="{{ home_first.url }}" aria-label="{{ home_first.title | escape }}">
+								<img src="{{ home_first.featured_image }}" alt="" loading="lazy" decoding="async" width="600" height="400">
+							</a>
+							<a href="{{ home_first.url }}">{{ home_first.title }}</a>
+							<span class="note">{{ home_first.date | date: "%b %-d" }}</span>
+						</li>
+					{%- else %}
+						<li><a href="{{ home_first.url }}">{{ home_first.title }}</a> <span class="note">{{ home_first.date | date: "%b %-d" }}</span></li>
+					{%- endif %}
+					{%- for p in home_rest %}
+						<li><a href="{{ p.url }}">{{ p.title }}</a> <span class="note">{{ p.date | date: "%b %-d" }}</span></li>
+					{%- endfor %}
 					</ul>
 				</div>
 			</div>
@@ -198,38 +213,6 @@ after_header_html: |
 		</section>
 	</section>
 	<script>
-	(function() {
-		const url = 'https://public-api.wordpress.com/rest/v1.1/sites/briandew.wordpress.com/posts/?number=5&fields=title,date,URL,featured_image';
-		const list = document.getElementById('blog-posts');
-		fetch(url)
-			.then(r => r.json())
-			.then(data => {
-				const posts = data.posts;
-				const first = posts[0];
-				const rest = posts.slice(1);
-				const d0 = new Date(first.date);
-				const fmt0 = d0.toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
-				let html = '';
-				if (first.featured_image) {
-					// Image-only link needs an accessible name. Use title as aria-label;
-					// the text anchor right after carries the visible label.
-					const safeTitle = first.title.replace(/"/g, '&quot;');
-					html += '<li class="blog-featured"><a href="' + first.URL + '" target="_blank" rel="noopener" aria-label="' + safeTitle + '">'
-						+ '<img src="' + first.featured_image + '?w=600" alt="" loading="lazy" decoding="async" width="600" height="400"></a>'
-						+ '<a href="' + first.URL + '" target="_blank" rel="noopener">' + first.title + '</a> <span class="note">' + fmt0 + '</span></li>';
-				} else {
-					html += '<li><a href="' + first.URL + '" target="_blank" rel="noopener">' + first.title + '</a> <span class="note">' + fmt0 + '</span></li>';
-				}
-				html += rest.map(p => {
-					const d = new Date(p.date);
-					const fmt = d.toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
-					return '<li><a href="' + p.URL + '" target="_blank" rel="noopener">' + p.title + '</a> <span class="note">' + fmt + '</span></li>';
-				}).join('');
-				list.innerHTML = html;
-			})
-			.catch(() => { list.innerHTML = '<li><a href="https://briandew.wordpress.com" target="_blank" rel="noopener">Visit the blog →</a></li>'; });
-	})();
-
 	// Sparkline widget — driven by charts.json manifest
 	// Edit SPARKLINES to swap indicators. Any chart type works (rendered as line).
 	// For stacked/multi-series charts, specify col: 'COLUMN_NAME'.

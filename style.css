@@ -2978,30 +2978,32 @@ figure {
 	font-style: italic;
 }
 
-/* Report-style side-by-side: image (or chart) breaks out of the prose column
-   and sits to the right of body text. Wrap a figure + adjacent block(s) in
-   <div class="post-split">, optionally with .post-split--reverse to flip sides.
+/* Report-style side-by-side: text keeps its prose-column left alignment;
+   the image bumps out past the prose right edge into the right margin.
+   Source order: text first, figure second.
 
-   The total split is wider than the prose column (--width-lg) so it spills
-   into the margin on each side. Stacks on mobile. */
+       <div class="post-split">
+         <p>body paragraph(s)</p>
+         <figure><img …><figcaption>…</figcaption></figure>
+       </div>
+
+   Stacks on mobile. */
 .page-blog-post .prose .post-split {
 	display: grid;
-	grid-template-columns: 1fr 320px;
-	gap: var(--space-5);
-	align-items: start;
-	max-width: var(--width-lg);   /* wider than the 600px prose column */
-	margin: var(--space-6) auto;
-	margin-left: calc((var(--width-md) - var(--width-lg)) / 2);
+	grid-template-columns: 1fr 400px;
+	gap: var(--space-6);
+	align-items: center;
+	width: var(--width-lg);    /* 720px — wider than the 600px prose column */
+	max-width: 100%;
+	margin: var(--space-7) 0;  /* anchor LEFT edge to prose-left; spill RIGHT */
 }
-.page-blog-post .prose .post-split--reverse { grid-template-columns: 320px 1fr; }
-.page-blog-post .prose .post-split > figure { margin: 0; }
-.page-blog-post .prose .post-split > p:first-child,
-.page-blog-post .prose .post-split > p:last-child { margin: 0; }
-@media (max-width: 760px) {
-	.page-blog-post .prose .post-split,
-	.page-blog-post .prose .post-split--reverse {
+.page-blog-post .prose .post-split > * { margin: 0; }
+.page-blog-post .prose .post-split > figure img { width: 100%; height: auto; }
+@media (max-width: 880px) {
+	.page-blog-post .prose .post-split {
 		grid-template-columns: 1fr;
-		margin-left: auto;
+		width: auto;
+		gap: var(--space-4);
 	}
 }
 

@@ -345,7 +345,7 @@ With the data in hand, we can create a simple visualization:
 </div>
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2016/05/us_exports.png" class="wp-image-4292" loading="lazy" width="884" height="507"  alt="" />
+<img src="/assets/blog/2016/05/us_exports.png" class="wp-image-4292" loading="lazy" width="884" height="507" alt="Line chart of US goods exports in billions USD, 1948-2024. Rises from under $15 billion in 1948 to over $2 trillion today. Source: International Monetary Fund." />
 </figure>
 
 US goods exports have grown from under \$15 billion in 1948 to over \$2 trillion today.
@@ -410,7 +410,7 @@ Finally, we can visualize how global trade has shifted over 75 years:
 </div>
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2016/05/export_share_comparison.png" class="wp-image-4293" loading="lazy" width="884" height="507"  alt="" />
+<img src="/assets/blog/2016/05/export_share_comparison.png" class="wp-image-4293" loading="lazy" width="884" height="507" alt="Line chart of each country's share of world goods exports, 1950-2024. United States falls from ~20% to 8.5%. China rises from near zero to 14.6%, surpassing the US around 2007. Japan peaks at ~10% in the 1980s then falls to 3.0%. Source: International Monetary Fund." />
 </figure>
 
 The chart reveals the dramatic shift in global trade over 75 years:
@@ -452,7 +452,7 @@ The workflow for accessing IMF data:
 
 ## Next Steps
 
-[Part 2](https://briandew.wordpress.com/2016/08/10/using-the-imf-data-api-data-retrieval-with-python/) covers where former IFS data now lives after the 2025 restructuring, with examples using the new topic-specific datasets.
+[Part 2](/blog/2016/08/10/using-the-imf-data-api-data-retrieval-with-python/) covers where former IFS data now lives after the 2025 restructuring, with examples using the new topic-specific datasets.
 
 ## Resources
 

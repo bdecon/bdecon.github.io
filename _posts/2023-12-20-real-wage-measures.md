@@ -19,7 +19,7 @@ There are already many very good pieces discussing real wage measurement issues.
 Rather than comment further on these issues, I’ve put together a chart that addresses some of these concerns, based on a [very clever concept](https://twitter.com/RyanRadia/status/1735292445561110883) from Ryan Radia.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2023/12/chart1-16.png" class="wp-image-4112" loading="lazy" width="502" height="656"  alt="" />
+<img src="/assets/blog/2023/12/chart1-16.png" class="wp-image-4112" loading="lazy" width="502" height="656" alt="Line chart of real median weekly earnings (any job status, including zero for non-workers), November 2023 USD, 2014-2023. Six lines for men and women in three age groups (25-34, 35-44, 45-54). Men 35-44 and 45-54 cluster near $1,200; men 25-34 around $900; women's three series cluster much lower around $700, having risen from ~$500-600 in 2014. Source: CPS microdata, regional CPI-U deflated." />
 </figure>
 
 The basic idea is to calculate the median across everyone, whether they have a job or not. If they do not have a job, their wage is zero. This resolves the compositional issues and reduces issues that crop up from using a matched-observation wage growth measure like the Atlanta Fed Wage Growth Tracker.

@@ -31,7 +31,7 @@ Yet aggregate consumption has held up. How is that possible?
 Dean Baker at CEPR recently [noted](https://cepr.net/publications/the-ai-bubble-consumption-is-outrunning-wages/) that consumption is outrunning wages. One way to see this is by comparing labor income to consumption. In a normal economy, wages are the primary source of spending power. Comparing compensation of employees to personal consumption expenditures, the ratio shows how much of our collective spending is supported by paychecks versus other sources.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/02/chart7_final.png" class="wp-image-4311" loading="lazy" width="1024" height="556"  alt="" />
+<img src="/assets/blog/2026/02/chart7_final.png" class="wp-image-4311" loading="lazy" width="1024" height="556" alt="Line chart of US labor income as share of consumption, percent, 2016 to Q3 2025. The series sits near 78% before the pandemic, spikes above 83% in 2020 with stimulus, then falls steadily after 2021 to 74.6% by Q3 2025 — 4.3 percentage points below the 2018-19 baseline of 79%, a gap of $915 billion per year." />
 </figure>
 
 In 2018-2019, a period with a strong labor market before the pandemic distortions, this ratio averaged about 79 percent. By Q3 2025, it had fallen to 74.6 percent. That 4.4 percentage point drop represents a gap of over **\$900 billion annually**. That’s consumption that wages alone cannot explain.
@@ -47,7 +47,7 @@ To understand what’s happening, it helps to look at what changed in 2025. One 
 The realized effective tariff rate (actual duties collected divided by imports) quintupled, from roughly 2 percent to over 11 percent. At the same time, corporate income tax as a share of federal revenue dropped from 10 percent to under 8 percent.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/02/chart1_final.png" class="wp-image-4312" loading="lazy" width="1024" height="556"  alt="" />
+<img src="/assets/blog/2026/02/chart1_final.png" class="wp-image-4312" loading="lazy" width="1024" height="556" alt="Line chart of the US effective tariff rate (duties collected / imports) from 2015 to November 2025. The rate hovers between 1.5% and 3% throughout, with a 2024 average of 2.4%. In 2025 it surges from ~2.5% to 11.3% by November — roughly quintupling." />
 </figure>
 
 Why does this matter? Because tariffs and corporate taxes fall on different people.
@@ -69,7 +69,7 @@ Before April 2025, labor compensation contributed an average of 1.5 percentage p
 In Q2-Q3 2025, that contribution collapsed to essentially zero.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/02/chart8_final.png" class="wp-image-4315" loading="lazy" width="1024" height="556"  alt="" />
+<img src="/assets/blog/2026/02/chart8_final.png" class="wp-image-4315" loading="lazy" width="1024" height="556" alt="Paired-bar chart of US contributions to Gross Domestic Income growth in percentage points by quarter, 2023 Q3 to 2025 Q3. Labor compensation (blue) averaged ~1.5 pp through Q1 2025 then collapsed to 0.24 pp in Q2 2025 and back to 0.88 in Q3. Taxes on production including tariffs (red) was near zero before 2025, surged to 2.4 pp in Q2 2025 and 0.88 in Q3 — flipping the contribution pattern." />
 </figure>
 
 Over the same period, taxes on production (which include tariffs) surged from absorbing 0.2 percentage points of GDI growth to explaining over 1.4 percentage points of GDI growth.
@@ -87,7 +87,7 @@ The problem is that current stock market valuations are historically unprecedent
 One way to measure this is Tobin’s Q, named after economist James Tobin. It compares the market value of corporations to their replacement cost (what it would cost to rebuild all their factories, equipment, and inventory from scratch). When Q is high, the market is valuing companies far above their tangible assets. The Federal Reserve [reports](https://www.federalreserve.gov/releases/z1/) this in the Financial Accounts of the United States.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/02/chart3b_final-1.png" class="wp-image-4316" loading="lazy" width="1024" height="556"  alt="" />
+<img src="/assets/blog/2026/02/chart3b_final-1.png" class="wp-image-4316" loading="lazy" width="1024" height="556" alt="Line chart of Tobin's Q (US corporate market value to replacement cost), index where 100 = replacement cost, 1989 to Q3 2025. The dot-com peak in 2000 reached 166. The series then fell to ~80 in 2009 before climbing for 15 years to 248 in Q3 2025 — about 49% above the dot-com peak and the highest reading in the series' history (back to 1945)." />
 </figure>
 
 Tobin’s Q currently stands at 248. At the peak of the dot-com bubble in 2000, it reached 166. **The market is 50 percent higher now than at the height of the 2000 bubble.** This is the highest reading in the history of the series, which goes back to 1945.

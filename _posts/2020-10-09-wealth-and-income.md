@@ -23,7 +23,7 @@ Applying this argument to anything other than the specific corner cases is misle
 More importantly, the argument does not explain differences between demographic groups. We know that the difference between black and white wealth is not in any way compensated for by black people having higher income. Overall, the story of the black-white wealth gap is an assets story, not a student debt story. Black families have substantially fewer assets, substantially less wealth, *and* substantially less income. We can see this by looking at net worth, financial assets, and pre-tax income:
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2020/10/image.png" class="wp-image-3635" loading="lazy" width="637" height="305"  alt="" />
+<img src="/assets/blog/2020/10/image.png" class="wp-image-3635" loading="lazy" width="637" height="305" alt="Three small-multiples line charts of mean net worth, financial assets, and pre-tax income by race/ethnicity (white non-Hispanic, Black non-Hispanic, Hispanic, Other), 1990-2020, in thousands of 2019 USD. White households are several times higher on all three measures throughout. Source: Federal Reserve." />
 </figure>
 
 ##### *Common argument \#2: Wealth is not a permanent source of income*
@@ -33,13 +33,13 @@ Again, this is an argument mostly based around corner cases. If someone has equi
 But the bigger picture here is that assets generally do provide income or utility and having a positive net worth does mean more income when viewed from the aggregate data. I want to illustrate this in two ways. First, the pre-tax income of various groups by their wealth percentile shows a clear relationship between income and wealth. People with more wealth have higher income:
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2020/10/image-1.png" class="wp-image-3637" loading="lazy" width="328" height="370"  alt="" />
+<img src="/assets/blog/2020/10/image-1.png" class="wp-image-3637" loading="lazy" width="328" height="370" alt="Line chart of median annual before-tax income by wealth percentile, 1990-2020, in thousands of 2019 USD. The top 10% (90-100) rises from ~150 to 236.2. Other groups stay much lower: 75-89.9 at 101.8, 50-74.9 at 70.3, 25-49.9 at 46.8, less than 25 at 29.5. Source: Federal Reserve." />
 </figure>
 
 Additionally, if we look at aggregate personal income data for the US in 2019, the overall growth from 2018 is an impressive 6.8 percent after adjusting for inflation. The second largest source of that growth, explaining 1.5 percentage points, is larger [payments](https://www.census.gov/data/tables/time-series/demo/income-poverty/cps-pinc/pinc-09.html) to property owners in 2019 than in 2018:
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2020/10/image-3.png" class="wp-image-3641" loading="lazy" width="382" height="270"  alt="" />
+<img src="/assets/blog/2020/10/image-3.png" class="wp-image-3641" loading="lazy" width="382" height="270" alt="Horizontal bar chart of sources of US personal income growth, 2019, decomposed into amount per recipient (blue) and number of recipients (green), in percentage points contributed to aggregate growth. Earnings: 2.6 + 1.1. Property income: 1.5 + 0.3. Retirement income: 0.2 + 0.3. Social Security: 0.3 + 0.1. Source: Census Bureau." />
 </figure>
 
 I wouldn’t say that wealth is a *[permanent](https://pfd.alaska.gov/Division-Info/About-Us)* source of income but neither is labor. We can see this in the above chart from the change in the number of recipients of earnings (labor income). The chart shows that aggregate personal income went up 1.1 percentage points because more people were employed in 2019 than 2018. In other words, a (disproportionately black) portion of the population was still re-entering the labor force a decade after the great recession had ended. And as we’ve seen recently, people lose jobs all the time and sometimes these job losses last for many years, so what is a permanent source of income?
@@ -51,7 +51,7 @@ Perhaps a better question is whether wealth is consequential and *reliable* as a
 The following chart is useful for thinking about income and consumption over a person’s life:
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2020/10/image-2.png" class="wp-image-3639" loading="lazy" width="354" height="341"  alt="" />
+<img src="/assets/blog/2020/10/image-2.png" class="wp-image-3639" loading="lazy" width="354" height="341" alt="Chart D2 from National Transfer Accounts: shares of lifetime income earned and consumed per year of age, 0-90+. Consumption (blue band) is roughly flat across ages. Labor income (red band) peaks in middle adulthood (ages 30-55). The shaded gaps show borrowing and intergenerational transfers at young ages, saving in middle adulthood, and dissaving in old age. Source: National Transfer Accounts, 23 advanced and emerging economies, 25th-75th percentiles." />
 </figure>
 
 ([Source](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2702441))

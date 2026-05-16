@@ -165,7 +165,7 @@ A few syntax notes for the code below:
 </div>
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2016/08/deposit_lending_scatter.png" class="wp-image-4274" loading="lazy" width="1024" height="727"  alt="" />
+<img src="/assets/blog/2016/08/deposit_lending_scatter.png" class="wp-image-4274" loading="lazy" width="1024" height="727" alt="Scatter plot of bank deposit rate vs lending rate for 83 economies in December 2023, with a dashed 45° reference line. Most points sit above the line — lending rates exceed deposit rates by the spread (a few percentage points in developed economies, up to ~30 percentage points in outliers like Brazil)." />
 </figure>
 
 With a single dataset (**MFS_IR**), we get a global view of banking sector margins. The vertical distance from the 45° line shows the spread—how much more banks charge borrowers than they pay depositors. Brazil stands out with a 30% spread (11% deposit, 41% lending), while developed economies cluster near the bottom with spreads of 2-4%.
@@ -207,7 +207,7 @@ The key format for QNEA is `COUNTRY.INDICATOR.PRICE_TYPE.S_ADJUSTMENT.TYPE_OF_TR
 </div>
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2016/08/gdp_growth_comparison.png" class="wp-image-4275" loading="lazy" width="733" height="732"  alt="" />
+<img src="/assets/blog/2016/08/gdp_growth_comparison.png" class="wp-image-4275" loading="lazy" width="733" height="732" alt="Line chart of quarterly year-over-year real GDP growth for India, China, Brazil, and Mexico, Q3 2022 through Q3 2025. India runs the highest (5-10%); China sits in the 5% range; Brazil drifts from 4% down to about 2%; Mexico slows from ~4.5% to near 0%." />
 </figure>
 
 The chart shows how quarterly GDP growth has evolved across these four economies. India consistently posts the strongest growth, while the others show more volatility. This kind of cross-country comparison—using standardized definitions across dozens of economies—is where IMF data is most valuable.

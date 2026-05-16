@@ -27,7 +27,7 @@ Currently, [demographically-adjusted](https://x.com/ernietedeschi/status/2000929
 Using the Current Population Survey, it is possible to compare employment rates across generations (see chart 1). For men aged 25 to 54, employment rates have been relatively stable over time, with some minor fluctuations stemming mostly from economic conditions. For women in this age group, employment rates continue to climb across generations; Millennial and Gen Z women are working more than previous generations.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/01/chart1-1.png" class="wp-image-4252" loading="lazy" width="917" height="719"  alt="" />
+<img src="/assets/blog/2026/01/chart1-1.png" class="wp-image-4252" loading="lazy" width="917" height="719" alt="Two-panel line chart of employment rate by age (25-54), comparing four birth cohorts (Baby Boomers, Gen X, Millennials, Gen Z). Men: all four lines cluster near 85-90% through prime working ages. Women: each successive generation works more — Boomers low 65-75%, Gen X 70-72%, Millennials 70-76%, Gen Z (visible only ages 25-28) at 75-76%. Source: CPS microdata 1962-2025." />
 </figure>
 
 At age 35, Millennial women have a 72 percent employment rate, compared to just 55 percent for Silent Generation women at the same age—a 17 percentage point increase across three generations. By their early 40s, Millennial men have reached an 88 percent employment rate, matching Baby Boomers at the same age.
@@ -37,7 +37,7 @@ Economic conditions are cyclical and we all live downstream of labor market cond
 We can see the impact economic conditions have on generations by looking at how the Great Recession, and its long shadow, affected men’s employment (see chart 2). Because the Great Recession was caused by a housing bubble, it resulted in an enormous reduction in construction employment, and disproportionately affected men, and younger men in particular.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/01/chart2-2.png" class="wp-image-4258" loading="lazy" width="585" height="1023"  alt="" />
+<img src="/assets/blog/2026/01/chart2-2.png" class="wp-image-4258" loading="lazy" width="585" height="1023" alt="Three-panel chart of men's employment rates by age for Millennials, Gen X, and Baby Boomers, with each panel comparing the cohort's line to the 1962-2025 average. Shaded bands mark the ages each generation was hit by the shadow of the Great Recession: Millennials entering the workforce (mid-20s to 30), Gen X in prime working years (mid-30s to early 40s), Boomers preparing to retire (mid-50s to early 60s). Each cohort dipped below trend during its shaded period. Source: CPS microdata, 1962-2025." />
 </figure>
 
 Millennials were hit by the Great Recession while entering the workforce, while Gen X was hit during prime age, and Boomers were hit while preparing to retire. These effects are seen by comparing the average employment rate for men with the rate for each generation. Employment fell substantially for each generation during the shadow of the Great Recession. At age 25, Millennial men had a 78 percent employment rate—6 percentage points below Baby Boomers at the same age—reflecting the lingering effects of entering the workforce during the Great Recession.
@@ -51,7 +51,7 @@ Instead of assuming that the current economic data reflect the personal characte
 If we take a zoomed out view of employment across generations, we see that the same basic pattern of employment by age has existed for at least 70 years (see chart 3). The bigger picture pattern shows the vast majority of young people enter the workforce at some point between age 16 and 25. During prime working ages, for example age 25 to 54, employment rates are high, though around 20 percent of the population is not employed at a given point in time, in any generation, due to unemployment, disability, caregiving responsibilities, school, or other reasons. Later in life, as workers retire, employment rates fall again.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2026/01/chart3-1.png" class="wp-image-4250" loading="lazy" width="696" height="839"  alt="" />
+<img src="/assets/blog/2026/01/chart3-1.png" class="wp-image-4250" loading="lazy" width="696" height="839" alt="Line chart of employment rate by age (16-72) for seven birth cohorts from the Lost Generation through Gen Z. All seven lines trace the same broad arc: a steep rise from age 16 to mid-20s, a plateau around 75-82% through ages 25-55, and a sharp decline as cohorts retire after 60. The Greatest Generation line sits about 10 points below the others through prime working ages — the only major outlier. Source: CPS microdata, 1962-2025." />
 </figure>
 
 Despite the enormous impact on society from the Great Recession and its long shadow, the effect from the Great Recession on these data is relatively muted, when compared the much larger pattern that exists across all generations. Indeed, even major structural changes in these data over the past 70 years, such as women entering the workforce and increased education, are small compared to the consistent larger pattern.

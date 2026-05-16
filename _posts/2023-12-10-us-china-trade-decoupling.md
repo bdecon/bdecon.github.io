@@ -19,7 +19,7 @@ redirect_from:
 Data from the US Census Bureau [suggest](https://www.census.gov/foreign-trade/balance/c5700.html) a steep decline in imports from China following the implementation of tariffs by the Trump administration in April 2018 (see chart below). Relative to the size of the overall economy, the merchandise trade deficit with China was cut in half, according to US reports, falling from over two percent of GDP in 2015 to one percent in October 2023. Incredibly, these data show a goods trade deficit that is nearly as small as it was when China joined the WTO in 2001. The decrease in US-reported trade with China is sometimes described as a “decoupling” between the two economies, though this is not actually what is happening.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2023/12/chart1-4.png" class="wp-image-3955" loading="lazy" width="493" height="659"  alt="" />
+<img src="/assets/blog/2023/12/chart1-4.png" class="wp-image-3955" loading="lazy" width="493" height="659" alt="Two-panel line chart of reported US-China bilateral goods trade as a share of US GDP, 1999-2023. Top: US-reported imports from China climb from 0.8% to a peak above 2.5% around 2017, then drop sharply after tariffs were enacted April 2018. US-reported exports stay near 0.5%. Bottom: US goods balance with China widens to -2% in 2018 then improves to -1.0% by October 2023. Source: US Census Bureau." />
 </figure>
 
 ##### China Data Show No Decoupling
@@ -27,7 +27,7 @@ Data from the US Census Bureau [suggest](https://www.census.gov/foreign-trade/ba
 The US reports imports from China, and China also [reports](https://english.customs.gov.cn/Statistics/Statistics?ColumnId=1) exports to the US. This double counting is particularly useful in cases where one party has an incentive to avoid reporting. I’ll refer to the difference between what two countries report for the same flow of trade as the “reporting gap.” Prior to 2018, the reporting gap between the US and China was relatively constant; The US reported imports from China that were consistently 0.4 GDP percentage point above what China reported. In 2018, the reporting gap began to shrink rapidly and then reverse in 2020 (see chart below). The reporting gap has swung by a total of around 0.7 percent of GDP.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2023/12/chart2-2.png" class="wp-image-3956" loading="lazy" width="480" height="462"  alt="" />
+<img src="/assets/blog/2023/12/chart2-2.png" class="wp-image-3956" loading="lazy" width="480" height="462" alt="Line chart comparing US-reported imports from China (blue) with China-reported exports to the US (orange), as share of US GDP, 2015-2023. The two series tracked closely before 2018 with US reports about 0.4 ppt higher. After tariffs, US reports fall below Chinese reports. A dashed 'adjusted' line shows what US imports would have been if the pre-tariff reporting gap had continued — staying near 3% in 2021-2022. Sources: US Census, China Customs." />
 </figure>
 
 Economists at the Federal Reserve have [found](https://www.federalreserve.gov/econres/notes/feds-notes/did-the-us-bilateral-goods-deficit-with-china-increase-or-decrease-during-the-us-china-trade-conflict-20210621.html) that the change in the US-China  
@@ -40,7 +40,7 @@ In the above chart, the dashed blue line represents what US-reported imports fro
 To understand why record-high imports from China in 2021 are much more plausible than the decrease in imports seen in US reports, look at the major spike in US consumer spending on goods during 2020 and 2021 (see chart below, right axis). Higher demand for [consumer goods](https://www.bea.gov/data/consumer-spending/main), equivalent to an increase of more than two percent of GDP, is attributed to higher household income and to the relative unavailability of services like dining and travel during the pandemic. Domestic [production](https://www.federalreserve.gov/releases/g17/current/default.htm) (left axis on chart below) was not able to keep up, so much of the “excess” demand was met by imports from other countries.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2023/12/chart3-2.png" class="wp-image-3958" loading="lazy" width="521" height="460"  alt="" />
+<img src="/assets/blog/2023/12/chart3-2.png" class="wp-image-3958" loading="lazy" width="521" height="460" alt="Line chart of US consumer goods supply vs demand, 2015-2023. Domestic manufacturing production (left axis, 2017=100) hovers near 100 throughout. Consumer spending on goods (right axis, share of GDP) jumps from 22% to ~25% in 2020-2021 then drifts back to 23% — a gap of more than 2 percentage points filled by imports. Source: BEA, Federal Reserve." />
 </figure>
 
 When discussing a US-China “decoupling,” researchers sometimes cite the possibility of Chinese goods flowing through another country before reaching the US. In 2021 and 2022, there was an increase in imports to the US from Vietnam and Thailand, raising speculation of re-routing from China. My sense is that many countries simply increased exports to the US during this period to help meet higher US demand. And, as we have seen, China did, as well.
@@ -48,7 +48,7 @@ When discussing a US-China “decoupling,” researchers sometimes cite the poss
 The data [reported](https://data.imf.org/DOT) by US trading partners to the IMF show that China’s trade surplus with the US had somewhat decreased even before the US COVID-19 shutdowns (see chart below). During 2015 to 2018, China’s reported trade surplus with the US averages 1.45 percent of US GDP, but the surplus falls to 1.16 percent of GDP at the start of 2020. At the peak of pandemic shutdowns in the US, China’s trade surplus falls to less than one percent of GDP, before climbing to a record-high 1.8 percent of GDP by the end of 2022. In total, China seems to have absorbed about a third of the excess US demand for goods in 2021.
 
 <figure class="wp-block-image size-large">
-<img src="/assets/blog/2023/12/chart4-2.png" class="wp-image-3959" loading="lazy" width="480" height="443"  alt="" />
+<img src="/assets/blog/2023/12/chart4-2.png" class="wp-image-3959" loading="lazy" width="480" height="443" alt="Line chart of trading partner goods balance with the US (as reported by the partner), share of US GDP, 2015-2023. China (red) rises from 1.3% in 2015 to a peak of 1.8% in late 2022, then falls back to ~1.3%. Rest of world excluding China, Canada, and Mexico (black) tracks similarly, peaking above 2% in 2021. Source: IMF." />
 </figure>
 
 The thin black line in the chart above represents the goods trade balance with the US reported by all countries other than China, Canada, and Mexico. This set of all countries except for the big three US trading partners has a combined trade surplus with the US. If trade from China is being re-routed through other countries, this measure would capture it. The collective surplus of the “other” group had fallen to a bit under 1.2 percent of US GDP, pre-COVID, and peaked at over two percent of GDP during 2020 and 2021. By rough estimates, this group absorbed half of US excess goods demand.
