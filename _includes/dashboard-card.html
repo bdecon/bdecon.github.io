@@ -1,0 +1,20 @@
+{%- comment -%}
+  Dashboard card — renders one entry from site.data.dashboards.
+  Used on reports.html (and reusable for future spotlight surfaces).
+  Usage: {% include dashboard-card.html d=dashboard %}
+{%- endcomment -%}
+	<a href="{{ include.d.url }}">
+	<div class="card card-nav accent-{{ include.d.accent }}">
+
+		<div class="card-banner">
+			<picture><source srcset="/images/{{ include.d.banner }}_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="/images/{{ include.d.banner }}_banner.png" alt="{{ include.d.banner_alt }}" width="{{ include.d.banner_width }}" height="{{ include.d.banner_height }}"></picture>
+		</div>
+		<div class="card-header">
+			<h3>{{ include.d.short_title }}</h3>
+		</div>
+		<div class="card-body card-body-fill">
+			<p>{{ include.d.deck }}</p>
+			{%- if include.d.pdf_freshness %}<p><strong>PDF</strong> · Updated: <span class="cb-update"><noscript>regularly</noscript></span></p>{% endif %}
+		</div>
+	</div>
+	</a>

@@ -57,88 +57,25 @@ extra_scripts: |
 	</a>
 	</section>
 
+	{%- assign dashboards = site.data.dashboards | where: "section", "dashboards" | sort: "order" -%}
+	{%- assign references = site.data.dashboards | where: "section", "references" | sort: "order" -%}
+
 	<!-- ============================================================ -->
 	<!-- DASHBOARDS — interactive data tools                           -->
+	<!-- Cards iterate _data/dashboards.yml (section: dashboards).     -->
 	<!-- ============================================================ -->
 	<section class="card-grid">
 	<h2 class="heading-accent">Dashboards</h2>
-	<a href="indicators.html">
-	<div class="card card-nav accent-ltblue">
-
-		<div class="card-banner">
-			<picture><source srcset="images/indicators_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/indicators_banner.png" alt="Economic indicators dashboard" width="512" height="68"></picture>
-		</div>
-		<div class="card-header">
-			<h3>Indicators</h3>
-		</div>
-		<div class="card-body card-body-fill">
-			<p>Interactive charts for selected US economic indicators. Browse measures of output, employment, prices, and trade with customizable time ranges.</p>
-		</div>
-	</div>
-	</a>
-	<a href="gdpm.html">
-	<div class="card card-nav accent-red">
-
-		<div class="card-banner">
-			<picture><source srcset="images/gdpm_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/gdpm_banner.png" alt="Monthly GDP chart" width="419" height="69"></picture>
-		</div>
-		<div class="card-header">
-			<h3>Monthly GDP</h3>
-		</div>
-		<div class="card-body card-body-fill">
-			<p>Monthly estimates of US nominal and real GDP, combining quarterly BEA data with Fed nowcasts. Downloadable CSV updated daily.</p>
-		</div>
-	</div>
-	</a>
-	<a href="imfweo.html">
-	<div class="card card-nav accent-blue">
-
-		<div class="card-banner">
-			<picture><source srcset="images/imfweo_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/imfweo_banner.png" alt="IMF WEO Forecast Tracker" width="462" height="98"></picture>
-		</div>
-		<div class="card-header">
-			<h3>WEO Forecasts</h3>
-		</div>
-		<div class="card-body card-body-fill">
-			<p>How accurate are the IMF's forecasts? See where they converged, where they missed, and how estimates were revised across 196 countries since 1990.</p>
-		</div>
-	</div>
-	</a>
+	{% for d in dashboards %}{% include dashboard-card.html d=d %}{% endfor %}
 	</section>
 
 	<!-- ============================================================ -->
 	<!-- REFERENCES — Chartbook PDF + release schedule                 -->
+	<!-- Cards iterate _data/dashboards.yml (section: references).     -->
 	<!-- ============================================================ -->
 	<section class="card-grid">
 	<h2 class="heading-accent">References</h2>
-	<a href="chartbook.html">
-	<div class="card card-nav accent-green">
-
-		<div class="card-banner">
-			<picture><source srcset="images/chartbook_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/chartbook_banner.png" alt="US Economic Chartbook" width="293" height="68"></picture>
-		</div>
-		<div class="card-header">
-			<h3>US Chartbook</h3>
-		</div>
-		<div class="card-body card-body-fill">
-			<p>250+ charts on the US economy: labor markets, inflation, GDP, trade, and more. Includes data sources and code.</p><p><strong>PDF</strong> · Updated: <span class="cb-update"><noscript>regularly</noscript></span></p>
-		</div>
-	</div>
-	</a>
-	<a href="calendar.html">
-	<div class="card card-nav accent-brown">
-
-		<div class="card-banner">
-			<picture><source srcset="images/calendar_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/calendar_banner.png" alt="Release Calendar" width="512" height="98"></picture>
-		</div>
-		<div class="card-header">
-			<h3>Release Calendar</h3>
-		</div>
-		<div class="card-body card-body-fill">
-			<p>When to expect the next jobs report, CPI, GDP, and 30+ other releases that feed into the Chartbook. Filterable by frequency and significance.</p>
-		</div>
-	</div>
-	</a>
+	{% for d in references %}{% include dashboard-card.html d=d %}{% endfor %}
 	</section>
 
 	</section>

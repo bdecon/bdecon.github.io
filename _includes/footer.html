@@ -3,10 +3,10 @@
 			<div>
 				<h2><a href="/reports.html">Data</a></h2>
 				<ul>
-					<li><a href="/chartbook.html">US Chartbook</a></li>
-					<li><a href="/indicators.html">Economic Indicators</a></li>
-					<li><a href="/gdpm.html">Monthly GDP</a></li>
-					<li><a href="/imfweo.html">WEO Forecasts</a></li>
+				{%- assign featured_dashboards = site.data.dashboards | where: "featured", true | sort: "order" -%}
+				{%- for d in featured_dashboards %}
+					<li><a href="{{ d.url }}">{{ d.short_title }}</a></li>
+				{%- endfor %}
 				</ul>
 			</div>
 			<div>

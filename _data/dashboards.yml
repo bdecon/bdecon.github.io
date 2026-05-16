@@ -1,0 +1,74 @@
+# Dashboards manifest.
+# Single source of truth for the 5 dashboard pages — drives:
+#   - reports.html (cards, split by `section`)
+#   - nav.html (Reports dropdown)
+#   - footer.html (Data column; `featured: true` only)
+#
+# JSON-LD `hasPart` arrays on reports.html / python.html still hand-maintained.
+# (Jekyll doesn't process Liquid in front-matter strings; future cleanup.)
+
+- name: chartbook
+  short_title: "US Chartbook"
+  url: "/chartbook.html"
+  accent: green
+  banner: chartbook
+  banner_width: 293
+  banner_height: 68
+  banner_alt: "US Economic Chartbook"
+  section: references      # dashboards | references — groups on reports.html
+  featured: true           # show in footer Data column
+  order: 1                 # canonical sort across all surfaces
+  deck: "250+ charts on the US economy: labor markets, inflation, GDP, trade, and more. Includes data sources and code."
+  pdf_freshness: true      # render the live 'Updated: ...' freshness signal in card body
+
+- name: indicators
+  short_title: "Economic Indicators"
+  url: "/indicators.html"
+  accent: ltblue
+  banner: indicators
+  banner_width: 512
+  banner_height: 68
+  banner_alt: "Economic indicators dashboard"
+  section: dashboards
+  featured: true
+  order: 2
+  deck: "Interactive charts for selected US economic indicators. Browse measures of output, employment, prices, and trade with customizable time ranges."
+
+- name: gdpm
+  short_title: "Monthly GDP"
+  url: "/gdpm.html"
+  accent: red
+  banner: gdpm
+  banner_width: 419
+  banner_height: 69
+  banner_alt: "Monthly GDP chart"
+  section: dashboards
+  featured: true
+  order: 3
+  deck: "Monthly estimates of US nominal and real GDP, combining quarterly BEA data with Fed nowcasts. Downloadable CSV updated daily."
+
+- name: imfweo
+  short_title: "WEO Forecasts"
+  url: "/imfweo.html"
+  accent: blue
+  banner: imfweo
+  banner_width: 462
+  banner_height: 98
+  banner_alt: "IMF WEO Forecast Tracker"
+  section: dashboards
+  featured: true
+  order: 4
+  deck: "How accurate are the IMF's forecasts? See where they converged, where they missed, and how estimates were revised across 196 countries since 1990."
+
+- name: calendar
+  short_title: "Release Calendar"
+  url: "/calendar.html"
+  accent: brown
+  banner: calendar
+  banner_width: 512
+  banner_height: 98
+  banner_alt: "Release Calendar"
+  section: references
+  featured: false
+  order: 5
+  deck: "When to expect the next jobs report, CPI, GDP, and 30+ other releases that feed into the Chartbook. Filterable by frequency and significance."

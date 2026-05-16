@@ -14,11 +14,10 @@
 		<li>
 			<a href="/reports.html"{% if page.nav_active == 'reports' %} class="active" aria-current="page"{% endif %}>Reports <span class="nav-arrow">&darr;</span></a>
 			<ul class="hidden">
-				<li><a href="/chartbook.html">US Chartbook</a></li>
-				<li><a href="/indicators.html">Economic Indicators</a></li>
-				<li><a href="/gdpm.html">Monthly GDP</a></li>
-				<li><a href="/imfweo.html">IMF WEO</a></li>
-				<li><a href="/calendar.html">Release Calendar</a></li>
+			{%- assign nav_dashboards = site.data.dashboards | sort: "order" -%}
+			{%- for d in nav_dashboards %}
+				<li><a href="{{ d.url }}">{{ d.short_title }}</a></li>
+			{%- endfor %}
 			</ul>
 			</li>
 			<li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span></button></li>
