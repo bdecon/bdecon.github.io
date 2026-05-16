@@ -1,7 +1,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>{{ page.title }}</title>
-	<link rel="stylesheet" href="style.css">
+{% if page.extra_head %}{{ page.extra_head }}
+{% endif %}	<link rel="stylesheet" href="style.css">
 	<meta name="description" content="{{ page.description }}">
 {% if page.keywords %}	<meta name="keywords" content="{{ page.keywords }}">
 {% endif %}	<meta name="author" content="Brian Dew">
@@ -34,6 +35,9 @@
 </script>
 {% if page.jsonld %}<script type="application/ld+json">
 {{ page.jsonld }}
+</script>
+{% endif %}{% if page.jsonld_extra %}<script type="application/ld+json">
+{{ page.jsonld_extra }}
 </script>
 {% endif %}<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PGVF5S620Y"></script>
