@@ -2796,6 +2796,15 @@ figure {
 	}
 }
 
+/* ----- Notebook exports (nbs/) ----- */
+/* Jupyter HTML exports live at /nbs/. Constrain to prose width so the
+   cell text reads like an article rather than spanning full page width.
+   Cells that contain wide outputs (tables, images) cap at this width;
+   add overflow handling per-cell if needed. */
+.page-notebook {
+	& main > section { max-width: var(--width-lg); margin: 0 auto; padding: 0 var(--space-3); }
+}
+
 
 /* ===== Print ===== */
 @media print {

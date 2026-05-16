@@ -12,7 +12,7 @@
 {{ page.page_strip_html }}
 {% elsif page.page_strip %}
 	<div class="page-strip{% if page.page_strip_class %} {{ page.page_strip_class }}{% endif %}">
-		<picture><source srcset="images/{{ page.page_strip }}_strip.webp" type="image/webp"><img decoding="async" fetchpriority="high" src="images/{{ page.page_strip }}_strip.jpg" alt="" aria-hidden="true" class="page-strip-img" width="1600" height="200"></picture>
+		<picture><source srcset="/images/{{ page.page_strip }}_strip.webp" type="image/webp"><img decoding="async" fetchpriority="high" src="/images/{{ page.page_strip }}_strip.jpg" alt="" aria-hidden="true" class="page-strip-img" width="1600" height="200"></picture>
 	</div>
 {% endif %}
 {% if page.page_title_html %}
@@ -26,7 +26,7 @@
 {{ content }}
 	</main>
 {% include footer.html %}
-	<script src="scripts/nav.js"></script>
+	<script src="/scripts/nav.js"></script>
 {% if page.extra_scripts %}
 {{ page.extra_scripts }}
 {% endif %}
