@@ -9,6 +9,9 @@ gem "logger"
 gem "base64"
 gem "ostruct"
 
+# Auto-generates sitemap.xml from page metadata. Supported by GitHub Pages.
+gem "jekyll-sitemap"
+
 group :development do
   gem "html-proofer"
 end

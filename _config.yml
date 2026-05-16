@@ -1,6 +1,19 @@
 title: BD Economics
 url: https://bd-econ.com
 
+plugins:
+  - jekyll-sitemap
+
+# Exclude specific files from sitemap.xml (jekyll-sitemap respects sitemap: false).
+# These remain publicly accessible — just not advertised to search engines.
+defaults:
+  - scope: { path: "CV.pdf" }
+    values: { sitemap: false }
+  - scope: { path: "MacroDash.pdf" }
+    values: { sitemap: false }
+  - scope: { path: "Dash" }
+    values: { sitemap: false }
+
 # Dirs/files Jekyll should NOT copy to _site
 exclude:
   - Gemfile

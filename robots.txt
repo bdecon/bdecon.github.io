@@ -1,8 +1,6 @@
 User-agent: *
 Allow: /
 
-Disallow: /plots/
-Disallow: /nbs/
 Disallow: /Dash/
 
 Sitemap: https://bd-econ.com/sitemap.xml

@@ -15,12 +15,13 @@ build:
 
 # Validate _site/ for broken internal links, missing images, malformed HTML.
 # Skips external URL checks (slow + flaky); use check-external for those.
+# Ignores data: URIs — placeholder src for JS-populated images + base64 PNG cell outputs.
 check: build
-	bundle exec htmlproofer _site --disable-external --allow-missing-href
+	bundle exec htmlproofer _site --disable-external --allow-missing-href --ignore-urls '/^data:/'
 
 # Full check including external links (network-bound, slower).
 check-external: build
-	bundle exec htmlproofer _site --allow-missing-href
+	bundle exec htmlproofer _site --allow-missing-href --ignore-urls '/^data:/'
 
 # Remove build artifacts.
 clean:
