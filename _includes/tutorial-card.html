@@ -14,16 +14,7 @@
 		</div>
 		<div class="card-body card-body-fill">
 			<p>{{ include.t.deck }}</p>
-			{%- case include.t.difficulty -%}
-			{%- when 'introductory' -%}
-			<span class="trail-badge trail-intro">● Introductory</span>
-			{%- when 'beginner' -%}
-			<span class="trail-badge trail-beginner">■ Beginner</span>
-			{%- when 'intermediate' -%}
-			<span class="trail-badge trail-intermediate">◆ Intermediate</span>
-			{%- when 'advanced' -%}
-			<span class="trail-badge trail-advanced">◆◆ Advanced</span>
-			{%- endcase %}
+			{% include trail-badge.html difficulty=include.t.difficulty %}
 		</div>
 	</div>
 	</a>

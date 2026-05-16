@@ -1,0 +1,12 @@
+{%- comment -%}
+  Tutorial metadata bar: updated date · difficulty badge · share button.
+  Reads `page.date_modified` (YYYY-MM-DD string) and `page.difficulty`.
+{%- endcomment -%}
+{%- assign pretty_date = page.date_modified | date: "%b %Y" -%}
+	<div class="tutorial-meta">
+		<span>Updated <time datetime="{{ page.date_modified }}">{{ pretty_date }}</time></span>
+		<span class="meta-sep">&middot;</span>
+		{% include trail-badge.html difficulty=page.difficulty %}
+		<span class="meta-sep">&middot;</span>
+		<button class="tutorial-share" title="Copy link" aria-label="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span class="share-label">Link</span></button>
+	</div>

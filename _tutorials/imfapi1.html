@@ -1,5 +1,4 @@
 ---
-layout: default
 
 # --- Collection metadata (drives python.html cards, nav dropdown, footer Guides column) ---
 short_title: "IMF API"
@@ -16,16 +15,12 @@ deck: "Access international economic data from the International Monetary Fund (
 # --- Page-level ---
 title: "IMF API Guide, Part 1 | BD Economics"
 description: "Python tutorial: Using the sdmx1 library to retrieve CPI inflation data from the IMF API."
-keywords: "IMF API, sdmx1, SDMX Python, CPI inflation, Economics Dashboard, Macroeconomics Dashboard, International Monetary Fund, IMF Statistics Department, IMF Application Programming Interface, Python pandas, economic data API"
 canonical: "https://bd-econ.com/imfapi1.html"
-og_type: "article"
 body_class: "page-imfapi1 accent-blue"
-nav_active: "guides"
 page_strip: "imfweo"
 page_strip_class: "accent-blue"
 h1: "IMF API"
-extra_head: |
-      <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+date_modified: "2026-01-11"
 jsonld: |
   {
       "@context": "https://schema.org",
@@ -64,9 +59,6 @@ jsonld_extra: |
           }
       ]
   }
-extra_scripts: |
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-      <script>hljs.highlightAll();</script>
 ---
 	<section>
 	<section class="card-grid">
@@ -114,13 +106,7 @@ extra_scripts: |
 	</a>
 	</section>
 	<article class="prose">
-	<div class="tutorial-meta">
-		<span>Updated <time datetime="2026-01-11">Jan 2026</time></span>
-		<span class="meta-sep">&middot;</span>
-		<span class="trail-badge trail-intermediate">◆ Intermediate</span>
-		<span class="meta-sep">&middot;</span>
-		<button class="tutorial-share" title="Copy link" aria-label="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span class="share-label">Link</span></button>
-	</div>
+	{% include tutorial-meta.html %}
 
 	<h2>IMF API with Python: A Basic Example</h2>
 	<p>The <a href="https://data.imf.org/">IMF's data portal</a> provides access to macroeconomic data covering more than 180 countries. Using Python's <a href="https://pypi.org/project/sdmx1/">sdmx1 library</a>, it is straightforward to retrieve data through the IMF's SDMX API.</p>

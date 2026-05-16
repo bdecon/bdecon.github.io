@@ -1,0 +1,11 @@
+{%- comment -%}
+  Difficulty badge.
+  Usage: {% include trail-badge.html difficulty=page.difficulty %}
+         {% include trail-badge.html difficulty=tutorial.difficulty %}
+{%- endcomment -%}
+{%- case include.difficulty -%}
+{%- when 'introductory' -%}<span class="trail-badge trail-intro">● Introductory</span>
+{%- when 'beginner' -%}<span class="trail-badge trail-beginner">■ Beginner</span>
+{%- when 'intermediate' -%}<span class="trail-badge trail-intermediate">◆ Intermediate</span>
+{%- when 'advanced' -%}<span class="trail-badge trail-advanced">◆◆ Advanced</span>
+{%- endcase -%}

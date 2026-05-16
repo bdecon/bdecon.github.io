@@ -3,6 +3,8 @@ url: https://bd-econ.com
 
 plugins:
   - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-redirect-from
 
 # Tutorial pages live in _tutorials/ and render at /<name>.html.
 # Each file has front matter — see CLAUDE.md "Tutorials collection" section
@@ -13,11 +15,20 @@ collections:
     permalink: /:name.html
 
 # Defaults applied by `scope`.
-# - Tutorials get layout: default automatically.
+# - Tutorials get layout + tutorial-shared front matter automatically.
+#   Individual tutorials can override any field.
 # - Specific files/dirs excluded from sitemap (remain publicly accessible).
 defaults:
   - scope: { path: "", type: "tutorials" }
-    values: { layout: default }
+    values:
+      layout: default
+      og_type: "article"
+      nav_active: "guides"
+      extra_head: |
+            <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+      extra_scripts: |
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+            <script>hljs.highlightAll();</script>
   - scope: { path: "CV.pdf" }
     values: { sitemap: false }
   - scope: { path: "MacroDash.pdf" }

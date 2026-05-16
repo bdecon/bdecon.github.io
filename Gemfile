@@ -9,8 +9,13 @@ gem "logger"
 gem "base64"
 gem "ostruct"
 
-# Auto-generates sitemap.xml from page metadata. Supported by GitHub Pages.
+# Plugins (all supported by GitHub Pages):
+# - sitemap: auto-generates sitemap.xml from page metadata
+# - feed: auto-generates /feed.xml from _posts/ (will populate when blog migrates)
+# - redirect-from: supports `redirect_from: ["/old"]` in any page's front matter
 gem "jekyll-sitemap"
+gem "jekyll-feed"
+gem "jekyll-redirect-from"
 
 group :development do
   gem "html-proofer"

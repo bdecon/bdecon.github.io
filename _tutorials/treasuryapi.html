@@ -1,5 +1,4 @@
 ---
-layout: default
 
 # --- Collection metadata (drives python.html cards, nav dropdown, footer Guides column) ---
 short_title: "Treasury API"
@@ -16,16 +15,12 @@ deck: "Access federal finance data including revenue, spending, and debt from th
 # --- Page-level ---
 title: "Treasury API Guide | BD Economics"
 description: "Python tutorial: Using the US Treasury Fiscal Data API to access federal finance data."
-keywords: "Treasury API, Fiscal Data API, US Treasury, Federal Revenue, Python Treasury Data, Treasury API Python, Federal Finance Data, Government Revenue API, Corporate Income Tax, Customs Duties, Monthly Treasury Statement, MTS Data"
 canonical: "https://bd-econ.com/treasuryapi.html"
-og_type: "article"
 body_class: "page-treasuryapi accent-red"
-nav_active: "guides"
 page_strip: "treasury"
 page_strip_class: "accent-red"
 h1: "Treasury API"
-extra_head: |
-      <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+date_modified: "2026-01-11"
 jsonld: |
   {
       "@context": "https://schema.org",
@@ -64,19 +59,10 @@ jsonld_extra: |
           }
       ]
   }
-extra_scripts: |
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-      <script>hljs.highlightAll();</script>
 ---
 	<section>
 	<article class="prose">
-	<div class="tutorial-meta">
-		<span>Updated <time datetime="2026-01-11">Jan 2026</time></span>
-		<span class="meta-sep">&middot;</span>
-		<span class="trail-badge trail-beginner">■ Beginner</span>
-		<span class="meta-sep">&middot;</span>
-		<button class="tutorial-share" title="Copy link" aria-label="Copy link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span class="share-label">Link</span></button>
-	</div>
+	{% include tutorial-meta.html %}
 
 	<h2>US Treasury Fiscal Data API with Python</h2>
 	<p>The <a href="https://fiscaldata.treasury.gov/api-documentation/">US Treasury Fiscal Data API</a> offers data on federal finances, including revenue, spending, debt, and more. With Python, you can retrieve and analyze this data programmatically.</p>
