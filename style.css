@@ -567,7 +567,9 @@ footer {
 .footer-sitemap {
 	display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5);
 	max-width: var(--width-lg); margin: 0 auto; padding: var(--space-6) var(--space-5) var(--space-4);
-	& h4 {
+	/* Footer column titles use <h2> (was <h4>) for heading-order a11y.
+	   Visual styling stays small + uppercase to fit the footer compact pattern. */
+	& h2 {
 		font-family: var(--font-accent); font-size: var(--text-xs); font-weight: 700;
 		text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-strong);
 		margin: 0 0 var(--space-2);

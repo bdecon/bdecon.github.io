@@ -211,7 +211,10 @@ after_header_html: |
 				const fmt0 = d0.toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
 				let html = '';
 				if (first.featured_image) {
-					html += '<li class="blog-featured"><a href="' + first.URL + '" target="_blank" rel="noopener">'
+					// Image-only link needs an accessible name. Use title as aria-label;
+					// the text anchor right after carries the visible label.
+					const safeTitle = first.title.replace(/"/g, '&quot;');
+					html += '<li class="blog-featured"><a href="' + first.URL + '" target="_blank" rel="noopener" aria-label="' + safeTitle + '">'
 						+ '<img src="' + first.featured_image + '?w=600" alt="" loading="lazy" decoding="async" width="600" height="400"></a>'
 						+ '<a href="' + first.URL + '" target="_blank" rel="noopener">' + first.title + '</a> <span class="note">' + fmt0 + '</span></li>';
 				} else {
