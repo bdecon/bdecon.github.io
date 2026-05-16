@@ -16,6 +16,10 @@ gem "ostruct"
 gem "jekyll-sitemap"
 gem "jekyll-feed"
 gem "jekyll-redirect-from"
+# Pagination + auto-generated category archive pages. NOT in the default
+# GitHub Pages plugin allowlist — requires the GitHub Actions build workflow
+# in .github/workflows/jekyll.yml.
+gem "jekyll-paginate-v2"
 
 group :development do
   gem "html-proofer"

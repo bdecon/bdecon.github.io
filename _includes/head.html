@@ -4,21 +4,33 @@
 {% if page.extra_head %}{{ page.extra_head }}
 {% endif %}	<link rel="stylesheet" href="/style.css">
 {% if page.head_scripts %}{{ page.head_scripts }}
-{% endif %}	<meta name="description" content="{{ page.description }}">
+{% endif -%}
+{%- comment -%}
+  Fallback chain for fields that may not be set explicitly (e.g. blog posts
+  written without manual description/canonical):
+    description       <- page.description, else page.excerpt (stripped), else site description fallback
+    canonical_url     <- page.canonical, else absolute page.url
+    og_image_url      <- page.og_image (absolute), else absolute page.featured_image, else site logo
+{%- endcomment -%}
+{%- assign _excerpt = page.excerpt | strip_html | strip | truncate: 300 -%}
+{%- assign _description = page.description | default: _excerpt -%}
+{%- assign _canonical = page.canonical | default: page.url | absolute_url -%}
+{%- assign _og_image = page.og_image | default: page.featured_image | default: '/images/01_bdlogo.png' | absolute_url -%}
+	<meta name="description" content="{{ _description }}">
 {% if page.keywords %}	<meta name="keywords" content="{{ page.keywords }}">
 {% endif %}	<meta name="author" content="Brian Dew">
-	<link rel="canonical" href="{{ page.canonical }}">
+	<link rel="canonical" href="{{ _canonical }}">
 	<!-- Open Graph -->
 	<meta property="og:title" content="{{ page.og_title | default: page.title }}">
-	<meta property="og:description" content="{{ page.og_description | default: page.description }}">
-	<meta property="og:url" content="{{ page.canonical }}">
+	<meta property="og:description" content="{{ page.og_description | default: _description }}">
+	<meta property="og:url" content="{{ _canonical }}">
 	<meta property="og:type" content="{{ page.og_type | default: 'website' }}">
-	<meta property="og:image" content="{{ page.og_image | default: 'https://bd-econ.com/images/01_bdlogo.png' }}">
+	<meta property="og:image" content="{{ _og_image }}">
 	<!-- Twitter Card -->
 	<meta name="twitter:card" content="{{ page.twitter_card | default: 'summary' }}">
 	<meta name="twitter:title" content="{{ page.og_title | default: page.title }}">
-	<meta name="twitter:description" content="{{ page.og_description | default: page.description }}">
-	<meta name="twitter:image" content="{{ page.og_image | default: 'https://bd-econ.com/images/01_bdlogo.png' }}">
+	<meta name="twitter:description" content="{{ page.og_description | default: _description }}">
+	<meta name="twitter:image" content="{{ _og_image }}">
 	<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">

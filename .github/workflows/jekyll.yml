@@ -1,0 +1,56 @@
+# Build the Jekyll site with full plugin support and deploy to GitHub Pages.
+#
+# Why this workflow exists:
+#   The default GitHub Pages build only runs Jekyll with a small allowlist of
+#   plugins (jekyll-feed, jekyll-sitemap, jekyll-redirect-from, etc.). We want
+#   plugins outside that list — currently jekyll-paginate-v2 for blog
+#   pagination + category archives — so we build with full Jekyll here and
+#   deploy the result via the official Pages actions.
+#
+# IMPORTANT one-time setup: in repo Settings → Pages → "Build and deployment"
+# → Source: set to "GitHub Actions". Until that's flipped, this workflow runs
+# but the deploy step won't publish anywhere.
+name: Build and deploy site
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Avoid concurrent deploys clobbering each other.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+          bundler-cache: true   # bundle install + cache
+      - uses: actions/configure-pages@v5
+      - name: Build
+        env:
+          JEKYLL_ENV: production
+        run: bundle exec jekyll build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

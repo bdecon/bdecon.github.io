@@ -11,3 +11,4 @@ _site/
 Gemfile.lock
 vendor/
 .bundle/
+backups/

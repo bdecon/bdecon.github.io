@@ -1,0 +1,67 @@
+---
+layout: default
+---
+	{%- capture _accent -%}{% include blog-accent.html %}{%- endcapture -%}
+	{%- assign _accent = _accent | strip -%}
+	<section class="accent-{{ _accent }}">
+		{% if page.featured_image %}
+		{%- assign _style = page.featured_image_style | default: 'banner' -%}
+		<figure class="post-hero post-hero--{{ _style }}">
+			<img src="{{ page.featured_image }}" alt="" loading="eager" decoding="async">
+		</figure>
+		{% endif %}
+		<article class="prose">
+			<header class="post-header">
+				{% if page.categories and page.categories.size > 0 %}
+				<p class="post-categories">
+					{%- for cat in page.categories -%}
+					<span class="post-category">{{ cat }}</span>
+					{%- endfor -%}
+				</p>
+				{% endif %}
+				<h1>{{ page.title }}</h1>
+				<p class="post-meta">
+					<time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
+					<span class="meta-sep">&middot;</span>
+					<span class="post-byline">by <a href="/about.html">Brian Dew</a></span>
+				</p>
+			</header>
+
+			{{ content }}
+
+			{%- comment -%} Author bio at the end of the post {%- endcomment -%}
+			<aside class="post-author-bio">
+				<picture><source srcset="/images/briandew.webp" type="image/webp"><img src="/images/briandew.png" alt="Brian Dew" width="80" height="80" loading="lazy"></picture>
+				<div>
+					<p class="post-author-name">Brian Dew</p>
+					<p class="post-author-text">Economist building <a href="/">bd-econ.com</a> as a destination for US macroeconomic data, analysis, and Python tutorials. <a href="/about.html">More about Brian &rarr;</a></p>
+				</div>
+			</aside>
+		</article>
+
+		{%- comment -%}
+		  Related posts — up to 3 most recent in the same category, excluding the current post.
+		{%- endcomment -%}
+		{%- assign _current_cat = page.categories | first -%}
+		{%- assign _related = site.posts | where_exp: "p", "p.url != page.url" | where_exp: "p", "p.categories contains _current_cat" | slice: 0, 3 -%}
+		{%- if _related.size > 0 %}
+		<aside class="post-related">
+			<h2 class="heading-accent">More in {{ _current_cat }}</h2>
+			<ul class="post-related-list">
+				{%- for r in _related %}
+				<li class="post-related-item">
+					<a href="{{ r.url }}">
+						{%- if r.featured_image %}<div class="post-related-thumb"><img src="{{ r.featured_image }}" alt="" loading="lazy"></div>{%- endif %}
+						<div class="post-related-text">
+							<p class="post-related-meta"><time datetime="{{ r.date | date_to_xmlschema }}">{{ r.date | date: "%b %-d, %Y" }}</time></p>
+							<h3 class="post-related-title">{{ r.title }}</h3>
+						</div>
+					</a>
+				</li>
+				{%- endfor %}
+			</ul>
+		</aside>
+		{%- endif %}
+
+		<p class="post-footer-nav"><a href="/blog/">&larr; All posts</a></p>
+	</section>

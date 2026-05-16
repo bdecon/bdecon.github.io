@@ -1,0 +1,38 @@
+---
+layout: default
+---
+{%- assign _accent = site.data.blog_categories[page.category] | default: 'blue' -%}
+<div class="page-title">
+	<h1>{{ page.category }}</h1>
+</div>
+	<section class="accent-{{ _accent }}">
+		<p class="blog-intro">
+			Posts in <strong>{{ page.category }}</strong>.
+			<a href="/blog/">&larr; All posts</a>
+		</p>
+
+		<ul class="blog-grid">
+		{%- for post in paginator.posts %}
+			{%- capture _card_accent -%}{% include blog-accent.html post=post %}{%- endcapture -%}
+			{%- assign _card_accent = _card_accent | strip -%}
+			<li class="blog-card-item">
+				<a href="{{ post.url }}" class="blog-card accent-{{ _card_accent }}">
+					{%- if post.featured_image %}
+					<div class="blog-card-banner"><img src="{{ post.featured_image }}" alt="" loading="lazy" decoding="async"></div>
+					{%- endif %}
+					<div class="blog-card-body">
+						<p class="blog-card-meta">
+							<time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
+						</p>
+						<h3 class="blog-card-title">{{ post.title }}</h3>
+						{%- if post.excerpt %}
+						<p class="blog-card-excerpt">{{ post.excerpt | strip_html | truncate: 140 }}</p>
+						{%- endif %}
+					</div>
+				</a>
+			</li>
+		{%- endfor %}
+		</ul>
+
+		{% include blog-pagination.html %}
+	</section>

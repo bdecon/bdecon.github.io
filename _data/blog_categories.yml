@@ -1,0 +1,14 @@
+# Category → accent color mapping for blog posts.
+# Lookup by category name (case-sensitive, matches front matter exactly).
+# Accent values must be one of the site's accent-* classes:
+#   blue, red, green, orange, purple, ltblue, teal, brown
+
+"Data & Python":          ltblue
+"Housing & Demographics": brown
+"Labor Market":           orange
+"Macroeconomics":         blue
+"Policy":                 green
+"Prices & Inflation":     red
+"Trade & International":  purple
+"Wages & Income":         teal
+"Meta":                   blue        # for the demo / scaffolding posts

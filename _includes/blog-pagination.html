@@ -1,0 +1,31 @@
+{%- comment -%}
+  Pagination controls — shown on the blog index and category archive pages.
+  Uses paginator.* variables from jekyll-paginate-v2.
+{%- endcomment -%}
+{%- if paginator.total_pages > 1 %}
+<nav class="blog-pagination" aria-label="Pagination">
+	{%- if paginator.previous_page %}
+	<a class="blog-pagination-link blog-pagination-prev" href="{{ paginator.previous_page_path | replace: '//', '/' }}">&larr; Newer</a>
+	{%- else %}
+	<span class="blog-pagination-link blog-pagination-disabled">&larr; Newer</span>
+	{%- endif %}
+
+	<span class="blog-pagination-pages">
+	{%- for page_num in (1..paginator.total_pages) -%}
+		{%- if page_num == paginator.page %}
+		<span class="blog-pagination-current" aria-current="page">{{ page_num }}</span>
+		{%- elsif page_num == 1 %}
+		<a href="{{ paginator.first_page_path | replace: '//', '/' }}">{{ page_num }}</a>
+		{%- else %}
+		<a href="{{ paginator.page_path | replace: ':num', page_num | replace: '//', '/' }}">{{ page_num }}</a>
+		{%- endif %}
+	{%- endfor -%}
+	</span>
+
+	{%- if paginator.next_page %}
+	<a class="blog-pagination-link blog-pagination-next" href="{{ paginator.next_page_path | replace: '//', '/' }}">Older &rarr;</a>
+	{%- else %}
+	<span class="blog-pagination-link blog-pagination-disabled">Older &rarr;</span>
+	{%- endif %}
+</nav>
+{%- endif %}

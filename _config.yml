@@ -5,6 +5,28 @@ plugins:
   - jekyll-sitemap
   - jekyll-feed
   - jekyll-redirect-from
+  - jekyll-paginate-v2
+
+# Pagination + auto category archives (jekyll-paginate-v2). The blog index page
+# opts in via `pagination.enabled: true` in its front matter; autopages
+# generates one page per category at /blog/category/<slug>/.
+pagination:
+  enabled: true
+  per_page: 12
+  permalink: '/page:num/'
+  sort_field: 'date'
+  sort_reverse: true
+  trail:
+    before: 2
+    after: 2
+
+# Autopages disabled — jekyll-paginate-v2 uses raw category name in URLs
+# (e.g., `/blog/category/labor market/`) without slugifying. We instead hand-
+# write one stub page per category in /blog/category/<slug>.html, each opting
+# into pagination via its own front matter. See _data/blog_categories.yml for
+# the canonical category list.
+autopages:
+  enabled: false
 
 # Tutorial pages live in _tutorials/ and render at /<name>.html.
 # Each file has front matter — see CLAUDE.md "Tutorials collection" section
@@ -13,6 +35,8 @@ collections:
   tutorials:
     output: true
     permalink: /:name.html
+
+future: true   # build posts dated in the future (GH Pages doesn't time-publish)
 
 # Defaults applied by `scope`.
 # - Tutorials get layout + tutorial-shared front matter automatically.
@@ -24,6 +48,21 @@ defaults:
       layout: default
       og_type: "article"
       nav_active: "guides"
+      extra_head: |
+            <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+      extra_scripts: |
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+            <script>hljs.highlightAll();</script>
+  - scope: { path: "", type: "posts" }
+    values:
+      layout: post
+      # Blog posts live at /blog/YYYY/MM/DD/<title>/ — matches WordPress
+      # permalink pattern for 1:1 redirect mapping during migration.
+      permalink: /blog/:year/:month/:day/:title/
+      og_type: "article"
+      nav_active: "blog"
+      body_class: "page-blog-post"
+      sitemap: false               # remove this when blog goes live
       extra_head: |
             <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
       extra_scripts: |

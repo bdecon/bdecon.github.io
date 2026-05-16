@@ -1,0 +1,10 @@
+{%- comment -%}
+  Resolve a post's first category to an accent color via _data/blog_categories.yml.
+  Falls back to 'blue' if the category isn't mapped.
+  Usage: {% include blog-accent.html post=page %} -> outputs the accent name (e.g. "orange")
+  Pass `post` to use a specific post; defaults to `page` (current page).
+{%- endcomment -%}
+{%- assign _post = include.post | default: page -%}
+{%- assign _cat = _post.categories | first -%}
+{%- assign _accent = site.data.blog_categories[_cat] | default: 'blue' -%}
+{{- _accent -}}
