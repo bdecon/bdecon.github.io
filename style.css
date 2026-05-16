@@ -3181,7 +3181,7 @@ figure {
 	border: 1px solid var(--color-border);
 }
 .blog-pagination a:hover { border-color: var(--color-text-strong); }
-.blog-pagination-current {
+.blog-pagination .blog-pagination-current {
 	background: var(--color-text-strong);
 	color: var(--color-surface);
 }
