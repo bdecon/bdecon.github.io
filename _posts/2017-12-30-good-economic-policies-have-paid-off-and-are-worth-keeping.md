@@ -28,7 +28,7 @@ redirect_from:
 
 <span style="font-weight:400">Critically, when we near full employment, as we are doing now, there are no longer huge numbers of available unemployed workers to compete for new jobs or to replace workers who quit. As unemployed workers become scarce, businesses must increasingly compete with each other as employers. They do so by raising wages and making jobs better, and by better training and equipping existing workers. Benefits of full employment therefore include both increased wages and increased productivity. As pointed out by Dean Baker and others, recent data suggest that we are seeing this benefit. </span>
 
-### *<span style="font-weight:400">Borrowing is back despite \[efforts at\] regulation</span>*
+### *<span style="font-weight:400">Borrowing is back despite [efforts at] regulation</span>*
 
 <span style="font-weight:400">In addition to benefits from more employment, Fed policy has kept mortgage rates and other borrowing costs low, further boosting the overall economy. At the end of 2017, the average interest rate for a 30-year fixed rate mortgage is slightly less than four percent. For context, this rate, which partially determines how much people pay for a home loan, had not fallen below five percent prior to the great recession. Importantly, unlike in the years immediately following the crisis, consumer access to credit has been growing in recent years, making loans both relatively cheap and more readily available. The often discussed credit freeze seems to thaw from 2014 to 2017. </span>
 
