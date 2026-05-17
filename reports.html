@@ -4,11 +4,14 @@ title: "Reports | BD Economics"
 description: "Economic reports and interactive data visualizations: US Chartbook (250+ charts), economic indicators dashboard, monthly GDP tracker, and IMF WEO forecast tracker covering 196 countries."
 og_description: "Economic reports and interactive data visualizations: US Chartbook, economic indicators, monthly GDP, and IMF WEO forecast tracker for 196 countries."
 canonical: "https://bd-econ.com/reports.html"
-body_class: "page-reports"
+body_class: "page-reports accent-red"
 nav_active: "reports"
-page_strip: "reports"
-page_strip_class: "page-strip-compact"
-h1: "Reports"
+page_title_html: |
+      <div class="page-title page-title-feature accent-red">
+        <p class="page-title-kicker">Collection</p>
+        <h1>Reports</h1>
+        <p class="page-title-deck">Interactive dashboards, the US Chartbook, and other economic data work from BD Economics.</p>
+      </div>
 jsonld_collection: dashboards
 extra_scripts: |
   <script>
@@ -41,11 +44,9 @@ extra_scripts: |
 	</section>
 
 	<!-- ============================================================ -->
-	<!-- REFERENCES — Chartbook PDF (flagship, hero panel) +           -->
-	<!-- Release Calendar (secondary card).                            -->
+	<!-- REFERENCES — Chartbook PDF (flagship reference document).     -->
 	<!-- ============================================================ -->
 	{%- assign chartbook = references | where: "name", "chartbook" | first -%}
-	{%- assign other_refs = references | where_exp: "r", "r.name != 'chartbook'" -%}
 	<section class="reports-references">
 	<h2 class="heading-accent">References</h2>
 
@@ -61,12 +62,6 @@ extra_scripts: |
 			<span class="featured-report-cta">Open the chartbook &rarr;</span>
 		</div>
 	</a>
-	{% endif %}
-
-	{% if other_refs.size > 0 %}
-	<div class="card-grid reports-references-secondary">
-		{% for d in other_refs %}{% include dashboard-card.html d=d %}{% endfor %}
-	</div>
 	{% endif %}
 	</section>
 

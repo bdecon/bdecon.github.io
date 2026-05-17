@@ -68,7 +68,7 @@
   banner_width: 512
   banner_height: 98
   banner_alt: "Release Calendar"
-  section: references
+  section: dashboards     # moved from references — it's an interactive tool, not a PDF reference
   featured: false
   order: 5
   deck: "When to expect the next jobs report, CPI, GDP, and 30+ other releases that feed into the Chartbook. Filterable by frequency and significance."

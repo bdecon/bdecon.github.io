@@ -566,9 +566,10 @@ ul li a:hover + .hidden, .hidden:hover { display: block; }
 	@media (max-width: 480px) { padding: var(--space-3) var(--space-2); & h1 { letter-spacing: 0.03em; } }
 }
 
-/* Category-archive variant: gray top stripe (accent-strong) + bigger title +
-   kicker label + 1-line deck. Signals "you're in topic X". */
-.page-title-category {
+/* Feature page-title: accent top stripe + small kicker + mixed-case display
+   H1 + 1-line deck. Used on category archives ("you're in topic X") and on
+   section landing pages like /reports.html ("you're in the Reports section"). */
+.page-title-feature {
 	padding: var(--space-5) var(--space-3) var(--space-5);
 	background-color: var(--color-bg);
 	color: var(--color-text-strong);
@@ -976,8 +977,10 @@ main:has(> header.page-head:first-child) { border-top: none; padding-top: 0; }
 /* Card grid */
 .card-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, 300px);
-	gap: var(--space-5); justify-content: center; padding: var(--space-3) 0; width: 100%;
+	/* Flexible columns: at 948px wide, fits 3 cards (~300px) OR 4 cards (~210px).
+	   200px floor keeps the 4-up Dashboards row on one line at 948px container. */
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: var(--space-4); padding: var(--space-3) 0; width: 100%;
 	& a { text-decoration: none; }
 	& > h2, & > h3 { grid-column: 1 / -1; margin: var(--space-2) 0 var(--space-1); justify-self: start; }
 	& > h2 { font-size: var(--text-3xl); font-weight: 700; }
@@ -991,12 +994,20 @@ main:has(> header.page-head:first-child) { border-top: none; padding-top: 0; }
 
 .reports-section {
 	max-width: 948px;        /* match card-grid: 3 × 300 + 2 × space-5 */
-	margin: 0 auto var(--space-6);
+	margin: 0 auto var(--space-9);   /* matches gap before References */
 	padding: var(--space-3) 0;
 }
 
-/* References section — Chartbook hero + secondary cards (e.g., Calendar).
-   Same max-width as Dashboards so it visually aligns. */
+/* Reports page Dashboards card-grid: align to the same 948px max-width as
+   the surrounding sections so widths stack cleanly. */
+.page-reports .reports-section + .card-grid {
+	max-width: 948px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* References section — Chartbook hero (now alone after Calendar moved
+   to Dashboards). Same max-width as Dashboards so it visually aligns. */
 .reports-references {
 	max-width: 948px;
 	margin: var(--space-9) auto var(--space-6);
@@ -1262,9 +1273,11 @@ main:has(> header.page-head:first-child) { border-top: none; padding-top: 0; }
 
 /* Card variant: nav card — clickable link cards in grids. Accent shows at the
    very top edge of the card via the banner's border-top; the header below is
-   gray with the title. Hover deepens the border to signal interactivity. */
+   gray with the title. Hover deepens the border to signal interactivity.
+   Title typography matches blog/category cards: Title Case Albert Sans bold,
+   left-aligned (not uppercase + tracked) for cross-page consistency. */
 .card-nav {
-	text-align: center;
+	text-align: left;
 	text-decoration: none;
 	min-height: 180px;
 	&:hover { border-color: var(--color-text-strong); }
@@ -1272,13 +1285,14 @@ main:has(> header.page-head:first-child) { border-top: none; padding-top: 0; }
 	& .card-banner { border-top: 4px solid var(--accent); transition: border-color var(--transition-fast); }
 	& .card-header {
 		border-top: none;
+		justify-content: flex-start;
 		align-items: center; gap: var(--space-2);
-		padding: var(--space-2) var(--space-3);
-		& h3 { font-size: var(--text-2xl); font-weight: bold; margin: 0; text-transform: uppercase; letter-spacing: 0.04em; }
+		padding: var(--space-3) var(--space-4);
+		& h3 { font-size: var(--text-lg); font-weight: 800; margin: 0; letter-spacing: -0.01em; }
 	}
 	& .card-body {
-		padding: var(--space-1) var(--space-3) var(--space-3); min-height: 125px;
-		& p { margin-top: var(--space-2); margin-bottom: 0; font-size: var(--text-base); line-height: 1.4;
+		padding: var(--space-2) var(--space-4) var(--space-4); min-height: 125px;
+		& p { margin-top: var(--space-2); margin-bottom: 0; font-size: var(--text-sm); line-height: 1.5;
 			@media (max-width: 760px) { margin-bottom: var(--space-2); }
 		}
 	}
@@ -1557,7 +1571,10 @@ table {
 }
 
 /* Accent heading — underlined heading, line is text-width */
-.heading-accent { display: table; padding-bottom: var(--space-1); border-bottom: 3px solid var(--accent, var(--color-accent-red)); }
+/* Section heading underline. Always neutral dark gray — section headings
+   are wayfinding, not brand emphasis. Used on /blog/, /reports.html,
+   /python.html, etc. */
+.heading-accent { display: table; padding-bottom: var(--space-1); border-bottom: 3px solid var(--color-text-strong); }
 
 /* Accent rules — decorative page-colored HRs */
 .hr-accent, .section-bar { border: none; background-color: var(--accent); [data-theme="dark"] & { opacity: 0.6; } }

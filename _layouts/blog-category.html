@@ -6,7 +6,7 @@ layout: default
 {%- assign _desc = _meta.description -%}
 {%- assign _cat_posts = site.categories[page.category] -%}
 {%- assign _cat_total = _cat_posts | size -%}
-<div class="page-title page-title-category accent-{{ _accent }}">
+<div class="page-title page-title-feature accent-{{ _accent }}">
 	<p class="page-title-kicker">Category</p>
 	<h1>{{ page.category }}</h1>
 	{%- if _desc %}<p class="page-title-deck">{{ _desc }}</p>{% endif %}
