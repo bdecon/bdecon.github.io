@@ -3248,7 +3248,7 @@ figure {
 #search-ui {
 	--pagefind-ui-scale: 0.9;
 	--pagefind-ui-primary: var(--color-text-strong);
-	--pagefind-ui-text: var(--color-text);
+	--pagefind-ui-text: var(--color-text-strong);
 	--pagefind-ui-background: var(--color-surface);
 	--pagefind-ui-border: var(--color-border);
 	--pagefind-ui-tag: var(--color-bg-highlight);
@@ -3256,6 +3256,10 @@ figure {
 	--pagefind-ui-border-radius: 0;
 	--pagefind-ui-font: var(--font);
 }
+/* Belt + suspenders: make sure the input text itself is the strong color
+   (some browsers apply default `color: #555` to inputs that wins over
+   the Pagefind --pagefind-ui-text variable). */
+#search-ui .pagefind-ui__search-input { color: var(--color-text-strong); }
 
 /* ===== Print ===== */
 @media print {

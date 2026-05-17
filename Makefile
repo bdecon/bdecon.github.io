@@ -20,12 +20,14 @@ build:
 # Validate _site/ for broken internal links, missing images, malformed HTML.
 # Skips external URL checks (slow + flaky); use check-external for those.
 # Ignores data: URIs and the /pagefind/ index (machine-generated, not for users).
+# Note: htmlproofer regex delimiter is `/`, so a pattern matching a path with
+# slashes uses comma-separated regexes rather than alternation in one regex.
 check: build
-	bundle exec htmlproofer _site --disable-external --allow-missing-href --ignore-urls '/^(data:|/pagefind/)/'
+	bundle exec htmlproofer _site --disable-external --allow-missing-href --ignore-urls '/^data:/,/pagefind/'
 
 # Full check including external links (network-bound, slower).
 check-external: build
-	bundle exec htmlproofer _site --allow-missing-href --ignore-urls '/^(data:|/pagefind/)/'
+	bundle exec htmlproofer _site --allow-missing-href --ignore-urls '/^data:/,/pagefind/'
 
 # Remove build artifacts.
 clean:

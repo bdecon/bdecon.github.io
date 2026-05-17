@@ -46,7 +46,7 @@ jobs:
       - name: Generate Pagefind search index
         run: npx --yes pagefind --site _site --quiet
       - name: Check links and HTML (html-proofer)
-        run: bundle exec htmlproofer _site --disable-external --allow-missing-href --ignore-urls '/^(data:|/pagefind/)'
+        run: bundle exec htmlproofer _site --disable-external --allow-missing-href --ignore-urls '/^data:/,/pagefind/'
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
