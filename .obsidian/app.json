@@ -1,0 +1,13 @@
+{
+  "alwaysUpdateLinks": false,
+  "useMarkdownLinks": true,
+  "newLinkFormat": "absolute",
+  "attachmentFolderPath": "assets/blog",
+  "newFileLocation": "folder",
+  "newFileFolderPath": "_drafts",
+  "showLineNumber": true,
+  "showFrontmatter": true,
+  "spellcheck": true,
+  "strictLineBreaks": true,
+  "showUnsupportedFiles": false
+}

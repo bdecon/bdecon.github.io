@@ -14,3 +14,13 @@ vendor/
 backups/
 node_modules/
 package-lock.json
+
+# Obsidian vault — keep shared config + templates, ignore per-user state.
+# See .obsidian/SETUP.md for what's intentional.
+.obsidian/*
+!.obsidian/app.json
+!.obsidian/core-plugins.json
+!.obsidian/templates.json
+!.obsidian/templates/
+!.obsidian/templates/**
+!.obsidian/SETUP.md

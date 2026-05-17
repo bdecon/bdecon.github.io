@@ -1,0 +1,8 @@
+[codespell]
+# Codespell config. Tuned for Brian Dew's economics writing —
+# legitimate words and acronyms the standard dict treats as typos.
+skip = _site,vendor,_drafts,node_modules,assets,files,backups,*.lock,backups/wordpress,Gemfile.lock
+# Comma-separated list of words to ignore (case-insensitive)
+ignore-words-list = trough,troughs,scrip,scrips,tread,treads,ons,aer,januar,buildin,nd,iif,fpr,thru,inseam,bu,inout,parametrize,fo,re-use,uptodate,whats
+# Don't suggest fixes when ratio of context-changes vs total-text is high
+quiet-level = 3

@@ -1,16 +1,23 @@
 #!/usr/bin/env python3
-"""Scaffold a new blog post.
+"""Scaffold a new blog post or draft.
 
-Usage:
+Examples:
   python3 scripts/new_post.py "Why fewer people are working"
-  python3 scripts/new_post.py "Title" --date 2026-05-20 --category "Labor Market" -c "Policy"
+  python3 scripts/new_post.py "Title" --draft
+  python3 scripts/new_post.py "Title" -t essay -c "Labor Market"
+  python3 scripts/new_post.py "Title" -t data-update --date 2026-05-20
+  python3 scripts/new_post.py "Title" -t release
 
-Creates _posts/YYYY-MM-DD-<slug>.md with front matter ready, prints the path
-+ the local preview URL. Open the file in your editor, write the body in
-markdown, and `make serve` to preview.
+Creates `_posts/YYYY-MM-DD-<slug>.md` (or `_drafts/<slug>.md` with --draft)
+with front matter ready, prints the path + local preview URL.
 
-Slug is derived from the title (lowercase, hyphens, no punctuation).
-Date defaults to today.
+Templates:
+  essay        — long-form post with sections (default)
+  data-update  — short statistical update post
+  release      — version bump / release announcement
+  tutorial     — Python tutorial format with setup + numbered steps
+
+Slug is derived from the title (lowercase, hyphens). Date defaults to today.
 """
 import argparse
 import re
@@ -20,42 +27,139 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 POSTS_DIR = REPO / "_posts"
+DRAFTS_DIR = REPO / "_drafts"
 
-TEMPLATE = """\
+
+COMMON_HEAD = """\
 ---
 title: "{title}"
 date: {date}
 {categories_block}
-# Optional fields you can fill in:
-# featured_image: /assets/blog/{ymd_path}/{slug}.jpg   # also handles .png/.webp
+"""
+
+TEMPLATES = {
+
+    "essay": COMMON_HEAD + """\
+# Optional fields:
+# featured_image: /assets/blog/{ymd_path}/{slug}-banner.jpg
 # featured_image_style: banner                          # banner | chart
-# tags:
-#   - tag-one
-#   - tag-two
+# tags: ["tag-one"]
 ---
 
-Write the opening paragraph here. This becomes the auto-excerpt for the blog
-index. Keep it punchy: one or two sentences that get the reader in.
+Lede paragraph — one or two punchy sentences. This becomes the auto-excerpt
+on the blog index. Set the hook here.
 
-## First section heading
+## First section
 
-Body content. Markdown works. Inline `<figure>` blocks render with centered
-images and italic figcaptions. For side-by-side image + text, wrap a figure
-and a paragraph in `<div class="split-row post-split-row">`.
+Body paragraph. Markdown works. Inline `<figure class="wp-block-image size-large">`
+blocks render with centered images and italic figcaptions:
 
-> Use a blockquote for a pull quote. Stands out in larger italic with an accent
-> left border.
+<figure class="wp-block-image size-large">
+<img src="/assets/blog/{ymd_path}/chart-1.png" alt="describe the chart for screen readers" />
+<figcaption>Source: BLS, BEA. Chart shows X over Y period.</figcaption>
+</figure>
 
-Add more sections as needed.
-"""
+> A blockquote becomes a pull quote — larger italic with an accent left border.
+
+## Second section
+
+More content.
+
+For side-by-side text + image (text keeps prose-column left, image bumps
+out right), use `<div class="post-split">`. See `_drafts/demo-side-by-side-figure.md`
+for the canonical example.
+""",
+
+    "data-update": COMMON_HEAD + """\
+tags: ["data-update"]
+---
+
+According to today's data from [DATA SOURCE](https://example.com), the US
+INDICATOR rose / fell AMOUNT in PERIOD.
+
+Brief context: one paragraph explaining what changed and what's notable.
+
+<figure class="wp-block-image size-large">
+<img src="/assets/blog/{ymd_path}/chart.png" alt="alt text describing the chart" />
+</figure>
+
+Short interpretive paragraph. What does this mean?
+""",
+
+    "release": COMMON_HEAD + """\
+tags: ["release"]
+---
+
+PROJECT_NAME version X.Y is released. Here's what's new:
+
+- Change 1
+- Change 2
+- Change 3
+
+[Download from GitHub](https://github.com/bdecon/...) or [see the docs](...).
+
+Brief context paragraph if needed.
+""",
+
+    "tutorial": COMMON_HEAD + """\
+tags: ["python", "tutorial"]
+---
+
+Brief intro: what this tutorial does, what API or technique it covers, what
+the reader will produce by the end. One paragraph.
+
+## Setup
+
+Install the required library:
+
+```bash
+pip install REQUIRED_PACKAGE
+```
+
+## Step 1: Connect
+
+```python
+import REQUIRED_PACKAGE
+# explain what this does in 1-2 sentences
+```
+
+## Step 2: Fetch data
+
+```python
+# get the data
+```
+
+## Step 3: Visualize
+
+```python
+# plot
+```
+
+<figure class="wp-block-image size-large">
+<img src="/assets/blog/{ymd_path}/result.png" alt="describe the chart" />
+</figure>
+
+## Summary
+
+The workflow:
+1. Step
+2. Step
+3. Step
+
+## Resources
+
+- [Library docs](https://example.com)
+- [Related tutorial on bd-econ.com](/blog/...)
+""",
+}
 
 
 def slugify(text: str) -> str:
     """Title → kebab-case slug. ASCII-only, no punctuation."""
     s = text.lower().strip()
-    s = re.sub(r"[^\w\s-]", "", s)        # strip punctuation
-    s = re.sub(r"[\s_]+", "-", s)         # collapse spaces/underscores
-    s = re.sub(r"-+", "-", s).strip("-")  # collapse dashes
+    s = re.sub(r"[^\w\s-]", "", s)
+    s = re.sub(r"[\s_]+", "-", s)
+    s = re.sub(r"-+", "-", s).strip("-")
     return s or "untitled"
 
 
@@ -69,14 +173,18 @@ def parse_date(s: str) -> datetime:
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Scaffold a new blog post.")
+    ap = argparse.ArgumentParser(description="Scaffold a new blog post or draft.",
+                                 formatter_class=argparse.RawDescriptionHelpFormatter,
+                                 epilog=__doc__)
     ap.add_argument("title", help='Post title (e.g. "Why X happened")')
-    ap.add_argument("--date", help="YYYY-MM-DD (default: today)")
+    ap.add_argument("-t", "--template", choices=list(TEMPLATES.keys()),
+                    default="essay", help="Template variant (default: essay)")
+    ap.add_argument("--draft", action="store_true",
+                    help="Save to _drafts/ instead of _posts/")
+    ap.add_argument("--date", help="YYYY-MM-DD (default: today). Ignored for drafts.")
     ap.add_argument("--slug", help="Override slug (default: derived from title)")
-    ap.add_argument(
-        "-c", "--category", action="append", default=[],
-        help='Add a category. Repeat to add multiple: -c "Labor Market" -c "Policy"'
-    )
+    ap.add_argument("-c", "--category", action="append", default=[],
+                    help='Add a category. Repeatable: -c "Labor Market" -c "Policy"')
     ap.add_argument("--force", action="store_true", help="Overwrite if file exists")
     args = ap.parse_args()
 
@@ -88,27 +196,32 @@ def main():
     slug = args.slug or slugify(args.title)
     ymd = d.strftime("%Y-%m-%d")
     ymd_path = d.strftime("%Y/%m")
-    filename = f"{ymd}-{slug}.md"
-    out_path = POSTS_DIR / filename
+
+    if args.draft:
+        DRAFTS_DIR.mkdir(parents=True, exist_ok=True)
+        out_path = DRAFTS_DIR / f"{slug}.md"
+    else:
+        POSTS_DIR.mkdir(parents=True, exist_ok=True)
+        out_path = POSTS_DIR / f"{ymd}-{slug}.md"
 
     if out_path.exists() and not args.force:
         raise SystemExit(f"Refusing to overwrite {out_path} (use --force)")
 
-    # Format the YAML date the way Jekyll's converter writes it
     date_str = d.strftime("%Y-%m-%dT%H:%M:%S-04:00")
 
     if args.category:
         cats = "categories:\n" + "\n".join(f'  - "{c}"' for c in args.category)
     else:
         cats = (
-            '# Pick one or more from existing categories (or invent new):\n'
-            '#   "Data & Python", "Housing & Demographics", "Labor Market", "Macroeconomics",\n'
-            '#   "Policy", "Prices & Inflation", "Trade & International", "Wages & Income"\n'
+            '# Pick from: "Data & Python", "Housing & Demographics", "Labor Market",\n'
+            '# "Macroeconomics", "Policy", "Prices & Inflation", "Trade & International",\n'
+            '# "Wages & Income". Or invent new (add to _data/blog_categories.yml).\n'
             'categories:\n'
             '  - "Labor Market"'
         )
 
-    content = TEMPLATE.format(
+    template = TEMPLATES[args.template]
+    content = template.format(
         title=args.title.replace('"', '\\"'),
         date=date_str,
         categories_block=cats,
@@ -116,11 +229,15 @@ def main():
         slug=slug,
     )
 
-    POSTS_DIR.mkdir(parents=True, exist_ok=True)
     out_path.write_text(content, encoding="utf-8")
     print(f"  Created: {out_path.relative_to(REPO)}")
-    print(f"  Preview: http://127.0.0.1:4000/blog/{d.strftime('%Y/%m/%d')}/{slug}/")
-    print(f"  Open in editor, then `make serve` to preview.")
+    print(f"  Template: {args.template}")
+    if args.draft:
+        print(f"  Preview: run `make draft` to serve drafts at http://127.0.0.1:4000/")
+        print(f"  Publish: run `make publish-draft SLUG={slug}` when ready")
+    else:
+        print(f"  Preview: http://127.0.0.1:4000/blog/{d.strftime('%Y/%m/%d')}/{slug}/")
+        print(f"  Run `make serve` to preview.")
 
 
 if __name__ == "__main__":
