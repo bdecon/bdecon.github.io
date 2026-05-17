@@ -11,6 +11,9 @@
 /* ===== Variables ===== */
 :root {
   color-scheme: light dark;
+  /* Native form-control tint matches the brand red used for primary actions
+     (nav active state, blog tag). One line — browsers handle the rest. */
+  accent-color: #E04040;
 
   --font: 'Lato', sans-serif;
   --font-accent: 'Albert Sans', sans-serif;
@@ -25,16 +28,20 @@
   --space-6: 32px;
   --space-7: 48px;
   --space-8: 64px;
+  --space-9: 96px;
 
   /* Type Scale — fluid from 320px to 1080px viewport */
   --text-xs: 13px;
   --text-sm: 15px;
-  --text-base: 16px;
-  --text-lg: 17px;
-  --text-xl: clamp(16px, 0.5vw + 14.5px, 18px);
-  --text-2xl: clamp(18px, 0.5vw + 16.5px, 20px);
-  --text-3xl: clamp(20px, 1vw + 17px, 24px);
-  --text-4xl: clamp(24px, 1.5vw + 19px, 32px);
+  --text-base: 18px;
+  --text-lg: 19px;
+  --text-xl: clamp(18px, 0.5vw + 16.5px, 20px);
+  --text-2xl: clamp(20px, 0.5vw + 18.5px, 22px);
+  --text-3xl: clamp(22px, 1vw + 19px, 26px);
+  --text-4xl: clamp(26px, 1.5vw + 21px, 34px);
+  /* Display: editorial-scale H1s for hero areas (page titles, post titles,
+     homepage headline). One token; opt-in per page. */
+  --text-display: clamp(34px, 4vw + 14px, 56px);
 
   /* Width Tiers — all content snaps to one of these */
   --width-page: 1080px;
@@ -290,7 +297,7 @@ main {
 	border-bottom: none;
 }
 
-p, li { font-size: var(--text-base); color: var(--color-text); line-height: 1.6; }
+p, li { font-size: var(--text-base); color: var(--color-text); line-height: 1.65; text-wrap: pretty; }
 p { margin-bottom: 0.75em; }
 
 /* Button reset — bare interactive element, no browser chrome */
@@ -557,6 +564,41 @@ ul li a:hover + .hidden, .hidden:hover { display: block; }
 	& h1 { margin: 0 auto; max-width: var(--width-lg); font-weight: 700; font-size: clamp(22px, 2vw + 16px, 30px); letter-spacing: 0.06em; text-transform: uppercase; padding: 0 var(--space-3); }
 	& .page-title-byline { color: color-mix(in srgb, white 55%, transparent); margin: var(--space-1) 0 0; line-height: 1; letter-spacing: 0.12em; }
 	@media (max-width: 480px) { padding: var(--space-3) var(--space-2); & h1 { letter-spacing: 0.03em; } }
+}
+
+/* Category-archive variant: gray top stripe (accent-strong) + bigger title +
+   kicker label + 1-line deck. Signals "you're in topic X". */
+.page-title-category {
+	padding: var(--space-5) var(--space-3) var(--space-5);
+	background-color: var(--color-bg);
+	color: var(--color-text-strong);
+	border-top: 6px solid var(--accent-strong, var(--accent));
+	border-bottom: 1px solid var(--color-border-light);
+	[data-theme="dark"] & { background-color: var(--color-bg); color: var(--color-text-strong); }
+	& .page-title-kicker {
+		margin: 0 0 var(--space-1);
+		font-family: var(--font-accent);
+		font-weight: 700;
+		font-size: var(--text-xs);
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		color: var(--accent-strong, var(--accent));
+	}
+	& h1 {
+		font-size: var(--text-display);
+		letter-spacing: -0.025em;
+		text-transform: none;
+		max-width: var(--width-lg);
+		line-height: 1.05;
+	}
+	& .page-title-deck {
+		max-width: var(--width-lg);
+		margin: var(--space-2) auto 0;
+		padding: 0 var(--space-3);
+		font-size: var(--text-base);
+		color: var(--color-text);
+		line-height: 1.5;
+	}
 }
 
 /* Footer styling */
@@ -951,6 +993,20 @@ main:has(> header.page-head:first-child) { border-top: none; padding-top: 0; }
 	max-width: 948px;        /* match card-grid: 3 × 300 + 2 × space-5 */
 	margin: 0 auto var(--space-6);
 	padding: var(--space-3) 0;
+}
+
+/* References section — Chartbook hero + secondary cards (e.g., Calendar).
+   Same max-width as Dashboards so it visually aligns. */
+.reports-references {
+	max-width: 948px;
+	margin: var(--space-9) auto var(--space-6);
+	padding: 0;
+	& > h2 { margin: 0 auto var(--space-5); }
+	& .featured-report { margin-bottom: var(--space-5); }
+	& .reports-references-secondary {
+		justify-content: center;
+		padding: 0;
+	}
 }
 
 /* Featured report — split panel: photo on the left, text on the right */
@@ -2829,10 +2885,10 @@ figure {
 .page-blog main > section { max-width: 948px; margin-left: auto; margin-right: auto; }
 
 /* Blog "latest" hero — reuses .featured-report pattern from reports.html. */
-.page-blog .blog-latest { margin: 0 auto var(--space-7); }
+.page-blog .blog-latest { margin: 0 auto var(--space-9); }
 
 /* "All posts" section heading. */
-.page-blog .blog-grid-section { margin-top: var(--space-7); }
+.page-blog .blog-grid-section { margin-top: var(--space-9); }
 .page-blog .blog-grid-section > h2 { margin-bottom: var(--space-5); }
 
 /* Card grid for posts. Three-up on wide, two-up on narrow, one-up on phone. */
@@ -2951,7 +3007,7 @@ figure {
 }
 
 .post-header { margin: 0 auto var(--space-6); }
-.post-header h1 { margin: var(--space-2) 0 var(--space-3); font-size: var(--text-4xl); letter-spacing: -0.02em; line-height: 1.15; }
+.post-header h1 { margin: var(--space-2) 0 var(--space-3); font-size: var(--text-display); letter-spacing: -0.025em; line-height: 1.1; text-wrap: balance; }
 .post-categories { margin: 0 0 var(--space-1); display: flex; flex-wrap: wrap; gap: var(--space-2); }
 .post-category {
 	font-family: var(--font-accent);
@@ -3136,42 +3192,58 @@ figure {
    color when inside the accent-X wrapper from post.html. */
 .page-blog-post section[class*="accent-"] .post-category { color: var(--accent-strong, var(--accent, var(--color-text-muted))); }
 
-/* Category browse chips — appear on /blog/ above the grid. Each chip links
-   to /blog/category/<slug>/ generated by jekyll-paginate-v2 autopages. */
-.page-blog .blog-category-nav {
-	display: flex;
-	flex-wrap: wrap;
-	gap: var(--space-2);
-	justify-content: center;
-	max-width: var(--width-lg);
-	margin: 0 auto var(--space-6);
+/* "Browse by topic" — full card grid on /blog/, one per category. Each card
+   links to /blog/category/<slug>/ generated by scripts/generate_category_pages.py. */
+.page-blog .blog-categories { margin: var(--space-9) 0; }
+.page-blog .blog-categories > h2 { margin-bottom: var(--space-5); }
+.page-blog .blog-category-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	gap: var(--space-4);
 }
-.page-blog .blog-category-chip {
-	display: inline-flex;
-	align-items: center;
+.page-blog .blog-category-card {
+	display: flex;
+	flex-direction: column;
 	gap: var(--space-2);
-	padding: 4px var(--space-3);
-	font-family: var(--font-accent);
-	font-size: var(--text-xs);
-	font-weight: 700;
-	letter-spacing: 0.06em;
-	text-transform: uppercase;
-	text-decoration: none;
-	color: var(--color-text-strong);
-	border: 1px solid var(--color-border);
-	border-left: 3px solid var(--accent, var(--color-border));
+	padding: var(--space-4);
 	background: var(--color-surface);
+	border: 1px solid var(--color-border-light);
+	border-top: 4px solid var(--accent, var(--color-border));
+	text-decoration: none;
+	color: inherit;
 	transition: border-color var(--transition-fast), background var(--transition-fast);
 }
-.page-blog .blog-category-chip:hover {
-	border-color: var(--accent, var(--color-text-strong));
+.page-blog .blog-category-card:hover {
 	background: var(--color-bg-highlight);
+	border-color: var(--color-text-strong);
+	border-top-color: var(--accent-strong, var(--accent));
 }
-.page-blog .blog-category-chip-count {
-	font-size: 10px;
-	font-weight: 400;
-	letter-spacing: 0;
-	color: var(--color-text-muted);
+.page-blog .blog-category-card-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: var(--space-3);
+}
+.page-blog .blog-category-card-head h3 {
+	margin: 0;
+	font-family: var(--font-accent);
+	font-weight: 800;
+	font-size: var(--text-lg);
+	letter-spacing: -0.01em;
+	color: var(--color-text-strong);
+}
+.page-blog .blog-category-card-count {
+	font-family: var(--font-accent);
+	font-weight: 700;
+	font-size: var(--text-2xl);
+	color: var(--accent-strong, var(--accent));
+	line-height: 1;
+}
+.page-blog .blog-category-card-desc {
+	margin: 0;
+	font-size: var(--text-sm);
+	color: var(--color-text);
+	line-height: 1.5;
 }
 
 /* Pagination controls — bottom of /blog/ and /blog/category/<slug>/ pages. */
@@ -3334,5 +3406,20 @@ figure {
 /* ===== Reduced Motion ===== */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+
+/* ===== Dark-mode polish =====
+   Slightly dim images so photos and charts read against the dark background
+   instead of glaring out. Excluded: SVG icons + the brand logo. */
+[data-theme="dark"] img:not([src$=".svg"]):not([data-no-dim]) {
+  filter: brightness(0.92) contrast(0.96);
+}
+
+/* ===== View transitions =====
+   Smooth fade between page navigations in supporting browsers
+   (Chrome 126+, Safari 18.2+). Falls back to instant navigation elsewhere.
+   Respects prefers-reduced-motion via the rule above. */
+@view-transition {
+  navigation: auto;
 }
 

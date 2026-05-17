@@ -41,12 +41,33 @@ extra_scripts: |
 	</section>
 
 	<!-- ============================================================ -->
-	<!-- REFERENCES — Chartbook PDF + release schedule                 -->
-	<!-- Cards iterate _data/dashboards.yml (section: references).     -->
+	<!-- REFERENCES — Chartbook PDF (flagship, hero panel) +           -->
+	<!-- Release Calendar (secondary card).                            -->
 	<!-- ============================================================ -->
-	<section class="card-grid">
+	{%- assign chartbook = references | where: "name", "chartbook" | first -%}
+	{%- assign other_refs = references | where_exp: "r", "r.name != 'chartbook'" -%}
+	<section class="reports-references">
 	<h2 class="heading-accent">References</h2>
-	{% for d in references %}{% include dashboard-card.html d=d %}{% endfor %}
+
+	{% if chartbook %}
+	<a href="{{ chartbook.url }}" class="featured-report accent-{{ chartbook.accent }}">
+		<figure class="featured-report-photo">
+			<picture><source srcset="/images/chartbook_strip.webp" type="image/webp"><img loading="lazy" decoding="async" src="/images/chartbook_strip.jpg" alt="{{ chartbook.banner_alt }}"></picture>
+		</figure>
+		<div class="featured-report-text">
+			<p class="featured-report-kicker">Flagship reference{% if chartbook.pdf_freshness %} &middot; <span class="cb-update"><noscript>updated regularly</noscript></span>{% endif %}</p>
+			<h3 class="featured-report-title">{{ chartbook.short_title }}</h3>
+			<p class="featured-report-deck">{{ chartbook.deck }}</p>
+			<span class="featured-report-cta">Open the chartbook &rarr;</span>
+		</div>
+	</a>
+	{% endif %}
+
+	{% if other_refs.size > 0 %}
+	<div class="card-grid reports-references-secondary">
+		{% for d in other_refs %}{% include dashboard-card.html d=d %}{% endfor %}
+	</div>
+	{% endif %}
 	</section>
 
 	</section>

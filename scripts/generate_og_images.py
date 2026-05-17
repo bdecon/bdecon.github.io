@@ -59,9 +59,11 @@ def hex_to_rgb(h: str) -> tuple[int, int, int]:
 
 
 def load_category_accents() -> dict[str, str]:
+    """Flatten the nested category-meta YAML to {name: accent}."""
     if not CATEGORY_MAP.exists():
         return {}
-    return yaml.safe_load(CATEGORY_MAP.read_text()) or {}
+    raw = yaml.safe_load(CATEGORY_MAP.read_text()) or {}
+    return {name: meta.get("accent", "blue") for name, meta in raw.items()}
 
 
 def parse_post(path: Path) -> dict | None:

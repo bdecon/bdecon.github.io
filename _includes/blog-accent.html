@@ -6,5 +6,6 @@
 {%- endcomment -%}
 {%- assign _post = include.post | default: page -%}
 {%- assign _cat = _post.categories | first -%}
-{%- assign _accent = site.data.blog_categories[_cat] | default: 'blue' -%}
+{%- assign _meta = site.data.blog_categories[_cat] -%}
+{%- assign _accent = _meta.accent | default: 'blue' -%}
 {{- _accent -}}
