@@ -2822,6 +2822,12 @@ figure {
 }
 .page-blog .blog-intro a { color: var(--color-text-strong); }
 
+/* Constrain blog page content to the same width as reports.html
+   (948px = 3 × 300px cards + 2 × 24px gap). Without this the page
+   stretches to the full 1028px inner width and feels wider than
+   sibling pages. */
+.page-blog main > section { max-width: 948px; margin-left: auto; margin-right: auto; }
+
 /* Blog "latest" hero — reuses .featured-report pattern from reports.html. */
 .page-blog .blog-latest { margin: 0 auto var(--space-7); }
 
