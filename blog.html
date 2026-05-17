@@ -20,7 +20,6 @@ pagination:
 	<section>
 		<p class="blog-intro">
 			Economic analysis, data work, and Python notes from Brian Dew.
-			<a href="/feed.xml" rel="alternate" type="application/atom+xml">Subscribe via RSS</a>.
 		</p>
 
 		{% if latest and paginator.page == 1 %}
@@ -42,6 +41,10 @@ pagination:
 				<span class="featured-report-cta">Read the post &rarr;</span>
 			</div>
 		</a>
+		{% endif %}
+
+		{% if paginator.page == 1 %}
+		{% include newsletter-signup.html %}
 		{% endif %}
 
 		{%- comment -%}

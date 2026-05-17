@@ -97,6 +97,7 @@ after_header_include: announcement-bar
 						<li><a href="{{ p.url }}">{{ p.title }}</a> <span class="note">{{ p.date | date: "%b %-d" }}</span></li>
 					{%- endfor %}
 					</ul>
+					{% include newsletter-signup.html variant="compact" %}
 				</div>
 			</div>
 			</div>

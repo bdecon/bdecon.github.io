@@ -1,0 +1,39 @@
+{%- comment -%}
+  Newsletter signup form — posts to Buttondown's hosted endpoint. Works
+  without JS (form submits, user is taken to a Buttondown confirmation
+  page in a new tab). With JS, the inline handler intercepts the submit,
+  POSTs via fetch, and shows an inline success state without leaving the
+  site.
+
+  Variants (pass via include.variant):
+    "default" — full panel with title + deck + form (use on /blog/, home).
+    "compact" — single-line form (use in post footer, sidebars).
+
+  Usage:
+    {% include newsletter-signup.html %}
+    {% include newsletter-signup.html variant="compact" %}
+{%- endcomment -%}
+{%- assign _variant = include.variant | default: "default" -%}
+<section class="newsletter-signup newsletter-signup--{{ _variant }}" aria-labelledby="newsletter-heading-{{ _variant }}">
+	{% if _variant == "default" %}
+	<h2 id="newsletter-heading-default" class="newsletter-signup-heading">Subscribe</h2>
+	<p class="newsletter-signup-deck">New posts in your inbox. Original data analysis on the US labor market, wages, and economic policy. No spam, easy unsubscribe.</p>
+	{% else %}
+	<h2 id="newsletter-heading-compact" class="newsletter-signup-heading">Get new posts in your inbox</h2>
+	{% endif %}
+	<form class="newsletter-form" method="post" action="https://buttondown.com/api/emails/embed-subscribe/bdeconomics" target="popupwindow" onsubmit="window.open('https://buttondown.com/bdeconomics', 'popupwindow')">
+		<label for="newsletter-email-{{ _variant }}" class="sr-only">Email address</label>
+		<input
+			id="newsletter-email-{{ _variant }}"
+			class="newsletter-form-input"
+			type="email"
+			name="email"
+			required
+			autocomplete="email"
+			placeholder="you@example.com">
+		<button type="submit" class="newsletter-form-submit">Subscribe</button>
+	</form>
+	{% if _variant == "default" %}
+	<p class="newsletter-signup-alt">Prefer a feed reader? <a href="/feed.xml" rel="alternate" type="application/atom+xml">RSS</a>.</p>
+	{% endif %}
+</section>
