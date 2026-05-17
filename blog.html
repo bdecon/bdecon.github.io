@@ -4,9 +4,14 @@ title: "Blog | BD Economics"
 og_title: "BD Economics Blog"
 description: "Economic analysis and Python data wrangling from Brian Dew. Labor markets, inflation, wages, GDP, and public data."
 canonical: "https://bd-econ.com/blog/"
-body_class: "page-blog"
+body_class: "page-blog accent-red"
 nav_active: "blog"
-h1: "Blog"
+page_title_html: |
+      <div class="page-title page-title-feature accent-red">
+        <p class="page-title-kicker">Writing</p>
+        <h1>Blog</h1>
+        <p class="page-title-deck">Economic analysis, data work, and Python notes from Brian Dew.</p>
+      </div>
 permalink: /blog/
 pagination:
   enabled: true
@@ -18,9 +23,6 @@ pagination:
 	{%- endcomment -%}
 	{%- assign latest = site.posts | where_exp: "p", "p.featured_image" | first -%}
 	<section>
-		<p class="blog-intro">
-			Economic analysis, data work, and Python notes from Brian Dew.
-		</p>
 
 		{% if latest and paginator.page == 1 %}
 		{%- capture _latest_accent -%}{% include blog-accent.html post=latest %}{%- endcapture -%}

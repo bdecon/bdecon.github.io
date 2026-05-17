@@ -17,6 +17,16 @@
   (which doesn't run inside front-matter string fields).
 {%- endcomment -%}
 {% if page.after_header_include %}{% include {{ page.after_header_include }}.html %}{% endif %}
+{%- comment -%}
+  Tutorial pages auto-get the feature header (accent + kicker + display H1 +
+  deck) built from their front matter (accent, short_title, difficulty, deck).
+  Skips the page-strip image since the feature header replaces that role.
+{%- endcomment -%}
+{%- assign _is_tutorial_feature = false -%}
+{%- if page.collection == 'tutorials' and page.short_title and page.accent and page.deck -%}
+  {%- assign _is_tutorial_feature = true -%}
+{%- endif -%}
+{% unless _is_tutorial_feature %}
 {% if page.page_strip_html %}
 {{ page.page_strip_html }}
 {% elsif page.page_strip %}
@@ -24,7 +34,14 @@
 		<picture><source srcset="/images/{{ page.page_strip }}_strip.webp" type="image/webp"><img decoding="async" fetchpriority="high" src="/images/{{ page.page_strip }}_strip.jpg" alt="" aria-hidden="true" class="page-strip-img" width="1600" height="200"></picture>
 	</div>
 {% endif %}
-{% if page.page_title_html %}
+{% endunless %}
+{% if _is_tutorial_feature %}
+	<div class="page-title page-title-feature accent-{{ page.accent }}">
+		<p class="page-title-kicker">Guide{% if page.difficulty %} &middot; {{ page.difficulty | capitalize }}{% endif %}</p>
+		<h1>{{ page.short_title }}</h1>
+		<p class="page-title-deck">{{ page.deck }}</p>
+	</div>
+{% elsif page.page_title_html %}
 {{ page.page_title_html }}
 {% elsif page.h1 %}
 	<div class="page-title">
