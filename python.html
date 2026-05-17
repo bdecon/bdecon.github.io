@@ -17,6 +17,8 @@ jsonld_collection: tutorials
 	{% assign setup = site.tutorials | where: "difficulty", "introductory" | first %}
 	{% assign main_tutorials = site.tutorials | where_exp: "t", "t.listed and t.difficulty != 'introductory'" | sort: "order" %}
 	<section>
+	<section class="py-start">
+	<h2 class="heading-accent">Start here</h2>
 	<article class="split-row py-row prose">
 		<div class="py-intro">
 			<p>Each tutorial below walks through a real example&mdash;from API request to finished chart&mdash;using pandas, requests, and Jupyter notebooks. They cover six major data sources for macroeconomic research.</p>
@@ -24,6 +26,7 @@ jsonld_collection: tutorials
 		</div>
 		{% include tutorial-card.html t=setup %}
 	</article>
+	</section>
 	<!-- Order: most-popular first (IMF API), then by difficulty within
 	     the rest (beginners → intermediate → advanced). Controlled by
 	     `order:` in each tutorial's front matter (_tutorials/*.html). -->

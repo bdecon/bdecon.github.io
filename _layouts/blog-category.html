@@ -24,6 +24,7 @@ layout: default
 			{%- endif %}
 		</p>
 
+		<h2 class="heading-accent sr-only">Posts in this category</h2>
 		<ul class="blog-grid">
 		{%- for post in paginator.posts %}
 			{%- capture _card_accent -%}{% include blog-accent.html post=post %}{%- endcapture -%}

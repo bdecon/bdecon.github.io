@@ -5,11 +5,11 @@
   so the message array is built at build time, not maintained as JS.
 {%- endcomment -%}
 {%- assign _first = site.data.announcements | first -%}
-<div class="announcement">
+<aside class="announcement" aria-label="Site announcements">
 	<button class="announce-arrow" aria-label="Previous announcement">&#8249;</button>
 	<span class="announce-text"><a href="{{ _first.href }}" id="announce-link"{% if _first.href contains '://' %} target="_blank" rel="noopener"{% endif %}>{{ _first.text }}</a></span>
 	<button class="announce-arrow" aria-label="Next announcement">&#8250;</button>
-</div>
+</aside>
 <script>
 (function() {
 	const msgs = [

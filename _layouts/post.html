@@ -44,13 +44,13 @@ layout: default
 			{% include post-share.html %}
 
 			{%- comment -%} Author bio at the end of the post {%- endcomment -%}
-			<aside class="post-author-bio">
+			<div class="post-author-bio">
 				<picture><source srcset="/images/briandew.webp" type="image/webp"><img src="/images/briandew.png" alt="Brian Dew" width="80" height="80" loading="lazy"></picture>
 				<div>
 					<p class="post-author-name">Brian Dew</p>
 					<p class="post-author-text">Economist building <a href="/">bd-econ.com</a> as a destination for US macroeconomic data, analysis, and Python tutorials. <a href="/about.html">More about Brian &rarr;</a></p>
 				</div>
-			</aside>
+			</div>
 		</article>
 
 		{%- comment -%}
@@ -59,7 +59,7 @@ layout: default
 		{%- assign _current_cat = page.categories | first -%}
 		{%- assign _related = site.posts | where_exp: "p", "p.url != page.url" | where_exp: "p", "p.categories contains _current_cat" | slice: 0, 3 -%}
 		{%- if _related.size > 0 %}
-		<aside class="post-related">
+		<section class="post-related">
 			<h2 class="heading-accent">More in {{ _current_cat }}</h2>
 			<ul class="post-related-list">
 				{%- for r in _related %}
@@ -74,7 +74,7 @@ layout: default
 				</li>
 				{%- endfor %}
 			</ul>
-		</aside>
+		</section>
 		{%- endif %}
 
 		<p class="post-footer-nav"><a href="/blog/">&larr; All posts</a></p>
