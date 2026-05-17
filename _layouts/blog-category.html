@@ -12,6 +12,8 @@ layout: default
 	{%- if _desc %}<p class="page-title-deck">{{ _desc }}</p>{% endif %}
 </div>
 	<section class="accent-{{ _accent }}">
+		{% include blog-topic-strip.html current=page.category %}
+
 		<p class="blog-intro">
 			{%- if _cat_total == 0 -%}
 				No posts in this category yet.
@@ -20,7 +22,6 @@ layout: default
 			{%- else -%}
 				{{ _cat_total }} posts{%- if paginator.total_pages > 1 %} &middot; page {{ paginator.page }} of {{ paginator.total_pages }}{%- endif -%}
 			{%- endif %}
-			&middot; <a href="/blog/">&larr; All posts</a>
 		</p>
 
 		<ul class="blog-grid">

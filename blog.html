@@ -32,7 +32,7 @@ pagination:
 			</figure>
 			<div class="featured-report-text">
 				<p class="featured-report-kicker">
-					Latest post &middot; {{ latest.date | date: "%B %-d, %Y" }}
+					Latest &middot; {{ latest.date | date: "%b %-d" }}
 					{%- if latest.categories and latest.categories.size > 0 -%}
 					&nbsp;&middot;&nbsp;{{ latest.categories | first }}
 					{%- endif -%}
@@ -63,13 +63,17 @@ pagination:
 					<a href="/blog/category/{{ cat_slug }}/" class="blog-category-card accent-{{ _cat_accent }}">
 						<div class="blog-category-card-head">
 							<h3>{{ cat_name }}</h3>
-							<span class="blog-category-card-count">{{ cat_count }}</span>
+							<span class="blog-category-card-count">{{ cat_count }} post{% if cat_count != 1 %}s{% endif %}</span>
 						</div>
 						{%- if _cat_desc %}<p class="blog-category-card-desc">{{ _cat_desc }}</p>{% endif %}
 					</a>
 				{%- endfor %}
 			</div>
 		</section>
+		{% endif %}
+
+		{% if paginator.page > 1 %}
+		{% include blog-topic-strip.html %}
 		{% endif %}
 
 		<section class="blog-grid-section">

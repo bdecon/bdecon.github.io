@@ -1,0 +1,23 @@
+{%- comment -%}
+  Compact topic-nav strip for blog pages beyond the index. Lets a reader
+  jump to a different category from /blog/page2+ or from any
+  /blog/category/<slug>/ page without going back to /blog/ first.
+
+  Pass `current` (the active category name) to highlight that chip, or
+  omit it on non-category pages.
+
+  Usage:
+    {% include blog-topic-strip.html %}                 # /blog/ page 2+
+    {% include blog-topic-strip.html current=page.category %}  # category page
+{%- endcomment -%}
+<nav class="blog-topic-strip" aria-label="Browse by topic">
+	<a class="blog-topic-chip{% unless include.current %} is-current{% endunless %}" href="/blog/">All posts</a>
+	{%- for cat_pair in site.categories %}
+		{%- assign cat_name = cat_pair[0] -%}
+		{%- assign cat_count = cat_pair[1] | size -%}
+		{%- assign cat_slug = cat_name | slugify -%}
+		{%- assign _cm = site.data.blog_categories[cat_name] -%}
+		{%- assign _ca = _cm.accent | default: 'blue' -%}
+		<a class="blog-topic-chip accent-{{ _ca }}{% if include.current == cat_name %} is-current{% endif %}" href="/blog/category/{{ cat_slug }}/">{{ cat_name }} <span class="blog-topic-chip-count">{{ cat_count }}</span></a>
+	{%- endfor %}
+</nav>
