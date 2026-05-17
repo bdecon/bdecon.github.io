@@ -4,8 +4,7 @@ date: 2023-12-07T21:48:18-05:00
 slug: labor-productivity
 categories:
   - "Macroeconomics"
-tags:
-  - "productivity"
+
 excerpt: "In the third quarter, labor productivity grew at an annual rate of 5.2 percent, far above the long-term average of 1.6 to 1.9 percent. This second consecutive quarter of above-average growth is encouraging. Further, labor productivity growt…"
 redirect_from:
   - /2023/12/07/labor-productivity/

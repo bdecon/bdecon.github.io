@@ -4,8 +4,7 @@ date: 2023-12-14T13:14:01-05:00
 slug: improved-fomc-outlook
 categories:
   - "Macroeconomics"
-tags:
-  - "Fed"
+
 excerpt: "The people who determine monetary policy in the US report their forecasts for key economic indicators. The group’s December forecast was released yesterday and shows an improved outlook."
 redirect_from:
   - /2023/12/14/improved-fomc-outlook/

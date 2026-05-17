@@ -5,8 +5,7 @@ slug: economist-as-a-plumber-with-a-body-camera-epbc
 categories:
   - "Data & Python"
   - "Macroeconomics"
-tags:
-  - "EPBC"
+
 excerpt: "Economists could do more to show their work and to maintain their results."
 redirect_from:
   - /2018/08/31/economist-as-a-plumber-with-a-body-camera-epbc/

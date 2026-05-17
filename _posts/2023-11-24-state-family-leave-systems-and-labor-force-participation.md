@@ -5,8 +5,7 @@ slug: state-family-leave-systems-and-labor-force-participation
 categories:
   - "Labor Market"
   - "Policy"
-tags:
-  - "Labor Market"
+
 excerpt: "The US infamously lacks a national family leave system. These systems are a form of social insurance, offering temporary income replacement to families when they welcome a new child."
 redirect_from:
   - /2023/11/24/state-family-leave-systems-and-labor-force-participation/

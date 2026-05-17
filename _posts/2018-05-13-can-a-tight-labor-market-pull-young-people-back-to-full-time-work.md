@@ -5,10 +5,6 @@ slug: can-a-tight-labor-market-pull-young-people-back-to-full-time-work
 categories:
   - "Labor Market"
   - "Macroeconomics"
-tags:
-  - "Education"
-  - "Fed"
-  - "Labor Market"
 excerpt: "From 2001 to 2013, college enrollment in the US increased rapidly. Young people delayed the full-time work portion of their lives, ostensibly to seek skills for an evolving set of jobs. Trends since 2014, however, suggest that the increase…"
 redirect_from:
   - /2018/05/13/can-a-tight-labor-market-pull-young-people-back-to-full-time-work/

@@ -5,10 +5,6 @@ slug: sawing-off-the-top-of-a-step-ladder
 categories:
   - "Policy"
   - "Wages & Income"
-tags:
-  - "Labor Market"
-  - "Teachers"
-  - "Wages"
 excerpt: "Policymakers may have accidentally demonstrated that they have the skills needed to curb the pay of the top earners in a profession. Unfortunately, these problem solving skills were not applied to CEOs, who regularly get paid a thousand tim…"
 redirect_from:
   - /2018/05/22/sawing-off-the-top-of-a-step-ladder/

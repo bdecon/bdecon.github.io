@@ -5,10 +5,6 @@ slug: economic-divergence-the-k-shaped-economys-missing-story
 categories:
   - "Macroeconomics"
   - "Wages & Income"
-tags:
-  - "ai bubble"
-  - "k-shaped economy"
-  - "tariffs"
 excerpt: "Some economists have been highlighting a divergence in consumer spending. But the discussion is missing an important piece: the dramatic shift toward regressive taxation in 2025."
 featured_image: /assets/blog/2026/02/abundance-1.jpg
 featured_image_style: banner

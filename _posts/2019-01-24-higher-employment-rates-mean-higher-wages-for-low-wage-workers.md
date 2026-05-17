@@ -5,9 +5,6 @@ slug: higher-employment-rates-mean-higher-wages-for-low-wage-workers
 categories:
   - "Labor Market"
   - "Wages & Income"
-tags:
-  - "Employment"
-  - "Wages"
 excerpt: "Low-wage jobs pay better when the local labor market is tight. This is because an employer who can’t easily replace one worker with another will tend to pay current workers more to incentivize them to stay and also will tend to invest more…"
 redirect_from:
   - /2019/01/24/higher-employment-rates-mean-higher-wages-for-low-wage-workers/

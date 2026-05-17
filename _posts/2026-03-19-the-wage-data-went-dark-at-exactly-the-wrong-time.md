@@ -6,8 +6,7 @@ categories:
   - "Labor Market"
   - "Policy"
   - "Wages & Income"
-tags:
-  - "government shutdown"
+
 excerpt: "The government shutdown meant no October CPS was collected. Without it, the BLS couldn’t publish its Usual Weekly Earnings series for the fourth quarter of 2025. That’s a six-month hole in the official wage data."
 featured_image: /assets/blog/2026/03/dome_banner.jpg
 featured_image_style: banner

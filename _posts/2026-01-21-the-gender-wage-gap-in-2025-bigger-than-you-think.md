@@ -5,9 +5,6 @@ slug: the-gender-wage-gap-in-2025-bigger-than-you-think
 categories:
   - "Labor Market"
   - "Wages & Income"
-tags:
-  - "economics"
-  - "Gender Wage Gap"
 excerpt: "The gender wage gap widened in 2025. Women working full-time now earn about 82 cents for every dollar paid to their male counterparts, down from the 83 cents reported in 2023. But that familiar statistic actually understates the problem—pos…"
 featured_image: /assets/blog/2026/01/crater_lake_banner_red.jpg
 featured_image_style: banner

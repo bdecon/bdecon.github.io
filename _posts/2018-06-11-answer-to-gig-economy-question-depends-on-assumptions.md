@@ -5,9 +5,6 @@ slug: answer-to-gig-economy-question-depends-on-assumptions
 categories:
   - "Labor Market"
   - "Macroeconomics"
-tags:
-  - "CWS"
-  - "Future of Work"
 excerpt: "The US Bureau of Labor Statistics reported on Thursday that contingent and alternative work was occurring at about the same rate in May 2017 that it did in February 2001. Even more surprisingly, some categories of this type of work were act…"
 redirect_from:
   - /2018/06/11/answer-to-gig-economy-question-depends-on-assumptions/

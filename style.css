@@ -3200,6 +3200,44 @@ figure {
 }
 
 
+/* ===== Post share row =====
+   Sits between post content and author bio. Three buttons: X, LinkedIn,
+   copy-link. Buttons reuse .tutorial-share class so the existing
+   copy-link JS handler in nav.js picks up the new button automatically. */
+.page-blog-post .post-share {
+	display: flex;
+	align-items: center;
+	gap: var(--space-3);
+	margin: var(--space-6) 0 var(--space-5);
+	padding: var(--space-3) 0;
+	border-top: 1px solid var(--color-border-light);
+	border-bottom: 1px solid var(--color-border-light);
+	font-size: var(--text-sm);
+	color: var(--color-text-muted);
+	flex-wrap: wrap;
+}
+.page-blog-post .post-share-label {
+	font-family: var(--font-accent);
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	font-size: var(--text-xs);
+}
+.page-blog-post .post-share .tutorial-share {
+	background: none;
+	border: none;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-1);
+	padding: var(--space-1) var(--space-2);
+	color: var(--color-text-muted);
+	text-decoration: none;
+	transition: color var(--transition-fast);
+}
+.page-blog-post .post-share .tutorial-share:hover { color: var(--color-text-strong); }
+.page-blog-post .post-share .tutorial-share svg { width: 14px; height: 14px; }
+
 /* ===== Site Search ===== */
 /* Nav icon button — uses the same styling as the theme toggle. */
 .nav-search {

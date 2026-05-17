@@ -4,9 +4,6 @@ date: 2024-01-10T14:08:35-05:00
 slug: union-membership-in-2023
 categories:
   - "Labor Market"
-tags:
-  - "CPS"
-  - "union jobs"
 excerpt: "According to calculations from Current Population Survey microdata released today, the union membership rate in 2023 was 10.0 percent, down from 10.1 percent in 2022. The union coverage rate, which includes non-members covered by contracts,…"
 redirect_from:
   - /2024/01/10/union-membership-in-2023/

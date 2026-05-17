@@ -82,6 +82,17 @@ publish-draft:
 spellcheck:
 	@codespell _posts/ || echo "(codespell finished with findings — review above)"
 
+# Generate per-post Open Graph social-card images (1200x630 PNG) for
+# any post whose card is stale. Writes /assets/og/<slug>.png and updates
+# _data/og_images.yml so head.html picks them up at build time.
+og-images:
+	@python3 scripts/generate_og_images.py
+
+# Audit blog post image dimensions: flags images oversized for the
+# 600px prose column (wasted bytes) or undersized (soft on retina).
+audit-images:
+	@python3 scripts/audit_image_dimensions.py
+
 # Pre-publish check: runs every audit in turn and reports pass/fail.
 # Use after writing a new post, before pushing.
 preflight:

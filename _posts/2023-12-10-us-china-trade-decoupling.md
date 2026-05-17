@@ -4,9 +4,6 @@ date: 2023-12-10T09:30:00-05:00
 slug: us-china-trade-decoupling
 categories:
   - "Trade & International"
-tags:
-  - "China"
-  - "Trade"
 excerpt: "In recent US data, merchandise imports from China claim a much smaller share of the overall economy than they did in 2015. At first glance, it may appear that increased tariffs are causing a decoupling of the US and Chinese economies. Impor…"
 redirect_from:
   - /2023/12/10/us-china-trade-decoupling/

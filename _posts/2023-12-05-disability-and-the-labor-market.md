@@ -5,9 +5,6 @@ slug: disability-and-the-labor-market
 categories:
   - "Labor Market"
   - "Policy"
-tags:
-  - "Disability"
-  - "Labor Market"
 excerpt: "Given the relatively tight labor market, individuals with disabilities have been finding work more easily than in the past. However, in a climate of debt committees and Medicaid cuts, efforts to further cut SSDI rolls need to be resisted, a…"
 redirect_from:
   - /2023/12/05/disability-and-the-labor-market/

@@ -51,13 +51,10 @@ on the blog index. Set the hook here.
 
 ## First section
 
-Body paragraph. Markdown works. Inline `<figure class="wp-block-image size-large">`
-blocks render with centered images and italic figcaptions:
+Body paragraph. Markdown works. Drop in a figure with the `figure` include —
+the WebP fallback is added automatically at build time:
 
-<figure class="wp-block-image size-large">
-<img src="/assets/blog/{ymd_path}/chart-1.png" alt="describe the chart for screen readers" />
-<figcaption>Source: BLS, BEA. Chart shows X over Y period.</figcaption>
-</figure>
+{{% include figure.html src="/assets/blog/{ymd_path}/chart-1.png" alt="describe the chart for screen readers" caption="Source: BLS, BEA. Chart shows X over Y period." %}}
 
 > A blockquote becomes a pull quote — larger italic with an accent left border.
 
@@ -79,9 +76,7 @@ INDICATOR rose / fell AMOUNT in PERIOD.
 
 Brief context: one paragraph explaining what changed and what's notable.
 
-<figure class="wp-block-image size-large">
-<img src="/assets/blog/{ymd_path}/chart.png" alt="alt text describing the chart" />
-</figure>
+{{% include figure.html src="/assets/blog/{ymd_path}/chart.png" alt="alt text describing the chart" %}}
 
 Short interpretive paragraph. What does this mean?
 """,
@@ -135,9 +130,7 @@ import REQUIRED_PACKAGE
 # plot
 ```
 
-<figure class="wp-block-image size-large">
-<img src="/assets/blog/{ymd_path}/result.png" alt="describe the chart" />
-</figure>
+{{% include figure.html src="/assets/blog/{ymd_path}/result.png" alt="describe the chart" %}}
 
 ## Summary
 

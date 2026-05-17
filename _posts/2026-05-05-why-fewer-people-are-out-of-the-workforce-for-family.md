@@ -6,9 +6,6 @@ categories:
   - "Labor Market"
   - "Policy"
   - "Prices & Inflation"
-tags:
-  - "Childcare"
-  - "Labor Market"
 excerpt: "As prices rise again, the question is which households suffer."
 featured_image: /assets/blog/2026/05/moms_ft_skysun_coral.jpg
 featured_image_style: banner

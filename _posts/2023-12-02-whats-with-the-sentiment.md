@@ -4,9 +4,6 @@ date: 2023-12-02T10:00:00-05:00
 slug: whats-with-the-sentiment
 categories:
   - "Macroeconomics"
-tags:
-  - "consumer sentiment"
-  - "economic data"
 excerpt: "By objective economic data, the US economy is doing well. The US faced a global pandemic, supply chain issues, and high interest rates, yet wages are up, consumer spending keeps growing, and unemployment is low. At the same time, consumer s…"
 redirect_from:
   - /2023/12/02/whats-with-the-sentiment/

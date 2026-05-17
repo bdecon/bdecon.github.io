@@ -4,9 +4,6 @@ date: 2023-12-23T10:29:48-05:00
 slug: investing-in-america
 categories:
   - "Policy"
-tags:
-  - "capex"
-  - "s&p500"
 excerpt: "The phrase “investing in America” may be associated with children, infrastructure, or alternatives to pollution. I tend to think about this as changes in the built environment. In other words, what are we letting rot and what are we buildin…"
 redirect_from:
   - /2023/12/23/investing-in-america/

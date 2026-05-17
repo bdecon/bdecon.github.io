@@ -5,8 +5,7 @@ slug: productivity-pay-gap-compositional-issues
 categories:
   - "Macroeconomics"
   - "Wages & Income"
-tags:
-  - "productivity-pay gap"
+
 excerpt: "Some tools for thinking about the economy worked less well during the pandemic. One such instance involves the productivity-pay gap. A famous chart from Larry Mishel at the Economic Policy Institute shows worker productivity and worker pay…"
 redirect_from:
   - /2024/01/02/productivity-pay-gap-compositional-issues/

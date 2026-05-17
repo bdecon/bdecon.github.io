@@ -4,10 +4,6 @@ date: 2023-12-18T10:00:00-05:00
 slug: trends-in-hours-worked-in-the-us
 categories:
   - "Labor Market"
-tags:
-  - "Labor Market"
-  - "Leisure Time"
-  - "Paid Leave"
 excerpt: "US average hours worked were stagnant before COVID-19 but fell in the last two years for ostensibly positive reasons. The US would need large-scale labor market reform to achieve major increases in leisure time, but the current economic con…"
 redirect_from:
   - /2023/12/18/trends-in-hours-worked-in-the-us/

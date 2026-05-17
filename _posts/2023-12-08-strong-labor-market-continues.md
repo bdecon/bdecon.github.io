@@ -5,8 +5,7 @@ slug: strong-labor-market-continues
 categories:
   - "Labor Market"
   - "Macroeconomics"
-tags:
-  - "Labor Market"
+
 excerpt: "The strong labor market continued in November, according to this morning’s jobs report. The US added a net total of 199,000 jobs in the month and unemployment ticked lower to 3.7 percent."
 redirect_from:
   - /2023/12/08/strong-labor-market-continues/

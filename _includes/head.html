@@ -10,12 +10,15 @@
   written without manual description/canonical):
     description       <- page.description, else page.excerpt (stripped), else site description fallback
     canonical_url     <- page.canonical, else absolute page.url
-    og_image_url      <- page.og_image (absolute), else absolute page.featured_image, else site logo
+    og_image_url      <- page.og_image (absolute), else auto-generated /assets/og/<slug>.png
+                         from site.data.og_images, else absolute page.featured_image,
+                         else site logo
 {%- endcomment -%}
 {%- assign _excerpt = page.excerpt | strip_html | strip | truncate: 300 -%}
 {%- assign _description = page.description | default: _excerpt -%}
 {%- assign _canonical = page.canonical | default: page.url | absolute_url -%}
-{%- assign _og_image = page.og_image | default: page.featured_image | default: '/images/01_bdlogo.png' | absolute_url -%}
+{%- assign _auto_og = site.data.og_images[page.slug] -%}
+{%- assign _og_image = page.og_image | default: page.featured_image | default: _auto_og | default: '/images/01_bdlogo.png' | absolute_url -%}
 	<meta name="description" content="{{ _description }}">
 {% if page.keywords %}	<meta name="keywords" content="{{ page.keywords }}">
 {% endif %}	<meta name="author" content="Brian Dew">

@@ -1,0 +1,24 @@
+{%- comment -%}
+  Standard figure for blog posts. Replaces the verbose
+
+      <figure class="wp-block-image size-large">
+      <img src="..." alt="..." />
+      <figcaption>...</figcaption>
+      </figure>
+
+  pattern. Usage:
+
+      {% include figure.html src="/assets/blog/X.png" alt="..." caption="..." %}
+      {% include figure.html src="..." alt="..." %}          # no caption
+      {% include figure.html src="..." alt="..." size="full" %}   # default 'large'
+
+  The `<picture>` WebP wrapper is added automatically at build time by
+  scripts/inject_webp_sources.py — no need to handle that here.
+{%- endcomment -%}
+{%- assign _size = include.size | default: "large" -%}
+<figure class="wp-block-image size-{{ _size }}">
+<img src="{{ include.src }}" alt="{{ include.alt }}"{% if include.width %} width="{{ include.width }}"{% endif %}{% if include.height %} height="{{ include.height }}"{% endif %} loading="lazy" decoding="async" />
+{%- if include.caption %}
+<figcaption>{{ include.caption }}</figcaption>
+{%- endif %}
+</figure>

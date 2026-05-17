@@ -36,9 +36,7 @@ import REQUIRED_PACKAGE
 # plot
 ```
 
-<figure class="wp-block-image size-large">
-<img src="/assets/blog/{{date:YYYY/MM}}/result.png" alt="describe the chart" />
-</figure>
+{% include figure.html src="/assets/blog/{{date:YYYY/MM}}/result.png" alt="describe the chart" %}
 
 ## Summary
 

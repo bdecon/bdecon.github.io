@@ -126,6 +126,29 @@ def check_htmlproofer(filter_post: str | None) -> Check:
     return Check("htmlproofer", "fail", last)
 
 
+def check_og_image(filter_post: str | None) -> Check:
+    """Make sure every post has an OG image in the manifest."""
+    import yaml
+    manifest_path = REPO / "_data" / "og_images.yml"
+    if not manifest_path.exists():
+        return Check("og images", "warn",
+                     "no _data/og_images.yml — run `make og-images`")
+    manifest = yaml.safe_load(manifest_path.read_text()) or {}
+    posts = list(POSTS.glob("*.md"))
+    if filter_post:
+        posts = [p for p in posts if filter_post in p.name]
+    missing = []
+    for p in posts:
+        slug = re.sub(r"^\d{4}-\d{2}-\d{2}-", "", p.stem)
+        if slug not in manifest:
+            missing.append(slug)
+    if not missing:
+        return Check("og images", "pass",
+                     f"{len(posts)} post(s) covered by manifest")
+    return Check("og images", "warn",
+                 f"{len(missing)} post(s) missing OG image — run `make og-images`")
+
+
 def check_drafts() -> Check:
     if not DRAFTS.exists():
         return Check("drafts", "pass", "no _drafts/")
@@ -150,6 +173,7 @@ def main():
         check_codespell(args.post),
         check_alt_text(args.post),
         check_content_audit(args.post),
+        check_og_image(args.post),
         check_drafts(),
     ]
     if not args.skip_build:

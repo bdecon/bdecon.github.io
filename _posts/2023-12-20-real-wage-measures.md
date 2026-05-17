@@ -5,8 +5,7 @@ slug: real-wage-measures
 categories:
   - "Prices & Inflation"
   - "Wages & Income"
-tags:
-  - "real wages"
+
 excerpt: "There’s been renewed discussion about real wages and the associated measurement issues. The main issue concerning these data in 2020 and 2021 is caused by compositional shifts in the work force. Lower income workers were more likely to lose…"
 redirect_from:
   - /2023/12/20/real-wage-measures/

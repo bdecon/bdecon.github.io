@@ -4,10 +4,6 @@ date: 2026-02-13T12:13:31-05:00
 slug: to-speed-up-buses-change-the-streets
 categories:
   - "Policy"
-tags:
-  - "bus network"
-  - "transit"
-  - "WMATA"
 excerpt: "In June 2025, WMATA launched the Better Bus Network Redesign, the first overhaul of the DC region’s bus network in 50 years. The redesign eliminated 527 stops, consolidated 185 routes into 126, and promised faster, more frequent, and more r…"
 featured_image: /assets/blog/2026/02/wmata_blue_max.jpg
 featured_image_style: banner

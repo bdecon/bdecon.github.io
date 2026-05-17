@@ -5,10 +5,6 @@ slug: new-mexicos-oil-boom-continues
 categories:
   - "Policy"
   - "Prices & Inflation"
-tags:
-  - "Childcare"
-  - "New Mexico"
-  - "Oil Production"
 excerpt: "New Mexico made news with the state’s impressive plan to offer universal child care. I wrote about this a couple years ago. At the time, many cautioned that the state’s oil production, and thus oil revenue, was likely to fall. The opposite…"
 redirect_from:
   - /2025/09/09/new-mexicos-oil-boom-continues/

@@ -4,8 +4,7 @@ date: 2026-01-14T13:45:33-05:00
 slug: union-membership-in-2025
 categories:
   - "Labor Market"
-tags:
-  - "union jobs"
+
 excerpt: "According to calculations from Current Population Survey microdata released today, the US union membership rate in 2025 was 10.0 percent, up from 9.9 percent in 2024. The union coverage rate, which includes non-members covered by contracts,…"
 redirect_from:
   - /2026/01/14/union-membership-in-2025/

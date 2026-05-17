@@ -5,8 +5,7 @@ slug: us-chartbook-version-0-1
 categories:
   - "Data & Python"
   - "Macroeconomics"
-tags:
-  - "US Chartbook"
+
 excerpt: "Check out the US Chartbook, version 0.1, released today. The chartbook is a big PDF collection of notes on US economic and social indicators that I’ve put together with python code to keep it updated."
 redirect_from:
   - /2023/11/20/us-chartbook-version-0-1/

@@ -5,9 +5,6 @@ slug: college-degree-boom-and-a-changing-labor-market-baseline
 categories:
   - "Labor Market"
   - "Policy"
-tags:
-  - "Fed"
-  - "Labor Market"
 excerpt: "The March FOMC meeting minutes, released today, noted that increased education is changing the unemployment baseline:"
 redirect_from:
   - /2018/04/12/college-degree-boom-and-a-changing-labor-market-baseline/

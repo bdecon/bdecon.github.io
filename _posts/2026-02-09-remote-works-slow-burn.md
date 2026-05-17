@@ -4,12 +4,6 @@ date: 2026-02-09T12:48:15-05:00
 slug: remote-works-slow-burn
 categories:
   - "Labor Market"
-tags:
-  - "ai"
-  - "business"
-  - "productivity"
-  - "remote work"
-  - "technology"
 excerpt: "Six years after the pandemic sent office workers home, remote work is no longer a disruption. It’s infrastructure. Nearly a quarter of the workforce now works remotely for at least part of the week, and more than a third of jobs have the po…"
 featured_image: /assets/blog/2026/02/dallas.jpg
 featured_image_style: banner

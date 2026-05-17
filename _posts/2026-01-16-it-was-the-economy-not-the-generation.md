@@ -4,9 +4,6 @@ date: 2026-01-16T17:57:36-05:00
 slug: it-was-the-economy-not-the-generation
 categories:
   - "Labor Market"
-tags:
-  - "economy"
-  - "millennials"
 excerpt: "Employment data from the Current Population Survey spanning 1962-2025 show that Millennials and Gen Z work at the same rates as previous generations. The “lazy Millennial” narrative was a misattribution of cyclical economic conditions to ge…"
 redirect_from:
   - /2026/01/16/it-was-the-economy-not-the-generation/

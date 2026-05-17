@@ -5,9 +5,6 @@ slug: new-mexicos-oil-boom
 categories:
   - "Policy"
   - "Prices & Inflation"
-tags:
-  - "Childcare"
-  - "Education"
 excerpt: "While the US invests in climate-related initiatives and alternatives to fossil fuels, domestic oil production is also at an all time high. The oil and gas boom in the Permian basin has resulted in a large financial windfall for New Mexico.…"
 redirect_from:
   - /2023/12/20/new-mexicos-oil-boom/

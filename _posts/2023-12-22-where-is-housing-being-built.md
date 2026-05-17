@@ -4,9 +4,6 @@ date: 2023-12-22T10:00:00-05:00
 slug: where-is-housing-being-built
 categories:
   - "Housing & Demographics"
-tags:
-  - "Building Permits"
-  - "Residential Construction"
 excerpt: "Housing affordability is a major issue in the US, and has spread into smaller metro areas. While demand for housing has sent prices well above their pre-pandemic levels in most areas, supply has been disproportionately added in the southern…"
 redirect_from:
   - /2023/12/22/where-is-housing-being-built/

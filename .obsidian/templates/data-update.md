@@ -11,8 +11,6 @@ INDICATOR rose / fell AMOUNT in PERIOD.
 
 Brief context: one paragraph explaining what changed and what's notable.
 
-<figure class="wp-block-image size-large">
-<img src="/assets/blog/{{date:YYYY/MM}}/chart.png" alt="alt text describing the chart" />
-</figure>
+{% include figure.html src="/assets/blog/{{date:YYYY/MM}}/chart.png" alt="alt text describing the chart" %}
 
 Short interpretive paragraph. What does this mean?

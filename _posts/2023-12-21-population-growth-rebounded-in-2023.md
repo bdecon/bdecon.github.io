@@ -4,8 +4,7 @@ date: 2023-12-21T10:00:00-05:00
 slug: population-growth-rebounded-in-2023
 categories:
   - "Housing & Demographics"
-tags:
-  - "population"
+
 excerpt: "Population growth returned to pre-pandemic trends in 2023, according to Census estimates released Monday. The US added 1.6 million people over the year ending July 1, 2023, a population growth rate of 0.5 percent. During the year prior to t…"
 redirect_from:
   - /2023/12/21/population-growth-rebounded-in-2023/

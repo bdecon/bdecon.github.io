@@ -20,10 +20,7 @@ on the blog index. Set the hook here.
 Body paragraph. Markdown works. Inline `<figure>` blocks render with centered
 images and italic figcaptions:
 
-<figure class="wp-block-image size-large">
-<img src="/assets/blog/{{date:YYYY/MM}}/chart-1.png" alt="describe the chart for screen readers" />
-<figcaption>Source: BLS, BEA. Chart shows X over Y period.</figcaption>
-</figure>
+{% include figure.html src="/assets/blog/{{date:YYYY/MM}}/chart-1.png" alt="describe the chart for screen readers" caption="Source: BLS, BEA. Chart shows X over Y period." %}
 
 > A blockquote becomes a pull quote — larger italic with an accent left border.
 

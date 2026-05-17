@@ -5,9 +5,6 @@ slug: who-benefits-from-a-jobless-boom
 categories:
   - "Macroeconomics"
   - "Wages & Income"
-tags:
-  - "Labor Market"
-  - "Wages"
 excerpt: "US economic output is booming despite very weak job growth. By definition, this means existing workers are producing more. Many workers, however, are not getting more."
 redirect_from:
   - /2026/01/09/who-benefits-from-a-jobless-boom/

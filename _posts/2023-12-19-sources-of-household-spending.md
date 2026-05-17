@@ -5,8 +5,7 @@ slug: sources-of-household-spending
 categories:
   - "Macroeconomics"
   - "Wages & Income"
-tags:
-  - "consumer sentiment"
+
 excerpt: "The vibes debate popped back up last week. I wrote about this in September and in more depth earlier this month. Part of the recent discussion was on “real wages” and whether people are better off. This is precisely the aspect of the debate…"
 redirect_from:
   - /2023/12/19/sources-of-household-spending/

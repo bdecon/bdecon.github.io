@@ -8,11 +8,6 @@ categories:
   - "Policy"
   - "Prices & Inflation"
   - "Wages & Income"
-tags:
-  - "consumer sentiment"
-  - "Fed"
-  - "productivity"
-  - "real wages"
 excerpt: "The Federal Reserve begins its two-day meeting today and is widely expected to hold the federal funds rate at 3.50-3.75 percent. With about two weeks left in the quarter, here is what the data show so far."
 featured_image: /assets/blog/2026/03/nyc_snow_banner.jpg
 featured_image_style: banner

@@ -6,11 +6,6 @@ categories:
   - "Macroeconomics"
   - "Prices & Inflation"
   - "Wages & Income"
-tags:
-  - "consumer sentiment"
-  - "income inequality"
-  - "inflation"
-  - "real wages"
 excerpt: "Wages are increasing faster than inflation. Additionally, wage growth rates are strongest for low-wage workers. Despite real wage growth, surveys show weak consumer sentiment, particularly among low-income households. A simple but perhaps o…"
 redirect_from:
   - /2023/09/04/real-wages-inflation-and-consumer-sentiment/
