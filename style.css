@@ -575,12 +575,19 @@ ul li a:hover + .hidden, .hidden:hover { display: block; }
 }
 
 /* Feature page-title — just text, no box. Lives inside main, sits on main's
-   white background. Optional kicker above, big h1, optional deck below. */
+   white background. Optional kicker above, big h1, optional deck below.
+   max-width matches the page's main content so the heading aligns with cards
+   below (not flush to the panel edge while content sits inset). */
 .page-title-feature {
+	max-width: var(--width-content);
+	margin-left: auto;
+	margin-right: auto;
 	padding: var(--space-6) var(--space-6) var(--space-5);
 	text-align: left;
 	background: none;
 	border: none;
+	/* About page uses .prose (720px) for its content cards — match it. */
+	.page-about & { max-width: var(--width-lg); }
 	& .page-title-kicker {
 		margin: 0 0 var(--space-2);
 		font-family: var(--font-accent);
