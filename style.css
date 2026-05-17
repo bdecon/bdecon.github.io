@@ -1191,6 +1191,7 @@ main > .page-title-feature + section { padding-top: 0; }
 	--card-ph: var(--space-4);
 	position: relative;
 	border: var(--elevation-border);
+	border-top: 4px solid var(--accent, var(--color-border));
 	background: var(--color-card-bg);
 	transition: none;
 	/* Dark mode: subtle top-edge highlight so cards lift off the surface.
@@ -1263,7 +1264,6 @@ main > .page-title-feature + section { padding-top: 0; }
 	padding: var(--space-2) var(--card-ph);
 	background: var(--color-bg-highlight);
 	color: var(--color-text-strong);
-	border-top: 4px solid var(--accent);
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -2094,7 +2094,12 @@ figure {
 	& .announce-label { font-weight: 700; }
 	& .announce-arrow { color: var(--color-text-muted); padding: var(--space-1); line-height: 1; flex-shrink: 0; }
 	& .announce-arrow:hover { color: var(--color-text); }
-	& .card-grid { padding-top: var(--space-6); }
+	& .card-grid {
+		max-width: var(--width-content);   /* align with featured-report-hero + home-intro so 'More from BD Economics' sits inside the content panel, not orphan-left */
+		margin-left: auto;
+		margin-right: auto;
+		padding-top: var(--space-6);
+	}
 	/* Featured-report hero — magazine-cover treatment of the latest
 	   report. Same structure as the .featured-report on reports.html
 	   but with a bigger title and a larger photo panel. */
