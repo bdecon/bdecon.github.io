@@ -588,6 +588,10 @@ ul li a:hover + .hidden, .hidden:hover { display: block; }
 	border: none;
 	/* About page uses .prose (720px) for its content cards — match it. */
 	.page-about & { max-width: var(--width-lg); }
+	/* Data dashboards center their body in .dash-column (--width-md, 600px) —
+	   match it so the heading aligns with the chart/text below, not sticking
+	   out into the inset whitespace. */
+	.page-indicators &, .page-gdpm &, .page-weo &, .page-calendar & { max-width: var(--width-md); }
 	& .page-title-kicker {
 		margin: 0 0 var(--space-2);
 		font-family: var(--font-accent);
