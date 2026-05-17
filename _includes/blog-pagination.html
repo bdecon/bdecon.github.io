@@ -15,15 +15,33 @@
 	<span class="blog-pagination-link blog-pagination-disabled">&larr; Newer</span>
 	{%- endif %}
 
+	{%- comment -%}
+	  Windowed numbers: always show 1, last, and current±1, with "…" gaps.
+	  If total pages ≤ 5 the window covers everything so no ellipses appear.
+	{%- endcomment -%}
 	<span class="blog-pagination-pages">
+	{%- assign _last_shown = 0 -%}
 	{%- for page_num in (1..paginator.total_pages) -%}
-		{%- if page_num == paginator.page %}
-		<span class="blog-pagination-current" aria-current="page">{{ page_num }}</span>
-		{%- elsif page_num == 1 %}
-		<a href="{{ _base }}">{{ page_num }}</a>
-		{%- else %}
-		<a href="{{ _base }}page{{ page_num }}/">{{ page_num }}</a>
-		{%- endif %}
+		{%- assign _diff = page_num | minus: paginator.page -%}
+		{%- if _diff < 0 %}{%- assign _diff = 0 | minus: _diff -%}{%- endif -%}
+		{%- assign _show = false -%}
+		{%- if page_num == 1 or page_num == paginator.total_pages or _diff <= 1 -%}
+			{%- assign _show = true -%}
+		{%- endif -%}
+		{%- if _show -%}
+			{%- assign _gap = page_num | minus: _last_shown -%}
+			{%- if _last_shown > 0 and _gap > 1 -%}
+			<span class="blog-pagination-ellipsis" aria-hidden="true">…</span>
+			{%- endif -%}
+			{%- if page_num == paginator.page %}
+			<span class="blog-pagination-current" aria-current="page">{{ page_num }}</span>
+			{%- elsif page_num == 1 %}
+			<a href="{{ _base }}">{{ page_num }}</a>
+			{%- else %}
+			<a href="{{ _base }}page{{ page_num }}/">{{ page_num }}</a>
+			{%- endif -%}
+			{%- assign _last_shown = page_num -%}
+		{%- endif -%}
 	{%- endfor -%}
 	</span>
 

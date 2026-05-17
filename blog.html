@@ -71,9 +71,11 @@ pagination:
 				{%- capture _card_accent -%}{% include blog-accent.html post=post %}{%- endcapture -%}
 				{%- assign _card_accent = _card_accent | strip -%}
 				<li class="blog-card-item">
+					{%- assign _card_og = site.data.og_images[post.slug] -%}
+					{%- assign _card_banner = post.featured_image | default: _card_og -%}
 					<a href="{{ post.url }}" class="blog-card accent-{{ _card_accent }}">
-						{%- if post.featured_image %}
-						<div class="blog-card-banner"><img src="{{ post.featured_image }}" alt="" loading="lazy" decoding="async"></div>
+						{%- if _card_banner %}
+						<div class="blog-card-banner{% unless post.featured_image %} blog-card-banner--og{% endunless %}"><img src="{{ _card_banner }}" alt="" loading="lazy" decoding="async"></div>
 						{%- endif %}
 						<div class="blog-card-body">
 							<p class="blog-card-meta">

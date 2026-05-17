@@ -2869,6 +2869,13 @@ figure {
 	height: 140px;
 	object-fit: cover;
 }
+/* Auto-generated OG card fallback (1200x630). Show the card whole at its
+   natural aspect ratio instead of cropping — the title text is the point. */
+.page-blog .blog-card-banner--og img {
+	height: auto;
+	aspect-ratio: 1200 / 630;
+	object-fit: contain;
+}
 .page-blog .blog-card-body {
 	padding: var(--space-3) var(--space-4) var(--space-4);
 	display: flex;
@@ -3194,7 +3201,12 @@ figure {
 	color: var(--color-surface);
 }
 .blog-pagination-disabled { color: var(--color-text-muted); opacity: 0.5; }
-.blog-pagination-pages { display: flex; gap: var(--space-1); }
+.blog-pagination-pages { display: flex; align-items: center; gap: var(--space-1); }
+.blog-pagination-ellipsis {
+	color: var(--color-text-muted);
+	padding: 0 var(--space-1);
+	user-select: none;
+}
 
 /* ----- Notebook exports (nbs/) ----- */
 /* Jupyter HTML exports live at /nbs/. Constrain to prose width so the
