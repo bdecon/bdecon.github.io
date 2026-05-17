@@ -1,11 +1,11 @@
 {
-  "generated": "2026-05-15",
+  "generated": "2026-05-17",
   "releases": [
     {
       "name": "Employment Situation",
-      "period": "Mar 2026",
+      "period": "Apr 2026",
       "freq": "monthly",
-      "last_changed": "2026-04-11"
+      "last_changed": "2026-05-17"
     },
     {
       "name": "Consumer Price Index",
@@ -286,6 +286,12 @@
   ],
   "recent": [
     {
+      "name": "Employment Situation",
+      "period": "Apr 2026",
+      "freq": "monthly",
+      "last_changed": "2026-05-17"
+    },
+    {
       "name": "Industrial Production",
       "period": "Apr 2026",
       "freq": "monthly",
@@ -335,12 +341,6 @@
     },
     {
       "name": "Consumer Price Index",
-      "period": "Apr 2026",
-      "freq": "monthly",
-      "last_changed": "2026-05-12"
-    },
-    {
-      "name": "Treasury Statement",
       "period": "Apr 2026",
       "freq": "monthly",
       "last_changed": "2026-05-12"
