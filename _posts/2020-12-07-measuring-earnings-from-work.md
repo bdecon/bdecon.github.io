@@ -32,7 +32,7 @@ A second persistent feature is that children have no earnings in either year. Wi
 
 Lastly, some portion of working-age adults are work-limited at any given point in time. The work-limited include people with an injury, disability, or illness, as well as students, and people with additional responsibilities at home such as caregivers and new parents. US rules around welfare of children and persons with disabilities are <a href="https://www.irs.gov/credits-deductions/individuals/earned-income-tax-credit" rel="noreferrer noopener" target="_blank">more strict</a> and payments are meager, if available at all, relative to the help retirees receive from Social Security. One consequence of a <a href="https://aspe.hhs.gov/basic-report/building-employment-focused-welfare-system" rel="noreferrer noopener" target="_blank">work-focused</a> welfare system is that many who become work-limited are expected to rely on the earnings of their family members to get by.
 
-##### Family Earnings
+## Family Earnings
 
 Living with family is the way many people, including children, receive resources. Living together allows people to pool their income, share costs, and use resources like a car or a kitchen more efficiently. Economists sometimes calculate a concept called “[equivalized](https://en.wikipedia.org/wiki/Equivalisation)” family earnings by adjusting the total earnings of a family for the size of the family (see footnote of chart 3 for details). The result is a per person measure of family wage and salary earnings that accounts for the efficiency of the size of a person’s family. Typical equivalized family earnings are $21,620 per person per year in 2020. 
 
@@ -44,7 +44,7 @@ By age, median equivalized family earnings are around $32,000 for newborns, $40,
 
 Interestingly, the decrease in median earnings from 2019 to 2020 is less severe in the family earnings measure from chart 3 than in the personal earnings measure from chart 2. The resilience of equivalized family earnings to the recession is due in part to more people [moving in](https://www.federalreserve.gov/econres/notes/feds-notes/an-early-evaluation-of-the-effects-of-the-pandemic-on-living-arrangements-and-household-formation-20200807.htm) with family. In 2020, a larger share of people utilize the resource efficiency of living with others, which is captured by an equivalized measure such as family earnings but not by the personal earnings measure.
 
-##### Families with No Earnings
+## Families with No Earnings
 
 While the above sections focus on the typical person, measured as the median or middle member of the group, the effects of the COVID-19 recession have fallen [more heavily](https://www.washingtonpost.com/graphics/2020/business/coronavirus-recession-equality/) on people nearer to the bottom of the wage distribution, an effect already evidenced in chart 1. One way to see how <a href="https://fred.stlouisfed.org/series/PAYEMS" rel="noreferrer noopener" target="_blank">job losses</a> hurt families is to look at the share of people whose family have no earnings. During a recession, the share without earnings is larger because there are fewer jobs. In 2020, 37.8 percent of people have no family earnings in the survey week, compared to 35.4 percent in 2019. By age, around 15 percent of newborns have no family earnings, compared to less than 10 percent of 45 year-olds and more than half of 70-year olds (see chart 4). 
 

@@ -14,7 +14,7 @@ The resources available to people ages 65 and older depend on several factors. F
 
 The US Social Security Administration (SSA) [Income of the Aged Chartbook, 2014](https://www.ssa.gov/policy/docs/chartbooks/income_aged/2014/iac14.pdf) contains several charts and tables that aid in thinking about resources available to people ages 65 and older. In this blog post, I discuss two of my favorite charts from the SSA publication, update the charts for 2019, and create new versions that emphasize the importance of Social Security for disadvantaged groups.
 
-##### **Shares of aggregate income**
+## **Shares of aggregate income**
 
 The SSA chartbook includes a chart (page 17) showing how different income sources contribute to total income for both low- and high-income “aged units”. SSA “aged units” are married couples where at least one partner is age 65 or older and unmarried people ages 65 and older. Aged units are ranked by total income and divided into five equal groups, called quintiles. In 2014, the lowest quintile aged units have total income below $13,500, while the highest quintile aged units have total income above $72,129.
 
@@ -30,7 +30,7 @@ Using the latest data from the same source, I’ve recreated and updated the abo
 <img src="/assets/blog/JLqaIM_Hx4_D-mPTBFt6LILkxQN1wNxW0WA3KJsQg40r_67aYklf1beh0UH4uUAiyJkNNemS1DEJGnRjkma1KLh83tuSJ8vMT2GU8G737TBG6tr7OZCYWmK_HFmSQcsxdHZ-UslY" alt="Recreation of the SSA chart for 2019 (any race/ethnicity): shares of aggregate income for lowest and highest income quintiles of aged units. Lowest quintile: Social Security 81.6%, cash public assistance 7.4%, pensions 4.1%, earnings 3.5%, asset income 1.9%, other 1.6%. Highest quintile: earnings 44.5%, pensions 22.5%, asset income 16.8%, Social Security 13.5%, other 2.7%." />
 </figure>
 
-##### Shares of aggregate income in disadvantaged groups
+## Shares of aggregate income in disadvantaged groups
 
 Total income received by people ages 65 and over, and the sources of this income, both depend heavily on race and ethnicity. Two additional charts showing the shares of aggregate income for Black and Hispanic aged units<sup>2</sup> illustrate this point.
 
@@ -50,7 +50,7 @@ Aged units of Hispanic or Latino origin also have lower income when compared to 
 
 Among people ages 65 and older with low income, Social Security provides the vast majority of resources. Yet for many, including the bottom fifth of Black and Hispanic aged units, income is below the US poverty threshold and comes from a patchwork of complicated sources. One way to resolve this is to [set](https://www.peoplespolicyproject.org/wp-content/uploads/2020/01/CleaningUpTheWelfareState.pdf) the minimum Social Security Old Age benefit to the poverty threshold. Doing so would simplify many older peoples’ lives, increase their income, and eliminate the need for Supplemental Security Income and other public assistance programs. 
 
-##### **Poverty among those ages 65 and older**
+## **Poverty among those ages 65 and older**
 
 A 2014 SSA chart shows the poverty rate for subgroups of older people (page 28 and copied below). The chart uses the [official poverty measure](https://www.census.gov/topics/income-poverty/poverty/about/history-of-the-poverty-measure.html) developed by the SSA in the mid-1960s. The official poverty measure compares pre-tax cash income to a threshold that was initially set to three times a minimal food budget in 1963 and that is adjusted for inflation and by family size. In 2014, ten percent of people ages 65 and older are officially in poverty in the US. An additional 5.2 percent of the age group are considered “near poor” because their total income is between the poverty threshold and 125 percent of the poverty threshold. Poverty rates vary dramatically by group; almost one in five Black people ages 65 and older is in poverty in 2014, with an additional 8.5 percent nearly in poverty.
 
@@ -64,7 +64,7 @@ From 2014 to 2019, poverty <a href="https://www.census.gov/content/dam/Census/li
 <img src="/assets/blog/2020/12/image-5.png" class="wp-image-3716" loading="lazy" width="777" height="498" alt="Recreation of the SSA poverty chart for 2019. All persons 65+: 8.9% poor, 4.4% near poor. Black alone: 18.0% / 7.7%. Hispanic: 17.1% / 8.0%. Asian alone: 9.3% / 4.8%. Non-married: 15.0% / 7.9%. Women: 10.3% / 5.1%. Married: 4.5% / 2.0%. Poverty fell for every subgroup from 2014, but the gap by race and Hispanic origin remains very large." />
 </figure>
 
-##### **A different measure of poverty**
+## **A different measure of poverty**
 
 The way poverty is measured in the 2014 SSA chartbook does not take into account some aspects of poverty that disproportionately affect older people in the US. The [Supplemental Poverty Measure](https://www.census.gov/library/publications/2020/demo/p60-272.html) (SPM) was created in 2009 as a more complete measure of poverty. The SPM identifies whether the cash and non-cash resources that someone has available can meet a poverty threshold that adjusts for inflation and family size as well as additional characteristics such as geography. The SPM also accounts for various expenses, including medical expenses. Medical expenses [increase](https://www2.census.gov/programs-surveys/demo/tables/p60/272/table6.xlsx) the age 65 and older poverty rate by four percentage points.
 

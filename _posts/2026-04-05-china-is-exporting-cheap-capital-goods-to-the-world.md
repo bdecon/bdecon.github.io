@@ -8,7 +8,7 @@ categories:
   - "Trade & International"
 excerpt: "In 1950, the Argentine economist Raul Prebisch published a finding that would shape development economics for decades: the prices of commodities exported by poor countries were falling relative to the manufactured goods they imported from r…"
 featured_image: /assets/blog/2026/04/lola-taller-lcc-forest-sports-park_01-city-view.jpg
-featured_image_style: chart
+featured_image_style: banner
 redirect_from:
   - /2026/04/05/china-is-exporting-cheap-capital-goods-to-the-world/
 ---

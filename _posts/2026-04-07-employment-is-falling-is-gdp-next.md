@@ -7,7 +7,7 @@ categories:
   - "Macroeconomics"
 excerpt: "GDP growth and employment growth usually move together. The scatter below plots one-year changes in each, from 1949 to 2025, plus March 2026 in red. The correlation is 0.70."
 featured_image: /assets/blog/2026/04/chattanooga_aquarium_building.jpg
-featured_image_style: chart
+featured_image_style: banner
 redirect_from:
   - /2026/04/07/employment-is-falling-is-gdp-next/
 ---

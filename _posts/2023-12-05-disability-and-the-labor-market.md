@@ -15,7 +15,7 @@ redirect_from:
 
 Given the relatively tight labor market, individuals with disabilities have been finding work more easily than in the past. However, in a climate of debt committees and Medicaid cuts, efforts to further cut SSDI rolls need to be resisted, as the tight labor market will not last forever. Further, underneath the otherwise positive trends is a concerning increase in disability rates among young people.
 
-##### Background
+## Background
 
 While the number of people receiving old age benefits from Social Security has [risen steadily](https://www.ssa.gov/oact/ProgData/icpGraph.html), the number of Social Security Disability Insurance (SSDI) beneficiaries follows a more-complicated pattern. As one example, disability rolls climbed until 1978 and started falling in 1979 as economic conditions improved. In the early 1980s, the Reagan administration tried to accelerate the decrease and [aggressively cut off](https://www.nytimes.com/1982/05/09/us/fairness-of-reagan-s-cutoffs-of-disability-aid-questioned.html) many people from disability benefits. This did a lot of [harm](https://www.ssa.gov/history/edberkdib.html). Blue states pushed back, and much of it was reversed in courts; however, nearly a million people stopped receiving benefits.
 
@@ -36,7 +36,7 @@ Each argument has different policy implications. And while efforts from the righ
 
 The chart above shows SSDI beneficiaries alongside a proxy from Current Population Survey microdata. The proxy shows individuals who are not in the labor force due to disability or illness. Specifically, they are neither employed nor actively seeking employment, and cite disability or illness as the reason. The proxy group is larger than the number of actual SSDI beneficiaries; individuals in the proxy group do not necessarily receive any disability benefits and in some cases are temporarily disabled or ill. The CPS proxy group tops out at over 13 million at around the same time as the peak in SSDI beneficiaries, and has fallen, though less rapidly, to under 12 million in October 2023. We can use the CPS proxy to examine demographic effects and labor market effects.
 
-##### Demographic Effects
+## Demographic Effects
 
 Since the population is rising and demographics are changing, we can get a better sense of trends by looking at the *rate* at which people report being out of the labor force due to disability or illness. We can also factor in demographic shifts, such as the aging of the population and the larger birth cohort after World War II.
 
@@ -48,7 +48,7 @@ The rate at which people age 16 and older report being out of the labor force du
 
 Unfortunately, the same pattern is not found among those age 16 to 35, and changes in age demographics do not play a role for the younger group. An additional one percent of the age 16 to 35 group is out of the labor force and the trend in recent data is not encouraging. The diverging trend for the younger group raises a question about whether the overall effect is demographic or from the improved labor market. Did people simply hit retirement age or did the improved labor market play a role?
 
-##### Labor Market Effects
+## Labor Market Effects
 
 To answer the “demographics versus tight labor market” question, we can look at the jobfinding rate for people who are out of the labor force due to disability or illness. If a tight labor market is making it easier to enter to the workforce, it will be reflected in the jobfinding rate. In this context, the jobfinding rate is the share of individuals who have a job one year after being out of the labor force for disability reasons.
 
@@ -68,7 +68,7 @@ While employment rates for persons with disabilities are far lower than for the 
 
 The labor market effect is evident. The improvement in jobfinding and employment rates are encouraging. The increase in employment rates for the younger group is a particularly large change, and is at odds with the finding that a higher percentage of young people are currently out of the labor force due to disability or illness than in 2013. For both to be true, the rate of disability must have increased substantially for young people but not for older people. And indeed, to my surprise, this is exactly what the data show.
 
-##### Growing Disability Rate Among Young People
+## Growing Disability Rate Among Young People
 
 Since 2013, the age 16 to 35 disability rate surged by 40 percent, equal to nearly 2 percent of the age group. While labor market conditions for young people with disabilities have improved, far more young people report disabilities. Meanwhile, disability rates for older groups decreased 10 percent since the great recession. My search for coverage of this interesting result, which is mostly a development since 2019, did not come up with anything.
 
@@ -76,7 +76,7 @@ Since 2013, the age 16 to 35 disability rate surged by 40 percent, equal to near
 <img src="/assets/blog/2023/12/chart5.png" class="wp-image-3870" loading="lazy" width="484" height="462" alt="Line chart of disability rate change since 2008 by age group, 12-month moving average indexed to 2008=100. Age 16-35 surges to ~140 by 2024 (a 40% increase in disability prevalence). Age 36-54 and age 55+ both drift down to ~90. Source: CPS." />
 </figure>
 
-##### The Need for Income Support Is Not Going Away
+## The Need for Income Support Is Not Going Away
 
 Combining these dynamics, I worry that conflicting signals could lead to harm, echoing the challenges of the early 1980s. Over the past year, almost 12 million people have been [kicked off Medicaid](https://www.kff.org/report-section/medicaid-enrollment-and-unwinding-tracker-overview/), mostly for procedural issues. There is a view that benefits expanded during the pandemic were good but were temporary. While the economy has improved, the need for the services that were expanded during the pandemic has not diminished. Reducing these services causes real pain. Likewise, the labor market conditions have improved for individuals with disabilities but the needs are also evolving and labor markets can change very rapidly.
 

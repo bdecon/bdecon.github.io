@@ -7,7 +7,7 @@ categories:
   - "Prices & Inflation"
 excerpt: "Two Democratic senators recently introduced competing proposals to cut taxes for working Americans. Sen. Van Hollen’s Working Americans’ Tax Cut Act would eliminate federal income taxes for individuals earning under $46,000 and couples unde…"
 featured_image: /assets/blog/2026/03/unitedhealthcare_corporate_headquarters_december_8_2024_54191437643.jpg
-featured_image_style: chart
+featured_image_style: banner
 redirect_from:
   - /2026/03/21/the-wrong-gift/
 ---

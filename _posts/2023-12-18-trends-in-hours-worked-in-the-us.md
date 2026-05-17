@@ -55,7 +55,7 @@ So why has the length of the workweek largely stalled in the US? Dean Baker and 
 
 In other words, the workweek’s stagnation reflects a halt in reducing work hours rather than any natural equilibrium. So why did we stop?
 
-###### Evidence From Abroad: The Case of Sweden
+### Evidence From Abroad: The Case of Sweden
 
 [International comparisons](https://data.oecd.org/emp/hours-worked.htm) provide the most obvious evidence that the workweek has no “natural” level and is instead determined by negotiated labor market reforms. While the reduction in hours worked in the US stalled, other high income countries now work far fewer hours without sacrificing quality of life, health, or happiness.
 
@@ -71,7 +71,7 @@ The Swedish model is sometimes [described](https://www.jil.go.jp/english/reports
 
 A flexible system that keeps workers and employers connected during changes in workers lives has benefits for employers, as well. When demand increases, employers can typically increase production without having to find and train new workers. So if an alternative system benefits workers and employers, why don’t we have it in the US?
 
-###### Why Can’t the US Negotiate Flexibility?
+### Why Can’t the US Negotiate Flexibility?
 
 In contrast to the US, the employer-worker relationship in Nordic countries and Germany is sometimes characterized as collaborative. These **groups have far more opportunities to work together to solve common problems under the collective bargaining and union system that is strong in Nordic countries and Germany but weak in the US**. Many businesses in the US have no system for co-determination. Likewise, workers in the US may be less likely to trust firms in cases that involve a reduction in work hours, for example.
 

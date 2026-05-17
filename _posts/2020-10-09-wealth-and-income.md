@@ -14,7 +14,7 @@ Recently released data from the 2019 Survey of Consumer Finances (SCF) show a hi
 
 Having wealth is a huge advantage and not having wealth is a huge disadvantage, yet people argue, incorrectly in my view, that wealth statistics are not as important as they seem. I want to respond to some common arguments, which generally revolve around the connection between wealth and income.
 
-##### *Common argument \#1: Wealth is not a good predictor of poverty*
+## *Common argument \#1: Wealth is not a good predictor of poverty*
 
 The basic argument here is that some people with low or negative net worth actually have very high income. Therefore, since poverty is defined based on income, people with low wealth are not necessarily poor. There’s nothing wrong with this argument; because wealth is measured as net worth, assets minus debts, these cases do exist. A recent medical school grad with lots of student debt and few assets will have negative wealth but a very high salary and is unlikely to be in poverty. But these are corner cases. All the argument is saying is that there exist some cases where the relationship between net worth and income falls apart.
 
@@ -26,7 +26,7 @@ More importantly, the argument does not explain differences between demographic 
 <img src="/assets/blog/2020/10/image.png" class="wp-image-3635" loading="lazy" width="637" height="305" alt="Three small-multiples line charts of mean net worth, financial assets, and pre-tax income by race/ethnicity (white non-Hispanic, Black non-Hispanic, Hispanic, Other), 1990-2020, in thousands of 2019 USD. White households are several times higher on all three measures throughout. Source: Federal Reserve." />
 </figure>
 
-##### *Common argument \#2: Wealth is not a permanent source of income*
+## *Common argument \#2: Wealth is not a permanent source of income*
 
 Again, this is an argument mostly based around corner cases. If someone has equity in their home, they may have some wealth but not necessarily have an income advantage over someone who rents. Stocks might temporarily skip paying dividends because of weak economic conditions. There are even cases where people lose money by having wealth comprised of assets that lose value. The horror.
 
@@ -46,7 +46,7 @@ I wouldn’t say that wealth is a *[permanent](https://pfd.alaska.gov/Division-I
 
 Perhaps a better question is whether wealth is consequential and *reliable* as a source of income. I’d argue that it is. Various forms of ownership income are equivalent to annualized income of [more than $16,000](https://www.bea.gov/sites/default/files/2020-10/pi0820.pdf) per person in August, despite the very severe ongoing recession.
 
-##### *Common argument \#3: The concentration of wealth is a life cycle story*
+## *Common argument \#3: The concentration of wealth is a life cycle story*
 
 The following chart is useful for thinking about income and consumption over a person’s life:
 
@@ -64,7 +64,7 @@ The accrued earnings story just doesn’t hold up to the data. From the [Federal
 
 Also, from 2016 SCF data, [a large and growing share](https://cepr.net/images/stories/reports/wealth-of-households-2017-11.pdf) of people nearing retirement age (those 55-64) have no or negative wealth outside of home equity, and many also have no equity stake in their home. Social Security payments are the main source of income for a large portion of the retirement-age population and this should be expected to grow as defined benefit pensions plans become more and more rare. The end result of the current system of using private wealth to resolve income and consumption differences in the life cycle is massive gaps between people in access to goods and services at all points of the life cycle.
 
-##### *Should we focus on wealth?*
+## *Should we focus on wealth?*
 
 First, if we think about wealth as assets rather than net worth (because the net worth differences between and within racial groups are largely the result of differences in assets), we can easily see the advantage of having money to cushion against an unexpected drop in income or unexpected expense. Black families are [less likely](https://www.federalreserve.gov/econres/notes/feds-notes/disparities-in-wealth-by-race-and-ethnicity-in-the-2019-survey-of-consumer-finances-20200928.htm) to have emergency savings, and those with some savings have less than 1/5th the emergency savings of white families, on average. Black families are also substantially less likely to be able to borrow money from a friend or relative. For these reasons and many others, wealth is important, not just because it can be a source of income.
 

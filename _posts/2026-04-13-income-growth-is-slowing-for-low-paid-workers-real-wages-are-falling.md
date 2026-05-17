@@ -8,7 +8,7 @@ categories:
   - "Wages & Income"
 excerpt: "March inflation jumped to 3.3% year over year, up from 2.4% in February. The main driver was gasoline as the Iran war pushed pump prices from $2.98 to $4.15 a gallon. Core inflation held at 2.6%, for now."
 featured_image: /assets/blog/2026/04/buffalo_kleinhans_auditorium.jpg
-featured_image_style: chart
+featured_image_style: banner
 redirect_from:
   - /2026/04/13/income-growth-is-slowing-for-low-paid-workers-real-wages-are-falling/
 ---
