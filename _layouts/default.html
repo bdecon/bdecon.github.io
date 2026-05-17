@@ -11,6 +11,12 @@
 {% if page.after_header_html %}
 {{ page.after_header_html }}
 {% endif %}
+{%- comment -%}
+  `after_header_include: <name>` renders _includes/<name>.html in this slot.
+  Use this instead of `after_header_html:` when the markup needs Liquid
+  (which doesn't run inside front-matter string fields).
+{%- endcomment -%}
+{% if page.after_header_include %}{% include {{ page.after_header_include }}.html %}{% endif %}
 {% if page.page_strip_html %}
 {{ page.page_strip_html }}
 {% elsif page.page_strip %}

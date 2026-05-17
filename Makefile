@@ -9,9 +9,12 @@
 serve:
 	bundle exec jekyll serve --port 4000 --host 127.0.0.1 --livereload
 
-# One-shot build to _site/.
+# One-shot build to _site/. Post-build step wraps <img> tags whose
+# /assets/blog/X.png|jpg has a sibling X.webp in a <picture> element
+# so modern browsers transparently fetch the smaller WebP.
 build:
 	bundle exec jekyll build
+	@python3 scripts/inject_webp_sources.py
 
 # Validate _site/ for broken internal links, missing images, malformed HTML.
 # Skips external URL checks (slow + flaky); use check-external for those.

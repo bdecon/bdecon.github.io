@@ -41,6 +41,8 @@ jobs:
         env:
           JEKYLL_ENV: production
         run: bundle exec jekyll build
+      - name: Inject WebP <picture> sources for blog images
+        run: python3 scripts/inject_webp_sources.py
       - name: Check links and HTML (html-proofer)
         run: bundle exec htmlproofer _site --disable-external --allow-missing-href --ignore-urls '/^data:/'
       - uses: actions/upload-pages-artifact@v3

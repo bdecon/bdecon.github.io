@@ -53,6 +53,46 @@
 {% endif %}{% if page.jsonld_extra %}<script type="application/ld+json">
 {{ page.jsonld_extra }}
 </script>
+{% endif %}{%- comment -%}
+  Auto-generated collection JSON-LD. Pages set `jsonld_collection: tutorials`
+  or `jsonld_collection: dashboards` and the corresponding include renders
+  hasPart from the live data (no drift from _data/dashboards.yml or _tutorials/).
+{%- endcomment -%}
+{% if page.jsonld_collection %}{% include jsonld/collection-{{ page.jsonld_collection }}.html %}
+{% endif %}{%- comment -%}
+  Auto-generated BlogPosting JSON-LD for blog posts. Fields are derived
+  from the post's front matter; no manual JSON-LD needed per post.
+  Skipped if a post already provides its own `jsonld` block.
+{%- endcomment -%}
+{% if page.layout == "post" and page.jsonld == nil %}{%- assign _author_url = '/about.html' | absolute_url -%}<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "description": {{ _description | jsonify }},
+  "image": {{ _og_image | jsonify }},
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
+  "author": {
+    "@type": "Person",
+    "name": "Brian Dew",
+    "url": {{ _author_url | jsonify }}
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "BD Economics",
+    "logo": {
+      "@type": "ImageObject",
+      "url": {{ '/images/01_bdlogo.png' | absolute_url | jsonify }}
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": {{ _canonical | jsonify }}
+  }{% if page.categories and page.categories.size > 0 %},
+  "articleSection": {{ page.categories | first | jsonify }}{% endif %}
+}
+</script>
 {% endif %}<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PGVF5S620Y"></script>
 <script>

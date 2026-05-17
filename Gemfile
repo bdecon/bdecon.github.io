@@ -20,6 +20,9 @@ gem "jekyll-redirect-from"
 # GitHub Pages plugin allowlist — requires the GitHub Actions build workflow
 # in .github/workflows/jekyll.yml.
 gem "jekyll-paginate-v2"
+# Auto-stamps page.last_modified_at from git history (falls back to file mtime).
+# Used in the post layout to show "Updated: ..." and in JSON-LD dateModified.
+gem "jekyll-last-modified-at"
 
 # Used by `make check` locally and by the CI workflow's check step.
 # Not in :development group so `bundler-cache: true` in CI installs it.

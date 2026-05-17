@@ -1,0 +1,31 @@
+{%- comment -%}
+  CollectionPage JSON-LD listing the "listed" tutorials in `_tutorials/`.
+  Included from _includes/head.html when a page sets `jsonld_collection: tutorials`.
+  Description/name come from the page's own fields so the wrapper text travels
+  with the page that hosts it.
+{%- endcomment -%}
+{%- assign _tutorials = site.tutorials | where: "listed", true | sort: "order" -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": {{ page.title | jsonify }},
+  "description": {{ _description | jsonify }},
+  "url": {{ _canonical | jsonify }},
+  "author": {
+    "@type": "Person",
+    "name": "Brian Dew",
+    "url": {{ '/about.html' | absolute_url | jsonify }}
+  },
+  "hasPart": [
+{%- for t in _tutorials -%}
+    {
+      "@type": "Article",
+      "name": {{ t.short_title | default: t.title | jsonify }},
+      "url": {{ t.url | absolute_url | jsonify }},
+      "description": {{ t.deck | default: t.description | jsonify }}
+    }{%- unless forloop.last %},{% endunless %}
+{%- endfor %}
+  ]
+}
+</script>

@@ -1,0 +1,31 @@
+{%- comment -%}
+  CollectionPage JSON-LD listing all dashboards from `_data/dashboards.yml`.
+  Included from _includes/head.html when a page sets `jsonld_collection: dashboards`.
+  Each dashboard becomes a hasPart entry. The first is typed Report (chartbook),
+  the rest WebApplication — matches the hand-maintained shape.
+{%- endcomment -%}
+{%- assign _dashboards = site.data.dashboards | sort: "order" -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": {{ page.title | jsonify }},
+  "description": {{ _description | jsonify }},
+  "url": {{ _canonical | jsonify }},
+  "author": {
+    "@type": "Person",
+    "name": "Brian Dew",
+    "url": {{ '/about.html' | absolute_url | jsonify }}
+  },
+  "hasPart": [
+{%- for d in _dashboards -%}
+    {
+      "@type": {% if d.name == 'chartbook' %}"Report"{% else %}"WebApplication"{% endif %},
+      "name": {{ d.short_title | jsonify }},
+      "url": {{ d.url | absolute_url | jsonify }},
+      "description": {{ d.deck | jsonify }}
+    }{%- unless forloop.last %},{% endunless %}
+{%- endfor %}
+  ]
+}
+</script>

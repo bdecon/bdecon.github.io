@@ -6,6 +6,7 @@ plugins:
   - jekyll-feed
   - jekyll-redirect-from
   - jekyll-paginate-v2
+  - jekyll-last-modified-at
 
 # Pagination + auto category archives (jekyll-paginate-v2). The blog index page
 # opts in via `pagination.enabled: true` in its front matter; autopages
@@ -62,11 +63,8 @@ defaults:
       og_type: "article"
       nav_active: "blog"
       body_class: "page-blog-post"
-      extra_head: |
-            <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-      extra_scripts: |
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-            <script>hljs.highlightAll();</script>
+      # highlight.js is loaded dynamically by the post layout only when a
+      # <pre><code> block is detected (only 7 of 79 posts contain code).
   - scope: { path: "CV.pdf" }
     values: { sitemap: false }
   - scope: { path: "MacroDash.pdf" }
@@ -87,10 +85,12 @@ exclude:
   - sandbox
   - test-results
   - docs
+  - backups                      # WordPress data dump — internal, not for production
   - "scripts/__pycache__"
   - "scripts/*.py"
   - "scripts/sync.sh"
   - "scripts/reorder_head.py"
+  - "files/release_map.json"     # consumed by scripts/update_calendar.py, never by browsers
 
 # Files Jekyll should treat as static (no Liquid processing) even if they look like includes
 keep_files:

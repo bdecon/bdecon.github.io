@@ -1,0 +1,15 @@
+# Homepage announcement carousel — rotates through these messages.
+# Rendered by the inline script in index.html's `after_header_html`.
+#
+# Each entry:
+#   text:  HTML string (may contain <span class="announce-label">) shown to readers
+#   href:  destination URL — external (http*) opens in new tab automatically
+
+- text: "<span class='announce-label'>New:</span> The US-Nordic Childcare Gap →"
+  href: "https://www.peoplespolicyproject.org/project/us-nordic-childcare-gap/"
+- text: "<span class='announce-label'>New:</span> April 2026 WEO forecasts now live in the IMF WEO Forecast Tracker →"
+  href: "/imfweo.html"
+- text: "Key indicators tracking the US economy — interactive charts →"
+  href: "/indicators.html"
+- text: "<span class='announce-label'>Guide:</span> Access US Treasury fiscal data with Python →"
+  href: "/treasuryapi.html"

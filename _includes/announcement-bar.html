@@ -1,0 +1,59 @@
+{%- comment -%}
+  Homepage announcement carousel. Messages live in _data/announcements.yml.
+  Rendered via the default layout when a page sets `after_header_include: announcement-bar`.
+  Liquid runs here (unlike strings inside front-matter `after_header_html`),
+  so the message array is built at build time, not maintained as JS.
+{%- endcomment -%}
+{%- assign _first = site.data.announcements | first -%}
+<div class="announcement">
+	<button class="announce-arrow" aria-label="Previous announcement">&#8249;</button>
+	<span class="announce-text"><a href="{{ _first.href }}" id="announce-link"{% if _first.href contains '://' %} target="_blank" rel="noopener"{% endif %}>{{ _first.text }}</a></span>
+	<button class="announce-arrow" aria-label="Next announcement">&#8250;</button>
+</div>
+<script>
+(function() {
+	const msgs = [
+	{%- for a in site.data.announcements %}
+		{text: {{ a.text | jsonify }}, href: {{ a.href | jsonify }}}{% unless forloop.last %},{% endunless %}
+	{%- endfor %}
+	];
+	let idx = Math.floor(Math.random() * msgs.length);
+	const span = document.querySelector(".announce-text");
+	const link = document.getElementById("announce-link");
+	const arrows = document.querySelectorAll(".announce-arrow");
+	let timer;
+
+	const show = (i) => {
+		link.innerHTML = msgs[i].text;
+		link.href = msgs[i].href;
+		if (msgs[i].href.startsWith("http")) {
+			link.target = "_blank";
+			link.rel = "noopener";
+		} else {
+			link.removeAttribute("target");
+			link.removeAttribute("rel");
+		}
+	};
+	const fadeTo = (i) => {
+		span.classList.add("fade-out");
+		setTimeout(() => {
+			idx = i;
+			show(idx);
+			span.classList.remove("fade-out");
+		}, 400);
+	};
+	const next = () => fadeTo((idx + 1) % msgs.length);
+	const prev = () => fadeTo((idx - 1 + msgs.length) % msgs.length);
+	const resetTimer = () => {
+		clearInterval(timer);
+		timer = setInterval(next, 6000);
+	};
+
+	show(idx);
+	arrows[0].addEventListener("click", () => { prev(); resetTimer(); });
+	arrows[1].addEventListener("click", () => { next(); resetTimer(); });
+	if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+		timer = setInterval(next, 6000);
+	}
+})();
+</script>

@@ -2970,7 +2970,10 @@ figure {
 /* Article content: keep figures from blowing out the prose column.
    Charts wider than 600px scale down to fit, preserving aspect. */
 .page-blog-post .prose figure { margin: var(--space-6) auto; max-width: 100%; text-align: center; }
-.page-blog-post .prose figure img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+/* All images in post prose — constrains oversize charts (e.g. legacy 7000-px Jupyter exports)
+   regardless of whether they're wrapped in <figure>. */
+.page-blog-post .prose img { max-width: 100%; height: auto; }
+.page-blog-post .prose figure img { display: block; margin: 0 auto; }
 .page-blog-post .prose figcaption {
 	margin-top: var(--space-2);
 	font-size: var(--text-sm);

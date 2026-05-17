@@ -20,10 +20,20 @@ layout: default
 				</p>
 				{% endif %}
 				<h1>{{ page.title }}</h1>
+				{%- assign _words = content | number_of_words -%}
+				{%- assign _mins = _words | divided_by: 220 | plus: 1 -%}
 				<p class="post-meta">
 					<time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
 					<span class="meta-sep">&middot;</span>
 					<span class="post-byline">by <a href="/about.html">Brian Dew</a></span>
+					<span class="meta-sep">&middot;</span>
+					<span class="post-readtime">{{ _mins }} min read</span>
+					{%- assign _modified = page.last_modified_at | date: "%Y-%m-%d" -%}
+					{%- assign _published = page.date | date: "%Y-%m-%d" -%}
+					{%- if _modified and _modified != _published %}
+					<span class="meta-sep">&middot;</span>
+					<span class="post-updated">Updated <time datetime="{{ page.last_modified_at | date_to_xmlschema }}">{{ page.last_modified_at | date: "%b %-d, %Y" }}</time></span>
+					{%- endif %}
 				</p>
 			</header>
 
@@ -65,3 +75,17 @@ layout: default
 
 		<p class="post-footer-nav"><a href="/blog/">&larr; All posts</a></p>
 	</section>
+	{%- comment -%}
+	  Load highlight.js only if this post actually contains a code block.
+	  Saves ~50KB CDN request on the ~90% of posts that have no code.
+	{%- endcomment -%}
+	{% if content contains '<pre' %}
+	<script>
+	(function() {
+		var s = document.createElement('script');
+		s.src = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js';
+		s.onload = function() { window.hljs && hljs.highlightAll(); };
+		document.head.appendChild(s);
+	})();
+	</script>
+	{% endif %}

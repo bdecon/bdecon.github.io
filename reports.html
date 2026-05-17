@@ -9,26 +9,7 @@ nav_active: "reports"
 page_strip: "reports"
 page_strip_class: "page-strip-compact"
 h1: "Reports"
-jsonld: |
-  {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      "name": "Reports",
-      "description": "Economic reports and interactive data visualizations covering the US economy and 196 countries worldwide.",
-      "url": "https://bd-econ.com/reports.html",
-      "author": {
-          "@type": "Person",
-          "name": "Brian Dew",
-          "url": "https://bd-econ.com"
-      },
-      "hasPart": [
-          {"@type": "Report", "name": "US Chartbook", "url": "https://bd-econ.com/chartbook.html", "description": "250+ charts on the US economy covering labor markets, inflation, GDP, trade, and more."},
-          {"@type": "WebApplication", "name": "Economic Indicators", "url": "https://bd-econ.com/indicators.html", "description": "Interactive charts for selected US economic indicators."},
-          {"@type": "WebApplication", "name": "Monthly GDP", "url": "https://bd-econ.com/gdpm.html", "description": "Monthly estimates of US nominal and real GDP, combining quarterly BEA data with Fed nowcasts."},
-          {"@type": "WebApplication", "name": "IMF WEO Forecast Tracker", "url": "https://bd-econ.com/imfweo.html", "description": "How accurate are the IMF's economic forecasts? Track how WEO forecasts for 196 countries evolved since 1990."},
-          {"@type": "WebApplication", "name": "Release Calendar", "url": "https://bd-econ.com/calendar.html", "description": "Upcoming US economic data release dates for 35+ indicators, sourced from the FRED API."}
-      ]
-  }
+jsonld_collection: dashboards
 extra_scripts: |
   <script>
   	fetch('date.txt').then(r => r.text()).then(t => {

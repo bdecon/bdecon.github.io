@@ -9,28 +9,7 @@ nav_active: "guides"
 page_strip: "python"
 page_strip_class: "page-strip-compact accent-blue"
 h1: "Python for Economic Data"
-jsonld: |
-  {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      "name": "Python for Macroeconomic Data Analysis",
-      "description": "Python tutorials for economics: a getting started guide plus six API tutorials covering IMF, BLS, BEA, Census, and Treasury data.",
-      "url": "https://bd-econ.com/python.html",
-      "author": {
-          "@type": "Person",
-          "name": "Brian Dew",
-          "url": "https://bd-econ.com"
-      },
-      "hasPart": [
-          {"@type": "Article", "name": "Setup with Python for Economics", "url": "https://bd-econ.com/getstarted.html", "description": "Set up Python, learn essential calculations, and make your first API call."},
-          {"@type": "Article", "name": "IMF API with Python", "url": "https://bd-econ.com/imfapi1.html", "description": "Access international economic data from the IMF using Python."},
-          {"@type": "Article", "name": "BEA API with Python", "url": "https://bd-econ.com/beaapi.html", "description": "Retrieve national accounts data from the Bureau of Economic Analysis."},
-          {"@type": "Article", "name": "BLS API with Python", "url": "https://bd-econ.com/blsapi.html", "description": "Retrieve US labor statistics from the Bureau of Labor Statistics API."},
-          {"@type": "Article", "name": "CPS Microdata with Python", "url": "https://bd-econ.com/cps.html", "description": "Read and analyze Current Population Survey microdata with Python."},
-          {"@type": "Article", "name": "Census API with Python", "url": "https://bd-econ.com/censusapi.html", "description": "Retrieve US economic indicators from the Census Bureau API."},
-          {"@type": "Article", "name": "Treasury API with Python", "url": "https://bd-econ.com/treasuryapi.html", "description": "Access federal finance data from the US Treasury Fiscal Data API."}
-      ]
-  }
+jsonld_collection: tutorials
 ---
 	{% assign setup = site.tutorials | where: "difficulty", "introductory" | first %}
 	{% assign main_tutorials = site.tutorials | where_exp: "t", "t.listed and t.difficulty != 'introductory'" | sort: "order" %}
