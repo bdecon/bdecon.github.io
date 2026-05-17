@@ -12,3 +12,5 @@ Gemfile.lock
 vendor/
 .bundle/
 backups/
+node_modules/
+package-lock.json

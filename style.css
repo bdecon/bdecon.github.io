@@ -3200,9 +3200,66 @@ figure {
 }
 
 
+/* ===== Site Search ===== */
+/* Nav icon button — uses the same styling as the theme toggle. */
+.nav-search {
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: var(--space-1) var(--space-2);
+	color: var(--color-nav-text);
+}
+.nav-search:hover { color: var(--color-link-hover); }
+
+/* Modal dialog containing the Pagefind UI. Sharp corners + 2px border to
+   match the design system. Pagefind's own styles get scoped overrides
+   via --pagefind-ui-* custom properties below. */
+.search-dialog {
+	width: min(640px, 92vw);
+	max-height: 80vh;
+	margin: 8vh auto auto;
+	padding: var(--space-5);
+	border: 2px solid var(--color-text-strong);
+	border-radius: 0;
+	background: var(--color-surface);
+	color: var(--color-text);
+	overflow: auto;
+}
+.search-dialog::backdrop {
+	background: rgba(0, 0, 0, 0.5);
+}
+.search-close {
+	position: absolute;
+	top: var(--space-2);
+	right: var(--space-3);
+	background: none;
+	border: none;
+	font-size: 24px;
+	line-height: 1;
+	color: var(--color-text-muted);
+	cursor: pointer;
+	padding: var(--space-1) var(--space-2);
+}
+.search-close:hover { color: var(--color-text-strong); }
+
+/* Theme the Pagefind UI to match site tokens. Pagefind UI exposes a
+   small set of CSS custom properties — overriding here keeps the lib
+   files untouched and respects dark mode automatically. */
+#search-ui {
+	--pagefind-ui-scale: 0.9;
+	--pagefind-ui-primary: var(--color-text-strong);
+	--pagefind-ui-text: var(--color-text);
+	--pagefind-ui-background: var(--color-surface);
+	--pagefind-ui-border: var(--color-border);
+	--pagefind-ui-tag: var(--color-bg-highlight);
+	--pagefind-ui-border-width: 2px;
+	--pagefind-ui-border-radius: 0;
+	--pagefind-ui-font: var(--font);
+}
+
 /* ===== Print ===== */
 @media print {
-	header, footer, .skip-link, .announcement, .subfooter, .theme-toggle,
+	header, footer, .skip-link, .announcement, .subfooter, .theme-toggle, .nav-search, .search-dialog,
 	.page-strip, .card-banner, .trail-badge, .tutorial-share { display: none !important; }
 	body { background: #fff; color: #000; font-size: 12pt; }
 	main { padding: 0; }

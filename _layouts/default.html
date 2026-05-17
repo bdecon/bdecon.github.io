@@ -3,7 +3,7 @@
 <head>
 {% include head.html %}
 </head>
-<body{% if page.body_class %} class="{{ page.body_class }}"{% endif %}>
+<body{% if page.body_class %} class="{{ page.body_class }}"{% endif %}{% if page.search_index == false %} data-pagefind-ignore="all"{% endif %}>
 	<a href="#main" class="skip-link">Skip to main content</a>
 	<header>
 {% include nav.html %}
@@ -31,11 +31,22 @@
 	<h1>{{ page.h1 }}</h1>
 	</div><!-- .page-title -->
 {% endif %}
-	<main id="main">
+	<main id="main" data-pagefind-body>
 {{ content }}
 	</main>
 {% include footer.html %}
+	{%- comment -%}
+	  Site search — lazy-loaded Pagefind UI. The dialog markup is always
+	  present (no JS until activated). On first openSearch() call we fetch
+	  the pagefind-ui CSS + JS, then initialize. Index is generated at build
+	  time into /pagefind/ by `npx pagefind --site _site` (see Makefile + CI).
+	{%- endcomment -%}
+	<dialog id="search-dialog" class="search-dialog" aria-label="Site search">
+		<button class="search-close" type="button" onclick="closeSearch()" aria-label="Close search">&times;</button>
+		<div id="search-ui"></div>
+	</dialog>
 	<script src="/scripts/nav.js"></script>
+	<script src="/scripts/search.js" defer></script>
 {% if page.extra_scripts %}
 {{ page.extra_scripts }}
 {% endif %}
