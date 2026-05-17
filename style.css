@@ -2242,7 +2242,12 @@ figure {
 /* ----- Python Guides ----- */
 
 .page-python {
-	& .py-row { align-items: center; }
+	/* Force all top-level sections to share a single content width so the
+	   page-title-feature, "Start here", "Tutorials" h2s, and content rows
+	   all align at the same left edge — no zig-zag indents. */
+	& main > section { max-width: var(--width-content); margin-left: auto; margin-right: auto; }
+	/* Start here split-row uses .prose (720px) — widen it to match the page width. */
+	& .py-row { align-items: center; max-width: none; }
 	& .py-intro { flex: 1; min-width: 0; }
 	/* The wrapping <a> around the Setup card has no text — its text-decoration
 	   doesn't matter visually. But text links INSIDE the prose intro need to
