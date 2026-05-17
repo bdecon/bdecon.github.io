@@ -1,6 +1,13 @@
 title: BD Economics
 url: https://bd-econ.com
 
+# Pin Jekyll to a single timezone so post permalinks resolve the same
+# locally and in CI (GitHub Actions runs in UTC). Without this, posts
+# whose `date:` is near UTC midnight render at one day on the local
+# (EST) build and one day later on the CI (UTC) build, breaking any
+# /blog/YYYY/MM/DD/... cross-references that pin one or the other.
+timezone: America/New_York
+
 plugins:
   - jekyll-sitemap
   - jekyll-feed
