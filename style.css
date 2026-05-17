@@ -586,12 +586,17 @@ ul li a:hover + .hidden, .hidden:hover { display: block; }
 	text-align: left;
 	background: none;
 	border: none;
-	/* About page uses .prose (720px) for its content cards — match it. */
-	.page-about & { max-width: var(--width-lg); }
-	/* Data dashboards center their body in .dash-column (--width-md, 600px) —
-	   match it so the heading aligns with the chart/text below, not sticking
-	   out into the inset whitespace. */
-	.page-indicators &, .page-gdpm &, .page-weo &, .page-calendar & { max-width: var(--width-md); }
+	/* Pages whose body is wrapped in .prose (720px) — match it so the header
+	   aligns with the body text/cards rather than sitting wider or narrower. */
+	.page-about &,
+	.page-indicators &,
+	.page-gdpm &,
+	.page-weo &,
+	.page-calendar &,
+	.page-chartbook &,
+	.page-blsapi &, .page-beaapi &, .page-censusapi &, .page-censusapi2 &,
+	.page-cps &, .page-getstarted &, .page-treasuryapi &,
+	.page-imfapi1 &, .page-imfapi2 &, .page-imfapi3 & { max-width: var(--width-lg); }
 	& .page-title-kicker {
 		margin: 0 0 var(--space-2);
 		font-family: var(--font-accent);
@@ -3209,7 +3214,7 @@ figure {
 
 /* Related posts block (post footer, before "All posts" link). */
 .page-blog-post .post-related {
-	max-width: var(--width-lg);
+	max-width: var(--width-md);   /* match blog-post prose width (600px) so the cards align with the article body */
 	margin: var(--space-7) auto 0;
 	padding: 0 var(--space-3);
 }
