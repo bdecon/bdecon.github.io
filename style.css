@@ -2238,7 +2238,6 @@ figure {
 	& .section-bar { max-width: var(--width-lg); }
 	@media (max-width: 760px) {
 		& .cb-previews img { width: 160px; }
-		& .cb-download { min-height: auto; }
 		& .cb-row .card-grid { flex: none; width: 100%; }
 	}
 }

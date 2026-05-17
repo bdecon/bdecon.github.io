@@ -2196,4 +2196,41 @@ data = json.dumps({
 </div>
 </section>
 
+<!-- ============================================================
+     21. DATA-DRIVEN INCLUDES
+     Components that render from _data/* files. Source of truth lives
+     in one place; the include is just a renderer.
+     ============================================================ -->
+<section class="ks-section" id="data-includes">
+<h2>Data-Driven Includes</h2>
+
+<span class="ks-label">{% raw %}{% include social-icons.html keys="github,linkedin,twitter,rss" %}{% endraw %} &mdash; from <code>_data/social.yml</code></span>
+<nav style="display: flex; gap: var(--space-3); margin-bottom: var(--space-5);" aria-label="Social demo">
+  {% include social-icons.html keys="github,linkedin,twitter,rss" %}
+</nav>
+
+<span class="ks-label">{% raw %}{% include social-icons.html keys="github,linkedin,email" %}{% endraw %} &mdash; bio-style row</span>
+<nav style="display: flex; gap: var(--space-3); margin-bottom: var(--space-5);" aria-label="Bio social demo">
+  {% include social-icons.html keys="github,linkedin,email" %}
+</nav>
+
+<span class="ks-label">{% raw %}{% include featured-report.html %}{% endraw %} &mdash; from <code>_data/featured_report.yml</code> (H3 variant)</span>
+{% include featured-report.html %}
+
+<div class="ks-spacer"></div>
+
+<span class="ks-label">Announcement carousel &mdash; from <code>_data/announcements.yml</code>; rendered by <code>after_header_include: announcement-bar</code> on the homepage. Static snapshot of one message:</span>
+{%- assign _a = site.data.announcements | first -%}
+<div class="announcement" style="position: static; margin-bottom: var(--space-5);">
+  <span class="announce-text"><a href="{{ _a.href }}">{{ _a.text }}</a></span>
+</div>
+
+<span class="ks-label">Dashboard cards iterate <code>_data/dashboards.yml</code> via {% raw %}{% include dashboard-card.html d=d %}{% endraw %}</span>
+<div class="card-grid" style="margin-bottom: var(--space-5);">
+{%- for d in site.data.dashboards | sort: "order" | slice: 0, 3 -%}
+  {% include dashboard-card.html d=d %}
+{%- endfor -%}
+</div>
+</section>
+
 </article>

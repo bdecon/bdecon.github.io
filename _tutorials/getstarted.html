@@ -68,7 +68,7 @@ jsonld_extra: |
 	{% include tutorial-meta.html %}
 
 	<h2>Setup with Python for Economics</h2>
-	<p>This page covers everything you need to start using the <a href="python.html">six API tutorials</a> on this site: installing Python, the basics of pandas, and common economic calculations. If you already have Python set up, skip ahead to <a href="#pandas">Working with Data</a> or <a href="#calculations">Common Calculations</a>.</p>
+	<p>This page covers everything you need to start using the <a href="/python.html">six API tutorials</a> on this site: installing Python, the basics of pandas, and common economic calculations. If you already have Python set up, skip ahead to <a href="#pandas">Working with Data</a> or <a href="#calculations">Common Calculations</a>.</p>
 
 	<hr class="section-bar accent-ltblue">
 	<h3 id="setup">Setup</h3>
@@ -342,7 +342,7 @@ pce[['Goods contribution', 'Services contribution']].dropna().round(2)</code></p
 	  </tbody>
 	</table>
 	</div>
-	<p>Services drove most of the growth, while goods spending turned negative in Q4. The contributions sum to the total growth rate each quarter&mdash;this is the same technique used in the <a href="beaapi.html">BEA tutorial</a> to analyze real consumer spending.</p>
+	<p>Services drove most of the growth, while goods spending turned negative in Q4. The contributions sum to the total growth rate each quarter&mdash;this is the same technique used in the <a href="/beaapi.html">BEA tutorial</a> to analyze real consumer spending.</p>
 
 	<hr class="section-bar accent-ltblue">
 	<h3 id="apis">Setting Up for the API Tutorials</h3>
@@ -355,7 +355,7 @@ bea_key = 'your-key-here'
 census_key = 'your-key-here'</code></pre>
 	<p>Then in your notebook, import the key you need:</p>
 	<pre><code class="python">from config import bea_key as api_key</code></pre>
-	<p>The <a href="treasuryapi.html">Treasury API</a> is the exception&mdash;it requires no key at all, which makes it a good first tutorial to try.</p>
+	<p>The <a href="/treasuryapi.html">Treasury API</a> is the exception&mdash;it requires no key at all, which makes it a good first tutorial to try.</p>
 
 	<span class="label step-label accent-ltblue">Making a Request</span>
 	<p>The basic pattern for fetching data from an API is the same across all the tutorials:</p>
@@ -383,7 +383,7 @@ r.json()['data']</code></pre>
 	</article>
 
 	<section class="card-grid">
-	<a href="treasuryapi.html">
+	<a href="/treasuryapi.html">
 	<div class="card card-nav accent-red">
 		<div class="card-banner">
 			<picture><source srcset="images/treasury_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/treasury_banner.png" alt="Treasury API tutorial" width="391" height="68"></picture>
@@ -397,7 +397,7 @@ r.json()['data']</code></pre>
 		</div>
 	</div>
 	</a>
-	<a href="censusapi.html">
+	<a href="/censusapi.html">
 	<div class="card card-nav accent-green">
 		<div class="card-banner">
 			<picture><source srcset="images/census_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/census_banner.png" alt="Census API tutorial" width="207" height="68"></picture>
@@ -411,7 +411,7 @@ r.json()['data']</code></pre>
 		</div>
 	</div>
 	</a>
-	<a href="beaapi.html">
+	<a href="/beaapi.html">
 	<div class="card card-nav accent-orange">
 		<div class="card-banner">
 			<picture><source srcset="images/bea_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/bea_banner.png" alt="BEA API tutorial" width="542" height="130"></picture>
@@ -425,7 +425,7 @@ r.json()['data']</code></pre>
 		</div>
 	</div>
 	</a>
-	<a href="blsapi.html">
+	<a href="/blsapi.html">
 	<div class="card card-nav accent-teal">
 		<div class="card-banner">
 			<picture><source srcset="images/bls_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/bls_banner.png" alt="BLS API tutorial" width="257" height="68"></picture>
@@ -439,7 +439,7 @@ r.json()['data']</code></pre>
 		</div>
 	</div>
 	</a>
-	<a href="imfapi1.html">
+	<a href="/imfapi1.html">
 	<div class="card card-nav accent-blue">
 		<div class="card-banner">
 			<picture><source srcset="images/imf_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/imf_banner.png" alt="IMF API tutorial" width="293" height="68"></picture>
@@ -453,7 +453,7 @@ r.json()['data']</code></pre>
 		</div>
 	</div>
 	</a>
-	<a href="cps.html">
+	<a href="/cps.html">
 	<div class="card card-nav accent-teal">
 		<div class="card-banner">
 			<picture><source srcset="images/cps_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/cps_banner.png" alt="CPS microdata tutorial" width="542" height="130"></picture>
