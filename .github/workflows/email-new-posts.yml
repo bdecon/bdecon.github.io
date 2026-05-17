@@ -1,0 +1,61 @@
+# Email new blog posts to Buttondown subscribers.
+#
+# Triggers AFTER the "Build and deploy site" workflow finishes successfully,
+# so by the time the email fires the post's permalink is already live on
+# bd-econ.com. Subscribers clicking the "read in browser" link land on a
+# real page, not a 404.
+#
+# Safety design (see scripts/email_new_posts.py docstring):
+#   - Only posts dated within the last 3 days are even considered.
+#   - Each sent email tags the post slug in `metadata.post_slug` so
+#     re-runs are idempotent (no double-sends).
+#   - On first install, no historical post emails (they're all older than
+#     the window). Only future posts trigger.
+#
+# Required repo secret: BUTTONDOWN_API_KEY
+# Set at: Settings → Secrets and variables → Actions → New repository secret
+
+name: Email new posts
+
+on:
+  # Fire after the Jekyll deploy workflow finishes successfully.
+  workflow_run:
+    workflows: ["Build and deploy site"]
+    types: [completed]
+    branches: [master]
+  # Allow manual runs for testing.
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (don't actually send)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: email-new-posts
+  cancel-in-progress: false
+
+jobs:
+  send:
+    # Don't run if the upstream deploy failed (no point emailing about a
+    # post whose page isn't live).
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install deps
+        run: pip install requests pyyaml
+
+      - name: Email new posts
+        env:
+          BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
+          DRY_RUN: ${{ github.event.inputs.dry_run == 'true' && '1' || '' }}
+        run: python3 scripts/email_new_posts.py

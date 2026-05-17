@@ -14,6 +14,8 @@ vendor/
 backups/
 node_modules/
 package-lock.json
+__pycache__/
+*.pyc
 
 # Obsidian vault — keep shared config + templates, ignore per-user state.
 # See .obsidian/SETUP.md for what's intentional.
