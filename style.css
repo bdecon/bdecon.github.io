@@ -574,19 +574,13 @@ ul li a:hover + .hidden, .hidden:hover { display: block; }
 	@media (max-width: 480px) { padding: var(--space-3) var(--space-2); & h1 { letter-spacing: 0.03em; } }
 }
 
-/* Feature page-title: accent top stripe + small kicker + mixed-case H1 +
-   1-line deck. Used on category archives + section landing pages. LEFT-aligned
-   to match the content panel below (centered single-word h1s read as floating
-   tombstones — the left-aligned variant feels like a magazine section opener). */
+/* Feature page-title — just text, no box. Lives inside main, sits on main's
+   white background. Optional kicker above, big h1, optional deck below. */
 .page-title-feature {
 	padding: var(--space-6) var(--space-6) var(--space-5);
 	text-align: left;
-	background-color: var(--color-surface);
-	color: var(--color-text-strong);
-	border: var(--elevation-border);
-	border-bottom: none;
-	border-top: 6px solid var(--accent-strong, var(--accent));
-	[data-theme="dark"] & { background-color: var(--color-surface); color: var(--color-text-strong); }
+	background: none;
+	border: none;
 	& .page-title-kicker {
 		margin: 0 0 var(--space-2);
 		font-family: var(--font-accent);
@@ -605,6 +599,7 @@ ul li a:hover + .hidden, .hidden:hover { display: block; }
 		max-width: none;
 		line-height: 1.05;
 		text-align: left;
+		color: var(--color-text-strong);
 	}
 	& .page-title-deck {
 		max-width: var(--width-lg);
