@@ -11,7 +11,7 @@ redirect_from:
   - /2023/12/14/improved-fomc-outlook/
 ---
 
-*The people* *who determine monetary policy in the US report their forecasts for key economic indicators. The group’s December forecast was released yesterday and shows an improved outlook.*
+*The people who determine monetary policy in the US report their forecasts for key economic indicators. The group’s December forecast was released yesterday and shows an improved outlook.*
 
 At least eight times a year, the Federal Reserve board members and regional bank presidents who are members of the Federal Open Market Committee (FOMC) [meet](https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm) for two days in Washington, D.C. to discuss and vote on monetary policy. In conjunction with these meetings, members report their forecast for the outlook of the US economy. Specifically, members report projections for GDP, unemployment, and inflation. Each quarter, the Fed releases a summary of these projections, in what has become a closely watched report.
 

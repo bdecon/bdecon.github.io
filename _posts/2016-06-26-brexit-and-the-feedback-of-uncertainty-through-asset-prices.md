@@ -30,7 +30,7 @@ Figure 1. The pound sterling fell against most currencies following the Brexit v
 
 ## Markets reminded of their anxiety issues
 
-Within hours of the ‘leave’ campaign victory, stock prices of some financial services companies, such as Lloyds, fell by 30 percent. Although real changes from the vote may take two years to implement, the average belief about the appropriate cost of equity for these firms changed dramatically overnight. The fundamentals for people and businesses in the U.K. do not immediately change, but their behavior and asset prices do, and this has an indirect feedback effect on the fundamentals
+Within hours of the ‘leave’ campaign victory, stock prices of some financial services companies, such as Lloyds, fell by 30 percent. Although real changes from the vote may take two years to implement, the average belief about the appropriate cost of equity for these firms changed dramatically overnight. The fundamentals for people and businesses in the U.K. do not immediately change, but their behavior and asset prices do, and this has an indirect feedback effect on the fundamentals.
 
 Likewise, the U.S. is clearly not part of the E.U. or U.K., however, it is intimately linked to both markets through trade and investment. The Dow Jones Industrial Average <a href="https://www.marketwatch.com/story/brexit-sparked-volatility-will-continue-to-weigh-on-us-stock-market-2016-06-25?siteid=yhoof2" target="_blank" rel="noopener">fell 610 points</a> (3.39%) on Friday in response to the news. The most widely-used measure of market volatility jumped nearly 50 percent (figure 2). The sales revenue of the largest U.S. companies is practically unchanged, however, individuals’ collective behavior has changed in response to uncertainty.
 

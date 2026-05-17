@@ -37,4 +37,3 @@ WMATA’s own [board presentations](https://www.wmata.com/about/riders-advisory-
 
 The redesign delivered real benefits: more frequent routes, shorter waits, a simpler network. WMATA did its part. But faster buses require something WMATA can’t build alone: bus lanes, signal priority, and proper stop infrastructure on streets controlled by DC, Maryland, and Virginia. The lesson from a decade of U.S. bus redesigns is that route changes and street changes work best together. One without the other delivers half the promise.
 
-------------------------------------------------------------------------

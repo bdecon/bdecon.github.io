@@ -53,7 +53,6 @@ Next, we use the pandas.io.data package to request the data from Fred. I’ve fo
     dtwexb.tail(5)
 
 Out\[2\]:
-<div>
 
 |            | DTWEXB   |
 |------------|----------|

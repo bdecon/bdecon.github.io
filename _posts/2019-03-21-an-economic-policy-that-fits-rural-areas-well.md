@@ -9,7 +9,7 @@ redirect_from:
   - /2019/03/21/an-economic-policy-that-fits-rural-areas-well/
 ---
 
-Paul Krugman’s recent [opinion](https://www.nytimes.com/2019/03/18/opinion/rural-america-economic-decline.html) piece in the New York Times argues that eastern Germany and southern Italy show that the US can’t help it’s rural citizens. I’m not sure I follow his argument in the piece, but he’s right that there are several reasons to believe that most large-scale economic policy proposals do not work well in rural areas. There is, however, one policy that would work particularly well.
+Paul Krugman’s recent [opinion](https://www.nytimes.com/2019/03/18/opinion/rural-america-economic-decline.html) piece in the New York Times argues that eastern Germany and southern Italy show that the US can’t help its rural citizens. I’m not sure I follow his argument in the piece, but he’s right that there are several reasons to believe that most large-scale economic policy proposals do not work well in rural areas. There is, however, one policy that would work particularly well.
 
 Large-scale economic revival policies that have garnered a lot of political attention include: antitrust (essentially breaking up large corporations), raising the federal minimum wage aggressively, and instituting a jobs guarantee. I see each as working much better in cities and suburbs than in rural areas.
 

@@ -31,7 +31,7 @@ In a matter of a few years, crude oil production quadrupled in New Mexico and th
 <img src="/assets/blog/2023/12/chart2-4.png" class="wp-image-4092" loading="lazy" width="745" height="448" alt="Two side-by-side bar charts. Left: median family income for family of 3 in USD, ranked by lowest, with New Mexico second lowest at $71,283 (after Mississippi at $70,950). Right: barrels of crude oil produced in 2022 (millions), with Texas first at 1,847M and New Mexico second at 580M. Bar colors indicate state governor party (blue=Democratic, red=Republican). Source: Census, EIA." />
 </figure>
 
-While the boom in oil production is a relatively new development, New Mexico has been [one of the poorest states](https://www.justice.gov/ust/eo/bapcpa/20230515/bci_data/median_income_table.htm) in the US for many decades. And, there’s no guarantee in the US that nearby residents benefit from increased mineral extraction. Air and noise pollution and spills all increase. Crucially, however, among the poorest states in the US, New Mexico is the only one where the Democratic party is able to enact laws<sup>1</sup>. The combination of the oil boom with these factors presents a fascinating set of possibilities for the future.
+While the boom in oil production is a relatively new development, New Mexico has been [one of the poorest states](https://www.justice.gov/ust/eo/bapcpa/20230515/bci_data/median_income_table.htm) in the US for many decades. And, there’s no guarantee in the US that nearby residents benefit from increased mineral extraction. Air and noise pollution and spills all increase. Crucially, however, among the poorest states in the US, New Mexico is the only one where the Democratic party is able to enact laws. The combination of the oil boom with these factors presents a fascinating set of possibilities for the future.
 
 ## **Investing in Kids, Reducing Poverty, and Hopefully Mitigating Environmental Impacts**
 
@@ -49,4 +49,3 @@ As I understand, there have been fewer victories in regulating the oil and gas i
 
 For New Mexico and the US as a whole, there’s a need to balance domestic energy production and the revenue and opportunities it brings with the costs of this production which can be long-term and geographically concentrated. Success overall will depend on reining in the worst environmental practices and making good investments.
 
-------------------------------------------------------------------------
