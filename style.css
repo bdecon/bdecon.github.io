@@ -574,11 +574,13 @@ ul li a:hover + .hidden, .hidden:hover { display: block; }
 	@media (max-width: 480px) { padding: var(--space-3) var(--space-2); & h1 { letter-spacing: 0.03em; } }
 }
 
-/* Feature page-title: accent top stripe + small kicker + mixed-case display
-   H1 + 1-line deck. Used on category archives ("you're in topic X") and on
-   section landing pages like /reports.html ("you're in the Reports section"). */
+/* Feature page-title: accent top stripe + small kicker + mixed-case H1 +
+   1-line deck. Used on category archives + section landing pages. LEFT-aligned
+   to match the content panel below (centered single-word h1s read as floating
+   tombstones — the left-aligned variant feels like a magazine section opener). */
 .page-title-feature {
-	padding: var(--space-5) var(--space-3) var(--space-5);
+	padding: var(--space-6) var(--space-6) var(--space-5);
+	text-align: left;
 	background-color: var(--color-surface);
 	color: var(--color-text-strong);
 	border: var(--elevation-border);
@@ -586,7 +588,7 @@ ul li a:hover + .hidden, .hidden:hover { display: block; }
 	border-top: 6px solid var(--accent-strong, var(--accent));
 	[data-theme="dark"] & { background-color: var(--color-surface); color: var(--color-text-strong); }
 	& .page-title-kicker {
-		margin: 0 0 var(--space-1);
+		margin: 0 0 var(--space-2);
 		font-family: var(--font-accent);
 		font-weight: 700;
 		font-size: var(--text-xs);
@@ -595,16 +597,19 @@ ul li a:hover + .hidden, .hidden:hover { display: block; }
 		color: var(--accent-strong, var(--accent));
 	}
 	& h1 {
-		font-size: var(--text-display);
-		letter-spacing: -0.025em;
+		margin: 0;
+		font-size: clamp(32px, 2.5vw + 16px, 44px);
+		font-weight: 800;
+		letter-spacing: -0.02em;
 		text-transform: none;
-		max-width: var(--width-lg);
+		max-width: none;
 		line-height: 1.05;
+		text-align: left;
 	}
 	& .page-title-deck {
 		max-width: var(--width-lg);
-		margin: var(--space-2) auto 0;
-		padding: 0 var(--space-3);
+		margin: var(--space-3) 0 0;
+		padding: 0;
 		font-size: var(--text-base);
 		color: var(--color-text);
 		line-height: 1.5;
@@ -2356,13 +2361,13 @@ figure {
 	/* Banner: no tint, natural photo */
 	& .page-strip { background: var(--color-bg); }
 
-	/* Title bar edition info — same layout as old .weo-panel-edition, white text */
+	/* Edition info pinned to right side of the feature header */
 	& .weo-title-edition {
-		display: flex; justify-content: space-between; align-items: baseline;
-		gap: var(--space-4); font-size: var(--text-sm);
-		max-width: var(--width-md); margin: var(--space-3) auto 0;
-		color: white;
-		& > div > .label { display: block; margin-bottom: var(--space-1); color: color-mix(in srgb, white 55%, transparent); }
+		display: flex; align-items: baseline;
+		gap: var(--space-5); font-size: var(--text-sm);
+		margin-top: var(--space-3);
+		color: var(--color-text);
+		& > div > .label { display: block; font-size: var(--text-xs); margin-bottom: 2px; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; }
 	}
 
 	/* CTA above controls */

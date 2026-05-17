@@ -6,9 +6,11 @@ description: "Monthly estimates of US GDP, freely available for download. Useful
 canonical: "https://bd-econ.com/gdpm.html"
 body_class: "page-gdpm accent-red"
 nav_active: "reports"
-page_strip_html: |
-      <div class="page-strip page-strip-compact accent-red">
-              <picture><source srcset="images/gdpm_banner.webp" type="image/webp"><img decoding="async" fetchpriority="high" src="images/gdpm_banner.png" alt="" aria-hidden="true" class="page-strip-img" width="419" height="69"></picture>
+page_title_html: |
+      <div class="page-title page-title-feature accent-red">
+        <p class="page-title-kicker">Dataset</p>
+        <h1>Monthly GDP</h1>
+        <p class="page-title-deck">Monthly estimates of US nominal and real GDP, combining quarterly BEA data with Fed nowcasts. Downloadable CSV updated daily.</p>
       </div>
 extra_head: |
       <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -87,13 +89,6 @@ jsonld_extra: |
 extra_scripts: |
       <script src="scripts/gdpm.js"></script>
 ---
-	<header class="page-head">
-		<div class="page-head-inner">
-			<p class="page-head-kicker">Data</p>
-			<h1>Monthly GDP</h1>
-			<p class="page-head-deck">Monthly US GDP, estimated by smoothing official quarterly data across months and incorporating the best available forecast for the current quarter.</p>
-		</div>
-	</header>
 	<section>
 	<article class="prose">
 	<noscript><p class="noscript-warning">This page requires JavaScript to display interactive charts. The <a href="files/gdpm.csv">CSV data</a> can still be downloaded directly.</p></noscript>
