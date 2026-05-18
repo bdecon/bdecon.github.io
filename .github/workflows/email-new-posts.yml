@@ -2,15 +2,17 @@
 #
 # Triggers AFTER the "Build and deploy site" workflow finishes successfully,
 # so by the time the email fires the post's permalink is already live on
-# bd-econ.com. Subscribers clicking the "read in browser" link land on a
-# real page, not a 404.
+# bd-econ.com.
 #
-# Safety design (see scripts/email_new_posts.py docstring):
-#   - Only posts dated within the last 3 days are even considered.
-#   - Each sent email tags the post slug in `metadata.post_slug` so
-#     re-runs are idempotent (no double-sends).
-#   - On first install, no historical post emails (they're all older than
-#     the window). Only future posts trigger.
+# OPT-IN MODEL: posts default to NOT emailing. The workflow only sends a
+# post that has `email: true` in its front matter. Push a post without
+# the flag → site updates, no email. To email: add `email: true`, commit,
+# push. (See scripts/email_new_posts.py docstring for full details.)
+#
+# Other safety layers:
+#   - 3-day window — posts older than that are ignored (no retroactive blast)
+#   - metadata.post_slug dedup — re-runs can't double-send
+#   - published: false honored
 #
 # Required repo secret: BUTTONDOWN_API_KEY
 # Set at: Settings → Secrets and variables → Actions → New repository secret

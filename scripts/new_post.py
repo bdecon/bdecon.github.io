@@ -35,6 +35,7 @@ COMMON_HEAD = """\
 title: "{title}"
 date: {date}
 {categories_block}
+# email: true                       # uncomment + push to email subscribers (otherwise: site updates silently)
 """
 
 TEMPLATES = {

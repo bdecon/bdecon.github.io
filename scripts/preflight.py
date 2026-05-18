@@ -159,6 +159,38 @@ def check_drafts() -> Check:
                  f"{len(drafts)} draft(s) in _drafts/ — won't be published")
 
 
+def check_email_flag(filter_post: str | None) -> Check:
+    """Loud warning if any post within the email window has `email: true`."""
+    import yaml
+    from datetime import date, timedelta
+    cutoff = date.today() - timedelta(days=3)
+    flagged = []
+    posts = list(POSTS.glob("*.md"))
+    if filter_post:
+        posts = [p for p in posts if filter_post in p.name]
+    for p in posts:
+        m = re.match(r"^(\d{4})-(\d{2})-(\d{2})-(.+)\.md$", p.name)
+        if not m:
+            continue
+        y, mo, d, slug = m.groups()
+        pdate = date(int(y), int(mo), int(d))
+        if pdate < cutoff:
+            continue
+        text = p.read_text()
+        fm_match = re.match(r"^---\n(.*?)\n---", text, re.DOTALL)
+        if not fm_match:
+            continue
+        fm = yaml.safe_load(fm_match.group(1)) or {}
+        if fm.get("email") is True:
+            flagged.append(slug)
+    if not flagged:
+        return Check("email opt-in", "pass",
+                     "no posts have `email: true` — push is safe (no email)")
+    return Check("email opt-in", "warn",
+                 f"WILL EMAIL ON PUSH: {', '.join(flagged)} "
+                 f"(remove `email: true` to cancel)")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("-p", "--post", help="filter to one post (filename substring)")
@@ -175,6 +207,7 @@ def main():
         check_content_audit(args.post),
         check_og_image(args.post),
         check_drafts(),
+        check_email_flag(args.post),
     ]
     if not args.skip_build:
         checks.append(check_build(args.post))

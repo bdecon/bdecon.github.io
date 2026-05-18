@@ -3,17 +3,26 @@
 
 Runs in CI after a successful Jekyll deploy. For each post in `_posts/` that:
   - Was published within the last `WINDOW_DAYS` days (default 3), AND
+  - Has `email: true` in its front matter (EXPLICIT OPT-IN), AND
   - Has not already been emailed (checked via post_slug metadata on
     existing Buttondown emails)
 ... it creates + sends a Buttondown email containing the post.
 
-Idempotent: re-running won't double-send because each sent email carries
-the post slug in its `metadata.post_slug` field, and we skip slugs that
-already exist.
+OPT-IN MODEL — read this carefully:
+  Posts default to NOT emailing. The site publishes normally on push, but
+  no email goes out. To actually email a post to subscribers, add this
+  one line to the post's front matter:
 
-First-run safety: the WINDOW_DAYS gate means setting this up doesn't
-retroactively blast every historical post. Only NEW posts (dated within
-the last few days) are considered.
+      email: true
+
+  Push that change, the workflow runs, and the email goes out within ~1
+  minute. Until that flag is set (or `email: true` is removed before the
+  push that introduced the post), no email is ever triggered for that post.
+
+Other guards:
+  - Idempotent: re-runs won't double-send (metadata.post_slug dedup)
+  - 3-day window (no retroactive blast on install)
+  - `published: false` is honored (skipped)
 
 Environment:
   BUTTONDOWN_API_KEY   — required, stored as repo secret
@@ -71,7 +80,9 @@ def parse_post(path: Path) -> tuple[str, dict, str, date] | None:
 
 
 def list_recent_posts() -> list[tuple[str, dict, str, date]]:
-    """Posts dated within WINDOW_DAYS, sorted oldest-first."""
+    """Posts that should email: dated within WINDOW_DAYS AND have email: true
+    in front matter. Opt-in: posts default to NOT emailing — adding
+    `email: true` to front matter is the explicit signal to send."""
     cutoff = date.today() - timedelta(days=WINDOW_DAYS)
     out = []
     for path in sorted(POSTS_DIR.glob("*.md")):
@@ -83,6 +94,10 @@ def list_recent_posts() -> list[tuple[str, dict, str, date]]:
             continue
         # Skip drafts / unlisted
         if fm.get("published") is False:
+            continue
+        # Opt-in gate: only send posts with `email: true` in front matter.
+        # Default is NOT to email — protects against accidental sends.
+        if fm.get("email") is not True:
             continue
         out.append(parsed)
     return out
@@ -149,7 +164,8 @@ def send_post(slug: str, fm: dict, body: str, pdate: date) -> None:
 def main() -> int:
     posts = list_recent_posts()
     if not posts:
-        print(f"No posts dated within last {WINDOW_DAYS} day(s). Nothing to do.")
+        print(f"No posts within last {WINDOW_DAYS} day(s) have `email: true` "
+              f"in front matter. Nothing to email.")
         return 0
 
     print(f"Found {len(posts)} recent post(s):")
