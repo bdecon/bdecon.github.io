@@ -1338,7 +1338,17 @@ main > .page-title-feature + section { padding-top: 0; }
 }
 .card-muted { opacity: 0.5; &:hover { opacity: 1; } }
 .card-banner { height: 30px; overflow: hidden; background-color: color-mix(in srgb, var(--accent) 25%, var(--color-bg-input)); }
-.card-banner img,
+/* Card banners keep the accent tint (multiply blend) — gives each nav card
+   a tinted top stripe matching its accent color. */
+.card-banner img {
+	width: 100%;
+	object-fit: cover;
+	display: block;
+	opacity: 0.8;
+	mix-blend-mode: multiply;
+	[data-theme="dark"] & { opacity: 0.5; mix-blend-mode: screen; }
+}
+/* Page-strip banner images render plain — no accent tint multiplied in. */
 .page-strip-img {
 	width: 100%;
 	object-fit: cover;
@@ -2109,10 +2119,13 @@ figure {
 	& .announce-arrow { color: var(--color-text-muted); padding: var(--space-1); line-height: 1; flex-shrink: 0; }
 	& .announce-arrow:hover { color: var(--color-text); }
 	& .card-grid {
-		max-width: var(--width-content);   /* align with featured-report-hero + home-intro so 'More from BD Economics' sits inside the content panel, not orphan-left */
+		max-width: var(--width-content);   /* align with featured-report-hero + home-intro */
 		margin-left: auto;
 		margin-right: auto;
 		padding-top: var(--space-6);
+		/* 3 fixed columns — auto-fit was creating a phantom 4th track and
+		   leaving the 3 cards crammed in the left ~75% of the container. */
+		grid-template-columns: repeat(3, 1fr);
 	}
 	/* Featured-report hero — magazine-cover treatment of the latest
 	   report. Same structure as the .featured-report on reports.html
