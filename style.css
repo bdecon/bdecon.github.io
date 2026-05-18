@@ -1343,9 +1343,7 @@ main > .page-title-feature + section { padding-top: 0; }
 	width: 100%;
 	object-fit: cover;
 	display: block;
-	opacity: 0.8;
-	mix-blend-mode: multiply;
-	[data-theme="dark"] & { opacity: 0.5; mix-blend-mode: screen; }
+	[data-theme="dark"] & { opacity: 0.92; }
 }
 .card-banner img { height: 30px; }
 [data-theme="dark"] :is(.page-reports, .page-python) {
