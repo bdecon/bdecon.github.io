@@ -36,12 +36,12 @@
   --text-base: 18px;
   --text-lg: 19px;
   --text-xl: clamp(18px, 0.5vw + 16.5px, 20px);
-  --text-2xl: clamp(20px, 0.5vw + 18.5px, 22px);
-  --text-3xl: clamp(22px, 1vw + 19px, 26px);
-  --text-4xl: clamp(26px, 1.5vw + 21px, 34px);
-  /* Display: editorial-scale H1s for hero areas (page titles, post titles,
-     homepage headline). One token; opt-in per page. */
-  --text-display: clamp(34px, 4vw + 14px, 56px);
+  --text-2xl: clamp(19px, 0.5vw + 17.5px, 21px);
+  --text-3xl: clamp(20px, 0.7vw + 17px, 23px);
+  --text-4xl: clamp(23px, 1vw + 19px, 28px);
+  /* Display: H1s for hero areas. Toned down from prior 34-56 — the 56px post
+     titles dominated and 44px landing-page titles were too loud. */
+  --text-display: clamp(26px, 1.5vw + 16px, 36px);
 
   /* Width Tiers — all content snaps to one of these */
   --width-page: 1080px;
@@ -608,12 +608,12 @@ ul li a:hover + .hidden, .hidden:hover { display: block; }
 	}
 	& h1 {
 		margin: 0;
-		font-size: clamp(32px, 2.5vw + 16px, 44px);
+		font-size: clamp(26px, 1.5vw + 14px, 34px);   /* toned down from 32-44 */
 		font-weight: 800;
 		letter-spacing: -0.02em;
 		text-transform: none;
 		max-width: none;
-		line-height: 1.05;
+		line-height: 1.1;
 		text-align: left;
 		color: var(--color-text-strong);
 	}
@@ -1249,7 +1249,7 @@ main > .page-title-feature + section { padding-top: 0; }
 		left: 50%;
 		transform: translate(-50%, -100%);
 		font-family: var(--font-accent);
-		font-size: 11px;
+		font-size: var(--text-xs);   /* was 11px — bumped to 13px for legibility */
 		font-weight: 700;
 		text-transform: uppercase;
 		letter-spacing: 0.08em;
@@ -2136,12 +2136,12 @@ figure {
 	}
 	& .featured-report-hero .featured-report-photo { min-height: 380px; }
 	& .featured-report-hero .featured-report-title {
-		font-size: clamp(36px, 3vw + 16px, 56px);
+		font-size: clamp(28px, 2vw + 14px, 36px);   /* matches blog/reports featured-report-title scale */
 		font-weight: 800;
 		letter-spacing: -0.015em;
-		line-height: 1.05;
+		line-height: 1.1;
 	}
-	& .featured-report-hero .featured-report-deck { font-size: var(--text-lg); }
+	& .featured-report-hero .featured-report-deck { font-size: var(--text-base); }
 
 	& .home-intro {
 		max-width: var(--width-content);        /* match card-grid: 3 × 300 + 2 × space-5 */
@@ -3090,7 +3090,7 @@ figure {
 .post-categories { margin: 0 0 var(--space-1); display: flex; flex-wrap: wrap; gap: var(--space-2); }
 .post-category {
 	font-family: var(--font-accent);
-	font-size: 11px;
+	font-size: var(--text-xs);   /* was 11px — bumped to 13px (xs token) for legibility */
 	font-weight: 700;
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
