@@ -84,6 +84,23 @@ extra_head: |
 </nav>
 
 <!-- ============================================================
+     0. PAGE HEADER PATTERN
+     ============================================================ -->
+<section class="ks-section" id="page-header">
+<h2>Page Header (feature)</h2>
+
+<span class="ks-label">.page-title-feature — kicker + h1 + deck, no box. Sits inside main, accent color from page's body class.</span>
+<div class="page-title page-title-feature accent-teal" style="margin: 0;">
+  <p class="page-title-kicker">Section label</p>
+  <h1>Big Page Title</h1>
+  <p class="page-title-deck">Short deck explaining what's on this page.</p>
+</div>
+
+<p class="ks-label" style="margin-top: var(--space-5);">Usage: set on landing/section pages via <code>page_title_html:</code> in front matter. Wraps automatically for tutorials in <code>_layouts/default.html</code>. Width should match the page's main content area: <code>--width-content</code> (880) for card-grid pages, <code>--width-lg</code> (720) for prose-based pages.</p>
+
+</section>
+
+<!-- ============================================================
      1. COLORS
      ============================================================ -->
 <section class="ks-section" id="colors">

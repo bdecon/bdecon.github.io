@@ -26,7 +26,6 @@
 {%- if page.collection == 'tutorials' and page.short_title and page.accent and page.deck -%}
   {%- assign _is_tutorial_feature = true -%}
 {%- endif -%}
-{% unless _is_tutorial_feature %}
 {% if page.page_strip_html %}
 {{ page.page_strip_html }}
 {% elsif page.page_strip %}
@@ -34,7 +33,6 @@
 		<picture><source srcset="/images/{{ page.page_strip }}_strip.webp" type="image/webp"><img decoding="async" fetchpriority="high" src="/images/{{ page.page_strip }}_strip.jpg" alt="" aria-hidden="true" class="page-strip-img" width="1600" height="200"></picture>
 	</div>
 {% endif %}
-{% endunless %}
 	<main id="main" data-pagefind-body>
 {% if _is_tutorial_feature %}
 	<div class="page-title page-title-feature accent-{{ page.accent }}">
