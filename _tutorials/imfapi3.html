@@ -71,7 +71,7 @@ jsonld_extra: |
 	    <picture><source srcset="images/imf_banner1.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/imf_banner1.png" alt="IMF API tutorial Part 1" width="425" height="68"></picture>
 	  </div>
 	  <div class="card-header">
-		<h3>Part 1</h3>
+		<h2>Part 1</h2>
 	  </div>
 	  <div class="card-body card-body-fill">
 		<p>A <strong>basic example</strong> of retrieving CPI inflation data using the sdmx1 library, converting to pandas, and plotting results.</p>
@@ -85,7 +85,7 @@ jsonld_extra: |
 	    <picture><source srcset="images/imf_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/imf_banner.png" alt="IMF API tutorial Part 2" width="293" height="68"></picture>
 	  </div>
 	  <div class="card-header">
-		<h3>Part 2</h3>
+		<h2>Part 2</h2>
 	  </div>
 	  <div class="card-body card-body-fill">
 		<p>How to <strong>find datasets and parameters</strong> using dataflow and codelist methods, plus <strong>direct API access</strong> with requests.</p>
@@ -99,7 +99,7 @@ jsonld_extra: |
 	    <picture><source srcset="images/imf_banner2.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/imf_banner2.png" alt="IMF API tutorial Part 3" width="350" height="68"></picture>
 	  </div>
 	  <div class="card-header">
-		<h3>Part 3</h3>
+		<h2>Part 3</h2>
 	  </div>
 	  <div class="card-body card-body-fill">
 		<p>Practical examples: <strong>WEO forecasts, commodity prices</strong>, and <strong>bulk downloads</strong> with requests.</p>
@@ -109,11 +109,10 @@ jsonld_extra: |
 	</section>
 	<article class="prose">
 	{% include tutorial-meta.html %}
-	<h2>IMF API with Python: Practical Examples</h2>
 	<p>Parts 1 and 2 covered the basics of retrieving data and discovering datasets. Here we apply both&mdash;combining the discovery tools from Part 2 with practical workflows&mdash;to work through three examples: economic forecasts, commodity prices, and bulk downloads.</p>
 
 	<hr class="section-bar accent-blue">
-	<h3>Economic Forecasts (WEO)</h3>
+	<h2>Economic Forecasts (WEO)</h2>
 	<p>The World Economic Outlook (WEO) dataset contains IMF projections for over 40 indicators&mdash;GDP, inflation, unemployment, government debt, current account, and more&mdash;covering nearly every country. Data includes historical values and forecasts several years forward.</p>
 	<p>In[1]:</p>
 	<pre><code class="python">import sdmx
@@ -175,7 +174,7 @@ ax.set_xlabel('Source: IMF World Economic Outlook')</code></pre>
 	<p>Vietnam has sustained higher growth rates over most of this period, with both countries hit hard by COVID-19 in 2020&ndash;2021. Other popular WEO indicators include <code>PCPIPCH</code> (CPI inflation), <code>LUR</code> (unemployment rate), and <code>GGXWDG_NGDP</code> (government debt as % of GDP).</p>
 	<p>The SDMX API exposes WEO editions as dataflow versions (use <code>dataflow/IMF.RES/WEO/*?detail=allstubs</code> to list what&rsquo;s currently available). For archived WEO vintages beyond what the API carries, download them from the <a href="https://www.imf.org/en/Publications/SPROLLs/world-economic-outlook-databases">WEO Database page</a> or explore the <a href="/imfweo.html">WEO Forecast Tracker</a>, which compiles all editions back to 1990.</p>
 
-	<h4>Distinguishing Forecasts from Actuals</h4>
+	<h3>Distinguishing Forecasts from Actuals</h3>
 	<p>WEO data mixes historical values and projections, but the API does not flag which is which in the main data response. To find the boundary, request the <code>LATEST_ACTUAL_ANNUAL_DATA</code> attribute. This returns the last year of actual data for each country&ndash;indicator pair; any year after that is a forecast.</p>
 	<p>In[5a]:</p>
 	<pre><code class="python">import requests
@@ -222,7 +221,7 @@ print(f"USA NGDP_RPCH: actuals through "
 	<p>To explore how WEO forecasts have evolved across editions, see the <a href="/imfweo.html">WEO Forecast Tracker</a>.</p>
 
 	<hr class="section-bar accent-blue">
-	<h3>Commodity Prices (PCPS)</h3>
+	<h2>Commodity Prices (PCPS)</h2>
 	<p>The Primary Commodity Price System (PCPS) dataset tracks world benchmark prices for over 100 commodities. Let's explore its structure and search for metals:</p>
 	<p>In[5]:</p>
 	<pre><code class="python"># Explore PCPS structure
@@ -277,7 +276,7 @@ ax1.legend(lines, [l.get_label() for l in lines],
 	<p>Both metals track global industrial activity, but copper's sharper swings reflect its role as a leading economic indicator. Other key commodity codes include <code>PGOLD</code> (gold), <code>POILAPSP</code> (crude oil), <code>PNGAS</code> (natural gas), and <code>PWHEAMT</code> (wheat). Use the codelist methods from Part 2 to browse the full list.</p>
 
 	<hr class="section-bar accent-blue">
-	<h3>Bulk Download with Requests</h3>
+	<h2>Bulk Download with Requests</h2>
 	<p>For larger downloads&mdash;or if you prefer to skip the sdmx1 dependency&mdash;the same API accepts plain HTTP requests. Ask for CSV format and you get a pandas-ready response. As covered in Part 2, the URL follows the pattern <code>https://api.imf.org/external/sdmx/3.0/data/dataflow/{agency}/{dataflow}/{version}/{key}</code>.</p>
 	<p>Here we download the entire WEO dataset from 2020 onward. The wildcard <code>*</code> in the key position requests all countries and indicators:</p>
 	<p>In[11]:</p>
@@ -315,7 +314,7 @@ gdp.sort_index().round(1)</code></pre>
 	<p>This approach downloads about 8 MB and takes a few seconds. It is useful when you want many indicators or countries at once, or when you want to avoid installing sdmx1. The same pattern works for other dataflows&mdash;swap in <code>IMF.STA/CPI</code> for CPI data or <code>IMF.STA/BOP</code> for balance of payments.</p>
 
 	<hr class="section-bar accent-blue">
-	<h3>Key Concepts</h3>
+	<h2>Key Concepts</h2>
 	<ul>
 		<li>The discovery methods from Part 2&mdash;<code>dataflow()</code>, <code>dsd.dimensions</code>, and codelist searches&mdash;are essential for working with new datasets</li>
 		<li>WEO provides IMF forecasts, valuable for projections and scenario analysis</li>
@@ -326,7 +325,7 @@ gdp.sort_index().round(1)</code></pre>
 	</ul>
 
 	<hr class="section-bar accent-blue">
-	<h3>Additional Resources</h3>
+	<h2>Additional Resources</h2>
 	<ul>
 		<li><a href="https://pypi.org/project/sdmx1/">sdmx1 on PyPI</a> &mdash; Installation and basic documentation</li>
 		<li><a href="https://sdmx1.readthedocs.io/">sdmx1 documentation</a> &mdash; Full library reference, including the list of supported providers</li>

@@ -63,22 +63,20 @@ jsonld_extra: |
 	<section>
 	<article class="prose">
 	{% include tutorial-meta.html %}
-
-	<h2>US Treasury Fiscal Data API with Python</h2>
 	<p>The <a href="https://fiscaldata.treasury.gov/api-documentation/">US Treasury Fiscal Data API</a> offers data on federal finances, including revenue, spending, debt, and more. With Python, you can retrieve and analyze this data programmatically.</p>
 
 	<p>This example uses the Python <code>requests</code> and <code>pandas</code> packages to retrieve treasury data from the Monthly Treasury Statement and analyze federal revenue composition. If you're new to Python, the <a href="/getstarted.html">Setup guide</a> covers setup and the basics.</p>
 
 	<hr class="section-bar accent-red">
-	<h3>Background</h3>
-	<h4>Treasury Fiscal Data</h4>
+	<h2>Background</h2>
+	<h3>Treasury Fiscal Data</h3>
 	<p>The Bureau of the Fiscal Service provides public access to federal financial data through <a href="https://fiscaldata.treasury.gov/">fiscaldata.treasury.gov</a>. The API allows access to datasets including the Monthly Treasury Statement, Daily Treasury Statement, debt data, and more.</p>
 
-	<h4>API</h4>
+	<h3>API</h3>
 	<p>The Fiscal Data API is a RESTful API that returns JSON data. You can filter results, specify date ranges, and paginate through large datasets. No registration or API key is required.</p>
 
 	<hr class="section-bar accent-red">
-	<h3>Example: Federal Revenue by Type</h3>
+	<h2>Example: Federal Revenue by Type</h2>
 	<p>How has the composition of federal revenue changed recently? Corporate income taxes and customs duties are two categories worth watching&mdash;corporate taxes are a large and cyclical revenue source, while customs duties have grown sharply with recent changes in trade policy.</p>
 
 	<span class="label step-label accent-red">Import Packages</span>
@@ -135,7 +133,7 @@ shares.loc['2023-01-01':].plot(title=title, figsize=(4.5, 5))</code></pre>
 	<picture><source srcset="images/treasury_tax.webp" type="image/webp"><img decoding="async" src="images/treasury_tax.png" alt="Federal Revenue by Type" loading="lazy" width="415" height="501"/></picture>
 
 	<hr class="section-bar accent-red">
-	<h3>Further Resources</h3>
+	<h2>Further Resources</h2>
 	<ul>
 		<li><a href="https://fiscaldata.treasury.gov/api-documentation/">Fiscal Data API Documentation</a> &mdash; endpoints, filtering, and pagination</li>
 		<li><a href="https://fiscaldata.treasury.gov/datasets/">Available Datasets</a> &mdash; browse all Treasury datasets including debt, interest rates, and daily statements</li>

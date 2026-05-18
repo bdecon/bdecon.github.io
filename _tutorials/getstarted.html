@@ -66,27 +66,25 @@ jsonld_extra: |
 	<section>
 	<article class="prose">
 	{% include tutorial-meta.html %}
-
-	<h2>Setup with Python for Economics</h2>
 	<p>This page covers everything you need to start using the <a href="/python.html">six API tutorials</a> on this site: installing Python, the basics of pandas, and common economic calculations. If you already have Python set up, skip ahead to <a href="#pandas">Working with Data</a> or <a href="#calculations">Common Calculations</a>.</p>
 
 	<hr class="section-bar accent-ltblue">
-	<h3 id="setup">Setup</h3>
+	<h2 id="setup">Setup</h2>
 
-	<h4>Install Python</h4>
+	<h3>Install Python</h3>
 	<p>The easiest way to install Python is with <a href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a>, a lightweight installer that works on Windows, Mac, and Linux. Download the installer for your operating system and follow the prompts.</p>
 
-	<h4>Install Packages</h4>
+	<h3>Install Packages</h3>
 	<p>Open a terminal (or Anaconda Prompt on Windows) and install the packages used in the tutorials:</p>
 	<pre><code class="bash">pip install requests pandas matplotlib jupyter</code></pre>
 
-	<h4>Launch Jupyter</h4>
+	<h3>Launch Jupyter</h3>
 	<p>Jupyter notebooks let you write and run Python code in small cells, seeing results immediately. This is ideal for exploring data. To start:</p>
 	<pre><code class="bash">jupyter notebook</code></pre>
 	<p>This opens a browser window where you can create a new notebook and start writing code. Each cell runs independently, but variables carry over from one cell to the next&mdash;so you can build up an analysis step by step.</p>
 
 	<hr class="section-bar accent-ltblue">
-	<h3 id="basics">Python Essentials</h3>
+	<h2 id="basics">Python Essentials</h2>
 	<p>You don't need to learn all of Python to follow the tutorials. Here are the pieces that come up most often.</p>
 
 	<span class="label step-label accent-ltblue">Variables and Types</span>
@@ -140,7 +138,7 @@ print(f'Unemployment rate: {value}%')</code></pre>
 	<pre>Unemployment rate: 3.5%</pre>
 
 	<hr class="section-bar accent-ltblue">
-	<h3 id="pandas">Working with Data</h3>
+	<h2 id="pandas">Working with Data</h2>
 	<p>Pandas is the main tool for working with tabular data in Python. The two key objects are <strong>Series</strong> (a single column) and <strong>DataFrame</strong> (a table).</p>
 
 	<span class="label step-label accent-ltblue">Create a DataFrame</span>
@@ -209,7 +207,7 @@ per_capita</code></pre>
 dtype: float64</pre>
 
 	<hr class="section-bar accent-ltblue">
-	<h3 id="economics">Economics Example: The Fiscal Multiplier</h3>
+	<h2 id="economics">Economics Example: The Fiscal Multiplier</h2>
 	<p>Python can solve the kind of problems you'd work through by hand in an economics class. Here's a simple Keynesian model solved with NumPy's linear algebra tools.</p>
 
 	<span class="label step-label accent-ltblue">A Simple Macro Model</span>
@@ -249,7 +247,7 @@ Multiplier: 4x</pre>
 	<p>Each dollar of government spending raised GDP by four dollars. The multiplier is 1/(1&nbsp;&minus;&nbsp;0.75)&nbsp;=&nbsp;4, because the initial spending becomes someone's income, 75% of which is spent again, and so on. This is a simplified model, but it illustrates why fiscal policy can have outsized effects on the economy.</p>
 
 	<hr class="section-bar accent-ltblue">
-	<h3 id="calculations">Common Calculations</h3>
+	<h2 id="calculations">Common Calculations</h2>
 	<p>The API tutorials use a few economic calculations that are worth seeing in one place.</p>
 
 	<span class="label step-label accent-ltblue">From Price Index to Inflation Rate</span>
@@ -345,7 +343,7 @@ pce[['Goods contribution', 'Services contribution']].dropna().round(2)</code></p
 	<p>Services drove most of the growth, while goods spending turned negative in Q4. The contributions sum to the total growth rate each quarter&mdash;this is the same technique used in the <a href="/beaapi.html">BEA tutorial</a> to analyze real consumer spending.</p>
 
 	<hr class="section-bar accent-ltblue">
-	<h3 id="apis">Setting Up for the API Tutorials</h3>
+	<h2 id="apis">Setting Up for the API Tutorials</h2>
 
 	<span class="label step-label accent-ltblue">API Keys</span>
 	<p>Most government data APIs require a free API key for access. The tutorials on this site store keys in a file called <code>config.py</code> that you create in the same folder as your notebook:</p>
@@ -378,7 +376,7 @@ r.json()['data']</code></pre>
  {'record_date': '2025-08-31', 'current_month_gross_outly_amt': '527946'}]</pre>
 
 	<hr class="section-bar accent-ltblue">
-	<h3>Next Steps</h3>
+	<h2>Next Steps</h2>
 	<p>Each tutorial below walks through a complete example&mdash;from API request to finished chart. Treasury is the easiest starting point since it requires no API key.</p>
 	</article>
 
@@ -389,7 +387,7 @@ r.json()['data']</code></pre>
 			<picture><source srcset="images/treasury_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/treasury_banner.png" alt="Treasury API tutorial" width="391" height="68"></picture>
 		</div>
 		<div class="card-header">
-			<h3>Treasury API</h3>
+			<h2>Treasury API</h2>
 		</div>
 		<div class="card-body card-body-fill">
 			<p>Access federal finance data including revenue, spending, and debt from the US Treasury Fiscal Data API. No API key required.</p>
@@ -403,7 +401,7 @@ r.json()['data']</code></pre>
 			<picture><source srcset="images/census_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/census_banner.png" alt="Census API tutorial" width="207" height="68"></picture>
 		</div>
 		<div class="card-header">
-			<h3>Census API</h3>
+			<h2>Census API</h2>
 		</div>
 		<div class="card-body card-body-fill">
 			<p>Retrieve US economic indicators from the Census Bureau, including manufacturing, international trade, and construction data.</p>
@@ -417,7 +415,7 @@ r.json()['data']</code></pre>
 			<picture><source srcset="images/bea_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/bea_banner.png" alt="BEA API tutorial" width="542" height="130"></picture>
 		</div>
 		<div class="card-header">
-			<h3>BEA API</h3>
+			<h2>BEA API</h2>
 		</div>
 		<div class="card-body card-body-fill">
 			<p>Retrieve national accounts data from the Bureau of Economic Analysis including GDP, consumer spending, and industry statistics.</p>
@@ -431,7 +429,7 @@ r.json()['data']</code></pre>
 			<picture><source srcset="images/bls_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/bls_banner.png" alt="BLS API tutorial" width="257" height="68"></picture>
 		</div>
 		<div class="card-header">
-			<h3>BLS API</h3>
+			<h2>BLS API</h2>
 		</div>
 		<div class="card-body card-body-fill">
 			<p>Retrieve US labor statistics&mdash;employment, wages, prices&mdash;directly from the Bureau of Labor Statistics (BLS) API.</p>
@@ -445,7 +443,7 @@ r.json()['data']</code></pre>
 			<picture><source srcset="images/imf_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/imf_banner.png" alt="IMF API tutorial" width="293" height="68"></picture>
 		</div>
 		<div class="card-header">
-			<h3>IMF API</h3>
+			<h2>IMF API</h2>
 		</div>
 		<div class="card-body card-body-fill">
 			<p>Access international economic data from the International Monetary Fund (IMF). Covers GDP, trade, prices, and more for 190+ countries.</p>
@@ -459,7 +457,7 @@ r.json()['data']</code></pre>
 			<picture><source srcset="images/cps_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/cps_banner.png" alt="CPS microdata tutorial" width="542" height="130"></picture>
 		</div>
 		<div class="card-header">
-			<h3>CPS Microdata</h3>
+			<h2>CPS Microdata</h2>
 		</div>
 		<div class="card-body card-body-fill">
 			<p>Read and analyze Current Population Survey microdata with Python. Build custom labor market statistics from household-level data.</p>

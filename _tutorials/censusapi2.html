@@ -73,7 +73,7 @@ jsonld_extra: |
 	    <picture><source srcset="images/census_banner.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/census_banner.png" alt="Census API tutorial Part 1" width="207" height="68"></picture>
 	  </div>
 	  <div class="card-header">
-		<h3>Part 1</h3>
+		<h2>Part 1</h2>
 	  </div>
 	  <div class="card-body card-body-fill">
 		<p>A <strong>basic example</strong> of retrieving manufacturing data from the M3 survey, processing with pandas, and plotting results.</p>
@@ -87,7 +87,7 @@ jsonld_extra: |
 	    <picture><source srcset="images/census_banner2.webp" type="image/webp"><img loading="lazy" decoding="async" src="images/census_banner2.png" alt="Census API tutorial Part 2" width="387" height="68"></picture>
 	  </div>
 	  <div class="card-header">
-		<h3>Part 2</h3>
+		<h2>Part 2</h2>
 	  </div>
 	  <div class="card-body card-body-fill">
 		<p>Retrieve <strong>international trade data</strong> from the Census API to analyze U.S. exports by trading partner.</p>
@@ -97,16 +97,14 @@ jsonld_extra: |
 	</section>
 	<article class="prose">
 	{% include tutorial-meta.html %}
-
-	<h2>Census International Trade API with Python</h2>
 	<p>The <a href="https://www.census.gov/data/developers/data-sets/international-trade.html">Census International Trade API</a> provides access to detailed U.S. import and export data by country, commodity, and time period. This tutorial demonstrates how to retrieve export data and identify top U.S. trading partners.</p>
 
 	<hr class="section-bar accent-green">
-	<h3>Background</h3>
-	<h4>International Trade Statistics</h4>
+	<h2>Background</h2>
+	<h3>International Trade Statistics</h3>
 	<p>The Census Bureau collects data on U.S. merchandise trade through customs declarations. The international trade dataset includes monthly statistics on exports and imports by partner country and product category.</p>
 
-	<h4>Key Variables</h4>
+	<h3>Key Variables</h3>
 	<p>The main variables we'll use are:</p>
 	<ul>
 		<li><code>CTY_CODE</code> - Country code identifying the trading partner. Codes 1000-8000 represent individual countries (excluding regional aggregates).</li>
@@ -116,7 +114,7 @@ jsonld_extra: |
 	<p>The full list of variables is available in the <a href="https://api.census.gov/data/timeseries/intltrade/exports/hs/variables.html">API documentation</a>.</p>
 
 	<hr class="section-bar accent-green">
-	<h3>Example: Top U.S. Export Partners</h3>
+	<h2>Example: Top U.S. Export Partners</h2>
 	<span class="label step-label accent-green">Setup</span>
 	<p>Import the required packages and load your Census API key from a local config file (see the <a href="/getstarted.html">Setup guide</a> for details). You can register for a free API key at the <a href="https://api.census.gov/data/key_signup.html">Census Bureau website</a>.</p>
 
@@ -194,7 +192,7 @@ plt.show()</code></pre>
 	<picture><source srcset="images/census_example2.webp" type="image/webp"><img decoding="async" src="images/census_example2.png" alt="Top 20 U.S. Export Partners" loading="lazy" width="528" height="595"/></picture>
 
 	<hr class="section-bar accent-green">
-	<h3>Further Resources</h3>
+	<h2>Further Resources</h2>
 	<ul>
 		<li><a href="https://www.census.gov/data/developers/data-sets/international-trade.html">Census International Trade API</a> &mdash; main documentation</li>
 		<li><a href="https://api.census.gov/data/timeseries/intltrade/exports/hs/variables.html">API Variables</a> &mdash; full list of available fields</li>

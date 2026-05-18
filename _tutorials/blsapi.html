@@ -63,27 +63,25 @@ jsonld_extra: |
 	<section>
 	<article class="prose">
 	{% include tutorial-meta.html %}
-
-	<h2>Bureau of Labor Statistics (BLS) API with Python</h2>
 	<p>The <a href="https://www.bls.gov/developers/">BLS Public Data API</a> allows machine access to an enormous and incredibly useful set of U.S. economic data. With python, it is easy to integrate BLS data into projects, research, and graphics without the need to manually find, download, and combine files.</p>
 
 	<p>This notebook offers two examples of using python to request economic data from the BLS API. The first example requests the labor force participation rate from the BLS v1 API. The second example requests unemployment rates by race/origin, and shows a method for requesting multiple series over a longer period of time using the v2 API.</p>
 	<hr class="section-bar accent-purple">
-	<h3>Background</h3>
-	<h4>BLS</h4>
+	<h2>Background</h2>
+	<h3>BLS</h3>
 	<p>The U.S. Bureau of Labor Statistics is part of the Department of Labor. <a href="https://www.bls.gov/bls/infohome.htm">More about BLS at the BLS Information Office</a>.</p>
 
 	<blockquote class="blockquote-accent accent-purple">The Bureau of Labor Statistics of the U.S. Department of Labor is the principal Federal agency responsible for measuring labor market activity, working conditions, and price changes in the economy.</blockquote>
 
-	<h4>API</h4>
+	<h3>API</h3>
 	<p>BLS-data-related tasks that are exploratory, repetitive, or need to be well documented, can make use of Application Programming Interface (API) to save time. The API allows users to request data with specific parameters, such as the BLS series ID, dates, or preferred format. Data returned can be fed into pandas or other programs for further calculations and analysis.</p>
 
-	<h4>Python</h4>
+	<h3>Python</h3>
 
 	<p>The examples use Python 3.x with the requests and pandas packages.</p>
 
 	<hr class="section-bar accent-purple">
-	<h3>Example 1: Single series from API v1</h3>
+	<h2>Example 1: Single series from API v1</h2>
 	<span class="label step-label accent-purple">Import Libraries and Request Data</span>
 	<p>The version 1 API does not require registration. The series ID is appended directly to the URL path. You can find series IDs using the <a href="https://www.bls.gov/data/">BLS data site</a> search tools. Here we request the civilian labor force participation rate (<code>LNS11300000</code>).</p>
 
@@ -158,7 +156,7 @@ ax.legend();</code></pre>
 <picture><source srcset="images/ex1_update.webp" type="image/webp"><img decoding="async" src="images/ex1_update.png" alt="Pandas Plot Output" loading="lazy" width="401" height="327"/></picture>
 <p>The v1 API is simple but limited in the number of requests and years returned. For more complex requests, the v2 API shown in example 2 is preferable.</p>
 <hr class="section-bar accent-purple">
-<h3>Example 2: Requesting multiple series and specific dates</h3>
+<h2>Example 2: Requesting multiple series and specific dates</h2>
 <p>The second example uses the BLS API v2 (which requires free <a href = "https://data.bls.gov/registrationEngine/">registration</a>) to request more than one series at the same time. The version 2 API has a higher daily query limit, allows more years and series to be returned in each query, and allows some additional options such as requesting data in percent change rather than level. See <a href="https://www.bls.gov/developers/api_faqs.htm#register1">difference between v1 and v2</a>. The API key is stored in a local <code>config.py</code> file; see the <a href="/getstarted.html">Setup guide</a> for details.</p>
 <span class="label step-label accent-purple">Parameters</span>
 <p>The v2 API uses a POST request instead of GET&mdash;we send a JSON body specifying which series, years, and API key we want. The <code>requests</code> library's <code>json=</code> parameter handles the serialization and headers automatically. See: <a href="https://stackoverflow.com/questions/3477333/what-is-the-difference-between-post-and-get">What is the difference between POST and GET?</a></p>
@@ -246,7 +244,7 @@ df.tail()</code></pre>
 <p>Out[8]:</p>
 <picture><source srcset="images/ex2.webp" type="image/webp"><img decoding="async" src="images/ex2.png" alt="Pandas Plot Output" loading="lazy" width="432" height="288"/></picture>
 <hr class="section-bar accent-purple">
-<h3>Further Resources</h3>
+<h2>Further Resources</h2>
 <ul>
 	<li><a href="https://www.bls.gov/developers/">BLS Public Data API</a> &mdash; official documentation and usage limits</li>
 	<li><a href="https://www.bls.gov/data/">BLS Data Finder</a> &mdash; search for series IDs across all BLS programs</li>

@@ -1,6 +1,7 @@
 ---
 title: "Why Fewer People Are Out of the Workforce for Family"
 date: 2026-05-05T23:10:19-04:00
+# email: true
 slug: why-fewer-people-are-out-of-the-workforce-for-family
 categories:
   - "Labor Market"

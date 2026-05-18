@@ -63,8 +63,6 @@ jsonld_extra: |
 	<section>
 	<article class="prose">
 	{% include tutorial-meta.html %}
-
-	<h2>Current Population Survey Microdata with Python</h2>
 	<p>January 2026</p>
 
 	<p>This tutorial shows two ways to read CPS microdata with Python:</p>
@@ -80,7 +78,7 @@ jsonld_extra: |
 	<p>The <a href="https://www.census.gov/data/datasets/time-series/demo/cps/cps-basic.html">Census Basic Monthly CPS page</a> contains the microdata files (in both CSV and fixed-width format), along with data dictionaries identifying each variable name, location, value range, and whether it applies to a restricted sample.</p>
 
 	<hr class="section-bar accent-teal">
-	<h3>Method 1: CSV files (recommended for single months)</h3>
+	<h2>Method 1: CSV files (recommended for single months)</h2>
 
 	<p>Census publishes CSV files for recent months of CPS data. This is the simplest way to load CPS microdata and is useful for quick access to a limited amount of recent data. Download the CSV file from the <a href="https://www.census.gov/data/datasets/time-series/demo/cps/cps-basic.html">Census CPS page</a>.</p>
 
@@ -118,7 +116,7 @@ print(f'December 2025: {epop*100:.1f}%')</code></pre>
 	<p>This result matches the <a href="https://data.bls.gov/timeseries/LNU02300062">BLS published value</a> for December 2025.</p>
 
 	<hr class="section-bar accent-teal">
-	<h3>Method 2: Struct method (fastest for many months)</h3>
+	<h2>Method 2: Struct method (fastest for many months)</h2>
 
 	<p>If you are processing decades of monthly data, the struct method is the fastest approach. This method reads the fixed-width format files directly, where each variable occupies a specific position in each row of data.</p>
 
@@ -244,12 +242,12 @@ print(f'April 2017: {epop*100:.1f}%')</code></pre>
 	<pre>April 2017: 72.3%</pre>
 
 	<hr class="section-bar accent-teal">
-	<h3>Scaling up</h3>
+	<h2>Scaling up</h2>
 
 	<p>These examples can be scaled up to work with multiple years of monthly data. For a project creating harmonized partial CPS extracts, see the <a href="https://github.com/bdecon/econ_data/tree/master/bd_CPS">bd_CPS repository on GitHub</a>.</p>
 
 	<hr class="section-bar accent-teal">
-	<h3>About the CPS</h3>
+	<h2>About the CPS</h2>
 
 	<p>The CPS was initially deployed in 1940 to give a more accurate unemployment rate estimate, and it is still the source of the official unemployment rate. The CPS is a monthly survey of around 65,000 households. Each selected household is surveyed up to 8 times. Interviewers ask basic demographic and employment information for the first three interview months, then ask additional detailed wage questions on the 4th interview. The household is not surveyed again for eight months, and then repeats four months of interviews with detailed wage questions again on the fourth.</p>
 

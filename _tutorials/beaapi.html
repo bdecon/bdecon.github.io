@@ -63,25 +63,23 @@ jsonld_extra: |
 	<section>
 	<article class="prose">
 	{% include tutorial-meta.html %}
-
-	<h2>Bureau of Economic Analysis (BEA) API with Python</h2>
 	<p>The <a href="https://www.bea.gov/resources/for-developers">BEA API</a> provides access to national accounts data including GDP, consumer spending, and industry statistics. This tutorial demonstrates how to use Python to retrieve and analyze data from the BEA API.</p>
 
 	<p>This notebook offers two examples: the first fetches NIPA table data to calculate consumer spending growth by category, and the second shows how to navigate API metadata to find dataset parameters.</p>
 
 	<hr class="section-bar accent-orange">
-	<h3>Background</h3>
-	<h4>BEA</h4>
+	<h2>Background</h2>
+	<h3>BEA</h3>
 	<p>The Bureau of Economic Analysis is part of the U.S. Department of Commerce. BEA produces the <a href="https://www.bea.gov/national-data">National Income and Product Accounts</a> (NIPA)&mdash;the official GDP estimates and related tables that break down the economy by spending category, industry, and income type. <a href="https://www.bea.gov/about">More about BEA on the BEA About page</a>.</p>
 
-	<h4>API Registration</h4>
+	<h3>API Registration</h3>
 	<p>To use the BEA API, you need to <a href="https://apps.bea.gov/API/signup/">register for a free API key</a>. The examples below assume the API key is stored in a separate config file (see the <a href="/getstarted.html">Setup guide</a> for details).</p>
 
-	<h4>Python</h4>
+	<h3>Python</h3>
 	<p>The examples use Python 3.x with the requests and pandas packages.</p>
 
 	<hr class="section-bar accent-orange">
-	<h3>Example 1: Fetch NIPA Table</h3>
+	<h2>Example 1: Fetch NIPA Table</h2>
 	<p>This example requests NIPA table 2.3.6, which breaks down real Personal Consumption Expenditures (PCE) by major product type: services, nondurable goods, and durable goods. PCE is the largest component of GDP, so understanding what's driving consumer spending growth is a common analytical task.</p>
 
 	<span class="label step-label accent-orange">Import Libraries</span>
@@ -162,7 +160,7 @@ ax.text(-0.03, -0.2, footer, transform=ax.transAxes, fontsize=10);</code></pre>
 	<picture><source srcset="images/bea_ex1.webp" type="image/webp"><img decoding="async" src="images/bea_ex1.png" alt="Consumer Spending Growth Chart" loading="lazy" width="584" height="442"/></picture>
 
 	<hr class="section-bar accent-orange">
-	<h3>Example 2: Collect API Parameters</h3>
+	<h2>Example 2: Collect API Parameters</h2>
 	<p>This example shows how to navigate API metadata to find dataset parameters. Using the metadata, we can discover the codes for tables and industries we want to request.</p>
 
 	<span class="label step-label accent-orange">Fetch Table List</span>
@@ -417,7 +415,7 @@ ax = data.plot(color='red', title=title);</code></pre>
 	<picture><source srcset="images/bea_ex2.webp" type="image/webp"><img decoding="async" src="images/bea_ex2.png" alt="Labor Income Share Chart" loading="lazy" width="568" height="435"/></picture>
 
 	<hr class="section-bar accent-orange">
-	<h3>Further Resources</h3>
+	<h2>Further Resources</h2>
 	<ul>
 		<li><a href="https://www.bea.gov/resources/for-developers">BEA API Documentation</a> &mdash; endpoints, parameters, and usage guide</li>
 		<li><a href="https://apps.bea.gov/API/signup/">Register for API Key</a> &mdash; free registration required for all requests</li>

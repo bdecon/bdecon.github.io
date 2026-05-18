@@ -97,3 +97,20 @@ audit-images:
 # Use after writing a new post, before pushing.
 preflight:
 	@python3 scripts/preflight.py $(if $(POST),-p $(POST)) $(if $(SKIP_BUILD),--skip-build)
+
+# Email-flag helpers — control whether the next push will email subscribers.
+# See PUBLISHING.md for the full publishing workflow.
+#   make email POST=my-slug          # set email: true (next push emails subscribers)
+#   make unmail POST=my-slug         # remove email: true (next push publishes silently)
+#   make email-status POST=my-slug   # show current state without changing it
+email:
+	@test -n "$(POST)" || (echo "Usage: make email POST=<slug>" && exit 1)
+	@python3 scripts/toggle_email_flag.py -p $(POST) --on
+
+unmail:
+	@test -n "$(POST)" || (echo "Usage: make unmail POST=<slug>" && exit 1)
+	@python3 scripts/toggle_email_flag.py -p $(POST) --off
+
+email-status:
+	@test -n "$(POST)" || (echo "Usage: make email-status POST=<slug>" && exit 1)
+	@python3 scripts/toggle_email_flag.py -p $(POST)
