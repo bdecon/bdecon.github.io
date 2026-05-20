@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-17",
+  "generated": "2026-05-19",
   "releases": [
     {
       "name": "Employment Situation",
@@ -123,9 +123,9 @@
     },
     {
       "name": "TIC Capital Flows",
-      "period": "Feb 2026",
+      "period": "Mar 2026",
       "freq": "monthly",
-      "last_changed": "2026-04-15"
+      "last_changed": "2026-05-19"
     },
     {
       "name": "Treasury Statement",
@@ -286,6 +286,12 @@
   ],
   "recent": [
     {
+      "name": "TIC Capital Flows",
+      "period": "Mar 2026",
+      "freq": "monthly",
+      "last_changed": "2026-05-19"
+    },
+    {
       "name": "Employment Situation",
       "period": "Apr 2026",
       "freq": "monthly",
@@ -338,12 +344,6 @@
       "period": "Apr 2026",
       "freq": "monthly",
       "last_changed": "2026-05-13"
-    },
-    {
-      "name": "Consumer Price Index",
-      "period": "Apr 2026",
-      "freq": "monthly",
-      "last_changed": "2026-05-12"
     }
   ],
   "st_series": [

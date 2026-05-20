@@ -3420,6 +3420,60 @@ figure {
 }
 
 
+/* ===== Unlisted preview banner =====
+   Shown at the top of a blog post when page.unlisted is true. The post
+   itself is live at its real URL but hidden from blog index/feed/sitemap.
+   Yellow strip so it's impossible to miss when previewing. */
+.unlisted-banner {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: var(--space-3);
+	max-width: var(--width-page);
+	margin: 0 auto var(--space-5);
+	padding: var(--space-3) var(--space-4);
+	background: #fff9d9;
+	border: 2px solid #d4a300;
+	color: #443300;
+	font-family: var(--font);
+	font-size: var(--text-sm);
+	line-height: 1.5;
+}
+.unlisted-banner-label {
+	font-family: var(--font-accent);
+	font-weight: 700;
+	font-size: var(--text-xs);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: #6b4f00;
+	padding: 2px 8px;
+	background: #ffe98a;
+	border: 1.5px solid #d4a300;
+	flex-shrink: 0;
+}
+.unlisted-banner code {
+	font-family: inherit;
+	background: #fff;
+	border: 1px solid #d4a300;
+	padding: 1px 6px;
+	font-size: 0.95em;
+	color: #443300;
+}
+[data-theme="dark"] .unlisted-banner {
+	background: #3a3000;
+	border-color: #d4a300;
+	color: #fff9d9;
+}
+[data-theme="dark"] .unlisted-banner-label {
+	background: #6b4f00;
+	color: #fff9d9;
+}
+[data-theme="dark"] .unlisted-banner code {
+	background: #2a2400;
+	color: #fff9d9;
+}
+
+
 /* ===== Post share row =====
    Sits between post content and author bio. Three buttons: X, LinkedIn,
    copy-link. Buttons reuse .tutorial-share class so the existing

@@ -3,7 +3,7 @@
 # Requires PATH to include ~/.local/share/gem/ruby/3.4.0/bin
 # (or run via full path; see CLAUDE.md "Jekyll" section).
 
-.PHONY: serve draft build clean rebuild status post post-essay post-update post-release post-tutorial publish-draft spellcheck preflight
+.PHONY: serve draft build clean rebuild status post post-essay post-update post-release post-tutorial publish-draft spellcheck preflight publish unlist unlisted-status email unmail email-status og-images audit-images
 
 # Local dev server with live rebuild + browser auto-refresh on file changes.
 serve:
@@ -97,6 +97,29 @@ audit-images:
 # Use after writing a new post, before pushing.
 preflight:
 	@python3 scripts/preflight.py $(if $(POST),-p $(POST)) $(if $(SKIP_BUILD),--skip-build)
+
+# Unlisted-flag helpers — control whether a post appears in index/feed/sitemap.
+# See PUBLISHING.md for the full publishing workflow.
+#
+# An unlisted post renders at its real URL (so you can preview the rendered
+# output on prod) but is hidden from /blog/, the feed, the sitemap, search,
+# category archives, related-posts, and the homepage panel. New posts default
+# to unlisted via the scaffolder.
+#
+#   make publish POST=my-slug         # remove unlisted flag (publish: visible everywhere)
+#   make unlist POST=my-slug          # set unlisted: true (hide again)
+#   make unlisted-status POST=my-slug # show current state without changing it
+publish:
+	@test -n "$(POST)" || (echo "Usage: make publish POST=<slug>" && exit 1)
+	@python3 scripts/toggle_unlisted_flag.py -p $(POST) --off
+
+unlist:
+	@test -n "$(POST)" || (echo "Usage: make unlist POST=<slug>" && exit 1)
+	@python3 scripts/toggle_unlisted_flag.py -p $(POST) --on
+
+unlisted-status:
+	@test -n "$(POST)" || (echo "Usage: make unlisted-status POST=<slug>" && exit 1)
+	@python3 scripts/toggle_unlisted_flag.py -p $(POST)
 
 # Email-flag helpers — control whether the next push will email subscribers.
 # See PUBLISHING.md for the full publishing workflow.

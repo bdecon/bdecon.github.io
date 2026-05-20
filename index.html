@@ -79,7 +79,7 @@ after_header_include: announcement-bar
 				</div>
 				<div class="card-body card-body-fill">
 					<ul class="home-blog">
-					{%- assign home_posts = site.posts | slice: 0, 5 -%}
+					{%- assign home_posts = site.posts | where_exp: "p", "p.unlisted != true" | slice: 0, 5 -%}
 					{%- assign home_first = home_posts | first -%}
 					{%- assign home_rest = home_posts | slice: 1, 4 -%}
 					{%- if home_first.featured_image %}

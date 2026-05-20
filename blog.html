@@ -21,7 +21,7 @@ pagination:
 	  with a featured image exists. Subsequent pagination pages skip the hero
 	  and go straight to the card grid.
 	{%- endcomment -%}
-	{%- assign latest = site.posts | where_exp: "p", "p.featured_image" | first -%}
+	{%- assign latest = site.posts | where_exp: "p", "p.featured_image" | where_exp: "p", "p.unlisted != true" | first -%}
 	<section>
 
 		{% if latest and paginator.page == 1 %}
@@ -60,7 +60,9 @@ pagination:
 			<div class="blog-category-grid">
 				{%- for cat_pair in site.categories %}
 					{%- assign cat_name = cat_pair[0] -%}
-					{%- assign cat_count = cat_pair[1] | size -%}
+					{%- assign _cat_visible = cat_pair[1] | where_exp: "p", "p.unlisted != true" -%}
+					{%- assign cat_count = _cat_visible | size -%}
+					{%- if cat_count == 0 %}{% continue %}{% endif -%}
 					{%- assign cat_slug = cat_name | slugify -%}
 					{%- assign _cat_meta = site.data.blog_categories[cat_name] -%}
 					{%- assign _cat_accent = _cat_meta.accent | default: 'blue' -%}

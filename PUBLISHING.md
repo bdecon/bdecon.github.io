@@ -2,20 +2,32 @@
 
 This is the canonical guide for getting a blog post from idea to published to (optionally) emailed to subscribers. It's written for both Brian and AI agents helping Brian.
 
-**The mental model**: **publishing** and **emailing** are two separate actions. You always do publishing. You sometimes do emailing. They never happen automatically as a side effect of each other.
+**The mental model**: there are **three** separate states, each with its own deliberate gate.
+
+1. **Unlisted** — the post exists at its real URL on prod, so you can preview the rendered output exactly as readers will see it. Hidden from `/blog/`, the feed, the sitemap, related-posts, the homepage panel, and search. New posts default to this state.
+2. **Published** — the post is visible in every listing. Run `make publish POST=<slug>` to promote.
+3. **Emailed** — subscribers get an email with the post body. Run `make email POST=<slug>` to opt in, then push.
+
+None of these happen as a side effect of another. You always push to deploy; the front-matter flags on the post control which state the post lands in.
 
 ---
 
 ## TL;DR
 
 ```
-make post-essay TITLE="My next post"   # scaffolds _posts/YYYY-MM-DD-my-next-post.md
+make post-essay TITLE="My next post"   # scaffolds with unlisted: true
 # edit the post body in your editor
-make preflight POST=my-next-post       # checks alt text, spelling, build, etc.
-git add _posts/... && git commit && git push   # site goes live; NO email
+git add _posts/... && git commit && git push   # post lives at its URL but is HIDDEN
+                                                # — no email, not in /blog/, not in feed
+# preview the live page at https://bd-econ.com/blog/YYYY/MM/DD/my-next-post/
+# iterate as much as you want — keep pushing fixes
 
-# later, when you actually want to email subscribers:
-make email POST=my-next-post           # sets `email: true` on the post
+make preflight POST=my-next-post       # checks alt text, spelling, build, etc.
+make publish POST=my-next-post         # strips unlisted: true
+git commit && git push                 # now in /blog/, feed, sitemap
+
+# later, when you want to email subscribers:
+make email POST=my-next-post           # sets `email: true`
 git commit && git push                 # email sends within ~1 minute
 ```
 
@@ -41,14 +53,25 @@ Other writing tools:
 - **Side-by-side figure layout**: use `<div class="post-split">` — see `_drafts/demo-side-by-side-figure.md` for the canonical example.
 - **Inline figures**: `{% include figure.html src="..." alt="..." caption="..." %}`
 
-## Step 2 — Preview locally
+## Step 2 — Preview
 
+You have two preview paths.
+
+**Local preview** (fast iteration loop, no commits):
 ```
 make serve              # live-reload dev server at http://127.0.0.1:4000
-make draft              # same but builds drafts too (for _drafts/)
 ```
+Open `http://127.0.0.1:4000/blog/YYYY/MM/DD/<slug>/`.
 
-Open `http://127.0.0.1:4000/blog/YYYY/MM/DD/<slug>/` to see how the post will render. Check the rendered figures, the OG card preview, the related-posts section, etc.
+**Live unlisted preview** (the real thing — see the post on prod, on your phone, share a link with a friend):
+```
+git add _posts/... && git commit && git push
+```
+Because `make post-*` scaffolds with `unlisted: true`, the push deploys the post at its real URL but keeps it hidden from `/blog/`, the feed, the sitemap, related-posts, the homepage panel, and site search. The post page itself shows a yellow **Unlisted preview** banner at the top so you can't forget it's not actually published.
+
+Iterate as much as you want — `git commit && git push` again with edits. The post stays unlisted until you explicitly run `make publish`.
+
+Why both paths? Local serve is faster for typo-level edits. Live unlisted is the only way to see the post exactly as readers will see it (same fonts, same dark mode logic, same OG card resolution, same mobile rendering on actual devices). Brian's workflow is "I can't really edit until I see the final version" — that's what live unlisted is for.
 
 ## Step 3 — Preflight check
 
@@ -63,6 +86,7 @@ Runs every audit at once. Looks for:
 - **content audit**: malformed images, orphan footnotes, broken WP-block artifacts
 - **og images**: confirms OG social card is generated for this post
 - **drafts**: warns if you have unrelated drafts pending
+- **unlisted state**: lists posts that are still unlisted (hidden) — `make publish POST=<slug>` to promote
 - **email opt-in**: ⚠️ **WILL EMAIL ON PUSH: <slug>** if `email: true` is set
 - **jekyll build + htmlproofer**: full build, link check
 
@@ -84,17 +108,18 @@ If you see:
 
 then your next push WILL email subscribers. Make sure that's what you want.
 
-## Step 4 — Publish (push)
+## Step 4 — Publish (promote from unlisted)
+
+When the post is ready to appear in listings:
 
 ```
-git add _posts/YYYY-MM-DD-<slug>.md assets/blog/YYYY/MM/...
-git commit -m "Post: <slug>"
-git push
+make publish POST=my-next-post        # removes unlisted: true from front matter
+git add _posts/... && git commit -m "Publish: <slug>" && git push
 ```
 
-That's it. Jekyll builds, GitHub Pages deploys, the post is live at `https://bd-econ.com/blog/YYYY/MM/DD/<slug>/`. No email is sent because the post doesn't have `email: true` yet.
+After the next deploy, the post appears in `/blog/`, the feed, the sitemap, related-posts, the homepage panel, and site search. The yellow Unlisted preview banner disappears. No email is sent because the post doesn't have `email: true` yet.
 
-You can iterate on a published post — fix typos, swap images, restructure paragraphs, push again. Still no email.
+You can iterate on a published post — fix typos, swap images, restructure paragraphs, push again. Still no email. If you need to take a published post BACK to unlisted (you noticed a serious problem), run `make unlist POST=<slug>`.
 
 ## Step 5 — Email subscribers (optional, deliberate)
 
@@ -142,7 +167,8 @@ Keeps the file in `_posts/` but Jekyll won't render it and the email script will
 
 | Mistake | Fix |
 |--|--|
-| Pushed a post you didn't mean to publish | `mv _posts/<file> _drafts/`, commit, push. Site removes it on next deploy. Search engines may cache the URL for a few hours. |
+| Promoted a post to published, but it's not ready | `make unlist POST=<slug>`, commit, push. Post stays at its URL but disappears from /blog/, feed, sitemap. |
+| Pushed a post you didn't mean to push at all | `mv _posts/<file> _drafts/`, commit, push. Site removes it on next deploy. Note: it was probably unlisted anyway — only its direct URL would have been reachable. |
 | Pushed with `email: true` set by mistake | If <60 seconds: `make unmail POST=<slug>`, commit, push immediately. May still go out depending on timing. After that: nothing to do — email is in subscribers' inboxes. |
 | Email went out with a typo | The email content is frozen. Fix the typo on the live site (push a fix), but subscribers got the original. |
 | Want to email a post older than 3 days | The 3-day window blocks this by default. Easiest: temporarily edit `WINDOW_DAYS` in `scripts/email_new_posts.py`, OR just send manually from the Buttondown dashboard. |
@@ -162,11 +188,12 @@ The subscribe form on the site doesn't depend on the auto-workflow. Subscribers 
 
 If Brian asks "help me write a post" or "publish this" or similar:
 
-1. **Don't bypass the opt-in model.** Never add `email: true` to a post on Brian's behalf without explicit confirmation. The flag means "send email to all subscribers" — that's a permanent action.
-2. **Always run `make preflight POST=<slug>` before suggesting a push.** Surface the `email opt-in` line in your summary so Brian sees whether the push will email.
-3. **Default to draft-style editing.** Iterate freely on the post content. Run preflight after substantive changes. Only suggest the email step when Brian explicitly says "I want to email subscribers" or equivalent.
-4. **If Brian asks to email**, use `make email POST=<slug>` (or edit the front matter to add `email: true`) and then explicitly confirm: "This push will email N subscribers. Proceed?"
-5. **Recovery context**: read the "Recovery" table above and apply when Brian reports a mistake.
+1. **Don't bypass the opt-in models.** Never run `make publish` OR add `email: true` on Brian's behalf without explicit confirmation. Both are state changes Brian wants control over.
+2. **New posts are unlisted by default.** The scaffolder seeds `unlisted: true`. Pushing a freshly-scaffolded post is safe — it goes live at its URL but is hidden from listings. Tell Brian: "Pushed. Preview at <URL>. Unlisted — run `make publish POST=<slug>` when ready."
+3. **Always run `make preflight POST=<slug>` before suggesting a publish or email push.** Surface the `unlisted state` and `email opt-in` lines in your summary so Brian sees what state the push will leave the post in.
+4. **Default to iterating on the unlisted post.** Brian's stated workflow: "I need to see a final copy before I can really even edit." Use the live unlisted URL as the editorial preview surface; iterate by pushing edits, not by reformulating drafts. Only suggest `make publish` when Brian says the post is ready.
+5. **If Brian asks to email**, use `make email POST=<slug>` and then explicitly confirm: "This push will email N subscribers. Proceed?"
+6. **Recovery context**: read the "Recovery" table above and apply when Brian reports a mistake.
 
 If Brian asks how to do something not covered here, check `CLAUDE.md` for the broader site architecture or `scripts/` for the specific automation involved.
 

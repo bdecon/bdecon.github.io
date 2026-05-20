@@ -14,7 +14,9 @@
 	<a class="blog-topic-chip{% unless include.current %} is-current{% endunless %}" href="/blog/">All posts</a>
 	{%- for cat_pair in site.categories %}
 		{%- assign cat_name = cat_pair[0] -%}
-		{%- assign cat_count = cat_pair[1] | size -%}
+		{%- assign _visible = cat_pair[1] | where_exp: "p", "p.unlisted != true" -%}
+		{%- assign cat_count = _visible | size -%}
+		{%- if cat_count == 0 %}{% continue %}{% endif -%}
 		{%- assign cat_slug = cat_name | slugify -%}
 		{%- assign _cm = site.data.blog_categories[cat_name] -%}
 		{%- assign _ca = _cm.accent | default: 'blue' -%}

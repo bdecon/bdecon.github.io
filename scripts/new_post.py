@@ -35,6 +35,8 @@ COMMON_HEAD = """\
 title: "{title}"
 date: {date}
 {categories_block}
+unlisted: true                      # post is live at its URL but HIDDEN from index/feed/sitemap.
+                                    # Remove this line (or run `make publish POST={slug}`) to publish.
 # email: true                       # uncomment + push to email subscribers (otherwise: site updates silently)
 """
 
@@ -231,7 +233,11 @@ def main():
         print(f"  Publish: run `make publish-draft SLUG={slug}` when ready")
     else:
         print(f"  Preview: http://127.0.0.1:4000/blog/{d.strftime('%Y/%m/%d')}/{slug}/")
-        print(f"  Run `make serve` to preview.")
+        print(f"  Run `make serve` to preview locally.")
+        print(f"")
+        print(f"  This post is UNLISTED by default — pushing it will make it")
+        print(f"  live at its real URL but hidden from /blog/, feed, sitemap.")
+        print(f"  When ready to publish: `make publish POST={slug}`")
 
 
 if __name__ == "__main__":

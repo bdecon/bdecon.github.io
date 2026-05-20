@@ -21,6 +21,7 @@
 {%- assign _og_image = page.og_image | default: page.featured_image | default: _auto_og | default: '/images/01_bdlogo.png' | absolute_url -%}
 	<meta name="description" content="{{ _description }}">
 {% if page.keywords %}	<meta name="keywords" content="{{ page.keywords }}">
+{% endif %}{% if page.unlisted %}	<meta name="robots" content="noindex, nofollow">
 {% endif %}	<meta name="author" content="Brian Dew">
 	<link rel="canonical" href="{{ _canonical }}">
 	<!-- Open Graph -->

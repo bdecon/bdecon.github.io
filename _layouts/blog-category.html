@@ -4,7 +4,7 @@ layout: default
 {%- assign _meta = site.data.blog_categories[page.category] -%}
 {%- assign _accent = _meta.accent | default: 'blue' -%}
 {%- assign _desc = _meta.description -%}
-{%- assign _cat_posts = site.categories[page.category] -%}
+{%- assign _cat_posts = site.categories[page.category] | where_exp: "p", "p.unlisted != true" -%}
 {%- assign _cat_total = _cat_posts | size -%}
 <div class="page-title page-title-feature accent-{{ _accent }}">
 	<p class="page-title-kicker">Category</p>
