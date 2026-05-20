@@ -5,9 +5,9 @@ slug: lose-job-over-childcare
 categories:
   - "Labor Market"
 excerpt: "About 3.8 percent of US working-age adults are out of the labor force for childcare, against about 0.4 percent across the Nordic countries."
-unlisted: true
 featured_image: /assets/blog/2026/05/denmark_childcare.jpg
 featured_image_style: banner
+featured_image_position: bottom
 # email: true
 ---
 
@@ -31,7 +31,7 @@ In the Nordic countries, [about 0.4 percent](https://ec.europa.eu/eurostat/datab
 <svg id="chart1-svg" class="chart-svg" viewBox="0 10 400 265" preserveAspectRatio="xMidYMid meet"><rect x="30" y="30.5" width="50" height="199.5" fill="#2A8A8A" opacity="0.85"></rect><text x="55" y="25.5" text-anchor="middle" font-size="17" fill="#333">3.8%</text><text x="55" y="250" text-anchor="middle" font-size="16" fill="#111"><tspan x="55" dy="0">United</tspan><tspan x="55" dy="1.1em">States</tspan></text><rect x="102.5" y="198.5" width="50" height="31.5" fill="#2A8A8A" opacity="0.85"></rect><text x="127.5" y="193.5" text-anchor="middle" font-size="17" fill="#333">0.6%</text><text x="127.5" y="250" text-anchor="middle" font-size="16" fill="#111">Denmark</text><rect x="175" y="214.25" width="50" height="15.75" fill="#2A8A8A" opacity="0.85"></rect><text x="200" y="209.25" text-anchor="middle" font-size="17" fill="#333">0.3%</text><text x="200" y="250" text-anchor="middle" font-size="16" fill="#111">Finland</text><rect x="247.5" y="214.25" width="50" height="15.75" fill="#2A8A8A" opacity="0.85"></rect><text x="272.5" y="209.25" text-anchor="middle" font-size="17" fill="#333">0.3%</text><text x="272.5" y="250" text-anchor="middle" font-size="16" fill="#111">Norway</text><rect x="320" y="209" width="50" height="21" fill="#2A8A8A" opacity="0.85"></rect><text x="345" y="204" text-anchor="middle" font-size="17" fill="#333">0.4%</text><text x="345" y="250" text-anchor="middle" font-size="16" fill="#111">Sweden</text><line x1="20" x2="385" y1="230" y2="230" stroke="#333" stroke-width="1.5"></line></svg>
 </div>
 <div class="card-footer card-footer-col">
-<span class="chart-source">Author, see notes</span>
+<span class="chart-source">Author, see report</span>
 </div>
 </div>
 <figcaption>Chart 1. Adults out of the workforce for childcare</figcaption>

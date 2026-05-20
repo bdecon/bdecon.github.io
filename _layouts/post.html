@@ -13,7 +13,7 @@ layout: default
 		{% if page.featured_image %}
 		{%- assign _style = page.featured_image_style | default: 'banner' -%}
 		<figure class="post-hero post-hero--{{ _style }}">
-			<img src="{{ page.featured_image }}" alt="" loading="eager" decoding="async">
+			<img src="{{ page.featured_image }}" alt=""{% if page.featured_image_position %} style="object-position: {{ page.featured_image_position }};"{% endif %} loading="eager" decoding="async">
 		</figure>
 		{% endif %}
 		<article class="prose">
