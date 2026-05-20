@@ -8,7 +8,7 @@ excerpt: "About 3.8 percent of US working-age adults are out of the labor force 
 featured_image: /assets/blog/2026/05/denmark_childcare.jpg
 featured_image_style: banner
 featured_image_position: bottom
-# email: true
+email: true
 ---
 
 My new [People's Policy Project report](https://www.peoplespolicyproject.org/project/us-nordic-childcare-gap/) compares childcare systems in the United States and four Nordic countries: Denmark, Finland, Norway, and Sweden. The United States has no universal public childcare system, so families with young children either pay high prices for private childcare or have one parent leave paid work to stay home. That parent is usually the mother.
