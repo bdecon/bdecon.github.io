@@ -8,6 +8,10 @@ Runs in CI after a successful Jekyll deploy. For each post in `_posts/` that:
     existing Buttondown emails)
 ... it creates + sends a Buttondown email containing the post.
 
+Chart figures that carry a `data-email-png` attribute are swapped to a static
+PNG for the email (email clients can't render inline SVG or interactive
+Chart.js/D3) — see `swap_chart_figures`.
+
 OPT-IN MODEL — read this carefully:
   Posts default to NOT emailing. The site publishes normally on push, but
   no email goes out. To actually email a post to subscribers, add this
@@ -131,12 +135,46 @@ def absolutize_urls(body: str) -> str:
     return body
 
 
+def swap_chart_figures(body: str) -> str:
+    """Replace each chart <figure> that carries a data-email-png attribute
+    with a plain image.
+
+    Web posts render charts as inline SVG or interactive Chart.js/D3 — none
+    of which survives in email (clients strip <svg>, <canvas>, and scripts).
+    A chart figure opts into an email-safe version by carrying:
+
+        <figure ... data-email-png="/assets/blog/.../chart.png"> ... </figure>
+
+    For the email, the whole figure is replaced by a Markdown image pointing
+    at that static PNG screenshot, plus the figcaption text as an italic
+    caption. Figures without the attribute are left untouched.
+    """
+    fig_re = re.compile(
+        r'<figure\b[^>]*\bdata-email-png="(?P<png>[^"]+)"[^>]*>'
+        r'(?P<inner>.*?)</figure>',
+        re.DOTALL,
+    )
+
+    def repl(m: "re.Match") -> str:
+        png = m.group("png")
+        cap_m = re.search(r"<figcaption[^>]*>(.*?)</figcaption>",
+                          m.group("inner"), re.DOTALL)
+        caption = re.sub(r"<[^>]+>", "", cap_m.group(1)).strip() if cap_m else ""
+        src = png if png.startswith("http") else SITE_URL + png
+        img = f'![{caption or "Chart"}]({src})'
+        return f"{img}\n\n_{caption}_" if caption else img
+
+    return fig_re.sub(repl, body)
+
+
 def build_email_body(slug: str, fm: dict, body: str, pdate: date) -> str:
-    """Compose the email body: intro line + absolutized markdown."""
+    """Compose the email body: intro line + chart-figure swap + absolutized
+    markdown."""
     perma = (
         f"{SITE_URL}/blog/{pdate.year}/{pdate.month:02d}/{pdate.day:02d}/{slug}/"
     )
     intro = f"_Read in browser: [{perma}]({perma})_\n\n"
+    body = swap_chart_figures(body)
     return intro + absolutize_urls(body)
 
 

@@ -3,7 +3,7 @@
 # Requires PATH to include ~/.local/share/gem/ruby/3.4.0/bin
 # (or run via full path; see CLAUDE.md "Jekyll" section).
 
-.PHONY: serve draft build clean rebuild status post post-essay post-update post-release post-tutorial publish-draft spellcheck preflight publish unlist unlisted-status email unmail email-status og-images audit-images
+.PHONY: serve draft build clean rebuild status post post-essay post-update post-release post-tutorial publish-draft spellcheck preflight publish unlist unlisted-status email unmail email-status og-images audit-images screenshot
 
 # Local dev server with live rebuild + browser auto-refresh on file changes.
 serve:
@@ -92,6 +92,15 @@ og-images:
 # 600px prose column (wasted bytes) or undersized (soft on retina).
 audit-images:
 	@python3 scripts/audit_image_dimensions.py
+
+# Screenshot a chart element to a PNG for an emailed post. Emails can't
+# render interactive Chart.js/D3 or inline SVG, so a chart figure points at
+# a static PNG via data-email-png. See PUBLISHING.md "Charts in emailed
+# posts" and scripts/screenshot_chart.py.
+#   make screenshot URL=<page> SELECTOR='<css>' OUT=<path.png>
+screenshot:
+	@test -n "$(URL)" -a -n "$(SELECTOR)" -a -n "$(OUT)" || (echo "Usage: make screenshot URL=<page> SELECTOR='<css>' OUT=<path.png>" && exit 1)
+	@python3 scripts/screenshot_chart.py --url "$(URL)" --selector "$(SELECTOR)" --out "$(OUT)"
 
 # Pre-publish check: runs every audit in turn and reports pass/fail.
 # Use after writing a new post, before pushing.

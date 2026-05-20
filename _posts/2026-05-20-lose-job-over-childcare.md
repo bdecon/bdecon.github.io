@@ -4,6 +4,7 @@ date: 2026-05-20T09:00:00-04:00
 slug: lose-job-over-childcare
 categories:
   - "Labor Market"
+  - "Policy"
 excerpt: "About 3.8 percent of US working-age adults are out of the labor force for childcare, against about 0.4 percent across the Nordic countries."
 featured_image: /assets/blog/2026/05/denmark_childcare.jpg
 featured_image_style: banner
@@ -23,7 +24,7 @@ One way to see the gap between the two systems is to count the parents who are o
 
 In the Nordic countries, [about 0.4 percent](https://ec.europa.eu/eurostat/databrowser/view/lfsa_igar/default/table) are in the same situation, roughly one-tenth the US rate. 
 
-<figure class="report-figure" id="chart1-figure" style="max-width: 480px; margin-left: auto; margin-right: auto; text-align: left;">
+<figure class="report-figure" id="chart1-figure" data-email-png="/assets/blog/2026/05/lose-job-over-childcare-chart1.png" style="max-width: 480px; margin-left: auto; margin-right: auto; text-align: left;">
 <div class="card card-compact card-chart accent-teal" id="chart1-container">
 <div class="card-body">
 <h3>US parents leave work for childcare at ten times the Nordic rate</h3>

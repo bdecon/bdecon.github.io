@@ -146,6 +146,22 @@ The `email-new-posts` workflow runs ~1 minute after the deploy completes. It:
 
 **To re-email the same post**: doesn't work. The `metadata.post_slug` dedup prevents it. If you want to resend, you need to delete the existing email from Buttondown's dashboard first (or pick a new slug).
 
+## Charts in emailed posts
+
+Email clients don't render interactive charts (Chart.js / D3) or inline SVG. A post can still show its chart in the email by pointing at a static PNG:
+
+1. Build the post with its chart as usual (interactive or SVG).
+2. Screenshot the chart to a PNG. With `make serve` running:
+   ```
+   make screenshot URL=http://127.0.0.1:4000/blog/2026/05/20/my-post/ \
+                    SELECTOR='#chart1-container' \
+                    OUT=assets/blog/2026/05/my-post-chart1.png
+   ```
+   Select the chart *card*, not the surrounding `<figure>`, so the figcaption isn't captured into the image (the email adds it as a caption line itself).
+3. Add `data-email-png="/assets/blog/2026/05/my-post-chart1.png"` to the chart's `<figure>` tag.
+
+On the web the attribute does nothing — the real chart renders. When the post is emailed, `scripts/email_new_posts.py` (`swap_chart_figures`) replaces that figure with the PNG plus the figcaption as a caption line. A chart figure without `data-email-png` is left untouched — and won't show in email.
+
 ## Drafts (not ready to publish)
 
 Two ways to keep something hidden:
