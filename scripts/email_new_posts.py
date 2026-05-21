@@ -10,7 +10,8 @@ Runs in CI after a successful Jekyll deploy. For each post in `_posts/` that:
 
 Chart figures that carry a `data-email-png` attribute are swapped to a static
 PNG for the email (email clients can't render inline SVG or interactive
-Chart.js/D3) — see `swap_chart_figures`.
+Chart.js/D3) — see `swap_chart_figures`. The email body opens with a
+"read on the site" link and ends with a Buttondown `{{ subscribe_form }}` tag.
 
 OPT-IN MODEL — read this carefully:
   Posts default to NOT emailing. The site publishes normally on push, but
@@ -168,26 +169,16 @@ def swap_chart_figures(body: str) -> str:
 
 
 def build_email_body(slug: str, fm: dict, body: str, pdate: date) -> str:
-    """Compose the email body.
-
-    Pieces, in order: a "read on the site" link, the post itself (chart
-    figures swapped to PNGs, URLs absolutized), then a Buttondown
-    `{{ subscribe_form }}` tag — all wrapped in a centered max-width column.
-
-    The wrapper is a <div> with blank lines between its tags and the
-    content. A CommonMark renderer treats `<div ...>` and `</div>` as
-    standalone HTML blocks and still parses the Markdown between them, so
-    the column centers without breaking Markdown rendering. The centering
-    matters for Buttondown's Classic template, which left-aligns the column.
-    """
+    """Compose the email body: a "read on the site" link, the post itself
+    (chart figures swapped to PNGs, URLs absolutized), and a Buttondown
+    `{{ subscribe_form }}` tag at the end."""
     perma = (
         f"{SITE_URL}/blog/{pdate.year}/{pdate.month:02d}/{pdate.day:02d}/{slug}/"
     )
     intro = f"_[Read this post on bd-econ.com]({perma})_\n\n"
     body = absolutize_urls(swap_chart_figures(body))
     subscribe = "\n\n---\n\n{{ subscribe_form }}\n"
-    content = intro + body + subscribe
-    return f'<div style="max-width:600px;margin:0 auto;">\n\n{content}\n\n</div>\n'
+    return intro + body + subscribe
 
 
 def send_post(slug: str, fm: dict, body: str, pdate: date) -> None:
