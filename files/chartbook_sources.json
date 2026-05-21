@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-19",
+  "generated": "2026-05-20",
   "releases": [
     {
       "name": "Employment Situation",
@@ -117,9 +117,9 @@
     },
     {
       "name": "Metro Unemployment",
-      "period": "Feb 2026",
+      "period": "Mar 2026",
       "freq": "monthly",
-      "last_changed": "2026-04-30"
+      "last_changed": "2026-05-20"
     },
     {
       "name": "TIC Capital Flows",
@@ -286,6 +286,12 @@
   ],
   "recent": [
     {
+      "name": "Metro Unemployment",
+      "period": "Mar 2026",
+      "freq": "monthly",
+      "last_changed": "2026-05-20"
+    },
+    {
       "name": "TIC Capital Flows",
       "period": "Mar 2026",
       "freq": "monthly",
@@ -335,12 +341,6 @@
     },
     {
       "name": "Producer Price Index",
-      "period": "Apr 2026",
-      "freq": "monthly",
-      "last_changed": "2026-05-13"
-    },
-    {
-      "name": "CPS Microdata",
       "period": "Apr 2026",
       "freq": "monthly",
       "last_changed": "2026-05-13"
