@@ -168,14 +168,26 @@ def swap_chart_figures(body: str) -> str:
 
 
 def build_email_body(slug: str, fm: dict, body: str, pdate: date) -> str:
-    """Compose the email body: intro line + chart-figure swap + absolutized
-    markdown."""
+    """Compose the email body.
+
+    Pieces, in order: a "read on the site" link, the post itself (chart
+    figures swapped to PNGs, URLs absolutized), then a Buttondown
+    `{{ subscribe_form }}` tag — all wrapped in a centered max-width column.
+
+    The wrapper is a <div> with blank lines between its tags and the
+    content. A CommonMark renderer treats `<div ...>` and `</div>` as
+    standalone HTML blocks and still parses the Markdown between them, so
+    the column centers without breaking Markdown rendering. The centering
+    matters for Buttondown's Classic template, which left-aligns the column.
+    """
     perma = (
         f"{SITE_URL}/blog/{pdate.year}/{pdate.month:02d}/{pdate.day:02d}/{slug}/"
     )
-    intro = f"_Read in browser: [{perma}]({perma})_\n\n"
-    body = swap_chart_figures(body)
-    return intro + absolutize_urls(body)
+    intro = f"_[Read this post on bd-econ.com]({perma})_\n\n"
+    body = absolutize_urls(swap_chart_figures(body))
+    subscribe = "\n\n---\n\n{{ subscribe_form }}\n"
+    content = intro + body + subscribe
+    return f'<div style="max-width:600px;margin:0 auto;">\n\n{content}\n\n</div>\n'
 
 
 def send_post(slug: str, fm: dict, body: str, pdate: date) -> None:
