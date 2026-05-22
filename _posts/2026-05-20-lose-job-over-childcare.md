@@ -9,6 +9,8 @@ excerpt: "About 3.8 percent of US working-age adults are out of the labor force 
 featured_image: /assets/blog/2026/05/denmark_childcare.jpg
 featured_image_style: banner
 featured_image_position: bottom
+og_image: /assets/og/lose-job-over-childcare.png
+twitter_card: summary_large_image
 email: true
 ---
 
