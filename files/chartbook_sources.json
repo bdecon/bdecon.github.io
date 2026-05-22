@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-20",
+  "generated": "2026-05-21",
   "releases": [
     {
       "name": "Employment Situation",
@@ -141,15 +141,15 @@
     },
     {
       "name": "Exchange Rate (REER)",
-      "period": "Mar 2026",
+      "period": "Apr 2026",
       "freq": "monthly",
-      "last_changed": "2026-04-23"
+      "last_changed": "2026-05-21"
     },
     {
       "name": "Electricity",
-      "period": "Feb 2026",
+      "period": "Mar 2026",
       "freq": "monthly",
-      "last_changed": "2026-04-23"
+      "last_changed": "2026-05-21"
     },
     {
       "name": "Oil Production",
@@ -159,15 +159,15 @@
     },
     {
       "name": "Mortgage Rates",
-      "period": "May 14, 2026",
+      "period": "May 21, 2026",
       "freq": "weekly",
-      "last_changed": "2026-05-14"
+      "last_changed": "2026-05-21"
     },
     {
       "name": "Initial Jobless Claims",
-      "period": "May 9, 2026",
+      "period": "May 16, 2026",
       "freq": "weekly",
-      "last_changed": "2026-05-14"
+      "last_changed": "2026-05-21"
     },
     {
       "name": "Fed Balance Sheet",
@@ -286,6 +286,30 @@
   ],
   "recent": [
     {
+      "name": "Exchange Rate (REER)",
+      "period": "Apr 2026",
+      "freq": "monthly",
+      "last_changed": "2026-05-21"
+    },
+    {
+      "name": "Electricity",
+      "period": "Mar 2026",
+      "freq": "monthly",
+      "last_changed": "2026-05-21"
+    },
+    {
+      "name": "Mortgage Rates",
+      "period": "May 21, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-05-21"
+    },
+    {
+      "name": "Initial Jobless Claims",
+      "period": "May 16, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-05-21"
+    },
+    {
       "name": "Metro Unemployment",
       "period": "Mar 2026",
       "freq": "monthly",
@@ -320,30 +344,6 @@
       "period": "Apr 2026",
       "freq": "monthly",
       "last_changed": "2026-05-14"
-    },
-    {
-      "name": "Wage Tracker",
-      "period": "Apr 2026",
-      "freq": "monthly",
-      "last_changed": "2026-05-14"
-    },
-    {
-      "name": "Mortgage Rates",
-      "period": "May 14, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-05-14"
-    },
-    {
-      "name": "Initial Jobless Claims",
-      "period": "May 9, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-05-14"
-    },
-    {
-      "name": "Producer Price Index",
-      "period": "Apr 2026",
-      "freq": "monthly",
-      "last_changed": "2026-05-13"
     }
   ],
   "st_series": [
