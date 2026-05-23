@@ -36,7 +36,7 @@ layout: default
 					<span class="post-readtime">{{ _mins }} min read</span>
 					{%- assign _modified = page.last_modified_at | date: "%Y-%m-%d" -%}
 					{%- assign _published = page.date | date: "%Y-%m-%d" -%}
-					{%- if _modified and _modified != _published %}
+					{%- if page.show_updated and _modified and _modified != _published %}
 					<span class="meta-sep">&middot;</span>
 					<span class="post-updated">Updated <time datetime="{{ page.last_modified_at | date_to_xmlschema }}">{{ page.last_modified_at | date: "%b %-d, %Y" }}</time></span>
 					{%- endif %}

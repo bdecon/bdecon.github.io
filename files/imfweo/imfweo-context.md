@@ -16,11 +16,12 @@ That matters because the IMF's forecasts shape policy. When the IMF projects 4% 
 
 ### Files
 
+All files are served under `https://bd-econ.com/files/imfweo/` — append the filename below for a direct, stable URL (e.g. `https://bd-econ.com/files/imfweo/imfweo-data.csv.gz`).
+
 | File | What it contains |
 |------|-----------------|
 | `imfweo-data.csv.gz` | The forecast database as a CSV. 3.9M rows, 21 indicators, 73 vintages, 196 countries. One row per (country, indicator, vintage, year). |
-| `data.json` | Web chart data: 45 vintages (2003–2025), 10 indicators, nested format. Powers the interactive chart. |
-| `data-extended.json` | Early history: 26 vintages (1990–2002), 3 indicators only. |
+| `data.json` | Web chart data: all 73 vintages (May 1990–Apr 2026), nested format. 10 indicators; pre-2003 vintages cover only 3 (GDP growth, inflation, current account). Powers the interactive chart. |
 | `forecast-scores.json` | Precomputed h=1 forecast accuracy by country (bias, MAE, sign ratio) for 5 indicators × 3 periods. |
 | `imfweo-context.md` | This file. |
 
@@ -152,7 +153,7 @@ We recommend the Fall(t+1) convention. The `horizon` column makes this easy: fil
 
 ```python
 import pandas as pd
-df = pd.read_csv('imfweo-data.csv.gz')
+df = pd.read_csv('https://bd-econ.com/files/imfweo/imfweo-data.csv.gz')
 df['vintage_season'] = df.vintage.str.extract(r'(Apr|Oct|May|Sep)')[0]
 ```
 
@@ -164,9 +165,11 @@ usa_gdp = df[(df.iso == 'USA') & (df.indicator == 'NGDP_RPCH')
 
 **Track how a forecast evolved:**
 ```python
-# All forecasts for US GDP 2020, across all vintages
+# All forecasts for US GDP 2020, across all vintages, in chronological order.
+# Note: sorting the raw 'vintage' string sorts alphabetically (Apr, May, Oct, Sep);
+# parse it to a date so the timeline is correct.
 us2020 = df[(df.iso == 'USA') & (df.indicator == 'NGDP_RPCH') & (df.year == 2020)]
-us2020 = us2020.sort_values('vintage')
+us2020 = us2020.sort_values('vintage', key=lambda s: pd.to_datetime(s, format='%b %Y'))
 ```
 
 **Compute the latest revision (between two vintages):**

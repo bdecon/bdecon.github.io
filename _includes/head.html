@@ -76,7 +76,7 @@
   "description": {{ _description | jsonify }},
   "image": {{ _og_image | jsonify }},
   "datePublished": "{{ page.date | date_to_xmlschema }}",
-  "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
+  "dateModified": "{% if page.show_updated %}{{ page.last_modified_at | default: page.date | date_to_xmlschema }}{% else %}{{ page.date | date_to_xmlschema }}{% endif %}",
   "author": {
     "@type": "Person",
     "name": "Brian Dew",
