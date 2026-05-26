@@ -1,7 +1,7 @@
 ---
 title: "Out of Work for Childcare in the US"
 date: 2026-05-26T09:00:00-04:00
-# email: true
+email: true
 slug: out-of-work-for-childcare
 categories:
   - "Labor Market"
