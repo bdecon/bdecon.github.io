@@ -6,7 +6,7 @@ slug: out-of-work-for-childcare
 categories:
   - "Labor Market"
   - "Policy"
-excerpt: "About 3.6 percent of working-age adults in the US are out of work for childcare, roughly 7 million people."
+excerpt: "Who is home with the kids in the US, and what would change with a different system."
 featured_image: /assets/blog/2026/05/woman_baby_pacifier.jpg
 featured_image_style: banner
 twitter_card: summary_large_image
