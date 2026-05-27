@@ -138,7 +138,8 @@ def absolutize_urls(body: str) -> str:
 
 def swap_chart_figures(body: str) -> str:
     """Replace each chart <figure> that carries a data-email-png attribute
-    with a plain image.
+    with an email-safe rendering: the chart's h3 title, subtitle, PNG, and
+    source line, formatted as Markdown so they survive in email.
 
     Web posts render charts as inline SVG or interactive Chart.js/D3 — none
     of which survives in email (clients strip <svg>, <canvas>, and scripts).
@@ -146,9 +147,9 @@ def swap_chart_figures(body: str) -> str:
 
         <figure ... data-email-png="/assets/blog/.../chart.png"> ... </figure>
 
-    For the email, the whole figure is replaced by a Markdown image pointing
-    at that static PNG screenshot, plus the figcaption text as an italic
-    caption. Figures without the attribute are left untouched.
+    The function extracts the chart's structural text elements (h3, subtitle,
+    source, figcaption) and rebuilds them as Markdown around the PNG.
+    Figures without the data-email-png attribute are left untouched.
     """
     fig_re = re.compile(
         r'<figure\b[^>]*\bdata-email-png="(?P<png>[^"]+)"[^>]*>'
@@ -156,14 +157,32 @@ def swap_chart_figures(body: str) -> str:
         re.DOTALL,
     )
 
+    def extract(pattern, text):
+        m = re.search(pattern, text, re.DOTALL)
+        return re.sub(r"<[^>]+>", "", m.group(1)).strip() if m else ""
+
     def repl(m: "re.Match") -> str:
+        inner = m.group("inner")
+        h3 = extract(r"<h3[^>]*>(.*?)</h3>", inner)
+        subtitle = extract(
+            r'<p[^>]*class="[^"]*chart-subtitle[^"]*"[^>]*>(.*?)</p>',
+            inner,
+        )
+        caption = extract(r"<figcaption[^>]*>(.*?)</figcaption>", inner)
         png = m.group("png")
-        cap_m = re.search(r"<figcaption[^>]*>(.*?)</figcaption>",
-                          m.group("inner"), re.DOTALL)
-        caption = re.sub(r"<[^>]+>", "", cap_m.group(1)).strip() if cap_m else ""
         src = png if png.startswith("http") else SITE_URL + png
-        img = f'![{caption or "Chart"}]({src})'
-        return f"{img}\n\n_{caption}_" if caption else img
+        parts = []
+        if h3:
+            parts.append(f"**{h3}**")
+        if subtitle:
+            parts.append(f"*{subtitle}*")
+        parts.append(f'![{caption or "Chart"}]({src})')
+        if caption:
+            parts.append(f"_{caption}_")
+        # Source line intentionally omitted in email — the chart-source
+        # element belongs on the web card but reads as redundant in the
+        # email format where each chart is a separate block.
+        return "\n\n".join(parts)
 
     return fig_re.sub(repl, body)
 

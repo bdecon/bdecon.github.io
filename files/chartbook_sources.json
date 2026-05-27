@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-21",
+  "generated": "2026-05-26",
   "releases": [
     {
       "name": "Employment Situation",
@@ -75,15 +75,15 @@
     },
     {
       "name": "House Prices",
-      "period": "Feb 2026",
+      "period": "Mar 2026",
       "freq": "monthly",
-      "last_changed": "2026-04-28"
+      "last_changed": "2026-05-26"
     },
     {
       "name": "Consumer Sentiment",
-      "period": "Apr 2026",
+      "period": "May 2026",
       "freq": "monthly",
-      "last_changed": "2026-04-24"
+      "last_changed": "2026-05-26"
     },
     {
       "name": "Capital Goods Orders",
@@ -111,9 +111,9 @@
     },
     {
       "name": "State Unemployment",
-      "period": "Mar 2026",
+      "period": "Apr 2026",
       "freq": "monthly",
-      "last_changed": "2026-05-06"
+      "last_changed": "2026-05-26"
     },
     {
       "name": "Metro Unemployment",
@@ -135,9 +135,9 @@
     },
     {
       "name": "Money Stock (M2)",
-      "period": "Mar 2026",
+      "period": "Apr 2026",
       "freq": "monthly",
-      "last_changed": "2026-04-28"
+      "last_changed": "2026-05-26"
     },
     {
       "name": "Exchange Rate (REER)",
@@ -286,6 +286,30 @@
   ],
   "recent": [
     {
+      "name": "House Prices",
+      "period": "Mar 2026",
+      "freq": "monthly",
+      "last_changed": "2026-05-26"
+    },
+    {
+      "name": "Consumer Sentiment",
+      "period": "May 2026",
+      "freq": "monthly",
+      "last_changed": "2026-05-26"
+    },
+    {
+      "name": "State Unemployment",
+      "period": "Apr 2026",
+      "freq": "monthly",
+      "last_changed": "2026-05-26"
+    },
+    {
+      "name": "Money Stock (M2)",
+      "period": "Apr 2026",
+      "freq": "monthly",
+      "last_changed": "2026-05-26"
+    },
+    {
       "name": "Exchange Rate (REER)",
       "period": "Apr 2026",
       "freq": "monthly",
@@ -320,30 +344,6 @@
       "period": "Mar 2026",
       "freq": "monthly",
       "last_changed": "2026-05-20"
-    },
-    {
-      "name": "TIC Capital Flows",
-      "period": "Mar 2026",
-      "freq": "monthly",
-      "last_changed": "2026-05-19"
-    },
-    {
-      "name": "Employment Situation",
-      "period": "Apr 2026",
-      "freq": "monthly",
-      "last_changed": "2026-05-17"
-    },
-    {
-      "name": "Industrial Production",
-      "period": "Apr 2026",
-      "freq": "monthly",
-      "last_changed": "2026-05-15"
-    },
-    {
-      "name": "Import/Export Prices",
-      "period": "Apr 2026",
-      "freq": "monthly",
-      "last_changed": "2026-05-14"
     }
   ],
   "st_series": [
