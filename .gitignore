@@ -4,6 +4,7 @@
 *.log
 *.out
 *CLAUDE.md*
+ROADMAP.md
 .env
 _site/
 .jekyll-cache/

@@ -940,6 +940,126 @@ article:not(.prose) > :first-child { margin-top: 0; }
 	}
 }
 
+/* Comparison table — small 2- or 3-column side-by-side comparison.
+   Use <caption> for the title. Pair with .flag-img for flag-image headers. */
+.compare-table {
+	width: auto;
+	margin: 0 auto var(--space-7);
+	& caption {
+		caption-side: top;
+		text-align: center;
+		margin: var(--space-6) 0 var(--space-3);
+		font-size: var(--text-2xl);
+		font-weight: 600;
+		color: var(--color-text-strong);
+	}
+	& th, & td { text-align: center; padding: var(--space-2) var(--space-3); }
+	& th { vertical-align: top; }
+	& th:first-child, & td:first-child { text-align: right; }
+	& td:first-child { color: var(--color-text-muted); font-weight: 500; }
+	& th .flag-img { margin-top: var(--space-1); }
+}
+
+/* Flag image — small inline flag for headers, prose, table cells. */
+.flag-img {
+	width: 21px; height: 14px;
+	vertical-align: -2px;
+	display: inline-block;
+	object-fit: contain;
+	border: 0.5px solid color-mix(in srgb, black 15%, transparent);
+}
+.flag-img--lg {
+	width: 32px; height: 20px;
+	vertical-align: -4px;
+	margin-right: var(--space-1);
+	border-color: var(--color-border-light);
+}
+/* Row of flags side-by-side (e.g. a group label like "Nordics" with 4 flags). */
+.flag-row { display: inline-flex; gap: 3px; margin-top: var(--space-1); }
+
+/* Methodology entry — collapsible <details> for a report's methodology /
+   sources section. Quiet by default, accent on hover. */
+.methodology-entry > summary {
+	font-family: var(--font);
+	font-size: var(--text-base);
+	font-weight: 600;
+	text-transform: none;
+	letter-spacing: normal;
+	color: var(--color-text-strong);
+	margin-bottom: 0;
+	cursor: pointer;
+}
+.methodology-entry > summary:hover { color: var(--accent); }
+.methodology-entry[open] > summary { margin-bottom: var(--space-3); }
+
+/* Drill-in primitive — "box of boxes" overview → detail interaction.
+   Use case: dashboard sectors, chartbook sections, drill-down explorers.
+   JS toggles [hidden] on .drill-overview and .drill-detail.
+
+   Markup shape:
+     <div class="drill-view">
+       <div class="drill-overview">
+         <button class="drill-tile">…</button>     (one per item)
+         …
+       </div>
+       <div class="drill-detail" hidden>
+         <button class="drill-back">← Overview</button>
+         <!-- expanded content; may itself contain another drill-view -->
+       </div>
+     </div>
+*/
+.drill-view { margin: var(--space-5) 0; }
+.drill-overview {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+	gap: var(--space-3);
+}
+.drill-tile {
+	display: block;
+	width: 100%;
+	padding: var(--space-3);
+	background: var(--color-bg-input);
+	border: 2px solid var(--color-border-light);
+	color: inherit;
+	text-align: left;
+	cursor: pointer;
+	font: inherit;
+	transition: border-color var(--transition-fast);
+	&:hover { border-color: var(--accent, var(--color-text-strong)); }
+	&:focus-visible { outline: 2px solid var(--accent, var(--color-text-strong)); outline-offset: 2px; }
+}
+.drill-detail {
+	padding: var(--space-4);
+	border: 2px solid var(--color-border-light);
+}
+.drill-back {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-1);
+	margin-bottom: var(--space-3);
+	padding: var(--space-1) var(--space-3);
+	background: transparent;
+	border: 1px solid var(--color-border-light);
+	font: inherit;
+	font-size: var(--text-sm);
+	color: var(--color-text);
+	cursor: pointer;
+	&:hover {
+		color: var(--accent, var(--color-text-strong));
+		border-color: var(--accent, var(--color-text-strong));
+	}
+}
+@media (max-width: 760px) {
+	.drill-overview { grid-template-columns: 1fr; }
+}
+
+/* Keep with next — print pagination marker. Wrap a heading + its first
+   body element in <div class="keep-with-next"> so they don't get
+   separated by a page break in printed/PDF builds. */
+@media print {
+	.keep-with-next { break-inside: avoid; page-break-inside: avoid; }
+}
+
 /* Dashboard column — centered narrower column for charts, controls, tables */
 .dash-column { max-width: var(--width-md); margin-left: auto; margin-right: auto; }
 
