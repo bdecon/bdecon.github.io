@@ -178,7 +178,7 @@ ax.set_title('Real GDP Growth (%, annual)')
 ax.legend(frameon=False)
 ax.set_xlabel('Source: IMF World Economic Outlook')</code></pre>
 	<p>Out[4]:</p>
-	<picture><source srcset="images/imf_gdp_growth.webp" type="image/webp"><img decoding="async" src="images/imf_gdp_growth.png" alt="Thailand vs Vietnam GDP Growth from WEO" loading="lazy" width="558" height="443"/></picture>
+	<picture><source srcset="images/imf_gdp_growth.webp" type="image/webp"><img decoding="async" src="images/imf_gdp_growth.png" alt="Line chart comparing GDP growth forecasts for Thailand and Vietnam from the IMF World Economic Outlook" loading="lazy" width="558" height="443"/></picture>
 	<p>Vietnam has sustained higher growth rates over most of this period, with both countries hit hard by COVID-19 in 2020&ndash;2021. Other popular WEO indicators include <code>PCPIPCH</code> (CPI inflation), <code>LUR</code> (unemployment rate), and <code>GGXWDG_NGDP</code> (government debt as % of GDP).</p>
 	<p>The SDMX API exposes WEO editions as dataflow versions (use <code>dataflow/IMF.RES/WEO/*?detail=allstubs</code> to list what&rsquo;s currently available). For archived WEO vintages beyond what the API carries, download them from the <a href="https://www.imf.org/en/Publications/SPROLLs/world-economic-outlook-databases">WEO Database page</a> or explore the <a href="/imfweo.html">WEO Forecast Tracker</a>, which compiles all editions back to 1990.</p>
 
@@ -280,7 +280,7 @@ lines = ax1.lines + ax2.lines
 ax1.legend(lines, [l.get_label() for l in lines],
            loc='upper left', frameon=False)</code></pre>
 	<p>Out[7]:</p>
-	<picture><source srcset="images/imf_commodities.webp" type="image/webp"><img decoding="async" src="images/imf_commodities.png" alt="Aluminum and Copper Commodity Prices" loading="lazy" width="558" height="443"/></picture>
+	<picture><source srcset="images/imf_commodities.webp" type="image/webp"><img decoding="async" src="images/imf_commodities.png" alt="Line chart of aluminum and copper price indexes over time from IMF Primary Commodity Prices" loading="lazy" width="558" height="443"/></picture>
 	<p>Both metals track global industrial activity, but copper's sharper swings reflect its role as a leading economic indicator. Other key commodity codes include <code>PGOLD</code> (gold), <code>POILAPSP</code> (crude oil), <code>PNGAS</code> (natural gas), and <code>PWHEAMT</code> (wheat). Use the codelist methods from Part 2 to browse the full list.</p>
 
 	<hr class="section-bar accent-blue">

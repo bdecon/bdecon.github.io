@@ -3609,7 +3609,7 @@ figure {
 	background: var(--color-text-strong);
 	color: var(--color-surface);
 }
-.blog-pagination-disabled { color: var(--color-text-muted); opacity: 0.5; }
+.blog-pagination-disabled { color: var(--color-text-muted); }   /* dropped opacity 0.5 — disabled state communicated by muted color alone, opacity was making it fail AA */
 .blog-pagination-pages { display: flex; align-items: center; gap: var(--space-1); }
 .blog-pagination-ellipsis {
 	color: var(--color-text-muted);
