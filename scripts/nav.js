@@ -103,3 +103,36 @@ document.querySelectorAll('.tutorial-share').forEach(function(btn) {
 		});
 	});
 });
+
+// Copy-code button on every <pre><code> block (tutorials, blog posts).
+// No-op on browsers without clipboard support; no-op on <pre> blocks
+// that don't contain a <code> (e.g., output cells in tutorials).
+(function initCodeCopy() {
+	if (!navigator.clipboard) return;
+	const COPY_ICON = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+	const CHECK_ICON = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+	const idle = COPY_ICON + '<span class="code-copy-feedback" aria-live="polite"></span>';
+	const done = CHECK_ICON + '<span class="code-copy-feedback" aria-live="polite">Copied</span>';
+	document.querySelectorAll('pre').forEach(function(pre) {
+		const code = pre.querySelector('code');
+		if (!code) return;
+		const btn = document.createElement('button');
+		btn.type = 'button';
+		btn.className = 'code-copy';
+		btn.setAttribute('aria-label', 'Copy code to clipboard');
+		btn.innerHTML = idle;
+		pre.appendChild(btn);
+		btn.addEventListener('click', function() {
+			navigator.clipboard.writeText(code.textContent).then(function() {
+				btn.classList.add('is-copied');
+				btn.innerHTML = done;
+				setTimeout(function() {
+					btn.classList.remove('is-copied');
+					btn.innerHTML = idle;
+				}, 1500);
+			}).catch(function(err) {
+				console.warn('Copy failed:', err);
+			});
+		});
+	});
+})();

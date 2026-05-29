@@ -63,7 +63,14 @@ jsonld_extra: |
 	<section>
 	<article class="prose">
 	{% include tutorial-meta.html %}
-	<p>January 2026</p>
+	<div class="info-box learn-list" role="note" aria-label="What you'll learn">
+		<p class="learn-list-label">What you'll learn</p>
+		<ul>
+			<li>How to read Current Population Survey microdata from CSV (single month) or fixed-width (many months)</li>
+			<li>How to compute weighted population statistics like the employment-to-population ratio</li>
+			<li>How to use a CPS data dictionary to look up variable names and value codes</li>
+		</ul>
+	</div>
 
 	<p>This tutorial shows two ways to read CPS microdata with Python:</p>
 	<ul>
@@ -84,7 +91,7 @@ jsonld_extra: |
 
 	<p>Note that CSV files are larger than the fixed-width format files, and are not available for all years.</p>
 
-	<span class="label step-label accent-teal">Read and filter the data</span>
+	<h3 class="label step-label accent-teal">Read and filter the data</h3>
 
 	<p>This example calculates the employment-to-population ratio for women age 25 to 54 in December 2025. First, we read only the columns we need from the CSV file. This speeds up the code and uses less memory than reading the entire file. We then filter to our population of interest: women (<code>pesex == 2</code>) between ages 25 and 54.</p>
 
@@ -97,7 +104,7 @@ columns = ['prtage', 'pesex', 'prempnot', 'pwcmpwgt']
 df = (pd.read_csv('dec25pub.csv', usecols=columns).dropna()
         .query('pesex == 2 and 25 &lt;= prtage &lt;= 54'))</code></pre>
 
-	<span class="label step-label accent-teal">Calculate the weighted employment rate</span>
+	<h3 class="label step-label accent-teal">Calculate the weighted employment rate</h3>
 
 	<p>The CPS is a sample survey, so each observation represents many people in the population. The <code>pwcmpwgt</code> variable is the person-level composite weight, which tells us how many people each survey respondent represents. We create an indicator variable for employment (<code>prempnot == 1</code> means employed) and then calculate the weighted average to get the employment rate.</p>
 
@@ -128,7 +135,7 @@ import re, struct
 import pandas as pd
 import numpy as np</code></pre>
 
-	<span class="label step-label accent-teal">Parse the data dictionary</span>
+	<h3 class="label step-label accent-teal">Parse the data dictionary</h3>
 
 	<p>The data dictionary file describes how to read the fixed-width format CPS microdata files. It tells us where each variable is located in the raw data. We manually identify four variables of interest: <code>PRTAGE</code> for age, <code>PESEX</code> for gender, <code>PREMPNOT</code> for employment status, and <code>PWCMPWGT</code> for the person-level composite weight.</p>
 
@@ -155,7 +162,7 @@ print(d)</code></pre>
 
 	<pre>{'PRTAGE': [121, 123, '2s'], 'PESEX': [128, 130, '2s'], 'PREMPNOT': [392, 394, '2s'], 'PWCMPWGT': [845, 855, '10s']}</pre>
 
-	<span class="label step-label accent-teal">Build the struct format string</span>
+	<h3 class="label step-label accent-teal">Build the struct format string</h3>
 
 	<p>Python's <code>struct</code> module can efficiently parse binary data using a format string. The format string specifies which characters to keep and which to skip. For example, <code>121x</code> means skip 121 characters, while <code>2s</code> means keep the next 2 characters as a string. By chaining these together, we can extract just the variables we need from each row.</p>
 
@@ -177,7 +184,7 @@ unpacker = struct.Struct(unpack_fmt).unpack_from</code></pre>
 
 	<p>Reading this format string: skip 121 characters, keep 2 (age), skip 5, keep 2 (sex), skip 262, keep 2 (employment status), skip 451, keep 10 (weight).</p>
 
-	<span class="label step-label accent-teal">Understanding fixed-width format</span>
+	<h3 class="label step-label accent-teal">Understanding fixed-width format</h3>
 
 	<p>To see what the raw data looks like, here is the first line of the microdata file:</p>
 
@@ -188,7 +195,7 @@ unpacker = struct.Struct(unpack_fmt).unpack_from</code></pre>
 
 	<p>If we skip the first 121 characters and keep the next two, we find <code>42</code>, which is the age of the person in the first row of the microdata.</p>
 
-	<span class="label step-label accent-teal">Read the raw microdata</span>
+	<h3 class="label step-label accent-teal">Read the raw microdata</h3>
 
 	<p>We open the raw CPS microdata file in binary mode and read all lines. For each row, we check if the sample weight is positive (meaning the observation should be included), then apply the unpacker to extract just the four variables we need. The result is a list of lists, where each inner list contains the values for one person.</p>
 
@@ -206,7 +213,7 @@ print(data[:5])</code></pre>
 
 	<pre>[[42, 1, 1, 15730712], [26, 2, 1, 14582612], [25, 2, 1, 20672047], [42, 2, 4, 15492377], [47, 1, 1, 18155638]]</pre>
 
-	<span class="label step-label accent-teal">Create pandas dataframe</span>
+	<h3 class="label step-label accent-teal">Create pandas dataframe</h3>
 
 	<p>We convert the list of lists to a pandas DataFrame for easier filtering and analysis. The DataFrame is filtered to women (<code>PESEX == 2</code>) between ages 25 and 54. The sample weights have four implied decimal places in the raw data, so we divide by 10,000 to get the actual weight values.</p>
 
@@ -225,7 +232,7 @@ print(df.head().to_string(index=False))</code></pre>
     49      2         1  1633.0038
     26      2         1  1611.2316</pre>
 
-	<span class="label step-label accent-teal">Calculate the weighted employment rate</span>
+	<h3 class="label step-label accent-teal">Calculate the weighted employment rate</h3>
 
 	<p>As with the CSV method, we create an indicator variable for employment (<code>PREMPNOT == 1</code> means employed) and calculate the weighted average using the composite weight. The result matches the <a href="https://data.bls.gov/timeseries/LNU02300062">BLS published value</a> for April 2017.</p>
 

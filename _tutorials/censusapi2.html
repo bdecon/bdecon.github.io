@@ -97,6 +97,14 @@ jsonld_extra: |
 	</section>
 	<article class="prose">
 	{% include tutorial-meta.html %}
+	<div class="info-box learn-list" role="note" aria-label="What you'll learn">
+		<p class="learn-list-label">What you'll learn</p>
+		<ul>
+			<li>How to query the Census International Trade API for U.S. export data</li>
+			<li>How to filter and reshape the response to track exports by trading partner</li>
+			<li>How to identify top U.S. trading partners with a small pandas pivot</li>
+		</ul>
+	</div>
 	<p>The <a href="https://www.census.gov/data/developers/data-sets/international-trade.html">Census International Trade API</a> provides access to detailed U.S. import and export data by country, commodity, and time period. This tutorial demonstrates how to retrieve export data and identify top U.S. trading partners.</p>
 
 	<hr class="section-bar accent-green">
@@ -115,7 +123,7 @@ jsonld_extra: |
 
 	<hr class="section-bar accent-green">
 	<h2>Example: Top U.S. Export Partners</h2>
-	<span class="label step-label accent-green">Setup</span>
+	<h3 class="label step-label accent-green">Setup</h3>
 	<p>Import the required packages and load your Census API key from a local config file (see the <a href="/getstarted.html">Setup guide</a> for details). You can register for a free API key at the <a href="https://api.census.gov/data/key_signup.html">Census Bureau website</a>.</p>
 
 	<p>In[1]:</p>
@@ -126,7 +134,7 @@ import config
 
 key = config.census_key</code></pre>
 
-	<span class="label step-label accent-green">Request Data from the API</span>
+	<h3 class="label step-label accent-green">Request Data from the API</h3>
 	<p>Construct the API request to retrieve export values by country for a specific month. The endpoint <code>intltrade/exports/hs</code> provides Harmonized System trade data.</p>
 
 	<p>In[2]:</p>
@@ -148,7 +156,7 @@ data = requests.get(url, params=params).json()</code></pre>
  ['0001', 'OPEC', '5765070418', '2025-10'],
  ['0003', 'PACIFIC RIM', '35817684498', '2025-10']]</pre>
 
-	<span class="label step-label accent-green">Process the Data</span>
+	<h3 class="label step-label accent-green">Process the Data</h3>
 	<p>Convert to a DataFrame, filter to individual countries (codes 1000-8000), and convert values to numeric billions.</p>
 
 	<p>In[4]:</p>
@@ -162,7 +170,7 @@ df = df[(df['CTY_CODE'] &gt;= 1000) &amp; (df['CTY_CODE'] &lt; 8000)]
 # Convert to billions
 df['ALL_VAL_MO'] = df['ALL_VAL_MO'].astype(float) / 1e9</code></pre>
 
-	<span class="label step-label accent-green">Select Top Partners</span>
+	<h3 class="label step-label accent-green">Select Top Partners</h3>
 	<p>Sort by export value and select the top 20 trading partners.</p>
 
 	<p>In[5]:</p>
@@ -170,7 +178,7 @@ df['ALL_VAL_MO'] = df['ALL_VAL_MO'].astype(float) / 1e9</code></pre>
            .tail(20)
            .set_index('CTY_NAME')['ALL_VAL_MO'])</code></pre>
 
-	<span class="label step-label accent-green">Create the Visualization</span>
+	<h3 class="label step-label accent-green">Create the Visualization</h3>
 	<p>Plot a horizontal bar chart showing the top export destinations.</p>
 
 	<p>In[6]:</p>

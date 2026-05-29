@@ -63,6 +63,14 @@ jsonld_extra: |
 	<section>
 	<article class="prose">
 	{% include tutorial-meta.html %}
+	<div class="info-box learn-list" role="note" aria-label="What you'll learn">
+		<p class="learn-list-label">What you'll learn</p>
+		<ul>
+			<li>How to call both the BLS v1 (no key) and v2 (with key) APIs from Python</li>
+			<li>How to request multiple series across a longer date range in a single v2 call</li>
+			<li>How to parse the BLS response into a pandas DataFrame keyed on series ID</li>
+		</ul>
+	</div>
 	<p>The <a href="https://www.bls.gov/developers/">BLS Public Data API</a> allows machine access to an enormous and incredibly useful set of U.S. economic data. With python, it is easy to integrate BLS data into projects, research, and graphics without the need to manually find, download, and combine files.</p>
 
 	<p>This notebook offers two examples of using python to request economic data from the BLS API. The first example requests the labor force participation rate from the BLS v1 API. The second example requests unemployment rates by race/origin, and shows a method for requesting multiple series over a longer period of time using the v2 API.</p>
@@ -82,7 +90,7 @@ jsonld_extra: |
 
 	<hr class="section-bar accent-purple">
 	<h2>Example 1: Single series from API v1</h2>
-	<span class="label step-label accent-purple">Import Libraries and Request Data</span>
+	<h3 class="label step-label accent-purple">Import Libraries and Request Data</h3>
 	<p>The version 1 API does not require registration. The series ID is appended directly to the URL path. You can find series IDs using the <a href="https://www.bls.gov/data/">BLS data site</a> search tools. Here we request the civilian labor force participation rate (<code>LNS11300000</code>).</p>
 
 	<p>In[1]:</p>
@@ -93,13 +101,13 @@ import pandas as pd
 url = 'https://api.bls.gov/publicAPI/v1/timeseries/data/LNS11300000'
 r = requests.get(url).json()</code></pre>
 
-	<span class="label step-label accent-purple">Explore the Response</span>
+	<h3 class="label step-label accent-purple">Explore the Response</h3>
 	<p>The API returns a nested dictionary. The actual data lives at <code>r['Results']['series'][0]['data']</code>&mdash;a list of dictionaries, one per month, with the most recent month first.</p>
 	<p>In[2]:</p>
 	<pre><code class="python">data = r['Results']['series'][0]['data']
 print(data[0])</code></pre>
 	<pre>{'year': '2025', 'period': 'M12', 'periodName': 'December', 'latest': 'true', 'value': '62.4', 'footnotes': [{}]}</pre>
-	<span class="label step-label accent-purple">Read into Pandas</span>
+	<h3 class="label step-label accent-purple">Read into Pandas</h3>
 	<p>We create a DataFrame directly from the list of dictionaries, then construct a proper datetime index from the year and period fields.</p>
 	<p>In[3]:</p>
 	<pre><code class="python">df = pd.DataFrame(data)</code></pre>
@@ -146,7 +154,7 @@ df.tail(3)</code></pre>
 	    </tr>
 	  </tbody>
 	</table></div>
-<span class="label step-label accent-purple">Plot the Results</span>
+<h3 class="label step-label accent-purple">Plot the Results</h3>
 <p>Plot the monthly values with a horizontal line at the period mean to show the overall trend.</p>
 <p>In[5]:</p>
 <pre><code class="python">ax = df['value'].plot(title='Labor Force Participation Rate')
@@ -158,7 +166,7 @@ ax.legend();</code></pre>
 <hr class="section-bar accent-purple">
 <h2>Example 2: Requesting multiple series and specific dates</h2>
 <p>The second example uses the BLS API v2 (which requires free <a href = "https://data.bls.gov/registrationEngine/">registration</a>) to request more than one series at the same time. The version 2 API has a higher daily query limit, allows more years and series to be returned in each query, and allows some additional options such as requesting data in percent change rather than level. See <a href="https://www.bls.gov/developers/api_faqs.htm#register1">difference between v1 and v2</a>. The API key is stored in a local <code>config.py</code> file; see the <a href="/getstarted.html">Setup guide</a> for details.</p>
-<span class="label step-label accent-purple">Parameters</span>
+<h3 class="label step-label accent-purple">Parameters</h3>
 <p>The v2 API uses a POST request instead of GET&mdash;we send a JSON body specifying which series, years, and API key we want. The <code>requests</code> library's <code>json=</code> parameter handles the serialization and headers automatically. See: <a href="https://stackoverflow.com/questions/3477333/what-is-the-difference-between-post-and-get">What is the difference between POST and GET?</a></p>
 <p>In[6]:</p>
 <pre><code class="python">import config  # .py file with bls_key = 'API key here'
@@ -179,7 +187,7 @@ results = requests.post(url, json={
     "endyear": "2017",
     "registrationkey": config.bls_key
 }).json()['Results']['series']</code></pre>
-<span class="label step-label accent-purple">Process the Data</span>
+<h3 class="label step-label accent-purple">Process the Data</h3>
 <p>The API returns each series in the same format, so we loop through them to build a DataFrame. The data arrives in reverse chronological order, so we reverse it with <code>iloc[::-1]</code>.</p>
 <p>In[7]:</p>
 <pre><code class="python"># Date index from first series
@@ -237,7 +245,7 @@ df.tail()</code></pre>
     </tr>
   </tbody>
 </table></div>
-<span class="label step-label accent-purple">Plot the Results</span>
+<h3 class="label step-label accent-purple">Plot the Results</h3>
 <p>Plot all three series to compare how unemployment rates moved during and after the Great Recession.</p>
 <p>In[8]:</p>
 <pre><code class="python">df.plot(title='Unemployment Rates by Race or Origin')</code></pre>

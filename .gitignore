@@ -5,6 +5,7 @@
 *.out
 *CLAUDE.md*
 ROADMAP.md
+AUDIT.md
 .env
 _site/
 .jekyll-cache/

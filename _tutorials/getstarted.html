@@ -66,7 +66,7 @@ jsonld_extra: |
 	<section>
 	<article class="prose">
 	{% include tutorial-meta.html %}
-	<p>This page covers everything you need to start using the <a href="/python.html">six API tutorials</a> on this site: installing Python, the basics of pandas, and common economic calculations. If you already have Python set up, skip ahead to <a href="#pandas">Working with Data</a> or <a href="#calculations">Common Calculations</a>.</p>
+	<p>The <a href="/python.html">six API tutorials</a> on this site use Python to pull US economic data straight from government sources. This page is the on-ramp — install Python, learn the pieces you'll actually use, and see what common economic calculations look like in code. Already set up? Skip ahead to <a href="#pandas">Working with Data</a> or <a href="#calculations">Common Calculations</a>.</p>
 
 	<hr class="section-bar accent-ltblue">
 	<h2 id="setup">Setup</h2>
@@ -87,7 +87,7 @@ jsonld_extra: |
 	<h2 id="basics">Python Essentials</h2>
 	<p>You don't need to learn all of Python to follow the tutorials. Here are the pieces that come up most often.</p>
 
-	<span class="label step-label accent-ltblue">Variables and Types</span>
+	<h3 class="label step-label accent-ltblue">Variables and Types</h3>
 	<p>In[1]:</p>
 	<pre><code class="python"># Numbers
 gdp = 28_781.0          # underscores for readability (ignored by Python)
@@ -106,7 +106,7 @@ indicators = {
     'Inflation': 2.5
 }</code></pre>
 
-	<span class="label step-label accent-ltblue">f-strings and Imports</span>
+	<h3 class="label step-label accent-ltblue">f-strings and Imports</h3>
 	<p>f-strings let you embed variables directly in text. Imports load external packages.</p>
 	<p>In[2]:</p>
 	<pre><code class="python">import pandas as pd    # data analysis
@@ -119,7 +119,7 @@ print(f'Year range: {years[0]} to {years[-1]}')</code></pre>
 	<pre>Bureau of Economic Analysis reports GDP of $28,781 billion
 Year range: 2022 to 2025</pre>
 
-	<span class="label step-label accent-ltblue">Dictionaries in Practice</span>
+	<h3 class="label step-label accent-ltblue">Dictionaries in Practice</h3>
 	<p>API responses are typically JSON, which Python reads as nested dictionaries. Navigating them is a core skill.</p>
 	<p>In[3]:</p>
 	<pre><code class="python"># A simplified API response
@@ -141,7 +141,7 @@ print(f'Unemployment rate: {value}%')</code></pre>
 	<h2 id="pandas">Working with Data</h2>
 	<p>Pandas is the main tool for working with tabular data in Python. The two key objects are <strong>Series</strong> (a single column) and <strong>DataFrame</strong> (a table).</p>
 
-	<span class="label step-label accent-ltblue">Create a DataFrame</span>
+	<h3 class="label step-label accent-ltblue">Create a DataFrame</h3>
 	<p>In[4]:</p>
 	<pre><code class="python"># Create from a dictionary
 df = pd.DataFrame({
@@ -171,7 +171,7 @@ df</code></pre>
 	</table>
 	</div>
 
-	<span class="label step-label accent-ltblue">Time Series Index</span>
+	<h3 class="label step-label accent-ltblue">Time Series Index</h3>
 	<p>Most economic data is a time series. Setting a datetime index unlocks powerful time-based operations.</p>
 	<p>In[5]:</p>
 	<pre><code class="python"># Create a monthly series with a date index
@@ -186,7 +186,7 @@ price_index.loc['2024-03':'2024-05']</code></pre>
 2024-05-01    313.2
 Name: CPI, dtype: float64</pre>
 
-	<span class="label step-label accent-ltblue">Combining Series</span>
+	<h3 class="label step-label accent-ltblue">Combining Series</h3>
 	<p>Much of economics is about relationships between variables. Pandas makes it easy to combine series and compute new ones.</p>
 	<p>In[6]:</p>
 	<pre><code class="python"># GDP (billions) and population (millions) by year
@@ -208,49 +208,46 @@ dtype: float64</pre>
 
 	<hr class="section-bar accent-ltblue">
 	<h2 id="economics">Economics Example: The Fiscal Multiplier</h2>
-	<p>Python can solve the kind of problems you'd work through by hand in an economics class. Here's a simple Keynesian model solved with NumPy's linear algebra tools.</p>
+	<p>Python can solve the kind of problems you'd work through by hand in an economics class. Here's the textbook Keynesian model, solved for GDP and run as a what-if when government spending rises.</p>
 
-	<span class="label step-label accent-ltblue">A Simple Macro Model</span>
+	<h3 class="label step-label accent-ltblue">A Simple Macro Model</h3>
 	<p>In the basic Keynesian model, GDP (<em>Y</em>) equals consumption (<em>C</em>) plus investment (<em>I</em>) plus government spending (<em>G</em>). Consumption depends on after-tax income:</p>
 	<ul>
 		<li>Y = C + I + G</li>
 		<li>C = 200 + 0.75(Y &minus; T)</li>
 	</ul>
-	<p>With I&nbsp;=&nbsp;300, G&nbsp;=&nbsp;400, and T&nbsp;=&nbsp;300, we can rearrange into a system of two equations:</p>
+	<p>With I&nbsp;=&nbsp;300, G&nbsp;=&nbsp;400, and T&nbsp;=&nbsp;300, substituting the consumption function into Y&nbsp;=&nbsp;C&nbsp;+&nbsp;I&nbsp;+&nbsp;G gives an equation in Y alone:</p>
 	<ul>
-		<li>Y &minus; C = 700 &emsp;(from Y = C + I + G)</li>
-		<li>&minus;0.75Y + C = &minus;25 &emsp;(from C = 200 + 0.75(Y &minus; 300))</li>
+		<li>Y = 200 + 0.75(Y &minus; T) + I + G</li>
+		<li>0.25Y = 200 &minus; 0.75T + I + G</li>
 	</ul>
 	<p>In[7]:</p>
-	<pre><code class="python"># Coefficient matrix: [Y, C]
-A = np.array([[1, -1],
-              [-0.75, 1]])
-b = np.array([700, -25])
-
-Y, C = np.linalg.solve(A, b)
+	<pre><code class="python"># Solve for Y given the parameters
+I, G, T = 300, 400, 300
+Y = (200 - 0.75 * T + I + G) / (1 - 0.75)
+C = 200 + 0.75 * (Y - T)
 print(f'GDP = ${Y:,.0f}B, Consumption = ${C:,.0f}B')</code></pre>
 	<pre>GDP = $2,700B, Consumption = $2,000B</pre>
 
-	<span class="label step-label accent-ltblue">What If Congress Increases Spending?</span>
-	<p>Suppose government spending rises by $100 billion (G goes from 400 to 500). Only the first equation changes&mdash;the right-hand side becomes 800:</p>
+	<h3 class="label step-label accent-ltblue">What If Congress Increases Spending?</h3>
+	<p>Suppose government spending rises by $100 billion (G goes from 400 to 500). Re-solve with the new value:</p>
 	<p>In[8]:</p>
-	<pre><code class="python"># G rises by 100: Y - C = 800 (was 700)
-b_new = np.array([800, -25])
-Y_new, C_new = np.linalg.solve(A, b_new)
+	<pre><code class="python">G_new = 500   # up from 400
+Y_new = (200 - 0.75 * T + I + G_new) / (1 - 0.75)
 
 print(f'New GDP = ${Y_new:,.0f}B  (was ${Y:,.0f}B)')
-print(f'Change in GDP: ${Y_new - Y:,.0f}B from ${100}B in spending')
+print(f'Change in GDP: ${Y_new - Y:,.0f}B from $100B in spending')
 print(f'Multiplier: {(Y_new - Y) / 100:.0f}x')</code></pre>
 	<pre>New GDP = $3,100B  (was $2,700B)
 Change in GDP: $400B from $100B in spending
 Multiplier: 4x</pre>
-	<p>Each dollar of government spending raised GDP by four dollars. The multiplier is 1/(1&nbsp;&minus;&nbsp;0.75)&nbsp;=&nbsp;4, because the initial spending becomes someone's income, 75% of which is spent again, and so on. This is a simplified model, but it illustrates why fiscal policy can have outsized effects on the economy.</p>
+	<p>Each dollar of government spending raised GDP by four dollars. The multiplier is 1/(1&nbsp;&minus;&nbsp;0.75)&nbsp;=&nbsp;4, because the initial spending becomes someone's income, 75% of which is spent again, and so on. This is the textbook closed-economy result; real-world empirical estimates of the spending multiplier are smaller, typically in the 0.5 to 1.5 range, because some of the new income leaks to imports, savings, and taxes, and central banks may offset the stimulus through monetary policy.</p>
 
 	<hr class="section-bar accent-ltblue">
 	<h2 id="calculations">Common Calculations</h2>
 	<p>The API tutorials use a few economic calculations that are worth seeing in one place.</p>
 
-	<span class="label step-label accent-ltblue">From Price Index to Inflation Rate</span>
+	<h3 class="label step-label accent-ltblue">From Price Index to Inflation Rate</h3>
 	<p>The Consumer Price Index (CPI) is a price level, not an inflation rate. To get the headline inflation rate that you see in the news, compare each month's index to the same month one year earlier.</p>
 	<p>In[9]:</p>
 	<pre><code class="python"># 18 months of CPI-U data (made up but realistic)
@@ -273,8 +270,9 @@ inflation</code></pre>
 2024-11-01    2.7
 2024-12-01    2.5
 Name: CPI-U, dtype: float64</pre>
+	<p>The headline inflation rate you see in the news is this 12-month percent change. The <a href="/blsapi.html">BLS API tutorial</a> shows how to fetch the underlying CPI-U series directly.</p>
 
-	<span class="label step-label accent-ltblue">Adjusting for Inflation</span>
+	<h3 class="label step-label accent-ltblue">Adjusting for Inflation</h3>
 	<p>To compare dollar values across time, adjust for inflation by dividing by the price index. This converts nominal values to real (constant-dollar) values.</p>
 	<p>In[10]:</p>
 	<pre><code class="python"># Median weekly earnings (nominal) and CPI-U (2020 = 100)
@@ -308,7 +306,7 @@ pd.DataFrame({'Nominal': earnings, 'Real (2020$)': real})</code></pre>
 	</div>
 	<p>Nominal weekly earnings rose 16% from 2020 to 2024, but real earnings actually fell 4%&mdash;wage growth didn't keep pace with inflation. This is a key distinction in any analysis of living standards.</p>
 
-	<span class="label step-label accent-ltblue">Growth Decomposition</span>
+	<h3 class="label step-label accent-ltblue">Growth Decomposition</h3>
 	<p>When a total is the sum of components, you can decompose its growth into each component's contribution. Here, consumer spending (PCE) equals goods plus services.</p>
 	<p>In[11]:</p>
 	<pre><code class="python"># Quarterly PCE components (billions, made up)
@@ -345,8 +343,8 @@ pce[['Goods contribution', 'Services contribution']].dropna().round(2)</code></p
 	<hr class="section-bar accent-ltblue">
 	<h2 id="apis">Setting Up for the API Tutorials</h2>
 
-	<span class="label step-label accent-ltblue">API Keys</span>
-	<p>Most government data APIs require a free API key for access. The tutorials on this site store keys in a file called <code>config.py</code> that you create in the same folder as your notebook:</p>
+	<h3 class="label step-label accent-ltblue">API Keys</h3>
+	<p>Three of the six tutorials need a free API key — BLS, BEA, and Census all do; Treasury and IMF don't. To keep keys out of your notebook and out of version control, the tutorials read them from a file called <code>config.py</code> that you create in the same folder:</p>
 	<pre><code class="python"># config.py — keep this file private, don't commit it to git
 bls_key = 'your-key-here'
 bea_key = 'your-key-here'
@@ -355,7 +353,7 @@ census_key = 'your-key-here'</code></pre>
 	<pre><code class="python">from config import bea_key as api_key</code></pre>
 	<p>The <a href="/treasuryapi.html">Treasury API</a> is the exception&mdash;it requires no key at all, which makes it a good first tutorial to try.</p>
 
-	<span class="label step-label accent-ltblue">Making a Request</span>
+	<h3 class="label step-label accent-ltblue">Making a Request</h3>
 	<p>The basic pattern for fetching data from an API is the same across all the tutorials:</p>
 	<p>In[12]:</p>
 	<pre><code class="python">import requests

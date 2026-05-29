@@ -63,6 +63,14 @@ jsonld_extra: |
 	<section>
 	<article class="prose">
 	{% include tutorial-meta.html %}
+	<div class="info-box learn-list" role="note" aria-label="What you'll learn">
+		<p class="learn-list-label">What you'll learn</p>
+		<ul>
+			<li>How to query the US Treasury Fiscal Data API with no key required</li>
+			<li>How to filter and paginate JSON responses using the <code>:in:</code> operator</li>
+			<li>How to reshape the response into a pandas DataFrame and track federal revenue composition</li>
+		</ul>
+	</div>
 	<p>The <a href="https://fiscaldata.treasury.gov/api-documentation/">US Treasury Fiscal Data API</a> offers data on federal finances, including revenue, spending, debt, and more. With Python, you can retrieve and analyze this data programmatically.</p>
 
 	<p>This example uses the Python <code>requests</code> and <code>pandas</code> packages to retrieve treasury data from the Monthly Treasury Statement and analyze federal revenue composition. If you're new to Python, the <a href="/getstarted.html">Setup guide</a> covers setup and the basics.</p>
@@ -79,12 +87,12 @@ jsonld_extra: |
 	<h2>Example: Federal Revenue by Type</h2>
 	<p>How has the composition of federal revenue changed recently? Corporate income taxes and customs duties are two categories worth watching&mdash;corporate taxes are a large and cyclical revenue source, while customs duties have grown sharply with recent changes in trade policy.</p>
 
-	<span class="label step-label accent-red">Import Packages</span>
+	<h3 class="label step-label accent-red">Import Packages</h3>
 	<p>In[1]:</p>
 	<pre><code class="python">import requests
 import pandas as pd</code></pre>
 
-	<span class="label step-label accent-red">Request Data from the API</span>
+	<h3 class="label step-label accent-red">Request Data from the API</h3>
 	<p>We request data from table 9 of the Monthly Treasury Statement (MTS), which breaks down federal receipts and outlays by type. The <code>filter</code> parameter uses the API's <code>:in:</code> operator to return only rows matching our categories of interest. You can find the available field names and filter operators in the <a href="https://fiscaldata.treasury.gov/api-documentation/#filters">API documentation</a>.</p>
 	<p>In[2]:</p>
 	<pre><code class="python">url = 'https://api.fiscaldata.treasury.gov/services/api/fiscal_service'
@@ -97,7 +105,7 @@ params = {
 
 r = requests.get(url, params=params)</code></pre>
 
-	<span class="label step-label accent-red">Clean the Data</span>
+	<h3 class="label step-label accent-red">Clean the Data</h3>
 	<p>The API returns one row per category per month. We rename the columns for readability and remove line 33, which is total outlays&mdash;the table includes both receipts and outlays rows labeled "Total", so we filter by the source line number to keep only receipts.</p>
 	<p>In[3]:</p>
 	<pre><code class="python">rn = {'current_month_rcpt_outly_amt': 'Value', 'src_line_nbr': 'Line',
@@ -107,7 +115,7 @@ df['Date'] = pd.to_datetime(df['record_date'])
 df['Value'] = df['Value'].astype(float)
 df = df.sort_values('Date')</code></pre>
 
-	<span class="label step-label accent-red">Aggregate to Trailing 12 Months</span>
+	<h3 class="label step-label accent-red">Aggregate to Trailing 12 Months</h3>
 	<p>Monthly fiscal data is seasonal&mdash;April is always a big revenue month (tax day), for example. A trailing 12-month sum smooths out this seasonality and shows the annual pace.</p>
 	<p>In[4]:</p>
 	<pre><code class="python"># Pivot so each category is a column, convert to trillions
@@ -117,7 +125,7 @@ data = (df.set_index(['Date', 'Category'])['Value']
 # Rolling 12-month sum to smooth seasonality
 data = data.rolling(12).sum().dropna()</code></pre>
 
-	<span class="label step-label accent-red">Plot the Results</span>
+	<h3 class="label step-label accent-red">Plot the Results</h3>
 	<p>Calculate each category as a share of total federal revenue and plot from 2023 onward.</p>
 	<p>In[5]:</p>
 	<pre><code class="python">c = ['Corporation Income Taxes', 'Customs Duties']

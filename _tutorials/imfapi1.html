@@ -107,6 +107,14 @@ jsonld_extra: |
 	</section>
 	<article class="prose">
 	{% include tutorial-meta.html %}
+	<div class="info-box learn-list" role="note" aria-label="What you'll learn">
+		<p class="learn-list-label">What you'll learn</p>
+		<ul>
+			<li>How to query IMF macro data from Python using the <code>sdmx1</code> library</li>
+			<li>How to retrieve CPI inflation series for multiple countries</li>
+			<li>How to convert an SDMX response into pandas and plot the results</li>
+		</ul>
+	</div>
 	<p>The <a href="https://data.imf.org/">IMF's data portal</a> provides access to macroeconomic data covering more than 180 countries. Using Python's <a href="https://pypi.org/project/sdmx1/">sdmx1 library</a>, it is straightforward to retrieve data through the IMF's SDMX API.</p>
 
 	<p>The example below retrieves monthly Consumer Price Index (CPI) data for Brazil, Chile, and Colombia, calculates year-over-year inflation rates, and plots the results. This demonstrates the core workflow: connecting to the API, building a request key, fetching data, and converting it to a pandas DataFrame for analysis.</p>

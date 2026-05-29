@@ -150,7 +150,7 @@
                 }
 
                 const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-                let html = '<div class="info-box accent-brown cal-week-summary"><h3>This week</h3> ';
+                let html = '<div class="info-box accent-brown cal-week-summary"><h2>This week</h2> ';
                 const dayParts = [];
                 for (const [dateStr, entries] of Object.entries(byDay).sort()) {
                         const d = parseDate(dateStr);
