@@ -17,10 +17,10 @@
   const PERIODS_URL = "/files/zone_periods.json";
 
   const W = 960, H = 600;
-  // The US fills [W,H]; the viewBox is a touch wider so the NYC inset sits in the
-  // open ocean east of Florida + a small gutter, never over land. (Land's max x is
-  // ~830, so a ~50px gutter lets a full-size inset clear the coast with margin.)
-  const VB_W = W + 50;
+  // The US fills [W,H]; the viewBox is wider so the NYC inset sits in a right-side
+  // ocean gutter, up near NYC's latitude, never over land. The east coast reaches
+  // ~x880 at mid-Atlantic latitudes, so the gutter starts the inset east of that.
+  const VB_W = W + 110;
   const NO_DATA =
     getComputedStyle(document.documentElement)
       .getPropertyValue("--color-bg-highlight").trim() || "#e8e8e8";
@@ -225,7 +225,6 @@
     if (init.period && PERIODS.some((p) => p.id === init.period)) currentPeriod = init.period;
 
     buildNYCInset();
-    buildZoneGuide();
     buildSelector();
     buildPeriods();
     document.getElementById("download-csv").addEventListener("click", downloadCSV);
@@ -241,11 +240,11 @@
   const INSET_CODES = ["NYC_CITY", "NY_METRO", "NJ_BALANCE", "CT", "PA_BALANCE", "NY_BALANCE"];
 
   function buildNYCInset() {
-    // Bottom-right, in the open Atlantic EAST of Florida + the viewBox gutter so
-    // it never covers land (land's max x ≈ 830; this box starts at ~837).
+    // Right-side ocean gutter, up near NYC's latitude (NOT jammed at the bottom).
+    // Land's east edge maxes ~x880 in the mid-Atlantic, so x0 ≈ 886 clears it.
     // Verified vs every mainland zone bbox — zero overlap.
-    const BW = 168, BH = 150, PAD = 6, HEAD = 16;
-    const x0 = VB_W - BW - 5, y0 = H - BH - 6;
+    const BW = 178, BH = 178, PAD = 6, HEAD = 22;
+    const x0 = VB_W - BW - 6, y0 = 230;
     const g = svg.append("g").attr("class", "nyc-inset");
 
     g.append("rect").attr("class", "inset-frame")
@@ -255,12 +254,12 @@
     const nyc = projection([-73.97, 40.70]);
     if (nyc) {
       g.append("line").attr("class", "inset-leader")
-        .attr("x1", nyc[0]).attr("y1", nyc[1]).attr("x2", x0 + BW / 2).attr("y2", y0);
+        .attr("x1", nyc[0]).attr("y1", nyc[1]).attr("x2", x0).attr("y2", y0 + 18);
       g.append("circle").attr("class", "inset-marker")
         .attr("cx", nyc[0]).attr("cy", nyc[1]).attr("r", 3);
     }
     g.append("text").attr("class", "inset-title")
-      .attr("x", x0 + BW / 2).attr("y", y0 + 12).attr("text-anchor", "middle")
+      .attr("x", x0 + BW / 2).attr("y", y0 + 15).attr("text-anchor", "middle")
       .text("New York metro area");
 
     const clipId = "nyc-inset-clip";
@@ -285,39 +284,6 @@
   function refreshInset() {
     if (insetZonesSel) insetZonesSel.classed("sel", (d) => d.properties.CPSZ === selectedCode)
       .filter((d) => d.properties.CPSZ === selectedCode).raise();
-  }
-
-  // Zone reference: group all 70 by type and DESCRIBE each — name + what it
-  // covers. Click a row to select that zone on the map.
-  const TYPE_BLURB = {
-    "Metro": "Large metro areas carved out on their own (by CBSA).",
-    "Standalone State": "Smaller states kept whole: the entire state is one zone.",
-    "State Balance": "What's left of a state after its big metro(s) are carved out.",
-    "Combined Region": "Leftover areas pooled across nearby states to stay big enough to measure.",
-  };
-  function buildZoneGuide() {
-    const host = document.getElementById("zone-guide-list");
-    if (!host) return;
-    const ORDER = ["Metro", "Standalone State", "State Balance", "Combined Region"];
-    const groups = {};
-    fc.features.forEach((f) => {
-      const t = typeByCode[f.properties.CPSZ] || "Other";
-      (groups[t] = groups[t] || []).push(f.properties.CPSZ);
-    });
-    const order = ORDER.filter((t) => groups[t])
-      .concat(Object.keys(groups).filter((t) => !ORDER.includes(t)));
-    host.innerHTML = order.map((t) => {
-      const rows = groups[t].slice().sort((a, b) => zoneName(a).localeCompare(zoneName(b)))
-        .map((c) => `<button type="button" class="zg-row" data-zone="${c}">` +
-          `<span class="zg-name">${zoneName(c)}</span>` +
-          `<span class="zg-desc">${descByCode[c] || ""}</span></button>`).join("");
-      return `<div class="zg-group"><h4 class="zg-h">${t}<span class="zg-n">${groups[t].length}</span></h4>` +
-        `<p class="zg-blurb">${TYPE_BLURB[t] || ""}</p><div class="zg-rows">${rows}</div></div>`;
-    }).join("");
-    host.querySelectorAll(".zg-row").forEach((b) => (b.onclick = () => {
-      selectZone(b.dataset.zone);
-      document.getElementById("zone-map").scrollIntoView({ behavior: "smooth", block: "center" });
-    }));
   }
 
   function buildSelector() {
@@ -409,8 +375,10 @@
     }).join("");
     const plabel = (PERIODS.find((p) => p.id === currentPeriod) || {}).label || "";
     host.innerHTML =
-      `<div class="zd-head"><div><h4 class="zd-title">${zoneName(code)}</h4>` +
-      `<span class="zd-type">${typeByCode[code] || ""} · ${plabel}</span></div>` +
+      `<div class="zd-head"><div class="zd-headinfo">` +
+      `<h4 class="zd-title">${zoneName(code)}</h4>` +
+      `<span class="zd-type">${typeByCode[code] || ""} · ${plabel}</span>` +
+      `<p class="zd-desc">${descByCode[code] || ""}</p></div>` +
       `<button type="button" class="zd-close" aria-label="Close zone detail">✕</button></div>` +
       `<div class="zd-grid">${items}</div>`;
     host.hidden = false;
