@@ -291,8 +291,8 @@
   // covers. Click a row to select that zone on the map.
   const TYPE_BLURB = {
     "Metro": "Large metro areas carved out on their own (by CBSA).",
-    "Standalone State": "Smaller states kept whole — the entire state is one zone.",
-    "State Balance": "A state with its big metro(s) removed — the rest of the state.",
+    "Standalone State": "Smaller states kept whole: the entire state is one zone.",
+    "State Balance": "What's left of a state after its big metro(s) are carved out.",
     "Combined Region": "Leftover areas pooled across nearby states to stay big enough to measure.",
   };
   function buildZoneGuide() {
