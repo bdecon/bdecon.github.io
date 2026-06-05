@@ -3159,17 +3159,20 @@ figure {
   & .view-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
   & .view-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-  /* Metric selector */
-  & .metric-control { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); margin: 0 0 var(--space-2); }
-  & .metric-control label { font-family: var(--font-accent); font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-muted); }
-  & .y-control { display: contents; }
+  /* Metric selector — each control is a label+select group that wraps as a unit
+     (so a label never gets stranded from its dropdown on a new line). */
+  & .metric-control { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-4); margin: 0 0 var(--space-3); }
+  & .ctrl { display: inline-flex; align-items: center; gap: var(--space-2); min-width: 0; }
+  & .ctrl label { font-family: var(--font-accent); font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-muted); white-space: nowrap; }
   & #metric-select, & #y-select, & #period-select {
     font-family: var(--font); font-size: var(--text-base); font-weight: 600;
     color: var(--color-text-strong); background: var(--color-surface);
     border: 1px solid var(--color-border-light); border-radius: var(--radius);
     padding: var(--space-1) var(--space-5) var(--space-1) var(--space-2);
-    max-width: 320px; cursor: pointer;
+    cursor: pointer; min-width: 0;
   }
+  & #metric-select, & #y-select { flex: 1 1 150px; max-width: 240px; }
+  & #period-select { max-width: 140px; }
   & #metric-select:focus-visible, & #y-select:focus-visible, & #period-select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 
   /* Download CSV — quiet link-button in the card footer, right of the source. */
@@ -3257,9 +3260,9 @@ figure {
     & .page-title-feature { padding-left: 0; padding-right: 0; }
     & .page-title-deck { font-size: var(--text-sm); line-height: 1.45; }
     & .deck-cta { display: none; }   /* instructional sentence — controls are right there on mobile */
-    & .metric-control { flex-direction: column; align-items: stretch; gap: 2px; margin-bottom: var(--space-3); }
-    & .metric-control label { margin-top: var(--space-2); }
-    & #metric-select, & #y-select, & #period-select { width: 100%; max-width: 100%; box-sizing: border-box; }
+    & .metric-control { flex-direction: column; align-items: stretch; gap: var(--space-2); margin-bottom: var(--space-3); }
+    & .ctrl { flex-direction: column; align-items: stretch; gap: 2px; }
+    & #metric-select, & #y-select, & #period-select { width: 100%; max-width: 100%; box-sizing: border-box; flex: none; }
     & .inset-title { display: none; }
   }
 

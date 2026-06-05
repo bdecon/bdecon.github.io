@@ -57,14 +57,18 @@ jsonld: |
           <button type="button" class="view-tab" data-view="table" aria-selected="false">Table</button>
         </div>
         <div class="metric-control">
-          <label for="metric-select">Indicator</label>
-          <select id="metric-select" aria-label="Choose an indicator"></select>
-          <span id="y-control" class="y-control" hidden>
+          <span class="ctrl">
+            <label for="metric-select">Indicator</label>
+            <select id="metric-select" aria-label="Choose an indicator"></select>
+          </span>
+          <span id="y-control" class="ctrl y-control" hidden>
             <label for="y-select">vs</label>
             <select id="y-select" aria-label="Choose the second (Y) indicator"></select>
           </span>
-          <label for="period-select">Period</label>
-          <select id="period-select" aria-label="Choose a time period"></select>
+          <span class="ctrl">
+            <label for="period-select">Period</label>
+            <select id="period-select" aria-label="Choose a time period"></select>
+          </span>
         </div>
 
         <div id="view-map">
