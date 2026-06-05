@@ -168,6 +168,23 @@
     }
   },
   {
+    "id": "permits_per_capita",
+    "category": "Housing",
+    "short": "Building permits / capita",
+    "title": "Building permits per resident",
+    "subtitle": "Residential units permitted per 1,000 residents (Census BPS ÷ BEA population)",
+    "fmt": "num1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "2024"
+    }
+  },
+  {
     "id": "mean_commute_min",
     "category": "Commute",
     "short": "Mean commute time",

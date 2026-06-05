@@ -68,7 +68,7 @@
   const ranksByMetric = {};    // id → {period → {rank, count}}
   let svg, path, projection, fc, zonesSel, outlineByCode;
   let selLayer, selCasing, selLine, selectedCode = null;
-  let highlight, hlCasing, hlLine, calloutG, calloutBox;
+  let highlight, hlCasing, hlLine, insetZonesSel;
   let tip, tipEl;
 
   const fmtFull = (id, v) => (v == null ? "—" : FMT[metaById[id].fmt](v));
@@ -218,7 +218,8 @@
     if (init.metric && metaById[init.metric]) currentId = init.metric;
     if (init.period && PERIODS.some((p) => p.id === init.period)) currentPeriod = init.period;
 
-    buildCallout();
+    buildNYCInset();
+    buildZoneGuide();
     buildSelector();
     buildPeriods();
     document.getElementById("download-csv").addEventListener("click", downloadCSV);
@@ -228,23 +229,77 @@
     if (init.zone && values[init.zone]) selectZone(init.zone);
   }
 
-  function buildCallout() {
-    const xy = projection([-73.9857, 40.7484]);
-    if (!xy) return;
-    const BOX = 14, OFF = [42, 34];
-    const [ax, ay] = xy, cx = ax + OFF[0], cy = ay + OFF[1];
-    calloutG = svg.append("g").attr("class", "city-callout");
-    calloutG.append("line").attr("class", "callout-leader")
-      .attr("x1", ax).attr("y1", ay).attr("x2", cx).attr("y2", cy);
-    calloutBox = calloutG.append("rect").attr("class", "callout-box")
-      .attr("x", cx - BOX / 2).attr("y", cy - BOX / 2).attr("width", BOX).attr("height", BOX);
-    calloutG.append("text").attr("class", "callout-label")
-      .attr("x", cx).attr("y", cy + BOX / 2 + 13).attr("text-anchor", "middle").text("NYC");
-    calloutG
-      .on("mouseover", (e) => { calloutG.classed("active", true); highlightZone("NYC_CITY"); showTip(e, "NYC_CITY"); })
+  // NYC region is too small to see/hit on the national map (NYC_CITY = 5 boroughs).
+  // Show a zoomed, framed inset (like the source ERA3 map) of the tristate split,
+  // colored + interactive like the main map. Replaces the old offshore swatch.
+  const INSET_CODES = ["NYC_CITY", "NY_METRO", "NJ_BALANCE", "CT", "PA_BALANCE", "NY_BALANCE"];
+
+  function buildNYCInset() {
+    const BW = 186, BH = 158, PAD = 6, HEAD = 17;
+    const x0 = W - BW - 8, y0 = H - BH - 8;
+    const g = svg.append("g").attr("class", "nyc-inset");
+
+    g.append("rect").attr("class", "inset-frame")
+      .attr("x", x0).attr("y", y0).attr("width", BW).attr("height", BH);
+
+    // leader from the NYC spot on the national map to the inset box
+    const nyc = projection([-73.97, 40.70]);
+    if (nyc) {
+      g.append("line").attr("class", "inset-leader")
+        .attr("x1", nyc[0]).attr("y1", nyc[1]).attr("x2", x0).attr("y2", y0 + BH / 2);
+      g.append("circle").attr("class", "inset-marker")
+        .attr("cx", nyc[0]).attr("cy", nyc[1]).attr("r", 3);
+    }
+    g.append("text").attr("class", "inset-title")
+      .attr("x", x0 + BW / 2).attr("y", y0 + 12).attr("text-anchor", "middle")
+      .text("New York metro area");
+
+    const clipId = "nyc-inset-clip";
+    svg.append("clipPath").attr("id", clipId).append("rect")
+      .attr("x", x0 + 1).attr("y", y0 + HEAD - 3).attr("width", BW - 2).attr("height", BH - HEAD + 1);
+
+    // Manual center/scale (deterministic — avoids the GeoJSON-winding ambiguity
+    // that makes a hand-wound fitExtent bbox read as the whole sphere). Shows
+    // NYC + inner suburbs + nearby NJ/CT; the big zones extend out and clip.
+    const proj = d3.geoMercator().center([-73.8, 40.82]).scale(5200)
+      .translate([x0 + BW / 2, y0 + HEAD + (BH - HEAD) / 2]);
+    const ip = d3.geoPath(proj);
+    const feats = fc.features.filter((f) => INSET_CODES.includes(f.properties.CPSZ));
+    insetZonesSel = g.append("g").attr("clip-path", `url(#${clipId})`)
+      .selectAll("path.inset-zone").data(feats).join("path")
+      .attr("class", "inset-zone").attr("d", ip)
+      .on("mouseover", (e, d) => { d3.select(e.currentTarget).raise(); highlightZone(d.properties.CPSZ); showTip(e, d.properties.CPSZ); })
       .on("mousemove", moveTip)
       .on("mouseout", clearHover)
-      .on("click", () => toggleSelect("NYC_CITY"));
+      .on("click", (e, d) => toggleSelect(d.properties.CPSZ));
+  }
+  function refreshInset() {
+    if (insetZonesSel) insetZonesSel.classed("sel", (d) => d.properties.CPSZ === selectedCode)
+      .filter((d) => d.properties.CPSZ === selectedCode).raise();
+  }
+
+  // Zone reference: group all 70 by type, click a name to select it on the map.
+  function buildZoneGuide() {
+    const host = document.getElementById("zone-guide-list");
+    if (!host) return;
+    const ORDER = ["Metro", "Standalone State", "State Balance", "Combined Region"];
+    const groups = {};
+    fc.features.forEach((f) => {
+      const t = typeByCode[f.properties.CPSZ] || "Other";
+      (groups[t] = groups[t] || []).push(f.properties.CPSZ);
+    });
+    const order = ORDER.filter((t) => groups[t])
+      .concat(Object.keys(groups).filter((t) => !ORDER.includes(t)));
+    host.innerHTML = order.map((t) => {
+      const chips = groups[t].slice().sort((a, b) => zoneName(a).localeCompare(zoneName(b)))
+        .map((c) => `<button type="button" class="zg-chip" data-zone="${c}">${zoneName(c)}</button>`).join("");
+      return `<div class="zg-group"><h4 class="zg-h">${t}<span class="zg-n">${groups[t].length}</span></h4>` +
+        `<div class="zg-chips">${chips}</div></div>`;
+    }).join("");
+    host.querySelectorAll(".zg-chip").forEach((b) => (b.onclick = () => {
+      selectZone(b.dataset.zone);
+      document.getElementById("zone-map").scrollIntoView({ behavior: "smooth", block: "center" });
+    }));
   }
 
   function buildSelector() {
@@ -277,9 +332,12 @@
       const v = valueOf(id, d.properties.CPSZ, currentPeriod);
       return v == null ? NO_DATA : cs.fn(v);
     });
-    if (calloutBox) {
-      const nv = valueOf(id, "NYC_CITY", currentPeriod);
-      calloutBox.attr("fill", nv == null ? NO_DATA : cs.fn(nv));
+    if (insetZonesSel) {
+      insetZonesSel.attr("fill", (d) => {
+        const v = valueOf(id, d.properties.CPSZ, currentPeriod);
+        return v == null ? NO_DATA : cs.fn(v);
+      });
+      refreshInset();
     }
     document.getElementById("map-title").textContent = meta.title;
     const vint = (meta.vintage || {})[currentPeriod];
@@ -301,6 +359,7 @@
     selLayer.style("opacity", 1);
     renderDetail(code);
     refreshLegend();
+    refreshInset();
     writeHash();
   }
   function clearSelection() {
@@ -308,6 +367,7 @@
     selLayer.style("opacity", 0);
     document.getElementById("zone-detail").hidden = true;
     refreshLegend();
+    refreshInset();
     writeHash();
   }
   function renderDetail(code) {
@@ -362,11 +422,12 @@
     hlCasing.attr("d", outlineByCode[code]);
     hlLine.attr("d", outlineByCode[code]);
     highlight.style("opacity", 1);
+    if (insetZonesSel) insetZonesSel.classed("hl", (d) => d.properties.CPSZ === code);
   }
   function clearHover() {
     highlight.style("opacity", 0);
     tip.style("opacity", 0);
-    if (calloutG) calloutG.classed("active", false);
+    if (insetZonesSel) insetZonesSel.classed("hl", false);
   }
   function showTip(event, code) {
     const meta = metaById[currentId];

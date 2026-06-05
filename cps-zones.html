@@ -2,7 +2,7 @@
 layout: default
 title: "CPS Labor Market Zones | BD Economics"
 og_title: "The US labor market in 70 zones — BD Economics"
-description: "Interactive choropleth of the 70 CPS labor-market zones: 31 indicators across four time periods (2015 to latest), built on the official CPS ZONE variable."
+description: "Interactive choropleth of 70 custom CPS labor-market zones: 31 indicators across four time periods (2015 to latest), derived from Current Population Survey microdata."
 canonical: "https://bd-econ.com/cps-zones.html"
 body_class: "page-cps-zones"
 nav_active: "reports"
@@ -10,7 +10,7 @@ page_title_html: |
       <div class="page-title page-title-feature">
         <p class="page-title-kicker">CPS Zones</p>
         <h1>The US labor market in 70 zones</h1>
-        <p class="page-title-deck">A custom geography splitting the country into metro cores, state balances, and combined regions — built on the official CPS <code>ZONE</code> variable. Choose an indicator, switch the time period, and click any zone for its full profile.</p>
+        <p class="page-title-deck">A custom geography that carves the country into 70 zones — metro cores, state balances, and combined regions — via a <code>ZONE</code> variable derived from Current Population Survey microdata. <span class="deck-cta">Choose an indicator, switch the time period, and click any zone for its full profile.</span></p>
       </div>
 extra_head: |
       <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -24,7 +24,7 @@ jsonld: |
     "@context": "https://schema.org",
     "@type": "Dataset",
     "name": "CPS Labor Market Zones",
-    "description": "Thirty-one labor-market, income, housing, demographic, density, and transit indicators for 70 custom CPS zones (metro cores, state balances, and combined regions), across four time periods from 2015 to the latest 12-month window. Built on the official CPS ZONE variable.",
+    "description": "Thirty-one labor-market, income, housing, demographic, density, and transit indicators for 70 custom CPS zones (metro cores, state balances, and combined regions), across four time periods from 2015 to the latest 12-month window. Derived from Current Population Survey microdata via a custom ZONE variable (not an official Census or BLS classification).",
     "keywords": ["labor market", "Current Population Survey", "CPS", "metro areas", "unemployment", "regional economics", "United States", "choropleth"],
     "url": "https://bd-econ.com/cps-zones.html",
     "identifier": "https://bd-econ.com/cps-zones.html",
@@ -73,6 +73,17 @@ jsonld: |
       </div>
     </div>
   </figure>
+
+  <!-- Zone reference: what the 70 zones are + a click-to-select list. -->
+  <aside class="zone-guide">
+    <details>
+      <summary>What are the 70 zones?</summary>
+      <div class="zone-guide-body">
+        <p>These 70 zones are a <strong>custom geography</strong> — not an official Census or BLS classification. Every CPS respondent is assigned to one zone so the survey's ~60,000 monthly households pool into stable sub-national areas big enough to measure. The country is split four ways: <strong>25 metros</strong> carved out on their own, <strong>25 smaller states</strong> kept whole, <strong>16 “balance” zones</strong> (a state minus its carved-out metro), and <strong>4 combined regions</strong> (small leftover areas grouped across states). Click any name to find it on the map.</p>
+        <div id="zone-guide-list"></div>
+      </div>
+    </details>
+  </aside>
 </section>
 
 <div id="map-tooltip"></div>

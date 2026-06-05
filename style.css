@@ -3194,12 +3194,14 @@ figure {
   & .sel-casing { fill: none; stroke: var(--color-surface); stroke-width: 4; stroke-linejoin: round; stroke-linecap: round; }
   & .sel-line { fill: none; stroke: var(--accent); stroke-width: 2.6; stroke-linejoin: round; stroke-linecap: round; }
 
-  /* NYC offshore callout */
-  & .city-callout { cursor: pointer; }
-  & .callout-leader { stroke: var(--color-text-muted); stroke-width: 0.8; }
-  & .callout-box { stroke: var(--color-surface); stroke-width: 1; }
-  & .city-callout.active .callout-box { stroke: var(--accent); stroke-width: 2; }
-  & .callout-label { font-family: var(--font-accent); font-size: var(--text-xs); font-weight: 700; fill: var(--color-text-strong); }
+  /* NYC region inset — zoomed, framed tristate box (NYC is too small nationally) */
+  & .inset-frame { fill: var(--color-surface); stroke: var(--color-border-light); stroke-width: 1; }
+  & .inset-title { font-family: var(--font-accent); font-size: 11px; font-weight: 700; fill: var(--color-text-muted); }
+  & .inset-leader { stroke: var(--color-text-muted); stroke-width: 0.7; }
+  & .inset-marker { fill: var(--accent); stroke: var(--color-surface); stroke-width: 0.8; }
+  & .inset-zone { stroke: var(--color-surface); stroke-width: 0.5; stroke-linejoin: round; cursor: pointer; }
+  & .inset-zone.hl { stroke: var(--accent); stroke-width: 1.6; }
+  & .inset-zone.sel { stroke: var(--accent); stroke-width: 2.4; }
 
   /* Legend */
   & #zone-legend { display: block; width: 320px; max-width: 100%; margin: var(--space-2) 0 0; }
@@ -3233,6 +3235,39 @@ figure {
   & .zd-rank { font-size: var(--text-xs); color: var(--color-text-muted); font-variant-numeric: tabular-nums; }
   @media (max-width: 760px) { & .zd-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 480px) { & .zd-grid { grid-template-columns: 1fr; } }
+
+  /* Subtitle: the report default (16px) is too shouty under the title — step it
+     down, and again on mobile so it doesn't dominate the small screen. */
+  & #map-subtitle { font-size: var(--text-sm); }
+  @media (max-width: 760px) { & #map-subtitle { font-size: var(--text-xs); } }
+
+  /* Mobile: stack the indicator/period controls full-width (the fixed-width
+     selects otherwise overflow the viewport ≤~340px), trim the deck so the map
+     appears sooner, and hide the inset's label (it renders ~4px — unreadable). */
+  @media (max-width: 600px) {
+    /* Align the feature title with the card edge (its desktop side padding over-indents on phones). */
+    & .page-title-feature { padding-left: 0; padding-right: 0; }
+    & .page-title-deck { font-size: var(--text-sm); line-height: 1.45; }
+    & .deck-cta { display: none; }   /* instructional sentence — controls are right there on mobile */
+    & .metric-control { flex-direction: column; align-items: stretch; gap: 2px; margin-bottom: var(--space-3); }
+    & .metric-control label { margin-top: var(--space-2); }
+    & #metric-select, & #period-select { width: 100%; max-width: 100%; box-sizing: border-box; }
+    & .inset-title { display: none; }
+  }
+
+  /* Zone reference (the "What are the 70 zones?" disclosure) */
+  & .zone-guide { max-width: var(--map-w); margin: calc(-1 * var(--space-3)) auto var(--space-6); }
+  & .zone-guide details { border-top: 2px solid var(--color-border-light); }
+  & .zone-guide summary { cursor: pointer; font-family: var(--font-accent); font-weight: 700; font-size: var(--text-base); color: var(--color-text-strong); padding: var(--space-3) 0; list-style-position: inside; }
+  & .zone-guide summary:hover { color: var(--accent); }
+  & .zone-guide-body > p { font-size: var(--text-sm); color: var(--color-text); max-width: 70ch; margin: 0 0 var(--space-4); }
+  & .zg-group { margin: 0 0 var(--space-4); }
+  & .zg-h { font-family: var(--font-accent); font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted); margin: 0 0 var(--space-2); }
+  & .zg-n { margin-left: var(--space-2); font-weight: 400; }
+  & .zg-chips { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  & .zg-chip { font-family: var(--font); font-size: var(--text-sm); color: var(--color-text); background: var(--color-bg-highlight); border: 1px solid transparent; border-radius: var(--radius); padding: 3px var(--space-2); cursor: pointer; }
+  & .zg-chip:hover { border-color: var(--accent); color: var(--color-text-strong); }
+  & .zg-chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 }
 
 /* Map tooltip — appended to <body> (position:fixed); inherits --accent from
