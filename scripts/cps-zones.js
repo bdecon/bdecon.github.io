@@ -67,7 +67,13 @@
     usdbig: (v) => (v >= 1000 ? "$" + (v / 1000).toFixed(1) + "T" : "$" + Math.round(v) + "B"),
   };
   // ── State ────────────────────────────────────────────────────────────────
-  let values, META, PERIODS, currentId, currentPeriod;
+  let values, META, PERIODS, currentId, currentPeriod, currentY, currentView = "map";
+  // zone-type colors for the scatter (distinct, off-cyan so the hover/selection pops)
+  const TYPE_COLOR = {
+    "Metro": "#e6550d", "Standalone State": "#756bb1",
+    "State Balance": "#31a354", "Combined Region": "#636363",
+  };
+  let tableSort = { col: "name", dir: 1 };
   const metaById = {};
   const typeByCode = {};
   const nameByCode = {};                          // CPSZ → human-readable name
@@ -228,14 +234,20 @@
     if (init.metric && metaById[init.metric]) currentId = init.metric;
     if (init.period && PERIODS.some((p) => p.id === init.period)) currentPeriod = init.period;
 
+    currentY = (metaById["median_hh_income"] && currentId !== "median_hh_income")
+      ? "median_hh_income" : (META[1] || META[0]).id;
+    if (init.metricY && metaById[init.metricY]) currentY = init.metricY;
     buildNYCInset();
     buildSelector();
+    buildYSelect();
     buildPeriods();
+    buildTabs();
     document.getElementById("download-csv").addEventListener("click", downloadCSV);
 
     document.getElementById("map-status").textContent = "";
     applyMetric(currentId);
     if (init.zone && values[init.zone]) selectZone(init.zone);
+    if (init.view && init.view !== "map") switchView(init.view);
   }
 
   // NYC region is too small to see/hit on the national map (NYC_CITY = 5 boroughs).
@@ -290,8 +302,8 @@
       .filter((d) => d.properties.CPSZ === selectedCode).raise();
   }
 
-  function buildSelector() {
-    const sel = d3.select("#metric-select");
+  // Populate a <select> with the metrics, grouped by category.
+  function fillMetricSelect(sel) {
     const cats = [];
     META.forEach((m) => { if (!cats.includes(m.category)) cats.push(m.category); });
     cats.forEach((cat) => {
@@ -299,15 +311,50 @@
       META.filter((m) => m.category === cat).forEach((m) =>
         og.append("option").attr("value", m.id).text(m.short));
     });
-    sel.property("value", currentId);
-    sel.on("change", function () { applyMetric(this.value); });
   }
-
+  function buildSelector() {
+    const sel = d3.select("#metric-select");
+    fillMetricSelect(sel);
+    sel.property("value", currentId);
+    sel.on("change", function () { currentId = this.value; refreshView(); });
+  }
+  function buildYSelect() {
+    const sel = d3.select("#y-select");
+    fillMetricSelect(sel);
+    sel.property("value", currentY);
+    sel.on("change", function () { currentY = this.value; if (currentView === "scatter") renderScatter(); writeHash(); });
+  }
   function buildPeriods() {
     const sel = d3.select("#period-select");
     PERIODS.forEach((p) => sel.append("option").attr("value", p.id).text(p.label));
     sel.property("value", currentPeriod);
-    sel.on("change", function () { currentPeriod = this.value; applyMetric(currentId); });
+    sel.on("change", function () { currentPeriod = this.value; refreshView(); });
+  }
+  function buildTabs() {
+    document.querySelectorAll(".view-tab").forEach((b) =>
+      (b.onclick = () => switchView(b.dataset.view)));
+  }
+
+  // ── View switching (Map / Scatter / Table) ───────────────────────────────────
+  function refreshView() {
+    if (currentView === "map") applyMetric(currentId);
+    else if (currentView === "scatter") renderScatter();
+    else renderTable();
+  }
+  function switchView(view) {
+    currentView = view;
+    document.querySelectorAll(".view-tab").forEach((b) => {
+      const on = b.dataset.view === view;
+      b.classList.toggle("active", on);
+      b.setAttribute("aria-selected", on);
+    });
+    document.getElementById("view-map").hidden = view !== "map";
+    document.getElementById("view-scatter").hidden = view !== "scatter";
+    document.getElementById("view-table").hidden = view !== "table";
+    document.getElementById("y-control").hidden = view !== "scatter";
+    clearHover();
+    refreshView();
+    writeHash();
   }
 
   // ── Recolor on metric / period change ────────────────────────────────────────
@@ -419,11 +466,15 @@
       if (k === "m") out.metric = decodeURIComponent(val || "");
       if (k === "z") out.zone = decodeURIComponent(val || "");
       if (k === "p") out.period = decodeURIComponent(val || "");
+      if (k === "v") out.view = decodeURIComponent(val || "");
+      if (k === "y") out.metricY = decodeURIComponent(val || "");
     });
     return out;
   }
   function writeHash() {
     let h = "#m=" + currentId + "&p=" + currentPeriod;
+    if (currentView !== "map") h += "&v=" + currentView;
+    if (currentView === "scatter") h += "&y=" + currentY;
     if (selectedCode) h += "&z=" + selectedCode;
     history.replaceState(null, "", h);
   }
@@ -519,6 +570,92 @@
     svgL.append("text").attr("class", "legend-mid")
       .attr("x", cs.type === "div" ? xOf(0) : LW / 2).attr("y", labelY)
       .attr("text-anchor", "middle").text(mid);
+  }
+
+  // ── Scatter view: relate two indicators across the 70 zones ──────────────────
+  function renderScatter() {
+    const mx = metaById[currentId], my = metaById[currentY];
+    document.getElementById("scatter-title").textContent = `${my.short} vs. ${mx.short}`;
+    const pts = fc.features.map((f) => {
+      const z = f.properties.CPSZ;
+      const x = valueOf(currentId, z, currentPeriod), y = valueOf(currentY, z, currentPeriod);
+      return (x == null || y == null) ? null : { z, x, y };
+    }).filter(Boolean);
+    let rTxt = "";
+    if (pts.length > 2) {
+      const mxv = d3.mean(pts, (d) => d.x), myv = d3.mean(pts, (d) => d.y);
+      let sxy = 0, sx = 0, sy = 0;
+      pts.forEach((p) => { sxy += (p.x - mxv) * (p.y - myv); sx += (p.x - mxv) ** 2; sy += (p.y - myv) ** 2; });
+      const r = sxy / Math.sqrt(sx * sy);
+      if (isFinite(r)) rTxt = ` · correlation r = ${r.toFixed(2)}`;
+    }
+    const plab = (PERIODS.find((p) => p.id === currentPeriod) || {}).label || "";
+    document.getElementById("scatter-subtitle").innerHTML =
+      `Each dot is one zone · ${plab}${rTxt}  ` +
+      Object.entries(TYPE_COLOR).map(([t, c]) => `<span class="sc-key"><i style="background:${c}"></i>${t}</span>`).join("");
+
+    const W = 640, H = 470, m = { t: 14, r: 16, b: 46, l: 66 };
+    const xs = d3.scaleLinear().domain(d3.extent(pts, (d) => d.x)).nice().range([m.l, W - m.r]);
+    const ys = d3.scaleLinear().domain(d3.extent(pts, (d) => d.y)).nice().range([H - m.b, m.t]);
+    const svg = d3.select("#zone-scatter")
+      .attr("viewBox", `0 0 ${W} ${H}`).attr("preserveAspectRatio", "xMidYMid meet");
+    svg.selectAll("*").remove();
+    svg.append("g").attr("class", "sc-axis").attr("transform", `translate(0,${H - m.b})`)
+      .call(d3.axisBottom(xs).ticks(6).tickFormat((v) => fmtShort(currentId, v)));
+    svg.append("g").attr("class", "sc-axis").attr("transform", `translate(${m.l},0)`)
+      .call(d3.axisLeft(ys).ticks(6).tickFormat((v) => fmtShort(currentY, v)));
+    svg.append("text").attr("class", "sc-axtitle").attr("x", (m.l + W - m.r) / 2).attr("y", H - 8)
+      .attr("text-anchor", "middle").text(mx.short);
+    svg.append("text").attr("class", "sc-axtitle").attr("transform", "rotate(-90)")
+      .attr("x", -(m.t + H - m.b) / 2).attr("y", 16).attr("text-anchor", "middle").text(my.short);
+    svg.append("g").selectAll("circle").data(pts).join("circle")
+      .attr("class", "sc-pt").attr("cx", (d) => xs(d.x)).attr("cy", (d) => ys(d.y))
+      .attr("r", (d) => (d.z === selectedCode ? 6 : 4))
+      .attr("fill", (d) => TYPE_COLOR[typeByCode[d.z]] || "#888")
+      .classed("sel", (d) => d.z === selectedCode)
+      .on("mouseover", (e, d) => showScatterTip(e, d)).on("mousemove", moveTip).on("mouseout", clearHover)
+      .on("click", (e, d) => { toggleSelect(d.z); renderScatter(); });
+  }
+  function showScatterTip(event, d) {
+    tip.style("opacity", 1).html(
+      `<strong>${zoneName(d.z)}</strong><span class="tip-sub">${typeByCode[d.z] || ""}</span>` +
+      `<span class="tip-val">${metaById[currentId].short}: ${fmtFull(currentId, d.x)}</span>` +
+      `<span class="tip-rank">${metaById[currentY].short}: ${fmtFull(currentY, d.y)}</span>`);
+    moveTip(event);
+  }
+
+  // ── Table view: every indicator by zone, click a column header to sort ───────
+  function renderTable() {
+    const plab = (PERIODS.find((p) => p.id === currentPeriod) || {}).label || "";
+    document.getElementById("table-subtitle").textContent =
+      `All indicators by zone · ${plab} · click a column header to sort`;
+    const arrow = (col) => (tableSort.col === col ? (tableSort.dir > 0 ? " ▲" : " ▼") : "");
+    const sorted = fc.features.map((f) => f.properties.CPSZ).sort((a, b) => {
+      const c = tableSort.col, d = tableSort.dir;
+      if (c === "name") return d * zoneName(a).localeCompare(zoneName(b));
+      if (c === "type") return d * (typeByCode[a] || "").localeCompare(typeByCode[b] || "");
+      const av = valueOf(c, a, currentPeriod), bv = valueOf(c, b, currentPeriod);
+      if (av == null) return 1;
+      if (bv == null) return -1;
+      return d * (av - bv);
+    });
+    const head = `<th class="tcol-name" data-col="name">Zone${arrow("name")}</th>` +
+      `<th data-col="type">Type${arrow("type")}</th>` +
+      META.map((m) => `<th data-col="${m.id}"${m.id === currentId ? ' class="tcol-active"' : ""} title="${m.title}">${m.short}${arrow(m.id)}</th>`).join("");
+    const body = sorted.map((z) => {
+      const cells = META.map((m) => `<td${m.id === currentId ? ' class="tcol-active"' : ""}>${fmtFull(m.id, valueOf(m.id, z, currentPeriod))}</td>`).join("");
+      return `<tr data-zone="${z}"${z === selectedCode ? ' class="trsel"' : ""}>` +
+        `<td class="tcol-name">${zoneName(z)}</td><td class="tcol-type">${typeByCode[z] || ""}</td>${cells}</tr>`;
+    }).join("");
+    const wrap = document.getElementById("zone-table-wrap");
+    wrap.innerHTML = `<table class="zone-table"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
+    wrap.querySelectorAll("th[data-col]").forEach((th) => (th.onclick = () => {
+      const c = th.dataset.col;
+      if (tableSort.col === c) tableSort.dir *= -1;
+      else tableSort = { col: c, dir: c === "name" || c === "type" ? 1 : -1 };
+      renderTable();
+    }));
+    wrap.querySelectorAll("tr[data-zone]").forEach((tr) => (tr.onclick = () => { selectZone(tr.dataset.zone); renderTable(); }));
   }
 
   // ── Download: full table, all periods (zone × period rows) ────────────────────

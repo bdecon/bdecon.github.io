@@ -51,21 +51,42 @@ jsonld: |
   <figure class="report-figure zone-figure">
     <div class="card card-compact card-chart">
       <div class="card-body">
+        <div class="view-tabs" role="tablist" aria-label="View">
+          <button type="button" class="view-tab active" data-view="map" aria-selected="true">Map</button>
+          <button type="button" class="view-tab" data-view="scatter" aria-selected="false">Scatter</button>
+          <button type="button" class="view-tab" data-view="table" aria-selected="false">Table</button>
+        </div>
         <div class="metric-control">
           <label for="metric-select">Indicator</label>
-          <select id="metric-select" aria-label="Choose an indicator to map"></select>
+          <select id="metric-select" aria-label="Choose an indicator"></select>
+          <span id="y-control" class="y-control" hidden>
+            <label for="y-select">vs</label>
+            <select id="y-select" aria-label="Choose the second (Y) indicator"></select>
+          </span>
           <label for="period-select">Period</label>
           <select id="period-select" aria-label="Choose a time period"></select>
         </div>
-        <h3 class="card-title" id="map-title">Unemployment rate</h3>
-        <p class="chart-subtitle" id="map-subtitle">Loading…</p>
 
-        <svg id="zone-map" class="chart-svg" role="img" aria-label="Choropleth map of the selected indicator across the 70 CPS zones"></svg>
-        <svg id="zone-legend" aria-hidden="true"></svg>
-        <p id="map-status">Loading map…</p>
+        <div id="view-map">
+          <h3 class="card-title" id="map-title">Unemployment rate</h3>
+          <p class="chart-subtitle" id="map-subtitle">Loading…</p>
+          <svg id="zone-map" class="chart-svg" role="img" aria-label="Choropleth map of the selected indicator across the 70 CPS zones"></svg>
+          <svg id="zone-legend" aria-hidden="true"></svg>
+          <p id="map-status">Loading map…</p>
+          <!-- Populated on zone click: full profile (all indicators) for the zone. -->
+          <div id="zone-detail" class="zone-detail" hidden></div>
+        </div>
 
-        <!-- Populated on zone click: full profile (all indicators) for the zone. -->
-        <div id="zone-detail" class="zone-detail" hidden></div>
+        <div id="view-scatter" hidden>
+          <h3 class="card-title" id="scatter-title"></h3>
+          <p class="chart-subtitle" id="scatter-subtitle"></p>
+          <svg id="zone-scatter" class="chart-svg" role="img" aria-label="Scatter plot relating two indicators across the 70 zones"></svg>
+        </div>
+
+        <div id="view-table" hidden>
+          <p class="chart-subtitle" id="table-subtitle"></p>
+          <div id="zone-table-wrap" class="zone-table-wrap"></div>
+        </div>
       </div>
       <div class="card-footer">
         <span class="chart-source">Sources: CPS, ACS, BEA, QCEW, FHFA, IRS &amp; county election returns, aggregated to the 70 CPS ZONEs (ERA3). Vintage varies by indicator; the period selector sets the era.</span>
