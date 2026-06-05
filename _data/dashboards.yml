@@ -72,3 +72,16 @@
   featured: false
   order: 5
   deck: "When to expect the next jobs report, CPI, GDP, and 30+ other releases that feed into the Chartbook. Filterable by frequency and significance."
+
+- name: cps-zones
+  short_title: "Labor Market Zones"
+  url: "/cps-zones.html"
+  accent: ltblue
+  banner: cps              # reuses images/cps_banner.{png,webp} (aerial neighborhood)
+  banner_width: 542
+  banner_height: 130
+  banner_alt: "Map of the 70 CPS labor-market zones"
+  section: dashboards
+  featured: false
+  order: 6
+  deck: "An interactive choropleth of the 70 CPS labor-market zones — 31 indicators across four time periods, from unemployment and incomes to population density and transit."

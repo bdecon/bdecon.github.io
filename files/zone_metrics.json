@@ -1,0 +1,527 @@
+[
+  {
+    "id": "unemp_rate_16",
+    "category": "Labor market",
+    "short": "Unemployment",
+    "title": "Unemployment rate",
+    "subtitle": "Unemployed share of the labor force, age 16+ (CPS)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": -1,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
+    "id": "u6_16",
+    "category": "Labor market",
+    "short": "U-6 underemployment",
+    "title": "U-6 underemployment rate",
+    "subtitle": "Unemployed + marginally attached + involuntary part-time (CPS)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": -1,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
+    "id": "epop_2554",
+    "category": "Labor market",
+    "short": "Prime-age EPOP (25–54)",
+    "title": "Prime-age employment rate",
+    "subtitle": "Employment-to-population ratio, age 25–54 (CPS)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 1,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
+    "id": "lfpr_16",
+    "category": "Labor market",
+    "short": "Labor force participation",
+    "title": "Labor force participation rate",
+    "subtitle": "Labor force as a share of population, age 16+ (CPS)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 1,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
+    "id": "wfh_share",
+    "category": "Labor market",
+    "short": "Work from home",
+    "title": "Work-from-home share",
+    "subtitle": "Primarily work from home (CPS)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
+    "id": "ba_plus_share",
+    "category": "Labor market",
+    "short": "Bachelor’s degree+",
+    "title": "Bachelor’s degree or higher",
+    "subtitle": "Adults 25+ with a bachelor’s degree or higher (CPS)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 1,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
+    "id": "median_hh_income",
+    "category": "Income",
+    "short": "Median household income",
+    "title": "Median household income",
+    "subtitle": "ACS PUMS (1% sample, person-weighted)",
+    "fmt": "usd0",
+    "scale": "seq",
+    "dir": 1,
+    "palette": "YlGn",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "2023"
+    }
+  },
+  {
+    "id": "avg_annual_pay",
+    "category": "Income",
+    "short": "Average annual pay",
+    "title": "Average annual pay",
+    "subtitle": "Average pay per covered job (QCEW, workplace basis)",
+    "fmt": "usd0",
+    "scale": "seq",
+    "dir": 1,
+    "palette": "YlGn",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "2023"
+    }
+  },
+  {
+    "id": "homeownership_rate",
+    "category": "Housing",
+    "short": "Homeownership",
+    "title": "Homeownership rate",
+    "subtitle": "Owner-occupied share of households (ACS 5-yr)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 1,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2011–15 5-yr",
+      "p2019": "2015–19 5-yr",
+      "p2022": "2018–22 5-yr",
+      "latest": "2019–23 5-yr"
+    }
+  },
+  {
+    "id": "hpi_2000base",
+    "category": "Housing",
+    "short": "Home-price growth (since 2000)",
+    "title": "Home-price growth since 2000",
+    "subtitle": "House price index, 2000 = 100 (FHFA, pop-weighted)",
+    "fmt": "idx0",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "2024"
+    }
+  },
+  {
+    "id": "mean_commute_min",
+    "category": "Commute",
+    "short": "Mean commute time",
+    "title": "Mean commute time",
+    "subtitle": "Mean one-way commute, workers 16+ (ACS 5-yr)",
+    "fmt": "min1",
+    "scale": "seq",
+    "dir": -1,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2011–15 5-yr",
+      "p2019": "2015–19 5-yr",
+      "p2022": "2018–22 5-yr",
+      "latest": "2019–23 5-yr"
+    }
+  },
+  {
+    "id": "poverty_rate",
+    "category": "Hardship",
+    "short": "Poverty rate",
+    "title": "Poverty rate",
+    "subtitle": "Share below the federal poverty line (ACS/SAIPE)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": -1,
+    "palette": "Reds",
+    "vintage": {
+      "p2015": "2011–15 5-yr",
+      "p2019": "2015–19 5-yr",
+      "p2022": "2018–22 5-yr",
+      "latest": "2019–23 5-yr"
+    }
+  },
+  {
+    "id": "net",
+    "category": "Migration",
+    "short": "Net migration",
+    "title": "Net domestic migration",
+    "subtitle": "Net in/out domestic migration, IRS exemptions (IRS SOI)",
+    "fmt": "num0",
+    "scale": "div",
+    "dir": 0,
+    "palette": "PuOr",
+    "vintage": {
+      "p2015": "2014→15",
+      "p2019": "2018→19",
+      "p2022": "2020→21",
+      "latest": "2021→22"
+    }
+  },
+  {
+    "id": "dem_margin",
+    "category": "Politics",
+    "short": "Presidential margin",
+    "title": "Presidential margin",
+    "subtitle": "Two-party presidential margin (Democratic − Republican), pp",
+    "fmt": "margin",
+    "scale": "div",
+    "dir": 0,
+    "palette": "RdBu",
+    "vintage": {
+      "p2015": "2012",
+      "p2019": "2016",
+      "p2022": "2020",
+      "latest": "2024"
+    }
+  },
+  {
+    "id": "self_emp_share",
+    "category": "Labor market",
+    "short": "Self-employed",
+    "title": "Self-employed share",
+    "subtitle": "Self-employed (incorporated + unincorporated) (CPS)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
+    "id": "public_share",
+    "category": "Labor market",
+    "short": "Public-sector",
+    "title": "Public-sector employment",
+    "subtitle": "Government workers (federal/state/local) (CPS)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
+    "id": "mjh_share",
+    "category": "Labor market",
+    "short": "Multiple jobholders",
+    "title": "Multiple jobholders",
+    "subtitle": "Hold more than one job (CPS)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
+    "id": "per_capita_income",
+    "category": "Income",
+    "short": "Per-capita income",
+    "title": "Per-capita personal income",
+    "subtitle": "Per-capita personal income (BEA)",
+    "fmt": "usd0",
+    "scale": "seq",
+    "dir": 1,
+    "palette": "YlGn",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "2024"
+    }
+  },
+  {
+    "id": "earn_p90p10",
+    "category": "Income",
+    "short": "Earnings inequality (90/10)",
+    "title": "Earnings inequality (90/10 ratio)",
+    "subtitle": "90th- ÷ 10th-percentile earnings (ACS PUMS)",
+    "fmt": "ratio",
+    "scale": "seq",
+    "dir": -1,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "2023"
+    }
+  },
+  {
+    "id": "cost_burdened_share",
+    "category": "Housing",
+    "short": "Housing cost-burdened",
+    "title": "Housing cost-burdened (≥30%)",
+    "subtitle": "Households spending ≥30% of income on housing (ACS 5-yr)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": -1,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2011–15 5-yr",
+      "p2019": "2015–19 5-yr",
+      "p2022": "2018–22 5-yr",
+      "latest": "2019–23 5-yr"
+    }
+  },
+  {
+    "id": "zero_vehicle_hh",
+    "category": "Commute",
+    "short": "Car-free households",
+    "title": "Car-free households",
+    "subtitle": "Households with no vehicle available (ACS 5-yr)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2011–15 5-yr",
+      "p2019": "2015–19 5-yr",
+      "p2022": "2018–22 5-yr",
+      "latest": "2019–23 5-yr"
+    }
+  },
+  {
+    "id": "child_poverty_rate",
+    "category": "Hardship",
+    "short": "Child poverty",
+    "title": "Child poverty rate",
+    "subtitle": "Children below the poverty line (ACS/SAIPE)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": -1,
+    "palette": "Reds",
+    "vintage": {
+      "p2015": "2011–15 5-yr",
+      "p2019": "2015–19 5-yr",
+      "p2022": "2018–22 5-yr",
+      "latest": "2019–23 5-yr"
+    }
+  },
+  {
+    "id": "uninsured_rate",
+    "category": "Health",
+    "short": "Uninsured",
+    "title": "Uninsured rate",
+    "subtitle": "Share without health insurance (ACS 5-yr)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": -1,
+    "palette": "Purples",
+    "vintage": {
+      "p2015": "2011–15 5-yr",
+      "p2019": "2015–19 5-yr",
+      "p2022": "2018–22 5-yr",
+      "latest": "2019–23 5-yr"
+    }
+  },
+  {
+    "id": "foreign_born_share",
+    "category": "Demographics",
+    "short": "Foreign-born",
+    "title": "Foreign-born share",
+    "subtitle": "Born outside the US (ACS 5-yr)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2011–15 5-yr",
+      "p2019": "2015–19 5-yr",
+      "p2022": "2018–22 5-yr",
+      "latest": "2019–23 5-yr"
+    }
+  },
+  {
+    "id": "population",
+    "category": "Size",
+    "short": "Population",
+    "title": "Population",
+    "subtitle": "Total resident population (BEA)",
+    "fmt": "count",
+    "scale": "log",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "2024"
+    }
+  },
+  {
+    "id": "qcew_employment",
+    "category": "Size",
+    "short": "Jobs (workplace)",
+    "title": "Jobs located in the zone",
+    "subtitle": "Covered employment, workplace basis (QCEW)",
+    "fmt": "count",
+    "scale": "log",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "2023"
+    }
+  },
+  {
+    "id": "land_area",
+    "category": "Size",
+    "short": "Land area",
+    "title": "Land area",
+    "subtitle": "Total land area, square miles (Census 2020)",
+    "fmt": "count",
+    "scale": "log",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2020 land",
+      "p2019": "2020 land",
+      "p2022": "2020 land",
+      "latest": "2020 land"
+    }
+  },
+  {
+    "id": "pop_density",
+    "category": "Density",
+    "short": "Population density",
+    "title": "Population density",
+    "subtitle": "Residents per square mile (BEA population ÷ land area)",
+    "fmt": "count",
+    "scale": "log",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "2024"
+    }
+  },
+  {
+    "id": "job_density",
+    "category": "Density",
+    "short": "Job density",
+    "title": "Job density",
+    "subtitle": "Jobs per square mile (QCEW workplace employment ÷ land area)",
+    "fmt": "count",
+    "scale": "log",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "2023"
+    }
+  },
+  {
+    "id": "transit_ridership_pc",
+    "category": "Transit",
+    "short": "Transit ridership / capita",
+    "title": "Transit trips per resident",
+    "subtitle": "Annual unlinked passenger trips ÷ population (FTA NTD, all reporting agencies)",
+    "fmt": "num1",
+    "scale": "log",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
+    "id": "transit_service_pc",
+    "category": "Transit",
+    "short": "Transit service / capita",
+    "title": "Transit service per resident",
+    "subtitle": "Annual vehicle revenue miles ÷ population (FTA NTD, all reporting agencies)",
+    "fmt": "num1",
+    "scale": "log",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  }
+]

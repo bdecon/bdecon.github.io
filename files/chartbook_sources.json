@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-03",
+  "generated": "2026-06-05",
   "releases": [
     {
       "name": "Employment Situation",
@@ -159,21 +159,21 @@
     },
     {
       "name": "Mortgage Rates",
-      "period": "May 28, 2026",
+      "period": "Jun 4, 2026",
       "freq": "weekly",
-      "last_changed": "2026-05-28"
+      "last_changed": "2026-06-04"
     },
     {
       "name": "Initial Jobless Claims",
-      "period": "May 23, 2026",
+      "period": "May 30, 2026",
       "freq": "weekly",
-      "last_changed": "2026-05-28"
+      "last_changed": "2026-06-04"
     },
     {
       "name": "Fed Balance Sheet",
-      "period": "May 27, 2026",
+      "period": "Jun 3, 2026",
       "freq": "weekly",
-      "last_changed": "2026-05-29"
+      "last_changed": "2026-06-04"
     },
     {
       "name": "GDP (Second)",
@@ -286,6 +286,24 @@
   ],
   "recent": [
     {
+      "name": "Mortgage Rates",
+      "period": "Jun 4, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-06-04"
+    },
+    {
+      "name": "Initial Jobless Claims",
+      "period": "May 30, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-06-04"
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "period": "Jun 3, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-06-04"
+    },
+    {
       "name": "JOLTS",
       "period": "Apr 2026",
       "freq": "monthly",
@@ -310,12 +328,6 @@
       "last_changed": "2026-06-03"
     },
     {
-      "name": "Fed Balance Sheet",
-      "period": "May 27, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-05-29"
-    },
-    {
       "name": "Personal Income & Outlays",
       "period": "Apr 2026",
       "freq": "monthly",
@@ -331,18 +343,6 @@
       "name": "New Home Sales",
       "period": "Apr 2026",
       "freq": "monthly",
-      "last_changed": "2026-05-28"
-    },
-    {
-      "name": "Mortgage Rates",
-      "period": "May 28, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-05-28"
-    },
-    {
-      "name": "Initial Jobless Claims",
-      "period": "May 23, 2026",
-      "freq": "weekly",
       "last_changed": "2026-05-28"
     }
   ],
