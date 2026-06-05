@@ -134,6 +134,40 @@
     }
   },
   {
+    "id": "underemployed_edu",
+    "category": "Labor market",
+    "short": "Underemployed (education)",
+    "title": "Underemployed for their education",
+    "subtitle": "Employed in jobs that typically require less education than the worker has (O*NET Job Zone vs CPS education)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
+    "id": "underqualified_edu",
+    "category": "Labor market",
+    "short": "Underqualified (education)",
+    "title": "Underqualified for their job",
+    "subtitle": "Employed in jobs that typically require more education than the worker has (O*NET Job Zone vs CPS education)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
     "id": "nilf_disability",
     "category": "Out of the labor force",
     "short": "Disabled or ill",
@@ -257,7 +291,7 @@
     "category": "Income",
     "short": "Median household income",
     "title": "Median household income",
-    "subtitle": "ACS PUMS (1% sample, person-weighted)",
+    "subtitle": "Median household income, inflation-adjusted (ACS PUMS, 1% sample)",
     "fmt": "usd0",
     "scale": "seq",
     "dir": 1,
@@ -274,7 +308,7 @@
     "category": "Income",
     "short": "Average annual pay",
     "title": "Average annual pay",
-    "subtitle": "Average pay per covered job (QCEW, workplace basis)",
+    "subtitle": "Average pay per covered job, inflation-adjusted (QCEW, workplace basis)",
     "fmt": "usd0",
     "scale": "seq",
     "dir": 1,
@@ -291,7 +325,7 @@
     "category": "Income",
     "short": "Median hourly wage",
     "title": "Median hourly wage",
-    "subtitle": "Median hourly wage, wage & salary workers (CPS ORG, ¼ sample)",
+    "subtitle": "Median hourly wage, inflation-adjusted, wage & salary workers (CPS ORG, ¼ sample)",
     "fmt": "usd2",
     "scale": "seq",
     "dir": 0,
@@ -308,7 +342,7 @@
     "category": "Income",
     "short": "10th-percentile wage",
     "title": "10th-percentile hourly wage",
-    "subtitle": "10th-percentile hourly wage, wage & salary workers (CPS ORG, ¼ sample)",
+    "subtitle": "10th-percentile hourly wage, inflation-adjusted, wage & salary (CPS ORG, ¼ sample)",
     "fmt": "usd2",
     "scale": "seq",
     "dir": 0,
@@ -318,6 +352,74 @@
       "p2019": "2019",
       "p2022": "2022",
       "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
+    "id": "gdp_per_capita",
+    "category": "GDP",
+    "short": "GDP per capita",
+    "title": "Real GDP per capita",
+    "subtitle": "Real GDP per resident, chained 2017$ (BEA; workplace basis)",
+    "fmt": "usd0",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlGn",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "2024"
+    }
+  },
+  {
+    "id": "gdp_total",
+    "category": "GDP",
+    "short": "GDP (total)",
+    "title": "Gross domestic product",
+    "subtitle": "Total real GDP, chained 2017$ (BEA)",
+    "fmt": "usdbig",
+    "scale": "log",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "2024"
+    }
+  },
+  {
+    "id": "gdp_pc_growth10",
+    "category": "GDP",
+    "short": "GDP/capita 10-yr growth",
+    "title": "Real GDP per capita: 10-year growth",
+    "subtitle": "Change in real GDP per capita over the prior 10 years (BEA)",
+    "fmt": "pct1",
+    "scale": "div",
+    "dir": 0,
+    "palette": "PiYG",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "2024"
+    }
+  },
+  {
+    "id": "rpp_level",
+    "category": "Cost of living",
+    "short": "Regional price level",
+    "title": "Regional price level",
+    "subtitle": "Cost of living vs the US average = 100 (BEA regional price parities, pop-weighted)",
+    "fmt": "idx0",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "2024"
     }
   },
   {
@@ -495,7 +597,7 @@
     "category": "Income",
     "short": "Per-capita income",
     "title": "Per-capita personal income",
-    "subtitle": "Per-capita personal income (BEA)",
+    "subtitle": "Per-capita personal income, inflation-adjusted (BEA)",
     "fmt": "usd0",
     "scale": "seq",
     "dir": 1,

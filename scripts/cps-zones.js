@@ -30,7 +30,7 @@
   const RAMP = {
     YlOrRd: d3.interpolateYlOrRd, YlGn: d3.interpolateYlGn,
     Reds: d3.interpolateReds, Purples: d3.interpolatePurples,
-    RdBu: d3.interpolateRdBu, PuOr: d3.interpolatePuOr,
+    RdBu: d3.interpolateRdBu, PuOr: d3.interpolatePuOr, PiYG: d3.interpolatePiYG,
   };
   const rampOf = (meta) => RAMP[meta && meta.palette] || d3.interpolateYlOrRd;
 
@@ -45,6 +45,7 @@
     ratio: (v) => v.toFixed(1) + "×",
     count: (v) => Math.round(v).toLocaleString("en-US"),
     num1: (v) => v.toFixed(1),
+    usdbig: (v) => (v >= 1000 ? "$" + (v / 1000).toFixed(2) + "T" : "$" + Math.round(v).toLocaleString("en-US") + "B"),
   };
   const compact = (v) => {
     const a = Math.abs(v);
@@ -63,6 +64,7 @@
     ratio: (v) => v.toFixed(1) + "×",
     count: (v) => compact(v),
     num1: (v) => v.toFixed(0),
+    usdbig: (v) => (v >= 1000 ? "$" + (v / 1000).toFixed(1) + "T" : "$" + Math.round(v) + "B"),
   };
   // ── State ────────────────────────────────────────────────────────────────
   let values, META, PERIODS, currentId, currentPeriod;
