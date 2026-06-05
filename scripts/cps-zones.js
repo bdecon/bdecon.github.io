@@ -358,6 +358,28 @@
     refreshInset();
     writeHash();
   }
+  // Sparkline of one zone's value for a metric across ALL periods (y = the metric's
+  // fixed cross-period scale, so the shape is comparable). Current period emphasized;
+  // dots colored by the same scale as the map. Adapts to however many periods exist.
+  function sparkSVG(id, code, cs) {
+    const W = 100, H = 18, pad = 2.5, n = PERIODS.length;
+    const clamp = (x) => Math.max(0, Math.min(1, x));
+    const pts = PERIODS.map((p, i) => {
+      const v = valueOf(id, code, p.id);
+      if (v == null) return null;
+      return { x: pad + (n > 1 ? i / (n - 1) : 0.5) * (W - 2 * pad),
+               y: pad + (1 - clamp(cs.norm(v))) * (H - 2 * pad),
+               c: cs.fn(v), cur: p.id === currentPeriod };
+    });
+    const valid = pts.filter(Boolean);
+    if (!valid.length) return "";
+    const line = valid.map((p, i) => (i ? "L" : "M") + p.x.toFixed(1) + " " + p.y.toFixed(1)).join(" ");
+    const dots = pts.map((p) => p
+      ? `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${p.cur ? 2.7 : 1.6}" fill="${p.c}"${p.cur ? ' stroke="var(--accent)" stroke-width="1.1"' : ''}/>`
+      : "").join("");
+    return `<svg class="zd-spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">` +
+      `<path d="${line}" fill="none" stroke="var(--color-border-light)" stroke-width="1.3" vector-effect="non-scaling-stroke"/>${dots}</svg>`;
+  }
   function renderDetail(code) {
     const host = document.getElementById("zone-detail");
     const items = META.map((m) => {
@@ -365,16 +387,15 @@
       const cs = scalesByMetric[m.id];
       const r = ranksByMetric[m.id][currentPeriod];
       const active = m.id === currentId ? " active" : "";
-      let bar = "", rankTxt = "—";
+      let spark = "", rankTxt = "—";
       if (v != null) {
-        const p = Math.max(0, Math.min(1, cs.norm(v)));
-        bar = `<div class="zd-bar"><i style="left:${(p * 100).toFixed(1)}%;background:${cs.fn(v)}"></i></div>`;
+        spark = sparkSVG(m.id, code, cs);
         const mv = (m.vintage || {})[currentPeriod];
         rankTxt = `#${r.rank[code]} of ${r.count}` + (mv ? ` · ${mv}` : "");
       }
       return `<button type="button" class="zd-item${active}" data-metric="${m.id}">` +
         `<div class="zd-item-head"><span class="zd-label">${m.short}</span>` +
-        `<span class="zd-val">${fmtFull(m.id, v)}</span></div>${bar}` +
+        `<span class="zd-val">${fmtFull(m.id, v)}</span></div>${spark}` +
         `<div class="zd-rank">${rankTxt}</div></button>`;
     }).join("");
     const plabel = (PERIODS.find((p) => p.id === currentPeriod) || {}).label || "";

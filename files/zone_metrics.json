@@ -11,6 +11,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "12-mo to Apr 2026"
@@ -28,6 +29,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "12-mo to Apr 2026"
@@ -45,6 +47,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "12-mo to Apr 2026"
@@ -62,6 +65,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "12-mo to Apr 2026"
@@ -94,6 +98,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "12-mo to Apr 2026"
@@ -111,6 +116,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "12-mo to Apr 2026"
@@ -128,6 +134,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "12-mo to Apr 2026"
@@ -145,6 +152,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "12-mo to Apr 2026"
@@ -162,6 +170,43 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
+    "id": "epop_women_2554",
+    "category": "Labor market",
+    "short": "Women's prime-age EPOP",
+    "title": "Women's prime-age employment rate",
+    "subtitle": "Employment-to-population ratio, women 25–54 (CPS)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2017": "2017",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
+    "id": "phys_demand_share",
+    "category": "Labor market",
+    "short": "Physically-demanding jobs",
+    "title": "Physically-demanding jobs",
+    "subtitle": "Employed in physically-demanding occupations (O*NET high physical demands)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "12-mo to Apr 2026"
@@ -179,6 +224,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "12-mo to Apr 2026"
@@ -196,6 +242,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "12-mo to Apr 2026"
@@ -213,6 +260,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "12-mo to Apr 2026"
@@ -230,6 +278,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "12-mo to Apr 2026"
@@ -247,6 +296,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "12-mo to Apr 2026"
@@ -264,6 +314,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "12-mo to Apr 2026"
@@ -281,6 +332,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "12-mo to Apr 2026"
@@ -298,6 +350,7 @@
     "palette": "YlGn",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "2024"
@@ -315,6 +368,7 @@
     "palette": "YlGn",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "2024"
@@ -332,6 +386,7 @@
     "palette": "YlGn",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "12-mo to Apr 2026"
@@ -349,6 +404,7 @@
     "palette": "YlGn",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "12-mo to Apr 2026"
@@ -366,6 +422,7 @@
     "palette": "YlGn",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "2024"
@@ -383,6 +440,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "2024"
@@ -400,6 +458,7 @@
     "palette": "PiYG",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "2024"
@@ -417,6 +476,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "2024"
@@ -434,6 +494,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2011–15 5-yr",
+      "p2017": "2013–17 5-yr",
       "p2019": "2015–19 5-yr",
       "p2022": "2018–22 5-yr",
       "latest": "2020–24 5-yr"
@@ -451,6 +512,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "2024"
@@ -468,6 +530,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "2024"
@@ -485,6 +548,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2011–15 5-yr",
+      "p2017": "2013–17 5-yr",
       "p2019": "2015–19 5-yr",
       "p2022": "2018–22 5-yr",
       "latest": "2020–24 5-yr"
@@ -502,6 +566,7 @@
     "palette": "Reds",
     "vintage": {
       "p2015": "2011–15 5-yr",
+      "p2017": "2013–17 5-yr",
       "p2019": "2015–19 5-yr",
       "p2022": "2018–22 5-yr",
       "latest": "2020–24 5-yr"
@@ -519,6 +584,7 @@
     "palette": "PuOr",
     "vintage": {
       "p2015": "2014→15",
+      "p2017": "2016→17",
       "p2019": "2018→19",
       "p2022": "2020→21",
       "latest": "2021→22"
@@ -536,6 +602,7 @@
     "palette": "RdBu",
     "vintage": {
       "p2015": "2012",
+      "p2017": "2016",
       "p2019": "2016",
       "p2022": "2020",
       "latest": "2024"
@@ -553,6 +620,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "12-mo to Apr 2026"
@@ -570,6 +638,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "12-mo to Apr 2026"
@@ -587,6 +656,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "12-mo to Apr 2026"
@@ -604,6 +674,7 @@
     "palette": "YlGn",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "2024"
@@ -621,6 +692,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "2024"
@@ -638,6 +710,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2011–15 5-yr",
+      "p2017": "2013–17 5-yr",
       "p2019": "2015–19 5-yr",
       "p2022": "2018–22 5-yr",
       "latest": "2020–24 5-yr"
@@ -655,6 +728,25 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2011–15 5-yr",
+      "p2017": "2013–17 5-yr",
+      "p2019": "2015–19 5-yr",
+      "p2022": "2018–22 5-yr",
+      "latest": "2020–24 5-yr"
+    }
+  },
+  {
+    "id": "vehicles_per_capita",
+    "category": "Commute",
+    "short": "Vehicles per capita",
+    "title": "Vehicles per capita",
+    "subtitle": "Household vehicles per resident (ACS aggregate vehicles ÷ population)",
+    "fmt": "num1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2011–15 5-yr",
+      "p2017": "2013–17 5-yr",
       "p2019": "2015–19 5-yr",
       "p2022": "2018–22 5-yr",
       "latest": "2020–24 5-yr"
@@ -672,6 +764,7 @@
     "palette": "Reds",
     "vintage": {
       "p2015": "2011–15 5-yr",
+      "p2017": "2013–17 5-yr",
       "p2019": "2015–19 5-yr",
       "p2022": "2018–22 5-yr",
       "latest": "2020–24 5-yr"
@@ -689,6 +782,7 @@
     "palette": "Purples",
     "vintage": {
       "p2015": "2011–15 5-yr",
+      "p2017": "2013–17 5-yr",
       "p2019": "2015–19 5-yr",
       "p2022": "2018–22 5-yr",
       "latest": "2020–24 5-yr"
@@ -706,9 +800,28 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
+    "id": "employer_ins_share",
+    "category": "Health",
+    "short": "Employer health insurance",
+    "title": "Employer health insurance",
+    "subtitle": "Share covered by employer-based health insurance (ACS 5-yr)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2011–15 5-yr",
+      "p2017": "2013–17 5-yr",
+      "p2019": "2015–19 5-yr",
+      "p2022": "2018–22 5-yr",
+      "latest": "2020–24 5-yr"
     }
   },
   {
@@ -723,6 +836,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2011–15 5-yr",
+      "p2017": "2013–17 5-yr",
       "p2019": "2015–19 5-yr",
       "p2022": "2018–22 5-yr",
       "latest": "2020–24 5-yr"
@@ -740,6 +854,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "2024"
@@ -757,6 +872,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "2024"
@@ -774,6 +890,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2020 land",
+      "p2017": "2020 land",
       "p2019": "2020 land",
       "p2022": "2020 land",
       "latest": "2020 land"
@@ -791,6 +908,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "2024"
@@ -808,6 +926,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "2024"
@@ -825,6 +944,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "12-mo to Apr 2026"
@@ -842,6 +962,7 @@
     "palette": "YlOrRd",
     "vintage": {
       "p2015": "2015",
+      "p2017": "2017",
       "p2019": "2019",
       "p2022": "2022",
       "latest": "12-mo to Apr 2026"
