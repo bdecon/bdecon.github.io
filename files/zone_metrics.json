@@ -100,6 +100,159 @@
     }
   },
   {
+    "id": "union_member",
+    "category": "Labor market",
+    "short": "Union membership",
+    "title": "Union membership",
+    "subtitle": "Union members, share of wage & salary workers (CPS ORG, ¼ sample)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
+    "id": "cert_rate",
+    "category": "Labor market",
+    "short": "Professional certification",
+    "title": "Professional certification or license",
+    "subtitle": "Adults 16+ holding a professional certification or license (CPS)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
+    "id": "nilf_disability",
+    "category": "Out of the labor force",
+    "short": "Disabled or ill",
+    "title": "Out of the labor force: disabled or ill",
+    "subtitle": "Not in the labor force, disabled or ill, share of adults 16+ (CPS)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
+    "id": "nilf_family",
+    "category": "Out of the labor force",
+    "short": "Family or home",
+    "title": "Out of the labor force: family or home",
+    "subtitle": "Not in the labor force for family/home reasons, share of adults 16+ (CPS)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
+    "id": "nilf_discouraged_bls",
+    "category": "Out of the labor force",
+    "short": "Discouraged workers",
+    "title": "Discouraged workers",
+    "subtitle": "Discouraged workers (BLS definition), share of adults 16+ (CPS)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
+    "id": "nilf_wantjob",
+    "category": "Out of the labor force",
+    "short": "Wants a job (broad)",
+    "title": "Out of the labor force but wants a job",
+    "subtitle": "Not in the labor force but wants a job, share of adults 16+ (CPS)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
+    "id": "avg_usual_hours",
+    "category": "Hours",
+    "short": "Average weekly hours",
+    "title": "Average usual weekly hours",
+    "subtitle": "Average usual weekly hours, employed (CPS)",
+    "fmt": "num1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
+    "id": "part_time_share",
+    "category": "Hours",
+    "short": "Part-time (<35h)",
+    "title": "Part-time share",
+    "subtitle": "Employed usually working under 35 hours a week (CPS)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
+    "id": "long_hours_share",
+    "category": "Hours",
+    "short": "Long hours (50h+)",
+    "title": "Long-hours share",
+    "subtitle": "Employed usually working 50 or more hours a week (CPS)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
     "id": "median_hh_income",
     "category": "Income",
     "short": "Median household income",
@@ -131,6 +284,40 @@
       "p2019": "2019",
       "p2022": "2022",
       "latest": "2024"
+    }
+  },
+  {
+    "id": "wage_p50",
+    "category": "Income",
+    "short": "Median hourly wage",
+    "title": "Median hourly wage",
+    "subtitle": "Median hourly wage, wage & salary workers (CPS ORG, ¼ sample)",
+    "fmt": "usd2",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlGn",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
+    "id": "wage_p10",
+    "category": "Income",
+    "short": "10th-percentile wage",
+    "title": "10th-percentile hourly wage",
+    "subtitle": "10th-percentile hourly wage, wage & salary workers (CPS ORG, ¼ sample)",
+    "fmt": "usd2",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlGn",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
     }
   },
   {
@@ -403,6 +590,23 @@
       "p2019": "2015–19 5-yr",
       "p2022": "2018–22 5-yr",
       "latest": "2020–24 5-yr"
+    }
+  },
+  {
+    "id": "disability_rate",
+    "category": "Health",
+    "short": "Disability rate",
+    "title": "Disability rate",
+    "subtitle": "Adults 16+ with a disability (CPS)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
     }
   },
   {

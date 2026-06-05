@@ -37,6 +37,7 @@
   const FMT = {
     pct1: (v) => v.toFixed(1) + "%",
     usd0: (v) => "$" + Math.round(v).toLocaleString("en-US"),
+    usd2: (v) => "$" + v.toFixed(2),
     idx0: (v) => Math.round(v).toLocaleString("en-US"),
     min1: (v) => v.toFixed(1) + " min",
     num0: (v) => (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(Math.round(v)).toLocaleString("en-US"),
@@ -54,6 +55,7 @@
   const FMT_SHORT = {
     pct1: (v) => v.toFixed(0) + "%",
     usd0: (v) => "$" + compact(v),
+    usd2: (v) => "$" + v.toFixed(2),
     idx0: (v) => "" + Math.round(v),
     min1: (v) => v.toFixed(0) + "m",
     num0: (v) => (v > 0 ? "+" : v < 0 ? "−" : "") + compact(Math.abs(v)),
