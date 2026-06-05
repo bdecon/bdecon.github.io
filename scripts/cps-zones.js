@@ -17,6 +17,10 @@
   const PERIODS_URL = "/files/zone_periods.json";
 
   const W = 960, H = 600;
+  // The US fills [W,H]; the viewBox is a touch wider so the NYC inset sits in the
+  // open ocean east of Florida + a small gutter, never over land. (Land's max x is
+  // ~830, so a ~50px gutter lets a full-size inset clear the coast with margin.)
+  const VB_W = W + 50;
   const NO_DATA =
     getComputedStyle(document.documentElement)
       .getPropertyValue("--color-bg-highlight").trim() || "#e8e8e8";
@@ -63,6 +67,7 @@
   const metaById = {};
   const typeByCode = {};
   const nameByCode = {};                          // CPSZ → human-readable name
+  const descByCode = {};                          // CPSZ → "what this zone covers"
   const zoneName = (code) => nameByCode[code] || code.replace(/_/g, " ");
   const scalesByMetric = {};   // id → {fn, lo, hi, type}   (fixed across periods)
   const ranksByMetric = {};    // id → {period → {rank, count}}
@@ -171,6 +176,7 @@
     fc.features.forEach((f) => {
       typeByCode[f.properties.CPSZ] = f.properties.ZONE_TYPE;
       nameByCode[f.properties.CPSZ] = f.properties.NAME;
+      descByCode[f.properties.CPSZ] = f.properties.DESC;
     });
     META.forEach((m) => {
       scalesByMetric[m.id] = colorScaleFor(m);
@@ -182,7 +188,7 @@
     path = d3.geoPath(projection);
 
     svg = d3.select("#zone-map")
-      .attr("viewBox", `0 0 ${W} ${H}`).attr("preserveAspectRatio", "xMidYMid meet");
+      .attr("viewBox", `0 0 ${VB_W} ${H}`).attr("preserveAspectRatio", "xMidYMid meet");
     svg.selectAll("*").remove();
     tip = d3.select("#map-tooltip");
     tipEl = document.getElementById("map-tooltip");
@@ -235,8 +241,11 @@
   const INSET_CODES = ["NYC_CITY", "NY_METRO", "NJ_BALANCE", "CT", "PA_BALANCE", "NY_BALANCE"];
 
   function buildNYCInset() {
-    const BW = 186, BH = 158, PAD = 6, HEAD = 17;
-    const x0 = W - BW - 8, y0 = H - BH - 8;
+    // Bottom-right, in the open Atlantic EAST of Florida + the viewBox gutter so
+    // it never covers land (land's max x ≈ 830; this box starts at ~837).
+    // Verified vs every mainland zone bbox — zero overlap.
+    const BW = 168, BH = 150, PAD = 6, HEAD = 16;
+    const x0 = VB_W - BW - 5, y0 = H - BH - 6;
     const g = svg.append("g").attr("class", "nyc-inset");
 
     g.append("rect").attr("class", "inset-frame")
@@ -246,7 +255,7 @@
     const nyc = projection([-73.97, 40.70]);
     if (nyc) {
       g.append("line").attr("class", "inset-leader")
-        .attr("x1", nyc[0]).attr("y1", nyc[1]).attr("x2", x0).attr("y2", y0 + BH / 2);
+        .attr("x1", nyc[0]).attr("y1", nyc[1]).attr("x2", x0 + BW / 2).attr("y2", y0);
       g.append("circle").attr("class", "inset-marker")
         .attr("cx", nyc[0]).attr("cy", nyc[1]).attr("r", 3);
     }
@@ -261,7 +270,7 @@
     // Manual center/scale (deterministic — avoids the GeoJSON-winding ambiguity
     // that makes a hand-wound fitExtent bbox read as the whole sphere). Shows
     // NYC + inner suburbs + nearby NJ/CT; the big zones extend out and clip.
-    const proj = d3.geoMercator().center([-73.8, 40.82]).scale(5200)
+    const proj = d3.geoMercator().center([-73.8, 40.82]).scale((BW - 2 * PAD) * 30)
       .translate([x0 + BW / 2, y0 + HEAD + (BH - HEAD) / 2]);
     const ip = d3.geoPath(proj);
     const feats = fc.features.filter((f) => INSET_CODES.includes(f.properties.CPSZ));
@@ -278,7 +287,14 @@
       .filter((d) => d.properties.CPSZ === selectedCode).raise();
   }
 
-  // Zone reference: group all 70 by type, click a name to select it on the map.
+  // Zone reference: group all 70 by type and DESCRIBE each — name + what it
+  // covers. Click a row to select that zone on the map.
+  const TYPE_BLURB = {
+    "Metro": "Large metro areas carved out on their own (by CBSA).",
+    "Standalone State": "Smaller states kept whole — the entire state is one zone.",
+    "State Balance": "A state with its big metro(s) removed — the rest of the state.",
+    "Combined Region": "Leftover areas pooled across nearby states to stay big enough to measure.",
+  };
   function buildZoneGuide() {
     const host = document.getElementById("zone-guide-list");
     if (!host) return;
@@ -291,12 +307,14 @@
     const order = ORDER.filter((t) => groups[t])
       .concat(Object.keys(groups).filter((t) => !ORDER.includes(t)));
     host.innerHTML = order.map((t) => {
-      const chips = groups[t].slice().sort((a, b) => zoneName(a).localeCompare(zoneName(b)))
-        .map((c) => `<button type="button" class="zg-chip" data-zone="${c}">${zoneName(c)}</button>`).join("");
+      const rows = groups[t].slice().sort((a, b) => zoneName(a).localeCompare(zoneName(b)))
+        .map((c) => `<button type="button" class="zg-row" data-zone="${c}">` +
+          `<span class="zg-name">${zoneName(c)}</span>` +
+          `<span class="zg-desc">${descByCode[c] || ""}</span></button>`).join("");
       return `<div class="zg-group"><h4 class="zg-h">${t}<span class="zg-n">${groups[t].length}</span></h4>` +
-        `<div class="zg-chips">${chips}</div></div>`;
+        `<p class="zg-blurb">${TYPE_BLURB[t] || ""}</p><div class="zg-rows">${rows}</div></div>`;
     }).join("");
-    host.querySelectorAll(".zg-chip").forEach((b) => (b.onclick = () => {
+    host.querySelectorAll(".zg-row").forEach((b) => (b.onclick = () => {
       selectZone(b.dataset.zone);
       document.getElementById("zone-map").scrollIntoView({ behavior: "smooth", block: "center" });
     }));
