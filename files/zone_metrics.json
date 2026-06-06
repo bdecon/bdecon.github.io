@@ -1793,5 +1793,140 @@
       "p2024": 3.49,
       "latest": 3.4
     }
+  },
+  {
+    "id": "pres_margin_2016",
+    "category": "Politics",
+    "short": "Pres. margin 2016",
+    "title": "Presidential margin, 2016",
+    "subtitle": "Two-party presidential margin, 2016 (D+ = Democratic lead, R+ = Republican; county returns)",
+    "fmt": "margin",
+    "scale": "div",
+    "dir": 0,
+    "palette": "RdBu",
+    "vintage": {
+      "p2015": "2016",
+      "p2017": "2016",
+      "p2019": "2016",
+      "p2022": "2016",
+      "p2024": "2016",
+      "latest": "2016"
+    },
+    "usref": {
+      "p2015": 2.06,
+      "p2017": 2.07,
+      "p2019": 2.01,
+      "p2022": 1.69,
+      "p2024": 1.66,
+      "latest": 1.66
+    }
+  },
+  {
+    "id": "pres_margin_2020",
+    "category": "Politics",
+    "short": "Pres. margin 2020",
+    "title": "Presidential margin, 2020",
+    "subtitle": "Two-party presidential margin, 2020 (D+ = Democratic lead, R+ = Republican; county returns)",
+    "fmt": "margin",
+    "scale": "div",
+    "dir": 0,
+    "palette": "RdBu",
+    "vintage": {
+      "p2015": "2020",
+      "p2017": "2020",
+      "p2019": "2020",
+      "p2022": "2020",
+      "p2024": "2020",
+      "latest": "2020"
+    },
+    "usref": {
+      "p2015": 4.56,
+      "p2017": 4.57,
+      "p2019": 4.52,
+      "p2022": 4.23,
+      "p2024": 4.2,
+      "latest": 4.2
+    }
+  },
+  {
+    "id": "pres_margin_2024",
+    "category": "Politics",
+    "short": "Pres. margin 2024",
+    "title": "Presidential margin, 2024",
+    "subtitle": "Two-party presidential margin, 2024 (D+ = Democratic lead, R+ = Republican; county returns)",
+    "fmt": "margin",
+    "scale": "div",
+    "dir": 0,
+    "palette": "RdBu",
+    "vintage": {
+      "p2015": "2024",
+      "p2017": "2024",
+      "p2019": "2024",
+      "p2022": "2024",
+      "p2024": "2024",
+      "latest": "2024"
+    },
+    "usref": {
+      "p2015": -1.11,
+      "p2017": -1.1,
+      "p2019": -1.15,
+      "p2022": -1.42,
+      "p2024": -1.47,
+      "latest": -1.47
+    }
+  },
+  {
+    "id": "pres_shift_2016_2024",
+    "category": "Politics",
+    "short": "Margin shift 2016→2024",
+    "title": "Presidential margin shift, 2016 → 2024",
+    "subtitle": "Change in the presidential margin, 2016 to 2024 (D+ = moved Democratic, R+ = moved Republican)",
+    "fmt": "margin",
+    "scale": "div",
+    "dir": 0,
+    "palette": "RdBu",
+    "vintage": {
+      "p2015": "2016→2024",
+      "p2017": "2016→2024",
+      "p2019": "2016→2024",
+      "p2022": "2016→2024",
+      "p2024": "2016→2024",
+      "latest": "2016→2024"
+    },
+    "usref": {
+      "p2015": -3.17,
+      "p2017": -3.17,
+      "p2019": -3.16,
+      "p2022": -3.11,
+      "p2024": -3.13,
+      "latest": -3.13
+    }
+  },
+  {
+    "id": "pres_shift_2020_2024",
+    "category": "Politics",
+    "short": "Margin shift 2020→2024",
+    "title": "Presidential margin shift, 2020 → 2024",
+    "subtitle": "Change in the presidential margin, 2020 to 2024 (D+ = moved Democratic, R+ = moved Republican)",
+    "fmt": "margin",
+    "scale": "div",
+    "dir": 0,
+    "palette": "RdBu",
+    "vintage": {
+      "p2015": "2020→2024",
+      "p2017": "2020→2024",
+      "p2019": "2020→2024",
+      "p2022": "2020→2024",
+      "p2024": "2020→2024",
+      "latest": "2020→2024"
+    },
+    "usref": {
+      "p2015": -5.67,
+      "p2017": -5.68,
+      "p2019": -5.67,
+      "p2022": -5.65,
+      "p2024": -5.66,
+      "latest": -5.66
+    }
   }
 ]
