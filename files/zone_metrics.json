@@ -195,11 +195,11 @@
     }
   },
   {
-    "id": "phys_demand_share",
+    "id": "pd_dwc_share",
     "category": "Labor market",
-    "short": "Physically-demanding jobs",
-    "title": "Physically-demanding jobs",
-    "subtitle": "Employed in physically-demanding occupations (O*NET high physical demands)",
+    "short": "Physically hard / difficult jobs",
+    "title": "Physically demanding or difficult jobs",
+    "subtitle": "Employed in jobs with high physical demands or difficult working conditions (O*NET)",
     "fmt": "pct1",
     "scale": "seq",
     "dir": 0,
