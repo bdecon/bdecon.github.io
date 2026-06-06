@@ -89,10 +89,13 @@
   const LABEL_K = 2.2;   // zoom level at which direct labels appear
   let selLayer, selCasing, selLine, selectedCode = null;
   let highlight, hlCasing, hlLine, insetZonesSel;
-  let tip, tipEl;
+  let tip, tipEl, sparkTipTimer = null;
 
   const fmtFull = (id, v) => (v == null ? "—" : FMT[metaById[id].fmt](v));
   const fmtShort = (id, v) => FMT_SHORT[metaById[id].fmt](v);
+  // National ("US") reference value for a metric in a period (from zone_metrics.json
+  // usref; absent for extensive totals like population/jobs/GDP/net migration).
+  const usOf = (id, per) => { const u = (metaById[id] || {}).usref; return u ? u[per] : undefined; };
 
   Promise.all([d3.json(TOPO_URL), d3.json(VALUES_URL), d3.json(METRICS_URL),
                d3.json(PERIODS_URL), d3.json(STATES_URL).catch(() => null)])
@@ -306,7 +309,8 @@
     buildZoomControls();                          // touch pinch + drag-pan stay enabled
     updateZoomUI();
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && currentK > 1.01) { resetZoom(); }
+      const tag = (e.target && e.target.tagName) || "";
+      if (e.key === "Escape" && currentK > 1.01 && !/^(SELECT|INPUT|TEXTAREA)$/.test(tag)) { resetZoom(); }
     });
   }
   function onZoom(e) {
@@ -611,22 +615,26 @@
     }
     const ts = raw.map((d) => d.t);
     if (!ts.length) return "";
+    // US national reference trajectory over the same kept periods (dashed overlay).
+    const usPts = raw.map((d) => { const uv = usOf(id, d.pid); return uv == null ? null : { idx: d.idx, t: cs.norm(uv) }; }).filter(Boolean);
     const FLOOR = 0.12;                                  // min band width (frac of full scale)
-    let lo = Math.min(...ts), hi = Math.max(...ts);
+    const allT = ts.concat(usPts.map((u) => u.t));       // band fits BOTH zone + US
+    let lo = Math.min(...allT), hi = Math.max(...allT);
     const span = Math.max(hi - lo, FLOOR), mid = (lo + hi) / 2;
     lo = mid - span / 2; hi = mid + span / 2;            // centered band the series fills
     const xOf = (i) => padX + (n > 1 ? i / (n - 1) : 0.5) * (W - 2 * padX);
     const yOf = (t) => padY + (1 - (t - lo) / (hi - lo)) * (H - 2 * padY);
     const pts = raw.map((d) => ({ x: xOf(d.idx), y: yOf(d.t), c: d.c, cur: d.cur, pid: d.pid, v: d.v }));
-    const valid = pts;
-    const line = valid.map((p, i) => (i ? "L" : "M") + p.x.toFixed(1) + " " + p.y.toFixed(1)).join(" ");
-    const dots = pts.map((p) => p
-      ? `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${p.cur ? 2.8 : 1.7}" fill="${p.c}"${p.cur ? ' stroke="var(--accent)" stroke-width="1.2"' : ''}/>`
-      : "").join("");
+    const line = pts.map((p, i) => (i ? "L" : "M") + p.x.toFixed(1) + " " + p.y.toFixed(1)).join(" ");
+    const usLine = usPts.length > 1
+      ? usPts.map((u, i) => (i ? "L" : "M") + xOf(u.idx).toFixed(1) + " " + yOf(u.t).toFixed(1)).join(" ") : "";
+    const dots = pts.map((p) =>
+      `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${p.cur ? 2.8 : 1.7}" fill="${p.c}"${p.cur ? ' stroke="var(--accent)" stroke-width="1.2"' : ''}/>`).join("");
     // Invisible larger hit targets so each period dot is hoverable (year + value tip).
-    const hits = valid.map((p) =>
+    const hits = pts.map((p) =>
       `<circle class="spark-hit" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="7" fill="none" pointer-events="all" data-m="${id}" data-p="${p.pid}" data-v="${p.v}"/>`).join("");
     return `<svg class="zd-spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">` +
+      (usLine ? `<path class="spark-us" d="${usLine}" fill="none" vector-effect="non-scaling-stroke"/>` : "") +
       `<path d="${line}" fill="none" stroke="var(--color-text-muted)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>${dots}${hits}</svg>`;
   }
   function renderDetail(code) {
@@ -640,7 +648,9 @@
       if (v != null) {
         spark = sparkSVG(m.id, code, cs);
         const mv = (m.vintage || {})[currentPeriod];
-        rankTxt = `#${r.rank[code]} of ${r.count}` + (mv ? ` · ${mv}` : "");
+        const us = usOf(m.id, currentPeriod);
+        rankTxt = `#${r.rank[code]} of ${r.count}` +
+          (us != null ? ` · US ${fmtFull(m.id, us)}` : "") + (mv ? ` · ${mv}` : "");
       }
       return `<button type="button" class="zd-item${active}" data-metric="${m.id}">` +
         `<div class="zd-item-head"><span class="zd-label">${m.short}</span>` +
@@ -656,6 +666,7 @@
       `<div class="zd-actions">` +
       `<button type="button" class="zd-zoom" aria-label="Zoom the map to this zone">⤢ Zoom to</button>` +
       `<button type="button" class="zd-close" aria-label="Close zone detail">✕</button></div></div>` +
+      `<p class="zd-key">Each row: this zone's rank, the <strong>US</strong> value, and a sparkline of the zone (solid) vs the US (dashed) across 2015–Latest.</p>` +
       `<div class="zd-grid">${items}</div>`;
     host.hidden = false;
     host.querySelector(".zd-close").onclick = clearSelection;
@@ -665,6 +676,15 @@
       h.addEventListener("mouseover", (e) => showSparkTip(e, h.dataset.m, h.dataset.p, +h.dataset.v));
       h.addEventListener("mousemove", moveTip);
       h.addEventListener("mouseout", () => tip.style("opacity", 0));
+      // Touch/click: tap a dot to read its year + value (the hover tip was mouse-only,
+      // so this feature was dead on mobile, where the panel IS the interaction). Stop
+      // propagation so the tap doesn't also fire the row's switch-metric handler.
+      h.addEventListener("click", (e) => {
+        e.stopPropagation();
+        showSparkTip(e, h.dataset.m, h.dataset.p, +h.dataset.v);
+        clearTimeout(sparkTipTimer);
+        sparkTipTimer = setTimeout(() => tip.style("opacity", 0), 2500);
+      });
     });
   }
   // Tooltip for a single sparkline dot: which period (with its true vintage) + value.
@@ -717,10 +737,12 @@
     const v = valueOf(currentId, code, currentPeriod);
     const r = ranksByMetric[currentId][currentPeriod];
     const rankStr = (v != null && r.rank[code]) ? `#${r.rank[code]} of ${r.count}` : "";
+    const us = usOf(currentId, currentPeriod);
     tip.style("opacity", 1).html(
       `<strong>${zoneName(code)}</strong>` +
         `<span class="tip-sub">${typeByCode[code] || ""}</span>` +
         `<span class="tip-val">${meta.title}: ${fmtFull(currentId, v)}</span>` +
+        (us != null ? `<span class="tip-rank">US: ${fmtFull(currentId, us)}</span>` : "") +
         (rankStr ? `<span class="tip-rank">${rankStr} &middot; click to inspect</span>` : "")
     );
     moveTip(event);
@@ -776,6 +798,13 @@
       svgL.append("line").attr("x1", xMid).attr("x2", xMid).attr("y1", barY - 2).attr("y2", baseY)
         .attr("stroke", "var(--color-text-strong)").attr("stroke-width", 1).attr("opacity", 0.55);
     }
+    // US national reference tick (where the country sits in the 70-zone distribution).
+    const usV = usOf(meta.id, currentPeriod);
+    if (usV != null) {
+      const x = xOf(usV);
+      svgL.append("line").attr("class", "us-rule").attr("x1", x).attr("x2", x).attr("y1", barY - 2).attr("y2", baseY);
+      svgL.append("text").attr("class", "us-mark").attr("x", x).attr("y", barY - 3).attr("text-anchor", "middle").text("US");
+    }
     const selV = selectedCode ? valueOf(meta.id, selectedCode, currentPeriod) : null;
     if (selV != null) {
       const x = xOf(selV);
@@ -797,6 +826,12 @@
   function renderScatter() {
     const mx = metaById[currentId], my = metaById[currentY];
     document.getElementById("scatter-title").textContent = `${my.short} vs. ${mx.short}`;
+    if (currentId === currentY) {   // same metric on both axes => degenerate diagonal
+      document.getElementById("scatter-subtitle").textContent =
+        "Pick two different indicators (the “vs” dropdown) to compare them across the 70 zones.";
+      d3.select("#zone-scatter").selectAll("*").remove();
+      return;
+    }
     const pts = fc.features.map((f) => {
       const z = f.properties.CPSZ;
       const x = valueOf(currentId, z, currentPeriod), y = valueOf(currentY, z, currentPeriod);
@@ -856,7 +891,8 @@
       if (c === "name") return d * zoneName(a).localeCompare(zoneName(b));
       if (c === "type") return d * (typeByCode[a] || "").localeCompare(typeByCode[b] || "");
       const av = valueOf(c, a, currentPeriod), bv = valueOf(c, b, currentPeriod);
-      if (av == null) return 1;
+      if (av == null && bv == null) return 0;   // stable order among no-data zones
+      if (av == null) return 1;                  // no-data always sinks to the bottom
       if (bv == null) return -1;
       return d * (av - bv);
     });
