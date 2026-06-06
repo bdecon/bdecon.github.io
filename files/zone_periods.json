@@ -16,6 +16,10 @@
     "label": "2022"
   },
   {
+    "id": "p2024",
+    "label": "2024"
+  },
+  {
     "id": "latest",
     "label": "Latest"
   }

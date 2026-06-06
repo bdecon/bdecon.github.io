@@ -587,11 +587,29 @@
   // fake drama. Current period emphasized; adapts to however many periods exist.
   function sparkSVG(id, code, cs) {
     const W = 110, H = 22, padX = 3, padY = 3.5, n = PERIODS.length;
-    const raw = PERIODS.map((p) => {
-      const v = valueOf(id, code, p.id);
-      return v == null ? null : { t: cs.norm(v), c: cs.fn(v), cur: p.id === currentPeriod, pid: p.id, v: v };
-    });
-    const ts = raw.filter(Boolean).map((d) => d.t);
+    const meta = metaById[id], vintOf = (pid) => (meta.vintage || {})[pid];
+    // Build one point per period, but DE-DUP periods that carry the same vintage as the
+    // next data-bearing period (same underlying data — e.g. a non-CPS "2024" point that
+    // equals "Latest"); keep the later one. x stays tied to the true period index so the
+    // time axis is honest (a dropped period just leaves a gap). The current-period
+    // highlight carries forward to the kept twin if its period was dropped.
+    const raw = [];
+    let carryCur = false;
+    for (let i = 0; i < n; i++) {
+      const p = PERIODS[i], v = valueOf(id, code, p.id);
+      if (v == null) continue;
+      let dup = false;
+      const vi = vintOf(p.id);
+      if (vi) for (let j = i + 1; j < n; j++) {
+        if (valueOf(id, code, PERIODS[j].id) == null) continue;
+        dup = vintOf(PERIODS[j].id) === vi; break;
+      }
+      const isCur = p.id === currentPeriod;
+      if (dup) { if (isCur) carryCur = true; continue; }
+      raw.push({ idx: i, t: cs.norm(v), c: cs.fn(v), cur: isCur || carryCur, pid: p.id, v: v });
+      carryCur = false;
+    }
+    const ts = raw.map((d) => d.t);
     if (!ts.length) return "";
     const FLOOR = 0.12;                                  // min band width (frac of full scale)
     let lo = Math.min(...ts), hi = Math.max(...ts);
@@ -599,8 +617,8 @@
     lo = mid - span / 2; hi = mid + span / 2;            // centered band the series fills
     const xOf = (i) => padX + (n > 1 ? i / (n - 1) : 0.5) * (W - 2 * padX);
     const yOf = (t) => padY + (1 - (t - lo) / (hi - lo)) * (H - 2 * padY);
-    const pts = raw.map((d, i) => d ? { x: xOf(i), y: yOf(d.t), c: d.c, cur: d.cur, pid: d.pid, v: d.v } : null);
-    const valid = pts.filter(Boolean);
+    const pts = raw.map((d) => ({ x: xOf(d.idx), y: yOf(d.t), c: d.c, cur: d.cur, pid: d.pid, v: d.v }));
+    const valid = pts;
     const line = valid.map((p, i) => (i ? "L" : "M") + p.x.toFixed(1) + " " + p.y.toFixed(1)).join(" ");
     const dots = pts.map((p) => p
       ? `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${p.cur ? 2.8 : 1.7}" fill="${p.c}"${p.cur ? ' stroke="var(--accent)" stroke-width="1.2"' : ''}/>`
