@@ -32,6 +32,7 @@
     YlOrRd: d3.interpolateYlOrRd, YlGn: d3.interpolateYlGn,
     Reds: d3.interpolateReds, Purples: d3.interpolatePurples,
     RdBu: d3.interpolateRdBu, PuOr: d3.interpolatePuOr, PiYG: d3.interpolatePiYG,
+    BrBG: d3.interpolateBrBG,
   };
   const rampOf = (meta) => RAMP[meta && meta.palette] || d3.interpolateYlOrRd;
 
@@ -47,6 +48,7 @@
     count: (v) => Math.round(v).toLocaleString("en-US"),
     num1: (v) => v.toFixed(1),
     usdbig: (v) => (v >= 1000 ? "$" + (v / 1000).toFixed(2) + "T" : "$" + Math.round(v).toLocaleString("en-US") + "B"),
+    pp1: (v) => (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v).toFixed(1) + " pp",
   };
   const compact = (v) => {
     const a = Math.abs(v);
@@ -66,6 +68,7 @@
     count: (v) => compact(v),
     num1: (v) => v.toFixed(0),
     usdbig: (v) => (v >= 1000 ? "$" + (v / 1000).toFixed(1) + "T" : "$" + Math.round(v) + "B"),
+    pp1: (v) => (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v).toFixed(1),
   };
   // ── State ────────────────────────────────────────────────────────────────
   let values, META, PERIODS, currentId, currentPeriod, currentY, currentView = "map";
@@ -90,6 +93,7 @@
   let selLayer, selCasing, selLine, selectedCode = null;
   let highlight, hlCasing, hlLine, insetZonesSel;
   let tip, tipEl, sparkTipTimer = null;
+  let scLogX = null, scLogY = null;   // scatter axis log: null = auto (follow metric scale), else user override
 
   const fmtFull = (id, v) => (v == null ? "—" : FMT[metaById[id].fmt](v));
   const fmtShort = (id, v) => FMT_SHORT[metaById[id].fmt](v);
@@ -297,6 +301,7 @@
     buildYSelect();
     buildPeriods();
     buildTabs();
+    buildScatterControls();
     document.getElementById("download-csv").addEventListener("click", downloadCSV);
 
     document.getElementById("map-status").textContent = "";
@@ -498,13 +503,13 @@
     const sel = d3.select("#metric-select");
     fillMetricSelect(sel);
     sel.property("value", currentId);
-    sel.on("change", function () { currentId = this.value; refreshView(); });
+    sel.on("change", function () { currentId = this.value; scLogX = null; refreshView(); });
   }
   function buildYSelect() {
     const sel = d3.select("#y-select");
     fillMetricSelect(sel);
     sel.property("value", currentY);
-    sel.on("change", function () { currentY = this.value; if (currentView === "scatter") renderScatter(); writeHash(); });
+    sel.on("change", function () { currentY = this.value; scLogY = null; if (currentView === "scatter") renderScatter(); writeHash(); });
   }
   function buildPeriods() {
     const sel = d3.select("#period-select");
@@ -515,6 +520,22 @@
   function buildTabs() {
     document.querySelectorAll(".view-tab").forEach((b) =>
       (b.onclick = () => switchView(b.dataset.view)));
+  }
+  // Log-scale toggles for the scatter axes (injected once above the scatter plot).
+  // They default to each metric's own scale (log metrics → log axis) and the user can
+  // override; changing the metric resets to that metric's default (scLogX/Y = null).
+  function buildScatterControls() {
+    const host = document.getElementById("view-scatter");
+    if (!host || document.getElementById("sc-controls")) return;
+    const box = document.createElement("div");
+    box.id = "sc-controls"; box.className = "sc-controls";
+    box.innerHTML =
+      '<label><input type="checkbox" id="sc-logx"> log X axis</label>' +
+      '<label><input type="checkbox" id="sc-logy"> log Y axis</label>';
+    const svg = document.getElementById("zone-scatter");
+    host.insertBefore(box, svg);
+    document.getElementById("sc-logx").onchange = function () { scLogX = this.checked; renderScatter(); };
+    document.getElementById("sc-logy").onchange = function () { scLogY = this.checked; renderScatter(); };
   }
 
   // ── View switching (Map / Scatter / Table) ───────────────────────────────────
@@ -857,15 +878,26 @@
       Object.entries(TYPE_COLOR).map(([t, c]) => `<span class="sc-key"><i style="background:${c}"></i>${t}</span>`).join("");
 
     const W = 640, H = 470, m = { t: 14, r: 16, b: 46, l: 66 };
-    const xs = d3.scaleLinear().domain(d3.extent(pts, (d) => d.x)).nice().range([m.l, W - m.r]);
-    const ys = d3.scaleLinear().domain(d3.extent(pts, (d) => d.y)).nice().range([H - m.b, m.t]);
+    // Log axis = the user override (scLogX/Y) or, if unset, the metric's own scale; but
+    // only when every plotted value is positive (log needs > 0). Sync the checkboxes.
+    const canLogX = pts.every((d) => d.x > 0), canLogY = pts.every((d) => d.y > 0);
+    const logX = canLogX && (scLogX == null ? mx.scale === "log" : scLogX);
+    const logY = canLogY && (scLogY == null ? my.scale === "log" : scLogY);
+    const cbx = document.getElementById("sc-logx"), cby = document.getElementById("sc-logy");
+    if (cbx) { cbx.checked = logX; cbx.disabled = !canLogX; }
+    if (cby) { cby.checked = logY; cby.disabled = !canLogY; }
+    const mkScale = (isLog) => isLog ? d3.scaleLog() : d3.scaleLinear();
+    const xs = mkScale(logX).domain(d3.extent(pts, (d) => d.x)).nice().range([m.l, W - m.r]);
+    const ys = mkScale(logY).domain(d3.extent(pts, (d) => d.y)).nice().range([H - m.b, m.t]);
     const svg = d3.select("#zone-scatter")
       .attr("viewBox", `0 0 ${W} ${H}`).attr("preserveAspectRatio", "xMidYMid meet");
     svg.selectAll("*").remove();
-    svg.append("g").attr("class", "sc-axis").attr("transform", `translate(0,${H - m.b})`)
-      .call(d3.axisBottom(xs).ticks(6).tickFormat((v) => fmtShort(currentId, v)));
-    svg.append("g").attr("class", "sc-axis").attr("transform", `translate(${m.l},0)`)
-      .call(d3.axisLeft(ys).ticks(6).tickFormat((v) => fmtShort(currentY, v)));
+    const xAxis = logX ? d3.axisBottom(xs).ticks(6, "~s")
+      : d3.axisBottom(xs).ticks(6).tickFormat((v) => fmtShort(currentId, v));
+    const yAxis = logY ? d3.axisLeft(ys).ticks(6, "~s")
+      : d3.axisLeft(ys).ticks(6).tickFormat((v) => fmtShort(currentY, v));
+    svg.append("g").attr("class", "sc-axis").attr("transform", `translate(0,${H - m.b})`).call(xAxis);
+    svg.append("g").attr("class", "sc-axis").attr("transform", `translate(${m.l},0)`).call(yAxis);
     svg.append("text").attr("class", "sc-axtitle").attr("x", (m.l + W - m.r) / 2).attr("y", H - 8)
       .attr("text-anchor", "middle").text(mx.short);
     svg.append("text").attr("class", "sc-axtitle").attr("transform", "rotate(-90)")

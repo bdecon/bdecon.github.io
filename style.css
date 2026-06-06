@@ -3300,6 +3300,9 @@ figure {
   }
 
   /* Scatter view */
+  & .sc-controls { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); margin: 0 0 var(--space-2); font-size: var(--text-sm); color: var(--color-text-muted); }
+  & .sc-controls label { display: inline-flex; align-items: center; gap: 5px; cursor: pointer; }
+  & .sc-controls label:has(input:disabled) { opacity: 0.45; cursor: not-allowed; }
   & #zone-scatter { background: transparent; }
   & .sc-axis path, & .sc-axis line { stroke: var(--color-border-light); }
   & .sc-axis text { fill: var(--color-text-muted); font-family: var(--font); font-size: 11px; }
@@ -3315,6 +3318,7 @@ figure {
   & .zone-table { border-collapse: separate; border-spacing: 0; font-size: var(--text-xs); font-variant-numeric: tabular-nums; white-space: nowrap; }
   & .zone-table th, & .zone-table td { padding: 4px var(--space-2); text-align: right; border-bottom: 1px solid var(--color-border-light); }
   & .zone-table thead th { position: sticky; top: 0; z-index: 2; background: var(--color-surface); cursor: pointer; font-family: var(--font-accent); font-weight: 700; color: var(--color-text); border-bottom: 2px solid var(--color-border-light); }
+  & .zone-table thead th:not(.tcol-name):not(.tcol-type) { white-space: normal; overflow-wrap: break-word; hyphens: auto; vertical-align: bottom; min-width: 50px; max-width: 84px; line-height: 1.12; }
   & .zone-table thead th:hover { color: var(--accent); }
   & .zone-table .tcol-name { position: sticky; left: 0; z-index: 1; background: var(--color-surface); text-align: left; font-family: var(--font-accent); font-weight: 700; color: var(--color-text-strong); }
   & .zone-table thead .tcol-name { z-index: 3; }
