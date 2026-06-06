@@ -3217,6 +3217,7 @@ figure {
     paint-order: stroke; stroke: var(--color-surface); stroke-width: 3px; stroke-linejoin: round; }
   & .zlabel-val { font-family: var(--font); font-weight: 700; font-size: 13px; fill: var(--color-text-strong);
     paint-order: stroke; stroke: var(--color-surface); stroke-width: 3px; stroke-linejoin: round; }
+  & .zlabel-sel .zlabel-name, & .zlabel-sel .zlabel-val { fill: var(--accent); font-size: 14px; }
 
   /* Zoom controls — small button cluster over the map's top-left (NW ocean). */
   & .map-wrap { position: relative; }

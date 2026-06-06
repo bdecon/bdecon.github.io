@@ -302,9 +302,12 @@
       .translateExtent([[0, 0], [VB_W, H]]).extent([[0, 0], [VB_W, H]])
       .filter((e) => e.type !== "wheel" && !e.button)   // no wheel-hijack of page scroll
       .on("zoom", onZoom);
-    svg.call(zoom).on("dblclick.zoom", null);
-    buildZoomControls();
+    svg.call(zoom).on("dblclick.zoom", null);   // wheel filtered out (no page-scroll hijack);
+    buildZoomControls();                          // touch pinch + drag-pan stay enabled
     updateZoomUI();
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && currentK > 1.01) { resetZoom(); }
+    });
   }
   function onZoom(e) {
     curT = e.transform; currentK = e.transform.k;
@@ -316,6 +319,7 @@
   // (NYC_CITY) don't over-zoom into a blur.
   function zoomToZone(code) {
     const b = bboxByCode[code]; if (!b) return;
+    if (selectedCode !== code) selectZone(code);   // focus it (accent label + panel)
     const w = Math.max(b[1][0] - b[0][0], 1), h = Math.max(b[1][1] - b[0][1], 1);
     const cx = (b[0][0] + b[1][0]) / 2, cy = (b[0][1] + b[1][1]) / 2;
     const k = Math.max(1, Math.min(12, 0.72 / Math.max(w / VB_W, h / H)));
@@ -332,33 +336,65 @@
     const rst = document.getElementById("zoom-reset");
     if (rst) rst.style.display = zoomed ? "" : "none";
   }
-  // Direct labels (zone name + value) at each zone's centroid, shown once zoomed in.
-  // Positioned in screen space (outside zoomG) so the text stays crisp + constant
-  // size; only zones big enough on-screen to hold a label are shown.
+  // Direct labels (zone name + value), shown once zoomed in. Drawn in screen space
+  // (outside zoomG) so text stays crisp + constant size. Candidates are visible zones
+  // big enough on-screen to hold a label (plus the selected zone, always). They're
+  // placed greedily — selected first, then largest — each measured via getBBox and
+  // nudged vertically until it clears every already-placed label (and the control
+  // corner); a label with no clear slot is dropped rather than overlapped.
+  const RESERVED = { x: 0, y: 0, w: 60, h: 150 };   // top-left zoom-control cluster (approx, viewBox units)
+  function rectsHit(a, b, px, py) {
+    return a.x - px < b.x + b.w && a.x + a.w + px > b.x &&
+           a.y - py < b.y + b.h && a.y + a.h + py > b.y;
+  }
   function positionLabels() {
     if (!labelLayer) return;
     if (currentK < LABEL_K) { labelLayer.style("display", "none"); return; }
     labelLayer.style("display", null);
-    const data = fc.features.filter((f) => {
-      const c = f.properties.CPSZ, ctr = centroidByCode[c]; if (!ctr) return false;
+    const cand = [];
+    fc.features.forEach((f) => {
+      const c = f.properties.CPSZ, ctr = centroidByCode[c]; if (!ctr) return;
       const [sx, sy] = curT.apply(ctr);
-      if (sx < 4 || sx > VB_W - 4 || sy < 4 || sy > H - 4) return false;
+      if (sx < 2 || sx > VB_W - 2 || sy < 2 || sy > H - 2) return;
       const b = bboxByCode[c];
-      return (b[1][0] - b[0][0]) * currentK > 40 && (b[1][1] - b[0][1]) * currentK > 22;
+      const wpx = (b[1][0] - b[0][0]) * currentK, hpx = (b[1][1] - b[0][1]) * currentK;
+      if (c !== selectedCode && (wpx < 34 || hpx < 20)) return;
+      cand.push({ code: c, sx, sy, area: wpx * hpx });
     });
-    const sel = labelLayer.selectAll("g.zlabel").data(data, (f) => f.properties.CPSZ);
+    // priority: selected zone first, then largest on-screen footprint
+    cand.sort((a, b) => (b.code === selectedCode) - (a.code === selectedCode) || b.area - a.area);
+
+    const sel = labelLayer.selectAll("g.zlabel").data(cand, (d) => d.code);
     sel.exit().remove();
     const ent = sel.enter().append("g").attr("class", "zlabel");
     ent.append("text").attr("class", "zlabel-name").attr("text-anchor", "middle");
     ent.append("text").attr("class", "zlabel-val").attr("text-anchor", "middle").attr("dy", "1.05em");
-    const all = ent.merge(sel);
-    all.attr("transform", (f) => {
-      const [sx, sy] = curT.apply(centroidByCode[f.properties.CPSZ]);
-      return `translate(${sx.toFixed(1)},${sy.toFixed(1)})`;
+    const all = ent.merge(sel).style("display", null);
+    all.classed("zlabel-sel", (d) => d.code === selectedCode);
+    all.select(".zlabel-name").text((d) => zoneName(d.code));
+    all.select(".zlabel-val").text((d) => fmtFull(currentId, valueOf(currentId, d.code, currentPeriod)));
+    all.attr("transform", (d) => `translate(${d.sx.toFixed(1)},${d.sy.toFixed(1)})`);
+
+    // Greedy placement with vertical nudge (in priority order via the sorted data).
+    const placed = [RESERVED];
+    const STEP = 7, MAXTRY = 8;
+    all.each(function (d) {
+      const bb = this.getBBox();              // local bbox (text centered on 0,0)
+      let chosen = null;
+      for (let i = 0; i <= MAXTRY; i++) {
+        const dy = i === 0 ? 0 : (i % 2 ? 1 : -1) * Math.ceil(i / 2) * STEP;
+        const r = { x: d.sx + bb.x, y: d.sy + bb.y + dy, w: bb.width, h: bb.height };
+        if (r.x < 1 || r.x + r.w > VB_W - 1 || r.y < 1 || r.y + r.h > H - 1) continue;
+        if (!placed.some((p) => rectsHit(r, p, 2, 1))) { chosen = { dy, r }; break; }
+      }
+      if (chosen) {
+        placed.push(chosen.r);
+        d3.select(this).style("display", null)
+          .attr("transform", `translate(${d.sx.toFixed(1)},${(d.sy + chosen.dy).toFixed(1)})`);
+      } else {
+        d3.select(this).style("display", "none");
+      }
     });
-    all.select(".zlabel-name").text((f) => zoneName(f.properties.CPSZ));
-    all.select(".zlabel-val").text((f) =>
-      fmtFull(currentId, valueOf(currentId, f.properties.CPSZ, currentPeriod)));
   }
   function buildZoomControls() {
     if (document.getElementById("zoom-controls")) return;
