@@ -96,6 +96,12 @@
   // National ("US") reference value for a metric in a period (from zone_metrics.json
   // usref; absent for extensive totals like population/jobs/GDP/net migration).
   const usOf = (id, per) => { const u = (metaById[id] || {}).usref; return u ? u[per] : undefined; };
+  // NYC is the one metro split into a city core + suburbs (both ZONE_TYPE "Metro"), so
+  // the bare "Metro" reads wrong on the 5 boroughs. Qualify the DISPLAYED type for those
+  // two zones only; the underlying ZONE_TYPE category is unchanged (it still drives the
+  // scatter coloring + the 4-way classification).
+  const TYPE_DISPLAY = { NYC_CITY: "Metro core", NY_METRO: "Metro suburbs" };
+  const typeLabel = (code) => TYPE_DISPLAY[code] || typeByCode[code] || "";
 
   Promise.all([d3.json(TOPO_URL), d3.json(VALUES_URL), d3.json(METRICS_URL),
                d3.json(PERIODS_URL), d3.json(STATES_URL).catch(() => null)])
@@ -661,7 +667,7 @@
     host.innerHTML =
       `<div class="zd-head"><div class="zd-headinfo">` +
       `<h4 class="zd-title">${zoneName(code)}</h4>` +
-      `<span class="zd-type">${typeByCode[code] || ""} · ${plabel}</span>` +
+      `<span class="zd-type">${typeLabel(code)} · ${plabel}</span>` +
       `<p class="zd-desc">${descByCode[code] || ""}</p></div>` +
       `<div class="zd-actions">` +
       `<button type="button" class="zd-zoom" aria-label="Zoom the map to this zone">⤢ Zoom to</button>` +
@@ -740,7 +746,7 @@
     const us = usOf(currentId, currentPeriod);
     tip.style("opacity", 1).html(
       `<strong>${zoneName(code)}</strong>` +
-        `<span class="tip-sub">${typeByCode[code] || ""}</span>` +
+        `<span class="tip-sub">${typeLabel(code)}</span>` +
         `<span class="tip-val">${meta.title}: ${fmtFull(currentId, v)}</span>` +
         (us != null ? `<span class="tip-rank">US: ${fmtFull(currentId, us)}</span>` : "") +
         (rankStr ? `<span class="tip-rank">${rankStr} &middot; click to inspect</span>` : "")
@@ -874,7 +880,7 @@
   }
   function showScatterTip(event, d) {
     tip.style("opacity", 1).html(
-      `<strong>${zoneName(d.z)}</strong><span class="tip-sub">${typeByCode[d.z] || ""}</span>` +
+      `<strong>${zoneName(d.z)}</strong><span class="tip-sub">${typeLabel(d.z)}</span>` +
       `<span class="tip-val">${metaById[currentId].short}: ${fmtFull(currentId, d.x)}</span>` +
       `<span class="tip-rank">${metaById[currentY].short}: ${fmtFull(currentY, d.y)}</span>`);
     moveTip(event);
@@ -889,7 +895,7 @@
     const sorted = fc.features.map((f) => f.properties.CPSZ).sort((a, b) => {
       const c = tableSort.col, d = tableSort.dir;
       if (c === "name") return d * zoneName(a).localeCompare(zoneName(b));
-      if (c === "type") return d * (typeByCode[a] || "").localeCompare(typeByCode[b] || "");
+      if (c === "type") return d * typeLabel(a).localeCompare(typeLabel(b));
       const av = valueOf(c, a, currentPeriod), bv = valueOf(c, b, currentPeriod);
       if (av == null && bv == null) return 0;   // stable order among no-data zones
       if (av == null) return 1;                  // no-data always sinks to the bottom
@@ -902,7 +908,7 @@
     const body = sorted.map((z) => {
       const cells = META.map((m) => `<td${m.id === currentId ? ' class="tcol-active"' : ""}>${fmtFull(m.id, valueOf(m.id, z, currentPeriod))}</td>`).join("");
       return `<tr data-zone="${z}"${z === selectedCode ? ' class="trsel"' : ""}>` +
-        `<td class="tcol-name">${zoneName(z)}</td><td class="tcol-type">${typeByCode[z] || ""}</td>${cells}</tr>`;
+        `<td class="tcol-name">${zoneName(z)}</td><td class="tcol-type">${typeLabel(z)}</td>${cells}</tr>`;
     }).join("");
     const wrap = document.getElementById("zone-table-wrap");
     wrap.innerHTML = `<table class="zone-table"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
