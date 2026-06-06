@@ -12,6 +12,7 @@
   // ============================================================
 
   const TOPO_URL = "/files/cps_zones_era3.topo.json";
+  const STATES_URL = "/files/cps_zones_states.topo.json";
   const VALUES_URL = "/files/zone_metric_values.json";
   const METRICS_URL = "/files/zone_metrics.json";
   const PERIODS_URL = "/files/zone_periods.json";
@@ -82,6 +83,10 @@
   const scalesByMetric = {};   // id → {fn, lo, hi, type}   (fixed across periods)
   const ranksByMetric = {};    // id → {period → {rank, count}}
   let svg, path, projection, fc, zonesSel, outlineByCode;
+  let zoomG, zoom, labelLayer, insetG, statesTopo;
+  let curT = d3.zoomIdentity, currentK = 1;
+  const featByCode = {}, centroidByCode = {}, bboxByCode = {};
+  const LABEL_K = 2.2;   // zoom level at which direct labels appear
   let selLayer, selCasing, selLine, selectedCode = null;
   let highlight, hlCasing, hlLine, insetZonesSel;
   let tip, tipEl;
@@ -89,7 +94,8 @@
   const fmtFull = (id, v) => (v == null ? "—" : FMT[metaById[id].fmt](v));
   const fmtShort = (id, v) => FMT_SHORT[metaById[id].fmt](v);
 
-  Promise.all([d3.json(TOPO_URL), d3.json(VALUES_URL), d3.json(METRICS_URL), d3.json(PERIODS_URL)])
+  Promise.all([d3.json(TOPO_URL), d3.json(VALUES_URL), d3.json(METRICS_URL),
+               d3.json(PERIODS_URL), d3.json(STATES_URL).catch(() => null)])
     .then(setup)
     .catch((err) => {
       console.error(err);
@@ -191,7 +197,8 @@
   }
 
   // ── Build (once) ───────────────────────────────────────────────────────────
-  function setup([topo, vals, metrics, periods]) {
+  function setup([topo, vals, metrics, periods, states]) {
+    statesTopo = states;
     values = vals; META = metrics; PERIODS = periods;
     META.forEach((m) => (metaById[m.id] = m));
     currentId = META[0].id;
@@ -226,25 +233,48 @@
         topojson.mesh(topo, topo.objects.zones,
           (a, b) => a.properties.CPSZ === c || b.properties.CPSZ === c));
     });
+    // Precompute each zone's projected centroid + bbox (for zoom-to + labels).
+    fc.features.forEach((f) => {
+      const c = f.properties.CPSZ;
+      featByCode[c] = f;
+      centroidByCode[c] = path.centroid(f);
+      bboxByCode[c] = path.bounds(f);    // [[x0,y0],[x1,y1]]
+    });
 
-    zonesSel = svg.append("g").selectAll("path.zone")
+    // Everything inside zoomG pans/zooms together; labels + inset stay outside.
+    zoomG = svg.append("g").attr("class", "zoom-layer");
+
+    zonesSel = zoomG.append("g").selectAll("path.zone")
       .data(fc.features).join("path")
       .attr("class", "zone").attr("d", path)
       .on("mouseover", (e, d) => { highlightZone(d.properties.CPSZ); showTip(e, d.properties.CPSZ); })
       .on("mousemove", moveTip)
       .on("mouseout", clearHover)
-      .on("click", (e, d) => toggleSelect(d.properties.CPSZ));
+      .on("click", (e, d) => toggleSelect(d.properties.CPSZ))
+      .on("dblclick", (e, d) => { e.stopPropagation(); zoomToZone(d.properties.CPSZ); });
 
-    svg.append("path").attr("class", "zone-borders")
+    zoomG.append("path").attr("class", "zone-borders")
       .attr("d", path(topojson.mesh(topo, topo.objects.zones, (a, b) => a !== b)));
 
-    selLayer = svg.append("g").attr("class", "zone-selected").style("opacity", 0);
+    // State boundaries (same cb_2024 file the zones were carved from, so coincident
+    // borders align). Interior state-state lines add orientation, esp. through
+    // multi-zone states / cross-state metros. Faint; non-scaling stroke under zoom.
+    if (statesTopo && statesTopo.objects && statesTopo.objects.states) {
+      zoomG.append("path").attr("class", "state-borders")
+        .attr("d", path(topojson.mesh(statesTopo, statesTopo.objects.states, (a, b) => a !== b)));
+    }
+
+    selLayer = zoomG.append("g").attr("class", "zone-selected").style("opacity", 0);
     selCasing = selLayer.append("path").attr("class", "sel-casing");
     selLine = selLayer.append("path").attr("class", "sel-line");
 
-    highlight = svg.append("g").attr("class", "zone-highlight").style("opacity", 0);
+    highlight = zoomG.append("g").attr("class", "zone-highlight").style("opacity", 0);
     hlCasing = highlight.append("path").attr("class", "hl-casing");
     hlLine = highlight.append("path").attr("class", "hl-line");
+
+    labelLayer = svg.append("g").attr("class", "map-labels").style("display", "none");
+
+    setupZoom();
 
     const init = parseHash();
     if (init.metric && metaById[init.metric]) currentId = init.metric;
@@ -266,6 +296,95 @@
     if (init.view && init.view !== "map") switchView(init.view);
   }
 
+  // ── Zoom / pan + direct labels ───────────────────────────────────────────────
+  function setupZoom() {
+    zoom = d3.zoom().scaleExtent([1, 12])
+      .translateExtent([[0, 0], [VB_W, H]]).extent([[0, 0], [VB_W, H]])
+      .filter((e) => e.type !== "wheel" && !e.button)   // no wheel-hijack of page scroll
+      .on("zoom", onZoom);
+    svg.call(zoom).on("dblclick.zoom", null);
+    buildZoomControls();
+    updateZoomUI();
+  }
+  function onZoom(e) {
+    curT = e.transform; currentK = e.transform.k;
+    zoomG.attr("transform", e.transform);
+    positionLabels();
+    updateZoomUI();
+  }
+  // Fit + center a single zone in the viewport (zoom-to). Cap k so tiny zones
+  // (NYC_CITY) don't over-zoom into a blur.
+  function zoomToZone(code) {
+    const b = bboxByCode[code]; if (!b) return;
+    const w = Math.max(b[1][0] - b[0][0], 1), h = Math.max(b[1][1] - b[0][1], 1);
+    const cx = (b[0][0] + b[1][0]) / 2, cy = (b[0][1] + b[1][1]) / 2;
+    const k = Math.max(1, Math.min(12, 0.72 / Math.max(w / VB_W, h / H)));
+    const t = d3.zoomIdentity.translate(VB_W / 2, H / 2).scale(k).translate(-cx, -cy);
+    svg.transition().duration(750).call(zoom.transform, t);
+  }
+  function resetZoom() { svg.transition().duration(600).call(zoom.transform, d3.zoomIdentity); }
+  function zoomByFactor(f) {
+    svg.transition().duration(280).call(zoom.scaleBy, f, [VB_W / 2, H / 2]);
+  }
+  function updateZoomUI() {
+    const zoomed = currentK > 1.01;
+    if (insetG) insetG.style("display", zoomed ? "none" : null);  // inset only at national view
+    const rst = document.getElementById("zoom-reset");
+    if (rst) rst.style.display = zoomed ? "" : "none";
+  }
+  // Direct labels (zone name + value) at each zone's centroid, shown once zoomed in.
+  // Positioned in screen space (outside zoomG) so the text stays crisp + constant
+  // size; only zones big enough on-screen to hold a label are shown.
+  function positionLabels() {
+    if (!labelLayer) return;
+    if (currentK < LABEL_K) { labelLayer.style("display", "none"); return; }
+    labelLayer.style("display", null);
+    const data = fc.features.filter((f) => {
+      const c = f.properties.CPSZ, ctr = centroidByCode[c]; if (!ctr) return false;
+      const [sx, sy] = curT.apply(ctr);
+      if (sx < 4 || sx > VB_W - 4 || sy < 4 || sy > H - 4) return false;
+      const b = bboxByCode[c];
+      return (b[1][0] - b[0][0]) * currentK > 40 && (b[1][1] - b[0][1]) * currentK > 22;
+    });
+    const sel = labelLayer.selectAll("g.zlabel").data(data, (f) => f.properties.CPSZ);
+    sel.exit().remove();
+    const ent = sel.enter().append("g").attr("class", "zlabel");
+    ent.append("text").attr("class", "zlabel-name").attr("text-anchor", "middle");
+    ent.append("text").attr("class", "zlabel-val").attr("text-anchor", "middle").attr("dy", "1.05em");
+    const all = ent.merge(sel);
+    all.attr("transform", (f) => {
+      const [sx, sy] = curT.apply(centroidByCode[f.properties.CPSZ]);
+      return `translate(${sx.toFixed(1)},${sy.toFixed(1)})`;
+    });
+    all.select(".zlabel-name").text((f) => zoneName(f.properties.CPSZ));
+    all.select(".zlabel-val").text((f) =>
+      fmtFull(currentId, valueOf(currentId, f.properties.CPSZ, currentPeriod)));
+  }
+  function buildZoomControls() {
+    if (document.getElementById("zoom-controls")) return;
+    // Anchor the controls to a relative wrapper around the map SVG (so they sit over
+    // the empty NW-ocean corner of the map, not over the card title/subtitle).
+    const svgEl = document.getElementById("zone-map");
+    if (!svgEl) return;
+    let host = svgEl.closest(".map-wrap");
+    if (!host) {
+      host = document.createElement("div");
+      host.className = "map-wrap";
+      svgEl.parentNode.insertBefore(host, svgEl);
+      host.appendChild(svgEl);
+    }
+    const box = document.createElement("div");
+    box.id = "zoom-controls"; box.className = "zoom-controls";
+    box.innerHTML =
+      '<button type="button" id="zoom-in" title="Zoom in" aria-label="Zoom in">+</button>' +
+      '<button type="button" id="zoom-out" title="Zoom out" aria-label="Zoom out">−</button>' +
+      '<button type="button" id="zoom-reset" title="Reset view" aria-label="Reset view">⤢</button>';
+    host.appendChild(box);
+    document.getElementById("zoom-in").onclick = () => zoomByFactor(1.6);
+    document.getElementById("zoom-out").onclick = () => zoomByFactor(1 / 1.6);
+    document.getElementById("zoom-reset").onclick = resetZoom;
+  }
+
   // NYC region is too small to see/hit on the national map (NYC_CITY = 5 boroughs).
   // Show a zoomed, framed inset (like the source ERA3 map) of the tristate split,
   // colored + interactive like the main map. Replaces the old offshore swatch.
@@ -278,6 +397,7 @@
     const BW = 178, BH = 178, PAD = 6, HEAD = 22;
     const x0 = VB_W - BW - 6, y0 = 230;
     const g = svg.append("g").attr("class", "nyc-inset");
+    insetG = g;
 
     g.append("rect").attr("class", "inset-frame")
       .attr("x", x0).attr("y", y0).attr("width", BW).attr("height", BH);
@@ -398,6 +518,7 @@
     d3.select("#period-select").property("value", currentPeriod);
     renderLegend(meta, cs);
     if (selectedCode) renderDetail(selectedCode);
+    positionLabels();   // direct labels follow the active metric/period
     writeHash();
   }
 
@@ -478,10 +599,13 @@
       `<h4 class="zd-title">${zoneName(code)}</h4>` +
       `<span class="zd-type">${typeByCode[code] || ""} · ${plabel}</span>` +
       `<p class="zd-desc">${descByCode[code] || ""}</p></div>` +
-      `<button type="button" class="zd-close" aria-label="Close zone detail">✕</button></div>` +
+      `<div class="zd-actions">` +
+      `<button type="button" class="zd-zoom" aria-label="Zoom the map to this zone">⤢ Zoom to</button>` +
+      `<button type="button" class="zd-close" aria-label="Close zone detail">✕</button></div></div>` +
       `<div class="zd-grid">${items}</div>`;
     host.hidden = false;
     host.querySelector(".zd-close").onclick = clearSelection;
+    host.querySelector(".zd-zoom").onclick = () => zoomToZone(code);
     host.querySelectorAll(".zd-item").forEach((b) => (b.onclick = () => applyMetric(b.dataset.metric)));
     host.querySelectorAll(".spark-hit").forEach((h) => {
       h.addEventListener("mouseover", (e) => showSparkTip(e, h.dataset.m, h.dataset.p, +h.dataset.v));
