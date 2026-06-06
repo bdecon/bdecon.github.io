@@ -483,6 +483,24 @@
     }
   },
   {
+    "id": "gdp_per_job",
+    "category": "GDP",
+    "short": "GDP per job (productivity)",
+    "title": "Real GDP per job",
+    "subtitle": "Real GDP per covered job, chained 2017$ (BEA GDP ÷ QCEW jobs; both workplace basis)",
+    "fmt": "usd0",
+    "scale": "log",
+    "dir": 0,
+    "palette": "YlGn",
+    "vintage": {
+      "p2015": "2015",
+      "p2017": "2017",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "2024"
+    }
+  },
+  {
     "id": "gdp_pc_growth10",
     "category": "GDP",
     "short": "GDP/capita 10-yr growth",
@@ -501,6 +519,150 @@
     }
   },
   {
+    "id": "manufacturing_share",
+    "category": "Industry mix",
+    "short": "Manufacturing share",
+    "title": "Manufacturing share of GDP",
+    "subtitle": "Manufacturing as a share of all-industry GDP (BEA, workplace basis)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2017": "2017",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "2024"
+    }
+  },
+  {
+    "id": "government_share",
+    "category": "Industry mix",
+    "short": "Government share",
+    "title": "Government share of GDP",
+    "subtitle": "Government & enterprises as a share of all-industry GDP (BEA)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2017": "2017",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "2024"
+    }
+  },
+  {
+    "id": "fire_share",
+    "category": "Industry mix",
+    "short": "Finance & real estate",
+    "title": "Finance & real estate share of GDP",
+    "subtitle": "Finance, insurance, real estate as a share of all-industry GDP (BEA)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2017": "2017",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "2024"
+    }
+  },
+  {
+    "id": "info_share",
+    "category": "Industry mix",
+    "short": "Information / tech",
+    "title": "Information share of GDP",
+    "subtitle": "Information (tech, media, telecom) as a share of all-industry GDP (BEA)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2017": "2017",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "2024"
+    }
+  },
+  {
+    "id": "econ_diversity",
+    "category": "Industry mix",
+    "short": "Economic diversity",
+    "title": "Economic diversity",
+    "subtitle": "Effective number of equally-sized industries (1 / Herfindahl over 20 NAICS sectors; higher = more diversified)",
+    "fmt": "num1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2017": "2017",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "2024"
+    }
+  },
+  {
+    "id": "transfers_share",
+    "category": "Income composition",
+    "short": "From govt transfers",
+    "title": "Income from government transfers",
+    "subtitle": "Government transfer receipts as a share of personal income (BEA; Social Security, Medicare/Medicaid, etc.)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2017": "2017",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "2024"
+    }
+  },
+  {
+    "id": "capital_income_share",
+    "category": "Income composition",
+    "short": "From capital",
+    "title": "Income from capital",
+    "subtitle": "Dividends, interest & rent as a share of personal income (BEA)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2017": "2017",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "2024"
+    }
+  },
+  {
+    "id": "proprietors_share",
+    "category": "Income composition",
+    "short": "From self-employment",
+    "title": "Income from self-employment",
+    "subtitle": "Proprietors' income as a share of personal income (BEA)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2017": "2017",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "2024"
+    }
+  },
+  {
     "id": "rpp_level",
     "category": "Cost of living",
     "short": "Regional price level",
@@ -510,6 +672,24 @@
     "scale": "seq",
     "dir": 0,
     "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2017": "2017",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "2024"
+    }
+  },
+  {
+    "id": "real_pc_income",
+    "category": "Cost of living",
+    "short": "Real income (cost-adjusted)",
+    "title": "Real per-capita income (purchasing power)",
+    "subtitle": "Per-capita income adjusted for local prices (RPP) and inflation, real purchasing power (BEA)",
+    "fmt": "usd0",
+    "scale": "log",
+    "dir": 0,
+    "palette": "YlGn",
     "vintage": {
       "p2015": "2015",
       "p2017": "2017",

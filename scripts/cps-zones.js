@@ -432,7 +432,7 @@
     const W = 110, H = 22, padX = 3, padY = 3.5, n = PERIODS.length;
     const raw = PERIODS.map((p) => {
       const v = valueOf(id, code, p.id);
-      return v == null ? null : { t: cs.norm(v), c: cs.fn(v), cur: p.id === currentPeriod };
+      return v == null ? null : { t: cs.norm(v), c: cs.fn(v), cur: p.id === currentPeriod, pid: p.id, v: v };
     });
     const ts = raw.filter(Boolean).map((d) => d.t);
     if (!ts.length) return "";
@@ -442,14 +442,17 @@
     lo = mid - span / 2; hi = mid + span / 2;            // centered band the series fills
     const xOf = (i) => padX + (n > 1 ? i / (n - 1) : 0.5) * (W - 2 * padX);
     const yOf = (t) => padY + (1 - (t - lo) / (hi - lo)) * (H - 2 * padY);
-    const pts = raw.map((d, i) => d ? { x: xOf(i), y: yOf(d.t), c: d.c, cur: d.cur } : null);
+    const pts = raw.map((d, i) => d ? { x: xOf(i), y: yOf(d.t), c: d.c, cur: d.cur, pid: d.pid, v: d.v } : null);
     const valid = pts.filter(Boolean);
     const line = valid.map((p, i) => (i ? "L" : "M") + p.x.toFixed(1) + " " + p.y.toFixed(1)).join(" ");
     const dots = pts.map((p) => p
       ? `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${p.cur ? 2.8 : 1.7}" fill="${p.c}"${p.cur ? ' stroke="var(--accent)" stroke-width="1.2"' : ''}/>`
       : "").join("");
-    return `<svg class="zd-spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">` +
-      `<path d="${line}" fill="none" stroke="var(--color-text-muted)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>${dots}</svg>`;
+    // Invisible larger hit targets so each period dot is hoverable (year + value tip).
+    const hits = valid.map((p) =>
+      `<circle class="spark-hit" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="7" fill="none" pointer-events="all" data-m="${id}" data-p="${p.pid}" data-v="${p.v}"/>`).join("");
+    return `<svg class="zd-spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">` +
+      `<path d="${line}" fill="none" stroke="var(--color-text-muted)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>${dots}${hits}</svg>`;
   }
   function renderDetail(code) {
     const host = document.getElementById("zone-detail");
@@ -480,6 +483,22 @@
     host.hidden = false;
     host.querySelector(".zd-close").onclick = clearSelection;
     host.querySelectorAll(".zd-item").forEach((b) => (b.onclick = () => applyMetric(b.dataset.metric)));
+    host.querySelectorAll(".spark-hit").forEach((h) => {
+      h.addEventListener("mouseover", (e) => showSparkTip(e, h.dataset.m, h.dataset.p, +h.dataset.v));
+      h.addEventListener("mousemove", moveTip);
+      h.addEventListener("mouseout", () => tip.style("opacity", 0));
+    });
+  }
+  // Tooltip for a single sparkline dot: which period (with its true vintage) + value.
+  function showSparkTip(event, mid, pid, v) {
+    const m = metaById[mid];
+    const plabel = (PERIODS.find((p) => p.id === pid) || {}).label || pid;
+    const vintage = (m.vintage || {})[pid];
+    tip.style("opacity", 1).html(
+      `<strong>${plabel}</strong>` +
+        (vintage && vintage !== plabel ? `<span class="tip-sub">${vintage}</span>` : "") +
+        `<span class="tip-val">${m.short}: ${fmtFull(mid, v)}</span>`);
+    moveTip(event);
   }
 
   // ── Shareable URL state (#m=<metric>&z=<zone>&p=<period>) ─────────────────────
