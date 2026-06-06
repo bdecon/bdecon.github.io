@@ -285,6 +285,42 @@
     }
   },
   {
+    "id": "nilf_retired",
+    "category": "Out of the labor force",
+    "short": "Retired",
+    "title": "Out of the labor force: retired",
+    "subtitle": "Not in the labor force, retired, share of adults 16+ (CPS)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2017": "2017",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
+    "id": "nilf_school",
+    "category": "Out of the labor force",
+    "short": "In school",
+    "title": "Out of the labor force: in school",
+    "subtitle": "Not in the labor force, in school, share of adults 16+ (CPS)",
+    "fmt": "pct1",
+    "scale": "seq",
+    "dir": 0,
+    "palette": "YlOrRd",
+    "vintage": {
+      "p2015": "2015",
+      "p2017": "2017",
+      "p2019": "2019",
+      "p2022": "2022",
+      "latest": "12-mo to Apr 2026"
+    }
+  },
+  {
     "id": "avg_usual_hours",
     "category": "Hours",
     "short": "Average weekly hours",
@@ -345,7 +381,7 @@
     "title": "Median household income",
     "subtitle": "Median household income, inflation-adjusted (ACS PUMS, 1% sample)",
     "fmt": "usd0",
-    "scale": "seq",
+    "scale": "log",
     "dir": 1,
     "palette": "YlGn",
     "vintage": {
@@ -363,7 +399,7 @@
     "title": "Average annual pay",
     "subtitle": "Average pay per covered job, inflation-adjusted (QCEW, workplace basis)",
     "fmt": "usd0",
-    "scale": "seq",
+    "scale": "log",
     "dir": 1,
     "palette": "YlGn",
     "vintage": {
@@ -381,7 +417,7 @@
     "title": "Median hourly wage",
     "subtitle": "Median hourly wage, inflation-adjusted, wage & salary workers (CPS ORG, ¼ sample)",
     "fmt": "usd2",
-    "scale": "seq",
+    "scale": "log",
     "dir": 0,
     "palette": "YlGn",
     "vintage": {
@@ -399,7 +435,7 @@
     "title": "10th-percentile hourly wage",
     "subtitle": "10th-percentile hourly wage, inflation-adjusted, wage & salary (CPS ORG, ¼ sample)",
     "fmt": "usd2",
-    "scale": "seq",
+    "scale": "log",
     "dir": 0,
     "palette": "YlGn",
     "vintage": {
@@ -417,7 +453,7 @@
     "title": "Real GDP per capita",
     "subtitle": "Real GDP per resident, chained 2017$ (BEA; workplace basis)",
     "fmt": "usd0",
-    "scale": "seq",
+    "scale": "log",
     "dir": 0,
     "palette": "YlGn",
     "vintage": {
@@ -507,7 +543,7 @@
     "title": "Home-price growth since 2000",
     "subtitle": "House price index, 2000 = 100 (FHFA, pop-weighted)",
     "fmt": "idx0",
-    "scale": "seq",
+    "scale": "log",
     "dir": 0,
     "palette": "YlOrRd",
     "vintage": {
@@ -525,7 +561,7 @@
     "title": "Building permits per resident",
     "subtitle": "Residential units permitted per 1,000 residents (Census BPS ÷ BEA population)",
     "fmt": "num1",
-    "scale": "seq",
+    "scale": "log",
     "dir": 0,
     "palette": "YlOrRd",
     "vintage": {
@@ -669,7 +705,7 @@
     "title": "Per-capita personal income",
     "subtitle": "Per-capita personal income, inflation-adjusted (BEA)",
     "fmt": "usd0",
-    "scale": "seq",
+    "scale": "log",
     "dir": 1,
     "palette": "YlGn",
     "vintage": {
@@ -831,7 +867,7 @@
     "title": "Foreign-born share",
     "subtitle": "Born outside the US (ACS 5-yr)",
     "fmt": "pct1",
-    "scale": "seq",
+    "scale": "log",
     "dir": 0,
     "palette": "YlOrRd",
     "vintage": {

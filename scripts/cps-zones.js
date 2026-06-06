@@ -139,28 +139,44 @@
   function colorScaleFor(meta) {
     const vals = allValues(meta.id);
     const interp = rampOf(meta);
+    // Robust domain: clip the color range to the 2nd/98th percentile so one or two
+    // outlier zones (NYC's car-free share, the Bay Area's pay) saturate the end
+    // color instead of bleaching the other ~68 zones pale. The true extremes are
+    // kept (rawLo/rawHi) so the legend flags saturation with ≤ / +.
+    const srt = vals.slice().sort((a, b) => a - b);
+    const q = (p) => {
+      const k = (srt.length - 1) * p, i = Math.floor(k);
+      return srt[i] + (srt[Math.min(i + 1, srt.length - 1)] - srt[i]) * (k - i);
+    };
+    const rawLo = srt[0], rawHi = srt[srt.length - 1];
+    const clampu = (x) => Math.max(0, Math.min(1, x));
     if (meta.scale === "div") {
       // Signed metrics (political margin, net migration) diverge about 0; the
       // ramp (RdBu / PuOr) is the metric's own so the two read differently.
-      let lo = Math.min(0, d3.min(vals)), hi = Math.max(0, d3.max(vals));
+      let lo = Math.min(0, q(0.02)), hi = Math.max(0, q(0.98));
       const span = (hi - lo) || 1;
-      return { fn: d3.scaleDiverging(interp).domain([lo, 0, hi]), lo, hi, type: "div",
-               norm: (v) => (v - lo) / span, denorm: (t) => lo + t * span };
+      return { fn: d3.scaleDiverging(interp).domain([lo, 0, hi]).clamp(true), lo, hi, rawLo, rawHi, type: "div",
+               loClip: rawLo < lo, hiClip: rawHi > hi,
+               norm: (v) => clampu((v - lo) / span), denorm: (t) => lo + t * span };
     }
     if (meta.scale === "log") {
-      // Right-skewed counts (population, jobs, transit/capita): equal pixels =
-      // equal ratio, so the long tail of small zones isn't washed out by outliers.
-      let lo = d3.min(vals.filter((v) => v > 0)) || 1, hi = d3.max(vals);
-      if (!(hi > lo)) hi = lo * 10;
+      // Right-skewed counts/levels (population, jobs, density, dollar levels):
+      // equal pixels = equal ratio, so the long tail isn't washed out.
+      const pos = vals.filter((v) => v > 0);
+      let lo = Math.max(q(0.02), d3.min(pos) || 1), hi = q(0.98);
+      if (lo <= 0) lo = d3.min(pos) || 1;
+      if (!(hi > lo)) hi = (d3.max(pos) || lo * 10);
       const llo = Math.log(lo), lspan = (Math.log(hi) - llo) || 1;
-      return { fn: d3.scaleSequentialLog(interp).domain([lo, hi]), lo, hi, type: "log",
-               norm: (v) => (Math.log(Math.max(v, lo)) - llo) / lspan, denorm: (t) => Math.exp(llo + t * lspan) };
+      return { fn: d3.scaleSequentialLog(interp).domain([lo, hi]).clamp(true), lo, hi, rawLo, rawHi, type: "log",
+               loClip: rawLo < lo, hiClip: rawHi > hi,
+               norm: (v) => clampu((Math.log(Math.max(v, 1e-9)) - llo) / lspan), denorm: (t) => Math.exp(llo + t * lspan) };
     }
-    let lo = d3.min(vals), hi = d3.max(vals);
-    if (lo === hi) { lo -= 1; hi += 1; }
-    const span = hi - lo;
-    return { fn: d3.scaleSequential(interp).domain([lo, hi]), lo, hi, type: "seq",
-             norm: (v) => (v - lo) / span, denorm: (t) => lo + t * span };
+    let lo = q(0.02), hi = q(0.98);
+    if (lo === hi) { lo = rawLo - 1; hi = rawHi + 1; }
+    const span = (hi - lo) || 1;
+    return { fn: d3.scaleSequential(interp).domain([lo, hi]).clamp(true), lo, hi, rawLo, rawHi, type: "seq",
+             loClip: rawLo < lo, hiClip: rawHi > hi,
+             norm: (v) => clampu((v - lo) / span), denorm: (t) => lo + t * span };
   }
   function computeRanks(id, period) {
     const arr = [];
@@ -405,27 +421,35 @@
     refreshInset();
     writeHash();
   }
-  // Sparkline of one zone's value for a metric across ALL periods (y = the metric's
-  // fixed cross-period scale, so the shape is comparable). Current period emphasized;
-  // dots colored by the same scale as the map. Adapts to however many periods exist.
+  // Sparkline of one zone's value for a metric across ALL periods. The y-axis
+  // AUTOSCALES to this zone's own min..max over time (in cs.norm space, so it stays
+  // correct for log/diverging metrics) — otherwise the trajectory is a sliver of the
+  // cross-zone color domain and reads as flat. Dot COLOR still uses the global scale,
+  // so absolute level is encoded by color while the line shows the temporal shape.
+  // A floor on the band keeps an essentially-flat series from being amplified into
+  // fake drama. Current period emphasized; adapts to however many periods exist.
   function sparkSVG(id, code, cs) {
-    const W = 100, H = 18, pad = 2.5, n = PERIODS.length;
-    const clamp = (x) => Math.max(0, Math.min(1, x));
-    const pts = PERIODS.map((p, i) => {
+    const W = 110, H = 22, padX = 3, padY = 3.5, n = PERIODS.length;
+    const raw = PERIODS.map((p) => {
       const v = valueOf(id, code, p.id);
-      if (v == null) return null;
-      return { x: pad + (n > 1 ? i / (n - 1) : 0.5) * (W - 2 * pad),
-               y: pad + (1 - clamp(cs.norm(v))) * (H - 2 * pad),
-               c: cs.fn(v), cur: p.id === currentPeriod };
+      return v == null ? null : { t: cs.norm(v), c: cs.fn(v), cur: p.id === currentPeriod };
     });
+    const ts = raw.filter(Boolean).map((d) => d.t);
+    if (!ts.length) return "";
+    const FLOOR = 0.12;                                  // min band width (frac of full scale)
+    let lo = Math.min(...ts), hi = Math.max(...ts);
+    const span = Math.max(hi - lo, FLOOR), mid = (lo + hi) / 2;
+    lo = mid - span / 2; hi = mid + span / 2;            // centered band the series fills
+    const xOf = (i) => padX + (n > 1 ? i / (n - 1) : 0.5) * (W - 2 * padX);
+    const yOf = (t) => padY + (1 - (t - lo) / (hi - lo)) * (H - 2 * padY);
+    const pts = raw.map((d, i) => d ? { x: xOf(i), y: yOf(d.t), c: d.c, cur: d.cur } : null);
     const valid = pts.filter(Boolean);
-    if (!valid.length) return "";
     const line = valid.map((p, i) => (i ? "L" : "M") + p.x.toFixed(1) + " " + p.y.toFixed(1)).join(" ");
     const dots = pts.map((p) => p
-      ? `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${p.cur ? 2.7 : 1.6}" fill="${p.c}"${p.cur ? ' stroke="var(--accent)" stroke-width="1.1"' : ''}/>`
+      ? `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${p.cur ? 2.8 : 1.7}" fill="${p.c}"${p.cur ? ' stroke="var(--accent)" stroke-width="1.2"' : ''}/>`
       : "").join("");
     return `<svg class="zd-spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">` +
-      `<path d="${line}" fill="none" stroke="var(--color-border-light)" stroke-width="1.3" vector-effect="non-scaling-stroke"/>${dots}</svg>`;
+      `<path d="${line}" fill="none" stroke="var(--color-text-muted)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>${dots}</svg>`;
   }
   function renderDetail(code) {
     const host = document.getElementById("zone-detail");
@@ -563,9 +587,9 @@
     }
 
     svgL.append("text").attr("class", "legend-end").attr("x", PAD).attr("y", labelY)
-      .attr("text-anchor", "start").text(fmtShort(meta.id, cs.lo));
+      .attr("text-anchor", "start").text((cs.loClip ? "≤" : "") + fmtShort(meta.id, cs.lo));
     svgL.append("text").attr("class", "legend-end").attr("x", LW - PAD).attr("y", labelY)
-      .attr("text-anchor", "end").text(fmtShort(meta.id, cs.hi));
+      .attr("text-anchor", "end").text(fmtShort(meta.id, cs.hi) + (cs.hiClip ? "+" : ""));
     const mid = cs.type === "div" ? "Even" : cs.type === "log" ? "← log scale →" : "← 70 zones →";
     svgL.append("text").attr("class", "legend-mid")
       .attr("x", cs.type === "div" ? xOf(0) : LW / 2).attr("y", labelY)
