@@ -105,9 +105,9 @@
     },
     {
       "name": "CPS Microdata",
-      "period": "Apr 2026",
+      "period": "May 2026",
       "freq": "monthly",
-      "last_changed": "2026-05-13"
+      "last_changed": "2026-06-10"
     },
     {
       "name": "State Unemployment",
@@ -304,6 +304,12 @@
       "last_changed": "2026-06-10"
     },
     {
+      "name": "CPS Microdata",
+      "period": "May 2026",
+      "freq": "monthly",
+      "last_changed": "2026-06-10"
+    },
+    {
       "name": "Mortgage Rates",
       "period": "Jun 4, 2026",
       "freq": "weekly",
@@ -336,12 +342,6 @@
     {
       "name": "Metro Unemployment",
       "period": "Apr 2026",
-      "freq": "monthly",
-      "last_changed": "2026-06-03"
-    },
-    {
-      "name": "Oil Production",
-      "period": "Mar 2026",
       "freq": "monthly",
       "last_changed": "2026-06-03"
     }
