@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-06",
+  "generated": "2026-06-10",
   "releases": [
     {
       "name": "Employment Situation",
@@ -9,9 +9,9 @@
     },
     {
       "name": "Consumer Price Index",
-      "period": "Apr 2026",
+      "period": "May 2026",
       "freq": "monthly",
-      "last_changed": "2026-05-12"
+      "last_changed": "2026-06-10"
     },
     {
       "name": "Personal Income & Outlays",
@@ -39,9 +39,9 @@
     },
     {
       "name": "International Trade",
-      "period": "Mar 2026",
+      "period": "Apr 2026",
       "freq": "monthly",
-      "last_changed": "2026-05-05"
+      "last_changed": "2026-06-10"
     },
     {
       "name": "Retail Sales",
@@ -99,9 +99,9 @@
     },
     {
       "name": "Consumer Expectations",
-      "period": "Apr 2026",
+      "period": "May 2026",
       "freq": "monthly",
-      "last_changed": "2026-05-07"
+      "last_changed": "2026-06-10"
     },
     {
       "name": "CPS Microdata",
@@ -286,6 +286,24 @@
   ],
   "recent": [
     {
+      "name": "Consumer Price Index",
+      "period": "May 2026",
+      "freq": "monthly",
+      "last_changed": "2026-06-10"
+    },
+    {
+      "name": "International Trade",
+      "period": "Apr 2026",
+      "freq": "monthly",
+      "last_changed": "2026-06-10"
+    },
+    {
+      "name": "Consumer Expectations",
+      "period": "May 2026",
+      "freq": "monthly",
+      "last_changed": "2026-06-10"
+    },
+    {
       "name": "Mortgage Rates",
       "period": "Jun 4, 2026",
       "freq": "weekly",
@@ -326,24 +344,6 @@
       "period": "Mar 2026",
       "freq": "monthly",
       "last_changed": "2026-06-03"
-    },
-    {
-      "name": "Personal Income & Outlays",
-      "period": "Apr 2026",
-      "freq": "monthly",
-      "last_changed": "2026-05-28"
-    },
-    {
-      "name": "Retail Sales",
-      "period": "Apr 2026",
-      "freq": "monthly",
-      "last_changed": "2026-05-28"
-    },
-    {
-      "name": "New Home Sales",
-      "period": "Apr 2026",
-      "freq": "monthly",
-      "last_changed": "2026-05-28"
     }
   ],
   "st_series": [
