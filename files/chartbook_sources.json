@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-10",
+  "generated": "2026-06-11",
   "releases": [
     {
       "name": "Employment Situation",
@@ -21,9 +21,9 @@
     },
     {
       "name": "Producer Price Index",
-      "period": "Apr 2026",
+      "period": "May 2026",
       "freq": "monthly",
-      "last_changed": "2026-05-13"
+      "last_changed": "2026-06-11"
     },
     {
       "name": "Import/Export Prices",
@@ -129,9 +129,9 @@
     },
     {
       "name": "Treasury Statement",
-      "period": "Apr 2026",
+      "period": "May 2026",
       "freq": "monthly",
-      "last_changed": "2026-05-12"
+      "last_changed": "2026-06-11"
     },
     {
       "name": "Money Stock (M2)",
@@ -165,9 +165,9 @@
     },
     {
       "name": "Initial Jobless Claims",
-      "period": "May 30, 2026",
+      "period": "Jun 6, 2026",
       "freq": "weekly",
-      "last_changed": "2026-06-04"
+      "last_changed": "2026-06-11"
     },
     {
       "name": "Fed Balance Sheet",
@@ -286,6 +286,24 @@
   ],
   "recent": [
     {
+      "name": "Producer Price Index",
+      "period": "May 2026",
+      "freq": "monthly",
+      "last_changed": "2026-06-11"
+    },
+    {
+      "name": "Treasury Statement",
+      "period": "May 2026",
+      "freq": "monthly",
+      "last_changed": "2026-06-11"
+    },
+    {
+      "name": "Initial Jobless Claims",
+      "period": "Jun 6, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-06-11"
+    },
+    {
       "name": "Consumer Price Index",
       "period": "May 2026",
       "freq": "monthly",
@@ -316,12 +334,6 @@
       "last_changed": "2026-06-04"
     },
     {
-      "name": "Initial Jobless Claims",
-      "period": "May 30, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-06-04"
-    },
-    {
       "name": "Fed Balance Sheet",
       "period": "Jun 3, 2026",
       "freq": "weekly",
@@ -329,18 +341,6 @@
     },
     {
       "name": "JOLTS",
-      "period": "Apr 2026",
-      "freq": "monthly",
-      "last_changed": "2026-06-03"
-    },
-    {
-      "name": "Construction Spending",
-      "period": "Apr 2026",
-      "freq": "monthly",
-      "last_changed": "2026-06-03"
-    },
-    {
-      "name": "Metro Unemployment",
       "period": "Apr 2026",
       "freq": "monthly",
       "last_changed": "2026-06-03"
