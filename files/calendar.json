@@ -1,80 +1,10 @@
 {
-  "generated": "2026-06-07T23:02:04",
+  "generated": "2026-06-14T23:05:33",
   "range": {
-    "start": "2026-06-07",
-    "end": "2026-09-05"
+    "start": "2026-06-14",
+    "end": "2026-09-12"
   },
   "entries": [
-    {
-      "name": "International Trade",
-      "date": "2026-06-09",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "BEA/Census"
-    },
-    {
-      "name": "Consumer Expectations",
-      "date": "2026-06-09",
-      "time": "11:00 AM ET",
-      "frequency": "monthly",
-      "agency": "NY Fed"
-    },
-    {
-      "name": "Consumer Price Index",
-      "date": "2026-06-10",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "BLS"
-    },
-    {
-      "name": "CPS Microdata",
-      "date": "2026-06-10",
-      "time": "12:00 PM ET",
-      "frequency": "monthly",
-      "agency": "Census"
-    },
-    {
-      "name": "Treasury Statement",
-      "date": "2026-06-10",
-      "time": "2:00 PM ET",
-      "frequency": "monthly",
-      "agency": "Treasury"
-    },
-    {
-      "name": "Jobless Claims",
-      "date": "2026-06-11",
-      "time": "8:30 AM ET",
-      "frequency": "weekly",
-      "agency": "DOL"
-    },
-    {
-      "name": "Producer Price Index",
-      "date": "2026-06-11",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "BLS"
-    },
-    {
-      "name": "Financial Accounts (Z.1)",
-      "date": "2026-06-11",
-      "time": "12:00 PM ET",
-      "frequency": "quarterly",
-      "agency": "Fed"
-    },
-    {
-      "name": "Mortgage Rates",
-      "date": "2026-06-11",
-      "time": "12:00 PM ET",
-      "frequency": "weekly",
-      "agency": "Freddie Mac"
-    },
-    {
-      "name": "Fed Balance Sheet",
-      "date": "2026-06-11",
-      "time": "4:30 PM ET",
-      "frequency": "weekly",
-      "agency": "Fed"
-    },
     {
       "name": "Industrial Production",
       "date": "2026-06-15",
@@ -886,6 +816,83 @@
       "time": "8:30 AM ET",
       "frequency": "monthly",
       "agency": "BLS"
+    },
+    {
+      "name": "Consumer Expectations",
+      "date": "2026-09-08",
+      "time": "11:00 AM ET",
+      "frequency": "monthly",
+      "agency": "NY Fed"
+    },
+    {
+      "name": "Consumer Credit (G.19)",
+      "date": "2026-09-08",
+      "time": "3:00 PM ET",
+      "frequency": "monthly",
+      "agency": "Fed"
+    },
+    {
+      "name": "CPS Microdata",
+      "date": "2026-09-09",
+      "time": "12:00 PM ET",
+      "frequency": "monthly",
+      "agency": "Census"
+    },
+    {
+      "name": "Consumer Expenditures",
+      "date": "2026-09-09",
+      "time": null,
+      "frequency": "annual",
+      "agency": "BLS"
+    },
+    {
+      "name": "Jobless Claims",
+      "date": "2026-09-10",
+      "time": "8:30 AM ET",
+      "frequency": "weekly",
+      "agency": "DOL"
+    },
+    {
+      "name": "Producer Price Index",
+      "date": "2026-09-10",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS"
+    },
+    {
+      "name": "Mortgage Rates",
+      "date": "2026-09-10",
+      "time": "12:00 PM ET",
+      "frequency": "weekly",
+      "agency": "Freddie Mac"
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "date": "2026-09-10",
+      "time": "4:30 PM ET",
+      "frequency": "weekly",
+      "agency": "Fed"
+    },
+    {
+      "name": "Consumer Price Index",
+      "date": "2026-09-11",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS"
+    },
+    {
+      "name": "Financial Accounts (Z.1)",
+      "date": "2026-09-11",
+      "time": "12:00 PM ET",
+      "frequency": "quarterly",
+      "agency": "Fed"
+    },
+    {
+      "name": "Treasury Statement",
+      "date": "2026-09-11",
+      "time": "2:00 PM ET",
+      "frequency": "monthly",
+      "agency": "Treasury"
     }
   ]
 }
