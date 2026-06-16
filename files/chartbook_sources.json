@@ -27,9 +27,9 @@
     },
     {
       "name": "Import/Export Prices",
-      "period": "Apr 2026",
+      "period": "May 2026",
       "freq": "monthly",
-      "last_changed": "2026-05-14"
+      "last_changed": "2026-06-16"
     },
     {
       "name": "JOLTS",
@@ -286,6 +286,12 @@
   ],
   "recent": [
     {
+      "name": "Import/Export Prices",
+      "period": "May 2026",
+      "freq": "monthly",
+      "last_changed": "2026-06-16"
+    },
+    {
       "name": "Industrial Production",
       "period": "May 2026",
       "freq": "monthly",
@@ -336,12 +342,6 @@
     {
       "name": "Consumer Price Index",
       "period": "May 2026",
-      "freq": "monthly",
-      "last_changed": "2026-06-10"
-    },
-    {
-      "name": "International Trade",
-      "period": "Apr 2026",
       "freq": "monthly",
       "last_changed": "2026-06-10"
     }
