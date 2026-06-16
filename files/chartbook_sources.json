@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-12",
+  "generated": "2026-06-16",
   "releases": [
     {
       "name": "Employment Situation",
@@ -51,9 +51,9 @@
     },
     {
       "name": "Industrial Production",
-      "period": "Apr 2026",
+      "period": "May 2026",
       "freq": "monthly",
-      "last_changed": "2026-05-15"
+      "last_changed": "2026-06-16"
     },
     {
       "name": "Construction Spending",
@@ -286,6 +286,12 @@
   ],
   "recent": [
     {
+      "name": "Industrial Production",
+      "period": "May 2026",
+      "freq": "monthly",
+      "last_changed": "2026-06-16"
+    },
+    {
       "name": "Wage Tracker",
       "period": "May 2026",
       "freq": "monthly",
@@ -336,12 +342,6 @@
     {
       "name": "International Trade",
       "period": "Apr 2026",
-      "freq": "monthly",
-      "last_changed": "2026-06-10"
-    },
-    {
-      "name": "Consumer Expectations",
-      "period": "May 2026",
       "freq": "monthly",
       "last_changed": "2026-06-10"
     }
