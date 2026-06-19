@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-16",
+  "generated": "2026-06-18",
   "releases": [
     {
       "name": "Employment Situation",
@@ -123,9 +123,9 @@
     },
     {
       "name": "TIC Capital Flows",
-      "period": "Mar 2026",
+      "period": "Apr 2026",
       "freq": "monthly",
-      "last_changed": "2026-05-19"
+      "last_changed": "2026-06-18"
     },
     {
       "name": "Treasury Statement",
@@ -141,9 +141,9 @@
     },
     {
       "name": "Exchange Rate (REER)",
-      "period": "Apr 2026",
+      "period": "May 2026",
       "freq": "monthly",
-      "last_changed": "2026-05-21"
+      "last_changed": "2026-06-18"
     },
     {
       "name": "Electricity",
@@ -159,21 +159,21 @@
     },
     {
       "name": "Mortgage Rates",
-      "period": "Jun 11, 2026",
+      "period": "Jun 18, 2026",
       "freq": "weekly",
-      "last_changed": "2026-06-12"
+      "last_changed": "2026-06-18"
     },
     {
       "name": "Initial Jobless Claims",
-      "period": "Jun 6, 2026",
+      "period": "Jun 13, 2026",
       "freq": "weekly",
-      "last_changed": "2026-06-11"
+      "last_changed": "2026-06-18"
     },
     {
       "name": "Fed Balance Sheet",
-      "period": "Jun 10, 2026",
+      "period": "Jun 17, 2026",
       "freq": "weekly",
-      "last_changed": "2026-06-12"
+      "last_changed": "2026-06-18"
     },
     {
       "name": "GDP (Second)",
@@ -286,6 +286,36 @@
   ],
   "recent": [
     {
+      "name": "TIC Capital Flows",
+      "period": "Apr 2026",
+      "freq": "monthly",
+      "last_changed": "2026-06-18"
+    },
+    {
+      "name": "Exchange Rate (REER)",
+      "period": "May 2026",
+      "freq": "monthly",
+      "last_changed": "2026-06-18"
+    },
+    {
+      "name": "Mortgage Rates",
+      "period": "Jun 18, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-06-18"
+    },
+    {
+      "name": "Initial Jobless Claims",
+      "period": "Jun 13, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-06-18"
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "period": "Jun 17, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-06-18"
+    },
+    {
       "name": "Import/Export Prices",
       "period": "May 2026",
       "freq": "monthly",
@@ -304,18 +334,6 @@
       "last_changed": "2026-06-12"
     },
     {
-      "name": "Mortgage Rates",
-      "period": "Jun 11, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-06-12"
-    },
-    {
-      "name": "Fed Balance Sheet",
-      "period": "Jun 10, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-06-12"
-    },
-    {
       "name": "Financial Accounts",
       "period": "Q1 2026",
       "freq": "quarterly",
@@ -326,24 +344,6 @@
       "period": "May 2026",
       "freq": "monthly",
       "last_changed": "2026-06-11"
-    },
-    {
-      "name": "Treasury Statement",
-      "period": "May 2026",
-      "freq": "monthly",
-      "last_changed": "2026-06-11"
-    },
-    {
-      "name": "Initial Jobless Claims",
-      "period": "Jun 6, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-06-11"
-    },
-    {
-      "name": "Consumer Price Index",
-      "period": "May 2026",
-      "freq": "monthly",
-      "last_changed": "2026-06-10"
     }
   ],
   "st_series": [
