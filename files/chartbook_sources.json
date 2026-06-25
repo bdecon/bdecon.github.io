@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-23",
+  "generated": "2026-06-25",
   "releases": [
     {
       "name": "Employment Situation",
@@ -15,9 +15,9 @@
     },
     {
       "name": "Personal Income & Outlays",
-      "period": "Apr 2026",
+      "period": "May 2026",
       "freq": "monthly",
-      "last_changed": "2026-05-28"
+      "last_changed": "2026-06-25"
     },
     {
       "name": "Producer Price Index",
@@ -69,9 +69,9 @@
     },
     {
       "name": "New Home Sales",
-      "period": "Apr 2026",
+      "period": "May 2026",
       "freq": "monthly",
-      "last_changed": "2026-05-28"
+      "last_changed": "2026-06-25"
     },
     {
       "name": "House Prices",
@@ -135,9 +135,9 @@
     },
     {
       "name": "Money Stock (M2)",
-      "period": "Apr 2026",
+      "period": "May 2026",
       "freq": "monthly",
-      "last_changed": "2026-05-26"
+      "last_changed": "2026-06-25"
     },
     {
       "name": "Exchange Rate (REER)",
@@ -165,9 +165,9 @@
     },
     {
       "name": "Initial Jobless Claims",
-      "period": "Jun 13, 2026",
+      "period": "Jun 20, 2026",
       "freq": "weekly",
-      "last_changed": "2026-06-18"
+      "last_changed": "2026-06-25"
     },
     {
       "name": "Fed Balance Sheet",
@@ -176,22 +176,22 @@
       "last_changed": "2026-06-18"
     },
     {
-      "name": "GDP (Second)",
+      "name": "GDP (Third)",
       "period": "Q1 2026",
       "freq": "quarterly",
-      "last_changed": "2026-05-28"
+      "last_changed": "2026-06-25"
     },
     {
       "name": "GDP by Industry",
-      "period": "Q4 2025",
+      "period": "Q1 2026",
       "freq": "quarterly",
-      "last_changed": "2026-04-09"
+      "last_changed": "2026-06-25"
     },
     {
       "name": "GDP by State",
-      "period": "Q4 2025",
+      "period": "Q1 2026",
       "freq": "quarterly",
-      "last_changed": "2026-04-09"
+      "last_changed": "2026-06-25"
     },
     {
       "name": "Corporate Profits",
@@ -286,6 +286,48 @@
   ],
   "recent": [
     {
+      "name": "Personal Income & Outlays",
+      "period": "May 2026",
+      "freq": "monthly",
+      "last_changed": "2026-06-25"
+    },
+    {
+      "name": "New Home Sales",
+      "period": "May 2026",
+      "freq": "monthly",
+      "last_changed": "2026-06-25"
+    },
+    {
+      "name": "Money Stock (M2)",
+      "period": "May 2026",
+      "freq": "monthly",
+      "last_changed": "2026-06-25"
+    },
+    {
+      "name": "Initial Jobless Claims",
+      "period": "Jun 20, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-06-25"
+    },
+    {
+      "name": "GDP (Third)",
+      "period": "Q1 2026",
+      "freq": "quarterly",
+      "last_changed": "2026-06-25"
+    },
+    {
+      "name": "GDP by Industry",
+      "period": "Q1 2026",
+      "freq": "quarterly",
+      "last_changed": "2026-06-25"
+    },
+    {
+      "name": "GDP by State",
+      "period": "Q1 2026",
+      "freq": "quarterly",
+      "last_changed": "2026-06-25"
+    },
+    {
       "name": "Public Debt",
       "period": "Q4 2025",
       "freq": "quarterly",
@@ -302,48 +344,6 @@
       "period": "May 2026",
       "freq": "monthly",
       "last_changed": "2026-06-18"
-    },
-    {
-      "name": "Mortgage Rates",
-      "period": "Jun 18, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-06-18"
-    },
-    {
-      "name": "Initial Jobless Claims",
-      "period": "Jun 13, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-06-18"
-    },
-    {
-      "name": "Fed Balance Sheet",
-      "period": "Jun 17, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-06-18"
-    },
-    {
-      "name": "Import/Export Prices",
-      "period": "May 2026",
-      "freq": "monthly",
-      "last_changed": "2026-06-16"
-    },
-    {
-      "name": "Industrial Production",
-      "period": "May 2026",
-      "freq": "monthly",
-      "last_changed": "2026-06-16"
-    },
-    {
-      "name": "Wage Tracker",
-      "period": "May 2026",
-      "freq": "monthly",
-      "last_changed": "2026-06-12"
-    },
-    {
-      "name": "Financial Accounts",
-      "period": "Q1 2026",
-      "freq": "quarterly",
-      "last_changed": "2026-06-12"
     }
   ],
   "st_series": [
