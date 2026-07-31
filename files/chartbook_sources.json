@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-30",
+  "generated": "2026-07-31",
   "releases": [
     {
       "name": "Employment Situation",
@@ -81,9 +81,9 @@
     },
     {
       "name": "Consumer Sentiment",
-      "period": "Jun 2026",
+      "period": "Jul 2026",
       "freq": "monthly",
-      "last_changed": "2026-06-29"
+      "last_changed": "2026-07-31"
     },
     {
       "name": "Capital Goods Orders",
@@ -171,9 +171,9 @@
     },
     {
       "name": "Fed Balance Sheet",
-      "period": "Jul 15, 2026",
+      "period": "Jul 29, 2026",
       "freq": "weekly",
-      "last_changed": "2026-07-19"
+      "last_changed": "2026-07-31"
     },
     {
       "name": "GDP (Advance)",
@@ -286,6 +286,18 @@
   ],
   "recent": [
     {
+      "name": "Consumer Sentiment",
+      "period": "Jul 2026",
+      "freq": "monthly",
+      "last_changed": "2026-07-31"
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "period": "Jul 29, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-07-31"
+    },
+    {
       "name": "Personal Income & Outlays",
       "period": "Jun 2026",
       "freq": "monthly",
@@ -330,18 +342,6 @@
     {
       "name": "Money Stock (M2)",
       "period": "Jun 2026",
-      "freq": "monthly",
-      "last_changed": "2026-07-30"
-    },
-    {
-      "name": "Exchange Rate (REER)",
-      "period": "Jun 2026",
-      "freq": "monthly",
-      "last_changed": "2026-07-30"
-    },
-    {
-      "name": "Electricity",
-      "period": "May 2026",
       "freq": "monthly",
       "last_changed": "2026-07-30"
     }
