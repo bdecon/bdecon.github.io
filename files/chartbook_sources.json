@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-01",
+  "generated": "2026-08-07",
   "releases": [
     {
       "name": "Employment Situation",
@@ -33,15 +33,15 @@
     },
     {
       "name": "JOLTS",
-      "period": "May 2026",
+      "period": "Jun 2026",
       "freq": "monthly",
-      "last_changed": "2026-06-30"
+      "last_changed": "2026-08-07"
     },
     {
       "name": "International Trade",
-      "period": "May 2026",
+      "period": "Jun 2026",
       "freq": "monthly",
-      "last_changed": "2026-07-15"
+      "last_changed": "2026-08-07"
     },
     {
       "name": "Retail Sales",
@@ -57,9 +57,9 @@
     },
     {
       "name": "Construction Spending",
-      "period": "May 2026",
+      "period": "Jun 2026",
       "freq": "monthly",
-      "last_changed": "2026-07-08"
+      "last_changed": "2026-08-07"
     },
     {
       "name": "Housing Starts",
@@ -153,27 +153,27 @@
     },
     {
       "name": "Oil Production",
-      "period": "Apr 2026",
+      "period": "May 2026",
       "freq": "monthly",
-      "last_changed": "2026-06-30"
+      "last_changed": "2026-08-07"
     },
     {
       "name": "Mortgage Rates",
-      "period": "Jul 30, 2026",
+      "period": "Aug 6, 2026",
       "freq": "weekly",
-      "last_changed": "2026-07-30"
+      "last_changed": "2026-08-07"
     },
     {
       "name": "Initial Jobless Claims",
-      "period": "Jul 25, 2026",
+      "period": "Aug 1, 2026",
       "freq": "weekly",
-      "last_changed": "2026-07-30"
+      "last_changed": "2026-08-07"
     },
     {
       "name": "Fed Balance Sheet",
-      "period": "Jul 29, 2026",
+      "period": "Aug 5, 2026",
       "freq": "weekly",
-      "last_changed": "2026-07-31"
+      "last_changed": "2026-08-07"
     },
     {
       "name": "GDP (Advance)",
@@ -286,15 +286,51 @@
   ],
   "recent": [
     {
-      "name": "Consumer Sentiment",
-      "period": "Jul 2026",
+      "name": "JOLTS",
+      "period": "Jun 2026",
       "freq": "monthly",
-      "last_changed": "2026-07-31"
+      "last_changed": "2026-08-07"
+    },
+    {
+      "name": "International Trade",
+      "period": "Jun 2026",
+      "freq": "monthly",
+      "last_changed": "2026-08-07"
+    },
+    {
+      "name": "Construction Spending",
+      "period": "Jun 2026",
+      "freq": "monthly",
+      "last_changed": "2026-08-07"
+    },
+    {
+      "name": "Oil Production",
+      "period": "May 2026",
+      "freq": "monthly",
+      "last_changed": "2026-08-07"
+    },
+    {
+      "name": "Mortgage Rates",
+      "period": "Aug 6, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-08-07"
+    },
+    {
+      "name": "Initial Jobless Claims",
+      "period": "Aug 1, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-08-07"
     },
     {
       "name": "Fed Balance Sheet",
-      "period": "Jul 29, 2026",
+      "period": "Aug 5, 2026",
       "freq": "weekly",
+      "last_changed": "2026-08-07"
+    },
+    {
+      "name": "Consumer Sentiment",
+      "period": "Jul 2026",
+      "freq": "monthly",
       "last_changed": "2026-07-31"
     },
     {
@@ -306,42 +342,6 @@
     {
       "name": "Housing Starts",
       "period": "Apr 2026",
-      "freq": "monthly",
-      "last_changed": "2026-07-30"
-    },
-    {
-      "name": "New Home Sales",
-      "period": "Jun 2026",
-      "freq": "monthly",
-      "last_changed": "2026-07-30"
-    },
-    {
-      "name": "House Prices",
-      "period": "May 2026",
-      "freq": "monthly",
-      "last_changed": "2026-07-30"
-    },
-    {
-      "name": "Capital Goods Orders",
-      "period": "Apr 2026",
-      "freq": "monthly",
-      "last_changed": "2026-07-30"
-    },
-    {
-      "name": "State Unemployment",
-      "period": "Jun 2026",
-      "freq": "monthly",
-      "last_changed": "2026-07-30"
-    },
-    {
-      "name": "Metro Unemployment",
-      "period": "Jun 2026",
-      "freq": "monthly",
-      "last_changed": "2026-07-30"
-    },
-    {
-      "name": "Money Stock (M2)",
-      "period": "Jun 2026",
       "freq": "monthly",
       "last_changed": "2026-07-30"
     }
