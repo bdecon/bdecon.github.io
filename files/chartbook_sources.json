@@ -3,9 +3,9 @@
   "releases": [
     {
       "name": "Employment Situation",
-      "period": "May 2026",
+      "period": "Jun 2026",
       "freq": "monthly",
-      "last_changed": "2026-07-08"
+      "last_changed": "2026-08-07"
     },
     {
       "name": "Consumer Price Index",
@@ -99,9 +99,9 @@
     },
     {
       "name": "Consumer Expectations",
-      "period": "Jun 2026",
+      "period": "Jul 2026",
       "freq": "monthly",
-      "last_changed": "2026-07-08"
+      "last_changed": "2026-08-07"
     },
     {
       "name": "CPS Microdata",
@@ -286,6 +286,12 @@
   ],
   "recent": [
     {
+      "name": "Employment Situation",
+      "period": "Jun 2026",
+      "freq": "monthly",
+      "last_changed": "2026-08-07"
+    },
+    {
       "name": "JOLTS",
       "period": "Jun 2026",
       "freq": "monthly",
@@ -300,6 +306,12 @@
     {
       "name": "Construction Spending",
       "period": "Jun 2026",
+      "freq": "monthly",
+      "last_changed": "2026-08-07"
+    },
+    {
+      "name": "Consumer Expectations",
+      "period": "Jul 2026",
       "freq": "monthly",
       "last_changed": "2026-08-07"
     },
@@ -332,18 +344,6 @@
       "period": "Jul 2026",
       "freq": "monthly",
       "last_changed": "2026-07-31"
-    },
-    {
-      "name": "Personal Income & Outlays",
-      "period": "Jun 2026",
-      "freq": "monthly",
-      "last_changed": "2026-07-30"
-    },
-    {
-      "name": "Housing Starts",
-      "period": "Apr 2026",
-      "freq": "monthly",
-      "last_changed": "2026-07-30"
     }
   ],
   "st_series": [
