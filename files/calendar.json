@@ -1,73 +1,10 @@
 {
-  "generated": "2026-08-02T22:52:28",
+  "generated": "2026-08-09T22:26:00",
   "range": {
-    "start": "2026-08-02",
-    "end": "2026-10-31"
+    "start": "2026-08-09",
+    "end": "2026-11-07"
   },
   "entries": [
-    {
-      "name": "Construction Spending",
-      "date": "2026-08-03",
-      "time": "10:00 AM ET",
-      "frequency": "monthly",
-      "agency": "Census"
-    },
-    {
-      "name": "International Trade",
-      "date": "2026-08-04",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "BEA/Census"
-    },
-    {
-      "name": "JOLTS",
-      "date": "2026-08-04",
-      "time": "10:00 AM ET",
-      "frequency": "monthly",
-      "agency": "BLS"
-    },
-    {
-      "name": "Jobless Claims",
-      "date": "2026-08-06",
-      "time": "8:30 AM ET",
-      "frequency": "weekly",
-      "agency": "DOL"
-    },
-    {
-      "name": "Productivity & Costs",
-      "date": "2026-08-06",
-      "time": "8:30 AM ET",
-      "frequency": "quarterly",
-      "agency": "BLS"
-    },
-    {
-      "name": "Mortgage Rates",
-      "date": "2026-08-06",
-      "time": "12:00 PM ET",
-      "frequency": "weekly",
-      "agency": "Freddie Mac"
-    },
-    {
-      "name": "Fed Balance Sheet",
-      "date": "2026-08-06",
-      "time": "4:30 PM ET",
-      "frequency": "weekly",
-      "agency": "Fed"
-    },
-    {
-      "name": "Employment Situation",
-      "date": "2026-08-07",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "BLS"
-    },
-    {
-      "name": "Consumer Credit (G.19)",
-      "date": "2026-08-07",
-      "time": "3:00 PM ET",
-      "frequency": "monthly",
-      "agency": "Fed"
-    },
     {
       "name": "Consumer Expectations",
       "date": "2026-08-11",
@@ -893,6 +830,69 @@
       "time": "8:30 AM ET",
       "frequency": "quarterly",
       "agency": "BLS"
+    },
+    {
+      "name": "Construction Spending",
+      "date": "2026-11-02",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "Census"
+    },
+    {
+      "name": "JOLTS",
+      "date": "2026-11-03",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS"
+    },
+    {
+      "name": "International Trade",
+      "date": "2026-11-04",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BEA/Census"
+    },
+    {
+      "name": "Jobless Claims",
+      "date": "2026-11-05",
+      "time": "8:30 AM ET",
+      "frequency": "weekly",
+      "agency": "DOL"
+    },
+    {
+      "name": "Productivity & Costs",
+      "date": "2026-11-05",
+      "time": "8:30 AM ET",
+      "frequency": "quarterly",
+      "agency": "BLS"
+    },
+    {
+      "name": "Mortgage Rates",
+      "date": "2026-11-05",
+      "time": "12:00 PM ET",
+      "frequency": "weekly",
+      "agency": "Freddie Mac"
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "date": "2026-11-05",
+      "time": "4:30 PM ET",
+      "frequency": "weekly",
+      "agency": "Fed"
+    },
+    {
+      "name": "Employment Situation",
+      "date": "2026-11-06",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS"
+    },
+    {
+      "name": "Consumer Credit (G.19)",
+      "date": "2026-11-06",
+      "time": "3:00 PM ET",
+      "frequency": "monthly",
+      "agency": "Fed"
     }
   ]
 }
