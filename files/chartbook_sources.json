@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-07",
+  "generated": "2026-08-13",
   "releases": [
     {
       "name": "Employment Situation",
@@ -9,9 +9,9 @@
     },
     {
       "name": "Consumer Price Index",
-      "period": "Jun 2026",
+      "period": "Jul 2026",
       "freq": "monthly",
-      "last_changed": "2026-07-15"
+      "last_changed": "2026-08-13"
     },
     {
       "name": "Personal Income & Outlays",
@@ -105,9 +105,9 @@
     },
     {
       "name": "CPS Microdata",
-      "period": "Jun 2026",
+      "period": "Jul 2026",
       "freq": "monthly",
-      "last_changed": "2026-07-08"
+      "last_changed": "2026-08-13"
     },
     {
       "name": "State Unemployment",
@@ -129,9 +129,9 @@
     },
     {
       "name": "Treasury Statement",
-      "period": "Jun 2026",
+      "period": "Jul 2026",
       "freq": "monthly",
-      "last_changed": "2026-07-15"
+      "last_changed": "2026-08-13"
     },
     {
       "name": "Money Stock (M2)",
@@ -286,6 +286,24 @@
   ],
   "recent": [
     {
+      "name": "Consumer Price Index",
+      "period": "Jul 2026",
+      "freq": "monthly",
+      "last_changed": "2026-08-13"
+    },
+    {
+      "name": "CPS Microdata",
+      "period": "Jul 2026",
+      "freq": "monthly",
+      "last_changed": "2026-08-13"
+    },
+    {
+      "name": "Treasury Statement",
+      "period": "Jul 2026",
+      "freq": "monthly",
+      "last_changed": "2026-08-13"
+    },
+    {
       "name": "Employment Situation",
       "period": "Jun 2026",
       "freq": "monthly",
@@ -326,24 +344,6 @@
       "period": "Aug 6, 2026",
       "freq": "weekly",
       "last_changed": "2026-08-07"
-    },
-    {
-      "name": "Initial Jobless Claims",
-      "period": "Aug 1, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-08-07"
-    },
-    {
-      "name": "Fed Balance Sheet",
-      "period": "Aug 5, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-08-07"
-    },
-    {
-      "name": "Consumer Sentiment",
-      "period": "Jul 2026",
-      "freq": "monthly",
-      "last_changed": "2026-07-31"
     }
   ],
   "st_series": [
