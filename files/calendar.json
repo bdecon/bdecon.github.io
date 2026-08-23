@@ -1,72 +1,16 @@
 {
-  "generated": "2026-08-16T22:16:20",
+  "generated": "2026-08-23T22:17:37",
   "range": {
-    "start": "2026-08-16",
-    "end": "2026-11-14"
+    "start": "2026-08-23",
+    "end": "2026-11-21"
   },
   "entries": [
     {
-      "name": "TIC Capital Flows",
-      "date": "2026-08-17",
-      "time": "4:00 PM ET",
-      "frequency": "monthly",
-      "agency": "Treasury"
-    },
-    {
-      "name": "Housing Starts",
-      "date": "2026-08-18",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "Census"
-    },
-    {
-      "name": "Import/Export Prices",
-      "date": "2026-08-18",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "BLS"
-    },
-    {
-      "name": "Industrial Production",
-      "date": "2026-08-18",
-      "time": "9:15 AM ET",
-      "frequency": "monthly",
-      "agency": "Fed"
-    },
-    {
-      "name": "Jobless Claims",
-      "date": "2026-08-20",
-      "time": "8:30 AM ET",
-      "frequency": "weekly",
-      "agency": "DOL"
-    },
-    {
-      "name": "Mortgage Rates",
-      "date": "2026-08-20",
-      "time": "12:00 PM ET",
-      "frequency": "weekly",
-      "agency": "Freddie Mac"
-    },
-    {
-      "name": "Fed Balance Sheet",
-      "date": "2026-08-20",
-      "time": "4:30 PM ET",
-      "frequency": "weekly",
-      "agency": "Fed"
-    },
-    {
-      "name": "Exchange Rates (REER)",
-      "date": "2026-08-20",
+      "name": "Electricity & Oil Production",
+      "date": "2026-08-23",
       "time": null,
       "frequency": "monthly",
-      "agency": "BIS"
-    },
-    {
-      "name": "State Unemployment",
-      "date": "2026-08-21",
-      "time": "10:00 AM ET",
-      "frequency": "monthly",
-      "agency": "BLS"
+      "agency": "EIA"
     },
     {
       "name": "House Prices",
@@ -884,6 +828,76 @@
       "name": "Producer Price Index",
       "date": "2026-11-13",
       "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS"
+    },
+    {
+      "name": "Retail Sales",
+      "date": "2026-11-17",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "Census"
+    },
+    {
+      "name": "Import/Export Prices",
+      "date": "2026-11-17",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS"
+    },
+    {
+      "name": "Industrial Production",
+      "date": "2026-11-17",
+      "time": "9:15 AM ET",
+      "frequency": "monthly",
+      "agency": "Fed"
+    },
+    {
+      "name": "TIC Capital Flows",
+      "date": "2026-11-17",
+      "time": "4:00 PM ET",
+      "frequency": "monthly",
+      "agency": "Treasury"
+    },
+    {
+      "name": "Housing Starts",
+      "date": "2026-11-18",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "Census"
+    },
+    {
+      "name": "Jobless Claims",
+      "date": "2026-11-19",
+      "time": "8:30 AM ET",
+      "frequency": "weekly",
+      "agency": "DOL"
+    },
+    {
+      "name": "Mortgage Rates",
+      "date": "2026-11-19",
+      "time": "12:00 PM ET",
+      "frequency": "weekly",
+      "agency": "Freddie Mac"
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "date": "2026-11-19",
+      "time": "4:30 PM ET",
+      "frequency": "weekly",
+      "agency": "Fed"
+    },
+    {
+      "name": "Consumer Sentiment",
+      "date": "2026-11-20",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "U of Michigan"
+    },
+    {
+      "name": "State Unemployment",
+      "date": "2026-11-20",
+      "time": "10:00 AM ET",
       "frequency": "monthly",
       "agency": "BLS"
     }
