@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-13",
+  "generated": "2026-08-26",
   "releases": [
     {
       "name": "Employment Situation",
@@ -15,21 +15,21 @@
     },
     {
       "name": "Personal Income & Outlays",
-      "period": "Jun 2026",
+      "period": "Jul 2026",
       "freq": "monthly",
-      "last_changed": "2026-07-30"
+      "last_changed": "2026-08-26"
     },
     {
       "name": "Producer Price Index",
-      "period": "Jun 2026",
+      "period": "Jul 2026",
       "freq": "monthly",
-      "last_changed": "2026-07-15"
+      "last_changed": "2026-08-26"
     },
     {
       "name": "Import/Export Prices",
-      "period": "Jun 2026",
+      "period": "Jul 2026",
       "freq": "monthly",
-      "last_changed": "2026-07-19"
+      "last_changed": "2026-08-26"
     },
     {
       "name": "JOLTS",
@@ -45,15 +45,15 @@
     },
     {
       "name": "Retail Sales",
-      "period": "Apr 2026",
+      "period": "Jul 2026",
       "freq": "monthly",
-      "last_changed": "2026-05-28"
+      "last_changed": "2026-08-26"
     },
     {
       "name": "Industrial Production",
-      "period": "May 2026",
+      "period": "Jul 2026",
       "freq": "monthly",
-      "last_changed": "2026-06-16"
+      "last_changed": "2026-08-26"
     },
     {
       "name": "Construction Spending",
@@ -69,15 +69,15 @@
     },
     {
       "name": "New Home Sales",
-      "period": "Jun 2026",
+      "period": "Jul 2026",
       "freq": "monthly",
-      "last_changed": "2026-07-30"
+      "last_changed": "2026-08-26"
     },
     {
       "name": "House Prices",
-      "period": "May 2026",
+      "period": "Jun 2026",
       "freq": "monthly",
-      "last_changed": "2026-07-30"
+      "last_changed": "2026-08-26"
     },
     {
       "name": "Consumer Sentiment",
@@ -93,9 +93,9 @@
     },
     {
       "name": "Wage Tracker",
-      "period": "Jun 2026",
+      "period": "Jul 2026",
       "freq": "monthly",
-      "last_changed": "2026-07-15"
+      "last_changed": "2026-08-26"
     },
     {
       "name": "Consumer Expectations",
@@ -111,9 +111,9 @@
     },
     {
       "name": "State Unemployment",
-      "period": "Jun 2026",
+      "period": "Jul 2026",
       "freq": "monthly",
-      "last_changed": "2026-07-30"
+      "last_changed": "2026-08-26"
     },
     {
       "name": "Metro Unemployment",
@@ -123,9 +123,9 @@
     },
     {
       "name": "TIC Capital Flows",
-      "period": "May 2026",
+      "period": "Jun 2026",
       "freq": "monthly",
-      "last_changed": "2026-07-15"
+      "last_changed": "2026-08-26"
     },
     {
       "name": "Treasury Statement",
@@ -135,21 +135,21 @@
     },
     {
       "name": "Money Stock (M2)",
-      "period": "Jun 2026",
+      "period": "Jul 2026",
       "freq": "monthly",
-      "last_changed": "2026-07-30"
+      "last_changed": "2026-08-26"
     },
     {
       "name": "Exchange Rate (REER)",
-      "period": "Jun 2026",
+      "period": "Jul 2026",
       "freq": "monthly",
-      "last_changed": "2026-07-30"
+      "last_changed": "2026-08-26"
     },
     {
       "name": "Electricity",
-      "period": "May 2026",
+      "period": "Jun 2026",
       "freq": "monthly",
-      "last_changed": "2026-07-30"
+      "last_changed": "2026-08-26"
     },
     {
       "name": "Oil Production",
@@ -159,15 +159,15 @@
     },
     {
       "name": "Mortgage Rates",
-      "period": "Aug 6, 2026",
+      "period": "Aug 20, 2026",
       "freq": "weekly",
-      "last_changed": "2026-08-07"
+      "last_changed": "2026-08-26"
     },
     {
       "name": "Initial Jobless Claims",
-      "period": "Aug 1, 2026",
+      "period": "Aug 15, 2026",
       "freq": "weekly",
-      "last_changed": "2026-08-07"
+      "last_changed": "2026-08-26"
     },
     {
       "name": "Fed Balance Sheet",
@@ -176,10 +176,10 @@
       "last_changed": "2026-08-07"
     },
     {
-      "name": "GDP (Advance)",
+      "name": "GDP (Second)",
       "period": "Q2 2026",
       "freq": "quarterly",
-      "last_changed": "2026-07-30"
+      "last_changed": "2026-08-26"
     },
     {
       "name": "GDP by Industry",
@@ -195,9 +195,9 @@
     },
     {
       "name": "Corporate Profits",
-      "period": "Q1 2026",
+      "period": "Q2 2026",
       "freq": "quarterly",
-      "last_changed": "2026-05-28"
+      "last_changed": "2026-08-26"
     },
     {
       "name": "Employment Costs",
@@ -213,9 +213,9 @@
     },
     {
       "name": "Current Account",
-      "period": "Q1 2026",
+      "period": "Q2 2026",
       "freq": "quarterly",
-      "last_changed": "2026-05-28"
+      "last_changed": "2026-08-26"
     },
     {
       "name": "International Investment",
@@ -286,64 +286,64 @@
   ],
   "recent": [
     {
-      "name": "Consumer Price Index",
+      "name": "Personal Income & Outlays",
       "period": "Jul 2026",
       "freq": "monthly",
-      "last_changed": "2026-08-13"
+      "last_changed": "2026-08-26"
     },
     {
-      "name": "CPS Microdata",
+      "name": "Producer Price Index",
       "period": "Jul 2026",
       "freq": "monthly",
-      "last_changed": "2026-08-13"
+      "last_changed": "2026-08-26"
     },
     {
-      "name": "Treasury Statement",
+      "name": "Import/Export Prices",
       "period": "Jul 2026",
       "freq": "monthly",
-      "last_changed": "2026-08-13"
+      "last_changed": "2026-08-26"
     },
     {
-      "name": "Employment Situation",
-      "period": "Jun 2026",
-      "freq": "monthly",
-      "last_changed": "2026-08-07"
-    },
-    {
-      "name": "JOLTS",
-      "period": "Jun 2026",
-      "freq": "monthly",
-      "last_changed": "2026-08-07"
-    },
-    {
-      "name": "International Trade",
-      "period": "Jun 2026",
-      "freq": "monthly",
-      "last_changed": "2026-08-07"
-    },
-    {
-      "name": "Construction Spending",
-      "period": "Jun 2026",
-      "freq": "monthly",
-      "last_changed": "2026-08-07"
-    },
-    {
-      "name": "Consumer Expectations",
+      "name": "Retail Sales",
       "period": "Jul 2026",
       "freq": "monthly",
-      "last_changed": "2026-08-07"
+      "last_changed": "2026-08-26"
     },
     {
-      "name": "Oil Production",
-      "period": "May 2026",
+      "name": "Industrial Production",
+      "period": "Jul 2026",
       "freq": "monthly",
-      "last_changed": "2026-08-07"
+      "last_changed": "2026-08-26"
     },
     {
-      "name": "Mortgage Rates",
-      "period": "Aug 6, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-08-07"
+      "name": "New Home Sales",
+      "period": "Jul 2026",
+      "freq": "monthly",
+      "last_changed": "2026-08-26"
+    },
+    {
+      "name": "House Prices",
+      "period": "Jun 2026",
+      "freq": "monthly",
+      "last_changed": "2026-08-26"
+    },
+    {
+      "name": "Wage Tracker",
+      "period": "Jul 2026",
+      "freq": "monthly",
+      "last_changed": "2026-08-26"
+    },
+    {
+      "name": "State Unemployment",
+      "period": "Jul 2026",
+      "freq": "monthly",
+      "last_changed": "2026-08-26"
+    },
+    {
+      "name": "TIC Capital Flows",
+      "period": "Jun 2026",
+      "freq": "monthly",
+      "last_changed": "2026-08-26"
     }
   ],
   "st_series": [
