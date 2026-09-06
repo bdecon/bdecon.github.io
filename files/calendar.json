@@ -1,80 +1,10 @@
 {
-  "generated": "2026-08-31T00:10:39",
+  "generated": "2026-09-06T23:26:58",
   "range": {
-    "start": "2026-08-31",
-    "end": "2026-11-29"
+    "start": "2026-09-06",
+    "end": "2026-12-05"
   },
   "entries": [
-    {
-      "name": "Construction Spending",
-      "date": "2026-09-01",
-      "time": "10:00 AM ET",
-      "frequency": "monthly",
-      "agency": "Census"
-    },
-    {
-      "name": "JOLTS",
-      "date": "2026-09-01",
-      "time": "10:00 AM ET",
-      "frequency": "monthly",
-      "agency": "BLS"
-    },
-    {
-      "name": "Metro Unemployment",
-      "date": "2026-09-02",
-      "time": "10:00 AM ET",
-      "frequency": "monthly",
-      "agency": "BLS"
-    },
-    {
-      "name": "Beige Book",
-      "date": "2026-09-02",
-      "time": "2:00 PM ET",
-      "frequency": "quarterly",
-      "agency": "Fed"
-    },
-    {
-      "name": "International Trade",
-      "date": "2026-09-03",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "BEA/Census"
-    },
-    {
-      "name": "Jobless Claims",
-      "date": "2026-09-03",
-      "time": "8:30 AM ET",
-      "frequency": "weekly",
-      "agency": "DOL"
-    },
-    {
-      "name": "Productivity & Costs",
-      "date": "2026-09-03",
-      "time": "8:30 AM ET",
-      "frequency": "quarterly",
-      "agency": "BLS"
-    },
-    {
-      "name": "Mortgage Rates",
-      "date": "2026-09-03",
-      "time": "12:00 PM ET",
-      "frequency": "weekly",
-      "agency": "Freddie Mac"
-    },
-    {
-      "name": "Fed Balance Sheet",
-      "date": "2026-09-03",
-      "time": "4:30 PM ET",
-      "frequency": "weekly",
-      "agency": "Fed"
-    },
-    {
-      "name": "Employment Situation",
-      "date": "2026-09-04",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "BLS"
-    },
     {
       "name": "Consumer Expectations",
       "date": "2026-09-08",
@@ -893,6 +823,55 @@
       "time": "4:30 PM ET",
       "frequency": "weekly",
       "agency": "Fed"
+    },
+    {
+      "name": "Construction Spending",
+      "date": "2026-12-01",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "Census"
+    },
+    {
+      "name": "JOLTS",
+      "date": "2026-12-01",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS"
+    },
+    {
+      "name": "Metro Unemployment",
+      "date": "2026-12-02",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS"
+    },
+    {
+      "name": "Jobless Claims",
+      "date": "2026-12-03",
+      "time": "8:30 AM ET",
+      "frequency": "weekly",
+      "agency": "DOL"
+    },
+    {
+      "name": "Mortgage Rates",
+      "date": "2026-12-03",
+      "time": "12:00 PM ET",
+      "frequency": "weekly",
+      "agency": "Freddie Mac"
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "date": "2026-12-03",
+      "time": "4:30 PM ET",
+      "frequency": "weekly",
+      "agency": "Fed"
+    },
+    {
+      "name": "Employment Situation",
+      "date": "2026-12-04",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "BLS"
     }
   ]
 }
