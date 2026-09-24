@@ -64,7 +64,7 @@ def fetch_gdpnow():
     """Fetch real GDP nowcast from Atlanta Fed."""
     print("Fetching GDPNow from Atlanta Fed...")
     url = ('https://www.atlantafed.org/-/media/Project/Atlanta/FRBA/Documents/'
-           'cqer/researchcq/gdpnow/GDPTrackingModelDataAndForecasts.xlsx')
+           'research-and-data/data/gdpnow/GDPTrackingModelDataAndForecasts.xlsx')
     df = pd.read_excel(url, sheet_name='ContribHistory', header=0,
                        skipfooter=9, index_col=1)
     gdpnow = df.iloc[-1:, -1]
