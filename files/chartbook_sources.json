@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-23",
+  "generated": "2026-09-27",
   "releases": [
     {
       "name": "Employment Situation",
@@ -69,9 +69,9 @@
     },
     {
       "name": "New Home Sales",
-      "period": "Jul 2026",
+      "period": "Aug 2026",
       "freq": "monthly",
-      "last_changed": "2026-08-26"
+      "last_changed": "2026-09-27"
     },
     {
       "name": "House Prices",
@@ -81,9 +81,9 @@
     },
     {
       "name": "Consumer Sentiment",
-      "period": "Aug 2026",
+      "period": "Sep 2026",
       "freq": "monthly",
-      "last_changed": "2026-09-12"
+      "last_changed": "2026-09-27"
     },
     {
       "name": "Capital Goods Orders",
@@ -147,9 +147,9 @@
     },
     {
       "name": "Electricity",
-      "period": "Jun 2026",
+      "period": "Jul 2026",
       "freq": "monthly",
-      "last_changed": "2026-08-26"
+      "last_changed": "2026-09-27"
     },
     {
       "name": "Oil Production",
@@ -159,21 +159,21 @@
     },
     {
       "name": "Mortgage Rates",
-      "period": "Sep 17, 2026",
+      "period": "Sep 24, 2026",
       "freq": "weekly",
-      "last_changed": "2026-09-22"
+      "last_changed": "2026-09-27"
     },
     {
       "name": "Initial Jobless Claims",
-      "period": "Sep 12, 2026",
+      "period": "Sep 19, 2026",
       "freq": "weekly",
-      "last_changed": "2026-09-22"
+      "last_changed": "2026-09-27"
     },
     {
       "name": "Fed Balance Sheet",
-      "period": "Sep 16, 2026",
+      "period": "Sep 23, 2026",
       "freq": "weekly",
-      "last_changed": "2026-09-22"
+      "last_changed": "2026-09-27"
     },
     {
       "name": "GDP (Second)",
@@ -286,6 +286,42 @@
   ],
   "recent": [
     {
+      "name": "New Home Sales",
+      "period": "Aug 2026",
+      "freq": "monthly",
+      "last_changed": "2026-09-27"
+    },
+    {
+      "name": "Consumer Sentiment",
+      "period": "Sep 2026",
+      "freq": "monthly",
+      "last_changed": "2026-09-27"
+    },
+    {
+      "name": "Electricity",
+      "period": "Jul 2026",
+      "freq": "monthly",
+      "last_changed": "2026-09-27"
+    },
+    {
+      "name": "Mortgage Rates",
+      "period": "Sep 24, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-09-27"
+    },
+    {
+      "name": "Initial Jobless Claims",
+      "period": "Sep 19, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-09-27"
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "period": "Sep 23, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-09-27"
+    },
+    {
       "name": "TIC Capital Flows",
       "period": "Jul 2026",
       "freq": "monthly",
@@ -308,42 +344,6 @@
       "period": "Aug 2026",
       "freq": "monthly",
       "last_changed": "2026-09-22"
-    },
-    {
-      "name": "State Unemployment",
-      "period": "Aug 2026",
-      "freq": "monthly",
-      "last_changed": "2026-09-22"
-    },
-    {
-      "name": "Mortgage Rates",
-      "period": "Sep 17, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-09-22"
-    },
-    {
-      "name": "Initial Jobless Claims",
-      "period": "Sep 12, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-09-22"
-    },
-    {
-      "name": "Fed Balance Sheet",
-      "period": "Sep 16, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-09-22"
-    },
-    {
-      "name": "Producer Price Index",
-      "period": "Aug 2026",
-      "freq": "monthly",
-      "last_changed": "2026-09-13"
-    },
-    {
-      "name": "International Trade",
-      "period": "Jul 2026",
-      "freq": "monthly",
-      "last_changed": "2026-09-13"
     }
   ],
   "st_series": [
