@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-08",
+  "generated": "2026-11-12",
   "releases": [
     {
       "name": "Employment Situation",
@@ -9,9 +9,9 @@
     },
     {
       "name": "Consumer Price Index",
-      "period": "Sep 2026",
+      "period": "Oct 2026",
       "freq": "monthly",
-      "last_changed": "2026-10-15"
+      "last_changed": "2026-11-12"
     },
     {
       "name": "Personal Income & Outlays",
@@ -57,9 +57,9 @@
     },
     {
       "name": "Construction Spending",
-      "period": "Aug 2026",
+      "period": "Sep 2026",
       "freq": "monthly",
-      "last_changed": "2026-10-15"
+      "last_changed": "2026-11-12"
     },
     {
       "name": "Housing Starts",
@@ -87,9 +87,9 @@
     },
     {
       "name": "Capital Goods Orders",
-      "period": "Apr 2026",
+      "period": "Jul 2026",
       "freq": "monthly",
-      "last_changed": "2026-07-30"
+      "last_changed": "2026-11-12"
     },
     {
       "name": "Wage Tracker",
@@ -99,15 +99,15 @@
     },
     {
       "name": "Consumer Expectations",
-      "period": "Sep 2026",
+      "period": "Oct 2026",
       "freq": "monthly",
-      "last_changed": "2026-10-15"
+      "last_changed": "2026-11-12"
     },
     {
       "name": "CPS Microdata",
-      "period": "Sep 2026",
+      "period": "Oct 2026",
       "freq": "monthly",
-      "last_changed": "2026-10-15"
+      "last_changed": "2026-11-12"
     },
     {
       "name": "State Unemployment",
@@ -129,15 +129,15 @@
     },
     {
       "name": "Treasury Statement",
-      "period": "Sep 2026",
+      "period": "Oct 2026",
       "freq": "monthly",
-      "last_changed": "2026-10-20"
+      "last_changed": "2026-11-12"
     },
     {
       "name": "Money Stock (M2)",
-      "period": "Aug 2026",
+      "period": "Sep 2026",
       "freq": "monthly",
-      "last_changed": "2026-09-23"
+      "last_changed": "2026-11-12"
     },
     {
       "name": "Exchange Rate (REER)",
@@ -159,21 +159,21 @@
     },
     {
       "name": "Mortgage Rates",
-      "period": "Nov 5, 2026",
+      "period": "Nov 12, 2026",
       "freq": "weekly",
-      "last_changed": "2026-11-07"
+      "last_changed": "2026-11-12"
     },
     {
       "name": "Initial Jobless Claims",
-      "period": "Oct 31, 2026",
+      "period": "Nov 7, 2026",
       "freq": "weekly",
-      "last_changed": "2026-11-07"
+      "last_changed": "2026-11-12"
     },
     {
       "name": "Fed Balance Sheet",
-      "period": "Nov 4, 2026",
+      "period": "Nov 11, 2026",
       "freq": "weekly",
-      "last_changed": "2026-11-07"
+      "last_changed": "2026-11-12"
     },
     {
       "name": "GDP (Advance)",
@@ -286,64 +286,64 @@
   ],
   "recent": [
     {
-      "name": "Employment Situation",
-      "period": "Sep 2026",
-      "freq": "monthly",
-      "last_changed": "2026-11-07"
-    },
-    {
-      "name": "Personal Income & Outlays",
-      "period": "Sep 2026",
-      "freq": "monthly",
-      "last_changed": "2026-11-07"
-    },
-    {
-      "name": "JOLTS",
-      "period": "Sep 2026",
-      "freq": "monthly",
-      "last_changed": "2026-11-07"
-    },
-    {
-      "name": "International Trade",
-      "period": "Sep 2026",
-      "freq": "monthly",
-      "last_changed": "2026-11-07"
-    },
-    {
-      "name": "Industrial Production",
-      "period": "Sep 2026",
-      "freq": "monthly",
-      "last_changed": "2026-11-07"
-    },
-    {
-      "name": "Housing Starts",
-      "period": "Jul 2026",
-      "freq": "monthly",
-      "last_changed": "2026-11-07"
-    },
-    {
-      "name": "New Home Sales",
-      "period": "Sep 2026",
-      "freq": "monthly",
-      "last_changed": "2026-11-07"
-    },
-    {
-      "name": "House Prices",
-      "period": "Aug 2026",
-      "freq": "monthly",
-      "last_changed": "2026-11-07"
-    },
-    {
-      "name": "Consumer Sentiment",
+      "name": "Consumer Price Index",
       "period": "Oct 2026",
       "freq": "monthly",
-      "last_changed": "2026-11-07"
+      "last_changed": "2026-11-12"
     },
     {
-      "name": "Metro Unemployment",
+      "name": "Construction Spending",
       "period": "Sep 2026",
       "freq": "monthly",
-      "last_changed": "2026-11-07"
+      "last_changed": "2026-11-12"
+    },
+    {
+      "name": "Capital Goods Orders",
+      "period": "Jul 2026",
+      "freq": "monthly",
+      "last_changed": "2026-11-12"
+    },
+    {
+      "name": "Consumer Expectations",
+      "period": "Oct 2026",
+      "freq": "monthly",
+      "last_changed": "2026-11-12"
+    },
+    {
+      "name": "CPS Microdata",
+      "period": "Oct 2026",
+      "freq": "monthly",
+      "last_changed": "2026-11-12"
+    },
+    {
+      "name": "Treasury Statement",
+      "period": "Oct 2026",
+      "freq": "monthly",
+      "last_changed": "2026-11-12"
+    },
+    {
+      "name": "Money Stock (M2)",
+      "period": "Sep 2026",
+      "freq": "monthly",
+      "last_changed": "2026-11-12"
+    },
+    {
+      "name": "Mortgage Rates",
+      "period": "Nov 12, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-11-12"
+    },
+    {
+      "name": "Initial Jobless Claims",
+      "period": "Nov 7, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-11-12"
+    },
+    {
+      "name": "Fed Balance Sheet",
+      "period": "Nov 11, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-11-12"
     }
   ],
   "st_series": [
