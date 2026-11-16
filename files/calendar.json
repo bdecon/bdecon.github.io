@@ -1,79 +1,16 @@
 {
-  "generated": "2026-11-09T01:24:23",
+  "generated": "2026-11-16T01:32:44",
   "range": {
-    "start": "2026-11-09",
-    "end": "2027-02-07"
+    "start": "2026-11-16",
+    "end": "2027-02-14"
   },
   "entries": [
-    {
-      "name": "Consumer Price Index",
-      "date": "2026-11-10",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "BLS"
-    },
-    {
-      "name": "Consumer Expectations",
-      "date": "2026-11-10",
-      "time": "11:00 AM ET",
-      "frequency": "monthly",
-      "agency": "NY Fed"
-    },
-    {
-      "name": "CPS Microdata",
-      "date": "2026-11-11",
-      "time": "12:00 PM ET",
-      "frequency": "monthly",
-      "agency": "Census"
-    },
-    {
-      "name": "Jobless Claims",
-      "date": "2026-11-12",
-      "time": "8:30 AM ET",
-      "frequency": "weekly",
-      "agency": "DOL"
-    },
-    {
-      "name": "Mortgage Rates",
-      "date": "2026-11-12",
-      "time": "12:00 PM ET",
-      "frequency": "weekly",
-      "agency": "Freddie Mac"
-    },
-    {
-      "name": "Treasury Statement",
-      "date": "2026-11-12",
-      "time": "2:00 PM ET",
-      "frequency": "monthly",
-      "agency": "Treasury"
-    },
-    {
-      "name": "Fed Balance Sheet",
-      "date": "2026-11-12",
-      "time": "4:30 PM ET",
-      "frequency": "weekly",
-      "agency": "Fed"
-    },
-    {
-      "name": "Producer Price Index",
-      "date": "2026-11-13",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "BLS"
-    },
     {
       "name": "Import/Export Prices",
       "date": "2026-11-17",
       "time": "8:30 AM ET",
       "frequency": "monthly",
       "agency": "BLS"
-    },
-    {
-      "name": "Retail Sales",
-      "date": "2026-11-17",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "Census"
     },
     {
       "name": "Industrial Production",
@@ -88,13 +25,6 @@
       "time": "4:00 PM ET",
       "frequency": "monthly",
       "agency": "Treasury"
-    },
-    {
-      "name": "Housing Starts",
-      "date": "2026-11-18",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "Census"
     },
     {
       "name": "Jobless Claims",
@@ -167,27 +97,6 @@
       "agency": "DOL"
     },
     {
-      "name": "Housing Starts",
-      "date": "2026-11-25",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "Census"
-    },
-    {
-      "name": "Durable Goods Orders",
-      "date": "2026-11-25",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "Census"
-    },
-    {
-      "name": "New Home Sales",
-      "date": "2026-11-25",
-      "time": "10:00 AM ET",
-      "frequency": "monthly",
-      "agency": "Census"
-    },
-    {
       "name": "Mortgage Rates",
       "date": "2026-11-25",
       "time": "12:00 PM ET",
@@ -216,13 +125,6 @@
       "agency": "BLS"
     },
     {
-      "name": "Construction Spending",
-      "date": "2026-12-01",
-      "time": "10:00 AM ET",
-      "frequency": "monthly",
-      "agency": "Census"
-    },
-    {
       "name": "Metro Unemployment",
       "date": "2026-12-02",
       "time": "10:00 AM ET",
@@ -235,13 +137,6 @@
       "time": "8:30 AM ET",
       "frequency": "weekly",
       "agency": "DOL"
-    },
-    {
-      "name": "Durable Goods Orders",
-      "date": "2026-12-03",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "Census"
     },
     {
       "name": "Mortgage Rates",
@@ -363,13 +258,6 @@
       "agency": "Treasury"
     },
     {
-      "name": "Retail Sales",
-      "date": "2026-12-16",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "Census"
-    },
-    {
       "name": "Industrial Production",
       "date": "2026-12-16",
       "time": "9:15 AM ET",
@@ -389,13 +277,6 @@
       "time": "8:30 AM ET",
       "frequency": "monthly",
       "agency": "BLS"
-    },
-    {
-      "name": "Housing Starts",
-      "date": "2026-12-17",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "Census"
     },
     {
       "name": "Mortgage Rates",
@@ -475,27 +356,6 @@
       "agency": "BEA"
     },
     {
-      "name": "Housing Starts",
-      "date": "2026-12-23",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "Census"
-    },
-    {
-      "name": "Durable Goods Orders",
-      "date": "2026-12-23",
-      "time": "8:30 AM ET",
-      "frequency": "monthly",
-      "agency": "Census"
-    },
-    {
-      "name": "New Home Sales",
-      "date": "2026-12-23",
-      "time": "10:00 AM ET",
-      "frequency": "monthly",
-      "agency": "Census"
-    },
-    {
       "name": "Jobless Claims",
       "date": "2026-12-24",
       "time": "8:30 AM ET",
@@ -552,11 +412,46 @@
       "agency": "Fed"
     },
     {
+      "name": "Construction Spending",
+      "date": "2027-01-04",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "Census"
+    },
+    {
       "name": "International Trade",
       "date": "2027-01-07",
       "time": "8:30 AM ET",
       "frequency": "monthly",
       "agency": "BEA/Census"
+    },
+    {
+      "name": "Retail Sales",
+      "date": "2027-01-15",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "Census"
+    },
+    {
+      "name": "Housing Starts",
+      "date": "2027-01-20",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "Census"
+    },
+    {
+      "name": "Durable Goods Orders",
+      "date": "2027-01-27",
+      "time": "8:30 AM ET",
+      "frequency": "monthly",
+      "agency": "Census"
+    },
+    {
+      "name": "New Home Sales",
+      "date": "2027-01-27",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "Census"
     },
     {
       "name": "GDP",
@@ -571,6 +466,20 @@
       "time": "8:30 AM ET",
       "frequency": "monthly",
       "agency": "BEA"
+    },
+    {
+      "name": "Construction Spending",
+      "date": "2027-02-01",
+      "time": "10:00 AM ET",
+      "frequency": "monthly",
+      "agency": "Census"
+    },
+    {
+      "name": "Homeownership",
+      "date": "2027-02-02",
+      "time": "10:00 AM ET",
+      "frequency": "quarterly",
+      "agency": "Census"
     },
     {
       "name": "International Trade",
