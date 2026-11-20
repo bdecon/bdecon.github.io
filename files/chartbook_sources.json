@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-12",
+  "generated": "2026-11-19",
   "releases": [
     {
       "name": "Employment Situation",
@@ -21,15 +21,15 @@
     },
     {
       "name": "Producer Price Index",
-      "period": "Sep 2026",
+      "period": "Oct 2026",
       "freq": "monthly",
-      "last_changed": "2026-10-20"
+      "last_changed": "2026-11-19"
     },
     {
       "name": "Import/Export Prices",
-      "period": "Sep 2026",
+      "period": "Oct 2026",
       "freq": "monthly",
-      "last_changed": "2026-10-20"
+      "last_changed": "2026-11-19"
     },
     {
       "name": "JOLTS",
@@ -51,9 +51,9 @@
     },
     {
       "name": "Industrial Production",
-      "period": "Sep 2026",
+      "period": "Oct 2026",
       "freq": "monthly",
-      "last_changed": "2026-11-07"
+      "last_changed": "2026-11-19"
     },
     {
       "name": "Construction Spending",
@@ -123,9 +123,9 @@
     },
     {
       "name": "TIC Capital Flows",
-      "period": "Aug 2026",
+      "period": "Sep 2026",
       "freq": "monthly",
-      "last_changed": "2026-10-20"
+      "last_changed": "2026-11-19"
     },
     {
       "name": "Treasury Statement",
@@ -141,9 +141,9 @@
     },
     {
       "name": "Exchange Rate (REER)",
-      "period": "Jul 2026",
+      "period": "Oct 2026",
       "freq": "monthly",
-      "last_changed": "2026-08-26"
+      "last_changed": "2026-11-19"
     },
     {
       "name": "Electricity",
@@ -159,15 +159,15 @@
     },
     {
       "name": "Mortgage Rates",
-      "period": "Nov 12, 2026",
+      "period": "Nov 19, 2026",
       "freq": "weekly",
-      "last_changed": "2026-11-12"
+      "last_changed": "2026-11-19"
     },
     {
       "name": "Initial Jobless Claims",
-      "period": "Nov 7, 2026",
+      "period": "Nov 14, 2026",
       "freq": "weekly",
-      "last_changed": "2026-11-12"
+      "last_changed": "2026-11-19"
     },
     {
       "name": "Fed Balance Sheet",
@@ -286,6 +286,48 @@
   ],
   "recent": [
     {
+      "name": "Producer Price Index",
+      "period": "Oct 2026",
+      "freq": "monthly",
+      "last_changed": "2026-11-19"
+    },
+    {
+      "name": "Import/Export Prices",
+      "period": "Oct 2026",
+      "freq": "monthly",
+      "last_changed": "2026-11-19"
+    },
+    {
+      "name": "Industrial Production",
+      "period": "Oct 2026",
+      "freq": "monthly",
+      "last_changed": "2026-11-19"
+    },
+    {
+      "name": "TIC Capital Flows",
+      "period": "Sep 2026",
+      "freq": "monthly",
+      "last_changed": "2026-11-19"
+    },
+    {
+      "name": "Exchange Rate (REER)",
+      "period": "Oct 2026",
+      "freq": "monthly",
+      "last_changed": "2026-11-19"
+    },
+    {
+      "name": "Mortgage Rates",
+      "period": "Nov 19, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-11-19"
+    },
+    {
+      "name": "Initial Jobless Claims",
+      "period": "Nov 14, 2026",
+      "freq": "weekly",
+      "last_changed": "2026-11-19"
+    },
+    {
       "name": "Consumer Price Index",
       "period": "Oct 2026",
       "freq": "monthly",
@@ -301,48 +343,6 @@
       "name": "Capital Goods Orders",
       "period": "Jul 2026",
       "freq": "monthly",
-      "last_changed": "2026-11-12"
-    },
-    {
-      "name": "Consumer Expectations",
-      "period": "Oct 2026",
-      "freq": "monthly",
-      "last_changed": "2026-11-12"
-    },
-    {
-      "name": "CPS Microdata",
-      "period": "Oct 2026",
-      "freq": "monthly",
-      "last_changed": "2026-11-12"
-    },
-    {
-      "name": "Treasury Statement",
-      "period": "Oct 2026",
-      "freq": "monthly",
-      "last_changed": "2026-11-12"
-    },
-    {
-      "name": "Money Stock (M2)",
-      "period": "Sep 2026",
-      "freq": "monthly",
-      "last_changed": "2026-11-12"
-    },
-    {
-      "name": "Mortgage Rates",
-      "period": "Nov 12, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-11-12"
-    },
-    {
-      "name": "Initial Jobless Claims",
-      "period": "Nov 7, 2026",
-      "freq": "weekly",
-      "last_changed": "2026-11-12"
-    },
-    {
-      "name": "Fed Balance Sheet",
-      "period": "Nov 11, 2026",
-      "freq": "weekly",
       "last_changed": "2026-11-12"
     }
   ],
